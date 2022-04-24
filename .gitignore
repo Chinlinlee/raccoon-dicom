@@ -1,0 +1,9 @@
+/node_modules
+/tempUploadFiles/**
+!/tempUploadFiles/.gitkeep
+
+# ignore environment variable
+/.env
+
+# ignore ide env
+/.vscode

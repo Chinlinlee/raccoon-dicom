@@ -1,0 +1,26 @@
+{
+    "appenders": {
+        "console": {
+            "type": "console",
+            "layout": {
+                "type": "pattern",
+                "pattern": "%[[%d] [%p] [file: %f] [line: %l]%] %c - %m"
+            }
+        }
+    },
+    "categories": {
+        "default": {
+            "appenders": [
+                "console"
+            ],
+            "level": "DEBUG"
+        },
+        "raccoon-polka": {
+            "appenders": [
+                "console"
+            ],
+            "level": "DEBUG",
+            "enableCallStack": true
+        }
+    }
+}
