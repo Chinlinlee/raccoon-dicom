@@ -1,6 +1,6 @@
 
-module.exports.dicomjson = {
-    "dicom": {
+module.exports.dictionary = {
+    "keyword": {
         "PatientName": "00100010",
         "FileMetaInfoGroupLength": "00020000",
         "FileMetaInfoVersion": "00020001",
