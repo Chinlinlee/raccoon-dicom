@@ -25,6 +25,28 @@ const { dicomJsonToFHIRImagingStudy } = require('../../../../models/FHIR/DICOMTo
 const bigValueTags = ["52009230", "00480200"];
 
 /**
+ *  @openapi
+ *  /dicom-web/studies:
+ *    post:
+ *      description: store DICOM instance
+ *      requestBody: 
+ *        content:
+ *          multipart/related:
+ *            schema: 
+ *              type: object
+ *              properties:
+ *                file:
+ *                  type: string
+ *                  format: binary
+ *            encoding:
+ *              file:
+ *                contentType: application/dicom;
+ *      responses:
+ *        "200":
+ *          description: The DICOM instance store successfully
+ */
+
+/**
  * 
  * @param {import('http').IncomingMessage} req 
  * @param {import('http').ServerResponse} res 
