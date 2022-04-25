@@ -1,9 +1,8 @@
-const fs = require('fs');
 const dicomParser = require('dicom-parser');
 const moment = require("moment");
 const flatten = require('flat');
 const _ = require('lodash');
-const { dcm2jsonV8 } = require('../DICOM/dcmtk');
+const { dcm2jsonV8 } = require('../../DICOM/dcmtk');
 
 /**
  * 將Class轉成Json的父類別
@@ -110,6 +109,72 @@ class Period {
     }
 }
 
+/**
+ * 
+ * @param {string} filename The filename of DICOM.
+ * @return {JSON}
+ */
+function dicomFileToFHIRImagingStudy(filename) {
+    try {
+        let dataset = dicomParser.parseDicom(filename);
+        let studyobj = new ImagingStudy();
+        let studyInstanceUID = dataset.string('x0020000d');
+        let ANandIssuer = getDicomParserTagStringConcat(dataset, 'x00080050', 'x00080051');
+        studyobj.id = studyInstanceUID;
+        let identifiers = [studyInstanceUID, ANandIssuer, dataset.string('x00200010')];
+        studyobj.identifier = getStudyIdentifiers(identifiers);
+        studyobj.modality = dataset.string('x00080061');
+        let patientId = dataset.string('x00100020');
+        if (patientId) {
+            studyobj.subject.reference = "Patient/" + dataset.string('x00100020');
+            studyobj.subject.type = "Patient";
+            studyobj.subject.identifier.use = "usual"
+            studyobj.subject.identifier.value = dataset.string('x00100020');
+        } else {
+            studyobj.subject.reference = "Patient/unknown"
+            studyobj.subject.type = "Patient";
+            studyobj.subject.identifier.use = "anonymous"
+            studyobj.subject.identifier.value = "unknown";
+        }
+
+        let imaging_started = dataset.string('x00080020') + dataset.string('x00080030');
+        const date = moment(imaging_started, "YYYYMMDDhhmmss").toISOString();
+        studyobj.started = date;
+        studyobj.numberOfSeries = dataset.string('x00201206');
+        studyobj.numberOfInstances = dataset.string('x00201208');
+        studyobj.description = dataset.string('x00081030');
+        let study_series_obj = new ImagingStudy_Series();
+        study_series_obj.uid = dataset.string('x0020000e');
+        study_series_obj.number = dataset.intString('x00200011');
+        study_series_obj.modality.code = dataset.string('x00080060');
+        study_series_obj.description = dataset.string('x0008103e');
+        study_series_obj.numberOfInstances = dataset.intString('x00201209');
+        study_series_obj.bodySite.display = dataset.string('x00180015');
+        let series_started = dataset.string('x00080021') + dataset.string('x00080031');
+        const series_date = moment(series_started, "YYYYMMDDhhmmss").toDate();
+        study_series_obj.started = series_date != null ? series_date : undefined;
+        study_series_obj.performer = dataset.string('x00081050') || dataset.string('x00081052') || dataset.string('x00081070') || dataset.string('x00081072');
+        let study_series_insatance_obj = new ImagingStudy_Series_Instance();
+        study_series_insatance_obj.uid = dataset.string('x00080018');
+        study_series_insatance_obj.sopClass.system = "urn:ietf:rfc:3986"
+        study_series_insatance_obj.sopClass.code = "urn:oid:" + dataset.string('x00080016');
+        study_series_insatance_obj.number = dataset.intString('x00200013');
+        study_series_insatance_obj.title = dataset.string('x00080008') || dataset.string('x00070080') || ((dataset.string('x0040a043') != undefined) ? dataset.string('x0040a043') + dataset.string('x00080104') : undefined) || dataset.string('x00420010');
+        let imagingStudyJson = combineImagingStudyClass(studyobj, study_series_obj, study_series_insatance_obj);
+        return imagingStudyJson;
+    }
+    catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+
+/**
+ * 
+ * @param {JSON} dicomJson 
+ * @return {JSON}
+ */
 function dicomJsonToFHIRImagingStudy(dicomJson) {
     //#region study
     let studyObj = new ImagingStudy();
@@ -188,6 +253,17 @@ function getTagStringConcat(dicomJson, ...tags) {
     return result;
 }
 
+function getDicomParserTagStringConcat(dataSet, ...tags) {
+    let result = "";
+    for(let i = 0 ; i < tags.length ; i++) {
+        let tag = tags[i];
+        let tagValue = dataSet.string(tag);
+        if (tagValue) result += tagValue;
+    }
+    if (!result) return undefined;
+    return result;
+}
+
 function getStudyIdentifiers(identifiers) {
     let result = [];
     if (identifiers[0] != undefined) {
@@ -233,3 +309,4 @@ function combineImagingStudyClass(imagingStudy, imagingStudySeries, imagingStudy
 
 
 module.exports.dicomJsonToFHIRImagingStudy = dicomJsonToFHIRImagingStudy;
+module.exports.dicomFileToFHIRImagingStudy = dicomFileToFHIRImagingStudy;

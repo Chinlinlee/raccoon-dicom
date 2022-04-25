@@ -21,6 +21,13 @@
             ],
             "level": "DEBUG",
             "enableCallStack": true
+        },
+        "raccoon-polka-fhir": {
+            "appenders": [
+                "console"
+            ],
+            "level": "DEBUG",
+            "enableCallStack": true
         }
     }
 }

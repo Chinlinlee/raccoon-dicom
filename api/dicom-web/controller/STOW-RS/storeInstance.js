@@ -14,9 +14,8 @@ const errorResponseMessage = require('../../../../utils/errorResponse/errorRespo
 const { dcm2jsonV8 } = require('../../../../models/DICOM/dcmtk');
 const { logger } = require('../../../../utils/log');
 const dicomBulkDataModel = require('../../../../models/mongodb/models/dicomBulkData');
-const dicomModel = require('../../../../models/mongodb/models/dicom');
 const mongoose = require('mongoose');
-const { dicomJsonToFHIRImagingStudy } = require('../../../../models/FHIR/DICOMToFHIRImagingStudy');
+const { DICOMFHIRConverter } = require('../../../../models/FHIR/DICOM/DICOMToFHIR');
 
 /**
  * *The SQ of Whole slide may have over thousand of length cause process block.
@@ -127,13 +126,32 @@ async function storeInstance(req, multipartData) {
         _.set(sopSeq, "00081190.vr", "UT");
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         storeMessage["00081199"]["Value"].push(sopSeq);
-
+        
+        dicomToFHIR(req, removedTagsDicomJson.dicomJson);
         // dicomJsonToFHIRImagingStudy(removedTagsDicomJson.dicomJson);
     }
     return {
         code: retCode,
         storeMessage: storeMessage
     };
+}
+
+/**
+ * 
+ * @param {import('http').IncomingMessage} req 
+ * @param {JSON} dicomJson 
+ */
+async function dicomToFHIR(req, dicomJson) {
+    let dicomFHIRConverter = new DICOMFHIRConverter();
+    dicomFHIRConverter.dicomWeb.name = `raccoon-dicom-web-server`;
+
+    let protocol = req.secure? "https" : "http";
+    dicomFHIRConverter.dicomWeb.retrieveStudiesUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+
+    dicomFHIRConverter.dicomJsonToFHIR(dicomJson);
+
+    dicomFHIRConverter.fhir.baseUrl = process.env.FHIRSERVER_BASE_URL;
+    await dicomFHIRConverter.postDicomFhir();
 }
 
 /**
@@ -423,7 +441,7 @@ async function storeDICOMJsonToDB(uidObj, dicomJson) {
         }
         delete dicomJson.sopClass;
         delete dicomJson.sopInstanceUID;
-        await dicomModel.findOneAndUpdate(query,  dicomJson, {
+        await mongoose.model("dicom").findOneAndUpdate(query,  dicomJson, {
             upsert: true
         });
     } catch(e) {

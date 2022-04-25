@@ -5,3 +5,6 @@ configure(path.join(__dirname, "../config/log4js.default.json"));
 let raccoonLogger = getLogger("raccoon-polka");
 
 module.exports.logger = raccoonLogger;
+
+let raccoonFHIRLogger = getLogger("raccoon-polka-fhir");
+module.exports.fhirLogger = raccoonFHIRLogger;
