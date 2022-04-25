@@ -64,7 +64,7 @@ app.use((req, res , next)=> {
 //#endregion
 
 require('./routes.js')(app);
-require('./services/user/passport')(passport);
+// require('./services/user/passport')(passport);
 
 const PORT = process.env.SERVER_PORT;
 app.listen(PORT, ()=> {
