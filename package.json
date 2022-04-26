@@ -22,6 +22,7 @@
     "express-session": "^1.17.2",
     "flat": "^5.0.2",
     "formidable": "^2.0.1",
+    "iconv-lite": "^0.6.3",
     "lodash": "^4.17.21",
     "log4js": "^6.4.5",
     "mkdirp": "^1.0.4",

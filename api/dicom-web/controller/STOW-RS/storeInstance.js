@@ -1,7 +1,9 @@
 const path = require('node:path');
 const fs = require('node:fs');
 const fsP = require('node:fs/promises');
-const { performance } = require('node:perf_hooks');
+const { 
+    performance 
+} = require('node:perf_hooks');
 const formidable = require('formidable');
 const _ = require('lodash');
 const uuid = require('uuid');
@@ -11,12 +13,22 @@ const moment = require('moment');
 const mkdirp = require('mkdirp');
 const moveFile = require('../../../../utils/file/moveFile');
 const errorResponseMessage = require('../../../../utils/errorResponse/errorResponseMessage');
-const { dcm2jsonV8 } = require('../../../../models/DICOM/dcmtk');
-const { logger } = require('../../../../utils/log');
+const { 
+    dcm2jsonV8, 
+    dcmtkSupportTransferSyntax, 
+    dcm2jpegCustomCmd 
+} = require('../../../../models/DICOM/dcmtk');
+const { 
+    logger,
+    pythonLogger
+} = require('../../../../utils/log');
 const dicomBulkDataModel = require('../../../../models/mongodb/models/dicomBulkData');
 const mongoose = require('mongoose');
-const { DICOMFHIRConverter } = require('../../../../models/FHIR/DICOM/DICOMToFHIR');
-
+const { 
+    DICOMFHIRConverter 
+} = require('../../../../models/FHIR/DICOM/DICOMToFHIR');
+const notImageSOPClass = require('../../../../models/DICOM/dicomWEB/notImageSOPClass');
+const PyDicomJpegConvert = require('../../../../python').getJpeg;
 /**
  * *The SQ of Whole slide may have over thousand of length cause process block.
  * *Remove tags when processing that not use them.
@@ -115,7 +127,7 @@ async function storeInstance(req, multipartData) {
         }
 
         let replacedBinaryDicomJson = await processBinaryData(req, removedTagsDicomJson, uidObj);
-        let { fullPath } = await saveDICOMFile(currentFile, removedTagsDicomJson.dicomJson);
+        let { fullPath, instancePath } = await saveDICOMFile(currentFile, removedTagsDicomJson.dicomJson);
         await storeMetadata(replacedBinaryDicomJson, fullPath);
         await storeDICOMJsonToDB(uidObj, removedTagsDicomJson.dicomJson);
         let retrieveUrlObj = getRetrieveUrl(req, uidObj);
@@ -128,7 +140,10 @@ async function storeInstance(req, multipartData) {
         storeMessage["00081199"]["Value"].push(sopSeq);
         
         dicomToFHIR(req, removedTagsDicomJson.dicomJson);
-        // dicomJsonToFHIRImagingStudy(removedTagsDicomJson.dicomJson);
+        
+        if (!notImageSOPClass.includes(uidObj.sopClass)) {
+            generateJpeg(removedTagsDicomJson.dicomJson, uidObj, instancePath);
+        }
     }
     return {
         code: retCode,
@@ -446,5 +461,98 @@ async function storeDICOMJsonToDB(uidObj, dicomJson) {
         });
     } catch(e) {
         throw e;
+    }
+}
+
+async function insertDicomToJpegTask(item) {
+    try {
+        await mongoose.model("dicomToJpegTask").updateOne({
+            'studyUID': item.studyUID,
+            'seriesUID': item.seriesUID,
+            'instanceUID': item.instanceUID
+        }, item, {
+            upsert: true
+        });
+        return true;
+    } catch (e) {
+        throw e;
+    }
+}
+
+/**
+ * @param {Object} options
+ * @param {string} options.windowCenter
+ * @param {string} options.windowWidth
+ * @param {string} options.frameNumber
+ * @param {string} options.dicomFilename
+ * @param {string} options.jpegFilename
+ */
+function getDICOMToJpegCommandString(options) {
+    let execCmd = "";
+    if (process.env.OS === "windows") {
+        if (options.windowCenter && options.windowWidth) {
+            execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${options.dicomFilename}" "${options.jpegFilename}.${options.frameNumber - 1}.jpg" --frame ${options.frameNumber} +Ww ${options.windowCenter} ${options.windowWidth}`;
+        } else {
+            execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${options.dicomFilename}" "${options.jpegFilename}.${options.frameNumber - 1}.jpg" --frame ${options.frameNumber}`;
+        }
+    } else if (process.env.OS === "linux") {
+        if (windowCenter && windowWidth) {
+            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${options.jpegFilename - 1}.${options.frameNumber}.jpg" --frame ${i} +Ww ${options.windowCenter} ${options.windowWidth}`;
+        } else {
+            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${options.jpegFilename - 1}.${options.frameNumber}.jpg" --frame ${i}`;
+        }
+    }
+    return execCmd;
+}
+
+/**
+ * 
+ * @param {JSON} dicomJson 
+ * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj 
+ * @param {*} dicomFilename 
+ */
+async function generateJpeg(dicomJson, uidObj, dicomFilename) {
+    try {
+        await insertDicomToJpegTask({
+            studyUID: uidObj.studyUID,
+            seriesUID: uidObj.seriesUID,
+            instanceUID: uidObj.sopInstanceUID,
+            status: false,
+            message: "processing",
+            taskTime: new Date(),
+            finishedTime: null,
+            fileSize: (fs.statSync(dicomFilename).size / 1024 / 1024).toFixed(3)
+        });
+        let windowCenter = _.get(dicomJson, '00281050.Value.0');
+        let windowWidth = _.get(dicomJson, '00281051.Value.0');
+        let frameNumber = _.get(dicomJson, '00280008.Value.0', 1);
+        let transferSyntax = _.get(dicomJson, "00020010.Value.0");
+        let jpegFilename = dicomFilename.replace(/\.dcm/gi, '');
+
+        let execCmdList = [];
+        if (dcmtkSupportTransferSyntax.includes(transferSyntax)) {
+            for (let i = 1 ; i <= frameNumber ; i++) {
+                let execCmd = getDICOMToJpegCommandString({
+                    windowCenter: windowCenter,
+                    windowWidth: windowWidth,
+                    frameNumber: i,
+                    dicomFilename: dicomFilename,
+                    jpegFilename: jpegFilename,
+                });
+                execCmdList.push(execCmd);
+                if (i % 4 === 0) {
+                    await Promise.allSettled(execCmdList.map(cmd => dcm2jpegCustomCmd(cmd)))
+                    execCmdList = new Array();
+                }
+            }
+            logger.info(`[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(uidObj)}]`);
+        } else {
+            for (let i = 1; i <= frameNumber; i++) { 
+                await PyDicomJpegConvert[process.env.OS].getJpegByPyDicom(dicomFilename, i);
+            }
+            pythonLogger.info(`[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(uidObj)}]`);
+        }
+    } catch(e) {
+        logger.error(e);
     }
 }

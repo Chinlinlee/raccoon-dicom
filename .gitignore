@@ -7,3 +7,9 @@
 
 # ignore ide env
 /.vscode
+
+# ignore python cache
+/python/__pycache__
+
+# ignore windwos's dcmtk execuable binary  
+/models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic
