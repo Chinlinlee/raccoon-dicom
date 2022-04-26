@@ -8,3 +8,6 @@ module.exports.logger = raccoonLogger;
 
 let raccoonFHIRLogger = getLogger("raccoon-polka-fhir");
 module.exports.fhirLogger = raccoonFHIRLogger;
+
+let raccoonPythonLogger =getLogger("raccoon-polka-python");
+module.exports.pythonLogger = raccoonPythonLogger;
