@@ -88,6 +88,16 @@ let dicomModelSchema = new mongoose.Schema({
     versionKey: false
 });
 
+dicomModelSchema.index({
+    "0020000D": 1
+});
+dicomModelSchema.index({
+    "0020000E": 1
+});
+dicomModelSchema.index({
+    "00080018": 1
+});
+
 dicomModelSchema.methods.getDICOMJson = function () {
     let obj =  this.toObject();
     delete obj._id;
