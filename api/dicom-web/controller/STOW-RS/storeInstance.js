@@ -85,7 +85,7 @@ module.exports = async function(req, res) {
         logger.error(`[STOW-RS] [${errorStr}]`);
         let errorMessage = errorResponseMessage.getInternalServerErrorMessage(errorStr);
         res.writeHead(500, {
-            "Content-Type": "application/dicom-json"
+            "Content-Type": "application/dicom+json"
         });
         return res.end(JSON.stringify(errorMessage));
     }
@@ -283,8 +283,6 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
                 binaryKeys.push(key.substring(0, key.lastIndexOf(".vr")));
             }
         }
-        let port = process.env.DICOMWEB_PORT || "";
-        port = (port) ? `:${port}` : "";
         for (let key of binaryKeys) {
             let studyUID = uidObj.studyUID;
             let seriesUID = uidObj.seriesUID;
