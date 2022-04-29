@@ -85,7 +85,10 @@ let dicomModelSchema = new mongoose.Schema({
     }
 }, { 
     strict: false,
-    versionKey: false
+    versionKey: false,
+    toObject: {
+        getters: true
+    }
 });
 
 dicomModelSchema.index({

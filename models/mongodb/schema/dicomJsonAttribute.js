@@ -31,19 +31,19 @@ let dicomJsonAttributePNSchema = new mongoose.Schema({
     }
 });
 
-let daSchema = {
-    type: mongoose.SchemaTypes.Date,
-    default: void 0,
-    get: function(v) {
-        if (v) return moment(v).format('YYYYMMDD');
-    }
-}
-
 let dicomJsonAttributeDASchema = new mongoose.Schema({
     vr: {
         type: String
     },
-    Value: [daSchema]
+    Value: {
+        type: [Date],
+        default: void 0,
+        get: function (v) {
+            if (v.length > 0) {
+                return v.map(date=> moment(date).format("YYYYMMDD"));
+            }
+        }
+    }
 }, { 
     versionKey: false,
     toObject: {
