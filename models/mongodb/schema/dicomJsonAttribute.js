@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+const _ = require('lodash');
 
 let dicomJsonAttributeSchema = {  
     vr: {
@@ -10,7 +11,7 @@ let dicomJsonAttributeSchema = {
     }
 };
 
-let dicomJsonAttributePNSchema = new mongoose.Schema({  
+let dicomJsonAttributePNSchema = {  
     Alphabetic: {
         type: String,
         default : void 0
@@ -23,15 +24,9 @@ let dicomJsonAttributePNSchema = new mongoose.Schema({
         type: String,
         default: void 0
     }
-}, {
-    versionKey: false,
-    _id: false,
-    toObject: {
-        getters: true
-    }
-});
+};
 
-let dicomJsonAttributeDASchema = new mongoose.Schema({
+let dicomJsonAttributeDASchema = {
     vr: {
         type: String
     },
@@ -39,20 +34,49 @@ let dicomJsonAttributeDASchema = new mongoose.Schema({
         type: [Date],
         default: void 0,
         get: function (v) {
-            if (v.length > 0) {
+            let length = _.get(v, "length");
+            if (length > 0) {
                 return v.map(date=> moment(date).format("YYYYMMDD"));
             }
         }
     }
-}, { 
-    versionKey: false,
-    toObject: {
-        getters: true
-    },
-    _id: false
-});
+};
 
+function getVRSchema(vr) {
+    if (vr == "DA") {
+        return new mongoose.Schema(dicomJsonAttributeDASchema, {
+            _id: false,
+            id: false,
+            toObject: {
+                getters: true
+            }
+        });
+    } else if (vr == "PN") {
+        return new mongoose.Schema({
+            ...dicomJsonAttributeSchema,
+            Value: [dicomJsonAttributePNSchema]
+        }, {
+            _id: false,
+            id: false,
+            toObject: {
+                getters: true
+            }
+        });
+    } else {
+        return new mongoose.Schema({
+            ...dicomJsonAttributeSchema,
+            Value: [mongoose.SchemaTypes.String]
+        }, {
+            _id: false,
+            id: false,
+            toObject: {
+                getters: true
+            }
+        });
+    }
+}
 
 module.exports.dicomJsonAttributeSchema = dicomJsonAttributeSchema;
 module.exports.dicomJsonAttributePNSchema = dicomJsonAttributePNSchema;
 module.exports.dicomJsonAttributeDASchema = dicomJsonAttributeDASchema;
+module.exports.getVRSchema = getVRSchema;

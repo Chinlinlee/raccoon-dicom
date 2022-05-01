@@ -129,9 +129,9 @@ async function storeInstance(req, multipartData) {
         }
 
         let replacedBinaryDicomJson = await processBinaryData(req, removedTagsDicomJson, uidObj);
-        let { fullPath, instancePath } = await saveDICOMFile(currentFile, removedTagsDicomJson.dicomJson);
-        await storeMetadata(replacedBinaryDicomJson, fullPath);
-        await storeDICOMJsonToDB(uidObj, removedTagsDicomJson.dicomJson);
+        let saveDICOMFileResult = await saveDICOMFile(currentFile, removedTagsDicomJson.dicomJson, uidObj);
+        await storeMetadata(replacedBinaryDicomJson, saveDICOMFileResult.fullPath);
+        await storeDICOMJsonToDB(uidObj, saveDICOMFileResult);
         let retrieveUrlObj = getRetrieveUrl(req, uidObj);
         storeMessage["00081190"].Value.push(retrieveUrlObj.study);
         storeMessage["00081190"].Value = _.uniq(storeMessage["00081190"].Value);
@@ -144,7 +144,7 @@ async function storeInstance(req, multipartData) {
         dicomToFHIR(req, removedTagsDicomJson.dicomJson, uidObj);
         
         if (!notImageSOPClass.includes(uidObj.sopClass)) {
-            generateJpeg(removedTagsDicomJson.dicomJson, uidObj, instancePath);
+            generateJpeg(removedTagsDicomJson.dicomJson, uidObj, saveDICOMFileResult.instancePath);
         }
     }
     return {
@@ -257,17 +257,21 @@ async function getDICOMJson(filename) {
  * 
  * @param {import('formidable').File} file 
  * @param {JSON} dicomJson 
+ * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj
  */
-async function saveDICOMFile(file, dicomJson) {
+async function saveDICOMFile(file, dicomJson, uidObj) {
     try {
         let started_date = "";
         started_date = dcm2jsonV8.dcmString(dicomJson, "00080020") + dcm2jsonV8.dcmString(dicomJson, "00080030");
         if (!started_date) started_date = Date.now();
         started_date = moment(started_date, "YYYYMMDDhhmmss").toISOString();
         let [year, month] = started_date.split('-');
-        let uid = dcm2jsonV8.dcmString(dicomJson, "0020000E");
-        let shortUID = shortHash(uid);
-        let relativeStorePath = `files/${year}/${month}/${shortUID}/`;
+        let studyUID = uidObj.studyUID;
+        let seriesUID = uidObj.seriesUID;
+        let shortStudyUID = shortHash(studyUID);
+        let shortSeriesUID = shortHash(seriesUID);
+
+        let relativeStorePath = `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}/`;
         let fullStorePath = path.join(process.env.DICOM_STORE_ROOTPATH, relativeStorePath);
         let instanceStorePath = path.join(fullStorePath, file.originalFilename);
         mkdirp.sync(fullStorePath, 0755);
@@ -277,8 +281,10 @@ async function saveDICOMFile(file, dicomJson) {
         logger.info(`[STOW-RS] [Move uploaded temp DICOM file "${file.filepath}" to "${instanceStorePath}"`);
         return {
             fullPath: fullStorePath,
-            relativePath: relativeStorePath,
+            relativePath: `${relativeStorePath}${file.originalFilename}`,
             instancePath: instanceStorePath,
+            seriesPath: `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}`,
+            studyPath: `files/${year}/${month}/${shortStudyUID}`,
             dicomJson: dicomJson
         };
     } catch(e) {
@@ -476,9 +482,15 @@ function getRetrieveUrl(req, uidObj) {
  * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj 
  * @param {*} dicomJson 
  */
-async function storeDICOMJsonToDB(uidObj, dicomJson) {
+async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
+    let dicomJson = saveDICOMFileResult.dicomJson;
     try {
         _.merge(dicomJson, uidObj);
+        _.merge(dicomJson, {
+            studyPath: saveDICOMFileResult.studyPath,
+            seriesPath: saveDICOMFileResult.seriesPath,
+            instancePath: saveDICOMFileResult.instancePath
+        });
         let query = {
             "$and": [
                 {
@@ -494,9 +506,28 @@ async function storeDICOMJsonToDB(uidObj, dicomJson) {
         }
         delete dicomJson.sopClass;
         delete dicomJson.sopInstanceUID;
-        await mongoose.model("dicom").findOneAndUpdate(query,  dicomJson, {
-            upsert: true
-        });
+        await Promise.all([
+            mongoose.model("dicom").findOneAndUpdate(query, dicomJson, {
+                upsert: true
+            }),
+            mongoose.model("dicomStudy").findOneAndUpdate({
+                studyUID: uidObj.studyUID
+            }, dicomJson, {
+                upsert: true
+            }),
+            mongoose.model("dicomSeries").findOneAndUpdate({
+                "$and": [
+                    {
+                        studyUID: uidObj.studyUID,
+                    },
+                    {
+                        seriesUID: uidObj.seriesUID
+                    }
+                ]
+            }, dicomJson, {
+                upsert: true
+            })
+        ]);
     } catch(e) {
         throw e;
     }
