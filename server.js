@@ -2,6 +2,7 @@ const {
     app
 } = require('./app');
 
+
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -16,6 +17,7 @@ const axios = require('axios');
 const {
     exec
 } = require('child_process');
+let io = require('./socket').init();
 const {
     pythonLogger
 } = require('./utils/log');
@@ -79,6 +81,9 @@ require('./routes.js')(app);
 const PORT = process.env.SERVER_PORT;
 app.listen(PORT, () => {
     console.log(`http server is listening on port:${PORT}`);
+    io.on('connection', (socket)=> {
+        console.log("Connect successfully, " + socket.id);
+    });
 });
 
 let osPlatform = os.platform().toLocaleLowerCase();

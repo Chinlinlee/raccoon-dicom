@@ -33,6 +33,7 @@
     "polka": "^0.5.2",
     "run-script-os": "^1.1.6",
     "shorthash2": "^1.0.3",
+    "socket.io": "^4.5.0",
     "swagger-jsdoc": "^6.2.1",
     "trouter": "^3.2.0",
     "uuid": "^8.3.2"

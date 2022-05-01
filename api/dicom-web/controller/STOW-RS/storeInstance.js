@@ -20,7 +20,8 @@ const {
 } = require('../../../../models/DICOM/dcmtk');
 const { 
     logger,
-    pythonLogger
+    pythonLogger,
+    fhirLogger
 } = require('../../../../utils/log');
 const dicomBulkDataModel = require('../../../../models/mongodb/models/dicomBulkData');
 const mongoose = require('mongoose');
@@ -29,6 +30,9 @@ const {
 } = require('../../../../models/FHIR/DICOM/DICOMToFHIR');
 const notImageSOPClass = require('../../../../models/DICOM/dicomWEB/notImageSOPClass');
 const PyDicomJpegConvert = require('../../../../python').getJpeg;
+/**@type {import('socket.io').Server} */
+const io = require('../../../../socket').get();
+
 /**
  * *The SQ of Whole slide may have over thousand of length cause process block.
  * *Remove tags when processing that not use them.
@@ -63,8 +67,6 @@ const bigValueTags = ["52009230", "00480200"];
  * @param {import('http').ServerResponse} res 
  */
 module.exports = async function(req, res) {
-    //store the successFiles;
-    let successFiles = [];
     let startSTOWTime = performance.now();
     let retCode;
     let storeMessage;
@@ -139,7 +141,7 @@ async function storeInstance(req, multipartData) {
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         storeMessage["00081199"]["Value"].push(sopSeq);
         
-        dicomToFHIR(req, removedTagsDicomJson.dicomJson);
+        dicomToFHIR(req, removedTagsDicomJson.dicomJson, uidObj);
         
         if (!notImageSOPClass.includes(uidObj.sopClass)) {
             generateJpeg(removedTagsDicomJson.dicomJson, uidObj, instancePath);
@@ -155,18 +157,56 @@ async function storeInstance(req, multipartData) {
  * 
  * @param {import('http').IncomingMessage} req 
  * @param {JSON} dicomJson 
+ * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj
  */
-async function dicomToFHIR(req, dicomJson) {
-    let dicomFHIRConverter = new DICOMFHIRConverter();
-    dicomFHIRConverter.dicomWeb.name = `raccoon-dicom-web-server`;
-
-    let protocol = req.secure? "https" : "http";
-    dicomFHIRConverter.dicomWeb.retrieveStudiesUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
-
-    dicomFHIRConverter.dicomJsonToFHIR(dicomJson);
-
-    dicomFHIRConverter.fhir.baseUrl = process.env.FHIRSERVER_BASE_URL;
-    await dicomFHIRConverter.postDicomFhir();
+async function dicomToFHIR(req, dicomJson, uidObj) {
+    try {
+        let dicomFHIRConverter = new DICOMFHIRConverter();
+        dicomFHIRConverter.dicomWeb.name = `raccoon-dicom-web-server`;
+    
+        let protocol = req.secure? "https" : "http";
+        dicomFHIRConverter.dicomWeb.retrieveStudiesUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+    
+        dicomFHIRConverter.dicomJsonToFHIR(dicomJson);
+    
+        dicomFHIRConverter.fhir.baseUrl = process.env.FHIRSERVER_BASE_URL;
+        await dicomFHIRConverter.postDicomFhir();
+        io.emit("fhir_synced", {
+            ...dicomFHIRConverter.dicomFHIR,
+            status: true
+        });
+    } catch(e) {
+        let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
+        if (e.isAxiosError) {
+            let errorObj = {
+                studyUID: uidObj.studyUID,
+                seriesUID: uidObj.seriesUID,
+                instanceUID: uidObj.sopInstanceUID,
+                message: errorStr
+            };
+            await mongoose.model("syncFHIRErrorLog").findOneAndUpdate({
+                $and: [
+                    {
+                        studyUID: uidObj.studyUID
+                    },
+                    {
+                        seriesUID: uidObj.seriesUID
+                    },
+                    {
+                        instanceUID: uidObj.sopInstanceUID
+                    }
+                ]
+            }, errorObj, {
+                upsert: true
+            });
+        } else {
+            fhirLogger.error(`[FHIR] [DICOM sync to FHIR server error] [${errorStr}]`);
+        }
+        io.emit("fhir_synced", {
+            message: errorStr,
+            status: false
+        });
+    }
 }
 
 /**
@@ -511,7 +551,7 @@ function getDICOMToJpegCommandString(options) {
  */
 async function generateJpeg(dicomJson, uidObj, dicomFilename) {
     try {
-        await insertDicomToJpegTask({
+        let startTaskObj = {
             studyUID: uidObj.studyUID,
             seriesUID: uidObj.seriesUID,
             instanceUID: uidObj.sopInstanceUID,
@@ -520,7 +560,9 @@ async function generateJpeg(dicomJson, uidObj, dicomFilename) {
             taskTime: new Date(),
             finishedTime: null,
             fileSize: (fs.statSync(dicomFilename).size / 1024 / 1024).toFixed(3)
-        });
+        };
+        await insertDicomToJpegTask(startTaskObj);
+        io.emit("dicomToJpegTask", startTaskObj);
         let windowCenter = _.get(dicomJson, '00281050.Value.0');
         let windowWidth = _.get(dicomJson, '00281051.Value.0');
         let frameNumber = _.get(dicomJson, '00280008.Value.0', 1);
@@ -550,7 +592,27 @@ async function generateJpeg(dicomJson, uidObj, dicomFilename) {
             }
             pythonLogger.info(`[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(uidObj)}]`);
         }
+        let endTaskObj = {
+            studyUID:  uidObj.studyUID,
+            seriesUID: uidObj.seriesUID,
+            instanceUID: uidObj.instanceUID,
+            status: true,
+            message: "generated",
+            finishedTime: new Date()
+        };
+        await insertDicomToJpegTask(endTaskObj);
+        io.emit("dicomToJpegTask", endTaskObj);
     } catch(e) {
+        let errorTaskObj = {
+            studyUID: uidObj.studyUID,
+            seriesUID: uidObj.seriesUID,
+            instanceUID: uidObj.instanceUID,
+            status: false,
+            message: e.toString(),
+            finishedTime: new Date()
+        };
+        await insertDicomToJpegTask(errorTaskObj);
         logger.error(e);
+        io.emit("dicomToJpegTask", errorTaskObj);
     }
 }

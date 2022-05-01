@@ -69,6 +69,8 @@ class DICOMFHIRConverter {
             return data.entry.pop();
         } catch(e) {
             if (e.isAxiosError) {
+                let statusCode = _.get(e, "response.status");
+                if (statusCode === 404) return undefined;
                 console.log(e.response);
             } else {
                 console.error(e);
@@ -168,7 +170,8 @@ class DICOMFHIRConverter {
             return data;
         } catch(e) {
             if (e.isAxiosError) {
-                if (e.response.status === 404) return undefined;
+                let statusCode = _.get(e, "response.status");
+                if (statusCode === 404) return undefined;
                 console.log(e.response);
             } else {
                 console.error(e);
@@ -213,7 +216,8 @@ class DICOMFHIRConverter {
             return data;
         } catch(e) {
             if (e.isAxiosError) {
-                if (e.response.status === 404) return undefined;
+                let statusCode = _.get(e, "response.status");
+                if (statusCode === 404) return undefined;
                 console.log(e.response);
             } else {
                 console.error(e);
