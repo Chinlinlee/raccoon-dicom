@@ -146,7 +146,15 @@ async function convertRequestQueryToMongoQuery(iQuery) {
 function getStudyLevelFields() {
     let fields = {};
     for (let tag in tagsOfRequiredMatching.Study) {
-        fields[`dicomJson.${tag}`] = 1;
+        fields[tag] = 1;
+    }
+    return fields;
+}
+
+function getSeriesLevelFields() {
+    let fields = {};
+    for (let tag in tagsOfRequiredMatching.Series) {
+        fields[tag] = 1;
     }
     return fields;
 }
@@ -160,3 +168,4 @@ const vrQueryLookup = {
 module.exports.convertAllQueryToDICOMTag = convertAllQueryToDICOMTag;
 module.exports.convertRequestQueryToMongoQuery = convertRequestQueryToMongoQuery;
 module.exports.getStudyLevelFields = getStudyLevelFields;
+module.exports.getSeriesLevelFields = getSeriesLevelFields;
