@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
-const { 
-    dicomJsonAttributeSchema, 
-    dicomJsonAttributePNSchema, 
-    dicomJsonAttributeDASchema 
+const {
+    dicomJsonAttributeSchema,
+    dicomJsonAttributePNSchema,
+    dicomJsonAttributeDASchema
 } = require('../schema/dicomJsonAttribute');
+const {
+    logger
+} = require('../../../utils/log');
 
-let dicomModelSchema = new mongoose.Schema({  
+let dicomModelSchema = new mongoose.Schema({
     studyUID: {
         type: String,
         default: void 0,
@@ -24,7 +27,7 @@ let dicomModelSchema = new mongoose.Schema({
         index: true,
         required: true
     },
-    "00080020" : dicomJsonAttributeDASchema,
+    "00080020": dicomJsonAttributeDASchema,
     "00080030": {
         ...dicomJsonAttributeSchema,
         Value: [mongoose.SchemaTypes.Number]
@@ -57,7 +60,7 @@ let dicomModelSchema = new mongoose.Schema({
         ...dicomJsonAttributeSchema,
         Value: [mongoose.SchemaTypes.String]
     },
-    "00080060" : {
+    "00080060": {
         ...dicomJsonAttributeSchema,
         Value: [mongoose.SchemaTypes.String]
     },
@@ -83,7 +86,7 @@ let dicomModelSchema = new mongoose.Schema({
         ...dicomJsonAttributeSchema,
         Value: [mongoose.SchemaTypes.String]
     }
-}, { 
+}, {
     strict: false,
     versionKey: false,
     toObject: {
@@ -102,11 +105,188 @@ dicomModelSchema.index({
 });
 
 dicomModelSchema.methods.getDICOMJson = function () {
-    let obj =  this.toObject();
+    let obj = this.toObject();
     delete obj._id;
     delete obj.studyUID;
     delete obj.seriesUID;
     delete obj.instanceUID;
+}
+
+dicomModelSchema.post("findOneAndUpdate", async function (doc) {
+    updateStudyModalitiesInStudy(doc).catch(e => {
+        logger.error(`[STOW-RS] [update study modalities] [${e}]`);
+    });
+    updateStudySOPClassesInStudy(doc).catch(e => {
+        logger.error(`[STOW-RS] [update study sop classes in study] [${e}]`);
+    });
+    updateStudyNumberOfStudyRelatedSeries(doc).catch(e => {
+        logger.error(`[STOW-RS] [update study number of study related series] [${e}]`);
+    });
+    updateStudyNumberOfStudyRelatedInstance(doc).catch(e => {
+        logger.error(`[STOW-RS] [update study number of study related instances] [${e}]`);
+    });
+});
+
+async function updateStudyModalitiesInStudy(doc) {
+    try {
+        let modalitiesInStudy = await mongoose.model("dicom").aggregate([{
+                $match: {
+                    studyUID: doc.studyUID
+                }
+            },
+            {
+                $group: {
+                    _id: "$studyUID",
+                    modalitiesInStudy: {
+                        "$addToSet": "$00080060.Value"
+                    }
+                }
+            },
+            {
+                "$project": {
+                    "00080061": {
+                        "vr": "CS",
+                        "Value": {
+                            "$reduce": {
+                                "input": "$modalitiesInStudy",
+                                "initialValue": [],
+                                "in": {
+                                    "$concatArrays": [
+                                        "$$value",
+                                        "$$this"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]);
+        await mongoose.model("dicomStudy").findOneAndUpdate({
+            studyUID: doc.studyUID
+        }, {
+            $set: {
+                "00080061": modalitiesInStudy[0]["00080061"]
+            }
+        });
+    } catch (e) {
+        throw e;
+    }
+}
+
+async function updateStudySOPClassesInStudy(doc) {
+    try {
+        let sopClassesInStudy = await mongoose.model("dicom").aggregate([{
+                $match: {
+                    studyUID: doc.studyUID
+                }
+            },
+            {
+                $group: {
+                    _id: "$studyUID",
+                    sopClassesInStudy: {
+                        "$addToSet": "$00080016.Value"
+                    }
+                }
+            },
+            {
+                "$project": {
+                    "00080062": {
+                        "vr": "CS",
+                        "Value": {
+                            "$reduce": {
+                                "input": "$sopClassesInStudy",
+                                "initialValue": [],
+                                "in": {
+                                    "$concatArrays": [
+                                        "$$value",
+                                        "$$this"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]);
+        await mongoose.model("dicomStudy").findOneAndUpdate({
+            studyUID: doc.studyUID
+        }, {
+            $set: {
+                "00080062": sopClassesInStudy[0]["00080062"]
+            }
+        });
+    } catch (e) {
+        throw e;
+    }
+}
+
+async function updateStudyNumberOfStudyRelatedSeries(doc) {
+    try {
+        let numberOfStudyRelatedSeries = await mongoose.model("dicomSeries").aggregate([{
+                $match: {
+                    studyUID: doc.studyUID
+                }
+            },
+            {
+                $group: {
+                    _id: "$studyUID",
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]);
+        let numberOfStudyRelatedSeriesObj = {
+            "vr": "IS",
+            "Value": [
+                numberOfStudyRelatedSeries[0]["count"]
+            ]
+        };
+        await mongoose.model("dicomStudy").findOneAndUpdate({
+            studyUID: doc.studyUID
+        }, {
+            $set: {
+                "00201206": numberOfStudyRelatedSeriesObj
+            }
+        });
+    } catch (e) {
+        throw e;
+    }
+}
+
+async function updateStudyNumberOfStudyRelatedInstance(doc) {
+    try {
+        let numberOfStudyRelatedInstance = await mongoose.model("dicom").aggregate([{
+                $match: {
+                    studyUID: doc.studyUID
+                }
+            },
+            {
+                $group: {
+                    _id: "$studyUID",
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ]);
+        let numberOfStudyRelatedInstanceObj = {
+            "vr": "IS",
+            "Value": [
+                numberOfStudyRelatedInstance[0]["count"]
+            ]
+        };
+        await mongoose.model("dicomStudy").findOneAndUpdate({
+            studyUID: doc.studyUID
+        }, {
+            $set: {
+                "00201208": numberOfStudyRelatedInstanceObj
+            }
+        });
+    } catch (e) {
+        throw e;
+    }
 }
 
 let dicomModel = mongoose.model('dicom', dicomModelSchema, 'dicom');

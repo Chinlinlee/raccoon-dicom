@@ -60,6 +60,9 @@ module.exports.tagsNeedStore = {
         "00080061": {
             vr: "CS"
         },
+        "00080062": {
+            vr: "UI"
+        },
         "00080090": {
             vr: "PN"
         },
