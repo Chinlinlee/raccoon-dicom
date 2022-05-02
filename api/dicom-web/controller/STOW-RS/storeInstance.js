@@ -508,12 +508,14 @@ async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
         delete dicomJson.sopInstanceUID;
         await Promise.all([
             mongoose.model("dicom").findOneAndUpdate(query, dicomJson, {
-                upsert: true
+                upsert: true,
+                new: true
             }),
             mongoose.model("dicomStudy").findOneAndUpdate({
                 studyUID: uidObj.studyUID
             }, dicomJson, {
-                upsert: true
+                upsert: true,
+                new: true
             }),
             mongoose.model("dicomSeries").findOneAndUpdate({
                 "$and": [
@@ -525,7 +527,8 @@ async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
                     }
                 ]
             }, dicomJson, {
-                upsert: true
+                upsert: true,
+                new: true
             })
         ]);
     } catch(e) {
