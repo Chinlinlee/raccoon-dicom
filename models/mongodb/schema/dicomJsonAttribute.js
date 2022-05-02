@@ -63,10 +63,7 @@ function getVRSchema(vr) {
             }
         });
     } else {
-        return new mongoose.Schema({
-            ...dicomJsonAttributeSchema,
-            Value: [mongoose.SchemaTypes.String]
-        }, {
+        return new mongoose.Schema(dicomJsonAttributeSchema, {
             _id: false,
             id: false,
             toObject: {
