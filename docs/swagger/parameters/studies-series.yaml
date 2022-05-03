@@ -1,0 +1,18 @@
+components:
+  parameters:
+    "studyUID":
+      name: "studyUID"
+      in: path
+      required: true
+      schema:
+        type: string
+    "Modality":
+      name: "00080060"
+      in: query
+      schema:
+        type: string
+    "SeriesNumber":
+      name: "00200011"
+      in: query
+      schema:
+        type: string

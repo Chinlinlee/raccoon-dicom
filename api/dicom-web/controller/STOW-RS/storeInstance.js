@@ -43,6 +43,8 @@ const bigValueTags = ["52009230", "00480200"];
  *  @openapi
  *  /dicom-web/studies:
  *    post:
+ *      tags:
+ *        - STOW-RS
  *      description: store DICOM instance
  *      requestBody: 
  *        content:

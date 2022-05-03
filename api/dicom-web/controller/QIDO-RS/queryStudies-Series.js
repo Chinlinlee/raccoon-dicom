@@ -4,7 +4,8 @@ const moment = require('moment');
 const {
     convertAllQueryToDICOMTag,
     convertRequestQueryToMongoQuery,
-    getStudyLevelFields
+    getStudyLevelFields,
+    getSeriesLevelFields
 } = require('./service/QIDO-RS.service');
 const {
     logger
@@ -12,12 +13,13 @@ const {
 
 /**
  *  @openapi
- *  /dicom-web/studies:
+ *  /dicom-web/studies/{studyUID}/series:
  *    get:
  *      tags:
  *        - QIDO-RS
  *      description: Query for studies
  *      parameters:
+ *        - $ref: "#/components/parameters/studyUID"
  *        - $ref: "#/components/parameters/StudyDate"
  *        - $ref: "#/components/parameters/StudyTime"
  *        - $ref: "#/components/parameters/AccessionNumber"
@@ -26,6 +28,8 @@ const {
  *        - $ref: "#/components/parameters/PatientName"
  *        - $ref: "#/components/parameters/PatientID"
  *        - $ref: "#/components/parameters/StudyID"
+ *        - $ref: "#/components/parameters/Modality"
+ *        - $ref: "#/components/parameters/SeriesNumber"
  *      responses:
  *        200:
  *          description: Query successfully
@@ -62,7 +66,7 @@ module.exports = async function (req, res) {
 }
 
 async function getStudyDicomJson(iQuery, limit, skip, req) {
-    logger.info(`[QIDO-RS] [Query Study Level]`);
+    logger.info(`[QIDO-RS] [Query series Level, Study UID: ${req.params.studyUID}]`);
     let result = {
         data: '',
         status: false
@@ -71,11 +75,18 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
     let retrieveUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
     try {
         iQuery = await convertRequestQueryToMongoQuery(iQuery);
-        // iQuery = iQuery.$match;
-        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(iQuery)}]`);
+        let query = {
+            ...req.params,
+            ...iQuery.$match
+        }
+        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
         let studyFields = getStudyLevelFields();
-        let docs = await mongoose.model("dicomStudy")
-            .find(iQuery.$match, studyFields)
+        let seriesFields = getSeriesLevelFields();
+        let docs = await mongoose.model("dicomSeries")
+            .find(query, {
+                ...studyFields,
+                ...seriesFields
+            })
             .limit(limit)
             .skip(skip)
             .exec();
@@ -86,7 +97,7 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
             obj["00801190"] = {
                 vr: "UR",
                 Value: [
-                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}`
+                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
                 ]
             };
             return obj;
@@ -94,7 +105,7 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
         result.status = true;
         return result;
     } catch (e) {
-        console.error("get Study DICOM error", e);
+        console.error("get Series DICOM error", e);
         result.data = e;
         result.status = false;
         return result;
