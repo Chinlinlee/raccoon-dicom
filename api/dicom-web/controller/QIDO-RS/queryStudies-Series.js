@@ -54,7 +54,7 @@ module.exports = async function (req, res) {
         }
 
         let dicomTagQuery = convertAllQueryToDICOMTag(query);
-        let studiesJson = await getStudyDicomJson(dicomTagQuery, limit, skip, req);
+        let studiesJson = await getSeriesDicomJson(dicomTagQuery, limit, skip, req);
         res.writeHead(200, {
             "Content-Type": "application/dicom+json"
         });
@@ -65,7 +65,7 @@ module.exports = async function (req, res) {
     }
 };
 
-async function getStudyDicomJson(iQuery, limit, skip, req) {
+async function getSeriesDicomJson(iQuery, limit, skip, req) {
     logger.info(`[QIDO-RS] [Query series Level, Study UID: ${req.params.studyUID}]`);
     let result = {
         data: '',
