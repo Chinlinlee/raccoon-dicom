@@ -159,6 +159,18 @@ function getSeriesLevelFields() {
     return fields;
 }
 
+function getInstanceLevelFields() {
+    let fields = {};
+    for (let tag in tagsOfRequiredMatching.Instance) {
+        fields[tag] = 1;
+    }
+    return fields;
+}
+
+function sortObjByFieldKey(obj) {
+    return _(obj).toPairs().sortBy(0).fromPairs().value();
+}
+
 const vrQueryLookup = {
     "DA": async(value, tag) => {
         let q = await mongoDateQuery(value, tag, false);
@@ -169,3 +181,5 @@ module.exports.convertAllQueryToDICOMTag = convertAllQueryToDICOMTag;
 module.exports.convertRequestQueryToMongoQuery = convertRequestQueryToMongoQuery;
 module.exports.getStudyLevelFields = getStudyLevelFields;
 module.exports.getSeriesLevelFields = getSeriesLevelFields;
+module.exports.getInstanceLevelFields = getInstanceLevelFields;
+module.exports.sortObjByFieldKey = sortObjByFieldKey;

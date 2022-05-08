@@ -5,7 +5,8 @@ const {
     convertAllQueryToDICOMTag,
     convertRequestQueryToMongoQuery,
     getStudyLevelFields,
-    getSeriesLevelFields
+    getSeriesLevelFields,
+    sortObjByFieldKey
 } = require('./service/QIDO-RS.service');
 const {
     logger
@@ -94,13 +95,13 @@ async function getSeriesDicomJson(iQuery, limit, skip, req) {
             let obj = v.toObject();
             delete obj._id;
             delete obj.id;
-            obj["00801190"] = {
+            obj["00081190"] = {
                 vr: "UR",
                 Value: [
                     `${retrieveUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
                 ]
             };
-            return obj;
+            return sortObjByFieldKey(obj);
         });
         result.status = true;
         return result;
