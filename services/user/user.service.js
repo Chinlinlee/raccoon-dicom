@@ -13,8 +13,8 @@
 // }
 
 // /**
-//  * 
-//  * @param {Object} userObj 
+//  *
+//  * @param {Object} userObj
 //  */
 // async function createUser(userObj) {
 //     try {

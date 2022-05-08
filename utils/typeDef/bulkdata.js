@@ -5,7 +5,7 @@
  * @property {string} instanceUID
  * @property {string} filename
  * @property {string} binaryValuePath The json path of the binary value
- * 
+ *
  */
 
 const BulkData = true;

@@ -1,15 +1,13 @@
-const _ = require('lodash');
-const mongoose = require('mongoose');
-const moment = require('moment');
+const _ = require("lodash");
+const mongoose = require("mongoose");
+const moment = require("moment");
 const {
     convertAllQueryToDICOMTag,
     convertRequestQueryToMongoQuery,
     getStudyLevelFields,
     sortObjByFieldKey
-} = require('./service/QIDO-RS.service');
-const {
-    logger
-} = require('../../../../utils/log');
+} = require("./service/QIDO-RS.service");
+const { logger } = require("../../../../utils/log");
 
 /**
  *  @openapi
@@ -33,9 +31,9 @@ const {
  */
 
 /**
- * 
- * @param {import('http').IncomingMessage} req 
- * @param {import('http').ServerResponse} res 
+ *
+ * @param {import('http').IncomingMessage} req
+ * @param {import('http').ServerResponse} res
  */
 module.exports = async function (req, res) {
     try {
@@ -51,7 +49,12 @@ module.exports = async function (req, res) {
         }
 
         let dicomTagQuery = convertAllQueryToDICOMTag(query);
-        let studiesJson = await getStudyDicomJson(dicomTagQuery, limit, skip, req);
+        let studiesJson = await getStudyDicomJson(
+            dicomTagQuery,
+            limit,
+            skip,
+            req
+        );
         res.writeHead(200, {
             "Content-Type": "application/dicom+json"
         });
@@ -65,7 +68,7 @@ module.exports = async function (req, res) {
 async function getStudyDicomJson(iQuery, limit, skip, req) {
     logger.info(`[QIDO-RS] [Query Study Level]`);
     let result = {
-        data: '',
+        data: "",
         status: false
     };
     let protocol = req.secure ? "https" : "http";
@@ -75,20 +78,19 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
         // iQuery = iQuery.$match;
         logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(iQuery)}]`);
         let studyFields = getStudyLevelFields();
-        let docs = await mongoose.model("dicomStudy")
+        let docs = await mongoose
+            .model("dicomStudy")
             .find(iQuery.$match, studyFields)
             .limit(limit)
             .skip(skip)
             .exec();
-        result.data = docs.map(v => {
+        result.data = docs.map((v) => {
             let obj = v.toObject();
             delete obj._id;
             delete obj.id;
             obj["00081190"] = {
                 vr: "UR",
-                Value: [
-                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}`
-                ]
+                Value: [`${retrieveUrl}/${obj["0020000D"]["Value"][0]}`]
             };
             return sortObjByFieldKey(obj);
         });

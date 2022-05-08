@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const moment = require('moment');
-const _ = require('lodash');
+const mongoose = require("mongoose");
+const moment = require("moment");
+const _ = require("lodash");
 
-let dicomJsonAttributeSchema = {  
+let dicomJsonAttributeSchema = {
     vr: {
         type: String
     },
@@ -11,14 +11,14 @@ let dicomJsonAttributeSchema = {
     }
 };
 
-let dicomJsonAttributePNSchema = {  
+let dicomJsonAttributePNSchema = {
     Alphabetic: {
         type: String,
-        default : void 0
+        default: void 0
     },
     Ideographic: {
         type: String,
-        default : void 0
+        default: void 0
     },
     Phonetic: {
         type: String,
@@ -36,7 +36,7 @@ let dicomJsonAttributeDASchema = {
         get: function (v) {
             let length = _.get(v, "length");
             if (length > 0) {
-                return v.map(date=> moment(date).format("YYYYMMDD"));
+                return v.map((date) => moment(date).format("YYYYMMDD"));
             }
         }
     }
@@ -52,16 +52,19 @@ function getVRSchema(vr) {
             }
         });
     } else if (vr == "PN") {
-        return new mongoose.Schema({
-            ...dicomJsonAttributeSchema,
-            Value: [dicomJsonAttributePNSchema]
-        }, {
-            _id: false,
-            id: false,
-            toObject: {
-                getters: true
+        return new mongoose.Schema(
+            {
+                ...dicomJsonAttributeSchema,
+                Value: [dicomJsonAttributePNSchema]
+            },
+            {
+                _id: false,
+                id: false,
+                toObject: {
+                    getters: true
+                }
             }
-        });
+        );
     } else {
         return new mongoose.Schema(dicomJsonAttributeSchema, {
             _id: false,

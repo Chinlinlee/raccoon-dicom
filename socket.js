@@ -1,10 +1,10 @@
-const server = require('./app').server;
+const server = require("./app").server;
 let io;
 
 module.exports = {
     ...module.exports,
     init: () => {
-        io = require('socket.io')(server);
+        io = require("socket.io")(server);
         return io;
     },
     get: () => {

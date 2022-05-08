@@ -2,8 +2,8 @@
 // const bcrypt = require('bcrypt');
 
 // /**
-//  * 
-//  * @param {import('passport')} passport 
+//  *
+//  * @param {import('passport')} passport
 //  */
 // module.exports = function (passport) {
 
@@ -39,10 +39,10 @@
 // }
 
 // /**
-//  * 
-//  * @param {string} username 
-//  * @param {string} password 
-//  * @returns 
+//  *
+//  * @param {string} username
+//  * @param {string} password
+//  * @returns
 //  */
 // async function auth(username, password) {
 //     try {
@@ -63,7 +63,7 @@
 //                     code: 4,
 //                     data: "user not activate"
 //                 }
-//             } 
+//             }
 //             return {
 //                 code: 2,
 //                 data: "invalid user or password"
@@ -79,8 +79,8 @@
 // }
 
 // /**
-//  * 
-//  * @param {string} password 
+//  *
+//  * @param {string} password
 //  */
 // async function comparePassword(userObj, password) {
 //     try {

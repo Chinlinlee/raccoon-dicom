@@ -47,7 +47,7 @@ module.exports.tagsOfRequiredMatching = {
 };
 
 module.exports.tagsNeedStore = {
-    Study : {
+    Study: {
         "00080005": {
             vr: "CS"
         },

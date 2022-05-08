@@ -1,6 +1,5 @@
-
 module.exports.dictionary = {
-    "keyword": {
+    keyword: {
         "Length​To​End": "00080001",
         "Specific​Character​Set": "00080005",
         "Language​Code​Sequence": "00080006",
@@ -194,9 +193,12 @@ module.exports.dictionary = {
         "Anatomic​Approach​Direction​Code​Sequence​Trial": "00082255",
         "Anatomic​Perspective​Description​Trial": "00082256",
         "Anatomic​Perspective​Code​Sequence​Trial": "00082257",
-        "Anatomic​Location​Of​Examining​Instrument​Description​Trial": "00082258",
-        "Anatomic​Location​Of​Examining​Instrument​Code​Sequence​Trial": "00082259",
-        "Anatomic​Structure​Space​Or​Region​Modifier​Code​Sequence​Trial": "0008225A",
+        "Anatomic​Location​Of​Examining​Instrument​Description​Trial":
+            "00082258",
+        "Anatomic​Location​Of​Examining​Instrument​Code​Sequence​Trial":
+            "00082259",
+        "Anatomic​Structure​Space​Or​Region​Modifier​Code​Sequence​Trial":
+            "0008225A",
         "On​Axis​Background​Anatomic​Structure​Code​Sequence​Trial": "0008225C",
         "Alternate​Representation​Sequence": "00083001",
         "Available​Transfer​Syntax​UID": "00083002",
@@ -828,7 +830,8 @@ module.exports.dictionary = {
         "Plate​Type": "00181260",
         "Phosphor​Type": "00181261",
         "Water​Equivalent​Diameter": "00181271",
-        "Water​Equivalent​Diameter​Calculation​Method​Code​Sequence": "00181272",
+        "Water​Equivalent​Diameter​Calculation​Method​Code​Sequence":
+            "00181272",
         "Scan​Velocity": "00181300",
         "Whole​Body​Technique": "00181301",
         "Scan​Length": "00181302",
@@ -1708,7 +1711,8 @@ module.exports.dictionary = {
         "Keratometry​Measurement​Type​Code​Sequence": "00221096",
         "Implant​Part​Number": "00221097",
         "Referenced​Ophthalmic​Axial​Measurements​Sequence": "00221100",
-        "Ophthalmic​Axial​Length​Measurements​Segment​Name​Code​Sequence": "00221101",
+        "Ophthalmic​Axial​Length​Measurements​Segment​Name​Code​Sequence":
+            "00221101",
         "Refractive​Error​Before​Refractive​Surgery​Code​Sequence": "00221103",
         "IOL​Power​For​Exact​Emmetropia": "00221121",
         "IOL​Power​For​Exact​Target​Refraction": "00221122",
@@ -1729,9 +1733,12 @@ module.exports.dictionary = {
         "Ophthalmic​Axial​Length​Acquisition​Method​Code​Sequence": "00221153",
         "Signal​To​Noise​Ratio": "00221155",
         "Ophthalmic​Axial​Length​Data​Source​Description": "00221159",
-        "Ophthalmic​Axial​Length​Measurements​Total​Length​Sequence": "00221210",
-        "Ophthalmic​Axial​Length​Measurements​Segmental​Length​Sequence": "00221211",
-        "Ophthalmic​Axial​Length​Measurements​Length​Summation​Sequence": "00221212",
+        "Ophthalmic​Axial​Length​Measurements​Total​Length​Sequence":
+            "00221210",
+        "Ophthalmic​Axial​Length​Measurements​Segmental​Length​Sequence":
+            "00221211",
+        "Ophthalmic​Axial​Length​Measurements​Length​Summation​Sequence":
+            "00221212",
         "Ultrasound​Ophthalmic​Axial​Length​Measurements​Sequence": "00221220",
         "Optical​Ophthalmic​Axial​Length​Measurements​Sequence": "00221225",
         "Ultrasound​Selected​Ophthalmic​Axial​Length​Sequence": "00221230",
@@ -1744,7 +1751,8 @@ module.exports.dictionary = {
         "Ophthalmic​Axial​Length​Quality​Metric​Type​Description": "00221273",
         "Intraocular​Lens​Calculations​Right​Eye​Sequence": "00221300",
         "Intraocular​Lens​Calculations​Left​Eye​Sequence": "00221310",
-        "Referenced​Ophthalmic​Axial​Length​Measurement​QC​Image​Sequence": "00221330",
+        "Referenced​Ophthalmic​Axial​Length​Measurement​QC​Image​Sequence":
+            "00221330",
         "Ophthalmic​Mapping​Device​Type": "00221415",
         "Acquisition​Method​Code​Sequence": "00221420",
         "Acquisition​Method​Algorithm​Sequence": "00221423",
@@ -1769,8 +1777,10 @@ module.exports.dictionary = {
         "Ophthalmic​FOV": "00221517",
         "Two​Dimensional​To​Three​Dimensional​Map​Sequence": "00221518",
         "Wide​Field​Ophthalmic​Photography​Quality​Rating​Sequence": "00221525",
-        "Wide​Field​Ophthalmic​Photography​Quality​Threshold​Sequence": "00221526",
-        "Wide​Field​Ophthalmic​Photography​Threshold​Quality​Rating": "00221527",
+        "Wide​Field​Ophthalmic​Photography​Quality​Threshold​Sequence":
+            "00221526",
+        "Wide​Field​Ophthalmic​Photography​Threshold​Quality​Rating":
+            "00221527",
         "X​Coordinates​Center​Pixel​View​Angle": "00221528",
         "Y​Coordinates​Center​Pixel​View​Angle": "00221529",
         "Number​Of​Map​Points": "00221530",
@@ -1835,7 +1845,8 @@ module.exports.dictionary = {
         "Results​Normals​Sequence": "00240064",
         "Age​Corrected​Sensitivity​Deviation​Algorithm​Sequence": "00240065",
         "Global​Deviation​From​Normal": "00240066",
-        "Generalized​Defect​Sensitivity​Deviation​Algorithm​Sequence": "00240067",
+        "Generalized​Defect​Sensitivity​Deviation​Algorithm​Sequence":
+            "00240067",
         "Localized​Deviation​From​Normal": "00240068",
         "Patient​Reliability​Indicator": "00240069",
         "Visual​Field​Mean​Sensitivity": "00240070",
@@ -1848,7 +1859,8 @@ module.exports.dictionary = {
         "Short​Term​Fluctuation​Probability": "00240077",
         "Corrected​Localized​Deviation​From​Normal​Calculated": "00240078",
         "Corrected​Localized​Deviation​From​Normal": "00240079",
-        "Corrected​Localized​Deviation​From​Normal​Probability​Calculated": "00240080",
+        "Corrected​Localized​Deviation​From​Normal​Probability​Calculated":
+            "00240080",
         "Corrected​Localized​Deviation​From​Normal​Probability": "00240081",
         "Global​Deviation​Probability​Sequence": "00240083",
         "Localized​Deviation​Probability​Sequence": "00240085",
@@ -1868,7 +1880,8 @@ module.exports.dictionary = {
         "Age​Corrected​Sensitivity​Deviation​Probability​Value": "00240100",
         "Generalized​Defect​Corrected​Sensitivity​Deviation​Flag": "00240102",
         "Generalized​Defect​Corrected​Sensitivity​Deviation​Value": "00240103",
-        "Generalized​Defect​Corrected​Sensitivity​Deviation​Probability​Value": "00240104",
+        "Generalized​Defect​Corrected​Sensitivity​Deviation​Probability​Value":
+            "00240104",
         "Minimum​Sensitivity​Value": "00240105",
         "Blind​Spot​Localized": "00240106",
         "Blind​Spot​X​Coordinate": "00240107",
@@ -1877,7 +1890,8 @@ module.exports.dictionary = {
         "Refractive​Parameters​Used​On​Patient​Sequence": "00240112",
         "Measurement​Laterality": "00240113",
         "Ophthalmic​Patient​Clinical​Information​Left​Eye​Sequence": "00240114",
-        "Ophthalmic​Patient​Clinical​Information​Right​Eye​Sequence": "00240115",
+        "Ophthalmic​Patient​Clinical​Information​Right​Eye​Sequence":
+            "00240115",
         "Foveal​Point​Normative​Data​Flag": "00240117",
         "Foveal​Point​Probability​Value": "00240118",
         "Screening​Baseline​Measured": "00240120",
@@ -2300,7 +2314,8 @@ module.exports.dictionary = {
         "Scheduled​Step​Attributes​Sequence": "00400270",
         "Request​Attributes​Sequence": "00400275",
         "Comments​On​The​Performed​Procedure​Step": "00400280",
-        "Performed​Procedure​Step​Discontinuation​Reason​Code​Sequence": "00400281",
+        "Performed​Procedure​Step​Discontinuation​Reason​Code​Sequence":
+            "00400281",
         "Quantity​Sequence": "00400293",
         "Quantity": "00400294",
         "Measuring​Units​Sequence": "00400295",
@@ -2401,14 +2416,17 @@ module.exports.dictionary = {
         "Human​Performer​Code​Sequence": "00404009",
         "Scheduled​Procedure​Step​Modification​Date​Time": "00404010",
         "Expected​Completion​Date​Time": "00404011",
-        "Resulting​General​Purpose​Performed​Procedure​Steps​Sequence": "00404015",
-        "Referenced​General​Purpose​Scheduled​Procedure​Step​Sequence": "00404016",
+        "Resulting​General​Purpose​Performed​Procedure​Steps​Sequence":
+            "00404015",
+        "Referenced​General​Purpose​Scheduled​Procedure​Step​Sequence":
+            "00404016",
         "Scheduled​Workitem​Code​Sequence": "00404018",
         "Performed​Workitem​Code​Sequence": "00404019",
         "Input​Availability​Flag": "00404020",
         "Input​Information​Sequence": "00404021",
         "Relevant​Information​Sequence": "00404022",
-        "Referenced​General​Purpose​Scheduled​Procedure​Step​Transaction​UID": "00404023",
+        "Referenced​General​Purpose​Scheduled​Procedure​Step​Transaction​UID":
+            "00404023",
         "Scheduled​Station​Name​Code​Sequence": "00404025",
         "Scheduled​Station​Class​Code​Sequence": "00404026",
         "Scheduled​Station​Geographic​Location​Code​Sequence": "00404027",
@@ -2936,7 +2954,8 @@ module.exports.dictionary = {
         "Surface​Count": "0066002A",
         "Referenced​Surface​Sequence": "0066002B",
         "Referenced​Surface​Number": "0066002C",
-        "Segment​Surface​Generation​Algorithm​Identification​Sequence": "0066002D",
+        "Segment​Surface​Generation​Algorithm​Identification​Sequence":
+            "0066002D",
         "Segment​Surface​Source​Instance​Sequence": "0066002E",
         "Algorithm​Family​Code​Sequence": "0066002F",
         "Algorithm​Name​Code​Sequence": "00660030",
@@ -3148,7 +3167,8 @@ module.exports.dictionary = {
         "Registration​Sequence": "00700308",
         "Matrix​Registration​Sequence": "00700309",
         "Matrix​Sequence": "0070030A",
-        "Frame​Of​Reference​To​Displayed​Coordinate​System​Transformation​Matrix": "0070030B",
+        "Frame​Of​Reference​To​Displayed​Coordinate​System​Transformation​Matrix":
+            "0070030B",
         "Frame​Of​Reference​Transformation​Matrix​Type": "0070030C",
         "Registration​Type​Code​Sequence": "0070030D",
         "Fiducial​Description": "0070030F",
@@ -3476,7 +3496,8 @@ module.exports.dictionary = {
         "Implant​Template​Group​Member​ID": "0078002E",
         "Three​D​Implant​Template​Group​Member​Matching​Point": "00780050",
         "Three​D​Implant​Template​Group​Member​Matching​Axes": "00780060",
-        "Implant​Template​Group​Member​Matching2D​Coordinates​Sequence": "00780070",
+        "Implant​Template​Group​Member​Matching2D​Coordinates​Sequence":
+            "00780070",
         "Two​D​Implant​Template​Group​Member​Matching​Point": "00780090",
         "Two​D​Implant​Template​Group​Member​Matching​Axes": "007800A0",
         "Implant​Template​Group​Variation​Dimension​Sequence": "007800B0",
@@ -4057,7 +4078,8 @@ module.exports.dictionary = {
         "Isocenter​Position": "300A012C",
         "Surface​Entry​Point": "300A012E",
         "Source​To​Surface​Distance": "300A0130",
-        "Average​Beam​Dose​Point​Source​To​External​Contour​Distance": "300A0131",
+        "Average​Beam​Dose​Point​Source​To​External​Contour​Distance":
+            "300A0131",
         "Source​To​External​Contour​Distance": "300A0132",
         "External​Contour​Entry​Point": "300A0133",
         "Cumulative​Meterset​Weight": "300A0134",
@@ -4354,7 +4376,8 @@ module.exports.dictionary = {
         "Number​Of​RTBeam​Limiting​Devices": "300A0641",
         "RTBeam​Limiting​Device​Proximal​Distance": "300A0642",
         "RTBeam​Limiting​Device​Distal​Distance": "300A0643",
-        "Parallel​RTBeam​Delimiter​Device​Orientation​Label​Code​Sequence": "300A0644",
+        "Parallel​RTBeam​Delimiter​Device​Orientation​Label​Code​Sequence":
+            "300A0644",
         "Beam​Modifier​Orientation​Angle": "300A0645",
         "Fixed​RTBeam​Delimiter​Device​Sequence": "300A0646",
         "Parallel​RTBeam​Delimiter​Device​Sequence": "300A0647",
@@ -4376,7 +4399,8 @@ module.exports.dictionary = {
         "Number​Of​RTBeam​Limiting​Device​Openings": "300A0657",
         "Radiation​Dosimeter​Unit​Sequence": "300A0658",
         "RTDevice​Distance​Reference​Location​Code​Sequence": "300A0659",
-        "Radiation​Device​Configuration​And​Commissioning​Key​Sequence": "300A065A",
+        "Radiation​Device​Configuration​And​Commissioning​Key​Sequence":
+            "300A065A",
         "Patient​Support​Position​Parameter​Sequence": "300A065B",
         "Patient​Support​Position​Specification​Method": "300A065C",
         "Patient​Support​Position​Device​Parameter​Sequence": "300A065D",
@@ -4476,12 +4500,14 @@ module.exports.dictionary = {
         "Referenced​RT​Treatment​Preparation​Sequence": "300A078B",
         "Referenced​Patient​Setup​Photo​Sequence": "300A078C",
         "Patient​Treatment​Preparation​Method​Code​Sequence": "300A078D",
-        "Patient​Treatment​Preparation​Procedure​Parameter​Description": "300A078E",
+        "Patient​Treatment​Preparation​Procedure​Parameter​Description":
+            "300A078E",
         "Patient​Treatment​Preparation​Device​Sequence": "300A078F",
         "Patient​Treatment​Preparation​Procedure​Sequence": "300A0790",
         "Patient​Treatment​Preparation​Procedure​Code​Sequence": "300A0791",
         "Patient​Treatment​Preparation​Method​Description": "300A0792",
-        "Patient​Treatment​Preparation​Procedure​Parameter​Sequence": "300A0793",
+        "Patient​Treatment​Preparation​Procedure​Parameter​Sequence":
+            "300A0793",
         "Patient​Setup​Photo​Description": "300A0794",
         "Patient​Treatment​Preparation​Procedure​Index": "300A0795",
         "Referenced​Patient​Setup​Procedure​Index": "300A0796",
@@ -4563,7 +4589,8 @@ module.exports.dictionary = {
         "Conceptual​Volume​Combination​Description": "3010000F",
         "Conceptual​Volume​Segmentation​Defined​Flag": "30100010",
         "Conceptual​Volume​Segmentation​Reference​Sequence": "30100011",
-        "Conceptual​Volume​Constituent​Segmentation​Reference​Sequence": "30100012",
+        "Conceptual​Volume​Constituent​Segmentation​Reference​Sequence":
+            "30100012",
         "Constituent​Conceptual​Volume​UID": "30100013",
         "Derivation​Conceptual​Volume​Sequence": "30100014",
         "Source​Conceptual​Volume​UID": "30100015",
@@ -4613,7 +4640,8 @@ module.exports.dictionary = {
         "Referenced​RTPrescription​Index": "30100041",
         "Referenced​Parent​RTPrescription​Index": "30100042",
         "Manufacturer​Device​Identifier": "30100043",
-        "Instance​Level​Referenced​Performed​Procedure​Step​Sequence": "30100044",
+        "Instance​Level​Referenced​Performed​Procedure​Step​Sequence":
+            "30100044",
         "RTTreatment​Phase​Intent​Presence​Flag": "30100045",
         "Radiotherapy​Treatment​Type": "30100046",
         "Teletherapy​Radiation​Type": "30100047",
@@ -4905,8 +4933,8 @@ module.exports.dictionary = {
         "Item": "FFFEE000",
         "Item​Delimitation​Item": "FFFEE00D",
         "Sequence​Delimitation​Item": "FFFEE0DD"
-    } , 
-    "tag" : {
+    },
+    tag: {
         "20000010": "Number​Of​Copies",
         "20000020": "Print​Priority",
         "20000030": "Medium​Type",
@@ -5166,7 +5194,8 @@ module.exports.dictionary = {
         "30100009": "Equivalent​Conceptual​Volume​Instance​Reference​Sequence",
         "30100010": "Conceptual​Volume​Segmentation​Defined​Flag",
         "30100011": "Conceptual​Volume​Segmentation​Reference​Sequence",
-        "30100012": "Conceptual​Volume​Constituent​Segmentation​Reference​Sequence",
+        "30100012":
+            "Conceptual​Volume​Constituent​Segmentation​Reference​Sequence",
         "30100013": "Constituent​Conceptual​Volume​UID",
         "30100014": "Derivation​Conceptual​Volume​Sequence",
         "30100015": "Source​Conceptual​Volume​UID",
@@ -5198,7 +5227,8 @@ module.exports.dictionary = {
         "30100041": "Referenced​RTPrescription​Index",
         "30100042": "Referenced​Parent​RTPrescription​Index",
         "30100043": "Manufacturer​Device​Identifier",
-        "30100044": "Instance​Level​Referenced​Performed​Procedure​Step​Sequence",
+        "30100044":
+            "Instance​Level​Referenced​Performed​Procedure​Step​Sequence",
         "30100045": "RTTreatment​Phase​Intent​Presence​Flag",
         "30100046": "Radiotherapy​Treatment​Type",
         "30100047": "Teletherapy​Radiation​Type",
@@ -5548,9 +5578,12 @@ module.exports.dictionary = {
         "00082255": "Anatomic​Approach​Direction​Code​Sequence​Trial",
         "00082256": "Anatomic​Perspective​Description​Trial",
         "00082257": "Anatomic​Perspective​Code​Sequence​Trial",
-        "00082258": "Anatomic​Location​Of​Examining​Instrument​Description​Trial",
-        "00082259": "Anatomic​Location​Of​Examining​Instrument​Code​Sequence​Trial",
-        "0008225A": "Anatomic​Structure​Space​Or​Region​Modifier​Code​Sequence​Trial",
+        "00082258":
+            "Anatomic​Location​Of​Examining​Instrument​Description​Trial",
+        "00082259":
+            "Anatomic​Location​Of​Examining​Instrument​Code​Sequence​Trial",
+        "0008225A":
+            "Anatomic​Structure​Space​Or​Region​Modifier​Code​Sequence​Trial",
         "0008225C": "On​Axis​Background​Anatomic​Structure​Code​Sequence​Trial",
         "00083001": "Alternate​Representation​Sequence",
         "00083002": "Available​Transfer​Syntax​UID",
@@ -6183,7 +6216,8 @@ module.exports.dictionary = {
         "00181260": "Plate​Type",
         "00181261": "Phosphor​Type",
         "00181271": "Water​Equivalent​Diameter",
-        "00181272": "Water​Equivalent​Diameter​Calculation​Method​Code​Sequence",
+        "00181272":
+            "Water​Equivalent​Diameter​Calculation​Method​Code​Sequence",
         "00181300": "Scan​Velocity",
         "00181301": "Whole​Body​Technique",
         "00181302": "Scan​Length",
@@ -7064,7 +7098,8 @@ module.exports.dictionary = {
         "00221096": "Keratometry​Measurement​Type​Code​Sequence",
         "00221097": "Implant​Part​Number",
         "00221100": "Referenced​Ophthalmic​Axial​Measurements​Sequence",
-        "00221101": "Ophthalmic​Axial​Length​Measurements​Segment​Name​Code​Sequence",
+        "00221101":
+            "Ophthalmic​Axial​Length​Measurements​Segment​Name​Code​Sequence",
         "00221103": "Refractive​Error​Before​Refractive​Surgery​Code​Sequence",
         "00221121": "IOL​Power​For​Exact​Emmetropia",
         "00221122": "IOL​Power​For​Exact​Target​Refraction",
@@ -7085,9 +7120,12 @@ module.exports.dictionary = {
         "00221153": "Ophthalmic​Axial​Length​Acquisition​Method​Code​Sequence",
         "00221155": "Signal​To​Noise​Ratio",
         "00221159": "Ophthalmic​Axial​Length​Data​Source​Description",
-        "00221210": "Ophthalmic​Axial​Length​Measurements​Total​Length​Sequence",
-        "00221211": "Ophthalmic​Axial​Length​Measurements​Segmental​Length​Sequence",
-        "00221212": "Ophthalmic​Axial​Length​Measurements​Length​Summation​Sequence",
+        "00221210":
+            "Ophthalmic​Axial​Length​Measurements​Total​Length​Sequence",
+        "00221211":
+            "Ophthalmic​Axial​Length​Measurements​Segmental​Length​Sequence",
+        "00221212":
+            "Ophthalmic​Axial​Length​Measurements​Length​Summation​Sequence",
         "00221220": "Ultrasound​Ophthalmic​Axial​Length​Measurements​Sequence",
         "00221225": "Optical​Ophthalmic​Axial​Length​Measurements​Sequence",
         "00221230": "Ultrasound​Selected​Ophthalmic​Axial​Length​Sequence",
@@ -7100,7 +7138,8 @@ module.exports.dictionary = {
         "00221273": "Ophthalmic​Axial​Length​Quality​Metric​Type​Description",
         "00221300": "Intraocular​Lens​Calculations​Right​Eye​Sequence",
         "00221310": "Intraocular​Lens​Calculations​Left​Eye​Sequence",
-        "00221330": "Referenced​Ophthalmic​Axial​Length​Measurement​QC​Image​Sequence",
+        "00221330":
+            "Referenced​Ophthalmic​Axial​Length​Measurement​QC​Image​Sequence",
         "00221415": "Ophthalmic​Mapping​Device​Type",
         "00221420": "Acquisition​Method​Code​Sequence",
         "00221423": "Acquisition​Method​Algorithm​Sequence",
@@ -7125,8 +7164,10 @@ module.exports.dictionary = {
         "00221517": "Ophthalmic​FOV",
         "00221518": "Two​Dimensional​To​Three​Dimensional​Map​Sequence",
         "00221525": "Wide​Field​Ophthalmic​Photography​Quality​Rating​Sequence",
-        "00221526": "Wide​Field​Ophthalmic​Photography​Quality​Threshold​Sequence",
-        "00221527": "Wide​Field​Ophthalmic​Photography​Threshold​Quality​Rating",
+        "00221526":
+            "Wide​Field​Ophthalmic​Photography​Quality​Threshold​Sequence",
+        "00221527":
+            "Wide​Field​Ophthalmic​Photography​Threshold​Quality​Rating",
         "00221528": "X​Coordinates​Center​Pixel​View​Angle",
         "00221529": "Y​Coordinates​Center​Pixel​View​Angle",
         "00221530": "Number​Of​Map​Points",
@@ -7191,7 +7232,8 @@ module.exports.dictionary = {
         "00240064": "Results​Normals​Sequence",
         "00240065": "Age​Corrected​Sensitivity​Deviation​Algorithm​Sequence",
         "00240066": "Global​Deviation​From​Normal",
-        "00240067": "Generalized​Defect​Sensitivity​Deviation​Algorithm​Sequence",
+        "00240067":
+            "Generalized​Defect​Sensitivity​Deviation​Algorithm​Sequence",
         "00240068": "Localized​Deviation​From​Normal",
         "00240069": "Patient​Reliability​Indicator",
         "00240070": "Visual​Field​Mean​Sensitivity",
@@ -7204,7 +7246,8 @@ module.exports.dictionary = {
         "00240077": "Short​Term​Fluctuation​Probability",
         "00240078": "Corrected​Localized​Deviation​From​Normal​Calculated",
         "00240079": "Corrected​Localized​Deviation​From​Normal",
-        "00240080": "Corrected​Localized​Deviation​From​Normal​Probability​Calculated",
+        "00240080":
+            "Corrected​Localized​Deviation​From​Normal​Probability​Calculated",
         "00240081": "Corrected​Localized​Deviation​From​Normal​Probability",
         "00240083": "Global​Deviation​Probability​Sequence",
         "00240085": "Localized​Deviation​Probability​Sequence",
@@ -7224,7 +7267,8 @@ module.exports.dictionary = {
         "00240100": "Age​Corrected​Sensitivity​Deviation​Probability​Value",
         "00240102": "Generalized​Defect​Corrected​Sensitivity​Deviation​Flag",
         "00240103": "Generalized​Defect​Corrected​Sensitivity​Deviation​Value",
-        "00240104": "Generalized​Defect​Corrected​Sensitivity​Deviation​Probability​Value",
+        "00240104":
+            "Generalized​Defect​Corrected​Sensitivity​Deviation​Probability​Value",
         "00240105": "Minimum​Sensitivity​Value",
         "00240106": "Blind​Spot​Localized",
         "00240107": "Blind​Spot​X​Coordinate",
@@ -7233,7 +7277,8 @@ module.exports.dictionary = {
         "00240112": "Refractive​Parameters​Used​On​Patient​Sequence",
         "00240113": "Measurement​Laterality",
         "00240114": "Ophthalmic​Patient​Clinical​Information​Left​Eye​Sequence",
-        "00240115": "Ophthalmic​Patient​Clinical​Information​Right​Eye​Sequence",
+        "00240115":
+            "Ophthalmic​Patient​Clinical​Information​Right​Eye​Sequence",
         "00240117": "Foveal​Point​Normative​Data​Flag",
         "00240118": "Foveal​Point​Probability​Value",
         "00240120": "Screening​Baseline​Measured",
@@ -7657,7 +7702,8 @@ module.exports.dictionary = {
         "00400270": "Scheduled​Step​Attributes​Sequence",
         "00400275": "Request​Attributes​Sequence",
         "00400280": "Comments​On​The​Performed​Procedure​Step",
-        "00400281": "Performed​Procedure​Step​Discontinuation​Reason​Code​Sequence",
+        "00400281":
+            "Performed​Procedure​Step​Discontinuation​Reason​Code​Sequence",
         "00400293": "Quantity​Sequence",
         "00400294": "Quantity",
         "00400295": "Measuring​Units​Sequence",
@@ -7758,14 +7804,17 @@ module.exports.dictionary = {
         "00404009": "Human​Performer​Code​Sequence",
         "00404010": "Scheduled​Procedure​Step​Modification​Date​Time",
         "00404011": "Expected​Completion​Date​Time",
-        "00404015": "Resulting​General​Purpose​Performed​Procedure​Steps​Sequence",
-        "00404016": "Referenced​General​Purpose​Scheduled​Procedure​Step​Sequence",
+        "00404015":
+            "Resulting​General​Purpose​Performed​Procedure​Steps​Sequence",
+        "00404016":
+            "Referenced​General​Purpose​Scheduled​Procedure​Step​Sequence",
         "00404018": "Scheduled​Workitem​Code​Sequence",
         "00404019": "Performed​Workitem​Code​Sequence",
         "00404020": "Input​Availability​Flag",
         "00404021": "Input​Information​Sequence",
         "00404022": "Relevant​Information​Sequence",
-        "00404023": "Referenced​General​Purpose​Scheduled​Procedure​Step​Transaction​UID",
+        "00404023":
+            "Referenced​General​Purpose​Scheduled​Procedure​Step​Transaction​UID",
         "00404025": "Scheduled​Station​Name​Code​Sequence",
         "00404026": "Scheduled​Station​Class​Code​Sequence",
         "00404027": "Scheduled​Station​Geographic​Location​Code​Sequence",
@@ -8293,7 +8342,8 @@ module.exports.dictionary = {
         "0066002A": "Surface​Count",
         "0066002B": "Referenced​Surface​Sequence",
         "0066002C": "Referenced​Surface​Number",
-        "0066002D": "Segment​Surface​Generation​Algorithm​Identification​Sequence",
+        "0066002D":
+            "Segment​Surface​Generation​Algorithm​Identification​Sequence",
         "0066002E": "Segment​Surface​Source​Instance​Sequence",
         "0066002F": "Algorithm​Family​Code​Sequence",
         "00660030": "Algorithm​Name​Code​Sequence",
@@ -8505,7 +8555,8 @@ module.exports.dictionary = {
         "00700308": "Registration​Sequence",
         "00700309": "Matrix​Registration​Sequence",
         "0070030A": "Matrix​Sequence",
-        "0070030B": "Frame​Of​Reference​To​Displayed​Coordinate​System​Transformation​Matrix",
+        "0070030B":
+            "Frame​Of​Reference​To​Displayed​Coordinate​System​Transformation​Matrix",
         "0070030C": "Frame​Of​Reference​Transformation​Matrix​Type",
         "0070030D": "Registration​Type​Code​Sequence",
         "0070030F": "Fiducial​Description",
@@ -8833,7 +8884,8 @@ module.exports.dictionary = {
         "0078002E": "Implant​Template​Group​Member​ID",
         "00780050": "Three​D​Implant​Template​Group​Member​Matching​Point",
         "00780060": "Three​D​Implant​Template​Group​Member​Matching​Axes",
-        "00780070": "Implant​Template​Group​Member​Matching2D​Coordinates​Sequence",
+        "00780070":
+            "Implant​Template​Group​Member​Matching2D​Coordinates​Sequence",
         "00780090": "Two​D​Implant​Template​Group​Member​Matching​Point",
         "007800A0": "Two​D​Implant​Template​Group​Member​Matching​Axes",
         "007800B0": "Implant​Template​Group​Variation​Dimension​Sequence",
@@ -9167,7 +9219,8 @@ module.exports.dictionary = {
         "300A012C": "Isocenter​Position",
         "300A012E": "Surface​Entry​Point",
         "300A0130": "Source​To​Surface​Distance",
-        "300A0131": "Average​Beam​Dose​Point​Source​To​External​Contour​Distance",
+        "300A0131":
+            "Average​Beam​Dose​Point​Source​To​External​Contour​Distance",
         "300A0132": "Source​To​External​Contour​Distance",
         "300A0133": "External​Contour​Entry​Point",
         "300A0134": "Cumulative​Meterset​Weight",
@@ -9464,7 +9517,8 @@ module.exports.dictionary = {
         "300A0641": "Number​Of​RTBeam​Limiting​Devices",
         "300A0642": "RTBeam​Limiting​Device​Proximal​Distance",
         "300A0643": "RTBeam​Limiting​Device​Distal​Distance",
-        "300A0644": "Parallel​RTBeam​Delimiter​Device​Orientation​Label​Code​Sequence",
+        "300A0644":
+            "Parallel​RTBeam​Delimiter​Device​Orientation​Label​Code​Sequence",
         "300A0645": "Beam​Modifier​Orientation​Angle",
         "300A0646": "Fixed​RTBeam​Delimiter​Device​Sequence",
         "300A0647": "Parallel​RTBeam​Delimiter​Device​Sequence",
@@ -9486,7 +9540,8 @@ module.exports.dictionary = {
         "300A0657": "Number​Of​RTBeam​Limiting​Device​Openings",
         "300A0658": "Radiation​Dosimeter​Unit​Sequence",
         "300A0659": "RTDevice​Distance​Reference​Location​Code​Sequence",
-        "300A065A": "Radiation​Device​Configuration​And​Commissioning​Key​Sequence",
+        "300A065A":
+            "Radiation​Device​Configuration​And​Commissioning​Key​Sequence",
         "300A065B": "Patient​Support​Position​Parameter​Sequence",
         "300A065C": "Patient​Support​Position​Specification​Method",
         "300A065D": "Patient​Support​Position​Device​Parameter​Sequence",
@@ -9587,12 +9642,14 @@ module.exports.dictionary = {
         "300A078B": "Referenced​RT​Treatment​Preparation​Sequence",
         "300A078C": "Referenced​Patient​Setup​Photo​Sequence",
         "300A078D": "Patient​Treatment​Preparation​Method​Code​Sequence",
-        "300A078E": "Patient​Treatment​Preparation​Procedure​Parameter​Description",
+        "300A078E":
+            "Patient​Treatment​Preparation​Procedure​Parameter​Description",
         "300A078F": "Patient​Treatment​Preparation​Device​Sequence",
         "300A0790": "Patient​Treatment​Preparation​Procedure​Sequence",
         "300A0791": "Patient​Treatment​Preparation​Procedure​Code​Sequence",
         "300A0792": "Patient​Treatment​Preparation​Method​Description",
-        "300A0793": "Patient​Treatment​Preparation​Procedure​Parameter​Sequence",
+        "300A0793":
+            "Patient​Treatment​Preparation​Procedure​Parameter​Sequence",
         "300A0794": "Patient​Setup​Photo​Description",
         "300A0795": "Patient​Treatment​Preparation​Procedure​Index",
         "300A0796": "Referenced​Patient​Setup​Procedure​Index",
@@ -9819,14731 +9876,14731 @@ module.exports.dictionary = {
     },
     tagVR: {
         "20000010": {
-            "vr": "IS"
+            vr: "IS"
         },
         "20000020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20000030": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20000040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20000050": {
-            "vr": "LO"
+            vr: "LO"
         },
         "20000060": {
-            "vr": "IS"
+            vr: "IS"
         },
         "20000061": {
-            "vr": "IS"
+            vr: "IS"
         },
         "20000062": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20000063": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20000065": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20000067": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20000069": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20000500": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20000510": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20100010": {
-            "vr": "ST"
+            vr: "ST"
         },
         "20100030": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100050": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100052": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100054": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100060": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100100": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100110": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100120": {
-            "vr": "US"
+            vr: "US"
         },
         "20100130": {
-            "vr": "US"
+            vr: "US"
         },
         "20100140": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20100150": {
-            "vr": "ST"
+            vr: "ST"
         },
         "20100152": {
-            "vr": "LT"
+            vr: "LT"
         },
         "20100154": {
-            "vr": "IS"
+            vr: "IS"
         },
         "20100160": {
-            "vr": "US"
+            vr: "US"
         },
         "20100376": {
-            "vr": "DS"
+            vr: "DS"
         },
         "20100500": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20100510": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20100520": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20200010": {
-            "vr": "US"
+            vr: "US"
         },
         "20200020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20200030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "20200040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20200050": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20200110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20200111": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20200130": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20200140": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20300010": {
-            "vr": "US"
+            vr: "US"
         },
         "20300020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "20400010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20400011": {
-            "vr": "US"
+            vr: "US"
         },
         "20400020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20400060": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20400070": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20400072": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20400074": {
-            "vr": "US"
+            vr: "US"
         },
         "20400080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20400082": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20400090": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20400100": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20400500": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20500010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "20500020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "20500500": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21000010": {
-            "vr": "SH"
+            vr: "SH"
         },
         "21000020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "21000030": {
-            "vr": "CS"
+            vr: "CS"
         },
         "21000040": {
-            "vr": "DA"
+            vr: "DA"
         },
         "21000050": {
-            "vr": "TM"
+            vr: "TM"
         },
         "21000070": {
-            "vr": "AE"
+            vr: "AE"
         },
         "21000140": {
-            "vr": "AE"
+            vr: "AE"
         },
         "21000160": {
-            "vr": "SH"
+            vr: "SH"
         },
         "21000170": {
-            "vr": "IS"
+            vr: "IS"
         },
         "21000500": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21100010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "21100020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "21100030": {
-            "vr": "LO"
+            vr: "LO"
         },
         "21100099": {
-            "vr": "SH"
+            vr: "SH"
         },
         "21200010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "21200050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21200070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21300010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21300015": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21300030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21300040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21300050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21300060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "21300080": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "22000001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "22000002": {
-            "vr": "UT"
+            vr: "UT"
         },
         "22000003": {
-            "vr": "CS"
+            vr: "CS"
         },
         "22000004": {
-            "vr": "LT"
+            vr: "LT"
         },
         "22000005": {
-            "vr": "LT"
+            vr: "LT"
         },
         "22000006": {
-            "vr": "CS"
+            vr: "CS"
         },
         "22000007": {
-            "vr": "CS"
+            vr: "CS"
         },
         "22000008": {
-            "vr": "CS"
+            vr: "CS"
         },
         "22000009": {
-            "vr": "CS"
+            vr: "CS"
         },
         "22000020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30020002": {
-            "vr": "SH"
+            vr: "SH"
         },
         "30020003": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30020004": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30020010": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020011": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020012": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020020": {
-            "vr": "SH"
+            vr: "SH"
         },
         "30020022": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020024": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020026": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020028": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020029": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30020030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30020032": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020034": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30020041": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30020042": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30020050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30020051": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30020052": {
-            "vr": "SH"
+            vr: "SH"
         },
         "30040001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30040002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30040004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30040005": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30040006": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30040008": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30040010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30040012": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30040014": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30040040": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30040042": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30040050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30040052": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30040054": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30040056": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30040058": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30040060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30040062": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30040070": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30040072": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30040074": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30060002": {
-            "vr": "SH"
+            vr: "SH"
         },
         "30060004": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30060006": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30060008": {
-            "vr": "DA"
+            vr: "DA"
         },
         "30060009": {
-            "vr": "TM"
+            vr: "TM"
         },
         "30060010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060014": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060018": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060022": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30060024": {
-            "vr": "UI"
+            vr: "UI"
         },
         "30060026": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30060028": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30060030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060033": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30060036": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30060037": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060038": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30060039": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060042": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30060044": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30060045": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30060046": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30060048": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30060049": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30060050": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30060080": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060082": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30060084": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30060085": {
-            "vr": "SH"
+            vr: "SH"
         },
         "30060086": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30060088": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30080010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080012": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30080014": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30080016": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080021": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080022": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080024": {
-            "vr": "DA"
+            vr: "DA"
         },
         "30080025": {
-            "vr": "TM"
+            vr: "TM"
         },
         "30080030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080032": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080033": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080036": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080037": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080041": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080042": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080044": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080045": {
-            "vr": "FL"
+            vr: "FL"
         },
         "30080046": {
-            "vr": "FL"
+            vr: "FL"
         },
         "30080047": {
-            "vr": "FL"
+            vr: "FL"
         },
         "30080048": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080052": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080054": {
-            "vr": "DA"
+            vr: "DA"
         },
         "30080056": {
-            "vr": "DA"
+            vr: "DA"
         },
         "30080060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080061": {
-            "vr": "AT"
+            vr: "AT"
         },
         "30080062": {
-            "vr": "AT"
+            vr: "AT"
         },
         "30080063": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080064": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080065": {
-            "vr": "AT"
+            vr: "AT"
         },
         "30080066": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30080067": {
-            "vr": "US"
+            vr: "US"
         },
         "30080068": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080072": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080074": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30080076": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080078": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080080": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080082": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080090": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080092": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080105": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30080110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080116": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30080120": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080122": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080130": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080132": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080134": {
-            "vr": "DS"
+            vr: "DS"
         },
         "30080136": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080138": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080140": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080142": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080150": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080152": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080160": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080162": {
-            "vr": "DA"
+            vr: "DA"
         },
         "30080164": {
-            "vr": "TM"
+            vr: "TM"
         },
         "30080166": {
-            "vr": "DA"
+            vr: "DA"
         },
         "30080168": {
-            "vr": "TM"
+            vr: "TM"
         },
         "30080171": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080172": {
-            "vr": "US"
+            vr: "US"
         },
         "30080173": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080200": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30080202": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30080220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080223": {
-            "vr": "IS"
+            vr: "IS"
         },
         "30080224": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30080230": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30080240": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30080250": {
-            "vr": "DA"
+            vr: "DA"
         },
         "30080251": {
-            "vr": "TM"
+            vr: "TM"
         },
         "30100001": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100003": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100004": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100005": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30100006": {
-            "vr": "UI"
+            vr: "UI"
         },
         "30100007": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100009": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100013": {
-            "vr": "UI"
+            vr: "UI"
         },
         "30100014": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100015": {
-            "vr": "UI"
+            vr: "UI"
         },
         "30100016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100017": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30100018": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100019": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100020": {
-            "vr": "US"
+            vr: "US"
         },
         "30100021": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100022": {
-            "vr": "US"
+            vr: "US"
         },
         "30100023": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100024": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100025": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100026": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100027": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100028": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100029": {
-            "vr": "US"
+            vr: "US"
         },
         "30100030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100031": {
-            "vr": "UI"
+            vr: "UI"
         },
         "30100032": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100033": {
-            "vr": "SH"
+            vr: "SH"
         },
         "30100034": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30100035": {
-            "vr": "SH"
+            vr: "SH"
         },
         "30100036": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30100037": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30100038": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30100039": {
-            "vr": "US"
+            vr: "US"
         },
         "30100040": {
-            "vr": "US"
+            vr: "US"
         },
         "30100041": {
-            "vr": "US"
+            vr: "US"
         },
         "30100042": {
-            "vr": "US"
+            vr: "US"
         },
         "30100043": {
-            "vr": "ST"
+            vr: "ST"
         },
         "30100044": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100045": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100046": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100047": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100048": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100049": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100050": {
-            "vr": "FD"
+            vr: "FD"
         },
         "30100051": {
-            "vr": "FD"
+            vr: "FD"
         },
         "30100052": {
-            "vr": "UI"
+            vr: "UI"
         },
         "30100053": {
-            "vr": "UI"
+            vr: "UI"
         },
         "30100054": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30100055": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100056": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30100057": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100058": {
-            "vr": "US"
+            vr: "US"
         },
         "30100059": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100061": {
-            "vr": "UT"
+            vr: "UT"
         },
         "30100062": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100063": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100064": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100065": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100066": {
-            "vr": "US"
+            vr: "US"
         },
         "30100067": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100068": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100069": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100071": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100073": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100074": {
-            "vr": "FD"
+            vr: "FD"
         },
         "30100075": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100076": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100077": {
-            "vr": "LO"
+            vr: "LO"
         },
         "30100078": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100079": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100080": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100081": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100082": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100083": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100084": {
-            "vr": "FD"
+            vr: "FD"
         },
         "30100085": {
-            "vr": "TM"
+            vr: "TM"
         },
         "30100086": {
-            "vr": "LT"
+            vr: "LT"
         },
         "30100087": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100088": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100089": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100090": {
-            "vr": "CS"
+            vr: "CS"
         },
         "30100091": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100092": {
-            "vr": "UL"
+            vr: "UL"
         },
         "30100093": {
-            "vr": "FD"
+            vr: "FD"
         },
         "30100094": {
-            "vr": "FD"
+            vr: "FD"
         },
         "30100095": {
-            "vr": "FD"
+            vr: "FD"
         },
         "30100096": {
-            "vr": "FD"
+            vr: "FD"
         },
         "30100097": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100098": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "30100099": {
-            "vr": "FD"
+            vr: "FD"
         },
         "40000010": {
-            "vr": "LT"
+            vr: "LT"
         },
         "40004000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "40080040": {
-            "vr": "SH"
+            vr: "SH"
         },
         "40080042": {
-            "vr": "LO"
+            vr: "LO"
         },
         "40080050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40080100": {
-            "vr": "DA"
+            vr: "DA"
         },
         "40080101": {
-            "vr": "TM"
+            vr: "TM"
         },
         "40080102": {
-            "vr": "PN"
+            vr: "PN"
         },
         "40080103": {
-            "vr": "LO"
+            vr: "LO"
         },
         "40080108": {
-            "vr": "DA"
+            vr: "DA"
         },
         "40080109": {
-            "vr": "TM"
+            vr: "TM"
         },
         "40080111": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40080112": {
-            "vr": "DA"
+            vr: "DA"
         },
         "40080113": {
-            "vr": "TM"
+            vr: "TM"
         },
         "40080114": {
-            "vr": "PN"
+            vr: "PN"
         },
         "40080115": {
-            "vr": "LT"
+            vr: "LT"
         },
         "40080117": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40080118": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40080119": {
-            "vr": "PN"
+            vr: "PN"
         },
         "40080200": {
-            "vr": "SH"
+            vr: "SH"
         },
         "40080202": {
-            "vr": "LO"
+            vr: "LO"
         },
         "40080210": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40080212": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40080300": {
-            "vr": "ST"
+            vr: "ST"
         },
         "40084000": {
-            "vr": "ST"
+            vr: "ST"
         },
         "40100001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40100002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40100004": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101001": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101004": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101005": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101006": {
-            "vr": "OB"
+            vr: "OB"
         },
         "40101007": {
-            "vr": "SH"
+            vr: "SH"
         },
         "40101008": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101009": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101010": {
-            "vr": "US"
+            vr: "US"
         },
         "40101011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101012": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101013": {
-            "vr": "LT"
+            vr: "LT"
         },
         "40101014": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101015": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101016": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101017": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101018": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101019": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101021": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101023": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101024": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101025": {
-            "vr": "DT"
+            vr: "DT"
         },
         "40101026": {
-            "vr": "DT"
+            vr: "DT"
         },
         "40101027": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101028": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101029": {
-            "vr": "LO"
+            vr: "LO"
         },
         "40101031": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101033": {
-            "vr": "US"
+            vr: "US"
         },
         "40101034": {
-            "vr": "US"
+            vr: "US"
         },
         "40101037": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101038": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101039": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101041": {
-            "vr": "DT"
+            vr: "DT"
         },
         "40101042": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101043": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101044": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101045": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101046": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101047": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101048": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101051": {
-            "vr": "LO"
+            vr: "LO"
         },
         "40101052": {
-            "vr": "SH"
+            vr: "SH"
         },
         "40101053": {
-            "vr": "LO"
+            vr: "LO"
         },
         "40101054": {
-            "vr": "SH"
+            vr: "SH"
         },
         "40101055": {
-            "vr": "SH"
+            vr: "SH"
         },
         "40101056": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101058": {
-            "vr": "SH"
+            vr: "SH"
         },
         "40101059": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101060": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101061": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101062": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101064": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101067": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101068": {
-            "vr": "LT"
+            vr: "LT"
         },
         "40101069": {
-            "vr": "FL"
+            vr: "FL"
         },
         "40101070": {
-            "vr": "CS"
+            vr: "CS"
         },
         "40101071": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101072": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101073": {
-            "vr": "FD"
+            vr: "FD"
         },
         "40101075": {
-            "vr": "DS"
+            vr: "DS"
         },
         "40101076": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101077": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "40101078": {
-            "vr": "ST"
+            vr: "ST"
         },
         "40101079": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "52009229": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "52009230": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "54000100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "54000110": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "54000112": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "54001004": {
-            "vr": "US"
+            vr: "US"
         },
         "54001006": {
-            "vr": "CS"
+            vr: "CS"
         },
         "54001010": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "56000010": {
-            "vr": "OF"
+            vr: "OF"
         },
         "56000020": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00080001": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00080005": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080006": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080008": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080010": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00080012": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00080013": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00080014": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080015": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00080016": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080017": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080018": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080019": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0008001A": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0008001B": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080020": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00080021": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00080022": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00080023": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00080024": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00080025": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0008002A": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00080030": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00080031": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00080032": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00080033": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00080034": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00080035": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00080040": {
-            "vr": "US"
+            vr: "US"
         },
         "00080041": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080042": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080050": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00080051": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080052": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080053": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080054": {
-            "vr": "AE"
+            vr: "AE"
         },
         "00080055": {
-            "vr": "AE"
+            vr: "AE"
         },
         "00080056": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080058": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080060": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080061": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080062": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080063": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080064": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080068": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080070": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080080": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080081": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00080082": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080090": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00080092": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00080094": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00080096": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008009C": {
-            "vr": "PN"
+            vr: "PN"
         },
         "0008009D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080100": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00080101": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080102": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00080103": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00080104": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080105": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080106": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00080107": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00080108": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00080109": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008010A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0008010B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0008010C": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0008010D": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0008010E": {
-            "vr": "UR"
+            vr: "UR"
         },
         "0008010F": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080112": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080114": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00080115": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00080116": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00080117": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080118": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00080119": {
-            "vr": "UC"
+            vr: "UC"
         },
         "00080120": {
-            "vr": "UR"
+            vr: "UR"
         },
         "00080121": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080122": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080123": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080124": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080201": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00080202": {
-            "vr": ""
+            vr: ""
         },
         "00080220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080221": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080222": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080300": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080301": {
-            "vr": "US"
+            vr: "US"
         },
         "00080302": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00080303": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080304": {
-            "vr": "US"
+            vr: "US"
         },
         "00080306": {
-            "vr": "US"
+            vr: "US"
         },
         "00080305": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00080307": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00080308": {
-            "vr": "US"
+            vr: "US"
         },
         "00080309": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0008030A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0008030B": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0008030C": {
-            "vr": "UC"
+            vr: "UC"
         },
         "0008030D": {
-            "vr": "UC"
+            vr: "UC"
         },
         "0008030E": {
-            "vr": "UT"
+            vr: "UT"
         },
         "0008030F": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00080310": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081000": {
-            "vr": "AE"
+            vr: "AE"
         },
         "00081010": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00081030": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00081032": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008103E": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0008103F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081040": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00081041": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081048": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00081049": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081050": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00081052": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081060": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00081062": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081070": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00081072": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081080": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00081084": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081088": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00081090": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00081100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081111": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081115": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081120": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081125": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081130": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081134": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008113A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081140": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081145": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008114A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008114B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081150": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00081155": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00081156": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008115A": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00081160": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00081161": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00081162": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00081163": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00081164": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081167": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00081190": {
-            "vr": "UR"
+            vr: "UR"
         },
         "00081195": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00081196": {
-            "vr": "US"
+            vr: "US"
         },
         "00081197": {
-            "vr": "US"
+            vr: "US"
         },
         "00081198": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081199": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008119A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081200": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00081250": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082110": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00082111": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00082112": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082120": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00082122": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00082124": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00082127": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00082128": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00082129": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0008212A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00082130": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00082132": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00082133": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082134": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00082135": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082142": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00082143": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00082144": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00082200": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00082204": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00082208": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00082218": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082228": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082229": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082230": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082240": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082242": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082244": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082246": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082251": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082253": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082255": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082256": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00082257": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00082258": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00082259": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008225A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0008225C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00083001": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00083002": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00083010": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00083011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00083012": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00084000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00089007": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00089092": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00089121": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00089123": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00089124": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00089154": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00089205": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00089206": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00089207": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00089208": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00089209": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00089215": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00089237": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00089410": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00089458": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00089459": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00089460": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00100010": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00100020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00100021": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00100022": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00100024": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100026": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100027": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100028": {
-            "vr": "US"
+            vr: "US"
         },
         "00100030": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00100032": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00100033": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00100034": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00100035": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00100040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00100050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100101": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100102": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100200": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00100201": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100212": {
-            "vr": "UC"
+            vr: "UC"
         },
         "00100213": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00100214": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00100215": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100216": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100217": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00100218": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00100219": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100221": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00100222": {
-            "vr": "UC"
+            vr: "UC"
         },
         "00100223": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00100229": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00101000": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00101001": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00101002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00101005": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00101010": {
-            "vr": "AS"
+            vr: "AS"
         },
         "00101020": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00101021": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00101022": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00101023": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00101024": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00101030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00101040": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00101050": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00101060": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00101080": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00101081": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00101090": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00101100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00102000": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00102110": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00102150": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00102152": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00102154": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00102155": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00102160": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00102180": {
-            "vr": "SH"
+            vr: "SH"
         },
         "001021A0": {
-            "vr": "CS"
+            vr: "CS"
         },
         "001021B0": {
-            "vr": "LT"
+            vr: "LT"
         },
         "001021C0": {
-            "vr": "US"
+            vr: "US"
         },
         "001021D0": {
-            "vr": "DA"
+            vr: "DA"
         },
         "001021F0": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00102201": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00102202": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00102203": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00102210": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00102292": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00102293": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00102294": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00102295": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00102296": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00102297": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00102298": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00102299": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00104000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00109431": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00120010": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120021": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120030": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120031": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120040": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120042": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120050": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120051": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00120052": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00120053": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00120060": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120062": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00120063": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120064": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00120071": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120072": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120081": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120082": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00120083": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00120084": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00120085": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00120086": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00120087": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00140023": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00140024": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00140025": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00140028": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00140030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00140032": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00140034": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00140042": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00140044": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00140045": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00140046": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00140050": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00140052": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00140054": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00140056": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00140100": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00140101": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00140102": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00140103": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00140104": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00140105": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00140106": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00140107": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00140108": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00141010": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00141020": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00141040": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00142002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00142004": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00142006": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00142008": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00142012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00142014": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00142016": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00142018": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0014201A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0014201C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0014201E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00142030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00142032": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00142202": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00142204": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00142206": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00142208": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0014220A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0014220C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0014220E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00142210": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00142220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00142222": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00142224": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00142226": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00142228": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0014222A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014222C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143011": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143012": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00143022": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00143024": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143026": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143028": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00143050": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "00143060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00143070": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "00143071": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143072": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143073": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143074": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00143075": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00143076": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00143077": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00143080": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00143099": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00143100": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00143101": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00144002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00144006": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00144008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0014400A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0014400C": {
-            "vr": "LT"
+            vr: "LT"
         },
         "0014400E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0014400F": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00144010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144012": {
-            "vr": "US"
+            vr: "US"
         },
         "00144013": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00144014": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144015": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144016": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144017": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144018": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144019": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014401A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014401B": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014401C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014401D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144022": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144024": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144026": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00144028": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144031": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144032": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00144033": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00144034": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144035": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144036": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00144038": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014403A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014403C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144051": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144052": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144054": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00144056": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00144057": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144058": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144059": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014405A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014405C": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00144060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144062": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144064": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144072": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00144074": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00144076": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00144078": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0014407A": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0014407C": {
-            "vr": "TM"
+            vr: "TM"
         },
         "0014407E": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00144080": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144081": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00144082": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00144083": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144084": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144085": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144086": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144087": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144088": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144089": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014408B": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014408C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014408D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014408E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00144091": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00144092": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014409A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0014409B": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0014409C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014409D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014409F": {
-            "vr": "DS"
+            vr: "DS"
         },
         "001440A0": {
-            "vr": "LO"
+            vr: "LO"
         },
         "001440A1": {
-            "vr": "LO"
+            vr: "LO"
         },
         "001440A2": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00145002": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00145004": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00145100": {
-            "vr": "US"
+            vr: "US"
         },
         "00145101": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145102": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145103": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145104": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145105": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00145106": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00145107": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145108": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145109": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0014510A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014510B": {
-            "vr": "SH"
+            vr: "SH"
         },
         "0014510C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014510D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014510E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014510F": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00145110": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00145111": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00145112": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145113": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145114": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145115": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145116": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145117": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145118": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00145119": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014511A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014511B": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014511C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014511D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0014511E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0014511F": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160001": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160002": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160003": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00160004": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160005": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160006": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00160007": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00160008": {
-            "vr": "UC"
+            vr: "UC"
         },
         "00160009": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0016000A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016000B": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016000C": {
-            "vr": "UC"
+            vr: "UC"
         },
         "0016000D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0016000E": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016000F": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00160010": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160011": {
-            "vr": "US"
+            vr: "US"
         },
         "00160012": {
-            "vr": "US"
+            vr: "US"
         },
         "00160013": {
-            "vr": "US"
+            vr: "US"
         },
         "00160014": {
-            "vr": "US"
+            vr: "US"
         },
         "00160015": {
-            "vr": "US"
+            vr: "US"
         },
         "00160016": {
-            "vr": "US"
+            vr: "US"
         },
         "00160017": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00160018": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00160019": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016001A": {
-            "vr": "US"
+            vr: "US"
         },
         "0016001B": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016001C": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016001D": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016001E": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016001F": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00160020": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00160021": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160022": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160023": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160024": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160025": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160026": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160027": {
-            "vr": "US"
+            vr: "US"
         },
         "00160028": {
-            "vr": "US"
+            vr: "US"
         },
         "00160029": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0016002A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0016002B": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00160030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160031": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160032": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160033": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160034": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160035": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160036": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160037": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00160038": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160039": {
-            "vr": "US"
+            vr: "US"
         },
         "0016003A": {
-            "vr": "US"
+            vr: "US"
         },
         "0016003B": {
-            "vr": "US"
+            vr: "US"
         },
         "00160041": {
-            "vr": "US"
+            vr: "US"
         },
         "00160042": {
-            "vr": "US"
+            vr: "US"
         },
         "00160043": {
-            "vr": "US"
+            vr: "US"
         },
         "00160044": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160045": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00160046": {
-            "vr": "US"
+            vr: "US"
         },
         "00160047": {
-            "vr": "US"
+            vr: "US"
         },
         "00160048": {
-            "vr": "US"
+            vr: "US"
         },
         "00160049": {
-            "vr": "US"
+            vr: "US"
         },
         "0016004A": {
-            "vr": "US"
+            vr: "US"
         },
         "0016004B": {
-            "vr": "OB"
+            vr: "OB"
         },
         "0016004C": {
-            "vr": "US"
+            vr: "US"
         },
         "0016004D": {
-            "vr": "UT"
+            vr: "UT"
         },
         "0016004E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0016004F": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00160050": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00160051": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00160061": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00160062": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00160070": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00160071": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00160072": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160073": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00160074": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160075": {
-            "vr": "US"
+            vr: "US"
         },
         "00160076": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160077": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00160078": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00160079": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0016007A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0016007B": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0016007C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0016007D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0016007E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0016007F": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00160081": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160082": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00160083": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00160084": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160085": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00160086": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160087": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00160088": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00160089": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0016008A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0016008B": {
-            "vr": "OB"
+            vr: "OB"
         },
         "0016008C": {
-            "vr": "OB"
+            vr: "OB"
         },
         "0016008D": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0016008E": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00161001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00161002": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00161003": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00161004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00161005": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180010": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00180012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00180013": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00180014": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00180015": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180021": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180022": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180023": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180024": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00180025": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180026": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00180027": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00180028": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180029": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018002A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00180030": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00180031": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00180032": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180033": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180034": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00180035": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00180036": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00180037": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180038": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180039": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018003A": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00180040": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00180042": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180050": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180060": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180061": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180070": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00180071": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180072": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180073": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00180074": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00180075": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00180080": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180081": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180082": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180083": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180084": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180085": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00180086": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00180087": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180088": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180089": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00180090": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180091": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00180093": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180094": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00180095": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181000": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181002": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00181003": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181004": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181005": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181006": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181007": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181008": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181009": {
-            "vr": "UT"
+            vr: "UT"
         },
         "0018100A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018100B": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00181010": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181011": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181012": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00181014": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00181016": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181017": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181018": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181019": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0018101A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0018101B": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181022": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00181023": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181030": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181040": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181041": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181042": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00181043": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00181044": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181045": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181046": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181047": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181048": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181049": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181050": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181060": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181061": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181062": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181063": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181064": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181065": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181066": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181067": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181068": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181069": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0018106A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018106C": {
-            "vr": "US"
+            vr: "US"
         },
         "0018106E": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00181070": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181071": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181072": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00181073": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00181074": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181075": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181076": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181077": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181078": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00181079": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00181080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181081": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181082": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181083": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181084": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181085": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181086": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181088": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181090": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181094": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181100": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181110": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181111": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181114": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181120": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181121": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181130": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181131": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181134": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181135": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181136": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181137": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181138": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0018113A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181140": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181141": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181142": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181143": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181144": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181145": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181146": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181147": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181149": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181150": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181151": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181152": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181153": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181154": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181155": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181156": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018115A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018115E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181160": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00181161": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181162": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181164": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181166": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181170": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181180": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00181181": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181182": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181183": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181184": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181190": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181191": {
-            "vr": "CS"
+            vr: "CS"
         },
         "001811A0": {
-            "vr": "DS"
+            vr: "DS"
         },
         "001811A2": {
-            "vr": "DS"
+            vr: "DS"
         },
         "001811A3": {
-            "vr": "DS"
+            vr: "DS"
         },
         "001811A4": {
-            "vr": "LO"
+            vr: "LO"
         },
         "001811A5": {
-            "vr": "DS"
+            vr: "DS"
         },
         "001811B0": {
-            "vr": "LO"
+            vr: "LO"
         },
         "001811B1": {
-            "vr": "LO"
+            vr: "LO"
         },
         "001811B2": {
-            "vr": "CS"
+            vr: "CS"
         },
         "001811B3": {
-            "vr": "CS"
+            vr: "CS"
         },
         "001811B4": {
-            "vr": "CS"
+            vr: "CS"
         },
         "001811B5": {
-            "vr": "IS"
+            vr: "IS"
         },
         "001811B6": {
-            "vr": "CS"
+            vr: "CS"
         },
         "001811B7": {
-            "vr": "FD"
+            vr: "FD"
         },
         "001811B8": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "001811B9": {
-            "vr": "FD"
+            vr: "FD"
         },
         "001811BA": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "001811BB": {
-            "vr": "LO"
+            vr: "LO"
         },
         "001811BC": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "001811BD": {
-            "vr": "FD"
+            vr: "FD"
         },
         "001811BE": {
-            "vr": "CS"
+            vr: "CS"
         },
         "001811BF": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "001811C0": {
-            "vr": "CS"
+            vr: "CS"
         },
         "001811C1": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00181200": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00181201": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00181202": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00181203": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00181210": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00181240": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181242": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181243": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181244": {
-            "vr": "US"
+            vr: "US"
         },
         "00181250": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00181251": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00181260": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00181261": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181271": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00181272": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00181300": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181301": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181302": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181310": {
-            "vr": "US"
+            vr: "US"
         },
         "00181312": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181314": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181315": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181316": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181318": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181320": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00181400": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181401": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00181402": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181403": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181404": {
-            "vr": "US"
+            vr: "US"
         },
         "00181405": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181411": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181412": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181413": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181450": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181460": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181470": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181480": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181490": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181491": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181495": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181500": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181508": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181510": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181511": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181520": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181521": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181530": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181531": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00181600": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181602": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181604": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181606": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181608": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181610": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181612": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181620": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181622": {
-            "vr": "US"
+            vr: "US"
         },
         "00181623": {
-            "vr": "US"
+            vr: "US"
         },
         "00181624": {
-            "vr": "US"
+            vr: "US"
         },
         "00181630": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181631": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00181632": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00181633": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00181634": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00181635": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00181636": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00181637": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00181638": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00181700": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181702": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181704": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181706": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181708": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181710": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181712": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181720": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00181800": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181801": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00181802": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00181803": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00182001": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00182002": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00182003": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00182004": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00182005": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00182006": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00182010": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00182020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00182030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00182041": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00182042": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00182043": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00182044": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00182045": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00182046": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00183100": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00183101": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00183102": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00183103": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00183104": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00183105": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00184000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00185000": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00185010": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00185011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00185012": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00185021": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00185022": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185024": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185026": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185027": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185028": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185029": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185040": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185050": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00185100": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00185101": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00185104": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00185210": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00185212": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00186000": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00186011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00186012": {
-            "vr": "US"
+            vr: "US"
         },
         "00186014": {
-            "vr": "US"
+            vr: "US"
         },
         "00186016": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186018": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018601A": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018601C": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018601E": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186020": {
-            "vr": "SL"
+            vr: "SL"
         },
         "00186022": {
-            "vr": "SL"
+            vr: "SL"
         },
         "00186024": {
-            "vr": "US"
+            vr: "US"
         },
         "00186026": {
-            "vr": "US"
+            vr: "US"
         },
         "00186028": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0018602A": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0018602C": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0018602E": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00186030": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186031": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00186032": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186034": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00186036": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00186038": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186039": {
-            "vr": "SL"
+            vr: "SL"
         },
         "0018603A": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018603B": {
-            "vr": "SL"
+            vr: "SL"
         },
         "0018603C": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018603D": {
-            "vr": "SL"
+            vr: "SL"
         },
         "0018603E": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018603F": {
-            "vr": "SL"
+            vr: "SL"
         },
         "00186040": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186041": {
-            "vr": "SL"
+            vr: "SL"
         },
         "00186042": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186043": {
-            "vr": "SL"
+            vr: "SL"
         },
         "00186044": {
-            "vr": "US"
+            vr: "US"
         },
         "00186046": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186048": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018604A": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018604C": {
-            "vr": "US"
+            vr: "US"
         },
         "0018604E": {
-            "vr": "US"
+            vr: "US"
         },
         "00186050": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186052": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186054": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00186056": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00186058": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0018605A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00186060": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00186070": {
-            "vr": "US"
+            vr: "US"
         },
         "00187000": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00187001": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00187005": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00187006": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00187008": {
-            "vr": "LT"
+            vr: "LT"
         },
         "0018700A": {
-            "vr": "SH"
+            vr: "SH"
         },
         "0018700C": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0018700E": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00187010": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00187011": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00187012": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187014": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187016": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0018701A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187020": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187022": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187024": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00187026": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187028": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0018702A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0018702B": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00187030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187032": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187034": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00187036": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00187038": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00187040": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00187041": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00187042": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187044": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187046": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00187048": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0018704C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187050": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00187052": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187054": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00187056": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00187058": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00187060": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00187062": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00187064": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00187065": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00188150": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00188151": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00189004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189005": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00189006": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189008": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189009": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189011": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189012": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189014": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189015": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189016": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189017": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189018": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189019": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189021": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189022": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189024": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189025": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189026": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189027": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189028": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189029": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189030": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189032": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189033": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189034": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189035": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189036": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189037": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189041": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189042": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189043": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189044": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189045": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189046": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189047": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00189048": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189049": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189050": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189051": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189052": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189053": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189054": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189058": {
-            "vr": "US"
+            vr: "US"
         },
         "00189059": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189060": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189061": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189062": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189063": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189064": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189065": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189066": {
-            "vr": "US"
+            vr: "US"
         },
         "00189067": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189069": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189070": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189073": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189074": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00189075": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189076": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189077": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189078": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189079": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189080": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00189081": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189082": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189083": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189084": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189085": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189087": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189089": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189090": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189091": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189092": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189093": {
-            "vr": "US"
+            vr: "US"
         },
         "00189094": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189095": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00189096": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189098": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189100": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189101": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189103": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189104": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189105": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189106": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189107": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189112": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189114": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189115": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189117": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189118": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189119": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189125": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189126": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189127": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00189147": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189151": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00189152": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189155": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189159": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00189166": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189168": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189169": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189170": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189171": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189172": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189173": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189174": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189175": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189176": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189177": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189178": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189179": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189180": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189181": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189182": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189183": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189184": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189185": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00189186": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00189195": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189196": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189197": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189198": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189199": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189200": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189214": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189217": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189218": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189219": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189220": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189226": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189227": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189231": {
-            "vr": "US"
+            vr: "US"
         },
         "00189232": {
-            "vr": "US"
+            vr: "US"
         },
         "00189234": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00189236": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189239": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189240": {
-            "vr": "US"
+            vr: "US"
         },
         "00189241": {
-            "vr": "US"
+            vr: "US"
         },
         "00189250": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189251": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189252": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189253": {
-            "vr": "US"
+            vr: "US"
         },
         "00189254": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189255": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189256": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189257": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189258": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00189259": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018925A": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0018925B": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0018925C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018925D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018925E": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0018925F": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00189260": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189295": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189296": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189297": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189298": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00189301": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189302": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189303": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189304": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189305": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189306": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189307": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189308": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189309": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189310": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189311": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189312": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189313": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189314": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189315": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189316": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189317": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189318": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189319": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189320": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00189321": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189322": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189323": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189324": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189325": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189326": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189327": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189328": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189329": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189330": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189332": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189333": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189334": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189335": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189337": {
-            "vr": "US"
+            vr: "US"
         },
         "00189338": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189340": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189341": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189342": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189343": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189344": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189345": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189346": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189351": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189352": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189353": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189360": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189361": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189362": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189363": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189364": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189365": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189366": {
-            "vr": "US"
+            vr: "US"
         },
         "00189367": {
-            "vr": "UC"
+            vr: "UC"
         },
         "00189368": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189369": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0018936A": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0018936B": {
-            "vr": "US"
+            vr: "US"
         },
         "0018936C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0018936D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0018936E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0018936F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189370": {
-            "vr": "US"
+            vr: "US"
         },
         "00189371": {
-            "vr": "UC"
+            vr: "UC"
         },
         "00189372": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189373": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00189374": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00189375": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00189376": {
-            "vr": "US"
+            vr: "US"
         },
         "00189377": {
-            "vr": "US"
+            vr: "US"
         },
         "00189378": {
-            "vr": "US"
+            vr: "US"
         },
         "00189379": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018937A": {
-            "vr": "US"
+            vr: "US"
         },
         "0018937B": {
-            "vr": "UT"
+            vr: "UT"
         },
         "0018937C": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0018937D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018937E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018937F": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00189380": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189381": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189382": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189383": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00189384": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00189401": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189402": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189403": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189404": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189405": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189406": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189407": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189410": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189412": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189417": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189420": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189423": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189424": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00189425": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189426": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189427": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189428": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189429": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189430": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189432": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189433": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189434": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189435": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189436": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189437": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189438": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189439": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189440": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189441": {
-            "vr": "US"
+            vr: "US"
         },
         "00189442": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189445": {
-            "vr": ""
+            vr: ""
         },
         "00189447": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189449": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189451": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189452": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189455": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189456": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189457": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189461": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189462": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189463": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189464": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189465": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189466": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189467": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189468": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189469": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189470": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189471": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189472": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189473": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189474": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189476": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189477": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189504": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189506": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189507": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189508": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189509": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189510": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189511": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189514": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189515": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00189516": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00189517": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00189518": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189519": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00189524": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189525": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189526": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189527": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189528": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189530": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189531": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189538": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189541": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189542": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189543": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189544": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189545": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189546": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189547": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189548": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189549": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189550": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189551": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189552": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189553": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189554": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189555": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189556": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189557": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189558": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189559": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189601": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189602": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189603": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189604": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189605": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189606": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189607": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189621": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189622": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189623": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00189624": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189701": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00189715": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189716": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189717": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189718": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189719": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189720": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189721": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189722": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189723": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189724": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189725": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189726": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189727": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189729": {
-            "vr": "US"
+            vr: "US"
         },
         "00189732": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189733": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189734": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189735": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189736": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189737": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189738": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189739": {
-            "vr": "US"
+            vr: "US"
         },
         "00189740": {
-            "vr": "US"
+            vr: "US"
         },
         "00189749": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189751": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189755": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189756": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189758": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189759": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189760": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189761": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189762": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189763": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189764": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189765": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189766": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189767": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189768": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189769": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189770": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189771": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189772": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189801": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189803": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189804": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00189805": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189806": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189807": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189808": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189809": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018980B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018980C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018980D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018980E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018980F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189810": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00189900": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189901": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00189902": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189903": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189904": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00189905": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189906": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189907": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189908": {
-            "vr": "UC"
+            vr: "UC"
         },
         "00189909": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018990A": {
-            "vr": "UC"
+            vr: "UC"
         },
         "0018990B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018990C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018990D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018990E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018990F": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00189910": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00189911": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189912": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189913": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189914": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189915": {
-            "vr": "US"
+            vr: "US"
         },
         "00189916": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189917": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00189918": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189919": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0018991A": {
-            "vr": "UT"
+            vr: "UT"
         },
         "0018991B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018991C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018991D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018991E": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0018991F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189920": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189921": {
-            "vr": "US"
+            vr: "US"
         },
         "00189922": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189923": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00189924": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00189930": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189931": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189932": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189933": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189934": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189935": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189936": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189937": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00189938": {
-            "vr": "US"
+            vr: "US"
         },
         "00189939": {
-            "vr": "US"
+            vr: "US"
         },
         "0018993A": {
-            "vr": "US"
+            vr: "US"
         },
         "0018993B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018993C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018993D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018993E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00189941": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00189942": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189943": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189944": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00189945": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189946": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00189947": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0018A001": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0018A002": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0018A003": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0020000D": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0020000E": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00200010": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00200011": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200012": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200013": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200014": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200015": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200016": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200017": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200018": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200019": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00200022": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200024": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200026": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200027": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00200030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00200032": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00200035": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00200037": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00200050": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00200052": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00200060": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00200062": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00200070": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00200080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "002000AA": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200100": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200105": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00200110": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00200200": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00200242": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00201000": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201001": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201002": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201003": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201004": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201005": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0020103F": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00201040": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00201041": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00201070": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201200": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201202": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201204": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201206": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201208": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00201209": {
-            "vr": "IS"
+            vr: "IS"
         },
         "002031xx": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00203401": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00203402": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00203403": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00203404": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00203405": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00203406": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00204000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00205000": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00205002": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00209056": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00209057": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00209071": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209072": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00209111": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209113": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209116": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209128": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00209153": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209154": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00209155": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00209156": {
-            "vr": "US"
+            vr: "US"
         },
         "00209157": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00209158": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00209161": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00209162": {
-            "vr": "US"
+            vr: "US"
         },
         "00209163": {
-            "vr": "US"
+            vr: "US"
         },
         "00209164": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00209165": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00209167": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00209170": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209171": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209172": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209213": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00209221": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209222": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209228": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00209238": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00209241": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00209245": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00209246": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00209247": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00209248": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00209249": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00209250": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00209251": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209252": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209253": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209254": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209255": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209256": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209257": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209301": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209302": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209307": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00209308": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00209309": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0020930A": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0020930B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0020930C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0020930D": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0020930E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0020930F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209310": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209311": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00209312": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00209313": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00209421": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00209450": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209453": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00209518": {
-            "vr": "US"
+            vr: "US"
         },
         "00209529": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00209536": {
-            "vr": "US"
+            vr: "US"
         },
         "00220001": {
-            "vr": "US"
+            vr: "US"
         },
         "00220002": {
-            "vr": "US"
+            vr: "US"
         },
         "00220003": {
-            "vr": "US"
+            vr: "US"
         },
         "00220004": {
-            "vr": "US"
+            vr: "US"
         },
         "00220005": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00220006": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220007": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220008": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220009": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0022000A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0022000B": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0022000C": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0022000D": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0022000E": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220010": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220011": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220012": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220013": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220014": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220015": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220017": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220018": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220019": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0022001A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0022001B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0022001C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0022001D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0022001E": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220021": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220022": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220028": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00220030": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220031": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220032": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220035": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220036": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220037": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220038": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220039": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00220041": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220042": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00220048": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220049": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0022004E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00220055": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220056": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220057": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00220058": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221007": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221009": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221019": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221024": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221025": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221028": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221029": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221033": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221035": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221036": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221037": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221039": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221044": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221045": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221046": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221047": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221048": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221049": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0022104A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0022104B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221053": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221054": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221059": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221065": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221066": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221090": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221092": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221093": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221094": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221095": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221096": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221097": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221101": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221103": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221121": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221122": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221125": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221127": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221128": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0022112A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0022112B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0022112C": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00221130": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221131": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221132": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221133": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221134": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221135": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221140": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221150": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221153": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221155": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221159": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221210": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221211": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221212": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221225": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221230": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221250": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221255": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221257": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221260": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221262": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221265": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221273": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221300": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221310": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221330": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221415": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221420": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221423": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221436": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221443": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221445": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221450": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221452": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00221454": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221458": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221460": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221463": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221465": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221466": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221467": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221468": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221470": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221472": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221512": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221513": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221515": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221517": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221518": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221525": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221526": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221527": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221528": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221529": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221530": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00221531": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00221612": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221615": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221616": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00221618": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221620": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221622": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00221624": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221626": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221628": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221630": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00221640": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00221642": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00221643": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221644": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221645": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221646": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221649": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221650": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00221658": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00240010": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240011": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240012": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240018": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240020": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240021": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240024": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240025": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240028": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240032": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240033": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240034": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240035": {
-            "vr": "US"
+            vr: "US"
         },
         "00240036": {
-            "vr": "US"
+            vr: "US"
         },
         "00240037": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240038": {
-            "vr": "US"
+            vr: "US"
         },
         "00240039": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240042": {
-            "vr": "US"
+            vr: "US"
         },
         "00240044": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00240045": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240046": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240048": {
-            "vr": "US"
+            vr: "US"
         },
         "00240050": {
-            "vr": "US"
+            vr: "US"
         },
         "00240051": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240052": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240053": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240054": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240055": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240056": {
-            "vr": "US"
+            vr: "US"
         },
         "00240057": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240058": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240059": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240060": {
-            "vr": "US"
+            vr: "US"
         },
         "00240061": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240062": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240063": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240064": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240065": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240066": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240067": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240068": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240069": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00240070": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240071": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240072": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240073": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240074": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240075": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240076": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240077": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240078": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240079": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240081": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240083": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240085": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240086": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240087": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240088": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240089": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240090": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240091": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240092": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240093": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240094": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240095": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240096": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240097": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240098": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240100": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240102": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240103": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240104": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240105": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240106": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240107": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240108": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240112": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240113": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240114": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240115": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240117": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240118": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240120": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240122": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240124": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240126": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240202": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00240306": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00240307": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00240308": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00240309": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00240317": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240320": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240325": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00240338": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00240341": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00240344": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00280002": {
-            "vr": "US"
+            vr: "US"
         },
         "00280003": {
-            "vr": "US"
+            vr: "US"
         },
         "00280004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280005": {
-            "vr": "US"
+            vr: "US"
         },
         "00280006": {
-            "vr": "US"
+            vr: "US"
         },
         "00280008": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00280009": {
-            "vr": "AT"
+            vr: "AT"
         },
         "0028000A": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00280010": {
-            "vr": "US"
+            vr: "US"
         },
         "00280011": {
-            "vr": "US"
+            vr: "US"
         },
         "00280012": {
-            "vr": "US"
+            vr: "US"
         },
         "00280014": {
-            "vr": "US"
+            vr: "US"
         },
         "00280020": {
-            "vr": ""
+            vr: ""
         },
         "00280030": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00280031": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00280032": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00280034": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00280040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280050": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00280051": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0028005F": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00280060": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280061": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00280062": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00280063": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00280065": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280066": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00280068": {
-            "vr": "US"
+            vr: "US"
         },
         "00280069": {
-            "vr": "US"
+            vr: "US"
         },
         "00280070": {
-            "vr": "US"
+            vr: "US"
         },
         "00280071": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280080": {
-            "vr": "US"
+            vr: "US"
         },
         "00280081": {
-            "vr": "US"
+            vr: "US"
         },
         "00280082": {
-            "vr": "US"
+            vr: "US"
         },
         "00280090": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280091": {
-            "vr": "US"
+            vr: "US"
         },
         "00280092": {
-            "vr": "US"
+            vr: "US"
         },
         "00280093": {
-            "vr": "US"
+            vr: "US"
         },
         "00280094": {
-            "vr": "US"
+            vr: "US"
         },
         "00280100": {
-            "vr": "US"
+            vr: "US"
         },
         "00280101": {
-            "vr": "US"
+            vr: "US"
         },
         "00280102": {
-            "vr": "US"
+            vr: "US"
         },
         "00280103": {
-            "vr": "US"
+            vr: "US"
         },
         "00280104": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280105": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280106": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280107": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280108": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280109": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280110": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280111": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280120": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280121": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00280122": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00280123": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00280124": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00280125": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00280200": {
-            "vr": "US"
+            vr: "US"
         },
         "00280300": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280301": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280302": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280303": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280304": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00280400": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00280401": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00280402": {
-            "vr": "US"
+            vr: "US"
         },
         "00280403": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00280404": {
-            "vr": "AT"
+            vr: "AT"
         },
         "002804x0": {
-            "vr": "US"
+            vr: "US"
         },
         "002804x1": {
-            "vr": "US"
+            vr: "US"
         },
         "002804x2": {
-            "vr": "LO"
+            vr: "LO"
         },
         "002804x3": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00280700": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00280701": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280702": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00280710": {
-            "vr": "US"
+            vr: "US"
         },
         "00280720": {
-            "vr": "US"
+            vr: "US"
         },
         "00280721": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00280722": {
-            "vr": "US"
+            vr: "US"
         },
         "00280730": {
-            "vr": "US"
+            vr: "US"
         },
         "00280740": {
-            "vr": "US"
+            vr: "US"
         },
         "002808x0": {
-            "vr": "CS"
+            vr: "CS"
         },
         "002808x2": {
-            "vr": "US"
+            vr: "US"
         },
         "002808x3": {
-            "vr": "AT"
+            vr: "AT"
         },
         "002808x4": {
-            "vr": "US"
+            vr: "US"
         },
         "002808x8": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00280A02": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00280A04": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00281040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281041": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00281050": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00281051": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00281052": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00281053": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00281054": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00281055": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00281056": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281090": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281100": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00281101": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00281102": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00281103": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00281104": {
-            "vr": "US"
+            vr: "US"
         },
         "00281111": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00281112": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00281113": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00281199": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00281200": {
-            "vr": "US or SS or OW"
+            vr: "US or SS or OW"
         },
         "00281201": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281202": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281203": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281204": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281211": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281212": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281213": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281214": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00281221": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281222": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281223": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281224": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00281230": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00281231": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00281232": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00281300": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281350": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281351": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00281352": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0028135A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281401": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00281402": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281403": {
-            "vr": "US"
+            vr: "US"
         },
         "00281404": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00281405": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281406": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00281407": {
-            "vr": "US"
+            vr: "US"
         },
         "00281408": {
-            "vr": "OW"
+            vr: "OW"
         },
         "0028140B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0028140C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0028140D": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0028140E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0028140F": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00281410": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00282000": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00282002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00282110": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00282112": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00282114": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00283000": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00283002": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00283003": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00283004": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00283006": {
-            "vr": "US or OW"
+            vr: "US or OW"
         },
         "00283010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00283110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00284000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00285000": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00286010": {
-            "vr": "US"
+            vr: "US"
         },
         "00286020": {
-            "vr": "US"
+            vr: "US"
         },
         "00286022": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00286023": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00286030": {
-            "vr": "US"
+            vr: "US"
         },
         "00286040": {
-            "vr": "US"
+            vr: "US"
         },
         "00286100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00286101": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00286102": {
-            "vr": "US"
+            vr: "US"
         },
         "00286110": {
-            "vr": "US"
+            vr: "US"
         },
         "00286112": {
-            "vr": "US"
+            vr: "US"
         },
         "00286114": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00286120": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00286190": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00287000": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287001": {
-            "vr": "US"
+            vr: "US"
         },
         "00287002": {
-            "vr": "US"
+            vr: "US"
         },
         "00287003": {
-            "vr": "US"
+            vr: "US"
         },
         "00287004": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00287005": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00287006": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00287007": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00287008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287009": {
-            "vr": "US"
+            vr: "US"
         },
         "0028700A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0028700B": {
-            "vr": "US"
+            vr: "US"
         },
         "0028700C": {
-            "vr": "SH"
+            vr: "SH"
         },
         "0028700D": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0028700E": {
-            "vr": "US"
+            vr: "US"
         },
         "0028700F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287013": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00287014": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00287015": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287017": {
-            "vr": "US"
+            vr: "US"
         },
         "00287018": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00287019": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0028701A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0028701B": {
-            "vr": "US"
+            vr: "US"
         },
         "0028701C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0028701D": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0028701E": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0028701F": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00287020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00287021": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00287022": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287023": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287024": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287025": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00287026": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00287027": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287028": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287029": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0028702A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0028702B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0028702C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0028702D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0028702E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00287FE0": {
-            "vr": "UR"
+            vr: "UR"
         },
         "00289001": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00289002": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00289003": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00289099": {
-            "vr": "US"
+            vr: "US"
         },
         "00289108": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00289110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289132": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289145": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289235": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00289411": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00289415": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289416": {
-            "vr": "US"
+            vr: "US"
         },
         "00289422": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289443": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289444": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00289445": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00289446": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00289454": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00289474": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00289478": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00289501": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289502": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289503": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00289505": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00289506": {
-            "vr": "US"
+            vr: "US"
         },
         "00289507": {
-            "vr": "US"
+            vr: "US"
         },
         "00289520": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00289537": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0032000A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0032000C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00320012": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00320032": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00320033": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00320034": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00320035": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00321000": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00321001": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00321010": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00321011": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00321020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00321021": {
-            "vr": "AE"
+            vr: "AE"
         },
         "00321030": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00321031": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00321032": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00321033": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00321034": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00321040": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00321041": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00321050": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00321051": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00321055": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00321060": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00321064": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00321065": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00321066": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00321067": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00321070": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00324000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00340001": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00340002": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00340003": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00340004": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00340005": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00340007": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00340008": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00340009": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0034000A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0034000B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0034000C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0034000D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00380004": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00380008": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00380010": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380011": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380014": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00380016": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0038001A": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0038001B": {
-            "vr": "TM"
+            vr: "TM"
         },
         "0038001C": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0038001D": {
-            "vr": "TM"
+            vr: "TM"
         },
         "0038001E": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380020": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00380021": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00380030": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00380032": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00380040": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380044": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00380050": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380060": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380061": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380062": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380064": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00380100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00380101": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00380102": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380300": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380400": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380500": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00380502": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00384000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "003A0004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "003A0005": {
-            "vr": "US"
+            vr: "US"
         },
         "003A0010": {
-            "vr": "UL"
+            vr: "UL"
         },
         "003A001A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0020": {
-            "vr": "SH"
+            vr: "SH"
         },
         "003A0200": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A0202": {
-            "vr": "IS"
+            vr: "IS"
         },
         "003A0203": {
-            "vr": "SH"
+            vr: "SH"
         },
         "003A0205": {
-            "vr": "CS"
+            vr: "CS"
         },
         "003A0208": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A0209": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A020A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A020C": {
-            "vr": "LO"
+            vr: "LO"
         },
         "003A0210": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0211": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A0212": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0213": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0214": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0215": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0218": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A021A": {
-            "vr": "US"
+            vr: "US"
         },
         "003A0220": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0221": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0222": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0223": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0230": {
-            "vr": "FL"
+            vr: "FL"
         },
         "003A0231": {
-            "vr": "US"
+            vr: "US"
         },
         "003A0240": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A0241": {
-            "vr": "US"
+            vr: "US"
         },
         "003A0242": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A0244": {
-            "vr": "US"
+            vr: "US"
         },
         "003A0245": {
-            "vr": "FL"
+            vr: "FL"
         },
         "003A0246": {
-            "vr": "CS"
+            vr: "CS"
         },
         "003A0247": {
-            "vr": "FL"
+            vr: "FL"
         },
         "003A0248": {
-            "vr": "FL"
+            vr: "FL"
         },
         "003A0300": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A0301": {
-            "vr": "IS"
+            vr: "IS"
         },
         "003A0302": {
-            "vr": "CS"
+            vr: "CS"
         },
         "003A0310": {
-            "vr": "UI"
+            vr: "UI"
         },
         "003A0311": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0312": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "003A0313": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0314": {
-            "vr": "DT"
+            vr: "DT"
         },
         "003A0315": {
-            "vr": "DS"
+            vr: "DS"
         },
         "003A0316": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00400001": {
-            "vr": "AE"
+            vr: "AE"
         },
         "00400002": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00400003": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00400004": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00400005": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00400006": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00400007": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400009": {
-            "vr": "SH"
+            vr: "SH"
         },
         "0040000A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040000B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400010": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00400011": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00400012": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00400026": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400027": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400031": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00400032": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00400033": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00400035": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00400036": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400039": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040003A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400241": {
-            "vr": "AE"
+            vr: "AE"
         },
         "00400242": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00400243": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00400244": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00400245": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00400250": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00400251": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00400252": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00400253": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00400254": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400255": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400260": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400261": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00400270": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400275": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400280": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00400281": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400293": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400294": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00400295": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400296": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400300": {
-            "vr": "US"
+            vr: "US"
         },
         "00400301": {
-            "vr": "US"
+            vr: "US"
         },
         "00400302": {
-            "vr": "US"
+            vr: "US"
         },
         "00400303": {
-            "vr": "US"
+            vr: "US"
         },
         "00400306": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00400307": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0040030E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400310": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00400312": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00400314": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00400316": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00400318": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00400320": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400321": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400324": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400330": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400340": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400400": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00400440": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400441": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400500": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040050A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400512": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400513": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400515": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400518": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040051A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400520": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400550": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400551": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400552": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400553": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00400554": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00400555": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400556": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0040059A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400560": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400562": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400600": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400602": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00400610": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400612": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00400620": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "004006FA": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00400710": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040071A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040072A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0040073A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0040074A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "004008D8": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "004008DA": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "004008EA": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "004009F8": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00401001": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00401002": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00401003": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00401004": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00401005": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00401006": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00401007": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00401008": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00401009": {
-            "vr": "SH"
+            vr: "SH"
         },
         "0040100A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00401010": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00401011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00401012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00401060": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00401101": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00401102": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00401103": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00401104": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00401400": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00402001": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00402004": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00402005": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00402006": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00402007": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00402008": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00402009": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00402010": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00402011": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00402016": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00402017": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00402400": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00403001": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00404001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00404002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00404003": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00404004": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404005": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00404006": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00404007": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404008": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00404009": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404010": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00404011": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00404015": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404018": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404019": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00404021": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404022": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404023": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00404025": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404026": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404027": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404028": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404029": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404031": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404032": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404033": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404034": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404035": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404036": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00404037": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00404040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00404041": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00404050": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00404051": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00404052": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00404070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404071": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404072": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00404073": {
-            "vr": "UR"
+            vr: "UR"
         },
         "00404074": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00408302": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00408303": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00409092": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00409094": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00409096": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00409098": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00409210": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00409211": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00409212": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00409213": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00409214": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00409216": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00409220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00409224": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00409225": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0040A007": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A021": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040A022": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040A023": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0040A024": {
-            "vr": "TM"
+            vr: "TM"
         },
         "0040A026": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A027": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0040A028": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A030": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040A032": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040A033": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040A040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A043": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A047": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0040A050": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A057": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A060": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0040A066": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A067": {
-            "vr": "PN"
+            vr: "PN"
         },
         "0040A068": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A073": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A074": {
-            "vr": "OB"
+            vr: "OB"
         },
         "0040A075": {
-            "vr": "PN"
+            vr: "PN"
         },
         "0040A076": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A078": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A07A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A07C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A082": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040A084": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A085": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A088": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A089": {
-            "vr": "OB"
+            vr: "OB"
         },
         "0040A090": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A0B0": {
-            "vr": "US"
+            vr: "US"
         },
         "0040A110": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0040A112": {
-            "vr": "TM"
+            vr: "TM"
         },
         "0040A120": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040A121": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0040A122": {
-            "vr": "TM"
+            vr: "TM"
         },
         "0040A123": {
-            "vr": "PN"
+            vr: "PN"
         },
         "0040A124": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040A125": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A130": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A132": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0040A136": {
-            "vr": "US"
+            vr: "US"
         },
         "0040A138": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0040A13A": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040A160": {
-            "vr": "UT"
+            vr: "UT"
         },
         "0040A161": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0040A162": {
-            "vr": "SL"
+            vr: "SL"
         },
         "0040A163": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0040A167": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A168": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A16A": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0040A170": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A171": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040A172": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040A173": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A174": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A180": {
-            "vr": "US"
+            vr: "US"
         },
         "0040A192": {
-            "vr": "DA"
+            vr: "DA"
         },
         "0040A193": {
-            "vr": "TM"
+            vr: "TM"
         },
         "0040A194": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A195": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A224": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0040A290": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A296": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A297": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0040A29A": {
-            "vr": "SL"
+            vr: "SL"
         },
         "0040A300": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A301": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A307": {
-            "vr": "PN"
+            vr: "PN"
         },
         "0040A30A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0040A313": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A33A": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0040A340": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A352": {
-            "vr": "PN"
+            vr: "PN"
         },
         "0040A353": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0040A354": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0040A358": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A360": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A370": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A372": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A375": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A380": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A385": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A390": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A402": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040A403": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A404": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A491": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A492": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0040A493": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A494": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A496": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A504": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A525": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A600": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A601": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A603": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040A730": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A731": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A732": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A744": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A801": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A802": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0040A803": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0040A804": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0040A805": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0040A806": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A807": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A808": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040A992": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0040B020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040DB00": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040DB06": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040DB07": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040DB0B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040DB0C": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040DB0D": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040DB73": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0040E001": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0040E004": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0040E006": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040E008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040E010": {
-            "vr": "UR"
+            vr: "UR"
         },
         "0040E011": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040E020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0040E021": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040E022": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040E023": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040E024": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040E025": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0040E030": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0040E031": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00420010": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00420011": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00420012": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00420013": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00420014": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00420015": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00440001": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00440002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00440003": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00440004": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00440007": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00440008": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00440009": {
-            "vr": "LT"
+            vr: "LT"
         },
         "0044000A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0044000B": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00440010": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00440011": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00440012": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00440013": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00440019": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00440100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00440101": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00440102": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00440103": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00440104": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00440105": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00440106": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00440107": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00440108": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00440109": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0044010A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460012": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00460014": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460015": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460018": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460028": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460030": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460032": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460034": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460036": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460038": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460040": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460042": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460044": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460046": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460047": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460052": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460060": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460062": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460063": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460064": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460071": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460074": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460075": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460076": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460077": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460080": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460092": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460094": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460095": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460097": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460098": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460101": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460102": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460104": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460106": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460111": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460112": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460113": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460114": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460115": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460116": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460117": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460118": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460121": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460122": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460123": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460124": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460125": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460135": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00460137": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460139": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00460145": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460146": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460147": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00460201": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460202": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460203": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460204": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460205": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460207": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460208": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00460210": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460211": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460212": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460213": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460215": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460218": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460220": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460224": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460227": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460230": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460232": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460234": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460236": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460238": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460242": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460244": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00460247": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460248": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00460249": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460250": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460251": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460252": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00460253": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00480001": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00480002": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00480003": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00480006": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00480007": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00480008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00480010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00480011": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00480012": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00480013": {
-            "vr": "US"
+            vr: "US"
         },
         "00480014": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00480015": {
-            "vr": "US"
+            vr: "US"
         },
         "00480100": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00480102": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00480105": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00480106": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00480107": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00480108": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00480110": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00480111": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00480112": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00480113": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00480120": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00480200": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00480201": {
-            "vr": "US"
+            vr: "US"
         },
         "00480202": {
-            "vr": "US"
+            vr: "US"
         },
         "00480207": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0048021A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0048021E": {
-            "vr": "SL"
+            vr: "SL"
         },
         "0048021F": {
-            "vr": "SL"
+            vr: "SL"
         },
         "00480301": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00480302": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00480303": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00500004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00500010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00500012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00500013": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00500014": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00500015": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00500016": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00500017": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00500018": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00500019": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0050001A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0050001B": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0050001C": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0050001D": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0050001E": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00500020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00500021": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00520001": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00520002": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520003": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520004": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520006": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00520007": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520008": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520009": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520011": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520012": {
-            "vr": "US"
+            vr: "US"
         },
         "00520013": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520014": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00520025": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00520026": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00520027": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00520028": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520029": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00520030": {
-            "vr": "SS"
+            vr: "SS"
         },
         "00520031": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00520033": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520034": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00520036": {
-            "vr": "US"
+            vr: "US"
         },
         "00520038": {
-            "vr": "US"
+            vr: "US"
         },
         "00520039": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0052003A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00540010": {
-            "vr": "US"
+            vr: "US"
         },
         "00540011": {
-            "vr": "US"
+            vr: "US"
         },
         "00540012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540013": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540014": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00540015": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00540016": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540017": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00540018": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00540020": {
-            "vr": "US"
+            vr: "US"
         },
         "00540021": {
-            "vr": "US"
+            vr: "US"
         },
         "00540022": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540030": {
-            "vr": "US"
+            vr: "US"
         },
         "00540031": {
-            "vr": "US"
+            vr: "US"
         },
         "00540032": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540033": {
-            "vr": "US"
+            vr: "US"
         },
         "00540036": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00540038": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00540039": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00540050": {
-            "vr": "US"
+            vr: "US"
         },
         "00540051": {
-            "vr": "US"
+            vr: "US"
         },
         "00540052": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540053": {
-            "vr": "US"
+            vr: "US"
         },
         "00540060": {
-            "vr": "US"
+            vr: "US"
         },
         "00540061": {
-            "vr": "US"
+            vr: "US"
         },
         "00540062": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540063": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540070": {
-            "vr": "US"
+            vr: "US"
         },
         "00540071": {
-            "vr": "US"
+            vr: "US"
         },
         "00540072": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540073": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00540080": {
-            "vr": "US"
+            vr: "US"
         },
         "00540081": {
-            "vr": "US"
+            vr: "US"
         },
         "00540090": {
-            "vr": "US"
+            vr: "US"
         },
         "00540100": {
-            "vr": "US"
+            vr: "US"
         },
         "00540101": {
-            "vr": "US"
+            vr: "US"
         },
         "00540200": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00540202": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00540210": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00540211": {
-            "vr": "US"
+            vr: "US"
         },
         "00540220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540222": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540300": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540302": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540304": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540306": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540308": {
-            "vr": "US"
+            vr: "US"
         },
         "00540400": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00540410": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540412": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540414": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00540500": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00540501": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541000": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541006": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541100": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541101": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00541102": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541103": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00541104": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00541105": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00541200": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541201": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00541202": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00541203": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541210": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541220": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541300": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541310": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00541311": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00541320": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541321": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541322": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541323": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541324": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00541330": {
-            "vr": "US"
+            vr: "US"
         },
         "00541400": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00541401": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00603000": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00603002": {
-            "vr": "US"
+            vr: "US"
         },
         "00603004": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00603006": {
-            "vr": "US or SS"
+            vr: "US or SS"
         },
         "00603008": {
-            "vr": "US"
+            vr: "US"
         },
         "00603010": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00603020": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00620001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00620002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00620003": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00620004": {
-            "vr": "US"
+            vr: "US"
         },
         "00620005": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00620006": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00620007": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00620008": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00620009": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0062000A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0062000B": {
-            "vr": "US"
+            vr: "US"
         },
         "0062000C": {
-            "vr": "US"
+            vr: "US"
         },
         "0062000D": {
-            "vr": "US"
+            vr: "US"
         },
         "0062000E": {
-            "vr": "US"
+            vr: "US"
         },
         "0062000F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00620010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00620011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00620012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00620013": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00620020": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00620021": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00640002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00640003": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00640005": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00640007": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00640008": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00640009": {
-            "vr": "OF"
+            vr: "OF"
         },
         "0064000F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00640010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660001": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00660002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660003": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00660004": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00660009": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0066000A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0066000B": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0066000C": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0066000D": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0066000E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00660010": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00660011": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660013": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660015": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00660016": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00660017": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00660018": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00660019": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0066001A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0066001B": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0066001C": {
-            "vr": "FL"
+            vr: "FL"
         },
         "0066001E": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0066001F": {
-            "vr": "US"
+            vr: "US"
         },
         "00660020": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00660021": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00660022": {
-            "vr": "OD"
+            vr: "OD"
         },
         "00660023": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00660024": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00660025": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00660026": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660027": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660028": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660029": {
-            "vr": "OW"
+            vr: "OW"
         },
         "0066002A": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0066002B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0066002C": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0066002D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0066002E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0066002F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660031": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00660032": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00660034": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660035": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660036": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00660037": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00660038": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00660040": {
-            "vr": "OL"
+            vr: "OL"
         },
         "00660041": {
-            "vr": "OL"
+            vr: "OL"
         },
         "00660042": {
-            "vr": "OL"
+            vr: "OL"
         },
         "00660043": {
-            "vr": "OL"
+            vr: "OL"
         },
         "00660101": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660102": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660103": {
-            "vr": "OW"
+            vr: "OW"
         },
         "00660104": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660105": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00660106": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00660107": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00660108": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660121": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660124": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660125": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00660129": {
-            "vr": "OL"
+            vr: "OL"
         },
         "00660130": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660132": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660133": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00660134": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686210": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00686221": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00686222": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686223": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00686224": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686225": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686226": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00686230": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686260": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686265": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686270": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00686280": {
-            "vr": "ST"
+            vr: "ST"
         },
         "006862A0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006862A5": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006862C0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006862D0": {
-            "vr": "US"
+            vr: "US"
         },
         "006862D5": {
-            "vr": "LO"
+            vr: "LO"
         },
         "006862E0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006862F0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006862F2": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686300": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00686310": {
-            "vr": "US"
+            vr: "US"
         },
         "00686320": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686330": {
-            "vr": "US"
+            vr: "US"
         },
         "00686340": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00686345": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00686346": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686347": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686350": {
-            "vr": "US"
+            vr: "US"
         },
         "00686360": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686380": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00686390": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006863A0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006863A4": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006863A8": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006863AC": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006863B0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006863C0": {
-            "vr": "US"
+            vr: "US"
         },
         "006863D0": {
-            "vr": "LO"
+            vr: "LO"
         },
         "006863E0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006863F0": {
-            "vr": "US"
+            vr: "US"
         },
         "00686400": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686410": {
-            "vr": "US"
+            vr: "US"
         },
         "00686420": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00686430": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686440": {
-            "vr": "US"
+            vr: "US"
         },
         "00686450": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686460": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686470": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686490": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006864A0": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006864C0": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006864D0": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006864F0": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686500": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686510": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686520": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686530": {
-            "vr": "US"
+            vr: "US"
         },
         "00686540": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00686545": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686550": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00686560": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686590": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006865A0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006865B0": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006865D0": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006865E0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006865F0": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686610": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00686620": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00687001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00687002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00687003": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00687004": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00687005": {
-            "vr": "UR"
+            vr: "UR"
         },
         "006A0001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "006A0002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006A0003": {
-            "vr": "UI"
+            vr: "UI"
         },
         "006A0005": {
-            "vr": "LO"
+            vr: "LO"
         },
         "006A0006": {
-            "vr": "UT"
+            vr: "UT"
         },
         "006A0007": {
-            "vr": "CS"
+            vr: "CS"
         },
         "006A0008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006A0009": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006A000A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006A000B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "006A000C": {
-            "vr": "UL"
+            vr: "UL"
         },
         "006A000D": {
-            "vr": "CS"
+            vr: "CS"
         },
         "006A000E": {
-            "vr": "SH"
+            vr: "SH"
         },
         "006A000F": {
-            "vr": "CS"
+            vr: "CS"
         },
         "006A0010": {
-            "vr": "FD"
+            vr: "FD"
         },
         "006A0011": {
-            "vr": "OL"
+            vr: "OL"
         },
         "00700001": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700003": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700004": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700005": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700006": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00700008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700009": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700010": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700011": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700012": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700014": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700015": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700020": {
-            "vr": "US"
+            vr: "US"
         },
         "00700021": {
-            "vr": "US"
+            vr: "US"
         },
         "00700022": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700023": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700024": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700040": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00700041": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700042": {
-            "vr": "US"
+            vr: "US"
         },
         "00700050": {
-            "vr": "US"
+            vr: "US"
         },
         "00700051": {
-            "vr": "US"
+            vr: "US"
         },
         "00700052": {
-            "vr": "SL"
+            vr: "SL"
         },
         "00700053": {
-            "vr": "SL"
+            vr: "SL"
         },
         "0070005A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700062": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00700066": {
-            "vr": "US"
+            vr: "US"
         },
         "00700067": {
-            "vr": "US"
+            vr: "US"
         },
         "00700068": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00700080": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700081": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00700082": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00700083": {
-            "vr": "TM"
+            vr: "TM"
         },
         "00700084": {
-            "vr": "PN"
+            vr: "PN"
         },
         "00700086": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700087": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700100": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700101": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00700102": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00700103": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700207": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00700208": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00700209": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700226": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00700227": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00700228": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700229": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00700230": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00700231": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700232": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700233": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700234": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700241": {
-            "vr": "US"
+            vr: "US"
         },
         "00700242": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700243": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700244": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700245": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700246": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700247": {
-            "vr": "US"
+            vr: "US"
         },
         "00700248": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700249": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700250": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700251": {
-            "vr": "US"
+            vr: "US"
         },
         "00700252": {
-            "vr": "US"
+            vr: "US"
         },
         "00700253": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700254": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700255": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00700256": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00700257": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700258": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700261": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700262": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700273": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700274": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700278": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700279": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700282": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700284": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700285": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700287": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700288": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700289": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00700294": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700295": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00700306": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00700308": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700309": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0070030A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0070030B": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0070030C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0070030D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0070030F": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00700310": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00700311": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700312": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00700314": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700318": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0070031A": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0070031B": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0070031C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0070031E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0070031F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700401": {
-            "vr": "US"
+            vr: "US"
         },
         "00700402": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700403": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00700404": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00700405": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701101": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00701102": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00701103": {
-            "vr": "US"
+            vr: "US"
         },
         "00701104": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701201": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701202": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701203": {
-            "vr": "US"
+            vr: "US"
         },
         "00701204": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701205": {
-            "vr": "US"
+            vr: "US"
         },
         "00701206": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701207": {
-            "vr": "US"
+            vr: "US"
         },
         "00701208": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701209": {
-            "vr": "UI"
+            vr: "UI"
         },
         "0070120A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0070120B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0070120C": {
-            "vr": "US"
+            vr: "US"
         },
         "0070120D": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701301": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701302": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701303": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701304": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701305": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701306": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701309": {
-            "vr": "US"
+            vr: "US"
         },
         "00701501": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701502": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701503": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701505": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701507": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701508": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0070150C": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0070150D": {
-            "vr": "OD"
+            vr: "OD"
         },
         "00701511": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701512": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701602": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701603": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701604": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701605": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701606": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701607": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701701": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701702": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701703": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701704": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701705": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701706": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701801": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701802": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701803": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701804": {
-            "vr": "US"
+            vr: "US"
         },
         "00701805": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701806": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701807": {
-            "vr": "US"
+            vr: "US"
         },
         "00701808": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00701901": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701903": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701904": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00701905": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701907": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701A01": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701A03": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701A04": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701A05": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701A06": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00701A07": {
-            "vr": "OD"
+            vr: "OD"
         },
         "00701A08": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701A09": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00701B01": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701B02": {
-            "vr": "US"
+            vr: "US"
         },
         "00701B03": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701B04": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701B06": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701B07": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701B08": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701B11": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701B12": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00701B13": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00701B14": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00720002": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00720004": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00720006": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720008": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0072000A": {
-            "vr": "DT"
+            vr: "DT"
         },
         "0072000C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0072000E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720010": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00720012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720014": {
-            "vr": "US"
+            vr: "US"
         },
         "00720020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720022": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720024": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720026": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00720028": {
-            "vr": "US"
+            vr: "US"
         },
         "00720030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720032": {
-            "vr": "US"
+            vr: "US"
         },
         "00720034": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720038": {
-            "vr": "US"
+            vr: "US"
         },
         "0072003A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0072003C": {
-            "vr": "SS"
+            vr: "SS"
         },
         "0072003E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720040": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00720050": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720052": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00720054": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00720056": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0072005E": {
-            "vr": "AE"
+            vr: "AE"
         },
         "0072005F": {
-            "vr": "AS"
+            vr: "AS"
         },
         "00720060": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00720061": {
-            "vr": "DA"
+            vr: "DA"
         },
         "00720062": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720063": {
-            "vr": "DT"
+            vr: "DT"
         },
         "00720064": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00720065": {
-            "vr": "OB"
+            vr: "OB"
         },
         "00720066": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00720067": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00720068": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00720069": {
-            "vr": "OW"
+            vr: "OW"
         },
         "0072006A": {
-            "vr": "PN"
+            vr: "PN"
         },
         "0072006B": {
-            "vr": "TM"
+            vr: "TM"
         },
         "0072006C": {
-            "vr": "SH"
+            vr: "SH"
         },
         "0072006D": {
-            "vr": "UN"
+            vr: "UN"
         },
         "0072006E": {
-            "vr": "ST"
+            vr: "ST"
         },
         "0072006F": {
-            "vr": "UC"
+            vr: "UC"
         },
         "00720070": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00720071": {
-            "vr": "UR"
+            vr: "UR"
         },
         "00720072": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00720073": {
-            "vr": "OD"
+            vr: "OD"
         },
         "00720074": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00720075": {
-            "vr": "OL"
+            vr: "OL"
         },
         "00720076": {
-            "vr": "FL"
+            vr: "FL"
         },
         "00720078": {
-            "vr": "UL"
+            vr: "UL"
         },
         "0072007A": {
-            "vr": "US"
+            vr: "US"
         },
         "0072007C": {
-            "vr": "SL"
+            vr: "SL"
         },
         "0072007E": {
-            "vr": "SS"
+            vr: "SS"
         },
         "0072007F": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00720080": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720081": {
-            "vr": "OV"
+            vr: "OV"
         },
         "00720082": {
-            "vr": "SV"
+            vr: "SV"
         },
         "00720083": {
-            "vr": "UV"
+            vr: "UV"
         },
         "00720100": {
-            "vr": "US"
+            vr: "US"
         },
         "00720102": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720104": {
-            "vr": "US"
+            vr: "US"
         },
         "00720106": {
-            "vr": "US"
+            vr: "US"
         },
         "00720108": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0072010A": {
-            "vr": "US"
+            vr: "US"
         },
         "0072010C": {
-            "vr": "US"
+            vr: "US"
         },
         "0072010E": {
-            "vr": "US"
+            vr: "US"
         },
         "00720200": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720202": {
-            "vr": "US"
+            vr: "US"
         },
         "00720203": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00720204": {
-            "vr": "US"
+            vr: "US"
         },
         "00720206": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00720208": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720210": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720212": {
-            "vr": "US"
+            vr: "US"
         },
         "00720214": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720216": {
-            "vr": "US"
+            vr: "US"
         },
         "00720218": {
-            "vr": "US"
+            vr: "US"
         },
         "00720300": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720302": {
-            "vr": "US"
+            vr: "US"
         },
         "00720304": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720306": {
-            "vr": "US"
+            vr: "US"
         },
         "00720308": {
-            "vr": "US"
+            vr: "US"
         },
         "00720310": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720312": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720314": {
-            "vr": "US"
+            vr: "US"
         },
         "00720316": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720318": {
-            "vr": "US"
+            vr: "US"
         },
         "00720320": {
-            "vr": "US"
+            vr: "US"
         },
         "00720330": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00720400": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720402": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720404": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720406": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720420": {
-            "vr": "US"
+            vr: "US"
         },
         "00720421": {
-            "vr": "US"
+            vr: "US"
         },
         "00720422": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720424": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720427": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720430": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720432": {
-            "vr": "US"
+            vr: "US"
         },
         "00720434": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720500": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720510": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720512": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00720514": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00720516": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720520": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720600": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720602": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720604": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720700": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720702": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720704": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720705": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00720706": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720710": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720712": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720714": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720716": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720717": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00720718": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00740120": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00740121": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00741000": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741004": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00741006": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00741007": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0074100A": {
-            "vr": "UR"
+            vr: "UR"
         },
         "0074100C": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0074100E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741022": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741024": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00741025": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741026": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00741027": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00741028": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0074102A": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0074102B": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0074102C": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0074102D": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00741030": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741032": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741034": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741036": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741038": {
-            "vr": "DS"
+            vr: "DS"
         },
         "0074103A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00741040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741042": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741044": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741046": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741048": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0074104A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0074104C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0074104E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741052": {
-            "vr": "AT"
+            vr: "AT"
         },
         "00741054": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00741056": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00741057": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00741200": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741202": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00741204": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00741210": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741212": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741216": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741220": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741222": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00741224": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741230": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00741234": {
-            "vr": "AE"
+            vr: "AE"
         },
         "00741236": {
-            "vr": "AE"
+            vr: "AE"
         },
         "00741238": {
-            "vr": "LT"
+            vr: "LT"
         },
         "00741242": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741244": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741246": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00741324": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00741338": {
-            "vr": "FD"
+            vr: "FD"
         },
         "0074133A": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00741401": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741402": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00741403": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00741404": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00741405": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00741406": {
-            "vr": "IS"
+            vr: "IS"
         },
         "00741407": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00741408": {
-            "vr": "DS"
+            vr: "DS"
         },
         "00741409": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0074140A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0074140B": {
-            "vr": "LO"
+            vr: "LO"
         },
         "0074140C": {
-            "vr": "IS"
+            vr: "IS"
         },
         "0074140D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0074140E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00760001": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00760003": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00760006": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00760008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0076000A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0076000C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0076000E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00760010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00760020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00760030": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00760032": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00760034": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00760036": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00760038": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00760040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00760055": {
-            "vr": "US"
+            vr: "US"
         },
         "00760060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00760070": {
-            "vr": "US"
+            vr: "US"
         },
         "00760080": {
-            "vr": "US"
+            vr: "US"
         },
         "00760090": {
-            "vr": "US"
+            vr: "US"
         },
         "007600A0": {
-            "vr": "US"
+            vr: "US"
         },
         "007600B0": {
-            "vr": "US"
+            vr: "US"
         },
         "007600C0": {
-            "vr": "US"
+            vr: "US"
         },
         "00780001": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00780010": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00780020": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00780024": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00780026": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00780028": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0078002A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "0078002E": {
-            "vr": "US"
+            vr: "US"
         },
         "00780050": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00780060": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00780070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00780090": {
-            "vr": "FD"
+            vr: "FD"
         },
         "007800A0": {
-            "vr": "FD"
+            vr: "FD"
         },
         "007800B0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "007800B2": {
-            "vr": "LO"
+            vr: "LO"
         },
         "007800B4": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "007800B6": {
-            "vr": "US"
+            vr: "US"
         },
         "007800B8": {
-            "vr": "US"
+            vr: "US"
         },
         "00800001": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00800002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00800003": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00800004": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00800005": {
-            "vr": "FD"
+            vr: "FD"
         },
         "00800006": {
-            "vr": "US"
+            vr: "US"
         },
         "00800007": {
-            "vr": "US"
+            vr: "US"
         },
         "00800008": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00800009": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00800010": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00800011": {
-            "vr": "OF"
+            vr: "OF"
         },
         "00800012": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00800013": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00820003": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00820004": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820005": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820006": {
-            "vr": "UL"
+            vr: "UL"
         },
         "00820007": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820008": {
-            "vr": "CS"
+            vr: "CS"
         },
         "0082000A": {
-            "vr": "UT"
+            vr: "UT"
         },
         "0082000C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820016": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00820017": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820018": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00820019": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00820021": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820022": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820023": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00820032": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00820033": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00820034": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820035": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00820036": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00820037": {
-            "vr": "UT"
+            vr: "UT"
         },
         "00820038": {
-            "vr": "CS"
+            vr: "CS"
         },
         "00880130": {
-            "vr": "SH"
+            vr: "SH"
         },
         "00880140": {
-            "vr": "UI"
+            vr: "UI"
         },
         "00880200": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "00880904": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00880906": {
-            "vr": "ST"
+            vr: "ST"
         },
         "00880910": {
-            "vr": "LO"
+            vr: "LO"
         },
         "00880912": {
-            "vr": "LO"
+            vr: "LO"
         },
         "01000410": {
-            "vr": "CS"
+            vr: "CS"
         },
         "01000420": {
-            "vr": "DT"
+            vr: "DT"
         },
         "01000424": {
-            "vr": "LT"
+            vr: "LT"
         },
         "01000426": {
-            "vr": "LO"
+            vr: "LO"
         },
         "04000005": {
-            "vr": "US"
+            vr: "US"
         },
         "04000010": {
-            "vr": "UI"
+            vr: "UI"
         },
         "04000015": {
-            "vr": "CS"
+            vr: "CS"
         },
         "04000020": {
-            "vr": "AT"
+            vr: "AT"
         },
         "04000100": {
-            "vr": "UI"
+            vr: "UI"
         },
         "04000105": {
-            "vr": "DT"
+            vr: "DT"
         },
         "04000110": {
-            "vr": "CS"
+            vr: "CS"
         },
         "04000115": {
-            "vr": "OB"
+            vr: "OB"
         },
         "04000120": {
-            "vr": "OB"
+            vr: "OB"
         },
         "04000305": {
-            "vr": "CS"
+            vr: "CS"
         },
         "04000310": {
-            "vr": "OB"
+            vr: "OB"
         },
         "04000315": {
-            "vr": "FL"
+            vr: "FL"
         },
         "04000401": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "04000402": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "04000403": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "04000404": {
-            "vr": "OB"
+            vr: "OB"
         },
         "04000500": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "04000510": {
-            "vr": "UI"
+            vr: "UI"
         },
         "04000520": {
-            "vr": "OB"
+            vr: "OB"
         },
         "04000550": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "04000551": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "04000552": {
-            "vr": "OB"
+            vr: "OB"
         },
         "04000561": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "04000562": {
-            "vr": "DT"
+            vr: "DT"
         },
         "04000563": {
-            "vr": "LO"
+            vr: "LO"
         },
         "04000564": {
-            "vr": "LO"
+            vr: "LO"
         },
         "04000565": {
-            "vr": "CS"
+            vr: "CS"
         },
         "04000600": {
-            "vr": "CS"
+            vr: "CS"
         },
         "1000xxx0": {
-            "vr": "US"
+            vr: "US"
         },
         "1000xxx1": {
-            "vr": "US"
+            vr: "US"
         },
         "1000xxx2": {
-            "vr": "US"
+            vr: "US"
         },
         "1000xxx3": {
-            "vr": "US"
+            vr: "US"
         },
         "1000xxx4": {
-            "vr": "US"
+            vr: "US"
         },
         "1000xxx5": {
-            "vr": "US"
+            vr: "US"
         },
         "1010xxxx": {
-            "vr": "US"
+            vr: "US"
         },
         "2000001E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "2000006A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "200000A0": {
-            "vr": "US"
+            vr: "US"
         },
         "200000A1": {
-            "vr": "US"
+            vr: "US"
         },
         "200000A2": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "200000A4": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "200000A8": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "201000A6": {
-            "vr": "CS"
+            vr: "CS"
         },
         "201000A7": {
-            "vr": "CS"
+            vr: "CS"
         },
         "201000A8": {
-            "vr": "CS"
+            vr: "CS"
         },
         "201000A9": {
-            "vr": "CS"
+            vr: "CS"
         },
         "2010015E": {
-            "vr": "US"
+            vr: "US"
         },
         "202000A0": {
-            "vr": "CS"
+            vr: "CS"
         },
         "202000A2": {
-            "vr": "CS"
+            vr: "CS"
         },
         "213000A0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "213000C0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "2200000A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "2200000B": {
-            "vr": "US"
+            vr: "US"
         },
         "2200000C": {
-            "vr": "LO"
+            vr: "LO"
         },
         "2200000D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "2200000E": {
-            "vr": "AT"
+            vr: "AT"
         },
         "2200000F": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3002000A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3002000C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3002000D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "3002000E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "3004000A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3004000C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "3004000E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "3006002A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "3006002C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "3006004A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300600A0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300600A4": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300600A6": {
-            "vr": "PN"
+            vr: "PN"
         },
         "300600B0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300600B2": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300600B4": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300600B6": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300600B7": {
-            "vr": "US"
+            vr: "US"
         },
         "300600B8": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300600B9": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300600C0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300600C2": {
-            "vr": "UI"
+            vr: "UI"
         },
         "300600C4": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300600C6": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300600C8": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300600C9": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300600CA": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300600CB": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3008002A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3008002B": {
-            "vr": "SH"
+            vr: "SH"
         },
         "3008002C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3008003A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "3008003B": {
-            "vr": "DS"
+            vr: "DS"
         },
         "3008005A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "3008006A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "3008007A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300800A0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800B0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800C0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800D0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800D1": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800E0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800F0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800F2": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800F4": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300800F6": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3008013A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "3008013C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0002": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0003": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0004": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0006": {
-            "vr": "DA"
+            vr: "DA"
         },
         "300A0007": {
-            "vr": "TM"
+            vr: "TM"
         },
         "300A0009": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A000A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A000B": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A000C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A000E": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0010": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0012": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0013": {
-            "vr": "UI"
+            vr: "UI"
         },
         "300A0014": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0015": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0016": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0018": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A001A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0021": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0022": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0023": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0025": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0026": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0027": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0028": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A002A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A002B": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A002C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A002D": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0042": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0043": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0044": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0046": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0048": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A004A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A004B": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A004C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A004E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A004F": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0050": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0051": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0052": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0053": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0055": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0070": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0071": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0072": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0078": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0079": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A007A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A007B": {
-            "vr": "LT"
+            vr: "LT"
         },
         "300A0080": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0082": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0083": {
-            "vr": "UI"
+            vr: "UI"
         },
         "300A0084": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0086": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0088": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0089": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A008A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A008B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A008C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A008D": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A008E": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A008F": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0090": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0091": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0092": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0093": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0094": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00A0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00A2": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00A4": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00B0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A00B2": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A00B3": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00B4": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00B6": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A00B8": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00BA": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00BB": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A00BC": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00BE": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00C0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00C2": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A00C3": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A00C4": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00C5": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A00C6": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00C7": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00C8": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00CA": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A00CC": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A00CE": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00D0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00D1": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A00D2": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00D3": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00D4": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A00D5": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00D6": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00D7": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A00D8": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00D9": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A00DA": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00DB": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A00DC": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A00DD": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A00DE": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00E0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00E1": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A00E2": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00E3": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A00E4": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00E5": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A00E6": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00E7": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00E8": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00E9": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00EA": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00EB": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00EC": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00ED": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00EE": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00EF": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A00F0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00F2": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00F3": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A00F4": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A00F5": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A00F6": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A00F7": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A00F8": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00F9": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A00FA": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00FB": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A00FC": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A00FE": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0100": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0102": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0104": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0106": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0107": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0108": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0109": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A010A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A010C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A010E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0110": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0111": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0112": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0114": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0115": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0116": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0118": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A011A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A011C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A011E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A011F": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0120": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0121": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0122": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0123": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0124": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0125": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0126": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0128": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0129": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A012A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A012C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A012E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0130": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0131": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0132": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0133": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0134": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0140": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0142": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0144": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0146": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0148": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A014A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A014C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A014E": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0150": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0151": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0152": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0153": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0154": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0155": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0180": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0182": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0183": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0184": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0190": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0192": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0194": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0196": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0198": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0199": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A019A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A01A0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A01A2": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A01A4": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A01A6": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A01A8": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A01B0": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A01B2": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A01B4": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A01B6": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A01B8": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A01BA": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A01BC": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A01D0": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A01D2": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A01D4": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A01D6": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0200": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0202": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0206": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0210": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0212": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0214": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0216": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0218": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A021A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A021B": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A021C": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0222": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0224": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0226": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0228": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0229": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A022A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A022B": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A022C": {
-            "vr": "DA"
+            vr: "DA"
         },
         "300A022E": {
-            "vr": "TM"
+            vr: "TM"
         },
         "300A0230": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0232": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0234": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0236": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0238": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0240": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0242": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0244": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0250": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0260": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0262": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0263": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0264": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0266": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A026A": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A026C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0271": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0272": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0273": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0274": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0280": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0282": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0284": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0286": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0288": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A028A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A028C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0290": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0291": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0292": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0294": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0296": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0298": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A029C": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A029E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02A0": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02A1": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A02A2": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A02A4": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02B0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A02B2": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A02B3": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A02B4": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A02B8": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02BA": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02C8": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02D0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A02D2": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02D4": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02D6": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02E0": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A02E1": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A02E2": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A02E3": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A02E4": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A02E5": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A02E6": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A02E7": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A02E8": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A02EA": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A02EB": {
-            "vr": "LT"
+            vr: "LT"
         },
         "300A0302": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0304": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0306": {
-            "vr": "SS"
+            vr: "SS"
         },
         "300A0308": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0309": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A030A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A030C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A030D": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A030F": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0312": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0314": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0316": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0318": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0320": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0322": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0330": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0332": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0334": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0336": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0338": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A033A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A033C": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0340": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0342": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0344": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0346": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0348": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A034A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A034C": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0350": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0352": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0354": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0355": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0356": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0358": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A035A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0360": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0362": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0364": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0366": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0370": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0372": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0374": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0380": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0382": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0384": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0386": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0388": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A038A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A038F": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0390": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0391": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0392": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0393": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0394": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0395": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0396": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0398": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0399": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A039A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A03A0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A03A2": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A03A4": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A03A6": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A03A8": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A03AA": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A03AC": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0401": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0402": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0410": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0412": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0420": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0421": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A0422": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0423": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0424": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0425": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0426": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0431": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0432": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0433": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0434": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0435": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0436": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0440": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300A0441": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0442": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0443": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0450": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0451": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0452": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0453": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0501": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0502": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0503": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0504": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0505": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0506": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0507": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0508": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0509": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0510": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300A0511": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0512": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0600": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0601": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0602": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0603": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0604": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0605": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0606": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0607": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0608": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0609": {
-            "vr": "UI"
+            vr: "UI"
         },
         "300A060A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A060B": {
-            "vr": "US"
+            vr: "US"
         },
         "300A060C": {
-            "vr": "US"
+            vr: "US"
         },
         "300A060D": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A060E": {
-            "vr": "US"
+            vr: "US"
         },
         "300A060F": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0610": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0611": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0612": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0613": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0614": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0615": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0616": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0617": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0618": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0619": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A061A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A061B": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A061C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A061D": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A061E": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A061F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0620": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0621": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0622": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0623": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A0624": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0625": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0626": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0627": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0628": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0629": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A062A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A062B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A062C": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A062D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A062E": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A062F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0630": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0631": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0632": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0634": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0635": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0636": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0637": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0638": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0639": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A063A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A063B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A063C": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A063D": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A063E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A063F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0640": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0641": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0642": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0643": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0644": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0645": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0646": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0647": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0648": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0649": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A064A": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A064B": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A064C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A064D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A064E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A064F": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0650": {
-            "vr": "UI"
+            vr: "UI"
         },
         "300A0651": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0652": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0653": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0654": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0655": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0656": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0657": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0658": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0659": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A065A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A065B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A065C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A065D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A065E": {
-            "vr": "US"
+            vr: "US"
         },
         "300A065F": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0660": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0661": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0662": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0663": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0664": {
-            "vr": "OF"
+            vr: "OF"
         },
         "300A0665": {
-            "vr": "OF"
+            vr: "OF"
         },
         "300A0666": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0667": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0668": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0669": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A066A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A066B": {
-            "vr": "OF"
+            vr: "OF"
         },
         "300A066C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A066D": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A066E": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A066F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0670": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0671": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0672": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0673": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0674": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0675": {
-            "vr": "UI"
+            vr: "UI"
         },
         "300A0676": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0677": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0678": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0679": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A067A": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A067B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A067C": {
-            "vr": "SH"
+            vr: "SH"
         },
         "300A067D": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A067E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A067F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0680": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0681": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0682": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300A0683": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0684": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0685": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0686": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0687": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0688": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A0689": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A068A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0700": {
-            "vr": "UI"
+            vr: "UI"
         },
         "300A0701": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0702": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0703": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0704": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0705": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0706": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0707": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0708": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0709": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0714": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0715": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0716": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0722": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0723": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0730": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0731": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0732": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300A0733": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0734": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0735": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0736": {
-            "vr": "DT"
+            vr: "DT"
         },
         "300A073A": {
-            "vr": "DT"
+            vr: "DT"
         },
         "300A073B": {
-            "vr": "US"
+            vr: "US"
         },
         "300A073E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A073F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0740": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0741": {
-            "vr": "DT"
+            vr: "DT"
         },
         "300A0742": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0743": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0744": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0745": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0746": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0760": {
-            "vr": "DT"
+            vr: "DT"
         },
         "300A0761": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0762": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0772": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0773": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0774": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0780": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0782": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0783": {
-            "vr": "ST"
+            vr: "ST"
         },
         "300A0784": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0785": {
-            "vr": "UI"
+            vr: "UI"
         },
         "300A0786": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0787": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0788": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0789": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A078A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A078B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A078C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A078D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A078E": {
-            "vr": "LT"
+            vr: "LT"
         },
         "300A078F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0790": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0791": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0792": {
-            "vr": "LT"
+            vr: "LT"
         },
         "300A0793": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0794": {
-            "vr": "LT"
+            vr: "LT"
         },
         "300A0795": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0796": {
-            "vr": "US"
+            vr: "US"
         },
         "300A0797": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0798": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A0799": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A079A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300A079B": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300A079C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A079D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300A079E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300C0002": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0004": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0006": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0007": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0008": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300C0009": {
-            "vr": "DS"
+            vr: "DS"
         },
         "300C000A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C000C": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C000E": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0020": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0022": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0040": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0042": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0050": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0051": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0055": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0060": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C006A": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0080": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C00A0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C00B0": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C00C0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C00D0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C00E0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C00F0": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C00F2": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C00F4": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C00F6": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0100": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0102": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0104": {
-            "vr": "IS"
+            vr: "IS"
         },
         "300C0111": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0112": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300C0113": {
-            "vr": "LO"
+            vr: "LO"
         },
         "300C0114": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0115": {
-            "vr": "FL"
+            vr: "FL"
         },
         "300C0116": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0117": {
-            "vr": "US"
+            vr: "US"
         },
         "300C0118": {
-            "vr": "US"
+            vr: "US"
         },
         "300C0119": {
-            "vr": "US"
+            vr: "US"
         },
         "300C0120": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0121": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300C0122": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300C0123": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300C0124": {
-            "vr": "FD"
+            vr: "FD"
         },
         "300C0125": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300C0126": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300C0127": {
-            "vr": "DT"
+            vr: "DT"
         },
         "300C0128": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "300E0002": {
-            "vr": "CS"
+            vr: "CS"
         },
         "300E0004": {
-            "vr": "DA"
+            vr: "DA"
         },
         "300E0005": {
-            "vr": "TM"
+            vr: "TM"
         },
         "300E0008": {
-            "vr": "PN"
+            vr: "PN"
         },
         "3010000A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010000B": {
-            "vr": "UI"
+            vr: "UI"
         },
         "3010000C": {
-            "vr": "UT"
+            vr: "UT"
         },
         "3010000D": {
-            "vr": "US"
+            vr: "US"
         },
         "3010000E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3010000F": {
-            "vr": "ST"
+            vr: "ST"
         },
         "3010001A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "3010001B": {
-            "vr": "UC"
+            vr: "UC"
         },
         "3010001C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3010001D": {
-            "vr": "LT"
+            vr: "LT"
         },
         "3010001E": {
-            "vr": "LO"
+            vr: "LO"
         },
         "3010001F": {
-            "vr": "UI"
+            vr: "UI"
         },
         "3010002A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010002B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010002C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010002D": {
-            "vr": "LO"
+            vr: "LO"
         },
         "3010002E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010002F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010003A": {
-            "vr": "US"
+            vr: "US"
         },
         "3010003B": {
-            "vr": "UI"
+            vr: "UI"
         },
         "3010003C": {
-            "vr": "US"
+            vr: "US"
         },
         "3010003D": {
-            "vr": "US"
+            vr: "US"
         },
         "3010003E": {
-            "vr": "US"
+            vr: "US"
         },
         "3010003F": {
-            "vr": "US"
+            vr: "US"
         },
         "3010004A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010004B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010004C": {
-            "vr": "DA"
+            vr: "DA"
         },
         "3010004D": {
-            "vr": "DA"
+            vr: "DA"
         },
         "3010004E": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010004F": {
-            "vr": "CS"
+            vr: "CS"
         },
         "3010005A": {
-            "vr": "UT"
+            vr: "UT"
         },
         "3010005B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010005C": {
-            "vr": "ST"
+            vr: "ST"
         },
         "3010005D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010005E": {
-            "vr": "US"
+            vr: "US"
         },
         "3010005F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010006A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010006B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010006C": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010006D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "3010006E": {
-            "vr": "UI"
+            vr: "UI"
         },
         "3010006F": {
-            "vr": "UI"
+            vr: "UI"
         },
         "3010007A": {
-            "vr": "UT"
+            vr: "UT"
         },
         "3010007B": {
-            "vr": "UT"
+            vr: "UT"
         },
         "3010007C": {
-            "vr": "IS"
+            vr: "IS"
         },
         "3010007D": {
-            "vr": "US"
+            vr: "US"
         },
         "3010007E": {
-            "vr": "US"
+            vr: "US"
         },
         "3010007F": {
-            "vr": "UT"
+            vr: "UT"
         },
         "3010009A": {
-            "vr": "FD"
+            vr: "FD"
         },
         "400800FF": {
-            "vr": "CS"
+            vr: "CS"
         },
         "4008010A": {
-            "vr": "PN"
+            vr: "PN"
         },
         "4008010B": {
-            "vr": "ST"
+            vr: "ST"
         },
         "4008010C": {
-            "vr": "PN"
+            vr: "PN"
         },
         "4008011A": {
-            "vr": "LO"
+            vr: "LO"
         },
         "4010100A": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "4010101A": {
-            "vr": "SH"
+            vr: "SH"
         },
         "4010101B": {
-            "vr": "FL"
+            vr: "FL"
         },
         "4010101C": {
-            "vr": "FL"
+            vr: "FL"
         },
         "4010101D": {
-            "vr": "FL"
+            vr: "FL"
         },
         "4010101E": {
-            "vr": "SH"
+            vr: "SH"
         },
         "4010101F": {
-            "vr": "SH"
+            vr: "SH"
         },
         "4010102A": {
-            "vr": "SH"
+            vr: "SH"
         },
         "4010102B": {
-            "vr": "DT"
+            vr: "DT"
         },
         "4010103A": {
-            "vr": "CS"
+            vr: "CS"
         },
         "4010106C": {
-            "vr": "OB"
+            vr: "OB"
         },
         "4010106D": {
-            "vr": "CS"
+            vr: "CS"
         },
         "4010106E": {
-            "vr": "CS"
+            vr: "CS"
         },
         "4010106F": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "4010107A": {
-            "vr": "FL"
+            vr: "FL"
         },
         "4010107B": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "4010107C": {
-            "vr": "CS"
+            vr: "CS"
         },
         "4010107D": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "4010107E": {
-            "vr": "DS"
+            vr: "DS"
         },
         "4FFE0001": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "50xx0005": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx0010": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx0020": {
-            "vr": "CS"
+            vr: "CS"
         },
         "50xx0022": {
-            "vr": "LO"
+            vr: "LO"
         },
         "50xx0030": {
-            "vr": "SH"
+            vr: "SH"
         },
         "50xx0040": {
-            "vr": "SH"
+            vr: "SH"
         },
         "50xx0103": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx0104": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx0105": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx0106": {
-            "vr": "SH"
+            vr: "SH"
         },
         "50xx0110": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx0112": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx0114": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx1001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "50xx2000": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx2002": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx2004": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx2006": {
-            "vr": "UL"
+            vr: "UL"
         },
         "50xx2008": {
-            "vr": "UL"
+            vr: "UL"
         },
         "50xx200A": {
-            "vr": "UL"
+            vr: "UL"
         },
         "50xx200C": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "50xx200E": {
-            "vr": "LT"
+            vr: "LT"
         },
         "50xx2500": {
-            "vr": "LO"
+            vr: "LO"
         },
         "50xx2600": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "50xx2610": {
-            "vr": "US"
+            vr: "US"
         },
         "50xx3000": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "5400100A": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "60xx0010": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0011": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0012": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0015": {
-            "vr": "IS"
+            vr: "IS"
         },
         "60xx0022": {
-            "vr": "LO"
+            vr: "LO"
         },
         "60xx0040": {
-            "vr": "CS"
+            vr: "CS"
         },
         "60xx0045": {
-            "vr": "LO"
+            vr: "LO"
         },
         "60xx0050": {
-            "vr": "SS"
+            vr: "SS"
         },
         "60xx0051": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0052": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0060": {
-            "vr": "CS"
+            vr: "CS"
         },
         "60xx0061": {
-            "vr": "SH"
+            vr: "SH"
         },
         "60xx0062": {
-            "vr": "SH"
+            vr: "SH"
         },
         "60xx0063": {
-            "vr": "CS"
+            vr: "CS"
         },
         "60xx0066": {
-            "vr": "AT"
+            vr: "AT"
         },
         "60xx0068": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0069": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0100": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0102": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0110": {
-            "vr": "CS"
+            vr: "CS"
         },
         "60xx0200": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0800": {
-            "vr": "CS"
+            vr: "CS"
         },
         "60xx0802": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx0803": {
-            "vr": "AT"
+            vr: "AT"
         },
         "60xx0804": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1001": {
-            "vr": "CS"
+            vr: "CS"
         },
         "60xx1100": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1101": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1102": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1103": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1200": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1201": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1202": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1203": {
-            "vr": "US"
+            vr: "US"
         },
         "60xx1301": {
-            "vr": "IS"
+            vr: "IS"
         },
         "60xx1302": {
-            "vr": "DS"
+            vr: "DS"
         },
         "60xx1303": {
-            "vr": "DS"
+            vr: "DS"
         },
         "60xx1500": {
-            "vr": "LO"
+            vr: "LO"
         },
         "60xx3000": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "60xx4000": {
-            "vr": "LT"
+            vr: "LT"
         },
         "7FE00001": {
-            "vr": "OV"
+            vr: "OV"
         },
         "7FE00002": {
-            "vr": "OV"
+            vr: "OV"
         },
         "7FE00008": {
-            "vr": "OF"
+            vr: "OF"
         },
         "7FE00009": {
-            "vr": "OD"
+            vr: "OD"
         },
         "7FE00010": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "7FE00020": {
-            "vr": "OW"
+            vr: "OW"
         },
         "7FE00030": {
-            "vr": "OW"
+            vr: "OW"
         },
         "7FE00040": {
-            "vr": "OW"
+            vr: "OW"
         },
         "7Fxx0010": {
-            "vr": "OB or OW"
+            vr: "OB or OW"
         },
         "7Fxx0011": {
-            "vr": "US"
+            vr: "US"
         },
         "7Fxx0020": {
-            "vr": "OW"
+            vr: "OW"
         },
         "7Fxx0030": {
-            "vr": "OW"
+            vr: "OW"
         },
         "7Fxx0040": {
-            "vr": "OW"
+            vr: "OW"
         },
         "FFFAFFFA": {
-            "vr": "SQ"
+            vr: "SQ"
         },
         "FFFCFFFC": {
-            "vr": "OB"
+            vr: "OB"
         },
         "FFFEE000": {
-            "vr": "See Note 2"
+            vr: "See Note 2"
         },
         "FFFEE00D": {
-            "vr": "See Note 2"
+            vr: "See Note 2"
         },
         "FFFEE0DD": {
-            "vr": "See Note 2"
+            vr: "See Note 2"
         }
     }
 };

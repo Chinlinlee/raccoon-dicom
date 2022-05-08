@@ -7,29 +7,27 @@ direct-project
 */
 
 /**
- * 
+ *
  * @param {string} addressUrl The DICOMWeb URL of study level
  * @param {*} id The unique id of this DICOMWeb URL of PACS server.
- * @returns 
+ * @returns
  */
 function dicomJsonToFHIREndpoint(addressUrl, id) {
     let endpoint = {
-        "resourceType" : "Endpoint" ,
-        "status": "active",
-        "id" : id ,
-        connectionType : {
-            system : "http://terminology.hl7.org/CodeSystem/endpoint-connection-type" , 
-            code : "dicom-wado-rs"
+        resourceType: "Endpoint",
+        status: "active",
+        id: id,
+        connectionType: {
+            system: "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+            code: "dicom-wado-rs"
         },
-        "payloadType": [
+        payloadType: [
             {
-                "text": "DICOM"
+                text: "DICOM"
             }
         ],
-        "payloadMimeType": [
-            "application/dicom"
-        ],
-        "address": addressUrl
+        payloadMimeType: ["application/dicom"],
+        address: addressUrl
     };
     return endpoint;
 }

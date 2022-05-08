@@ -4,7 +4,7 @@
  * @property {string} seriesUID
  * @property {string} sopInstanceUID
  * @property {string} sopClass
- * 
+ *
  */
 
 const DICOM = true;

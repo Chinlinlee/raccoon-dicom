@@ -38,5 +38,7 @@
     "trouter": "^3.2.0",
     "uuid": "^8.3.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-config-prettier": "^8.5.0"
+  }
 }

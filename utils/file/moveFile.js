@@ -1,6 +1,6 @@
-const fsP = require('node:fs/promises');
-const path = require('node:path');
-const pathExist = require('./fileExist');
+const fsP = require("node:fs/promises");
+const path = require("node:path");
+const pathExist = require("./fileExist");
 
 module.exports = async (source, destination, options) => {
     if (!source || !destination) {
@@ -12,7 +12,7 @@ module.exports = async (source, destination, options) => {
         ...options
     };
 
-    if (!options.overwrite && await pathExist(destination)) {
+    if (!options.overwrite && (await pathExist(destination))) {
         throw new Error(`The destination file exists: ${destination}`);
     }
 
@@ -23,8 +23,8 @@ module.exports = async (source, destination, options) => {
 
     try {
         await fsP.rename(source, destination);
-    } catch(e) {
-        if (e.code === 'EXDEV') {
+    } catch (e) {
+        if (e.code === "EXDEV") {
             await fsP.copyFile(source, destination);
             await fsP.unlink(source);
         } else {

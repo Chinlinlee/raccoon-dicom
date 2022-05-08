@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const mongoose = require('mongoose');
+const _ = require("lodash");
+const mongoose = require("mongoose");
 const {
     convertAllQueryToDICOMTag,
     convertRequestQueryToMongoQuery,
@@ -7,10 +7,8 @@ const {
     getSeriesLevelFields,
     getInstanceLevelFields,
     sortObjByFieldKey
-} = require('./service/QIDO-RS.service');
-const {
-    logger
-} = require('../../../../utils/log');
+} = require("./service/QIDO-RS.service");
+const { logger } = require("../../../../utils/log");
 
 /**
  *  @openapi
@@ -37,9 +35,9 @@ const {
  */
 
 /**
- * 
- * @param {import('http').IncomingMessage} req 
- * @param {import('http').ServerResponse} res 
+ *
+ * @param {import('http').IncomingMessage} req
+ * @param {import('http').ServerResponse} res
  */
 module.exports = async function (req, res) {
     try {
@@ -55,7 +53,12 @@ module.exports = async function (req, res) {
         }
 
         let dicomTagQuery = convertAllQueryToDICOMTag(query);
-        let studiesJson = await getInstanceDicomJson(dicomTagQuery, limit, skip, req);
+        let studiesJson = await getInstanceDicomJson(
+            dicomTagQuery,
+            limit,
+            skip,
+            req
+        );
         res.writeHead(200, {
             "Content-Type": "application/dicom+json"
         });
@@ -67,9 +70,11 @@ module.exports = async function (req, res) {
 };
 
 async function getInstanceDicomJson(iQuery, limit, skip, req) {
-    logger.info(`[QIDO-RS] [Query instance Level, Study UID: ${req.params.studyUID}, Series UID: ${req.params.seriesUID}]`);
+    logger.info(
+        `[QIDO-RS] [Query instance Level, Study UID: ${req.params.studyUID}, Series UID: ${req.params.seriesUID}]`
+    );
     let result = {
-        data: '',
+        data: "",
         status: false
     };
     let protocol = req.secure ? "https" : "http";
@@ -84,7 +89,8 @@ async function getInstanceDicomJson(iQuery, limit, skip, req) {
         let studyFields = getStudyLevelFields();
         let seriesFields = getSeriesLevelFields();
         let instanceFields = getInstanceLevelFields();
-        let docs = await mongoose.model("dicom")
+        let docs = await mongoose
+            .model("dicom")
             .find(query, {
                 ...studyFields,
                 ...seriesFields,
@@ -93,7 +99,7 @@ async function getInstanceDicomJson(iQuery, limit, skip, req) {
             .limit(limit)
             .skip(skip)
             .exec();
-        result.data = docs.map(v => {
+        result.data = docs.map((v) => {
             let obj = v.toObject();
             delete obj._id;
             delete obj.id;

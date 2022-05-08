@@ -1,37 +1,31 @@
-const path = require('node:path');
-const fs = require('node:fs');
-const fsP = require('node:fs/promises');
-const { 
-    performance 
-} = require('node:perf_hooks');
-const formidable = require('formidable');
-const _ = require('lodash');
-const uuid = require('uuid');
-const flatten = require('flat');
-const shortHash = require('shorthash2');
-const moment = require('moment');
-const mkdirp = require('mkdirp');
-const moveFile = require('../../../../utils/file/moveFile');
-const errorResponseMessage = require('../../../../utils/errorResponse/errorResponseMessage');
-const { 
-    dcm2jsonV8, 
-    dcmtkSupportTransferSyntax, 
-    dcm2jpegCustomCmd 
-} = require('../../../../models/DICOM/dcmtk');
-const { 
-    logger,
-    pythonLogger,
-    fhirLogger
-} = require('../../../../utils/log');
-const dicomBulkDataModel = require('../../../../models/mongodb/models/dicomBulkData');
-const mongoose = require('mongoose');
-const { 
-    DICOMFHIRConverter 
-} = require('../../../../models/FHIR/DICOM/DICOMToFHIR');
-const notImageSOPClass = require('../../../../models/DICOM/dicomWEB/notImageSOPClass');
-const PyDicomJpegConvert = require('../../../../python').getJpeg;
+const path = require("node:path");
+const fs = require("node:fs");
+const fsP = require("node:fs/promises");
+const { performance } = require("node:perf_hooks");
+const formidable = require("formidable");
+const _ = require("lodash");
+const uuid = require("uuid");
+const flatten = require("flat");
+const shortHash = require("shorthash2");
+const moment = require("moment");
+const mkdirp = require("mkdirp");
+const moveFile = require("../../../../utils/file/moveFile");
+const errorResponseMessage = require("../../../../utils/errorResponse/errorResponseMessage");
+const {
+    dcm2jsonV8,
+    dcmtkSupportTransferSyntax,
+    dcm2jpegCustomCmd
+} = require("../../../../models/DICOM/dcmtk");
+const { logger, pythonLogger, fhirLogger } = require("../../../../utils/log");
+const dicomBulkDataModel = require("../../../../models/mongodb/models/dicomBulkData");
+const mongoose = require("mongoose");
+const {
+    DICOMFHIRConverter
+} = require("../../../../models/FHIR/DICOM/DICOMToFHIR");
+const notImageSOPClass = require("../../../../models/DICOM/dicomWEB/notImageSOPClass");
+const PyDicomJpegConvert = require("../../../../python").getJpeg;
 /**@type {import('socket.io').Server} */
-const io = require('../../../../socket').get();
+const io = require("../../../../socket").get();
 
 /**
  * *The SQ of Whole slide may have over thousand of length cause process block.
@@ -46,10 +40,10 @@ const bigValueTags = ["52009230", "00480200"];
  *      tags:
  *        - STOW-RS
  *      description: store DICOM instance
- *      requestBody: 
+ *      requestBody:
  *        content:
  *          multipart/related:
- *            schema: 
+ *            schema:
  *              type: object
  *              properties:
  *                file:
@@ -64,11 +58,11 @@ const bigValueTags = ["52009230", "00480200"];
  */
 
 /**
- * 
- * @param {import('http').IncomingMessage} req 
- * @param {import('http').ServerResponse} res 
+ *
+ * @param {import('http').IncomingMessage} req
+ * @param {import('http').ServerResponse} res
  */
-module.exports = async function(req, res) {
+module.exports = async function (req, res) {
     let startSTOWTime = performance.now();
     let retCode;
     let storeMessage;
@@ -81,13 +75,16 @@ module.exports = async function(req, res) {
         }
         let endSTOWTime = performance.now();
         let elapsedTime = (endSTOWTime - startSTOWTime).toFixed(3);
-        logger.info(`[STOW-RS] [Finished STOW-RS, elapsed time: ${elapsedTime} ms]`);
+        logger.info(
+            `[STOW-RS] [Finished STOW-RS, elapsed time: ${elapsedTime} ms]`
+        );
         res.writeHead(retCode);
         return res.end(JSON.stringify(storeMessage));
-    } catch(e) {
+    } catch (e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
         logger.error(`[STOW-RS] [${errorStr}]`);
-        let errorMessage = errorResponseMessage.getInternalServerErrorMessage(errorStr);
+        let errorMessage =
+            errorResponseMessage.getInternalServerErrorMessage(errorStr);
         res.writeHead(500, {
             "Content-Type": "application/dicom+json"
         });
@@ -97,32 +94,47 @@ module.exports = async function(req, res) {
 
 async function storeInstance(req, multipartData) {
     let storeMessage = {
-        "00081190": {  //Study retrieve URL
-            "vr": "UT",
-            "Value": []
+        "00081190": {
+            //Study retrieve URL
+            vr: "UT",
+            Value: []
         },
-        "00081198": {  //Failed SOP Sequence
-            "vr": "SQ",
-            "Value": [] // Use SOPSeq
+        "00081198": {
+            //Failed SOP Sequence
+            vr: "SQ",
+            Value: [] // Use SOPSeq
         },
-        "00081199": { //ReferencedSOPSequence
-            "vr": "SQ",
-            "Value": [] // Use SOPSeq
+        "00081199": {
+            //ReferencedSOPSequence
+            vr: "SQ",
+            Value: [] // Use SOPSeq
         }
     };
     let retCode = 200;
     let uploadFiles = multipartData.multipart.files;
-    for (let i = 0 ; i< uploadFiles.length; i++) {
+    for (let i = 0; i < uploadFiles.length; i++) {
         let currentFile = uploadFiles[i];
         fixEmptyUploadFileName(currentFile);
         let dicomJson = await getDICOMJson(currentFile.filepath);
         let removedTagsDicomJson = getRemoveBigValueTagsDicomJson(dicomJson);
-        
+
         let uidObj = {
-            sopClass: dcm2jsonV8.dcmString(removedTagsDicomJson.dicomJson, "00080016"),
-            sopInstanceUID: dcm2jsonV8.dcmString(removedTagsDicomJson.dicomJson, "00080018"),
-            studyUID: dcm2jsonV8.dcmString(removedTagsDicomJson.dicomJson, "0020000D"),
-            seriesUID: dcm2jsonV8.dcmString(removedTagsDicomJson.dicomJson, "0020000E")
+            sopClass: dcm2jsonV8.dcmString(
+                removedTagsDicomJson.dicomJson,
+                "00080016"
+            ),
+            sopInstanceUID: dcm2jsonV8.dcmString(
+                removedTagsDicomJson.dicomJson,
+                "00080018"
+            ),
+            studyUID: dcm2jsonV8.dcmString(
+                removedTagsDicomJson.dicomJson,
+                "0020000D"
+            ),
+            seriesUID: dcm2jsonV8.dcmString(
+                removedTagsDicomJson.dicomJson,
+                "0020000E"
+            )
         };
 
         let isSameStudyID = checkStudyId(req, uidObj, storeMessage);
@@ -130,9 +142,20 @@ async function storeInstance(req, multipartData) {
             retCode = 409;
         }
 
-        let replacedBinaryDicomJson = await processBinaryData(req, removedTagsDicomJson, uidObj);
-        let saveDICOMFileResult = await saveDICOMFile(currentFile, removedTagsDicomJson.dicomJson, uidObj);
-        await storeMetadata(replacedBinaryDicomJson, saveDICOMFileResult.fullPath);
+        let replacedBinaryDicomJson = await processBinaryData(
+            req,
+            removedTagsDicomJson,
+            uidObj
+        );
+        let saveDICOMFileResult = await saveDICOMFile(
+            currentFile,
+            removedTagsDicomJson.dicomJson,
+            uidObj
+        );
+        await storeMetadata(
+            replacedBinaryDicomJson,
+            saveDICOMFileResult.fullPath
+        );
         await storeDICOMJsonToDB(uidObj, saveDICOMFileResult);
         let retrieveUrlObj = getRetrieveUrl(req, uidObj);
         storeMessage["00081190"].Value.push(retrieveUrlObj.study);
@@ -142,11 +165,15 @@ async function storeInstance(req, multipartData) {
         _.set(sopSeq, "00081190.vr", "UT");
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         storeMessage["00081199"]["Value"].push(sopSeq);
-        
+
         dicomToFHIR(req, removedTagsDicomJson.dicomJson, uidObj);
-        
+
         if (!notImageSOPClass.includes(uidObj.sopClass)) {
-            generateJpeg(removedTagsDicomJson.dicomJson, uidObj, saveDICOMFileResult.instancePath);
+            generateJpeg(
+                removedTagsDicomJson.dicomJson,
+                uidObj,
+                saveDICOMFileResult.instancePath
+            );
         }
     }
     return {
@@ -156,28 +183,28 @@ async function storeInstance(req, multipartData) {
 }
 
 /**
- * 
- * @param {import('http').IncomingMessage} req 
- * @param {JSON} dicomJson 
+ *
+ * @param {import('http').IncomingMessage} req
+ * @param {JSON} dicomJson
  * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj
  */
 async function dicomToFHIR(req, dicomJson, uidObj) {
     try {
         let dicomFHIRConverter = new DICOMFHIRConverter();
         dicomFHIRConverter.dicomWeb.name = `raccoon-dicom-web-server`;
-    
-        let protocol = req.secure? "https" : "http";
+
+        let protocol = req.secure ? "https" : "http";
         dicomFHIRConverter.dicomWeb.retrieveStudiesUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
-    
+
         dicomFHIRConverter.dicomJsonToFHIR(dicomJson);
-    
+
         dicomFHIRConverter.fhir.baseUrl = process.env.FHIRSERVER_BASE_URL;
         await dicomFHIRConverter.postDicomFhir();
         io.emit("fhir_synced", {
             ...dicomFHIRConverter.dicomFHIR,
             status: true
         });
-    } catch(e) {
+    } catch (e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
         if (e.isAxiosError) {
             let errorObj = {
@@ -186,23 +213,29 @@ async function dicomToFHIR(req, dicomJson, uidObj) {
                 instanceUID: uidObj.sopInstanceUID,
                 message: errorStr
             };
-            await mongoose.model("syncFHIRErrorLog").findOneAndUpdate({
-                $and: [
-                    {
-                        studyUID: uidObj.studyUID
-                    },
-                    {
-                        seriesUID: uidObj.seriesUID
-                    },
-                    {
-                        instanceUID: uidObj.sopInstanceUID
-                    }
-                ]
-            }, errorObj, {
-                upsert: true
-            });
+            await mongoose.model("syncFHIRErrorLog").findOneAndUpdate(
+                {
+                    $and: [
+                        {
+                            studyUID: uidObj.studyUID
+                        },
+                        {
+                            seriesUID: uidObj.seriesUID
+                        },
+                        {
+                            instanceUID: uidObj.sopInstanceUID
+                        }
+                    ]
+                },
+                errorObj,
+                {
+                    upsert: true
+                }
+            );
         } else {
-            fhirLogger.error(`[FHIR] [DICOM sync to FHIR server error] [${errorStr}]`);
+            fhirLogger.error(
+                `[FHIR] [DICOM sync to FHIR server error] [${errorStr}]`
+            );
         }
         io.emit("fhir_synced", {
             message: errorStr,
@@ -212,18 +245,18 @@ async function dicomToFHIR(req, dicomJson, uidObj) {
 }
 
 /**
- * 
- * @param {import('http').IncomingMessage} req 
+ *
+ * @param {import('http').IncomingMessage} req
  * @return {Promise<import('../../../../utils/typeDef/STOW-RS/STOW-RS.def').MultipartResult>}
  */
 async function parseMultipart(req) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         new formidable.IncomingForm({
             uploadDir: path.join(process.cwd(), "/tempUploadFiles"),
             maxFileSize: 100 * 1024 * 1024 * 1024,
             multiples: true,
             isGetBoundaryInData: true
-        }).parse(req, async(err, fields, files) => {
+        }).parse(req, async (err, fields, files) => {
             if (err) {
                 logger.error(err);
                 return reject(err);
@@ -250,37 +283,44 @@ async function getDICOMJson(filename) {
     try {
         let dicomJson = await dcm2jsonV8.exec(filename);
         return dicomJson;
-    } catch(e) {
+    } catch (e) {
         throw e;
     }
 }
 
 /**
- * 
- * @param {import('formidable').File} file 
- * @param {JSON} dicomJson 
+ *
+ * @param {import('formidable').File} file
+ * @param {JSON} dicomJson
  * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj
  */
 async function saveDICOMFile(file, dicomJson, uidObj) {
     try {
         let started_date = "";
-        started_date = dcm2jsonV8.dcmString(dicomJson, "00080020") + dcm2jsonV8.dcmString(dicomJson, "00080030");
+        started_date =
+            dcm2jsonV8.dcmString(dicomJson, "00080020") +
+            dcm2jsonV8.dcmString(dicomJson, "00080030");
         if (!started_date) started_date = Date.now();
         started_date = moment(started_date, "YYYYMMDDhhmmss").toISOString();
-        let [year, month] = started_date.split('-');
+        let [year, month] = started_date.split("-");
         let studyUID = uidObj.studyUID;
         let seriesUID = uidObj.seriesUID;
         let shortStudyUID = shortHash(studyUID);
         let shortSeriesUID = shortHash(seriesUID);
 
         let relativeStorePath = `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}/`;
-        let fullStorePath = path.join(process.env.DICOM_STORE_ROOTPATH, relativeStorePath);
+        let fullStorePath = path.join(
+            process.env.DICOM_STORE_ROOTPATH,
+            relativeStorePath
+        );
         let instanceStorePath = path.join(fullStorePath, file.originalFilename);
         mkdirp.sync(fullStorePath, "0755");
         await moveFile(file.filepath, instanceStorePath, {
             overwrite: true
         });
-        logger.info(`[STOW-RS] [Move uploaded temp DICOM file "${file.filepath}" to "${instanceStorePath}"`);
+        logger.info(
+            `[STOW-RS] [Move uploaded temp DICOM file "${file.filepath}" to "${instanceStorePath}"`
+        );
         return {
             fullPath: fullStorePath,
             relativePath: `${relativeStorePath}${file.originalFilename}`,
@@ -289,7 +329,7 @@ async function saveDICOMFile(file, dicomJson, uidObj) {
             studyPath: `files/${year}/${month}/${shortStudyUID}`,
             dicomJson: dicomJson
         };
-    } catch(e) {
+    } catch (e) {
         throw e;
     }
 }
@@ -302,11 +342,19 @@ async function storeMetadata(removedTagsDicomJson, dest) {
                 _.set(dicomJson, keys, tempTagsValue[keys]);
             }
         }
-        let instanceUID = dcm2jsonV8.dcmString(dicomJson, '00080018');
-        let metadataFullStorePath = path.join(dest, `${instanceUID}.metadata.json`);
-        await fsP.writeFile(metadataFullStorePath, JSON.stringify(dicomJson, null, 4));
-        logger.info(`[STOW-RS] [Store metadata json to ${metadataFullStorePath}]`);
-    } catch(e) {
+        let instanceUID = dcm2jsonV8.dcmString(dicomJson, "00080018");
+        let metadataFullStorePath = path.join(
+            dest,
+            `${instanceUID}.metadata.json`
+        );
+        await fsP.writeFile(
+            metadataFullStorePath,
+            JSON.stringify(dicomJson, null, 4)
+        );
+        logger.info(
+            `[STOW-RS] [Store metadata json to ${metadataFullStorePath}]`
+        );
+    } catch (e) {
         throw e;
     }
 }
@@ -319,7 +367,7 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
     try {
         // console.log(req.secure);
         // console.log(req.headers.host);
-        let protocol = req.secure? "https" : "http";
+        let protocol = req.secure ? "https" : "http";
         let url = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
 
         let dicomJson = removedTagsDicomJson.dicomJson;
@@ -339,7 +387,7 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
             let binaryValuePath = "";
             let shortInstanceUID = shortHash(instanceUID);
             let relativeFilename = `files/bulkData/${shortInstanceUID}/`;
-            if (_.get(dicomJson, `${key}.Value.0`) ) {
+            if (_.get(dicomJson, `${key}.Value.0`)) {
                 binaryValuePath = `${key}.Value.0`;
                 binaryData = _.get(dicomJson, binaryValuePath);
                 dicomJson = _.omit(dicomJson, [`${key}.Value`]);
@@ -348,13 +396,25 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
                 binaryData = _.get(dicomJson, `${binaryValuePath}`);
                 dicomJson = _.omit(dicomJson, [`${binaryValuePath}`]);
             }
-            _.set(dicomJson, `${key}.BulkDataURI`, `${url}/${studyUID}/series/${seriesUID}/instances/${instanceUID}/bulkdata/${binaryValuePath}`);
-            relativeFilename += `${ binaryValuePath }.raw`;
-            
-            let filename = path.join(process.env.DICOM_STORE_ROOTPATH, relativeFilename);
-            mkdirp.sync(path.join(process.env.DICOM_STORE_ROOTPATH, `files/bulkData/${shortInstanceUID}`));
+            _.set(
+                dicomJson,
+                `${key}.BulkDataURI`,
+                `${url}/${studyUID}/series/${seriesUID}/instances/${instanceUID}/bulkdata/${binaryValuePath}`
+            );
+            relativeFilename += `${binaryValuePath}.raw`;
+
+            let filename = path.join(
+                process.env.DICOM_STORE_ROOTPATH,
+                relativeFilename
+            );
+            mkdirp.sync(
+                path.join(
+                    process.env.DICOM_STORE_ROOTPATH,
+                    `files/bulkData/${shortInstanceUID}`
+                )
+            );
             if (binaryData)
-            fs.writeFileSync(filename, Buffer.from(binaryData, "base64"));
+                fs.writeFileSync(filename, Buffer.from(binaryData, "base64"));
             logger.info(`[STOW-RS] [Store binary data to ${filename}]`);
             let bulkData = {
                 studyUID: studyUID,
@@ -364,28 +424,32 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
                 binaryValuePath: binaryValuePath
             };
 
-            await dicomBulkDataModel.updateOne({
-                $and: [
-                    {
-                        instanceUID: instanceUID
-                    },
-                    {
-                        binaryValuePath: binaryValuePath
-                    }
-                ]
-            }, bulkData , {
-                upsert: true
-            });
+            await dicomBulkDataModel.updateOne(
+                {
+                    $and: [
+                        {
+                            instanceUID: instanceUID
+                        },
+                        {
+                            binaryValuePath: binaryValuePath
+                        }
+                    ]
+                },
+                bulkData,
+                {
+                    upsert: true
+                }
+            );
         }
         dicomJson["7FE00010"] = {
-            "vr": "OW",
-            "BulkDataURI": `${url}/${dicomJson['0020000D'].Value[0]}/series/${dicomJson['0020000E'].Value[0]}/instances/${dicomJson['00080018'].Value[0]}`
+            vr: "OW",
+            BulkDataURI: `${url}/${dicomJson["0020000D"].Value[0]}/series/${dicomJson["0020000E"].Value[0]}/instances/${dicomJson["00080018"].Value[0]}`
         };
         return {
             dicomJson: dicomJson,
             tempTagsValue: removedTagsDicomJson.tempTagsValue
         };
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         throw e;
     }
@@ -417,7 +481,9 @@ function checkStudyId(req, uidObj, storeMessage) {
     let result = true;
     if (reqStudyId) {
         if (reqStudyId !== dataStudyId) {
-            logger.error(`[STOW-RS] [The UID is not consist, request UID: (${req.params.studyID}, DICOM file UID: ${dataStudyId})]`);
+            logger.error(
+                `[STOW-RS] [The UID is not consist, request UID: (${req.params.studyID}, DICOM file UID: ${dataStudyId})]`
+            );
             let failureMessage = {
                 "00081197": {
                     vr: "US",
@@ -467,9 +533,8 @@ function getSOPSeq(referencedSOPClassUID, referencedSOPInstanceUID) {
     return result;
 }
 
-
 function getRetrieveUrl(req, uidObj) {
-    let protocol = req.secure? "https" : "http";
+    let protocol = req.secure ? "https" : "http";
     let url = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
 
     return {
@@ -480,9 +545,9 @@ function getRetrieveUrl(req, uidObj) {
 }
 
 /**
- * 
- * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj 
- * @param {*} dicomJson 
+ *
+ * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj
+ * @param {*} dicomJson
  */
 async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
     let dicomJson = saveDICOMFileResult.dicomJson;
@@ -494,7 +559,7 @@ async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
             instancePath: saveDICOMFileResult.instancePath
         });
         let query = {
-            "$and": [
+            $and: [
                 {
                     studyUID: uidObj.studyUID
                 },
@@ -513,40 +578,52 @@ async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
                 upsert: true,
                 new: true
             }),
-            mongoose.model("dicomStudy").findOneAndUpdate({
-                studyUID: uidObj.studyUID
-            }, dicomJson, {
-                upsert: true,
-                new: true
-            }),
-            mongoose.model("dicomSeries").findOneAndUpdate({
-                "$and": [
-                    {
-                        studyUID: uidObj.studyUID
-                    },
-                    {
-                        seriesUID: uidObj.seriesUID
-                    }
-                ]
-            }, dicomJson, {
-                upsert: true,
-                new: true
-            })
+            mongoose.model("dicomStudy").findOneAndUpdate(
+                {
+                    studyUID: uidObj.studyUID
+                },
+                dicomJson,
+                {
+                    upsert: true,
+                    new: true
+                }
+            ),
+            mongoose.model("dicomSeries").findOneAndUpdate(
+                {
+                    $and: [
+                        {
+                            studyUID: uidObj.studyUID
+                        },
+                        {
+                            seriesUID: uidObj.seriesUID
+                        }
+                    ]
+                },
+                dicomJson,
+                {
+                    upsert: true,
+                    new: true
+                }
+            )
         ]);
-    } catch(e) {
+    } catch (e) {
         throw e;
     }
 }
 
 async function insertDicomToJpegTask(item) {
     try {
-        await mongoose.model("dicomToJpegTask").updateOne({
-            'studyUID': item.studyUID,
-            'seriesUID': item.seriesUID,
-            'instanceUID': item.instanceUID
-        }, item, {
-            upsert: true
-        });
+        await mongoose.model("dicomToJpegTask").updateOne(
+            {
+                studyUID: item.studyUID,
+                seriesUID: item.seriesUID,
+                instanceUID: item.instanceUID
+            },
+            item,
+            {
+                upsert: true
+            }
+        );
         return true;
     } catch (e) {
         throw e;
@@ -565,25 +642,41 @@ function getDICOMToJpegCommandString(options) {
     let execCmd = "";
     if (process.env.OS === "windows") {
         if (options.windowCenter && options.windowWidth) {
-            execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${options.dicomFilename}" "${options.jpegFilename}.${options.frameNumber - 1}.jpg" --frame ${options.frameNumber} +Ww ${options.windowCenter} ${options.windowWidth}`;
+            execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${
+                options.dicomFilename
+            }" "${options.jpegFilename}.${
+                options.frameNumber - 1
+            }.jpg" --frame ${options.frameNumber} +Ww ${options.windowCenter} ${
+                options.windowWidth
+            }`;
         } else {
-            execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${options.dicomFilename}" "${options.jpegFilename}.${options.frameNumber - 1}.jpg" --frame ${options.frameNumber}`;
+            execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${
+                options.dicomFilename
+            }" "${options.jpegFilename}.${
+                options.frameNumber - 1
+            }.jpg" --frame ${options.frameNumber}`;
         }
     } else if (process.env.OS === "linux") {
         if (options.windowCenter && options.windowWidth) {
-            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${options.jpegFilename - 1}.${options.frameNumber}.jpg" --frame ${options.frameNumber} +Ww ${options.windowCenter} ${options.windowWidth}`;
+            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${
+                options.jpegFilename - 1
+            }.${options.frameNumber}.jpg" --frame ${options.frameNumber} +Ww ${
+                options.windowCenter
+            } ${options.windowWidth}`;
         } else {
-            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${options.jpegFilename - 1}.${options.frameNumber}.jpg" --frame ${options.frameNumber}`;
+            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${
+                options.jpegFilename - 1
+            }.${options.frameNumber}.jpg" --frame ${options.frameNumber}`;
         }
     }
     return execCmd;
 }
 
 /**
- * 
- * @param {JSON} dicomJson 
- * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj 
- * @param {*} dicomFilename 
+ *
+ * @param {JSON} dicomJson
+ * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj
+ * @param {*} dicomFilename
  */
 async function generateJpeg(dicomJson, uidObj, dicomFilename) {
     try {
@@ -599,15 +692,15 @@ async function generateJpeg(dicomJson, uidObj, dicomFilename) {
         };
         await insertDicomToJpegTask(startTaskObj);
         io.emit("dicomToJpegTask", startTaskObj);
-        let windowCenter = _.get(dicomJson, '00281050.Value.0');
-        let windowWidth = _.get(dicomJson, '00281051.Value.0');
-        let frameNumber = _.get(dicomJson, '00280008.Value.0', 1);
+        let windowCenter = _.get(dicomJson, "00281050.Value.0");
+        let windowWidth = _.get(dicomJson, "00281051.Value.0");
+        let frameNumber = _.get(dicomJson, "00280008.Value.0", 1);
         let transferSyntax = _.get(dicomJson, "00020010.Value.0");
-        let jpegFilename = dicomFilename.replace(/\.dcm/gi, '');
+        let jpegFilename = dicomFilename.replace(/\.dcm/gi, "");
 
         let execCmdList = [];
         if (dcmtkSupportTransferSyntax.includes(transferSyntax)) {
-            for (let i = 1 ; i <= frameNumber ; i++) {
+            for (let i = 1; i <= frameNumber; i++) {
                 let execCmd = getDICOMToJpegCommandString({
                     windowCenter: windowCenter,
                     windowWidth: windowWidth,
@@ -617,19 +710,32 @@ async function generateJpeg(dicomJson, uidObj, dicomFilename) {
                 });
                 execCmdList.push(execCmd);
                 if (i % 4 === 0) {
-                    await Promise.allSettled(execCmdList.map(cmd => dcm2jpegCustomCmd(cmd)));
+                    await Promise.allSettled(
+                        execCmdList.map((cmd) => dcm2jpegCustomCmd(cmd))
+                    );
                     execCmdList = new Array();
                 }
             }
-            logger.info(`[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(uidObj)}]`);
+            logger.info(
+                `[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(
+                    uidObj
+                )}]`
+            );
         } else {
-            for (let i = 1; i <= frameNumber; i++) { 
-                await PyDicomJpegConvert[process.env.OS].getJpegByPyDicom(dicomFilename, i);
+            for (let i = 1; i <= frameNumber; i++) {
+                await PyDicomJpegConvert[process.env.OS].getJpegByPyDicom(
+                    dicomFilename,
+                    i
+                );
             }
-            pythonLogger.info(`[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(uidObj)}]`);
+            pythonLogger.info(
+                `[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(
+                    uidObj
+                )}]`
+            );
         }
         let endTaskObj = {
-            studyUID:  uidObj.studyUID,
+            studyUID: uidObj.studyUID,
             seriesUID: uidObj.seriesUID,
             instanceUID: uidObj.instanceUID,
             status: true,
@@ -638,7 +744,7 @@ async function generateJpeg(dicomJson, uidObj, dicomFilename) {
         };
         await insertDicomToJpegTask(endTaskObj);
         io.emit("dicomToJpegTask", endTaskObj);
-    } catch(e) {
+    } catch (e) {
         let errorTaskObj = {
             studyUID: uidObj.studyUID,
             seriesUID: uidObj.seriesUID,

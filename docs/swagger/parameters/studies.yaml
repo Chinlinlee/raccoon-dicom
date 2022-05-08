@@ -1,50 +1,50 @@
 components:
-  parameters:
-    "StudyDate":
-      name: "00080020"
-      description: Date the Study started.
-      in: query
-      schema:
-        type: string
-    "StudyTime":
-      name: "00080030"
-      description: Time the Study started.
-      in: query
-      schema:
-        type: string
-    "AccessionNumber":
-      name: "00080050"
-      description: A RIS generated number that identifies the order for the Study.
-      in: query
-      schema:
-        type: string
-    "ModalitiesInStudy":
-      name: "00080061"
-      description: Modalities in Study.
-      in: query
-      schema:
-        type: string
-    "ReferringPhysicianName":
-      name: "00080090"
-      description: Name of the Patient's referring physician
-      in: query
-      schema:
-        type: string
-    "PatientName":
-      name: "00100010"
-      description: Patient's full name.
-      in: query
-      schema:
-        type: string
-    "PatientID":
-      name: "00100020"
-      description: Primary identifier for the Patient.
-      in: query
-      schema:
-        type: string
-    "StudyID":
-      name: "00200010"
-      description: User or equipment generated Study identifier.
-      in: query
-      schema:
-       type: string
+    parameters:
+        "StudyDate":
+            name: "00080020"
+            description: Date the Study started.
+            in: query
+            schema:
+                type: string
+        "StudyTime":
+            name: "00080030"
+            description: Time the Study started.
+            in: query
+            schema:
+                type: string
+        "AccessionNumber":
+            name: "00080050"
+            description: A RIS generated number that identifies the order for the Study.
+            in: query
+            schema:
+                type: string
+        "ModalitiesInStudy":
+            name: "00080061"
+            description: Modalities in Study.
+            in: query
+            schema:
+                type: string
+        "ReferringPhysicianName":
+            name: "00080090"
+            description: Name of the Patient's referring physician
+            in: query
+            schema:
+                type: string
+        "PatientName":
+            name: "00100010"
+            description: Patient's full name.
+            in: query
+            schema:
+                type: string
+        "PatientID":
+            name: "00100020"
+            description: Primary identifier for the Patient.
+            in: query
+            schema:
+                type: string
+        "StudyID":
+            name: "00200010"
+            description: User or equipment generated Study identifier.
+            in: query
+            schema:
+                type: string
