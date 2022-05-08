@@ -7,9 +7,9 @@ const swaggerJsDoc = require('swagger-jsdoc');
             // API informations (required)
             title: 'Raccoon', // Title (required)
             version: '1.0.0', // Version (required)
-            description: 'Raccoon API', // Description (optional)
+            description: 'Raccoon API' // Description (optional)
         },
-        openapi: '3.0.0',
+        openapi: '3.0.0'
     };
     
     // Options for the swagger docs

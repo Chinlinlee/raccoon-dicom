@@ -8,6 +8,7 @@
  * 
  */
 
- const STOW_RS = true;
+const STOW_RS = true;
 
- export {STOW_RS};
+
+module.exports.unUse = {};

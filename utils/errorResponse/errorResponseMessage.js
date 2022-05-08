@@ -3,8 +3,8 @@ function getInternalServerErrorMessage(details) {
         "Details" : details, 
         "HttpStatus" : 500,
         "Message" : "Server Wrong",
-        "Method" : "GET",
-    }
+        "Method" : "GET"
+    };
     return message;
 }
 

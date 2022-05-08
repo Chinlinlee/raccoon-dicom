@@ -19,7 +19,7 @@ let syncFHIRErrorLogSchema = new mongoose.Schema({
     message: {
         type: String,
         default: void 0
-    },
+    }
 }, { 
     strict: false,
     versionKey: false

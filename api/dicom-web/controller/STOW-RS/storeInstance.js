@@ -93,7 +93,7 @@ module.exports = async function(req, res) {
         });
         return res.end(JSON.stringify(errorMessage));
     }
-}
+};
 
 async function storeInstance(req, multipartData) {
     let storeMessage = {
@@ -109,7 +109,7 @@ async function storeInstance(req, multipartData) {
             "vr": "SQ",
             "Value": [] // Use SOPSeq
         }
-    }
+    };
     let retCode = 200;
     let uploadFiles = multipartData.multipart.files;
     for (let i = 0 ; i< uploadFiles.length; i++) {
@@ -276,7 +276,7 @@ async function saveDICOMFile(file, dicomJson, uidObj) {
         let relativeStorePath = `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}/`;
         let fullStorePath = path.join(process.env.DICOM_STORE_ROOTPATH, relativeStorePath);
         let instanceStorePath = path.join(fullStorePath, file.originalFilename);
-        mkdirp.sync(fullStorePath, 0755);
+        mkdirp.sync(fullStorePath, "0755");
         await moveFile(file.filepath, instanceStorePath, {
             overwrite: true
         });
@@ -341,7 +341,7 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
             let relativeFilename = `files/bulkData/${shortInstanceUID}/`;
             if (_.get(dicomJson, `${key}.Value.0`) ) {
                 binaryValuePath = `${key}.Value.0`;
-                binaryData = _.get(data, binaryValuePath);
+                binaryData = _.get(dicomJson, binaryValuePath);
                 dicomJson = _.omit(dicomJson, [`${key}.Value`]);
             } else if (_.get(dicomJson, `${key}.InlineBinary`)) {
                 binaryValuePath = `${key}.InlineBinary`;
@@ -362,7 +362,7 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
                 instanceUID: instanceUID,
                 filename: relativeFilename,
                 binaryValuePath: binaryValuePath
-            }
+            };
 
             await dicomBulkDataModel.updateOne({
                 $and: [
@@ -380,7 +380,7 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
         dicomJson["7FE00010"] = {
             "vr": "OW",
             "BulkDataURI": `${url}/${dicomJson['0020000D'].Value[0]}/series/${dicomJson['0020000E'].Value[0]}/instances/${dicomJson['00080018'].Value[0]}`
-        }
+        };
         return {
             dicomJson: dicomJson,
             tempTagsValue: removedTagsDicomJson.tempTagsValue
@@ -423,7 +423,7 @@ function checkStudyId(req, uidObj, storeMessage) {
                     vr: "US",
                     Value: ["43264"]
                 }
-            }
+            };
             Object.assign(sopSeq, failureMessage);
             storeMessage["00081198"].Value.push(sopSeq);
             result = false;
@@ -463,7 +463,7 @@ function getSOPSeq(referencedSOPClassUID, referencedSOPInstanceUID) {
             vr: "UI",
             Value: [referencedSOPInstanceUID]
         }
-    }
+    };
     return result;
 }
 
@@ -496,7 +496,7 @@ async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
         let query = {
             "$and": [
                 {
-                    studyUID: uidObj.studyUID,
+                    studyUID: uidObj.studyUID
                 },
                 {
                     seriesUID: uidObj.seriesUID
@@ -505,7 +505,7 @@ async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
                     instanceUID: uidObj.sopInstanceUID
                 }
             ]
-        }
+        };
         delete dicomJson.sopClass;
         delete dicomJson.sopInstanceUID;
         await Promise.all([
@@ -522,7 +522,7 @@ async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
             mongoose.model("dicomSeries").findOneAndUpdate({
                 "$and": [
                     {
-                        studyUID: uidObj.studyUID,
+                        studyUID: uidObj.studyUID
                     },
                     {
                         seriesUID: uidObj.seriesUID
@@ -570,10 +570,10 @@ function getDICOMToJpegCommandString(options) {
             execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${options.dicomFilename}" "${options.jpegFilename}.${options.frameNumber - 1}.jpg" --frame ${options.frameNumber}`;
         }
     } else if (process.env.OS === "linux") {
-        if (windowCenter && windowWidth) {
-            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${options.jpegFilename - 1}.${options.frameNumber}.jpg" --frame ${i} +Ww ${options.windowCenter} ${options.windowWidth}`;
+        if (options.windowCenter && options.windowWidth) {
+            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${options.jpegFilename - 1}.${options.frameNumber}.jpg" --frame ${options.frameNumber} +Ww ${options.windowCenter} ${options.windowWidth}`;
         } else {
-            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${options.jpegFilename - 1}.${options.frameNumber}.jpg" --frame ${i}`;
+            execCmd = `dcmj2pnm --write-jpeg "${options.dicomFilename}" "${options.jpegFilename - 1}.${options.frameNumber}.jpg" --frame ${options.frameNumber}`;
         }
     }
     return execCmd;
@@ -613,11 +613,11 @@ async function generateJpeg(dicomJson, uidObj, dicomFilename) {
                     windowWidth: windowWidth,
                     frameNumber: i,
                     dicomFilename: dicomFilename,
-                    jpegFilename: jpegFilename,
+                    jpegFilename: jpegFilename
                 });
                 execCmdList.push(execCmd);
                 if (i % 4 === 0) {
-                    await Promise.allSettled(execCmdList.map(cmd => dcm2jpegCustomCmd(cmd)))
+                    await Promise.allSettled(execCmdList.map(cmd => dcm2jpegCustomCmd(cmd)));
                     execCmdList = new Array();
                 }
             }

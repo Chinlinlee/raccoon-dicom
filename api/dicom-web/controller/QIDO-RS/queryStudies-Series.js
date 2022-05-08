@@ -63,7 +63,7 @@ module.exports = async function (req, res) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
         logger.error(`[QIDO-RS] [Error: ${errorStr}]`);
     }
-}
+};
 
 async function getStudyDicomJson(iQuery, limit, skip, req) {
     logger.info(`[QIDO-RS] [Query series Level, Study UID: ${req.params.studyUID}]`);
@@ -78,7 +78,7 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
         let query = {
             ...req.params,
             ...iQuery.$match
-        }
+        };
         logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
         let studyFields = getStudyLevelFields();
         let seriesFields = getSeriesLevelFields();

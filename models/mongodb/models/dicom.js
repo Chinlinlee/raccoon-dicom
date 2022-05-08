@@ -110,7 +110,7 @@ dicomModelSchema.methods.getDICOMJson = function () {
     delete obj.studyUID;
     delete obj.seriesUID;
     delete obj.instanceUID;
-}
+};
 
 dicomModelSchema.post("findOneAndUpdate", async function (doc) {
     updateStudyModalitiesInStudy(doc).catch(e => {

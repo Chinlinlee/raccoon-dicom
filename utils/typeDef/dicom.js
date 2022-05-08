@@ -7,6 +7,6 @@
  * 
  */
 
- const DICOM = true;
+const DICOM = true;
 
- export {DICOM};
+module.exports.unUse = {};

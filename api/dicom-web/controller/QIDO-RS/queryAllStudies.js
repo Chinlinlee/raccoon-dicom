@@ -59,7 +59,7 @@ module.exports = async function (req, res) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
         logger.error(`[QIDO-RS] [Error: ${errorStr}]`);
     }
-}
+};
 
 async function getStudyDicomJson(iQuery, limit, skip, req) {
     logger.info(`[QIDO-RS] [Query Study Level]`);

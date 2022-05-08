@@ -31,4 +31,4 @@ module.exports = async (source, destination, options) => {
             throw e;
         }
     }
-}
+};

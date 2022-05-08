@@ -39,12 +39,12 @@ async function dicomFileToFHIRPatient(filename)
             "F": "female",
             "O": "other",
             "UNKNOWN": "unknown"
-        }
+        };
         pGender = FHIRGender[pGender.toUpperCase()];
         let pBD = dataset.string('x00100030');
         let patientName = new HumanName();
         if (pName == undefined) {
-            pName = "UNKNOWN"
+            pName = "UNKNOWN";
         } else {
             patientName.use = "usual";
         }
@@ -90,7 +90,7 @@ async function dicomFileToFHIRPatient(filename)
                     pJson.prefix.push(DICOMpName.middleName);
                 }
             }
-        }
+        };
         for (let key in DICOMpName) {
             FHIRpName[key](pJson);
         }
@@ -103,7 +103,7 @@ async function dicomFileToFHIRPatient(filename)
             name: [
                 pJson
             ]
-        }
+        };
         if (pBD) {
             Patient.birthDate = moment.utc(pBD).format("YYYY-MM-DD");
         }
@@ -130,7 +130,7 @@ function dicomJsonToFHIRPatient(dcmJson)
         "F" : "female" , 
         "O" : "other" , 
         "UNKNOWN" : "unknown"
-    }
+    };
     pGender = FHIRGender[pGender.toUpperCase()];
     let pBD = dcm2jsonV8.dcmString(dcmJson , '00100030');
     let patientName = new HumanName();
@@ -182,7 +182,7 @@ function dicomJsonToFHIRPatient(dcmJson)
                 pJson.prefix.push(DICOMpName.middleName);
             }
         }
-    }
+    };
     for (let key in DICOMpName) {
         FHIRpName[key](pJson);
     }
@@ -195,7 +195,7 @@ function dicomJsonToFHIRPatient(dcmJson)
         name :[
             pJson
         ]
-    }
+    };
     Patient.id = Patient.id.replace(/[\s\u0000]/gim , '');
     Patient.id = Patient.id.replace(/_/gim, '');
     if (pBD) {

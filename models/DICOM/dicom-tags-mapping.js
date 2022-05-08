@@ -38,7 +38,7 @@ module.exports.tagsOfRequiredMatching = {
         "00080018": 1,
         "00200013": 1
     }
-}
+};
 
 module.exports.tagsNeedStore = {
     Study : {
@@ -147,4 +147,4 @@ module.exports.tagsNeedStore = {
             vr: "SQ"
         }
     }
-}
+};

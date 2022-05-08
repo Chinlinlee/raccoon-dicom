@@ -30,7 +30,7 @@ function dicomJsonToFHIREndpoint(addressUrl, id) {
             "application/dicom"
         ],
         "address": addressUrl
-    }
+    };
     return endpoint;
 }
 

@@ -107,7 +107,7 @@ async function convertRequestQueryToMongoQuery(iQuery) {
     for (let i = 0; i < queryKey.length; i++) {
         let mongoOrs = {
             "$or": []
-        }
+        };
         let nowKey = queryKey[i];
         let value = commaValue(nowKey, iQuery[nowKey]);
         for (let x = 0; x < value.length; x++) {
@@ -117,7 +117,7 @@ async function convertRequestQueryToMongoQuery(iQuery) {
             wildCardFunc['0'] = wildCardFirst;
             wildCardFunc['-1'] = (value) => {
                 return value;
-            }
+            };
             value[x][nowKey] = await wildCardFunc[nowValue.indexOf('*')](nowValue);
 
             try {
@@ -126,7 +126,7 @@ async function convertRequestQueryToMongoQuery(iQuery) {
                 let vrOfTag = dictionary.tagVR[tag];
                 await vrQueryLookup[vrOfTag.vr](value[x], nowKey);
             } catch(e) {
-                if (!e instanceof TypeError)
+                if (! (e instanceof TypeError) )
                 console.error(e);
             }
 
@@ -163,7 +163,7 @@ const vrQueryLookup = {
     "DA": async(value, tag) => {
         let q = await mongoDateQuery(value, tag, false);
     }
-}
+};
 
 module.exports.convertAllQueryToDICOMTag = convertAllQueryToDICOMTag;
 module.exports.convertRequestQueryToMongoQuery = convertRequestQueryToMongoQuery;

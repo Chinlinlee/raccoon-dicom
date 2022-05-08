@@ -6,36 +6,33 @@ const condaEnvName = process.env.CONDA_GDCM_ENV_NAME;
 const getJpeg = {
     'linux': {
         'getJpegByPyDicom': async function (store_Path, frameNumber=1) {
-            return new Promise(async (resolve, reject) => {
                 if (process.env.USE_DCM2JPEG_PYTHONAPI) {
                     let { data } = await axios.post(`http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/dcm2jpeg?filename=${store_Path}&frameNumber=${frameNumber}`);
                     if (data.status) {
-                        return resolve(true);
+                        return Promise.resolve(true);
                     }
                 } else {
                     exec(`python3 DICOM2JPEG.py ${store_Path}`, {
                         cwd: process.cwd()
                     }, function (err, stdout, stderr) {
-                        if (err || stderr) {
+                        if (err) {
                             console.error(err);
-                            return resolve(new Error(err));
+                            return Promise.reject(err);
                         } else if (stderr) {
                             console.error(stderr);
-                            return reject(new Error(stderr));
+                            return Promise.reject(stderr);
                         }
-                        return resolve(true);
+                        return Promise.resolve(true);
                     });
                 }
-            });
         }
     },
     'windows': {
         'getJpegByPyDicom': async function (store_Path, frameNumber=1) {
-            return new Promise(async (resolve, reject) => {
                 if (process.env.USE_DCM2JPEG_PYTHONAPI) {
                     let { data } = await axios.post(`http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/dcm2jpeg?filename=${store_Path}&frameNumber=${frameNumber}`);
                     if (data.status) {
-                        return resolve(true);
+                        return Promise.resolve(true);
                     }
                 } else {
                     let cmd = `python DICOM2JPEG.py ${store_Path}`;
@@ -44,20 +41,19 @@ const getJpeg = {
                         cwd: process.cwd()
                     }, function (err, stdout, stderr) {
                         if (err) {
-                            console.log(err);
-                            return reject(err);
+                            console.error(err);
+                            return Promise.reject(err);
                         } else if (stderr) {
-                            console.log(stderr);
-                            return reject(stderr);
+                            console.error(stderr);
+                            return Promise.reject(stderr);
                         }
-                        return resolve(true);
+                        return Promise.resolve(true);
                     });
                 }
-            })
         }
     }
-}
+};
 
 module.exports = {
     getJpeg : getJpeg
-}
+};

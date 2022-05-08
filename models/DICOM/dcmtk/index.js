@@ -34,7 +34,7 @@ const dcm2jsonV8 = {
                 console.error(e);
                 return resolve(false);
             }
-        })
+        });
     } , 
     dcmString : function (json , tag) {
         let data = _.get(json, tag);
@@ -43,7 +43,7 @@ const dcm2jsonV8 = {
         //console.log(value);
         return value;
     }
-}
+};
 
 async function dcm2jpegCustomCmd (execCmd) {
     return new Promise((resolve , reject)=> {
@@ -68,7 +68,7 @@ async function dcm2jpegCustomCmd (execCmd) {
             console.error(stderr);
             reject(new Error(stderr));
         });
-    }) 
+    });
 }
 
 
@@ -77,4 +77,4 @@ module.exports = {
     dcm2jsonV8 : dcm2jsonV8 ,
     dcmtkSupportTransferSyntax: dcmtkSupportTransferSyntax,
     dcm2jpegCustomCmd: dcm2jpegCustomCmd
-}
+};

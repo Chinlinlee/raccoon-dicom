@@ -8,7 +8,7 @@ module.exports = async (path) => {
     } catch(e) {
         return false;
     }
-}
+};
 
 module.exports.sync = (path) => {
     try {
@@ -17,4 +17,4 @@ module.exports.sync = (path) => {
     } catch(e) {
         return false;
     }
-}
+};

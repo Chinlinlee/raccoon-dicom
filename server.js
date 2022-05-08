@@ -93,51 +93,52 @@ if (osPlatform.includes('linux')) {
     process.env.OS = "windows";
 }
 
+const condaPath = process.env.CONDA_PATH;
+const condaEnvName = process.env.CONDA_GDCM_ENV_NAME;
 async function runPythonAPI() {
     process.env.isPythonAPIRunning = false;
-    return new Promise(async (resolve)=> {
-        try {
-            let { data } = await axios.get(`http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/`);
-            if (data.status) {
-                process.env.isPythonAPIRunning = true;
-                return resolve(true);
-            }
-        } catch (e) {
-    
+    try {
+        let { data } = await axios.get(`http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/`);
+        if (data.status) {
+            process.env.isPythonAPIRunning = true;
+            return Promise.resolve(true);
         }
-        if (process.env.USE_DCM2JPEG_PYTHONAPI === "true") {
-            if (process.env.isPythonAPIRunning !== "true") {
-                if (process.env.OS == "windows") {
-                    let cmd = `python python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`;
-                    if (process.env.USE_CONDA === "true") cmd = `${condaPath} run -n ${condaEnvName} python python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`;
-                    exec(`${cmd}`, {
-                        cwd: process.cwd()
-                    }, function (err, stdout, stderr) {
-                        if (err) {
-                            console.error(err);
-                            process.exit(1);
-                        } else if (stderr) {
-                            console.error(stderr);
-                            process.exit(1);
-                        }
-                        return resolve(true);
-                    });
-                } else {
-                    exec(`python3 python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`, {
-                        cwd: process.cwd()
-                    }, function (err, stdout, stderr) {
-                        if (err) {
-                            console.error(err);
-                            process.exit(1)
-                        } else if (stderr) {
-                            console.error(stderr);
-                        }
-                        return resolve(true);
-                    });
-                }
+    } catch(e) {
+        console.error(e);
+    }
+
+    if (process.env.USE_DCM2JPEG_PYTHONAPI === "true") {
+        if (process.env.isPythonAPIRunning !== "true") {
+            if (process.env.OS == "windows") {
+                let cmd = `python python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`;
+                if (process.env.USE_CONDA === "true") cmd = `${condaPath} run -n ${condaEnvName} python python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`;
+                exec(`${cmd}`, {
+                    cwd: process.cwd()
+                }, function (err, stdout, stderr) {
+                    if (err) {
+                        console.error(err);
+                        process.exit(1);
+                    } else if (stderr) {
+                        console.error(stderr);
+                        process.exit(1);
+                    }
+                    return Promise.resolve(true);
+                });
+            } else {
+                exec(`python3 python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`, {
+                    cwd: process.cwd()
+                }, function (err, stdout, stderr) {
+                    if (err) {
+                        console.error(err);
+                        process.exit(1);
+                    } else if (stderr) {
+                        console.error(stderr);
+                    }
+                    return Promise.resolve(true);
+                });
             }
         }
-    });
+    }
 }
 
 
@@ -152,7 +153,7 @@ function checkPythonAPIIsRunning() {
                     return resolve(false);
                 }
                 try {
-                    let res = await axios.get(`http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/`)
+                    let res = await axios.get(`http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/`);
                     clearInterval(checkAPIInterval);
                     return resolve(true);
                 } catch (e) {

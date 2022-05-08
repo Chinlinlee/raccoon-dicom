@@ -75,14 +75,14 @@ function ne_Date(i_Date, format = 'YYYYMMDD') {
     let query = {
         $ne: moment(i_Date[0], format).toDate()
     };
-    return query
+    return query;
 }
 
 function eq_Date(i_Date, format = 'YYYYMMDD') {
     let d = moment(i_Date[0], format);
     if (format == "HHmmss") {
         if (!i_Date[1]) {
-            i_Date[1] = "000000"
+            i_Date[1] = "000000";
         }
         let query = {
             $gte: moment(i_Date[0], format).toDate(),

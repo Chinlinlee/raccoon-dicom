@@ -10,4 +10,4 @@
 
 const BulkData = true;
 
-export {BulkData};
+module.exports.unUse = {};

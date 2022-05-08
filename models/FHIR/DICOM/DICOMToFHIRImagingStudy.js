@@ -128,12 +128,12 @@ function dicomFileToFHIRImagingStudy(filename) {
         if (patientId) {
             studyobj.subject.reference = "Patient/" + dataset.string('x00100020');
             studyobj.subject.type = "Patient";
-            studyobj.subject.identifier.use = "usual"
+            studyobj.subject.identifier.use = "usual";
             studyobj.subject.identifier.value = dataset.string('x00100020');
         } else {
-            studyobj.subject.reference = "Patient/unknown"
+            studyobj.subject.reference = "Patient/unknown";
             studyobj.subject.type = "Patient";
-            studyobj.subject.identifier.use = "anonymous"
+            studyobj.subject.identifier.use = "anonymous";
             studyobj.subject.identifier.value = "unknown";
         }
 
@@ -156,7 +156,7 @@ function dicomFileToFHIRImagingStudy(filename) {
         study_series_obj.performer = dataset.string('x00081050') || dataset.string('x00081052') || dataset.string('x00081070') || dataset.string('x00081072');
         let study_series_insatance_obj = new ImagingStudy_Series_Instance();
         study_series_insatance_obj.uid = dataset.string('x00080018');
-        study_series_insatance_obj.sopClass.system = "urn:ietf:rfc:3986"
+        study_series_insatance_obj.sopClass.system = "urn:ietf:rfc:3986";
         study_series_insatance_obj.sopClass.code = "urn:oid:" + dataset.string('x00080016');
         study_series_insatance_obj.number = dataset.intString('x00200013');
         study_series_insatance_obj.title = dataset.string('x00080008') || dataset.string('x00070080') || ((dataset.string('x0040a043') != undefined) ? dataset.string('x0040a043') + dataset.string('x00080104') : undefined) || dataset.string('x00420010');
@@ -191,12 +191,12 @@ function dicomJsonToFHIRImagingStudy(dicomJson) {
     if (patientId) {
         studyObj.subject.reference = "Patient/" + dcm2jsonV8.dcmString(dicomJson, '00100020');
         studyObj.subject.type = "Patient";
-        studyObj.subject.identifier.use = "usual"
+        studyObj.subject.identifier.use = "usual";
         studyObj.subject.identifier.value = dcm2jsonV8.dcmString(dicomJson, '00100020');
     } else {
-        studyObj.subject.reference = "Patient/unknown"
+        studyObj.subject.reference = "Patient/unknown";
         studyObj.subject.type = "Patient";
-        studyObj.subject.identifier.use = "anonymous"
+        studyObj.subject.identifier.use = "anonymous";
         studyObj.subject.identifier.value = "unknown";
     }
 
@@ -230,7 +230,7 @@ function dicomJsonToFHIRImagingStudy(dicomJson) {
 
     let instanceObj = new ImagingStudy_Series_Instance();
     instanceObj.uid = dcm2jsonV8.dcmString(dicomJson, "00080018");
-    instanceObj.sopClass.system = "urn:ietf:rfc:3986"
+    instanceObj.sopClass.system = "urn:ietf:rfc:3986";
     instanceObj.sopClass.code = "urn:oid:" + dcm2jsonV8.dcmString(dicomJson, "00080016");
     instanceObj.number = dcm2jsonV8.dcmString(dicomJson, "00200013");
     instanceObj.title = dcm2jsonV8.dcmString(dicomJson, "00080008") || 
