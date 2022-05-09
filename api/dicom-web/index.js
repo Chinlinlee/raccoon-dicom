@@ -8,8 +8,20 @@ app.get(
     require("./controller/QIDO-RS/queryStudies-Series")
 );
 app.get(
+    "/studies/:studyUID/instances",
+    require("./controller/QIDO-RS/queryStudies-Instances")
+);
+app.get(
     "/studies/:studyUID/series/:seriesUID/instances",
     require("./controller/QIDO-RS/queryStudies-Series-Instance")
+);
+app.get(
+    "/series",
+    require("./controller/QIDO-RS/queryAllSeries")
+);
+app.get(
+    "/instances",
+    require("./controller/QIDO-RS/queryAllInstances")
 );
 
 //#endregion

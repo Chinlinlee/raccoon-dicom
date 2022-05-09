@@ -1,19 +1,20 @@
 const _ = require("lodash");
+const mongoose = require("mongoose");
+const moment = require("moment");
 const {
     convertAllQueryToDICOMTag,
-    getInstanceDicomJson
+    getSeriesDicomJson
 } = require("./service/QIDO-RS.service");
 const { logger } = require("../../../../utils/log");
 
 /**
  *  @openapi
- *  /dicom-web/studies/{studyUID}/series:
+ *  /dicom-web/studies:
  *    get:
  *      tags:
  *        - QIDO-RS
  *      description: Query for studies
  *      parameters:
- *        - $ref: "#/components/parameters/studyUID"
  *        - $ref: "#/components/parameters/StudyDate"
  *        - $ref: "#/components/parameters/StudyTime"
  *        - $ref: "#/components/parameters/AccessionNumber"
@@ -22,8 +23,6 @@ const { logger } = require("../../../../utils/log");
  *        - $ref: "#/components/parameters/PatientName"
  *        - $ref: "#/components/parameters/PatientID"
  *        - $ref: "#/components/parameters/StudyID"
- *        - $ref: "#/components/parameters/Modality"
- *        - $ref: "#/components/parameters/SeriesNumber"
  *      responses:
  *        200:
  *          description: Query successfully
@@ -36,7 +35,7 @@ const { logger } = require("../../../../utils/log");
  */
 module.exports = async function (req, res) {
     logger.info(
-        `[QIDO-RS] [Query instance Level, Study UID: ${req.params.studyUID}, Series UID: ${req.params.seriesUID}]`
+        `[QIDO-RS] [Query all series]`
     );
     try {
         let limit = parseInt(req.query.limit) || 100;
@@ -51,7 +50,7 @@ module.exports = async function (req, res) {
         }
 
         let dicomTagQuery = convertAllQueryToDICOMTag(query);
-        let studiesJson = await getInstanceDicomJson(
+        let studiesJson = await getSeriesDicomJson(
             dicomTagQuery,
             limit,
             skip,

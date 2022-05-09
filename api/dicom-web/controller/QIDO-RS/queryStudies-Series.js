@@ -1,12 +1,7 @@
 const _ = require("lodash");
-const mongoose = require("mongoose");
-const moment = require("moment");
 const {
     convertAllQueryToDICOMTag,
-    convertRequestQueryToMongoQuery,
-    getStudyLevelFields,
-    getSeriesLevelFields,
-    sortObjByFieldKey
+    getSeriesDicomJson
 } = require("./service/QIDO-RS.service");
 const { logger } = require("../../../../utils/log");
 
@@ -40,9 +35,12 @@ const { logger } = require("../../../../utils/log");
  * @param {import('http').ServerResponse} res
  */
 module.exports = async function (req, res) {
+    logger.info(
+        `[QIDO-RS] [Query series Level, Study UID: ${req.params.studyUID}]`
+    );
     try {
-        let limit = req.query.limit || 100;
-        let skip = req.query.offset || 0;
+        let limit = parseInt(req.query.limit) || 100;
+        let skip = parseInt(req.query.offset) || 0;
         delete req.query["limit"];
         delete req.query["offset"];
         let query = _.cloneDeep(req.query);
@@ -68,53 +66,3 @@ module.exports = async function (req, res) {
         logger.error(`[QIDO-RS] [Error: ${errorStr}]`);
     }
 };
-
-async function getSeriesDicomJson(iQuery, limit, skip, req) {
-    logger.info(
-        `[QIDO-RS] [Query series Level, Study UID: ${req.params.studyUID}]`
-    );
-    let result = {
-        data: "",
-        status: false
-    };
-    let protocol = req.secure ? "https" : "http";
-    let retrieveUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
-    try {
-        iQuery = await convertRequestQueryToMongoQuery(iQuery);
-        let query = {
-            ...req.params,
-            ...iQuery.$match
-        };
-        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
-        let studyFields = getStudyLevelFields();
-        let seriesFields = getSeriesLevelFields();
-        let docs = await mongoose
-            .model("dicomSeries")
-            .find(query, {
-                ...studyFields,
-                ...seriesFields
-            })
-            .limit(limit)
-            .skip(skip)
-            .exec();
-        result.data = docs.map((v) => {
-            let obj = v.toObject();
-            delete obj._id;
-            delete obj.id;
-            obj["00081190"] = {
-                vr: "UR",
-                Value: [
-                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
-                ]
-            };
-            return sortObjByFieldKey(obj);
-        });
-        result.status = true;
-        return result;
-    } catch (e) {
-        console.error("get Series DICOM error", e);
-        result.data = e;
-        result.status = false;
-        return result;
-    }
-}

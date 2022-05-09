@@ -1,9 +1,11 @@
+const mongoose = require("mongoose");
 const _ = require("lodash");
 const { mongoDateQuery } = require("../../../../../models/mongodb/service");
 const { dictionary } = require("../../../../../models/DICOM/dicom-tags-dic");
 const {
     tagsOfRequiredMatching
 } = require("../../../../../models/DICOM/dicom-tags-mapping");
+const { logger } = require("../../../../../utils/log");
 
 /**
  * Convert All of name(tags, keyword) of queries to tags number
@@ -175,6 +177,141 @@ const vrQueryLookup = {
     }
 };
 
+async function getStudyDicomJson(iQuery, limit, skip, req) {
+    logger.info(`[QIDO-RS] [Query Study Level]`);
+    let result = {
+        data: "",
+        status: false
+    };
+    let protocol = req.secure ? "https" : "http";
+    let retrieveUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+    try {
+        iQuery = await convertRequestQueryToMongoQuery(iQuery);
+        // iQuery = iQuery.$match;
+        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(iQuery)}]`);
+        let studyFields = getStudyLevelFields();
+        let docs = await mongoose
+            .model("dicomStudy")
+            .find(iQuery.$match, studyFields)
+            .limit(limit)
+            .skip(skip)
+            .exec();
+        result.data = docs.map((v) => {
+            let obj = v.toObject();
+            delete obj._id;
+            delete obj.id;
+            obj["00081190"] = {
+                vr: "UR",
+                Value: [`${retrieveUrl}/${obj["0020000D"]["Value"][0]}`]
+            };
+            return sortObjByFieldKey(obj);
+        });
+        result.status = true;
+        return result;
+    } catch (e) {
+        console.error("get Study DICOM error", e);
+        result.data = e;
+        result.status = false;
+        return result;
+    }
+}
+
+async function getSeriesDicomJson(iQuery, limit, skip, req) {
+    let result = {
+        data: "",
+        status: false
+    };
+    let protocol = req.secure ? "https" : "http";
+    let retrieveUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+    try {
+        iQuery = await convertRequestQueryToMongoQuery(iQuery);
+        let query = {
+            ...req.params,
+            ...iQuery.$match
+        };
+        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
+        let studyFields = getStudyLevelFields();
+        let seriesFields = getSeriesLevelFields();
+        let docs = await mongoose
+            .model("dicomSeries")
+            .find(query, {
+                ...studyFields,
+                ...seriesFields
+            })
+            .limit(limit)
+            .skip(skip)
+            .exec();
+        result.data = docs.map((v) => {
+            let obj = v.toObject();
+            delete obj._id;
+            delete obj.id;
+            obj["00081190"] = {
+                vr: "UR",
+                Value: [
+                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
+                ]
+            };
+            return sortObjByFieldKey(obj);
+        });
+        result.status = true;
+        return result;
+    } catch (e) {
+        console.error("get Series DICOM error", e);
+        result.data = e;
+        result.status = false;
+        return result;
+    }
+}
+
+async function getInstanceDicomJson(iQuery, limit, skip, req) {
+    let result = {
+        data: "",
+        status: false
+    };
+    let protocol = req.secure ? "https" : "http";
+    let retrieveUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+    try {
+        iQuery = await convertRequestQueryToMongoQuery(iQuery);
+        let query = {
+            ...req.params,
+            ...iQuery.$match
+        };
+        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
+        let studyFields = getStudyLevelFields();
+        let seriesFields = getSeriesLevelFields();
+        let instanceFields = getInstanceLevelFields();
+        let docs = await mongoose
+            .model("dicom")
+            .find(query, {
+                ...studyFields,
+                ...seriesFields,
+                ...instanceFields
+            })
+            .limit(limit)
+            .skip(skip)
+            .exec();
+        result.data = docs.map((v) => {
+            let obj = v.toObject();
+            delete obj._id;
+            delete obj.id;
+            obj["00081190"] = {
+                vr: "UR",
+                Value: [
+                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instance/${obj["00080016"]["Value"][0]}`
+                ]
+            };
+            return sortObjByFieldKey(obj);
+        });
+        result.status = true;
+        return result;
+    } catch (e) {
+        console.error("get Series DICOM error", e);
+        result.data = e;
+        result.status = false;
+        return result;
+    }
+}
+
 module.exports.convertAllQueryToDICOMTag = convertAllQueryToDICOMTag;
 module.exports.convertRequestQueryToMongoQuery =
     convertRequestQueryToMongoQuery;
@@ -182,3 +319,6 @@ module.exports.getStudyLevelFields = getStudyLevelFields;
 module.exports.getSeriesLevelFields = getSeriesLevelFields;
 module.exports.getInstanceLevelFields = getInstanceLevelFields;
 module.exports.sortObjByFieldKey = sortObjByFieldKey;
+module.exports.getStudyDicomJson = getStudyDicomJson;
+module.exports.getSeriesDicomJson = getSeriesDicomJson;
+module.exports.getInstanceDicomJson = getInstanceDicomJson;
