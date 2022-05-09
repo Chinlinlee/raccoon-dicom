@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const {
     dicomJsonAttributeSchema,
     dicomJsonAttributePNSchema,
-    dicomJsonAttributeDASchema
+    dicomJsonAttributeDASchema,
+    getVRSchema
 } = require("../schema/dicomJsonAttribute");
 const { logger } = require("../../../utils/log");
 
@@ -39,14 +40,8 @@ let dicomModelSchema = new mongoose.Schema(
             ...dicomJsonAttributeSchema,
             Value: [mongoose.SchemaTypes.String]
         },
-        "00080090": {
-            ...dicomJsonAttributeSchema,
-            Value: [dicomJsonAttributePNSchema]
-        },
-        "00100010": {
-            ...dicomJsonAttributeSchema,
-            Value: [dicomJsonAttributePNSchema]
-        },
+        "00080090": getVRSchema("PN"),
+        "00100010": getVRSchema("PN"),
         "00100020": {
             ...dicomJsonAttributeSchema,
             Value: [mongoose.SchemaTypes.String]
