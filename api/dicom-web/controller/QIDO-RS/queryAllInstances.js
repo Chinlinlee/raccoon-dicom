@@ -48,16 +48,22 @@ module.exports = async function (req, res) {
         }
 
         let dicomTagQuery = convertAllQueryToDICOMTag(query);
-        let studiesJson = await getInstanceDicomJson(
+        let instancesJson = await getInstanceDicomJson(
             dicomTagQuery,
             limit,
             skip,
             req
         );
-        res.writeHead(200, {
-            "Content-Type": "application/dicom+json"
-        });
-        res.end(JSON.stringify(studiesJson.data));
+        let instancesJsonLength = _.get(instancesJson, "data.length", 0);
+        if (instancesJsonLength > 0) {
+            res.writeHead(200, {
+                "Content-Type": "application/dicom+json"
+            });
+            res.end(JSON.stringify(instancesJson.data));
+        } else {
+            res.writeHead(204);
+            res.end();
+        }
     } catch (e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
         logger.error(`[QIDO-RS] [Error: ${errorStr}]`);

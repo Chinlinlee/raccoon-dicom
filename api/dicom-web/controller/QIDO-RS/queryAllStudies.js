@@ -56,10 +56,16 @@ module.exports = async function (req, res) {
             skip,
             req
         );
-        res.writeHead(200, {
-            "Content-Type": "application/dicom+json"
-        });
-        res.end(JSON.stringify(studiesJson.data));
+        let studiesJsonLength = _.get(studiesJson, "data.length", 0);
+        if (studiesJsonLength > 0) {
+            res.writeHead(200, {
+                "Content-Type": "application/dicom+json"
+            });
+            res.end(JSON.stringify(studiesJson.data));
+        } else {
+            res.writeHead(204);
+            res.end();
+        }
     } catch (e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
         logger.error(`[QIDO-RS] [Error: ${errorStr}]`);
