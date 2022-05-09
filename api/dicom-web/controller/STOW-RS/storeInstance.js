@@ -200,47 +200,65 @@ async function dicomToFHIR(req, dicomJson, uidObj) {
 
         dicomFHIRConverter.fhir.baseUrl = process.env.FHIRSERVER_BASE_URL;
         await dicomFHIRConverter.postDicomFhir();
+        let logObj = {
+            studyUID: uidObj.studyUID,
+            seriesUID: uidObj.seriesUID,
+            instanceUID: uidObj.sopInstanceUID,
+            status: true,
+            message: "success"
+        };
+        await storeSyncedFHIRLog(uidObj, logObj);
         io.emit("fhir_synced", {
             ...dicomFHIRConverter.dicomFHIR,
             status: true
         });
     } catch (e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-        if (e.isAxiosError) {
-            let errorObj = {
-                studyUID: uidObj.studyUID,
-                seriesUID: uidObj.seriesUID,
-                instanceUID: uidObj.sopInstanceUID,
-                message: errorStr
-            };
-            await mongoose.model("syncFHIRErrorLog").findOneAndUpdate(
-                {
-                    $and: [
-                        {
-                            studyUID: uidObj.studyUID
-                        },
-                        {
-                            seriesUID: uidObj.seriesUID
-                        },
-                        {
-                            instanceUID: uidObj.sopInstanceUID
-                        }
-                    ]
-                },
-                errorObj,
-                {
-                    upsert: true
-                }
-            );
-        } else {
-            fhirLogger.error(
-                `[FHIR] [DICOM sync to FHIR server error] [${errorStr}]`
-            );
-        }
+        fhirLogger.error(
+            `[FHIR] [DICOM sync to FHIR server error] [${errorStr}]`
+        );
+        let errorObj = {
+            studyUID: uidObj.studyUID,
+            seriesUID: uidObj.seriesUID,
+            instanceUID: uidObj.sopInstanceUID,
+            status: false,
+            message: errorStr
+        };
+        await storeSyncedFHIRLog(uidObj, errorObj);
         io.emit("fhir_synced", {
             message: errorStr,
             status: false
         });
+    }
+}
+
+/**
+ * Store the log of processing result of DICOM converting to FHIR Resources and syncing to FHIR server.
+ * @param {import("../../../../utils/typeDef/dicom").UIDObject} uidObj 
+ */
+async function storeSyncedFHIRLog(uidObj, logObj) {
+    try {
+        await mongoose.model("syncFHIRLog").findOneAndUpdate(
+            {
+                $and: [
+                    {
+                        studyUID: uidObj.studyUID
+                    },
+                    {
+                        seriesUID: uidObj.seriesUID
+                    },
+                    {
+                        instanceUID: uidObj.sopInstanceUID
+                    }
+                ]
+            },
+            logObj,
+            {
+                upsert: true
+            }
+        );
+    } catch(e) {
+        throw e;
     }
 }
 

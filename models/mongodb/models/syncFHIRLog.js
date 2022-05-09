@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 /**
  * This schema is log error of syncing data to FHIR server.
  */
-let syncFHIRErrorLogSchema = new mongoose.Schema(
+let syncFHIRLogSchema = new mongoose.Schema(
     {
         studyUID: {
             type: String,
@@ -27,10 +27,10 @@ let syncFHIRErrorLogSchema = new mongoose.Schema(
         versionKey: false
     }
 );
-let syncFHIRErrorLogModel = mongoose.model(
-    "syncFHIRErrorLog",
-    syncFHIRErrorLogSchema,
-    "syncFHIRErrorLog"
+let syncFHIRErrorModel = mongoose.model(
+    "syncFHIRLog",
+    syncFHIRLogSchema,
+    "syncFHIRLog"
 );
 
-module.exports = syncFHIRErrorLogModel;
+module.exports = syncFHIRErrorModel;
