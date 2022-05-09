@@ -174,6 +174,30 @@ function sortObjByFieldKey(obj) {
 const vrQueryLookup = {
     DA: async (value, tag) => {
         let q = await mongoDateQuery(value, tag, false);
+    },
+    PN: async (value, tag) => {
+        let queryValue = _.cloneDeep(value[tag]);
+        value[tag] = {
+            $or : [
+            {
+                [`${tag}.Alphabetic`] : queryValue
+            }, 
+            {
+                [`${tag}.familyName`] : queryValue
+            },
+            {
+                [`${tag}.givenName`] : queryValue
+            } ,
+            {
+                [`${tag}.middleName`] : queryValue
+            } ,
+            {
+                [`${tag}.prefix`] : queryValue
+            },
+            {
+                [`${tag}.suffix`] : queryValue
+            }
+        ]};
     }
 };
 
