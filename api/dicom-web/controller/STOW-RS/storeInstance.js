@@ -311,6 +311,7 @@ async function getDICOMJson(filename) {
  * @param {import('formidable').File} file
  * @param {JSON} dicomJson
  * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj
+ * @return {import("../../../../utils/typeDef/STOW-RS/STOW-RS.def").SaveDicomFileResult}
  */
 async function saveDICOMFile(file, dicomJson, uidObj) {
     try {
@@ -574,7 +575,7 @@ async function storeDICOMJsonToDB(uidObj, saveDICOMFileResult) {
         _.merge(dicomJson, {
             studyPath: saveDICOMFileResult.studyPath,
             seriesPath: saveDICOMFileResult.seriesPath,
-            instancePath: saveDICOMFileResult.instancePath
+            instancePath: saveDICOMFileResult.relativePath
         });
         let query = {
             $and: [
