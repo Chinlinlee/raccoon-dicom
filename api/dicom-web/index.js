@@ -32,4 +32,13 @@ app.post("/studies", require("./controller/STOW-RS/storeInstance"));
 
 //#endregion
 
+//#region WADO-RS
+
+app.get(
+    "/studies/:studyUID",
+    require("./controller/WADO-RS/retrieveStudyInstances")
+);
+
+//#endregion
+
 module.exports = app;
