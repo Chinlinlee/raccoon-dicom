@@ -4,24 +4,31 @@ const fs = require("fs");
 const _ = require("lodash");
 const dicomParser = require("dicom-parser");
 const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
-const { dcm2jpegCustomCmd } = require("../models/dcmtk");
+const { dcm2jpegCustomCmd } = require("../models/DICOM/dcmtk");
 const { URL } = require("url");
 const path = require("path");
 const DICOM_STORE_ROOTPATH = process.env.DICOM_STORE_ROOTPATH;
 
+/**
+ * @typedef {Object} ImagePathObj
+ * @property {string} studyUID
+ * @property {string} seriesUID
+ * @property {string} instanceUID
+ * @property {string} instancePath
+ */
+
 class MultipartWriter {
     /**
      *
-     * @param {Array<string>} pathsOfImages The path list of the images
-     * @param {import('express').Response} res The express response
+     * @param {Array<ImagePathObj>} imagePathObjList The path list of the images
+     * @param {import('http').ServerResponse} res The express response
      * @param {import('express').Request} req
      */
-    constructor(pathsOfImages, res, req = {}) {
+    constructor(imagePathObjList, res, req = {}) {
         this.BOUNDARY = `${uuid.v4()}-${uuid.v4()}-raccoon`;
-        this.pathsOfImages = pathsOfImages;
+        this.imagePathObjList = imagePathObjList;
         this.res = res;
         this.req = req;
-        //this.responseData = "";
     }
 
     /**
@@ -67,15 +74,16 @@ class MultipartWriter {
     }
 
     async writeContentLocation(subPath = "") {
+        let protocol = this.req.secure ? "https" : "http";
         if (subPath) {
             let urlObj = new URL(
                 subPath,
-                `${this.req.protocol}://${this.req.headers.host}`
+                `${protocol}://${this.req.headers.host}`
             );
             this.res.write(`Content-Location: ${urlObj.href}\r\n`);
         } else {
             this.res.write(
-                `Content-Location: ${this.req.protocol}://${this.req.headers.host}${this.req.originalUrl}\r\n`
+                `Content-Location: ${protocol}://${this.req.headers.host}${this.req.originalUrl}\r\n`
             );
         }
     }
@@ -94,7 +102,7 @@ class MultipartWriter {
      * @param {string} type the type of the whole content
      */
     async setHeaderMultipartRelatedContentType(type) {
-        this.res.set(
+        this.res.setHeader(
             "content-type",
             `multipart/related; type="${type}"; boundary=${this.BOUNDARY}`
         );
@@ -106,20 +114,21 @@ class MultipartWriter {
      */
     async writeDICOMFiles(type) {
         try {
-            if (this.pathsOfImages) {
+            if (this.imagePathObjList) {
                 this.setHeaderMultipartRelatedContentType(type);
-                for (let i = 0; i < this.pathsOfImages.length; i++) {
-                    console.log(
-                        `${DICOM_STORE_ROOTPATH}${this.pathsOfImages[i]}`
-                    );
+                for (let i = 0; i < this.imagePathObjList.length; i++) {
+                    let {studyUID, seriesUID, instanceUID} = this.imagePathObjList[i];
+                    let imagePath = this.imagePathObjList[i].instancePath;
                     let fileBuffer = await streamToBuffer(
                         fs.createReadStream(
-                            `${DICOM_STORE_ROOTPATH}${this.pathsOfImages[i]}`
+                            imagePath
                         )
                     );
                     this.writeBoundary(i === 0);
                     this.writeContentType(type);
                     this.writeContentLength(fileBuffer.length);
+                    let instanceUrlPath = `/dicom-web/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}`;
+                    this.writeContentLocation(instanceUrlPath);
                     this.writeBufferData(fileBuffer);
                 }
                 this.writeFinalBoundary();
@@ -140,7 +149,7 @@ class MultipartWriter {
      */
     async writeFrames(type, frameList) {
         this.setHeaderMultipartRelatedContentType();
-        let dicomFilename = `${DICOM_STORE_ROOTPATH}${this.pathsOfImages[0]}`;
+        let dicomFilename = `${this.imagePathObjList[0].instancePath}`;
         let jpegFile = dicomFilename.replace(/\.dcm\b/gi, "");
         let minFrameNumber = _.min(frameList);
         let maxFrameNumber = _.max(frameList);
