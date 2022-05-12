@@ -16,7 +16,8 @@
         "no-useless-escape": "off",
         "no-useless-catch": "off",
         "no-var": "error",
-        "no-control-regex": "off"
+        "no-control-regex": "off",
+        "no-async-promise-executor": "off"
     },
     "ignorePatterns": ["public/**", "temp/**", "tempUploadFiles/**", "docs/**"]
 }
