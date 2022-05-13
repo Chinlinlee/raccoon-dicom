@@ -132,12 +132,21 @@ class MultipartWriter {
                     this.writeBufferData(fileBuffer);
                 }
                 this.writeFinalBoundary();
-                return true;
+                return {
+                    status : true
+                };
             }
-            return false;
+            return {
+                status : false
+            };
         } catch (e) {
-            logger.error(e);
-            return false;
+            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
+            logger.error(errorStr);
+            return {
+                status : false,
+                code : 500,
+                message: errorStr
+            };
         }
     }
 

@@ -26,7 +26,13 @@ module.exports = async function(req, res) {
                 });
                 return res.end(JSON.stringify(errorMessage));
             }
-            await wadoService.multipartFunc[type].getStudyDICOMFiles(req.params, req, res, type);
+            let writeMultipartResult = await wadoService.multipartFunc[type].getStudyDICOMFiles(req.params, req, res, type);
+            if (!writeMultipartResult.status) {
+                res.writeHead(writeMultipartResult.code, {
+                    "Content-Type": "application/dicom+json"
+                });
+                return res.end(JSON.stringify(writeMultipartResult));
+            }
         }
         return res.end();
     } catch(e) {

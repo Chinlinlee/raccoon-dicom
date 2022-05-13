@@ -83,7 +83,12 @@ async function getSeriesImagesPath(iParam) {
                 $group: {
                     _id: "$seriesUID",
                     pathList: {
-                        $addToSet: "$instancePath"
+                        $addToSet: {
+                            studyUID: "$studyUID",
+                            seriesUID: "$seriesUID",
+                            instanceUID: "$instanceUID",
+                            instancePath: "$instancePath"
+                        }
                     }
                 }
             }
@@ -142,17 +147,31 @@ const multipartFunc = {
     "application/dicom": {
         getStudyDICOMFiles: async (iParam, req, res, type) => {
             let imagesPath = await getStudyImagesPath(iParam);
+            if (!imagesPath) return {
+                status: false,
+                code: 404,
+                message: `not found, Study UID: ${iParam.studyUID}`
+            };
             let multipartWriter = new MultipartWriter(imagesPath, res, req);
-
             return multipartWriter.writeDICOMFiles(type);
         },
         getSeriesDICOMFiles: async (iParam, req, res, type) => {
             let imagesPath = await getSeriesImagesPath(iParam);
+            if (!imagesPath) return {
+                status: false,
+                code: 404,
+                message: `not found, Series UID: ${iParam.seriesUID}, Study UID: ${iParam.studyUID}`
+            };
             let multipartWriter = new MultipartWriter(imagesPath, res, req);
             return multipartWriter.writeDICOMFiles(type);
         },
         getInstanceDICOMFile: async (iParam, req, res, type) => {
             let imagePath = await getInstanceImagePath(iParam);
+            if (!imagePath) return {
+                status: false,
+                code: 404,
+                message: `not found, Instance UID: ${iParam.instanceUID}, Series UID: ${iParam.seriesUID}, Study UID: ${iParam.studyUID}`
+            };
             let multipartWriter = new MultipartWriter(imagePath, res, req);
             return multipartWriter.writeDICOMFiles(type);
         }
