@@ -97,9 +97,9 @@ async function getSeriesImagesPath(iParam) {
         let pathList = docs.pop().pathList;
         if (pathList.length > 0) {
             for (let i = 0; i < pathList.length; i++) {
-                pathList[i] = path.join(
+                pathList[i].instancePath = path.join(
                     process.env.DICOM_STORE_ROOTPATH,
-                    pathList[i]
+                    pathList[i].instancePath
                 );
             }
             return pathList;

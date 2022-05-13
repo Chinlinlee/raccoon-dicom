@@ -24,7 +24,7 @@ class WADOZip {
             
             let folders = [];
             for (let i = 0; i < imagesPathList.length; i++) {
-                let imagesFolder = path.dirname(imagesPathList[i]);
+                let imagesFolder = path.dirname(imagesPathList[i].instancePath);
                 if (!folders.includes(imagesFolder)) {
                     folders.push(imagesFolder);
                 }
@@ -34,11 +34,15 @@ class WADOZip {
     }
 
     async getZipOfSeriesDICOMFiles() {
-        let seriesPathList = await wadoService.getSeriesImagesPath(
-            this.studyUID, 
-            this.seriesUID
-        );
-        
+        let imagesPathList = await wadoService.getSeriesImagesPath(this.requestParams);
+        if (imagesPathList) {
+            this.setHeaders(this.seriesUID);
+            
+            let folders = [];
+            let seriesPath = path.dirname(imagesPathList[0].instancePath);
+            folders.push(seriesPath);
+            return await toZip(this.res, folders);
+        }
     }
 }
 

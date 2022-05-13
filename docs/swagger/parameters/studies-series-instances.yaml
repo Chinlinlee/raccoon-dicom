@@ -1,0 +1,24 @@
+components:
+    parameters:
+        "studyUID":
+            name: "studyUID"
+            in: path
+            required: true
+            schema:
+                type: string
+        "seriesUID":
+            name: "seriesUID"
+            in: path
+            required: true
+            schema:
+                type: string
+        "SOPClassUID":
+            name: "00080016"
+            in: query
+            schema:
+                type: string
+        "InstanceNumber":
+            name: "00200013"
+            in: query
+            schema:
+                type: string

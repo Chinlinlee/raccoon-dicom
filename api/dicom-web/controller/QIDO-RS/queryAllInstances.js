@@ -6,27 +6,6 @@ const {
 const { logger } = require("../../../../utils/log");
 
 /**
- *  @openapi
- *  /dicom-web/studies:
- *    get:
- *      tags:
- *        - QIDO-RS
- *      description: Query for studies
- *      parameters:
- *        - $ref: "#/components/parameters/StudyDate"
- *        - $ref: "#/components/parameters/StudyTime"
- *        - $ref: "#/components/parameters/AccessionNumber"
- *        - $ref: "#/components/parameters/ModalitiesInStudy"
- *        - $ref: "#/components/parameters/ReferringPhysicianName"
- *        - $ref: "#/components/parameters/PatientName"
- *        - $ref: "#/components/parameters/PatientID"
- *        - $ref: "#/components/parameters/StudyID"
- *      responses:
- *        200:
- *          description: Query successfully
- */
-
-/**
  *
  * @param {import('http').IncomingMessage} req
  * @param {import('http').ServerResponse} res

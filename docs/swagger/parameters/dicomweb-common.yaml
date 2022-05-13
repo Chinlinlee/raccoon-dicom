@@ -1,0 +1,9 @@
+components:
+  responses: 
+    "MultipartRelatedDICOM":
+      description: "The response payload for WADO-RS"
+      content:
+        "multipart/related; type=\"application/dicom\"":
+          schema:
+            type: string
+            format: binary
