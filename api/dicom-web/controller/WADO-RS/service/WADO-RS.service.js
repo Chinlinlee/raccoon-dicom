@@ -94,7 +94,7 @@ async function getSeriesImagesPath(iParam) {
             }
         ];
         let docs = await mongoose.model("dicom").aggregate(query);
-        let pathList = docs.pop().pathList;
+        let pathList = _.get(docs, "0.pathList", []);
         if (pathList.length > 0) {
             for (let i = 0; i < pathList.length; i++) {
                 pathList[i].instancePath = path.join(
