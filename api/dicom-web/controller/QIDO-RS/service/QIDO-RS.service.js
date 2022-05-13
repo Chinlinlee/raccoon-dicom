@@ -321,7 +321,7 @@ async function getInstanceDicomJson(iQuery, limit, skip, req) {
             obj["00081190"] = {
                 vr: "UR",
                 Value: [
-                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instance/${obj["00080016"]["Value"][0]}`
+                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instances/${obj["00080018"]["Value"][0]}`
                 ]
             };
             return sortObjByFieldKey(obj);
