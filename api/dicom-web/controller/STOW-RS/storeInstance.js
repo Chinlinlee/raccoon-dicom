@@ -149,7 +149,7 @@ async function storeInstance(req, multipartData) {
         );
         let saveDICOMFileResult = await saveDICOMFile(
             currentFile,
-            removedTagsDicomJson.dicomJson,
+            replacedBinaryDicomJson.dicomJson,
             uidObj
         );
         await storeMetadata(
@@ -311,7 +311,7 @@ async function getDICOMJson(filename) {
  * @param {import('formidable').File} file
  * @param {JSON} dicomJson
  * @param {import('../../../../utils/typeDef/dicom').UIDObject} uidObj
- * @return {import("../../../../utils/typeDef/STOW-RS/STOW-RS.def").SaveDicomFileResult}
+ * @return {Promise<import("../../../../utils/typeDef/STOW-RS/STOW-RS.def").SaveDicomFileResult>}
  */
 async function saveDICOMFile(file, dicomJson, uidObj) {
     try {
@@ -384,10 +384,6 @@ async function storeMetadata(removedTagsDicomJson, dest) {
  */
 async function processBinaryData(req, removedTagsDicomJson, uidObj) {
     try {
-        // console.log(req.secure);
-        // console.log(req.headers.host);
-        let protocol = req.secure ? "https" : "http";
-        let url = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
 
         let dicomJson = removedTagsDicomJson.dicomJson;
         let binaryKeys = [];
@@ -418,7 +414,7 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
             _.set(
                 dicomJson,
                 `${key}.BulkDataURI`,
-                `${url}/${studyUID}/series/${seriesUID}/instances/${instanceUID}/bulkdata/${binaryValuePath}`
+                `/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}/bulkdata/${binaryValuePath}`
             );
             relativeFilename += `${binaryValuePath}.raw`;
 
@@ -462,7 +458,7 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
         }
         dicomJson["7FE00010"] = {
             vr: "OW",
-            BulkDataURI: `${url}/${dicomJson["0020000D"].Value[0]}/series/${dicomJson["0020000E"].Value[0]}/instances/${dicomJson["00080018"].Value[0]}`
+            BulkDataURI: `/studies/${dicomJson["0020000D"].Value[0]}/series/${dicomJson["0020000E"].Value[0]}/instances/${dicomJson["00080018"].Value[0]}`
         };
         return {
             dicomJson: dicomJson,
