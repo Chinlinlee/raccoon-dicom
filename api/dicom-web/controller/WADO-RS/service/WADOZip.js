@@ -31,6 +31,11 @@ class WADOZip {
             }
             return await toZip(this.res, folders);
         }
+        return {
+            status: false,
+            code : 404,
+            message: `not found, Study UID: ${this.requestParams.studyUID}`
+        };
     }
 
     async getZipOfSeriesDICOMFiles() {
@@ -43,10 +48,29 @@ class WADOZip {
             folders.push(seriesPath);
             return await toZip(this.res, folders);
         }
+        return {
+            status: false,
+            code : 404,
+            message: `not found, Series UID: ${this.requestParams.seriesUID}, Study UID: ${this.requestParams.studyUID}`
+        };
+    }
+
+    async getZipOfInstanceDICOMFile() {
+        let imagePath = await wadoService.getInstanceImagePath(this.requestParams);
+        if (imagePath) {
+            this.setHeaders(this.instanceUID);
+
+            return await toZip(this.res, [], imagePath.instancePath);
+        }
+        return {
+            status: false,
+            code : 404,
+            message: `not found, Instance UID: ${this.requestParams.instanceUID}, Series UID: ${this.requestParams.seriesUID}, Study UID: ${this.requestParams.studyUID}`
+        };
     }
 }
 
-function toZip(res, folders=[]) {
+function toZip(res, folders=[], filename="") {
     return new Promise((resolve)=> {
         let archive = archiver('zip', {
             gzip: true,
@@ -56,6 +80,7 @@ function toZip(res, folders=[]) {
             console.error(err);
             resolve({
                 status: false,
+                code: 500,
                 data: err
             });
         });
@@ -66,10 +91,13 @@ function toZip(res, folders=[]) {
                 //archive.append(null, {name : folderName});
                 archive.glob("*.dcm", {cwd: folders[i]}, {prefix: folderName});
             }
+        } else {
+            archive.file(filename);
         }
         archive.finalize().then(()=> {
             resolve({
                 status: true,
+                code: 200,
                 data: "success"
             });
         });

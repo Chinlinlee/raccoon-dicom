@@ -2,7 +2,6 @@ const { logger } = require("../../../../utils/log");
 const wadoService = require("./service/WADO-RS.service");
 const { WADOZip } = require("./service/WADOZip");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-
 /**
  * 
  * @param {import("http").IncomingMessage} req 
@@ -10,10 +9,10 @@ const errorResponse = require("../../../../utils/errorResponse/errorResponseMess
  */
 module.exports = async function(req, res) {
     try {
-        logger.info(`[WADO-RS] [Get study's instances, study UID: ${req.params.studyUID}] [Request Accept: ${req.headers.accept}]`);
+        logger.info(`[WADO-RS] [Get study's series' instances, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}] [Request Accept: ${req.headers.accept}]`);
         if (req.headers.accept.toLowerCase() === "application/zip") {
             let wadoZip = new WADOZip(req.params, res);
-            let zipResult = await wadoZip.getZipOfStudyDICOMFiles();
+            let zipResult = await wadoZip.getZipOfInstanceDICOMFile();
             if (zipResult.status) {
                 return res.end();
             } else {
@@ -28,7 +27,7 @@ module.exports = async function(req, res) {
             if (!isSupported) {
                 return wadoService.sendNotSupportedMediaType(res, type);
             }
-            let writeMultipartResult = await wadoService.multipartFunc[type].getStudyDICOMFiles(req.params, req, res, type);
+            let writeMultipartResult = await wadoService.multipartFunc[type].getInstanceDICOMFile(req.params, req, res, type);
             if (!writeMultipartResult.status) {
                 res.writeHead(writeMultipartResult.code, {
                     "Content-Type": "application/dicom+json"

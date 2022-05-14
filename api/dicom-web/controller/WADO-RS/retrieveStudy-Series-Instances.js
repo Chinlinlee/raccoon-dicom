@@ -15,16 +15,17 @@ module.exports = async function(req, res) {
             let zipResult = await wadoZip.getZipOfSeriesDICOMFiles();
             if (zipResult.status) {
                 return res.end();
+            } else {
+                res.writeHead(zipResult.code, {
+                    "Content-Type": "application/dicom+json"
+                });
+                return res.end(JSON.stringify(zipResult));
             }
         } else if (req.headers.accept.includes("multipart/related")) {
             let type = wadoService.getAcceptType(req);
             let isSupported = wadoService.supportInstanceMultipartType.indexOf(type) > -1;
             if (!isSupported) {
-                let errorMessage = errorResponse.getNotSupportedErrorMessage(`The type ${type} is not supported, server supported multipart/related; type="application/dicom", multipart/related; type="application/octet-stream" and application/zip`);
-                res.writeHead(errorMessage.HttpStatus, {
-                   "Content-Type": "application/dicom+json" 
-                });
-                return res.end(JSON.stringify(errorMessage));
+                return wadoService.sendNotSupportedMediaType(res, type);
             }
             let writeMultipartResult = await wadoService.multipartFunc[type].getSeriesDICOMFiles(req.params, req, res, type);
             if (!writeMultipartResult.status) {
@@ -34,7 +35,7 @@ module.exports = async function(req, res) {
                 return res.end(JSON.stringify(writeMultipartResult));
             }
         }
-        return res.end();
+        return wadoService.sendNotSupportedMediaType(res, req.headers.accept);
     } catch(e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
         logger.error(`[WADO-RS] [Error: ${errorStr}]`);

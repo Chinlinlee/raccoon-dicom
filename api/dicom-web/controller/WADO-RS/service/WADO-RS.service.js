@@ -2,6 +2,7 @@ const _ = require("lodash");
 const path = require("path");
 const mongoose = require("mongoose");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
+const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 /**
  *
  * @param {import("http").IncomingMessage} req
@@ -136,7 +137,14 @@ async function getInstanceImagePath(iParam) {
             instanceUID: 1,
             instancePath: 1
         }).exec();
-        if (doc) return doc;
+        if (doc) {
+            let docObj = doc.toObject();
+            docObj.instancePath = path.join(
+                process.env.DICOM_STORE_ROOTPATH,
+                docObj.instancePath
+            );
+            return docObj;
+        }
         return undefined;
     } catch (e) {
         throw e;
@@ -172,7 +180,7 @@ const multipartFunc = {
                 code: 404,
                 message: `not found, Instance UID: ${iParam.instanceUID}, Series UID: ${iParam.seriesUID}, Study UID: ${iParam.studyUID}`
             };
-            let multipartWriter = new MultipartWriter(imagePath, res, req);
+            let multipartWriter = new MultipartWriter([imagePath], res, req);
             return multipartWriter.writeDICOMFiles(type);
         }
     }
@@ -185,9 +193,24 @@ multipartFunc["application/octet-stream"] = {
 };
 const supportInstanceMultipartType = ["application/dicom", "application/octet-stream"];
 
+/**
+ * 
+ * @param { import('http').ServerResponse } res 
+ * @param { string } type 
+ * @returns 
+ */
+function sendNotSupportedMediaType(res, type) {
+    let errorMessage = errorResponse.getNotSupportedErrorMessage(`The type ${type} is not supported, server supported \`multipart/related; type="application/dicom"\`, \`multipart/related; type="application/octet-stream"\` and \`application/zip\``);
+    res.writeHead(errorMessage.HttpStatus, {
+        "Content-Type": "application/dicom+json" 
+    });
+    return res.end(JSON.stringify(errorMessage));
+}
+
 module.exports.getAcceptType = getAcceptType;
 module.exports.getStudyImagesPath = getStudyImagesPath;
 module.exports.getSeriesImagesPath = getSeriesImagesPath;
 module.exports.getInstanceImagePath = getInstanceImagePath;
 module.exports.multipartFunc = multipartFunc;
 module.exports.supportInstanceMultipartType = supportInstanceMultipartType;
+module.exports.sendNotSupportedMediaType = sendNotSupportedMediaType;

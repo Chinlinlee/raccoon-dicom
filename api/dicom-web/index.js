@@ -201,6 +201,10 @@ app.get(
     "/studies/:studyUID/series/:seriesUID",
     require("./controller/WADO-RS/retrieveStudy-Series-Instances")
 );
+app.get(
+    "/studies/:studyUID/series/:seriesUID/instances/:instanceUID",
+    require("./controller/WADO-RS/retrieveInstance")
+);
 
 //#endregion
 
