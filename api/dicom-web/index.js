@@ -247,6 +247,10 @@ app.get(
     "/studies/:studyUID/metadata",
     require("./controller/WADO-RS/retrieveStudyMetadata")
 );
+app.get(
+    "/studies/:studyUID/series/:seriesUID/metadata",
+    require("./controller/WADO-RS/retrieveSeriesMetadata")
+);
 
 //#endregion
 
