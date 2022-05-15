@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
+const flatten = require("flat");
 /**
  *
  * @param {import("http").IncomingMessage} req
@@ -207,6 +208,32 @@ function sendNotSupportedMediaType(res, type) {
     return res.end(JSON.stringify(errorMessage));
 }
 
+function addHostnameOfBulkDataUrl(metadata, req) {
+    let flattenMetadata = flatten(metadata);
+    let objKeys = Object.keys(flattenMetadata);
+    let binaryTag = objKeys
+    .filter(
+        v => v.indexOf(".vr") > -1
+    )
+    .filter(
+        v => {
+            let value = _.get(flattenMetadata, v);
+            return (value.indexOf("OB") > -1) || 
+            (value.indexOf("OW") > -1);
+        }
+    )
+    .map(
+        v => v.substring(0 , v.lastIndexOf(".vr"))
+    );
+
+    let protocol = req.secure ? "https" : "http";
+    for (let i = 0 ; i < binaryTag.length; i++) {
+        let tag = binaryTag[i];
+        let relativeUrl = flattenMetadata[`${tag}.BulkDataURI`];
+        _.set(metadata, `${tag}.BulkDataURI`, `${protocol}://${req.headers.host}${relativeUrl}`);
+    }
+}
+
 module.exports.getAcceptType = getAcceptType;
 module.exports.getStudyImagesPath = getStudyImagesPath;
 module.exports.getSeriesImagesPath = getSeriesImagesPath;
@@ -214,3 +241,4 @@ module.exports.getInstanceImagePath = getInstanceImagePath;
 module.exports.multipartFunc = multipartFunc;
 module.exports.supportInstanceMultipartType = supportInstanceMultipartType;
 module.exports.sendNotSupportedMediaType = sendNotSupportedMediaType;
+module.exports.addHostnameOfBulkDataUrl = addHostnameOfBulkDataUrl;

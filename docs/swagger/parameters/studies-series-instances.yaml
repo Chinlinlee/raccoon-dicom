@@ -12,6 +12,12 @@ components:
             required: true
             schema:
                 type: string
+        "instanceUID":
+            name: "instanceUID"
+            in: path
+            required: true
+            schema:
+                type: string
         "SOPClassUID":
             name: "00080016"
             in: query

@@ -28,6 +28,17 @@ function getBadRequestErrorMessage(details) {
     return message;
 }
 
+function getNotFoundErrorMessage(details) {
+    let message = {
+        Details: details,
+        HttpStatus: 404,
+        Message: "Not found",
+        Method: "GET"
+    };
+    return message;
+}
+
 module.exports.getInternalServerErrorMessage = getInternalServerErrorMessage;
 module.exports.getNotSupportedErrorMessage = getNotSupportedErrorMessage;
 module.exports.getBadRequestErrorMessage = getBadRequestErrorMessage;
+module.exports.getNotFoundErrorMessage = getNotFoundErrorMessage;
