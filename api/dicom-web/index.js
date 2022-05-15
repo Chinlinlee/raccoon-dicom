@@ -251,6 +251,10 @@ app.get(
     "/studies/:studyUID/series/:seriesUID/metadata",
     require("./controller/WADO-RS/retrieveSeriesMetadata")
 );
+app.get(
+    "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/metadata",
+    require("./controller/WADO-RS/retrieveInstanceMetadata")
+);
 
 //#endregion
 

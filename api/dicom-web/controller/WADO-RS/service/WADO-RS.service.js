@@ -7,6 +7,7 @@ const flatten = require("flat");
 /**
  *
  * @param {import("http").IncomingMessage} req
+ * @return { string }
  */
 function getAcceptType(req) {
     return req.headers.accept
@@ -19,6 +20,7 @@ function getAcceptType(req) {
 /**
  * Get path list of all study's instances with specific study UID
  * @param {Object} iParam
+ * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]> | undefined }
  */
 async function getStudyImagesPath(iParam) {
     let { studyUID } = iParam;
@@ -63,6 +65,7 @@ async function getStudyImagesPath(iParam) {
 /**
  * Get path list of all study's series' instances with specific study UID
  * @param {Object} iParam
+ * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]> | undefined }
  * @returns
  */
 async function getSeriesImagesPath(iParam) {
@@ -115,6 +118,7 @@ async function getSeriesImagesPath(iParam) {
 /**
  * Get path
  * @param {Object} iParam
+ * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj> | undefined }
  */
 async function getInstanceImagePath(iParam) {
     let { studyUID, seriesUID, instanceUID } = iParam;
