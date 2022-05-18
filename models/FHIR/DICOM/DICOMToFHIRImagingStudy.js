@@ -213,7 +213,6 @@ function dicomJsonToFHIRImagingStudy(dicomJson) {
         dcm2jsonV8.dcmString(dicomJson, "00200010")
     ];
     studyObj.identifier = getStudyIdentifiers(identifiers);
-    studyObj.modality = dcm2jsonV8.dcmString(dicomJson, "00080061");
 
     let patientId = dcm2jsonV8.dcmString(dicomJson, "00100020");
     studyObj.subject.identifier = new Identifier();

@@ -196,7 +196,7 @@ async function dicomToFHIR(req, dicomJson, uidObj) {
         let protocol = req.secure ? "https" : "http";
         dicomFHIRConverter.dicomWeb.retrieveStudiesUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
 
-        dicomFHIRConverter.dicomJsonToFHIR(dicomJson);
+        await dicomFHIRConverter.dicomJsonToFHIR(dicomJson);
 
         dicomFHIRConverter.fhir.baseUrl = process.env.FHIRSERVER_BASE_URL;
         await dicomFHIRConverter.postDicomFhir();

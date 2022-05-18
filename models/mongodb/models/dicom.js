@@ -127,39 +127,44 @@ dicomModelSchema.post("findOneAndUpdate", async function (doc) {
     });
 });
 
-async function updateStudyModalitiesInStudy(doc) {
-    try {
-        let modalitiesInStudy = await mongoose.model("dicom").aggregate([
-            {
-                $match: {
-                    studyUID: doc.studyUID
+async function getModalitiesInStudy(doc) {
+    let modalitiesInStudy = await mongoose.model("dicom").aggregate([
+        {
+            $match: {
+                studyUID: doc.studyUID
+            }
+        },
+        {
+            $group: {
+                _id: "$studyUID",
+                modalitiesInStudy: {
+                    $addToSet: "$00080060.Value"
                 }
-            },
-            {
-                $group: {
-                    _id: "$studyUID",
-                    modalitiesInStudy: {
-                        $addToSet: "$00080060.Value"
-                    }
-                }
-            },
-            {
-                $project: {
-                    "00080061": {
-                        vr: "CS",
-                        Value: {
-                            $reduce: {
-                                input: "$modalitiesInStudy",
-                                initialValue: [],
-                                in: {
-                                    $concatArrays: ["$$value", "$$this"]
-                                }
+            }
+        },
+        {
+            $project: {
+                "00080061": {
+                    vr: "CS",
+                    Value: {
+                        $reduce: {
+                            input: "$modalitiesInStudy",
+                            initialValue: [],
+                            in: {
+                                $concatArrays: ["$$value", "$$this"]
                             }
                         }
                     }
                 }
             }
-        ]);
+        }
+    ]);
+    return modalitiesInStudy;
+}
+
+async function updateStudyModalitiesInStudy(doc) {
+    try {
+        let modalitiesInStudy = await getModalitiesInStudy(doc);
         await mongoose.model("dicomStudy").findOneAndUpdate(
             {
                 studyUID: doc.studyUID
@@ -301,3 +306,4 @@ async function updateStudyNumberOfStudyRelatedInstance(doc) {
 
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
 module.exports = dicomModel;
+module.exports.getModalitiesInStudy = getModalitiesInStudy;

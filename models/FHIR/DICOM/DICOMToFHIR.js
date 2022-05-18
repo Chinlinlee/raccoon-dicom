@@ -6,6 +6,7 @@ const { fhirLogger } = require("../../../utils/log");
 const { dicomJsonToFHIRImagingStudy } = require("./DICOMToFHIRImagingStudy");
 const { dicomJsonToFHIRPatient } = require("./DICOMToFHIRPatient");
 const { dicomJsonToFHIREndpoint } = require("./DICOMToFHIREndpoint");
+const { getModalitiesInStudy } = require("../../../models/mongodb/models/dicom");
 
 class DICOMFHIRConverter {
     constructor() {
@@ -30,7 +31,7 @@ class DICOMFHIRConverter {
      *
      * @param {JSON} dicomJson The DICOM Json model
      */
-    dicomJsonToFHIR(dicomJson) {
+    async dicomJsonToFHIR(dicomJson) {
         let patient = dicomJsonToFHIRPatient(dicomJson);
         let imagingStudy = dicomJsonToFHIRImagingStudy(dicomJson);
         if (!imagingStudy.subject.reference.includes(patient.id)) {
@@ -42,8 +43,33 @@ class DICOMFHIRConverter {
         );
         this.dicomFHIR.patient = patient;
         this.dicomFHIR.imagingStudy = imagingStudy;
+        await this.setModalitiesInStudy(dicomJson);
         this.dicomFHIR.endpoint = endpoint;
+        this.dicomFHIR.imagingStudy.endpoint = [
+            {
+                reference: `Endpoint/${this.dicomFHIR.endpoint.id}`,
+                type: "Endpoint"
+            }
+        ];
         return this.dicomFHIR;
+    }
+
+    async setModalitiesInStudy(dicomJson) {
+        let studyModalities = [];
+        let modalitiesInStudy = await getModalitiesInStudy({
+            studyUID: dicomJson["0020000D"].Value[0]
+        });
+        if (modalitiesInStudy.length > 0) {
+            let modalitiesInStudyValue = modalitiesInStudy[0]["00080061"].Value;
+            for(let i = 0 ; i < modalitiesInStudyValue.length; i++) {
+                let modality = {
+                    system: "http://dicom.nema.org/resources/ontology/DCM",
+                    code: modalitiesInStudyValue[i]
+                };
+                studyModalities.push(modality);
+            }
+            this.dicomFHIR.imagingStudy.modality = studyModalities;
+        }
     }
 
     //#region ImagingStudy
