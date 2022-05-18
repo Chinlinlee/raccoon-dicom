@@ -6,4 +6,14 @@
  * @property { string } instancePath
  */
 
+/**
+ * @typedef { {
+ *     studyUID: string,
+ *     seriesUID: string,
+ *     instanceUID: string,
+ *     "00280008": string,
+ *     "00020010": string
+ * } } InstanceFrameObj
+ */
+
 module.exports.unUse = {};
