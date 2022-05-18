@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { exec } = require("child_process");
+const fs = require("fs");
 const condaPath = process.env.CONDA_PATH;
 const condaEnvName = process.env.CONDA_GDCM_ENV_NAME;
 
@@ -67,6 +68,35 @@ const getJpeg = {
     }
 };
 
+/**
+ * 
+ * @param {string} imagesPath 
+ * @param {number} frameNumber 
+ */
+async function getFrameImage(imagesPath, frameNumber) {
+    let jpegFile = imagesPath.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
+    try {
+        let status = await getJpeg[process.env.OS].getJpegByPyDicom(
+            imagesPath,
+            frameNumber
+        );
+        let rs = fs.createReadStream(jpegFile);
+        return {
+            status: status,
+            imageStream: rs,
+            imagePath: jpegFile
+        };
+    } catch(e) {
+        console.error(e);
+        return {
+            status: false,
+            imageStream: e,
+            imagePath: jpegFile
+        };
+    }
+}
+
 module.exports = {
-    getJpeg: getJpeg
+    getJpeg: getJpeg,
+    getFrameImage: getFrameImage
 };
