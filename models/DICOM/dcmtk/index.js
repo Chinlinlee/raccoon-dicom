@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const _ = require("lodash");
 const iconv = require("iconv-lite");
+const dcmtkWinBinaryPath = "models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin";
 
 const dcmtkSupportTransferSyntax = [
     "1.2.840.10008.1.2",
@@ -70,8 +71,41 @@ async function dcm2jpegCustomCmd(execCmd) {
     });
 }
 
+/**
+ * 
+ * @param {string} imagesPath 
+ * @param {number} frameNumber 
+ * @param {Array<String>}otherOptions
+ */
+ async function getFrameImage (imagesPath , frameNumber ,otherOptions=[]) {
+    let jpegFile = imagesPath.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
+    let execCmd = `${dcmtkWinBinaryPath}/dcmj2pnm.exe --write-jpeg "${imagesPath}" "${jpegFile}" --frame ${frameNumber} ${otherOptions.join(" ")}`;
+    if (process.env.ENV == "linux") {
+        execCmd = `dcmj2pnm --write-jpeg "${imagesPath}" "${jpegFile}" --frame ${frameNumber} ${otherOptions.join(" ")}`;
+    }
+    try {
+        let dcm2jpegStatus = await dcm2jpegCustomCmd(execCmd.trim());
+        if (dcm2jpegStatus) {
+            let rs = fs.createReadStream(jpegFile);
+            return {
+                status : true , 
+                imageStream : rs,
+                imagePath: jpegFile
+            };
+        }
+    } catch(e) {
+        console.error(e);
+        return {
+            status : false ,
+            imageStream : e,
+            imagePath: jpegFile
+        };
+    }
+}
+
 module.exports = {
     dcm2jsonV8: dcm2jsonV8,
     dcmtkSupportTransferSyntax: dcmtkSupportTransferSyntax,
-    dcm2jpegCustomCmd: dcm2jpegCustomCmd
+    dcm2jpegCustomCmd: dcm2jpegCustomCmd,
+    getFrameImage: getFrameImage
 };
