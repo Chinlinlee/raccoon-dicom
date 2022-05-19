@@ -34,6 +34,7 @@ module.exports = async function(req, res) {
                 });
                 return res.end(JSON.stringify(writeMultipartResult));
             }
+            return res.end();
         }
         return wadoService.sendNotSupportedMediaType(res, req.headers.accept);
     } catch(e) {
