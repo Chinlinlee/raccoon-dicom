@@ -27,7 +27,13 @@ let dicomModelSchema = new mongoose.Schema(
             index: true,
             required: true
         },
-        "00080020": dicomJsonAttributeDASchema,
+        "00080020": new mongoose.Schema(dicomJsonAttributeDASchema, {
+            _id: false,
+            id: false,
+            toObject: {
+                getters: true
+            }
+        }),
         "00080030": {
             ...dicomJsonAttributeSchema,
             Value: [mongoose.SchemaTypes.Number]
@@ -66,7 +72,13 @@ let dicomModelSchema = new mongoose.Schema(
             ...dicomJsonAttributeSchema,
             Value: [mongoose.SchemaTypes.String]
         },
-        "00400244": dicomJsonAttributeDASchema,
+        "00400244": new mongoose.Schema(dicomJsonAttributeDASchema, {
+            _id: false,
+            id: false,
+            toObject: {
+                getters: true
+            }
+        }),
         "00400275": dicomJsonAttributeSchema,
         "00080016": {
             ...dicomJsonAttributeSchema,

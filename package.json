@@ -31,6 +31,7 @@
     "log4js": "^6.4.5",
     "mkdirp": "^1.0.4",
     "moment": "^2.29.3",
+    "moment-timezone": "^0.5.34",
     "mongoose": "^5.13.14",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",

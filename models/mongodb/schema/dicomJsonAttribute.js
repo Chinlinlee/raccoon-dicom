@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const moment = require("moment");
+const moment = require("moment-timezone");
 const _ = require("lodash");
 
 let dicomJsonAttributeSchema = {
@@ -33,6 +33,12 @@ let dicomJsonAttributeDASchema = {
     Value: {
         type: [Date],
         default: void 0,
+        set: function(v) {
+            let length = _.get(v, "length");
+            if (length > 0) {
+                return v.map((date) => moment(date, "YYYYMMDD").toDate());
+            }
+        },
         get: function (v) {
             let length = _.get(v, "length");
             if (length > 0) {
