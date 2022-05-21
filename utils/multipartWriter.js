@@ -35,19 +35,15 @@ class MultipartWriter {
      * Write the boundary
      * @param {boolean} isFirst Do not write \r\n\r\n when start if true
      */
-    async writeBoundary(isFirst = false) {
-        if (isFirst) {
-            this.res.write(`--${this.BOUNDARY}\r\n`);
-        } else {
-            this.res.write(`\r\n--${this.BOUNDARY}\r\n`);
-        }
+    async writeBoundary() {
+        this.res.write(`--${this.BOUNDARY}\r\n`);
     }
 
     /**
      * Write final boundary
      */
     async writeFinalBoundary() {
-        this.res.write(`\r\n--${this.BOUNDARY}--`);
+        this.res.write(`--${this.BOUNDARY}--`);
     }
     /**
      * Write the content-type. <br/>
@@ -95,6 +91,7 @@ class MultipartWriter {
     async writeBufferData(buffer) {
         this.res.write("\r\n");
         this.res.write(buffer);
+        this.res.write("\r\n");
     }
 
     /**
@@ -124,7 +121,7 @@ class MultipartWriter {
                             imagePath
                         )
                     );
-                    this.writeBoundary(i === 0);
+                    this.writeBoundary();
                     this.writeContentType(type);
                     this.writeContentLength(fileBuffer.length);
                     let instanceUrlPath = `/dicom-web/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}`;
@@ -168,7 +165,7 @@ class MultipartWriter {
         }
         let execCmd = "";
         if (process.env.ENV == "windows") {
-            execCmd = `models/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${dicomFilename}" "${jpegFile}" --frame-range ${minFrameNumber} ${frameNumberCount}`;
+            execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${dicomFilename}" "${jpegFile}" --frame-range ${minFrameNumber} ${frameNumberCount}`;
         } else if (process.env.ENV == "linux") {
             execCmd = `dcmj2pnm --write-jpeg "${dicomFilename}" "${jpegFile}" --frame-range ${minFrameNumber} ${frameNumberCount}`;
         }
@@ -185,7 +182,7 @@ class MultipartWriter {
                     untilTag: "x7fe00010"
                 });
                 let transferSyntax = dicomDataSet.string("x00020010");
-                this.writeBoundary(x == 0);
+                this.writeBoundary();
                 this.writeContentType(type, transferSyntax);
                 this.writeContentLength(fileBuffer.length);
                 this.writeContentLocation();
@@ -210,7 +207,7 @@ class MultipartWriter {
             );
             let fileStream = fs.createReadStream(filename);
             let fileBuffer = await streamToBuffer(fileStream);
-            this.writeBoundary(isFirst);
+            this.writeBoundary();
             this.writeContentType("application/octet-stream");
             this.writeContentLength(fileBuffer.length);
             let bulkDataUrlPath = `/api/dicom/instance/${bulkDataObj.instanceUID}/bulkdata/${bulkDataObj.binaryValuePath}`;
@@ -220,6 +217,20 @@ class MultipartWriter {
         } catch (e) {
             logger.error(e);
             return false;
+        }
+    }
+
+    writeBuffer(buffer, headers) {
+        try {
+            this.writeBoundary();
+            this.writeContentType(headers["Content-Type"]);
+            this.writeContentLength(buffer.length);
+            let bulkDataUrlPath = headers["Content-Location"];
+            this.writeContentLocation(bulkDataUrlPath);
+            this.writeBufferData(buffer);
+        } catch(e) {
+            logger.error(e);
+            throw e;
         }
     }
 }
