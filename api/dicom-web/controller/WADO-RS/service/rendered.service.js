@@ -97,7 +97,7 @@ const Magick = require("../../../../../models/magick");
 /**
  * 
  * @param {Object} iParam 
- * @return { import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj | undefined }
+ * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj> | Promise<undefined> }
  */
 async function getInstanceFrameObj(iParam) {
     let { studyUID, seriesUID, instanceUID } = iParam;

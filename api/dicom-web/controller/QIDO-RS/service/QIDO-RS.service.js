@@ -21,29 +21,11 @@ function convertAllQueryToDICOMTag(iParam) {
         let newKeyNames = [];
         for (let x = 0; x < keyNameSplit.length; x++) {
             if (dictionary.keyword[keyNameSplit[x]]) {
-                newKeyNames.push(dictionary.dicom[keyNameSplit[x]]);
+                newKeyNames.push(dictionary.keyword[keyNameSplit[x]]);
             } else if (dictionary.tag[keyNameSplit[x]]) {
                 newKeyNames.push(keyNameSplit);
-            } else {
-                //newKeyNames.push(keyNameSplit);
             }
         }
-        // if (newKeyNames.length == 1) {
-        //     continue;
-        // }
-        // let studyTags = Object.keys(QIDORetAtt.study);
-        // let seriesTags = Object.keys(QIDORetAtt.series);
-        // let instanceTags = Object.keys(QIDORetAtt.instance);
-        // for (let seriesTag of seriesTags) {
-        //     if (newKeyNames.find(v => v == seriesTag) && !studyTags.includes(seriesTag)) {
-        //         newKeyNames = [ "series", ...newKeyNames]
-        //     }
-        // }
-        // for (let instanceTag of instanceTags) {
-        //     if (newKeyNames.find(v => v == instanceTag) && !studyTags.includes(instanceTag) && !seriesTags.includes(instanceTag)) {
-        //         newKeyNames = [ "series", "instance", ...newKeyNames]
-        //     }
-        // }
         newKeyNames.push("Value");
         let retKeyName = newKeyNames.join(".");
         newQS[retKeyName] = iParam[keyName];

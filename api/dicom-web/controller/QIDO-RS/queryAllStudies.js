@@ -14,7 +14,7 @@ const { logger } = require("../../../../utils/log");
  */
 module.exports = async function (req, res) {
     logger.info(
-        `[QIDO-RS] [Query instance Level, Study UID: ${req.params.studyUID}, Series UID: ${req.params.seriesUID}]`
+        `[QIDO-RS] [Query All Studies]`
     );
     try {
         let limit = parseInt(req.query.limit) || 100;
