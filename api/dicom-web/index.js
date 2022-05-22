@@ -1,5 +1,6 @@
 const Joi = require("joi");
-const { app } = require("../../app");
+const polka = require("polka");
+const app = polka();
 const { validateParams } = require("../validator");
 
 //#region QIDO-RS
@@ -295,6 +296,12 @@ const renderedQueryValidation = {
         return helper.message("invalid viewport parameter, viewport=vw,vh or viewport=vw,vh,sx,sy,sw,sh");
     })
 };
+
+app.get(
+    "/studies/:studyUID/rendered",
+    validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
+    require("./controller/WADO-RS/retrieveRenderedStudy")
+);
 
 app.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/frames/:frameNumber/rendered",
