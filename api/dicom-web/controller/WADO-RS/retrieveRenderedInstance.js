@@ -19,6 +19,19 @@ module.exports = async function(req, res) {
     }
     try {
         let instanceFramesObj = await renderedService.getInstanceFrameObj(req.params);
+        if (!instanceFramesObj) {
+            res.writeHead(404, {
+                "Content-Type": "application/dicom+json"
+            });
+            let notFoundMessage = errorResponse.getNotFoundErrorMessage(`Not Found Instance, Instance UID: ${
+                req.params.instanceUID
+            }, Series UID: ${
+                req.params.seriesUID
+            }, Study UID: ${
+                req.params.studyUID
+            }`);
+            return res.end(JSON.stringify(notFoundMessage));
+        }
         let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
         dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
         if (req.params.frameNumber > dicomNumberOfFrames) {
