@@ -48,38 +48,70 @@ let dicomJsonAttributeDASchema = {
     }
 };
 
-function getVRSchema(vr) {
-    if (vr == "DA") {
-        return new mongoose.Schema(dicomJsonAttributeDASchema, {
-            _id: false,
-            id: false,
-            toObject: {
-                getters: true
+let dicomJsonAttributeISSchema = {
+    vr: {
+        type: String
+    },
+    Value: {
+        type: [String],
+        default: void 0,
+        set: function(v) {
+            let length = _.get(v, "length");
+            if (length > 0) {
+                return v.map((intValue) => {
+                    let cleanIntString = String(intValue);
+                    cleanIntString = cleanIntString.replace("+ ", "");
+                    cleanIntString = cleanIntString.replace("+", "");
+                    cleanIntString = cleanIntString.replace("- ", "-");
+                    return cleanIntString;
+                });
             }
-        });
-    } else if (vr == "PN") {
-        return new mongoose.Schema(
-            {
-                ...dicomJsonAttributeSchema,
-                Value: [dicomJsonAttributePNSchema]
-            },
-            {
-                _id: false,
-                id: false,
-                toObject: {
-                    getters: true
-                }
-            }
-        );
-    } else {
-        return new mongoose.Schema(dicomJsonAttributeSchema, {
-            _id: false,
-            id: false,
-            toObject: {
-                getters: true
-            }
-        });
+        }
     }
+};
+
+const vrSchemaMap = {
+    "DA": new mongoose.Schema(dicomJsonAttributeDASchema, {
+        _id: false,
+        id: false,
+        toObject: {
+            getters: true
+        }
+    }),
+    "PN": new mongoose.Schema(
+        {
+            ...dicomJsonAttributeSchema,
+            Value: [dicomJsonAttributePNSchema]
+        },
+        {
+            _id: false,
+            id: false,
+            toObject: {
+                getters: true
+            }
+        }
+    ),
+    "IS": new mongoose.Schema(dicomJsonAttributeISSchema, {
+        _id: false,
+        id: false,
+        toObject: {
+            getters: true
+        }
+    })
+};
+
+function getVRSchema(vr) {
+    let haveCustomSchema = Object.prototype.hasOwnProperty.call(vrSchemaMap, vr);
+    if(haveCustomSchema) {
+        return vrSchemaMap[vr];
+    }
+    return new mongoose.Schema(dicomJsonAttributeSchema, {
+        _id: false,
+        id: false,
+        toObject: {
+            getters: true
+        }
+    });
 }
 
 module.exports.dicomJsonAttributeSchema = dicomJsonAttributeSchema;
