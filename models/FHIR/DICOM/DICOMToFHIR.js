@@ -108,10 +108,13 @@ class DICOMFHIRConverter {
     }
 
     /**
-     * POST the imagingStudy resource to FHIR server
+     * Create the imagingStudy resource on FHIR server
      */
     async createImagingStudy() {
         try {
+            fhirLogger.info(
+                `[FHIR] [ImagingStudy not exists, identifier: ${this.dicomFHIR.imagingStudy.identifier[0].value}, create it]`
+            );
             let postUrl = urlJoin(`/ImagingStudy`, this.fhir.baseUrl);
             let { data } = await axios.post(
                 postUrl,
@@ -137,6 +140,7 @@ class DICOMFHIRConverter {
             fhirLogger.info(
                 `[FHIR] [ImagingStudy exists, identifier: ${identifier.value}, update it]`
             );
+            this.updateExistStudy(existImagingStudy);
             this.updateExistSeries(existImagingStudy);
             let putUrl = urlJoin(
                 `/ImagingStudy/${existImagingStudy.id}`,
@@ -154,6 +158,14 @@ class DICOMFHIRConverter {
         }
     }
 
+    updateExistStudy(existImagingStudy) {
+        let cloneImagingStudy = _.cloneDeep(this.dicomFHIR.imagingStudy);
+        delete cloneImagingStudy.series;
+        let id = _.cloneDeep(existImagingStudy.id);
+        existImagingStudy = _.merge(existImagingStudy, cloneImagingStudy);
+        existImagingStudy.id = id;
+    }
+
     updateExistSeries(existImagingStudy) {
         let seriesUID = this.dicomFHIR.imagingStudy.series[0].uid;
         let existSeriesIndex = existImagingStudy.series.findIndex(
@@ -165,7 +177,7 @@ class DICOMFHIRConverter {
                 this.dicomFHIR.imagingStudy.series[0]
             );
             delete seriesClone.instance;
-            existSeries = {
+            existImagingStudy.series[existSeriesIndex] = {
                 ...existSeries,
                 ...seriesClone
             };
@@ -194,7 +206,7 @@ class DICOMFHIRConverter {
         );
         if (existInstanceIndex !== -1) {
             let existInstance = existSeries.instance[existInstanceIndex];
-            existInstance = {
+            existSeries.instance[existInstanceIndex] = {
                 ...existInstance,
                 ...series.instance[0]
             };
