@@ -411,6 +411,15 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
                 binaryData = _.get(dicomJson, `${binaryValuePath}`);
                 dicomJson = _.omit(dicomJson, [`${binaryValuePath}`]);
             }
+
+            // Reset VR to UR, because BulkDataURI is URI
+            _.set(
+                dicomJson,
+                "vr",
+                "UR"
+            );
+
+            // Set the binary data to BulkDataURI
             _.set(
                 dicomJson,
                 `${key}.BulkDataURI`,
@@ -457,7 +466,7 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
             );
         }
         dicomJson["7FE00010"] = {
-            vr: "OW",
+            vr: "UR",
             BulkDataURI: `/studies/${dicomJson["0020000D"].Value[0]}/series/${dicomJson["0020000E"].Value[0]}/instances/${dicomJson["00080018"].Value[0]}`
         };
         return {

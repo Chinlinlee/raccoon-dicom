@@ -234,6 +234,8 @@ function addHostnameOfBulkDataUrl(metadata, req) {
     for (let i = 0 ; i < binaryTag.length; i++) {
         let tag = binaryTag[i];
         let relativeUrl = flattenMetadata[`${tag}.BulkDataURI`];
+        // Reset VR to UR, because BulkDataURI is URI
+        _.set(metadata, `${tag}.vr`, "UR");
         _.set(metadata, `${tag}.BulkDataURI`, `${protocol}://${req.headers.host}${relativeUrl}`);
     }
 }
