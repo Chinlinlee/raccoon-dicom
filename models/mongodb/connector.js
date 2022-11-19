@@ -4,12 +4,18 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 const basename = path.basename(module.filename);
-module.exports = exports = function (config) {
-    const id = config.MONGODB_USER;
-    const pwd = config.MONGODB_PASSWORD;
-    const hosts = JSON.parse(config.MONGODB_HOSTS);
-    const ports = JSON.parse(config.MONGODB_PORTS);
-    const dbName = config.MONGODB_NAME;
+const { raccoonConfig } = require("../../config-class");
+const {
+    dbName,
+    hosts,
+    ports,
+    user,
+    password,
+    authSource,
+    isShardingMode
+} = raccoonConfig.mongoDbConfig;
+module.exports = exports = function () {
+
     const collection = {};
     let databaseUrl = "";
 
@@ -21,22 +27,19 @@ module.exports = exports = function (config) {
         }
     });
     databaseUrl += `/${dbName}`;
-
     console.log(databaseUrl);
+    /**@type {mongoose.ConnectOptions} */
+    let connectionOptions = {};
+    if (user && password) {
+        connectionOptions.user = user;
+        connectionOptions.pass = password;
+        connectionOptions.authSource = authSource;
+    }
+
     mongoose
-        .connect(databaseUrl, {
-            useCreateIndex: true,
-            useNewUrlParser: true,
-            useFindAndModify: false,
-            useUnifiedTopology: true,
-            auth: {
-                authSource: "admin",
-                user: id,
-                password: pwd
-            }
-        })
+        .connect(databaseUrl, connectionOptions)
         .then(() => {
-            if (process.env.MONGODB_IS_SHARDING_MODE == "true") {
+            if (isShardingMode) {
                 mongoose.connection.db
                     .admin()
                     .command({
@@ -97,11 +100,11 @@ function shardCollection(dirname) {
         );
     for (let file of jsFilesInDir) {
         const moduleName = file.split(".")[0];
-        if (process.env.MONGODB_IS_SHARDING_MODE == "true") {
+        if (isShardingMode) {
             mongoose.connection.db
                 .admin()
                 .command({
-                    shardCollection: `${process.env.MONGODB_NAME}.${moduleName}`,
+                    shardCollection: `${dbName}.${moduleName}`,
                     key: { id: "hashed" }
                 })
                 .then((res) => {

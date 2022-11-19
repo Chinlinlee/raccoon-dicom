@@ -7,7 +7,10 @@ const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
 const { dcm2jpegCustomCmd } = require("../models/DICOM/dcmtk");
 const { URL } = require("url");
 const path = require("path");
-const DICOM_STORE_ROOTPATH = process.env.DICOM_STORE_ROOTPATH;
+const { raccoonConfig } = require("../config-class");
+const {
+    rootPath : DICOM_STORE_ROOTPATH
+} = raccoonConfig.dicomWebConfig;
 
 /**
  * @typedef {Object} ImagePathObj
@@ -164,9 +167,9 @@ class MultipartWriter {
             frameNumberCount = 1;
         }
         let execCmd = "";
-        if (process.env.ENV == "windows") {
+        if (process.env.OS == "windows") {
             execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${dicomFilename}" "${jpegFile}" --frame-range ${minFrameNumber} ${frameNumberCount}`;
-        } else if (process.env.ENV == "linux") {
+        } else if (process.env.OS == "linux") {
             execCmd = `dcmj2pnm --write-jpeg "${dicomFilename}" "${jpegFile}" --frame-range ${minFrameNumber} ${frameNumberCount}`;
         }
         let dcm2jpegStatus = await dcm2jpegCustomCmd(execCmd);

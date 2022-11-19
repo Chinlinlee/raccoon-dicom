@@ -14,6 +14,7 @@ const axios = require("axios");
 const { exec } = require("child_process");
 let io = require("./socket").init();
 const { pythonLogger } = require("./utils/log");
+const { raccoonConfig } = require("./config-class");
 require("dotenv");
 
 app.use(compress());
@@ -39,7 +40,7 @@ app.use(
 
 app.use(
     session({
-        secret: process.env.SERVER_SESSION_SECRET_KEY || "secretKey",
+        secret: raccoonConfig.serverConfig.secretKey || "secretKey",
         resave: true,
         saveUninitialized: false,
         cookie: {
@@ -48,7 +49,7 @@ app.use(
         },
         store: MongoStore.create({
             client: mongoose.connection.getClient(),
-            dbName: process.env.MONGODB_NAME
+            dbName: raccoonConfig.mongoDbConfig.dbName
         })
     })
 );
@@ -83,7 +84,7 @@ app.use((req, res, next) => {
 require("./routes.js")(app);
 // require('./services/user/passport')(passport);
 
-const PORT = process.env.SERVER_PORT;
+const PORT = raccoonConfig.serverConfig.port;
 app.listen(PORT, () => {
     console.log(`http server is listening on port:${PORT}`);
     io.on("connection", (socket) => {
@@ -98,28 +99,41 @@ if (osPlatform.includes("linux")) {
     process.env.OS = "windows";
 }
 
-const condaPath = process.env.CONDA_PATH;
-const condaEnvName = process.env.CONDA_GDCM_ENV_NAME;
+const {
+    useConda,
+    condaPath,
+    condaGdcmEnvName: condaEnvName,
+    apiHost: dcm2JpegApiHost,
+    apiPort: dcm2JpegApiPort,
+    enable: isEnableDcm2Jpeg
+} = raccoonConfig.dcm2JpegConfig;
 async function runPythonAPI() {
     process.env.isPythonAPIRunning = false;
     try {
         let { data } = await axios.get(
-            `http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/`
+            `http://${dcm2JpegApiHost}:${dcm2JpegApiPort}/`
         );
         if (data.status) {
             process.env.isPythonAPIRunning = true;
             return Promise.resolve(true);
         }
     } catch (e) {
-        console.error(e);
+        if (e.code) {
+            if (e.code === "ECONNREFUSED") {
+                console.log("Wait python API setup....");
+            }
+        } else {
+            console.error(e);
+            throw e;
+        }
     }
 
-    if (process.env.USE_DCM2JPEG_PYTHONAPI === "true") {
+    if (isEnableDcm2Jpeg) {
         if (process.env.isPythonAPIRunning !== "true") {
             if (process.env.OS == "windows") {
-                let cmd = `python python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`;
-                if (process.env.USE_CONDA === "true")
-                    cmd = `${condaPath} run -n ${condaEnvName} python python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`;
+                let cmd = `python python/DICOM2JPEGAPI.py ${dcm2JpegApiPort}`;
+                if (useConda)
+                    cmd = `${condaPath} run -n ${condaEnvName} python python/DICOM2JPEGAPI.py ${dcm2JpegApiPort}`;
                 exec(
                     `${cmd}`,
                     {
@@ -138,7 +152,7 @@ async function runPythonAPI() {
                 );
             } else {
                 exec(
-                    `python3 python/DICOM2JPEGAPI.py ${process.env.DCM2JPEG_PYTHONAPI_PORT}`,
+                    `python3 python/DICOM2JPEGAPI.py ${dcm2JpegApiPort}`,
                     {
                         cwd: process.cwd()
                     },
@@ -160,7 +174,7 @@ async function runPythonAPI() {
 function checkPythonAPIIsRunning() {
     return new Promise((resolve) => {
         let checkAPITimes = 0;
-        if (process.env.USE_DCM2JPEG_PYTHONAPI === "true") {
+        if (isEnableDcm2Jpeg) {
             let checkAPIInterval = setInterval(async () => {
                 if (checkAPITimes >= 30) {
                     pythonLogger.error(
@@ -171,7 +185,7 @@ function checkPythonAPIIsRunning() {
                 }
                 try {
                     let res = await axios.get(
-                        `http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/`
+                        `http://${dcm2JpegApiHost}:${dcm2JpegApiPort}/`
                     );
                     clearInterval(checkAPIInterval);
                     return resolve(true);

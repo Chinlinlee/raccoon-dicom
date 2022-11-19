@@ -4,6 +4,12 @@ const mongoose = require("mongoose");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const flatten = require("flat");
+const { raccoonConfig } = require("../../../../../config-class");
+const {
+    rootPath: dicomStoreRootPath
+} = raccoonConfig.dicomWebConfig;
+
+
 /**
  *
  * @param {import("http").IncomingMessage} req
@@ -50,7 +56,7 @@ async function getStudyImagesPath(iParam) {
         if (pathList.length > 0) {
             for (let i = 0; i < pathList.length; i++) {
                 pathList[i].instancePath = path.join(
-                    process.env.DICOM_STORE_ROOTPATH,
+                    dicomStoreRootPath,
                     pathList[i].instancePath
                 );
             }
@@ -103,7 +109,7 @@ async function getSeriesImagesPath(iParam) {
         if (pathList.length > 0) {
             for (let i = 0; i < pathList.length; i++) {
                 pathList[i].instancePath = path.join(
-                    process.env.DICOM_STORE_ROOTPATH,
+                    dicomStoreRootPath,
                     pathList[i].instancePath
                 );
             }
@@ -145,7 +151,7 @@ async function getInstanceImagePath(iParam) {
         if (doc) {
             let docObj = doc.toObject();
             docObj.instancePath = path.join(
-                process.env.DICOM_STORE_ROOTPATH,
+                dicomStoreRootPath,
                 docObj.instancePath
             );
             return docObj;

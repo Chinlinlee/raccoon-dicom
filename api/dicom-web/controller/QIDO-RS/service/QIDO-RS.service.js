@@ -6,6 +6,8 @@ const {
     tagsOfRequiredMatching
 } = require("../../../../../models/DICOM/dicom-tags-mapping");
 const { logger } = require("../../../../../utils/log");
+const { raccoonConfig } = require("../../../../../config-class");
+const dicomWebApiPath = raccoonConfig.dicomWebConfig.apiPath;
 
 /**
  * Convert All of name(tags, keyword) of queries to tags number
@@ -190,7 +192,7 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
         status: false
     };
     let protocol = req.secure ? "https" : "http";
-    let retrieveUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+    let retrieveUrl = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
     try {
         iQuery = await convertRequestQueryToMongoQuery(iQuery);
         // iQuery = iQuery.$match;
@@ -228,7 +230,7 @@ async function getSeriesDicomJson(iQuery, limit, skip, req) {
         status: false
     };
     let protocol = req.secure ? "https" : "http";
-    let retrieveUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+    let retrieveUrl = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
     try {
         iQuery = await convertRequestQueryToMongoQuery(iQuery);
         let query = {
@@ -275,7 +277,7 @@ async function getInstanceDicomJson(iQuery, limit, skip, req) {
         status: false
     };
     let protocol = req.secure ? "https" : "http";
-    let retrieveUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+    let retrieveUrl = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
     try {
         iQuery = await convertRequestQueryToMongoQuery(iQuery);
         let query = {

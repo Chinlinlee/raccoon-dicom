@@ -1,15 +1,23 @@
 const axios = require("axios");
 const { exec } = require("child_process");
 const fs = require("fs");
-const condaPath = process.env.CONDA_PATH;
-const condaEnvName = process.env.CONDA_GDCM_ENV_NAME;
+const { raccoonConfig } = require("../config-class");
+
+const {
+    enable: isEnableDcm2Jpeg,
+    apiHost: dcm2JpegApiHost,
+    apiPort: dcm2JpegApiPort,
+    useConda,
+    condaPath,
+    condaGdcmEnvName: condaEnvName
+} = raccoonConfig.dcm2JpegConfig;
 
 const getJpeg = {
     linux: {
         getJpegByPyDicom: async function (store_Path, frameNumber = 1) {
-            if (process.env.USE_DCM2JPEG_PYTHONAPI) {
+            if (isEnableDcm2Jpeg) {
                 let { data } = await axios.post(
-                    `http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/dcm2jpeg?filename=${store_Path}&frameNumber=${frameNumber}`
+                    `http://${dcm2JpegApiHost}:${dcm2JpegApiPort}/dcm2jpeg?filename=${store_Path}&frameNumber=${frameNumber}`
                 );
                 if (data.status) {
                     return Promise.resolve(true);
@@ -36,16 +44,16 @@ const getJpeg = {
     },
     windows: {
         getJpegByPyDicom: async function (store_Path, frameNumber = 1) {
-            if (process.env.USE_DCM2JPEG_PYTHONAPI) {
+            if (isEnableDcm2Jpeg) {
                 let { data } = await axios.post(
-                    `http://localhost:${process.env.DCM2JPEG_PYTHONAPI_PORT}/dcm2jpeg?filename=${store_Path}&frameNumber=${frameNumber}`
+                    `http://${dcm2JpegApiHost}:${dcm2JpegApiPort}/dcm2jpeg?filename=${store_Path}&frameNumber=${frameNumber}`
                 );
                 if (data.status) {
                     return Promise.resolve(true);
                 }
             } else {
                 let cmd = `python DICOM2JPEG.py ${store_Path}`;
-                if (process.env.USE_CONDA === "true")
+                if (useConda)
                     cmd = `${condaPath} run -n ${condaEnvName} python DICOM2JPEG.py ${store_Path}`;
                 exec(
                     `${cmd}`,

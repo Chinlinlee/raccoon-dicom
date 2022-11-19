@@ -6,6 +6,11 @@ const pythonService = require("../../../../../python");
 const dcmtk = require("../../../../../models/DICOM/dcmtk");
 const Magick = require("../../../../../models/magick");
 
+const { raccoonConfig } = require("../../../../../config-class");
+const {
+    rootPath: dicomStoreRootPath
+} = raccoonConfig.dicomWebConfig;
+
 /**
  * 
  * @param {*} param The req.query
@@ -38,8 +43,8 @@ const Magick = require("../../../../../models/magick");
                 ]
             });
             if(!iccProfileBinaryFile) throw new Error("The Image dose not have icc profile tag");
-            let iccProfileSrc = path.join(process.env.DICOM_STORE_ROOTPATH, iccProfileBinaryFile.filename);
-            let dest = path.join(process.env.DICOM_STORE_ROOTPATH, iccProfileBinaryFile.filename + `.icc`);
+            let iccProfileSrc = path.join(dicomStoreRootPath, iccProfileBinaryFile.filename);
+            let dest = path.join(dicomStoreRootPath, iccProfileBinaryFile.filename + `.icc`);
             if (!fs.existsSync(dest)) fs.copyFileSync(iccProfileSrc, dest);
             magick.iccProfile(dest);
         },
@@ -126,7 +131,7 @@ async function getInstanceFrameObj(iParam) {
         if (doc) {
             let docObj = doc.toObject();
             docObj.instancePath = path.join(
-                process.env.DICOM_STORE_ROOTPATH,
+                dicomStoreRootPath,
                 docObj.instancePath
             );
             return docObj;
