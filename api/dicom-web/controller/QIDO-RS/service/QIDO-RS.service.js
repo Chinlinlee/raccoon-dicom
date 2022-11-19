@@ -194,15 +194,16 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
     let protocol = req.secure ? "https" : "http";
     let retrieveUrl = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
     try {
-        iQuery = await convertRequestQueryToMongoQuery(iQuery);
+        let query = await convertRequestQueryToMongoQuery(iQuery);
         // iQuery = iQuery.$match;
-        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(iQuery)}]`);
+        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
         let studyFields = getStudyLevelFields();
-        let docs = await mongoose
-            .model("dicomStudy")
-            .find(iQuery.$match, studyFields)
+        let docs = await mongoose.model("dicomStudy").find(query.$match, studyFields)
             .limit(limit)
             .skip(skip)
+            .setOptions({
+                strictQuery: false
+            })
             .exec();
         result.data = docs.map((v) => {
             let obj = v.toObject();
@@ -245,6 +246,9 @@ async function getSeriesDicomJson(iQuery, limit, skip, req) {
             .find(query, {
                 ...studyFields,
                 ...seriesFields
+            })
+            .setOptions({
+                strictQuery: false
             })
             .limit(limit)
             .skip(skip)
@@ -294,6 +298,9 @@ async function getInstanceDicomJson(iQuery, limit, skip, req) {
                 ...studyFields,
                 ...seriesFields,
                 ...instanceFields
+            })
+            .setOptions({
+                strictQuery: false
             })
             .limit(limit)
             .skip(skip)
