@@ -80,7 +80,7 @@ async function dcm2jpegCustomCmd(execCmd) {
  async function getFrameImage (imagesPath , frameNumber ,otherOptions=[]) {
     let jpegFile = imagesPath.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
     let execCmd = `${dcmtkWinBinaryPath}/dcmj2pnm.exe --write-jpeg "${imagesPath}" "${jpegFile}" --frame ${frameNumber} ${otherOptions.join(" ")}`;
-    if (process.env.ENV == "linux") {
+    if (process.env.OS == "linux") {
         execCmd = `dcmj2pnm --write-jpeg "${imagesPath}" "${jpegFile}" --frame ${frameNumber} ${otherOptions.join(" ")}`;
     }
     try {

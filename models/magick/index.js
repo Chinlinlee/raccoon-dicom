@@ -6,7 +6,7 @@ const imagemagickCli = require('imagemagick-cli');
 class Magick {
     constructor(imageFilename) {
         this.tempFilename = `tempUploadFiles/${uuid.v4()}.jpg`;
-        this.magickPrefix = process.env.ENV == 'linux' ? 'convert' : 'magick';
+        this.magickPrefix = process.env.OS == 'linux' ? 'convert' : 'magick';
         this.magickCommand = [];
         fs.copyFileSync(imageFilename, this.tempFilename);
     }
