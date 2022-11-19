@@ -309,7 +309,7 @@ app.get(
         frameNumber : Joi.number().integer().min(1)
     } , "params" , {allowUnknown : true}), 
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/retrieveRenderedInstance")
+    require("./controller/WADO-RS/retrieveRenderedInstanceFrames")
 );
 
 //#endregion
