@@ -26,6 +26,17 @@ const notImageSOPClass = require("../../../../models/DICOM/dicomWEB/notImageSOPC
 const PyDicomJpegConvert = require("../../../../python").getJpeg;
 /**@type {import('socket.io').Server} */
 const io = require("../../../../socket").get();
+const { raccoonConfig } = require("../../../../config-class");
+
+const {
+    apiPath: dicomWebApiPath,
+    rootPath: dicomRootPath
+} = raccoonConfig.dicomWebConfig;
+const {
+    baseUrl: fhirBaseUrl,
+    syncToFhir
+} = raccoonConfig.fhirConfig;
+
 
 /**
  * *The SQ of Whole slide may have over thousand of length cause process block.
@@ -166,7 +177,9 @@ async function storeInstance(req, multipartData) {
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         storeMessage["00081199"]["Value"].push(sopSeq);
 
-        dicomToFHIR(req, removedTagsDicomJson.dicomJson, uidObj);
+        if (syncToFhir) {
+            await dicomToFHIR(req, removedTagsDicomJson.dicomJson, uidObj);
+        }
 
         if (!notImageSOPClass.includes(uidObj.sopClass)) {
             generateJpeg(
@@ -194,11 +207,11 @@ async function dicomToFHIR(req, dicomJson, uidObj) {
         dicomFHIRConverter.dicomWeb.name = `raccoon-dicom-web-server`;
 
         let protocol = req.secure ? "https" : "http";
-        dicomFHIRConverter.dicomWeb.retrieveStudiesUrl = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+        dicomFHIRConverter.dicomWeb.retrieveStudiesUrl = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
 
         await dicomFHIRConverter.dicomJsonToFHIR(dicomJson);
 
-        dicomFHIRConverter.fhir.baseUrl = process.env.FHIRSERVER_BASE_URL;
+        dicomFHIRConverter.fhir.baseUrl = fhirBaseUrl;
         await dicomFHIRConverter.postDicomFhir();
         let logObj = {
             studyUID: uidObj.studyUID,
@@ -329,7 +342,7 @@ async function saveDICOMFile(file, dicomJson, uidObj) {
 
         let relativeStorePath = `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}/`;
         let fullStorePath = path.join(
-            process.env.DICOM_STORE_ROOTPATH,
+            dicomRootPath,
             relativeStorePath
         );
         let instanceStorePath = path.join(fullStorePath, file.originalFilename);
@@ -428,12 +441,12 @@ async function processBinaryData(req, removedTagsDicomJson, uidObj) {
             relativeFilename += `${binaryValuePath}.raw`;
 
             let filename = path.join(
-                process.env.DICOM_STORE_ROOTPATH,
+                dicomRootPath,
                 relativeFilename
             );
             mkdirp.sync(
                 path.join(
-                    process.env.DICOM_STORE_ROOTPATH,
+                    dicomRootPath,
                     `files/bulkData/${shortInstanceUID}`
                 )
             );
@@ -559,7 +572,7 @@ function getSOPSeq(referencedSOPClassUID, referencedSOPInstanceUID) {
 
 function getRetrieveUrl(req, uidObj) {
     let protocol = req.secure ? "https" : "http";
-    let url = `${protocol}://${req.headers.host}/${process.env.DICOMWEB_API}/studies`;
+    let url = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
 
     return {
         study: `${url}/${uidObj.studyUID}`,
