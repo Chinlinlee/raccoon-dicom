@@ -304,6 +304,12 @@ app.get(
 );
 
 app.get(
+    "/studies/:studyUID/series/:seriesUID/rendered",
+    validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
+    require("./controller/WADO-RS/retrieveRenderedSeries")
+);
+
+app.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/frames/:frameNumber/rendered",
     validateParams({
         frameNumber : Joi.number().integer().min(1)

@@ -5,6 +5,7 @@ const sharp = require("sharp");
 const pythonService = require("../../../../../python");
 const dcmtk = require("../../../../../models/DICOM/dcmtk");
 const Magick = require("../../../../../models/magick");
+const _ = require("lodash");
 
 const { raccoonConfig } = require("../../../../../config-class");
 const {
@@ -203,8 +204,34 @@ async function postProcessFrameImage(req, instanceFramesObj, transferSyntax) {
     }
 }
 
+/**
+ * 
+ * @param {import("express").Request} req 
+ * @param {number} dicomNumberOfFrames 
+ * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj} instanceFramesObj 
+ * @param {import("../../../../../utils/multipartWriter").MultipartWriter} multipartWriter 
+ */
+async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, multipartWriter) {
+    try {
+        for (let i = 0 ; i < dicomNumberOfFrames; i++) {
+            let transferSyntax = _.get(instanceFramesObj, "00020010.Value.0");
+            _.set(req, "params.frameNumber", i+1);
+            let postProcessResult = await postProcessFrameImage(req, instanceFramesObj, transferSyntax);
+            let buffer = postProcessResult.magick.toBuffer();
+            multipartWriter.writeBuffer(buffer, {
+                "Content-Type": "image/jpeg",
+                "Content-Location": `/dicom-web/studies/${instanceFramesObj.studyUID}/series/${instanceFramesObj.seriesUID}/instances/${instanceFramesObj.instanceUID}/frames/${i+1}/rendered`
+            });
+        }
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
 module.exports.handleImageQuality = handleImageQuality;
 module.exports.handleImageICCProfile = handleImageICCProfile;
 module.exports.handleViewport = handleViewport;
 module.exports.getInstanceFrameObj = getInstanceFrameObj;
 module.exports.postProcessFrameImage = postProcessFrameImage;
+module.exports.writeRenderedImages = writeRenderedImages;
