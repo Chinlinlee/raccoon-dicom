@@ -23,12 +23,12 @@ module.exports = async function(req, res) {
     }
     
     try {
-        let instancesInStudy = await wadoService.getSeriesImagesPath(req.params);
+        let instancesInSeries = await wadoService.getSeriesImagesPath(req.params);
 
-        if (instancesInStudy) {
+        if (instancesInSeries) {
             let multipartWriter = new MultipartWriter([], res, req);
             
-            for(let imagePathObj of instancesInStudy) {
+            for(let imagePathObj of instancesInSeries) {
                 let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
                 let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
                 dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
