@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const polka = require("polka");
 const app = polka();
-const { validateParams } = require("../validator");
+const { validateParams, intArrayJoi } = require("../validator");
 
 //#region QIDO-RS
 
@@ -309,10 +309,12 @@ app.get(
     require("./controller/WADO-RS/retrieveRenderedSeries")
 );
 
+
+
 app.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/frames/:frameNumber/rendered",
     validateParams({
-        frameNumber : Joi.number().integer().min(1)
+        frameNumber : intArrayJoi.intArray().items(Joi.number().integer().min(1)).single()//Joi.number().integer().min(1)
     } , "params" , {allowUnknown : true}), 
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
     require("./controller/WADO-RS/retrieveRenderedInstanceFrames")

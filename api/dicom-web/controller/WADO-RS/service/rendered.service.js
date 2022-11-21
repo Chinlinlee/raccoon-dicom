@@ -150,18 +150,18 @@ async function getInstanceFrameObj(iParam) {
  * @param {string} transferSyntax 
  * @returns 
  */
-async function postProcessFrameImage(req, instanceFramesObj, transferSyntax) {
+async function postProcessFrameImage(req, frameNumber, instanceFramesObj, transferSyntax) {
     try {
         let getFrameImageStatus;
         if (dcmtk.dcmtkSupportTransferSyntax.includes(transferSyntax)) {
             getFrameImageStatus = await dcmtk.getFrameImage(
                 instanceFramesObj.instancePath,
-                req.params.frameNumber
+                frameNumber
             );
         } else {
             getFrameImageStatus = await pythonService.getFrameImage(
                 instanceFramesObj.instancePath,
-                req.params.frameNumber
+                frameNumber
             );
         }
         if (getFrameImageStatus.status) {
@@ -175,7 +175,7 @@ async function postProcessFrameImage(req, instanceFramesObj, transferSyntax) {
             await handleImageICCProfile(
                 req.query,
                 magick,
-                req.params.instanceUID
+                instanceFramesObj.instanceUID
             );
             await handleViewport(
                 req.query,
@@ -215,8 +215,32 @@ async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, 
     try {
         for (let i = 0 ; i < dicomNumberOfFrames; i++) {
             let transferSyntax = _.get(instanceFramesObj, "00020010.Value.0");
-            _.set(req, "params.frameNumber", i+1);
-            let postProcessResult = await postProcessFrameImage(req, instanceFramesObj, transferSyntax);
+            let postProcessResult = await postProcessFrameImage(req, i+1, instanceFramesObj, transferSyntax);
+            let buffer = postProcessResult.magick.toBuffer();
+            multipartWriter.writeBuffer(buffer, {
+                "Content-Type": "image/jpeg",
+                "Content-Location": `/dicom-web/studies/${instanceFramesObj.studyUID}/series/${instanceFramesObj.seriesUID}/instances/${instanceFramesObj.instanceUID}/frames/${i+1}/rendered`
+            });
+        }
+    } catch(e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+/**
+ * 
+ * @param {import("express").Request} req 
+ * @param {number[]} frames
+ * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj} instanceFramesObj 
+ * @param {import("../../../../../utils/multipartWriter").MultipartWriter} multipartWriter 
+ */
+async function writeSpecificFramesRenderedImages(req, frames, instanceFramesObj, multipartWriter) {
+    try {
+        for (let i = 0 ; i < frames.length; i++) {
+            let frameNumber = frames[i];
+            let transferSyntax = _.get(instanceFramesObj, "00020010.Value.0");
+            let postProcessResult = await postProcessFrameImage(req, frameNumber, instanceFramesObj, transferSyntax);
             let buffer = postProcessResult.magick.toBuffer();
             multipartWriter.writeBuffer(buffer, {
                 "Content-Type": "image/jpeg",
@@ -235,3 +259,4 @@ module.exports.handleViewport = handleViewport;
 module.exports.getInstanceFrameObj = getInstanceFrameObj;
 module.exports.postProcessFrameImage = postProcessFrameImage;
 module.exports.writeRenderedImages = writeRenderedImages;
+module.exports.writeSpecificFramesRenderedImages = writeSpecificFramesRenderedImages;

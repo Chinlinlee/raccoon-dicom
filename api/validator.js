@@ -1,6 +1,19 @@
 const Joi = require("joi");
 const lodash = require("lodash");
 
+const intArrayJoi = Joi.extend((joi) => {
+    return {
+        type: "intArray",
+        base: joi.array(),
+        coerce: (value, helper) => {
+            let item = (value.split ? value.split(',').map(v=> parseInt(v)) : parseInt(value));
+            return {
+                value: item
+            };
+        }
+    };
+});
+
 /**
  * @param {Object} paramSchema the valid scheama
  * @param {string} item body , query , param
@@ -35,5 +48,6 @@ const validateParams = function (paramSchema, item, options) {
 
 module.exports = {
     ...module.exports,
-    validateParams: validateParams
+    validateParams: validateParams,
+    intArrayJoi: intArrayJoi
 };

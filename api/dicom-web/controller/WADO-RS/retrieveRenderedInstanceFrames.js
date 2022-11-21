@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const renderedService = require("./service/rendered.service");
+const { MultipartWriter } = require("../../../../utils/multipartWriter");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
 
 /**
@@ -17,6 +18,14 @@ module.exports = async function(req, res) {
         });
         return res.end(JSON.stringify(badRequestMessage));
     }
+
+    let {
+        studyUID,
+        seriesUID,
+        instanceUID,
+        frameNumber
+    } = req.params;
+
     try {
         let instanceFramesObj = await renderedService.getInstanceFrameObj(req.params);
         if (!instanceFramesObj) {
@@ -24,36 +33,49 @@ module.exports = async function(req, res) {
                 "Content-Type": "application/dicom+json"
             });
             let notFoundMessage = errorResponse.getNotFoundErrorMessage(`Not Found Instance, Instance UID: ${
-                req.params.instanceUID
+                instanceUID
             }, Series UID: ${
-                req.params.seriesUID
+                seriesUID
             }, Study UID: ${
-                req.params.studyUID
+                studyUID
             }`);
             return res.end(JSON.stringify(notFoundMessage));
         }
         let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
         dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
-        if (req.params.frameNumber > dicomNumberOfFrames) {
-            let badRequestMessage = errorResponse.getBadRequestErrorMessage(`Bad frame number , This instance NumberOfFrames is : ${dicomNumberOfFrames} , But request ${req.params.frameNumber}`);
-            res.writeHead(badRequestMessage.HttpStatus, {
-                "Content-Type": "application/dicom+json"
-            });
-            return res.end(JSON.stringify(badRequestMessage));
-        }
 
+        for(let i = 0; i < frameNumber.length ; i++) {
+            let frame = frameNumber[i];
+            if (frame > dicomNumberOfFrames) {
+                let badRequestMessage = errorResponse.getBadRequestErrorMessage(`Bad frame number , This instance NumberOfFrames is : ${dicomNumberOfFrames} , But request ${frameNumber}`);
+                res.writeHead(badRequestMessage.HttpStatus, {
+                    "Content-Type": "application/dicom+json"
+                });
+                return res.end(JSON.stringify(badRequestMessage));
+            }
+        }
+        
         let transferSyntax = _.get(instanceFramesObj, "00020010.Value.0");
-        let postProcessResult = await renderedService.postProcessFrameImage(req, instanceFramesObj, transferSyntax);
-        if (postProcessResult.status) {
-            res.writeHead(200, {
-                "Content-Type": "image/jpeg"
-            });
-            return res.end(postProcessResult.magick.toBuffer(), "binary");
+        if (frameNumber.length == 1) {
+            let postProcessResult = await renderedService.postProcessFrameImage(req, frameNumber[0], instanceFramesObj, transferSyntax);
+            if (postProcessResult.status) {
+                res.writeHead(200, {
+                    "Content-Type": "image/jpeg"
+                });
+                return res.end(postProcessResult.magick.toBuffer(), "binary");
+            }
+            throw new Error(`Can not process this image, instanceUID: ${instanceFramesObj.instanceUID}, frameNumber: ${req.frameNumber[0]}`);
+        } else {
+            let multipartWriter = new MultipartWriter([], res, req);
+            await renderedService.writeSpecificFramesRenderedImages(req, frameNumber, instanceFramesObj, multipartWriter);
+            multipartWriter.writeFinalBoundary();
+            return res.end();
         }
     } catch(e) {
+        console.error(e);
         res.writeHead(500, {
             "Content-Type": "application/dicom+json"
         });
-        res.end(JSON.stringify(e));
+        res.end(JSON.stringify(e, Object.getOwnPropertyNames(e), 4), "utf8");
     }
 };
