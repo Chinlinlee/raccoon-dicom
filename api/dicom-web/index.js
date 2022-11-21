@@ -309,12 +309,16 @@ app.get(
     require("./controller/WADO-RS/retrieveRenderedSeries")
 );
 
-
+app.get(
+    "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/rendered",
+    validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
+    require("./controller/WADO-RS/retrieveRenderedInstances")
+);
 
 app.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/frames/:frameNumber/rendered",
     validateParams({
-        frameNumber : intArrayJoi.intArray().items(Joi.number().integer().min(1)).single()//Joi.number().integer().min(1)
+        frameNumber : intArrayJoi.intArray().items(Joi.number().integer().min(1)).single()
     } , "params" , {allowUnknown : true}), 
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
     require("./controller/WADO-RS/retrieveRenderedInstanceFrames")
