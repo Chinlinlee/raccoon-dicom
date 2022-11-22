@@ -8,3 +8,12 @@ components:
             type: string
             format: binary
             example: "--boundary-raccoon\r\nContent-Type: application/dicom\r\nContent-Length: {length}\r\nContent-Location: http://example.com/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}\r\n\r\n{data}\r\n--boundary-raccoon--"
+    
+    "DicomMetadata":
+      description: "The metadata JSON of DICOM instance"
+      content:
+        "application/dicom+json":
+          schema:
+            type: array
+            items:
+              type: object
