@@ -22,7 +22,16 @@ function apiInfoLog(apiName, path, message="") {
     }
 }
 
+function apiWarningLog(apiName, path, message="") {
+    if (message) {
+        raccoonLogger.warn(`[${apiName}] [path: ${path}] ${message}`);
+    } else {
+        raccoonLogger.warn(`[${apiName}] [path: ${path}]`);
+    }
+}
+
 module.exports.logger = raccoonLogger;
 module.exports.fhirLogger = raccoonFHIRLogger;
 module.exports.pythonLogger = raccoonPythonLogger;
 module.exports.apiInfoLog = apiInfoLog;
+module.exports.apiWarningLog = apiWarningLog;
