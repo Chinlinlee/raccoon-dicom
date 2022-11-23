@@ -1,0 +1,819 @@
+{
+    "info": {
+        "title": "Raccoon",
+        "version": "1.0.0",
+        "description": "Raccoon API"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/dicom-web/studies": {
+            "post": {
+                "tags": [
+                    "STOW-RS"
+                ],
+                "description": "store DICOM instance",
+                "requestBody": {
+                    "content": {
+                        "multipart/related": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "file": {
+                                    "contentType": "application/dicom;"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The DICOM instance store successfully"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "QIDO-RS"
+                ],
+                "description": "Query for studies",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/StudyDate"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyTime"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccessionNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ModalitiesInStudy"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ReferringPhysicianName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/SeriesRequiredMatchingAttributes"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series": {
+            "get": {
+                "tags": [
+                    "QIDO-RS"
+                ],
+                "description": "Query for series from specific study's UID",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyDate"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyTime"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccessionNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ModalitiesInStudy"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ReferringPhysicianName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Modality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SeriesNumber"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/instances": {
+            "get": {
+                "tags": [
+                    "QIDO-RS"
+                ],
+                "description": "Query for studies",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyDate"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyTime"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccessionNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ModalitiesInStudy"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ReferringPhysicianName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Modality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SeriesNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SOPClassUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/InstanceNumber"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances": {
+            "get": {
+                "tags": [
+                    "QIDO-RS"
+                ],
+                "description": "Query for studies",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyDate"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyTime"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccessionNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ModalitiesInStudy"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ReferringPhysicianName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Modality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SeriesNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SOPClassUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/InstanceNumber"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/series": {
+            "get": {
+                "tags": [
+                    "QIDO-RS"
+                ],
+                "description": "Query all series in server",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/StudyDate"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyTime"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccessionNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ModalitiesInStudy"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ReferringPhysicianName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Modality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SeriesNumber"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/instances": {
+            "get": {
+                "tags": [
+                    "QIDO-RS"
+                ],
+                "description": "Query all instances in server",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/StudyDate"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyTime"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccessionNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ModalitiesInStudy"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ReferringPhysicianName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/StudyID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Modality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SeriesNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/SOPClassUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/InstanceNumber"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's instances",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedDICOM"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's series' instances",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedDICOM"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's instances",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/instanceUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedDICOM"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/metadata": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's instances' metadata",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/DicomMetadata"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/metadata": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's series' instances' metadata",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/DicomMetadata"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/metadata": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve instance's metadata",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/instanceUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/DicomMetadata"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "MultipartRelatedDICOM": {
+                "description": "The response payload for WADO-RS",
+                "content": {
+                    "multipart/related; type=\"application/dicom\"": {
+                        "schema": {
+                            "type": "string",
+                            "format": "binary",
+                            "example": "--boundary-raccoon\r\nContent-Type: application/dicom\r\nContent-Length: {length}\r\nContent-Location: http://example.com/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}\r\n\r\n{data}\r\n--boundary-raccoon--"
+                        }
+                    }
+                }
+            },
+            "DicomMetadata": {
+                "description": "The metadata JSON of DICOM instance",
+                "content": {
+                    "application/dicom+json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "studyUID": {
+                "name": "studyUID",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "seriesUID": {
+                "name": "seriesUID",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "instanceUID": {
+                "name": "instanceUID",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "SOPClassUID": {
+                "name": "00080016",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "InstanceNumber": {
+                "name": "00200013",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "Modality": {
+                "name": "00080060",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "SeriesNumber": {
+                "name": "00200011",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "StudyDate": {
+                "name": "00080020",
+                "description": "Date the Study started.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "StudyTime": {
+                "name": "00080030",
+                "description": "Time the Study started.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "AccessionNumber": {
+                "name": "00080050",
+                "description": "A RIS generated number that identifies the order for the Study.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "ModalitiesInStudy": {
+                "name": "00080061",
+                "description": "Modalities in Study.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "ReferringPhysicianName": {
+                "name": "00080090",
+                "description": "Name of the Patient's referring physician",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "PatientName": {
+                "name": "00100010",
+                "description": "Patient's full name.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "PatientID": {
+                "name": "00100020",
+                "description": "Primary identifier for the Patient.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "StudyID": {
+                "name": "00200010",
+                "description": "User or equipment generated Study identifier.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "schemas": {
+            "GeneralJsonModel": {
+                "type": "object",
+                "properties": {
+                    "vr": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "InstanceRequiredMatchingAttributes": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
+                    },
+                    {
+                        "$ref": "#/components/schemas/SeriesRequiredMatchingAttributes"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "00080060": {
+                                "description": "Modality",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/GeneralJsonModel"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            "SeriesRequiredMatchingAttributes": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "00080060": {
+                                "description": "Modality",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/GeneralJsonModel"
+                                    }
+                                ]
+                            },
+                            "0020000E": {
+                                "description": "Series Instance UID",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/GeneralJsonModel"
+                                    }
+                                ]
+                            },
+                            "00200011": {
+                                "description": "Series Number",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/GeneralJsonModel"
+                                    }
+                                ]
+                            },
+                            "00400244": {
+                                "description": "Performed Procedure Step Start Date",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/GeneralJsonModel"
+                                    }
+                                ]
+                            },
+                            "00400245": {
+                                "description": "Performed Procedure Step Start Time",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/GeneralJsonModel"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "value": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "00400009": {
+                                                        "description": "Scheduled Procedure Step ID",
+                                                        "allOf": [
+                                                            {
+                                                                "$ref": "#/components/schemas/GeneralJsonModel"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "00401001": {
+                                                        "description": "Requested Procedure ID",
+                                                        "allOf": [
+                                                            {
+                                                                "$ref": "#/components/schemas/GeneralJsonModel"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            "StudyRequiredMatchingAttributes": {
+                "properties": {
+                    "00080020": {
+                        "description": "Study Date",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00080030": {
+                        "description": "Study Time",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00080050": {
+                        "description": "Accession Number",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00080061": {
+                        "description": "Modalities in Study",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00080090": {
+                        "description": "Referring Physician Name",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00100010": {
+                        "description": "Patient Name",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00100020": {
+                        "description": "Patient ID",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "0020000D": {
+                        "description": "Study Instance UID",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00200010": {
+                        "description": "Study ID",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "tags": []
+}

@@ -1,0 +1,12 @@
+components:
+  schemas:
+    "InstanceRequiredMatchingAttributes":
+      allOf:
+       - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
+       - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
+       - type: object
+         properties:
+          "00080060":
+            description: "Modality"
+            allOf:
+             - $ref: "#/components/schemas/GeneralJsonModel"

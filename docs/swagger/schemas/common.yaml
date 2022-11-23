@@ -1,0 +1,11 @@
+components:
+  schemas:
+    "GeneralJsonModel":
+      type: object
+      properties:
+        "vr":
+          type: string
+        "value":
+          type: array
+          items:
+            type: string

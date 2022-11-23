@@ -1,0 +1,48 @@
+components:
+  schemas:
+    "StudyRequiredMatchingAttributes":
+      properties:
+        "00080020":
+          description: "Study Date"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00080030":
+          description: "Study Time"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+        
+        "00080050":
+          description: "Accession Number"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+        
+        "00080061":
+          description: "Modalities in Study"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00080090":
+          description: "Referring Physician Name"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00100010":
+          description: "Patient Name"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00100020":
+          description: "Patient ID"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "0020000D":
+          description: "Study Instance UID"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+          
+        "00200010":
+          description: "Study ID"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"

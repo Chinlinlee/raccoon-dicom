@@ -1,0 +1,47 @@
+components:
+  schemas:
+    "SeriesRequiredMatchingAttributes":
+      allOf:
+       - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
+       - type: object
+         properties:
+          "00080060":
+            description: "Modality"
+            allOf:
+             - $ref: "#/components/schemas/GeneralJsonModel"
+          
+          "0020000E":
+            description: "Series Instance UID"
+            allOf:
+             - $ref: "#/components/schemas/GeneralJsonModel"
+          
+          "00200011":
+            description: "Series Number"
+            allOf:
+             - $ref: "#/components/schemas/GeneralJsonModel"
+          
+          "00400244":
+            description: "Performed Procedure Step Start Date"
+            allOf:
+             - $ref: "#/components/schemas/GeneralJsonModel"
+          
+          "00400245":
+            description: "Performed Procedure Step Start Time"
+            allOf:
+             - $ref: "#/components/schemas/GeneralJsonModel"
+             - type: object
+               properties:
+                "value":
+                  type: object
+                  properties:
+                    "00400009":
+                      description: "Scheduled Procedure Step ID"
+                      allOf:
+                      - $ref: "#/components/schemas/GeneralJsonModel"
+                    "00401001":
+                      description: "Requested Procedure ID"
+                      allOf:
+                      - $ref: "#/components/schemas/GeneralJsonModel"
+
+
+        
