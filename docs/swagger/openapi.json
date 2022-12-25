@@ -80,9 +80,6 @@
                                         "allOf": [
                                             {
                                                 "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
-                                            },
-                                            {
-                                                "$ref": "#/components/schemas/SeriesRequiredMatchingAttributes"
                                             }
                                         ]
                                     }
@@ -136,7 +133,24 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Query successfully"
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/SeriesRequiredMatchingAttributes"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -190,7 +204,27 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Query successfully"
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/SeriesRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/InstanceRequiredMatchingAttributes"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -247,7 +281,27 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Query successfully"
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/SeriesRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/InstanceRequiredMatchingAttributes"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -292,7 +346,24 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Query successfully"
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/SeriesRequiredMatchingAttributes"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -343,7 +414,27 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Query successfully"
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/StudyRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/SeriesRequiredMatchingAttributes"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/InstanceRequiredMatchingAttributes"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -628,7 +719,7 @@
                     "vr": {
                         "type": "string"
                     },
-                    "value": {
+                    "Value": {
                         "type": "array",
                         "items": {
                             "type": "string"

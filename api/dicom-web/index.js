@@ -24,6 +24,13 @@ const { validateParams, intArrayJoi } = require("../validator");
  *      responses:
  *        200:
  *          description: Query successfully
+ *          content:
+ *            "application/dicom+json":
+ *              schema:
+ *                type: array
+ *                items:
+ *                  allOf:
+ *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
  */
 app.get("/studies", require("./controller/QIDO-RS/queryAllStudies"));
 
@@ -49,6 +56,14 @@ app.get("/studies", require("./controller/QIDO-RS/queryAllStudies"));
  *      responses:
  *        200:
  *          description: Query successfully
+ *          content:
+ *            "application/dicom+json":
+ *              schema:
+ *                type: array
+ *                items:
+ *                  allOf:
+ *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
+ *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  */
 app.get(
     "/studies/:studyUID/series",
@@ -79,6 +94,15 @@ app.get(
  *      responses:
  *        200:
  *          description: Query successfully
+ *          content:
+ *            "application/dicom+json":
+ *              schema:
+ *                type: array
+ *                items:
+ *                  allOf:
+ *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
+ *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
+ *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
 app.get(
     "/studies/:studyUID/instances",
@@ -110,6 +134,15 @@ app.get(
  *      responses:
  *        200:
  *          description: Query successfully
+ *          content:
+ *            "application/dicom+json":
+ *              schema:
+ *                type: array
+ *                items:
+ *                  allOf:
+ *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
+ *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
+ *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
 app.get(
     "/studies/:studyUID/series/:seriesUID/instances",
@@ -137,6 +170,15 @@ app.get(
  *      responses:
  *        200:
  *          description: Query successfully
+ *          content:
+ *            "application/dicom+json":
+ *              schema:
+ *                type: array
+ *                items:
+ *                  allOf:
+ *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
+ *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
+ * 
  */
 app.get(
     "/series",
@@ -166,6 +208,15 @@ app.get(
  *      responses:
  *        200:
  *          description: Query successfully
+ *          content:
+ *            "application/dicom+json":
+ *              schema:
+ *                type: array
+ *                items:
+ *                  allOf:
+ *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
+ *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
+ *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
 app.get(
     "/instances",
