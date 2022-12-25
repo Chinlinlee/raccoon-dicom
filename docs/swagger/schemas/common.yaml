@@ -5,7 +5,7 @@ components:
       properties:
         "vr":
           type: string
-        "value":
+        "Value":
           type: array
           items:
             type: string
