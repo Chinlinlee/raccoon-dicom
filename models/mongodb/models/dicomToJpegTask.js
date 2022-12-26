@@ -38,4 +38,24 @@ let dicomToJpegTask = mongoose.model(
     "dicomToJpegTask"
 );
 
+async function insertOrUpdate(item) {
+    try {
+        await mongoose.model("dicomToJpegTask").updateOne(
+            {
+                studyUID: item.studyUID,
+                seriesUID: item.seriesUID,
+                instanceUID: item.instanceUID
+            },
+            item,
+            {
+                upsert: true
+            }
+        );
+        return true;
+    } catch (e) {
+        throw e;
+    }
+}
+
 module.exports = dicomToJpegTask;
+module.exports.insertOrUpdate = insertOrUpdate;

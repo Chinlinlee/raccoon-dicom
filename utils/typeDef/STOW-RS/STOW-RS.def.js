@@ -1,5 +1,5 @@
 /**
- * @typedef {object} MultipartResult
+ * @typedef {object} MultipartParseResult
  * @property {boolean} status
  * @property {string | undefined} error
  * @property {object} multipart

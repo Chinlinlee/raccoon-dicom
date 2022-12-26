@@ -34,7 +34,7 @@ class DicomWebConfig {
 
 class FhirConfig {
     constructor() {
-        this.syncToFhir = env.get("SYCN_TO_FHIR_SERVER").default("true").asBool();
+        this.isSyncToFhir = env.get("SYCN_TO_FHIR_SERVER").default("true").asBool();
         this.baseUrl = env.get("FHIRSERVER_BASE_URL").default("http://127.0.0.1:8089/fhir").asString();
     }
 }
