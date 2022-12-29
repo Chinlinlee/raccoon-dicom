@@ -201,8 +201,8 @@ class DicomJsonModel {
     getStartedDate() {
         let startedDate = "";
         startedDate =
-            dcm2jsonV8.dcmString(this.dicomJsonModel.dicomJson, "00080020") +
-            dcm2jsonV8.dcmString(this.dicomJsonModel.dicomJson, "00080030");
+            dcm2jsonV8.dcmString(this.dicomJson, "00080020") +
+            dcm2jsonV8.dcmString(this.dicomJson, "00080030");
 
         if (!startedDate) startedDate = Date.now();
         startedDate = moment(startedDate, "YYYYMMDDhhmmss").toISOString();
@@ -210,7 +210,7 @@ class DicomJsonModel {
     }
 
     getStartedDateYearAndMonth() {
-        let startedDate = this.dicomJsonModel.getStartedDate();
+        let startedDate = this.getStartedDate();
         let [year, month] = startedDate.split("-");
         return {
             year: year,
