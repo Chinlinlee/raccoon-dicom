@@ -2,7 +2,7 @@ const _ = require("lodash");
 const renderedService = require("./service/rendered.service");
 const { MultipartWriter } = require("../../../../utils/multipartWriter");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-const { apiInfoLog, apiWarningLog } = require("../../../../utils/log");
+const { ApiLogger } = require("../../../../utils/logs/api-logger");
 
 /**
  * 
@@ -11,6 +11,8 @@ const { apiInfoLog, apiWarningLog } = require("../../../../utils/log");
  * @returns 
  */
 module.exports = async function(req, res) {
+    let apiLogger = new ApiLogger(req, "WADO-RS");
+
     let {
         studyUID,
         seriesUID,
@@ -18,7 +20,7 @@ module.exports = async function(req, res) {
         frameNumber
     } = req.params;
 
-    apiInfoLog("WADO-RS", req.originalUrl, `[Get study's series' rendered instances' frames, study UID: ${studyUID}, series UID: ${seriesUID}, instance UID: ${instanceUID}, frame: ${frameNumber}]`);
+    apiLogger.info(`[Get study's series' rendered instances' frames, study UID: ${studyUID}, series UID: ${seriesUID}, instance UID: ${instanceUID}, frame: ${frameNumber}]`);
 
     let headerAccept = _.get(req.headers, "accept", "");
     if (!headerAccept.includes("*/*") && !headerAccept.includes("image/jpeg")) {
@@ -45,7 +47,7 @@ module.exports = async function(req, res) {
             
             let notFoundMessageStr = JSON.stringify(notFoundMessage);
 
-            apiWarningLog("WADO-RS", req.originalUrl, `[${notFoundMessageStr}]`);
+            apiLogger.warning(`[${notFoundMessageStr}]`);
 
             return res.end(notFoundMessageStr);
         }
@@ -62,7 +64,7 @@ module.exports = async function(req, res) {
 
                 let badRequestMessageStr = JSON.stringify(badRequestMessage);
 
-                apiWarningLog("WADO-RS", req.originalUrl, badRequestMessageStr);
+                apiLogger.warning(badRequestMessageStr);
 
                 return res.end(JSON.stringify(badRequestMessageStr));
             }
@@ -75,8 +77,7 @@ module.exports = async function(req, res) {
                 res.writeHead(200, {
                     "Content-Type": "image/jpeg"
                 });
-
-                apiInfoLog("WADO-RS", req.originalUrl, `[Get instance's frame successfully, instance UID: ${instanceUID}, frame number: ${frameNumber[0]}]`);
+                apiLogger.info(`[Get instance's frame successfully, instance UID: ${instanceUID}, frame number: ${frameNumber[0]}]`);
                 return res.end(postProcessResult.magick.toBuffer(), "binary");
             }
             throw new Error(`Can not process this image, instanceUID: ${instanceFramesObj.instanceUID}, frameNumber: ${req.frameNumber[0]}`);
@@ -85,7 +86,7 @@ module.exports = async function(req, res) {
             await renderedService.writeSpecificFramesRenderedImages(req, frameNumber, instanceFramesObj, multipartWriter);
             multipartWriter.writeFinalBoundary();
 
-            apiInfoLog("WADO-RS", req.originalUrl, `[Get instance's frame successfully, instance UID: ${instanceUID}, frame numbers: ${frameNumber}]`);
+            apiLogger.info(`[Get instance's frame successfully, instance UID: ${instanceUID}, frame numbers: ${frameNumber}]`);
 
             return res.end();
         }

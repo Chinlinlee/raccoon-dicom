@@ -1,6 +1,6 @@
 const { performance } = require("node:perf_hooks");
 const errorResponseMessage = require("../../../../utils/errorResponse/errorResponseMessage");
-const { logger } = require("../../../../utils/log");
+const { ApiLogger } = require("../../../../utils/logs/api-logger");
 /**@type {import('socket.io').Server} */
 const io = require("../../../../socket").get();
 const { StowRsRequestMultipartParser } = require("./service/request-multipart-parser");
@@ -19,6 +19,8 @@ module.exports = async function (req, res) {
     let startSTOWTime = performance.now();
     let retCode;
     let storeMessage;
+    let apiLogger = new ApiLogger(req, "STOW-RS");
+
     try {
         let requestMultipartParser = new StowRsRequestMultipartParser(req);
         let multipartParseResult = await requestMultipartParser.parse();
@@ -32,9 +34,7 @@ module.exports = async function (req, res) {
         }
         let endSTOWTime = performance.now();
         let elapsedTime = (endSTOWTime - startSTOWTime).toFixed(3);
-        logger.info(
-            `[STOW-RS] [Finished STOW-RS, elapsed time: ${elapsedTime} ms]`
-        );
+        apiLogger.info(`[Finished STOW-RS, elapsed time: ${elapsedTime} ms]`);
 
         res.writeHead(retCode, {
             "Content-Type": "application/dicom"
@@ -43,7 +43,8 @@ module.exports = async function (req, res) {
         return res.end(JSON.stringify(storeMessage));
     } catch (e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-        logger.error(`[STOW-RS] [${errorStr}]`);
+        apiLogger.error(errorStr);
+
         let errorMessage =
             errorResponseMessage.getInternalServerErrorMessage(errorStr);
         res.writeHead(500, {

@@ -3,7 +3,7 @@ const {
     convertAllQueryToDICOMTag,
     getInstanceDicomJson
 } = require("./service/QIDO-RS.service");
-const { logger } = require("../../../../utils/log");
+const { ApiLogger } = require("../../../../utils/logs/api-logger");
 
 /**
  *
@@ -11,9 +11,10 @@ const { logger } = require("../../../../utils/log");
  * @param {import('http').ServerResponse} res
  */
 module.exports = async function (req, res) {
-    logger.info(
-        `[QIDO-RS] [Query instances in study, Study UID: ${req.params.studyUID}]`
-    );
+    let apiLogger = new ApiLogger(req, "QIDO-RS");
+
+    apiLogger.info(`[Query instances in study, Study UID: ${req.params.studyUID}]`);
+
     try {
         let limit = parseInt(req.query.limit) || 100;
         let skip = parseInt(req.query.offset) || 0;
@@ -45,6 +46,6 @@ module.exports = async function (req, res) {
         }
     } catch (e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-        logger.error(`[QIDO-RS] [Error: ${errorStr}]`);
+        apiLogger.error(errorStr);
     }
 };

@@ -3,7 +3,7 @@ const wadoService = require("./service/WADO-RS.service");
 const renderedService = require("./service/rendered.service");
 const { MultipartWriter } = require("../../../../utils/multipartWriter");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-const { logger, apiInfoLog } = require("../../../../utils/log");
+const { ApiLogger } = require("../../../../utils/logs/api-logger");
 
 /**
  * 
@@ -12,8 +12,11 @@ const { logger, apiInfoLog } = require("../../../../utils/log");
  * @returns 
  */
 module.exports = async function(req, res) {
+    let apiLogger = new ApiLogger(req, "WADO-RS");
     let headerAccept = _.get(req.headers, "accept", "");
-    apiInfoLog("WADO-RS", req.originalUrl, `[Get study's series' rendered instances, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}]`);
+
+    apiLogger.info(`[Get study's series' rendered instances, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}]`);
+    
     if (!headerAccept == `multipart/related; type="image/jpeg"`) {
         let badRequestMessage = errorResponse.getBadRequestErrorMessage(`header accept only allow \`multipart/related; type="image/jpeg"\`, exception : ${headerAccept}`);
         res.writeHead(badRequestMessage.HttpStatus, {
@@ -33,7 +36,8 @@ module.exports = async function(req, res) {
             await renderedService.writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, multipartWriter);
             multipartWriter.writeFinalBoundary();
         }
-        apiInfoLog("WADO-RS", req.originalUrl, `[Write Multipart Successfully, study's series' instances' rendered images, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}, instance UID: ${req.params.instanceUID}]`);
+
+        apiLogger.info(`[Write Multipart Successfully, study's series' instances' rendered images, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}, instance UID: ${req.params.instanceUID}]`);
         return res.end();
     } catch(e) {
         res.writeHead(500, {

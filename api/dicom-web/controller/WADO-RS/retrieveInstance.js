@@ -1,15 +1,17 @@
-const { logger } = require("../../../../utils/log");
 const wadoService = require("./service/WADO-RS.service");
 const { WADOZip } = require("./service/WADOZip");
-const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
+const { ApiLogger } = require("../../../../utils/logs/api-logger");
 /**
  * 
  * @param {import("http").IncomingMessage} req 
  * @param {import("http").ServerResponse} res 
  */
 module.exports = async function(req, res) {
+    let apiLogger = new ApiLogger(req, "WADO-URI");
+
+    apiLogger.info(`[Get study's series' instances, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}] [Request Accept: ${req.headers.accept}]`);
+
     try {
-        logger.info(`[WADO-RS] [Get study's series' instances, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}] [Request Accept: ${req.headers.accept}]`);
         if (req.headers.accept.toLowerCase() === "application/zip") {
             let wadoZip = new WADOZip(req.params, res);
             let zipResult = await wadoZip.getZipOfInstanceDICOMFile();
@@ -39,7 +41,8 @@ module.exports = async function(req, res) {
         return wadoService.sendNotSupportedMediaType(res, req.headers.accept);
     } catch(e) {
         let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-        logger.error(`[WADO-RS] [Error: ${errorStr}]`);
+        apiLogger.error(errorStr);
+
         res.writeHead(500, {
             "Content-Type": "application/dicom+json"
         });

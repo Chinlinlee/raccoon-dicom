@@ -3,7 +3,7 @@ const wadoService = require("./service/WADO-RS.service");
 const renderedService = require("./service/rendered.service");
 const { MultipartWriter } = require("../../../../utils/multipartWriter");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-const { logger, apiInfoLog } = require("../../../../utils/log");
+const { ApiLogger } = require("../../../../utils/logs/api-logger");
 
 /**
  * 
@@ -13,7 +13,10 @@ const { logger, apiInfoLog } = require("../../../../utils/log");
  */
 module.exports = async function(req, res) {
     let headerAccept = _.get(req.headers, "accept", "");
-    apiInfoLog("WADO-RS", req.originalUrl, `[Get study's rendered instances, study UID: ${req.params.studyUID}]`);
+    let apiLogger = new ApiLogger(req, "WADO-RS");
+
+    apiLogger.info(`[Get study's rendered instances, study UID: ${req.params.studyUID}]`);
+
     if (!headerAccept == `multipart/related; type="image/jpeg"`) {
         let badRequestMessage = errorResponse.getBadRequestErrorMessage(`header accept only allow \`multipart/related; type="image/jpeg"\`, exception : ${headerAccept}`);
         res.writeHead(badRequestMessage.HttpStatus, {
@@ -36,7 +39,9 @@ module.exports = async function(req, res) {
             }
             multipartWriter.writeFinalBoundary();
         }
-        apiInfoLog("WADO-RS", req.originalUrl, `[Write Multipart Successfully, study's rendered instances, study UID: ${req.params.studyUID}]`);
+
+        apiLogger.info(`[Write Multipart Successfully, study's rendered instances, study UID: ${req.params.studyUID}]`);
+
         return res.end();
     } catch(e) {
         res.writeHead(500, {
