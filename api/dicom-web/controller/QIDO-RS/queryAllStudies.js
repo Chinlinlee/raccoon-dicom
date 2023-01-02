@@ -34,12 +34,13 @@ module.exports = async function (req, res) {
             skip,
             req
         );
-        let studiesJsonLength = _.get(studiesJson, "data.length", 0);
+
+        let studiesJsonLength = _.get(studiesJson, "length", 0);
         if (studiesJsonLength > 0) {
             res.writeHead(200, {
                 "Content-Type": "application/dicom+json"
             });
-            res.end(JSON.stringify(studiesJson.data));
+            res.end(JSON.stringify(studiesJson));
         } else {
             res.writeHead(204);
             res.end();

@@ -197,31 +197,21 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
         let query = await convertRequestQueryToMongoQuery(iQuery);
         // iQuery = iQuery.$match;
         logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
-        let studyFields = getStudyLevelFields();
-        let docs = await mongoose.model("dicomStudy").find(query.$match, studyFields)
-            .limit(limit)
-            .skip(skip)
-            .setOptions({
-                strictQuery: false
-            })
-            .exec();
-        result.data = docs.map((v) => {
-            let obj = v.toObject();
-            delete obj._id;
-            delete obj.id;
-            obj["00081190"] = {
-                vr: "UR",
-                Value: [`${retrieveUrl}/${obj["0020000D"]["Value"][0]}`]
-            };
-            return sortObjByFieldKey(obj);
+        
+        let queryOptions = {
+            limit: limit,
+            skip: skip
+        };
+        let docs = await mongoose.model("dicomStudy").getDicomJson(query.$match, queryOptions, retrieveUrl);
+
+        let sortedTagsStudyDicomJson = docs.map((v) => {
+            return sortObjByFieldKey(v);
         });
-        result.status = true;
-        return result;
+
+        return sortedTagsStudyDicomJson;
     } catch (e) {
         console.error("get Study DICOM error", e);
-        result.data = e;
-        result.status = false;
-        return result;
+        throw e;
     }
 }
 
