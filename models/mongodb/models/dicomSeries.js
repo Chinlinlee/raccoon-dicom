@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
+const {
+    tagsOfRequiredMatching
+} = require("../../DICOM/dicom-tags-mapping");
+const { getStudyLevelFields } = require("./dicomStudy");
 
 let dicomSeriesSchema = new mongoose.Schema(
     {
@@ -59,9 +63,58 @@ dicomSeriesSchema.index({
     "0020000E": 1
 });
 
+function getSeriesLevelFields() {
+    let fields = {};
+    for (let tag in tagsOfRequiredMatching.Series) {
+        fields[tag] = 1;
+    }
+    return fields;
+}
+
+dicomSeriesSchema.statics.getDicomJson = async function(query, queryOptions, retrieveBaseUrl) {
+    let studyFields = getStudyLevelFields();
+    let seriesFields = getSeriesLevelFields();
+
+    try {
+        let docs = await mongoose
+            .model("dicomSeries")
+            .find(query, {
+                ...studyFields,
+                ...seriesFields
+            })
+            .setOptions({
+                strictQuery: false
+            })
+            .limit(queryOptions.limit)
+            .skip(queryOptions.skip)
+            .exec();
+
+        
+        let seriesDicomJson = docs.map((v) => {
+            let obj = v.toObject();
+            delete obj._id;
+            delete obj.id;
+            obj["00081190"] = {
+                vr: "UR",
+                Value: [
+                    `${retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
+                ]
+            };
+            return obj;
+        });
+
+        return seriesDicomJson;
+
+    } catch (e) {
+        throw e;
+    }
+};
+
 let dicomSeriesModel = mongoose.model(
     "dicomSeries",
     dicomSeriesSchema,
     "dicomSeries"
 );
+
 module.exports = dicomSeriesModel;
+module.exports.getSeriesLevelFields = getSeriesLevelFields;

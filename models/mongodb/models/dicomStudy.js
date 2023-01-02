@@ -66,7 +66,7 @@ dicomStudySchema.statics.getDicomJson = async function (query, queryOptions, ret
         });
 
         return studyDicomJson;
-        
+
     } catch(e) {
         throw e;
     }
@@ -87,3 +87,4 @@ let dicomStudyModel = mongoose.model(
 );
 
 module.exports = dicomStudyModel;
+module.exports.getStudyLevelFields = getStudyLevelFields;

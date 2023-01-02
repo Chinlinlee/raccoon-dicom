@@ -33,12 +33,12 @@ module.exports = async function (req, res) {
             skip,
             req
         );
-        let seriesJsonLength = _.get(seriesJson, "data.length", 0);
+        let seriesJsonLength = _.get(seriesJson, "length", 0);
         if (seriesJsonLength > 0) {
             res.writeHead(200, {
                 "Content-Type": "application/dicom+json"
             });
-            res.end(JSON.stringify(seriesJson.data));
+            res.end(JSON.stringify(seriesJson));
         } else {
             res.writeHead(204);
             res.end();
