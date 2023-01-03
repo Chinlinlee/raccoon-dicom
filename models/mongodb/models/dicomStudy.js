@@ -42,11 +42,16 @@ dicomStudySchema.index({
     "0020000D": 1
 });
 
-dicomStudySchema.statics.getDicomJson = async function (query, queryOptions, retrieveBaseUrl) {
+/**
+ * 
+ * @param {DicomJsonMongoQueryOptions} queryOptions
+ * @returns 
+ */
+dicomStudySchema.statics.getDicomJson = async function (queryOptions) {
     let studyFields = getStudyLevelFields();
 
     try {
-        let docs = await mongoose.model("dicomStudy").find(query, studyFields)
+        let docs = await mongoose.model("dicomStudy").find(queryOptions.query, studyFields)
         .limit(queryOptions.limit)
         .skip(queryOptions.skip)
         .setOptions({
@@ -60,7 +65,7 @@ dicomStudySchema.statics.getDicomJson = async function (query, queryOptions, ret
             delete obj.id;
             obj["00081190"] = {
                 vr: "UR",
-                Value: [`${retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}`]
+                Value: [`${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}`]
             };
             return obj;
         });

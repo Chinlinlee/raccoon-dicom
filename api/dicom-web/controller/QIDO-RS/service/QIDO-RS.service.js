@@ -9,6 +9,110 @@ const { logger } = require("../../../../../utils/log");
 const { raccoonConfig } = require("../../../../../config-class");
 const dicomWebApiPath = raccoonConfig.dicomWebConfig.apiPath;
 
+class QidoRsService {
+
+    /**
+     * 
+     * @param {import('http').IncomingMessage} req
+     *  @param {import('http').ServerResponse} res 
+     */
+    constructor(req, res, level="instance") {
+        this.request = req;
+        this.response = res;
+        this.protocol = req.secure ? "https" : "http";
+        this.level = level;
+
+        this.query = {};
+        this.initQuery_();
+
+        /**
+         * @private
+         */
+        this.limit_ = parseInt(this.request.query.limit) || 100;
+        delete this.request.query["limit"];
+
+        /**
+         * @private
+         */
+        this.skip_ = parseInt(this.request.query.offset) || 0;
+        delete this.request.query["offset"];
+    }
+
+    /**
+     * @private
+     */
+    initQuery_() {
+        let query = _.cloneDeep(this.request.query);
+        let queryKeys = Object.keys(query).sort();
+        for (let i = 0; i < queryKeys.length; i++) {
+            let queryKey = queryKeys[i];
+            if (!query[queryKey]) delete query[queryKey];
+        }
+
+        this.query = convertAllQueryToDICOMTag(query);
+    }
+
+    async getAndResponseDicomJson() {
+        try {
+
+            let queryOptions = {
+                query: this.query,
+                skip: this.skip_,
+                limit: this.limit_,
+                retrieveBaseUrl: `${this.protocol}://${this.request.headers.host}/${dicomWebApiPath}/studies`,
+                requestParams: this.request.params
+            };
+    
+            let qidoDicomJsonFactory = new QidoDicomJsonFactory(queryOptions, this.level);
+    
+            let dicomJson = await qidoDicomJsonFactory.getDicomJson();
+    
+            let dicomJsonLength = _.get(dicomJson, "length", 0);
+            if (dicomJsonLength > 0) {
+                this.response.writeHead(200, {
+                    "Content-Type": "application/dicom+json"
+                });
+                this.response.end(JSON.stringify(dicomJson));
+            } else {
+                this.response.writeHead(204);
+                this.response.end();
+            }
+
+        } catch(e) {
+            throw e;
+        }
+    }
+
+}
+
+class QidoDicomJsonFactory {
+
+    /**
+     * 
+     * @param {import("../../../../../utils/typedef/dicom").DicomJsonMongoQueryOptions} queryOptions 
+     * @param {string} level 
+     */
+    constructor(queryOptions, level="instance") {
+        this.level = level;
+
+        this.getDicomJsonByLevel = {
+            "study": async () => {
+                return await getStudyDicomJson(queryOptions);
+            },
+            "series": async () => {
+                return await getSeriesDicomJson(queryOptions);
+            },
+            "instance": async () => {
+                return await getInstanceDicomJson(queryOptions);
+            }
+        };
+    }
+
+    async getDicomJson() {
+        return await this.getDicomJsonByLevel[this.level]();
+    }
+}
+
 /**
  * Convert All of name(tags, keyword) of queries to tags number
  * @param {Object} iParam The request query.
@@ -127,28 +231,13 @@ async function convertRequestQueryToMongoQuery(iQuery) {
         : mongoQs;
 }
 
-function getStudyLevelFields() {
-    let fields = {};
-    for (let tag in tagsOfRequiredMatching.Study) {
-        fields[tag] = 1;
-    }
-    return fields;
-}
-
-function getSeriesLevelFields() {
-    let fields = {};
-    for (let tag in tagsOfRequiredMatching.Series) {
-        fields[tag] = 1;
-    }
-    return fields;
-}
-
-function getInstanceLevelFields() {
-    let fields = {};
-    for (let tag in tagsOfRequiredMatching.Instance) {
-        fields[tag] = 1;
-    }
-    return fields;
+/**
+ * 
+ * @param {any[]} arr 
+ * @returns 
+ */
+function sortArrayObjByFieldKey(arr) {
+    return arr.map(v => sortObjByFieldKey(v));
 }
 
 function sortObjByFieldKey(obj) {
@@ -185,28 +274,25 @@ const vrQueryLookup = {
     }
 };
 
-async function getStudyDicomJson(iQuery, limit, skip, req) {
+/**
+ * 
+ * @param {import("../../../../../utils/typedef/dicom").DicomJsonMongoQueryOptions} queryOptions 
+ * @returns 
+ */
+async function getStudyDicomJson(queryOptions) {
     logger.info(`[QIDO-RS] [Query Study Level]`);
-    let result = {
-        data: "",
-        status: false
-    };
-    let protocol = req.secure ? "https" : "http";
-    let retrieveUrl = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
+
     try {
-        let query = await convertRequestQueryToMongoQuery(iQuery);
-        // iQuery = iQuery.$match;
+        let query = await convertRequestQueryToMongoQuery(queryOptions.query);
         logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
         
-        let queryOptions = {
-            limit: limit,
-            skip: skip
+        queryOptions.query = {
+            ...query.$match
         };
-        let docs = await mongoose.model("dicomStudy").getDicomJson(query.$match, queryOptions, retrieveUrl);
 
-        let sortedTagsStudyDicomJson = docs.map((v) => {
-            return sortObjByFieldKey(v);
-        });
+        let docs = await mongoose.model("dicomStudy").getDicomJson(queryOptions);
+
+        let sortedTagsStudyDicomJson = sortArrayObjByFieldKey(docs);
 
         return sortedTagsStudyDicomJson;
     } catch (e) {
@@ -215,26 +301,25 @@ async function getStudyDicomJson(iQuery, limit, skip, req) {
     }
 }
 
-async function getSeriesDicomJson(iQuery, limit, skip, req) {
-    let protocol = req.secure ? "https" : "http";
-    let retrieveUrl = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
+/**
+ * 
+ * @param {import("../../../../../utils/typedef/dicom").DicomJsonMongoQueryOptions} queryOptions 
+ * @returns 
+ */
+async function getSeriesDicomJson(queryOptions) {
     try {
-        iQuery = await convertRequestQueryToMongoQuery(iQuery);
+        let mongoQuery = await convertRequestQueryToMongoQuery(queryOptions.query);
+
         let query = {
-            ...req.params,
-            ...iQuery.$match
+            ...queryOptions.requestParams,
+            ...mongoQuery.$match
         };
         logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
 
-        let queryOptions = {
-            limit: limit,
-            skip: skip
-        };
-        let docs = await mongoose.model("dicomSeries").getDicomJson(query, queryOptions, retrieveUrl);
+        queryOptions.query = { ...query };
+        let docs = await mongoose.model("dicomSeries").getDicomJson(queryOptions);
 
-        let sortedTagsSeriesDicomJson = docs.map((v) => {
-            return sortObjByFieldKey(v);
-        });
+        let sortedTagsSeriesDicomJson = sortArrayObjByFieldKey(docs);
 
         return sortedTagsSeriesDicomJson;
     } catch (e) {
@@ -243,65 +328,31 @@ async function getSeriesDicomJson(iQuery, limit, skip, req) {
     }
 }
 
-async function getInstanceDicomJson(iQuery, limit, skip, req) {
-    let result = {
-        data: "",
-        status: false
-    };
-    let protocol = req.secure ? "https" : "http";
-    let retrieveUrl = `${protocol}://${req.headers.host}/${dicomWebApiPath}/studies`;
+/**
+ * 
+ * @param {import("../../../../../utils/typedef/dicom").DicomJsonMongoQueryOptions} queryOptions
+ * @returns 
+ */
+async function getInstanceDicomJson(queryOptions) {
     try {
-        iQuery = await convertRequestQueryToMongoQuery(iQuery);
+        let mongoQuery = await convertRequestQueryToMongoQuery(queryOptions.query);
+
         let query = {
-            ...req.params,
-            ...iQuery.$match
+            ...queryOptions.requestParams,
+            ...mongoQuery.$match
         };
         logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
-        let studyFields = getStudyLevelFields();
-        let seriesFields = getSeriesLevelFields();
-        let instanceFields = getInstanceLevelFields();
-        let docs = await mongoose
-            .model("dicom")
-            .find(query, {
-                ...studyFields,
-                ...seriesFields,
-                ...instanceFields
-            })
-            .setOptions({
-                strictQuery: false
-            })
-            .limit(limit)
-            .skip(skip)
-            .exec();
-        result.data = docs.map((v) => {
-            let obj = v.toObject();
-            delete obj._id;
-            delete obj.id;
-            obj["00081190"] = {
-                vr: "UR",
-                Value: [
-                    `${retrieveUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instances/${obj["00080018"]["Value"][0]}`
-                ]
-            };
-            return sortObjByFieldKey(obj);
-        });
-        result.status = true;
-        return result;
+        
+        queryOptions.query = { ...query };
+        let docs = await mongoose.model("dicom").getDicomJson(queryOptions);
+
+        let sortedInstanceDicomJson = sortArrayObjByFieldKey(docs);
+
+        return sortedInstanceDicomJson;
     } catch (e) {
         console.error("get Series DICOM error", e);
-        result.data = e;
-        result.status = false;
-        return result;
+        throw e;
     }
 }
 
-module.exports.convertAllQueryToDICOMTag = convertAllQueryToDICOMTag;
-module.exports.convertRequestQueryToMongoQuery =
-    convertRequestQueryToMongoQuery;
-module.exports.getStudyLevelFields = getStudyLevelFields;
-module.exports.getSeriesLevelFields = getSeriesLevelFields;
-module.exports.getInstanceLevelFields = getInstanceLevelFields;
-module.exports.sortObjByFieldKey = sortObjByFieldKey;
-module.exports.getStudyDicomJson = getStudyDicomJson;
-module.exports.getSeriesDicomJson = getSeriesDicomJson;
-module.exports.getInstanceDicomJson = getInstanceDicomJson;
+module.exports.QidoRsService = QidoRsService;

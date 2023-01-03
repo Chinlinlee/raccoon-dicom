@@ -7,6 +7,15 @@
  *
  */
 
+/**
+ * @typedef DicomJsonMongoQueryOptions
+ * @property {object} query
+ * @property {number} limit
+ * @property {number} skip
+ * @property {string} retrieveBaseUrl
+ * @property {object} requestParams?
+ */
+
 const DICOM = true;
 
 module.exports.unUse = {};

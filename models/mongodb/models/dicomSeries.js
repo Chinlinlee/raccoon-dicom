@@ -71,14 +71,19 @@ function getSeriesLevelFields() {
     return fields;
 }
 
-dicomSeriesSchema.statics.getDicomJson = async function(query, queryOptions, retrieveBaseUrl) {
+/**
+ * 
+ * @param {DicomJsonMongoQueryOptions} queryOptions
+ * @returns 
+ */
+dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
     let studyFields = getStudyLevelFields();
     let seriesFields = getSeriesLevelFields();
 
     try {
         let docs = await mongoose
             .model("dicomSeries")
-            .find(query, {
+            .find(queryOptions.query, {
                 ...studyFields,
                 ...seriesFields
             })
@@ -97,7 +102,7 @@ dicomSeriesSchema.statics.getDicomJson = async function(query, queryOptions, ret
             obj["00081190"] = {
                 vr: "UR",
                 Value: [
-                    `${retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
+                    `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
                 ]
             };
             return obj;

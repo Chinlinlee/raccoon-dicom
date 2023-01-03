@@ -6,6 +6,9 @@ const {
     getVRSchema
 } = require("../schema/dicomJsonAttribute");
 const { logger } = require("../../../utils/log");
+const { getStudyLevelFields } = require("./dicomStudy");
+const { getSeriesLevelFields } = require("./dicomSeries");
+const { tagsOfRequiredMatching } = require("../../DICOM/dicom-tags-mapping");
 
 let dicomModelSchema = new mongoose.Schema(
     {
@@ -111,14 +114,6 @@ dicomModelSchema.index({
 dicomModelSchema.index({
     "00080018": 1
 });
-
-dicomModelSchema.methods.getDICOMJson = function () {
-    let obj = this.toObject();
-    delete obj._id;
-    delete obj.studyUID;
-    delete obj.seriesUID;
-    delete obj.instanceUID;
-};
 
 dicomModelSchema.post("findOneAndUpdate", async function (doc) {
     updateStudyModalitiesInStudy(doc).catch((e) => {
@@ -314,6 +309,61 @@ async function updateStudyNumberOfStudyRelatedInstance(doc) {
     } catch (e) {
         throw e;
     }
+}
+
+/**
+ * 
+ * @param {DicomJsonMongoQueryOptions} queryOptions
+ * @returns 
+ */
+dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
+    let studyFields = getStudyLevelFields();
+    let seriesFields = getSeriesLevelFields();
+    let instanceFields = getInstanceLevelFields();
+
+    try {
+
+        let docs = await mongoose
+        .model("dicom")
+        .find(queryOptions.query, {
+            ...studyFields,
+            ...seriesFields,
+            ...instanceFields
+        })
+        .setOptions({
+            strictQuery: false
+        })
+        .limit(queryOptions.limit)
+        .skip(queryOptions.skip)
+        .exec();
+
+        let instanceDicomJson = docs.map(v => {
+            let obj = v.toObject();
+            delete obj._id;
+            delete obj.id;
+            obj["00081190"] = {
+                vr: "UR",
+                Value: [
+                    `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
+                ]
+            };
+            return obj;
+        });
+
+        return instanceDicomJson;
+
+    } catch(e) {
+        throw e;
+    }
+    
+};
+
+function getInstanceLevelFields() {
+    let fields = {};
+    for (let tag in tagsOfRequiredMatching.Instance) {
+        fields[tag] = 1;
+    }
+    return fields;
 }
 
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
