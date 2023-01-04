@@ -1,10 +1,57 @@
 const { performance } = require("node:perf_hooks");
 const errorResponseMessage = require("../../../../utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
+const { Controller } = require("../../../controller.class");
 /**@type {import('socket.io').Server} */
 const io = require("../../../../socket").get();
 const { StowRsRequestMultipartParser } = require("./service/request-multipart-parser");
 const { StowRsService } = require("./service/stow-rs.service");
+
+class StoreInstanceController extends Controller {
+    constructor(req, res) {
+        super(req, res);
+    }
+
+    async mainProcess() {
+        let startSTOWTime = performance.now();
+        let retCode;
+        let storeMessage;
+        let apiLogger = new ApiLogger(this.request, "STOW-RS");
+    
+        try {
+            let requestMultipartParser = new StowRsRequestMultipartParser(this.request);
+            let multipartParseResult = await requestMultipartParser.parse();
+    
+            if (multipartParseResult.status) {
+                let stowRsService = new StowRsService(this.request, multipartParseResult.multipart.files);
+                let storeInstancesResult = await stowRsService.storeInstances();
+    
+                retCode = storeInstancesResult.code;
+                storeMessage = storeInstancesResult.responseMessage;
+            }
+            let endSTOWTime = performance.now();
+            let elapsedTime = (endSTOWTime - startSTOWTime).toFixed(3);
+            apiLogger.info(`[Finished STOW-RS, elapsed time: ${elapsedTime} ms]`);
+    
+            this.response.writeHead(retCode, {
+                "Content-Type": "application/dicom"
+            });
+            
+            return this.response.end(JSON.stringify(storeMessage));
+        } catch (e) {
+            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
+            apiLogger.error(errorStr);
+    
+            let errorMessage =
+                errorResponseMessage.getInternalServerErrorMessage(errorStr);
+            this.response.writeHead(500, {
+                "Content-Type": "application/dicom+json"
+            });
+            return this.response.end(JSON.stringify(errorMessage));
+        }
+    }
+}
+
 
 /**
  * To store DICOM instance
@@ -16,40 +63,11 @@ const { StowRsService } = require("./service/stow-rs.service");
  * @param {import('http').ServerResponse} res
  */
 module.exports = async function (req, res) {
-    let startSTOWTime = performance.now();
-    let retCode;
-    let storeMessage;
-    let apiLogger = new ApiLogger(req, "STOW-RS");
+    let controller = new StoreInstanceController(req, res);
 
-    try {
-        let requestMultipartParser = new StowRsRequestMultipartParser(req);
-        let multipartParseResult = await requestMultipartParser.parse();
+    await controller.preProcess();
+    
+    await controller.mainProcess();
 
-        if (multipartParseResult.status) {
-            let stowRsService = new StowRsService(req, multipartParseResult.multipart.files);
-            let storeInstancesResult = await stowRsService.storeInstances();
-
-            retCode = storeInstancesResult.code;
-            storeMessage = storeInstancesResult.responseMessage;
-        }
-        let endSTOWTime = performance.now();
-        let elapsedTime = (endSTOWTime - startSTOWTime).toFixed(3);
-        apiLogger.info(`[Finished STOW-RS, elapsed time: ${elapsedTime} ms]`);
-
-        res.writeHead(retCode, {
-            "Content-Type": "application/dicom"
-        });
-        
-        return res.end(JSON.stringify(storeMessage));
-    } catch (e) {
-        let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-        apiLogger.error(errorStr);
-
-        let errorMessage =
-            errorResponseMessage.getInternalServerErrorMessage(errorStr);
-        res.writeHead(500, {
-            "Content-Type": "application/dicom+json"
-        });
-        return res.end(JSON.stringify(errorMessage));
-    }
+    controller.postProcess();
 };

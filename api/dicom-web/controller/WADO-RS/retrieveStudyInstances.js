@@ -2,6 +2,56 @@ const { logger } = require("../../../../utils/log");
 const wadoService = require("./service/WADO-RS.service");
 const { WADOZip } = require("./service/WADOZip");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
+const { Controller } = require("../../../controller.class");
+
+class RetrieveStudyInstancesController extends Controller {
+    constructor(req, res) {
+        super(req, res);
+    }
+
+    async mainProcess() {
+        try {
+            logger.info(`[WADO-RS] [Get study's instances, study UID: ${this.request.params.studyUID}] [Request Accept: ${this.request.headers.accept}]`);
+            if (this.request.headers.accept.toLowerCase() === "application/zip") {
+                let wadoZip = new WADOZip(this.request.params, this.response);
+                let zipResult = await wadoZip.getZipOfStudyDICOMFiles();
+                if (zipResult.status) {
+                    return this.response.end();
+                } else {
+                    this.response.writeHead(zipResult.code, {
+                        "Content-Type": "application/dicom+json"
+                    });
+                    return this.response.end(JSON.stringify(zipResult));
+                }
+            } else if (this.request.headers.accept.includes("multipart/related")) {
+                let type = wadoService.getAcceptType(this.request);
+                let isSupported = wadoService.supportInstanceMultipartType.indexOf(type) > -1;
+                if (!isSupported) {
+                    return wadoService.sendNotSupportedMediaType(this.response, type);
+                }
+                let writeMultipartResult = await wadoService.multipartFunc[type].getStudyDICOMFiles(this.request.params, this.request, this.response, type);
+                if (!writeMultipartResult.status) {
+                    this.response.writeHead(writeMultipartResult.code, {
+                        "Content-Type": "application/dicom+json"
+                    });
+                    return this.response.end(JSON.stringify(writeMultipartResult));
+                }
+                return this.response.end();
+            }
+            return wadoService.sendNotSupportedMediaType(this.response, this.request.headers.accept);
+        } catch(e) {
+            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
+            logger.error(`[WADO-RS] [Error: ${errorStr}]`);
+            this.response.writeHead(500, {
+                "Content-Type": "application/dicom+json"
+            });
+            this.response.end(JSON.stringify({
+                code: 500,
+                message: errorStr
+            }));
+        }
+    }
+}
 
 /**
  * 
@@ -9,44 +59,11 @@ const errorResponse = require("../../../../utils/errorResponse/errorResponseMess
  * @param {import("http").ServerResponse} res 
  */
 module.exports = async function(req, res) {
-    try {
-        logger.info(`[WADO-RS] [Get study's instances, study UID: ${req.params.studyUID}] [Request Accept: ${req.headers.accept}]`);
-        if (req.headers.accept.toLowerCase() === "application/zip") {
-            let wadoZip = new WADOZip(req.params, res);
-            let zipResult = await wadoZip.getZipOfStudyDICOMFiles();
-            if (zipResult.status) {
-                return res.end();
-            } else {
-                res.writeHead(zipResult.code, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return res.end(JSON.stringify(zipResult));
-            }
-        } else if (req.headers.accept.includes("multipart/related")) {
-            let type = wadoService.getAcceptType(req);
-            let isSupported = wadoService.supportInstanceMultipartType.indexOf(type) > -1;
-            if (!isSupported) {
-                return wadoService.sendNotSupportedMediaType(res, type);
-            }
-            let writeMultipartResult = await wadoService.multipartFunc[type].getStudyDICOMFiles(req.params, req, res, type);
-            if (!writeMultipartResult.status) {
-                res.writeHead(writeMultipartResult.code, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return res.end(JSON.stringify(writeMultipartResult));
-            }
-            return res.end();
-        }
-        return wadoService.sendNotSupportedMediaType(res, req.headers.accept);
-    } catch(e) {
-        let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-        logger.error(`[WADO-RS] [Error: ${errorStr}]`);
-        res.writeHead(500, {
-            "Content-Type": "application/dicom+json"
-        });
-        res.end(JSON.stringify({
-            code: 500,
-            message: errorStr
-        }));
-    }
+    let controller = new RetrieveStudyInstancesController(req, res);
+
+    await controller.preProcess();
+
+    await controller.mainProcess();
+
+    controller.postProcess();
 };

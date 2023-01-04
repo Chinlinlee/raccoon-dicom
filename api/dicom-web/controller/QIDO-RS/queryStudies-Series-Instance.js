@@ -3,6 +3,38 @@ const {
     QidoRsService
 } = require("./service/QIDO-RS.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
+const { Controller } = require("../../../controller.class");
+
+class QueryInstancesOfSeriesOfStudiesController extends Controller {
+    constructor(req, res) {
+        super(req, res);
+    }
+
+    async mainProcess() {
+        let apiLogger = new ApiLogger(this.request, "QIDO-RS");
+
+        apiLogger.info(`[Query instance Level, Study UID: ${this.request.params.studyUID}, Series UID: ${this.request.params.seriesUID}]`);
+        
+        try {
+            
+            let qidoRsService = new QidoRsService(this.request, this.response, "instance");
+    
+            await qidoRsService.getAndResponseDicomJson();
+    
+        } catch (e) {
+            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
+            apiLogger.error(errorStr);
+
+            this.response.writeHead(500, {
+                "Content-Type": "application/dicom+json"
+            });
+            this.response.end(JSON.stringify({
+                code: 500,
+                message: errorStr
+            }));
+        }
+    }
+}
 
 /**
  *
@@ -10,18 +42,11 @@ const { ApiLogger } = require("../../../../utils/logs/api-logger");
  * @param {import('http').ServerResponse} res
  */
 module.exports = async function (req, res) {
-    let apiLogger = new ApiLogger(req, "QIDO-RS");
+    let controller = new QueryInstancesOfSeriesOfStudiesController(req, res);
 
-    apiLogger.info(`[Query instance Level, Study UID: ${req.params.studyUID}, Series UID: ${req.params.seriesUID}]`);
-    
-    try {
-        
-        let qidoRsService = new QidoRsService(req, res, "instance");
+    await controller.preProcess();
 
-        await qidoRsService.getAndResponseDicomJson();
+    await controller.mainProcess();
 
-    } catch (e) {
-        let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-        apiLogger.error(errorStr);
-    }
+    controller.postProcess();
 };
