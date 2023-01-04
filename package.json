@@ -37,6 +37,7 @@
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "polka": "^0.5.2",
+    "regexparam": "^2.0.1",
     "run-script-os": "^1.1.6",
     "sharp": "^0.30.4",
     "shorthash2": "^1.0.3",

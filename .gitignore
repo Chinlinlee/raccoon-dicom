@@ -13,3 +13,5 @@
 
 # ignore windwos's dcmtk execuable binary  
 /models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic
+
+/plugins/config.js
