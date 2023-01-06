@@ -134,7 +134,9 @@ class PluginGroup {
      */
     convertToLocalPlugins(plugin) {
         let localPlugins = [];
-        for(let router of plugin.options.routers) {
+        let routers = _.get(plugin.options, "routers", []);
+
+        for(let router of routers) {
             let localPlugin = new LocalPlugin(router.path, router.method, plugin.preProcessGroup, plugin.postProcessGroup);
             localPlugins.push(localPlugin);
         }
