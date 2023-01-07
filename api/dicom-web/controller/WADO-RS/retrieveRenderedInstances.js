@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const wadoService = require("./service/WADO-RS.service");
+const mongoose = require("mongoose");
 const renderedService = require("./service/rendered.service");
 const { MultipartWriter } = require("../../../../utils/multipartWriter");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
@@ -26,7 +26,7 @@ class RetrieveRenderedInstancesController extends Controller {
         }
         
         try {
-            let imagePathObj = await wadoService.getInstanceImagePath(this.request.params);
+            let imagePathObj = await mongoose.model("dicom").getPathGroupOfInstances(this.requestParams);
     
             if (imagePathObj) {
                 let multipartWriter = new MultipartWriter([], this.response, this.request);

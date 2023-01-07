@@ -124,10 +124,7 @@ function getStoreDicomFullPathGroup(pathGroup) {
     let fullPathGroup = [];
 
     for (let i = 0; i < pathGroup.length; i++) {
-        pathGroup[i].instancePath = path.join(
-            STORE_DICOM_ROOT_PATH,
-            pathGroup[i].instancePath
-        );
+        pathGroup[i].instancePath = getStoreDicomFullPath(pathGroup[i]);
 
         fullPathGroup.push(pathGroup[i]);
     }
@@ -135,5 +132,13 @@ function getStoreDicomFullPathGroup(pathGroup) {
     return fullPathGroup;
 }
 
+function getStoreDicomFullPath(storeInstanceObj) {
+    return path.join(
+        STORE_DICOM_ROOT_PATH,
+        storeInstanceObj.instancePath
+    );
+}
+
 module.exports.mongoDateQuery = mongoDateQuery;
 module.exports.getStoreDicomFullPathGroup = getStoreDicomFullPathGroup;
+module.exports.getStoreDicomFullPath = getStoreDicomFullPath;

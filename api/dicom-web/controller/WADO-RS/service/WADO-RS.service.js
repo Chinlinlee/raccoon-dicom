@@ -23,48 +23,6 @@ function getAcceptType(req) {
         .replace(/"/g, "");
 }
 
-
-/**
- * Get path
- * @param {Object} iParam
- * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj> | undefined }
- */
-async function getInstanceImagePath(iParam) {
-    let { studyUID, seriesUID, instanceUID } = iParam;
-    try {
-        let query = {
-                $and: [
-                    {
-                        studyUID: studyUID
-                    },
-                    {
-                        seriesUID: seriesUID
-                    },
-                    {
-                        instanceUID: instanceUID
-                    }
-                ]
-        };
-        let doc = await mongoose.model("dicom").findOne(query, {
-            studyUID: 1,
-            seriesUID: 1,
-            instanceUID: 1,
-            instancePath: 1
-        }).exec();
-        if (doc) {
-            let docObj = doc.toObject();
-            docObj.instancePath = path.join(
-                dicomStoreRootPath,
-                docObj.instancePath
-            );
-            return docObj;
-        }
-        return undefined;
-    } catch (e) {
-        throw e;
-    }
-}
-
 const multipartFunc = {
     "application/dicom": {
         getStudyDICOMFiles: async (iParam, req, res, type) => {
@@ -88,7 +46,7 @@ const multipartFunc = {
             return multipartWriter.writeDICOMFiles(type);
         },
         getInstanceDICOMFile: async (iParam, req, res, type) => {
-            let imagePath = await getInstanceImagePath(iParam);
+            let imagePath = await mongoose.model("dicom").getPathGroupOfInstances(iParam);
             if (!imagePath) return {
                 status: false,
                 code: 404,
@@ -150,7 +108,6 @@ function addHostnameOfBulkDataUrl(metadata, req) {
 }
 
 module.exports.getAcceptType = getAcceptType;
-module.exports.getInstanceImagePath = getInstanceImagePath;
 module.exports.multipartFunc = multipartFunc;
 module.exports.supportInstanceMultipartType = supportInstanceMultipartType;
 module.exports.sendNotSupportedMediaType = sendNotSupportedMediaType;

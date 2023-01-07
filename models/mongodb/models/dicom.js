@@ -5,6 +5,7 @@ const {
     dicomJsonAttributeDASchema,
     getVRSchema
 } = require("../schema/dicomJsonAttribute");
+const { getStoreDicomFullPath } = require("../service");
 const { logger } = require("../../../utils/log");
 const { getStudyLevelFields } = require("./dicomStudy");
 const { getSeriesLevelFields } = require("./dicomSeries");
@@ -365,6 +366,52 @@ function getInstanceLevelFields() {
     }
     return fields;
 }
+
+/**
+ * 
+ * @param {object} iParam 
+ * @param {string} iParam.studyUID
+ * @param {string} iParam.seriesUID
+ * @param {string} iParam.instanceUID
+ */
+dicomModelSchema.statics.getPathGroupOfInstances = async function(iParam) {
+    let { studyUID, seriesUID, instanceUID } = iParam;
+
+    try {
+        let query = {
+                $and: [
+                    {
+                        studyUID: studyUID
+                    },
+                    {
+                        seriesUID: seriesUID
+                    },
+                    {
+                        instanceUID: instanceUID
+                    }
+                ]
+        };
+
+        let doc = await mongoose.model("dicom").findOne(query, {
+            studyUID: 1,
+            seriesUID: 1,
+            instanceUID: 1,
+            instancePath: 1
+        }).exec();
+
+        if (doc) {
+            let docObj = doc.toObject();
+            docObj.instancePath = getStoreDicomFullPath(docObj);
+
+            return docObj;
+        }
+
+        return undefined;
+
+    } catch (e) {
+        throw e;
+    }
+};
 
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
 module.exports = dicomModel;

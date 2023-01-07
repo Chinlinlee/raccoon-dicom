@@ -17,7 +17,8 @@ class RetrieveInstanceMetadataController extends Controller {
         logger.info(`[WADO-RS] [Get Study's Series' Instance Metadata] [instance UID: ${this.request.params.instanceUID}, series UID: ${this.request.params.seriesUID}, study UID: ${this.request.params.studyUID}]`);
         try {
             let responseMetadata = [];
-            let imagePathObj = await wadoService.getInstanceImagePath(this.request.params);
+
+            let imagePathObj = await mongoose.model("dicom").getPathGroupOfInstances(this.request.params);
             if (imagePathObj) {
                 let instanceDir = path.dirname(imagePathObj.instancePath);
                 let metadataPath = path.join(instanceDir, `${imagePathObj.instanceUID}.metadata.json`);
@@ -32,7 +33,8 @@ class RetrieveInstanceMetadataController extends Controller {
                 });
                 return this.response.end(JSON.stringify(responseMetadata));
             }
-            this.response.writeHead(404);
+            
+            this.response.writeHead(204);
             return this.response.end(JSON.stringify(
                 errorResponse.getNotFoundErrorMessage(
                     `Not found metadata of instance UID: ${this.request.params.instanceUID}, series UID: ${this.request.params.seriesUID}, study UID: ${this.request.params.studyUID}`
