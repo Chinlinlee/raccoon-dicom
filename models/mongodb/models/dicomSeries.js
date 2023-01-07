@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
+const { getStoreDicomFullPathGroup } = require("../service");
 const {
     tagsOfRequiredMatching
 } = require("../../DICOM/dicom-tags-mapping");
@@ -110,6 +112,53 @@ dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
 
         return seriesDicomJson;
 
+    } catch (e) {
+        throw e;
+    }
+};
+
+/**
+ * 
+ * @param {object} iParam 
+ * @param {string} iParam.studyUID
+ * @param {string} iParam.seriesUID
+ */
+dicomSeriesSchema.statics.getPathGroupOfInstances = async function(iParam) {
+    let { studyUID, seriesUID } = iParam;
+    try {
+        let query = [
+            {
+                $match: {
+                    $and: [
+                        {
+                            seriesUID: seriesUID
+                        },
+                        {
+                            studyUID: studyUID
+                        }
+                    ]
+                }
+            },
+            {
+                $group: {
+                    _id: "$seriesUID",
+                    pathList: {
+                        $addToSet: {
+                            studyUID: "$studyUID",
+                            seriesUID: "$seriesUID",
+                            instanceUID: "$instanceUID",
+                            instancePath: "$instancePath"
+                        }
+                    }
+                }
+            }
+        ];
+        let docs = await mongoose.model("dicom").aggregate(query);
+        let pathGroup = _.get(docs, "0.pathList", []);
+
+        let fullPathGroup = getStoreDicomFullPathGroup(pathGroup);
+
+        return fullPathGroup;
     } catch (e) {
         throw e;
     }

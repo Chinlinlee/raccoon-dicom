@@ -40,8 +40,8 @@ class WADOZip {
     }
 
     async getZipOfSeriesDICOMFiles() {
-        let imagesPathList = await wadoService.getSeriesImagesPath(this.requestParams);
-        if (imagesPathList) {
+        let imagesPathList = await mongoose.model("dicomSeries").getPathGroupOfInstances(this.requestParams);
+        if (imagesPathList.length > 0) {
             this.setHeaders(this.seriesUID);
 
             let folders = [];

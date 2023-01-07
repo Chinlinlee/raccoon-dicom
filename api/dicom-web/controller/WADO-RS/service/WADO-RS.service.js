@@ -23,58 +23,6 @@ function getAcceptType(req) {
         .replace(/"/g, "");
 }
 
-/**
- * Get path list of all study's series' instances with specific study UID
- * @param {Object} iParam
- * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]> | undefined }
- * @returns
- */
-async function getSeriesImagesPath(iParam) {
-    let { studyUID, seriesUID } = iParam;
-    try {
-        let query = [
-            {
-                $match: {
-                    $and: [
-                        {
-                            seriesUID: seriesUID
-                        },
-                        {
-                            studyUID: studyUID
-                        }
-                    ]
-                }
-            },
-            {
-                $group: {
-                    _id: "$seriesUID",
-                    pathList: {
-                        $addToSet: {
-                            studyUID: "$studyUID",
-                            seriesUID: "$seriesUID",
-                            instanceUID: "$instanceUID",
-                            instancePath: "$instancePath"
-                        }
-                    }
-                }
-            }
-        ];
-        let docs = await mongoose.model("dicom").aggregate(query);
-        let pathList = _.get(docs, "0.pathList", []);
-        if (pathList.length > 0) {
-            for (let i = 0; i < pathList.length; i++) {
-                pathList[i].instancePath = path.join(
-                    dicomStoreRootPath,
-                    pathList[i].instancePath
-                );
-            }
-            return pathList;
-        }
-        return undefined;
-    } catch (e) {
-        throw e;
-    }
-}
 
 /**
  * Get path
@@ -130,8 +78,8 @@ const multipartFunc = {
             return multipartWriter.writeDICOMFiles(type);
         },
         getSeriesDICOMFiles: async (iParam, req, res, type) => {
-            let imagesPath = await getSeriesImagesPath(iParam);
-            if (!imagesPath) return {
+            let imagesPath = await mongoose.model("dicomSeries").getPathGroupOfInstances(iParam);
+            if (imagesPath.length === 0) return {
                 status: false,
                 code: 404,
                 message: `not found, Series UID: ${iParam.seriesUID}, Study UID: ${iParam.studyUID}`
@@ -202,7 +150,6 @@ function addHostnameOfBulkDataUrl(metadata, req) {
 }
 
 module.exports.getAcceptType = getAcceptType;
-module.exports.getSeriesImagesPath = getSeriesImagesPath;
 module.exports.getInstanceImagePath = getInstanceImagePath;
 module.exports.multipartFunc = multipartFunc;
 module.exports.supportInstanceMultipartType = supportInstanceMultipartType;

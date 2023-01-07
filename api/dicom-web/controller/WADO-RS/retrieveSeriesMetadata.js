@@ -17,8 +17,9 @@ class RetrieveSeriesMetadataController extends Controller {
         logger.info(`[WADO-RS] [Get Study's Series' Instances Metadata] [series UID: ${this.request.params.seriesUID}, study UID: ${this.request.params.studyUID}]`);
         try {
             let responseMetadata = [];
-            let imagesPathList = await wadoService.getSeriesImagesPath(this.request.params);
-            if (imagesPathList) {
+
+            let imagesPathList = await mongoose.model("dicomSeries").getPathGroupOfInstances(this.request.params);
+            if (imagesPathList.length > 0) {
                 for (let imagePathObj of imagesPathList) {
                     let instanceDir = path.dirname(imagePathObj.instancePath);
                     let metadataPath = path.join(instanceDir, `${imagePathObj.instanceUID}.metadata.json`);
@@ -34,7 +35,8 @@ class RetrieveSeriesMetadataController extends Controller {
                 });
                 return this.response.end(JSON.stringify(responseMetadata));
             }
-            this.response.writeHead(404);
+
+            this.response.writeHead(204);
             return this.response.end(JSON.stringify(
                 errorResponse.getNotFoundErrorMessage(
                     `Not found metadata of series UID:${this.request.params.seriesUID}  study UID: ${this.request.params.studyUID}`

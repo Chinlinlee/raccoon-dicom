@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const _ = require("lodash");
 const wadoService = require("./service/WADO-RS.service");
 const renderedService = require("./service/rendered.service");
@@ -23,9 +24,9 @@ class RetrieveRenderedSeriesController extends Controller {
         }
         
         try {
-            let instancesInSeries = await wadoService.getSeriesImagesPath(this.request.params);
+            let instancesInSeries = await mongoose.model("dicomSeries").getPathGroupOfInstances(this.request.params);
     
-            if (instancesInSeries) {
+            if (instancesInSeries.length > 0) {
                 let multipartWriter = new MultipartWriter([], this.response, this.request);
                 
                 for(let imagePathObj of instancesInSeries) {
@@ -35,8 +36,14 @@ class RetrieveRenderedSeriesController extends Controller {
                     await renderedService.writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);
                 }
                 multipartWriter.writeFinalBoundary();
+            } else {
+                this.response.writeHead(204, {
+                    "content-type": "application/dicom+json"
+                });
             }
+
             logger.info(`[WADO-RS] [path: ${this.request.originalUrl}] [Write Multipart Successfully, study's series' rendered instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}]`);
+
             return this.response.end();
         } catch(e) {
             this.response.writeHead(500, {
