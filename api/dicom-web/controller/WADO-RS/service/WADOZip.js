@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const archiver = require("archiver");
 const wadoService = require("./WADO-RS.service");
 const path = require("path");
@@ -18,10 +19,10 @@ class WADOZip {
     }
 
     async getZipOfStudyDICOMFiles() {
-        let imagesPathList = await wadoService.getStudyImagesPath(this.requestParams);
-        if (imagesPathList) {
+        let imagesPathList = await mongoose.model("dicomStudy").getPathGroupOfInstances(this.requestParams);
+        if (imagesPathList.length > 0) {
             this.setHeaders(this.studyUID);
-            
+
             let folders = [];
             for (let i = 0; i < imagesPathList.length; i++) {
                 let imagesFolder = path.dirname(imagesPathList[i].instancePath);
@@ -33,7 +34,7 @@ class WADOZip {
         }
         return {
             status: false,
-            code : 404,
+            code: 404,
             message: `not found, Study UID: ${this.requestParams.studyUID}`
         };
     }
@@ -42,7 +43,7 @@ class WADOZip {
         let imagesPathList = await wadoService.getSeriesImagesPath(this.requestParams);
         if (imagesPathList) {
             this.setHeaders(this.seriesUID);
-            
+
             let folders = [];
             let seriesPath = path.dirname(imagesPathList[0].instancePath);
             folders.push(seriesPath);
@@ -50,7 +51,7 @@ class WADOZip {
         }
         return {
             status: false,
-            code : 404,
+            code: 404,
             message: `not found, Series UID: ${this.requestParams.seriesUID}, Study UID: ${this.requestParams.studyUID}`
         };
     }
@@ -64,14 +65,14 @@ class WADOZip {
         }
         return {
             status: false,
-            code : 404,
+            code: 404,
             message: `not found, Instance UID: ${this.requestParams.instanceUID}, Series UID: ${this.requestParams.seriesUID}, Study UID: ${this.requestParams.studyUID}`
         };
     }
 }
 
-function toZip(res, folders=[], filename="") {
-    return new Promise((resolve)=> {
+function toZip(res, folders = [], filename = "") {
+    return new Promise((resolve) => {
         let archive = archiver('zip', {
             gzip: true,
             zlib: { level: 9 } // Sets the compression level.
@@ -89,12 +90,12 @@ function toZip(res, folders=[], filename="") {
             for (let i = 0; i < folders.length; i++) {
                 let folderName = path.basename(folders[i]);
                 //archive.append(null, {name : folderName});
-                archive.glob("*.dcm", {cwd: folders[i]}, {prefix: folderName});
+                archive.glob("*.dcm", { cwd: folders[i] }, { prefix: folderName });
             }
         } else {
             archive.file(filename);
         }
-        archive.finalize().then(()=> {
+        archive.finalize().then(() => {
             resolve({
                 status: true,
                 code: 200,

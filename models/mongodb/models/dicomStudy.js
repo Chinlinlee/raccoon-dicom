@@ -1,6 +1,9 @@
+const path = require("path");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
+const { getStoreDicomFullPathGroup } = require("../service");
 const {
     tagsOfRequiredMatching
 } = require("../../DICOM/dicom-tags-mapping");
@@ -84,6 +87,46 @@ function getStudyLevelFields() {
     }
     return fields;
 }
+
+/**
+ * 
+ * @param {Object} iParam 
+ * @param {string} iParam.studyUID
+ */
+dicomStudySchema.statics.getPathGroupOfInstances = async function(iParam) {
+    let { studyUID } = iParam;
+    try {
+        let query = [
+            {
+                $match: {
+                    studyUID: studyUID
+                }
+            },
+            {
+                $group: {
+                    _id: "$studyUID",
+                    pathList: {
+                        $addToSet: {
+                            studyUID: "$studyUID",
+                            seriesUID: "$seriesUID",
+                            instanceUID: "$instanceUID",
+                            instancePath: "$instancePath"
+                        }
+                    }
+                }
+            }
+        ];
+        let docs = await mongoose.model("dicom").aggregate(query).exec();
+        let pathGroup = _.get(docs, "0.pathList", []);
+        
+        let fullPathGroup = getStoreDicomFullPathGroup(pathGroup);
+
+        return fullPathGroup;
+
+    } catch (e) {
+        throw e;
+    }
+};
 
 let dicomStudyModel = mongoose.model(
     "dicomStudy",

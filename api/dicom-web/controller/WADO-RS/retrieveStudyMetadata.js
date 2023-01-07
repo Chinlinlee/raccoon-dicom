@@ -7,6 +7,7 @@ const wadoService = require("./service/WADO-RS.service");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
 const { logger } = require("../../../../utils/log");
 const { Controller } = require("../../../controller.class");
+const { ApiLogger } = require("../../../../utils/logs/api-logger");
 
 class RetrieveStudyMetadataController extends Controller {
     constructor(req, res) {
@@ -14,12 +15,19 @@ class RetrieveStudyMetadataController extends Controller {
     }
 
     async mainProcess() {
-        logger.info(`[WADO-RS] [Get Study's Instances Metadata] [study UID: ${this.request.params.studyUID}]`);
+
+        let apiLogger = new ApiLogger(this.request, "WADO-RS");
+
+        apiLogger.info(`[WADO-RS] [Get Study's Instances Metadata] [study UID: ${this.request.params.studyUID}]`);
+
         try {
             let responseMetadata = [];
-            let imagesPathList = await wadoService.getStudyImagesPath(this.request.params);
-            if (imagesPathList) {
-                for (let imagePathObj of imagesPathList) {
+
+            let pathGroupOfInstancesInStudy = await mongoose.model("dicomStudy").getPathGroupOfInstances(this.request.params);
+
+            if (pathGroupOfInstancesInStudy.length > 0) {
+
+                for (let imagePathObj of pathGroupOfInstancesInStudy) {
                     let instanceDir = path.dirname(imagePathObj.instancePath);
                     let metadataPath = path.join(instanceDir, `${imagePathObj.instanceUID}.metadata.json`);
                     if (await fileExist(metadataPath)) {
@@ -29,20 +37,20 @@ class RetrieveStudyMetadataController extends Controller {
                         responseMetadata.push(metadataJson);
                     }
                 }
+
                 this.response.writeHead(200, {
                     "Content-Type": "application/dicom+json"
                 });
                 return this.response.end(JSON.stringify(responseMetadata));
             }
-            this.response.writeHead(404);
-            return this.response.end(JSON.stringify(
-                errorResponse.getNotFoundErrorMessage(
-                    `Not found metadata of study UID: ${this.request.params.studyUID}`
-                )
-            ));
+
+            this.response.writeHead(204);
+            return this.response.end();
+
         } catch(e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            console.error(errorStr);
+            apiLogger.error(errorStr);
+
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"
             });

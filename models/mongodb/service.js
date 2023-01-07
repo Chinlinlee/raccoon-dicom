@@ -1,5 +1,12 @@
+const path = require("path");
 const moment = require("moment-timezone");
 moment.tz.setDefault("GMT");
+const { raccoonConfig } = require("../../config-class");
+const {
+    rootPath: STORE_DICOM_ROOT_PATH
+} = raccoonConfig.dicomWebConfig;
+
+
 /**
  *
  * @param {Object} iQuery
@@ -113,4 +120,20 @@ const dateCallBack = {
     "=": eq_Date
 };
 
+function getStoreDicomFullPathGroup(pathGroup) {
+    let fullPathGroup = [];
+
+    for (let i = 0; i < pathGroup.length; i++) {
+        pathGroup[i].instancePath = path.join(
+            STORE_DICOM_ROOT_PATH,
+            pathGroup[i].instancePath
+        );
+
+        fullPathGroup.push(pathGroup[i]);
+    }
+
+    return fullPathGroup;
+}
+
 module.exports.mongoDateQuery = mongoDateQuery;
+module.exports.getStoreDicomFullPathGroup = getStoreDicomFullPathGroup;

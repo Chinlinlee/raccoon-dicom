@@ -1,5 +1,5 @@
+const mongoose = require("mongoose");
 const _ = require("lodash");
-const wadoService = require("./service/WADO-RS.service");
 const renderedService = require("./service/rendered.service");
 const { MultipartWriter } = require("../../../../utils/multipartWriter");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
@@ -26,24 +26,30 @@ class RetrieveRenderedStudyController extends Controller {
         }
         
         try {
-            let instancesInStudy = await wadoService.getStudyImagesPath(this.request.params);
-    
-            if (instancesInStudy) {
+            let pathGroupOfInstancesInStudy = await mongoose.model("dicomStudy").getPathGroupOfInstances(this.request.params);
+
+            if (pathGroupOfInstancesInStudy.length > 0) {
                 let multipartWriter = new MultipartWriter([], this.response, this.request);
                 
-                for(let imagePathObj of instancesInStudy) {
+                for(let imagePathObj of pathGroupOfInstancesInStudy) {
                     let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
                     let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
                     dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
                     await renderedService.writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);
                 }
                 multipartWriter.writeFinalBoundary();
+            } else {
+                this.response.writeHead(204, {
+                    "content-type": "application/dicom+json"
+                });
             }
     
             apiLogger.info(`[Write Multipart Successfully, study's rendered instances, study UID: ${this.request.params.studyUID}]`);
     
             return this.response.end();
         } catch(e) {
+            apiLogger.error(e);
+
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"
             });

@@ -24,51 +24,6 @@ function getAcceptType(req) {
 }
 
 /**
- * Get path list of all study's instances with specific study UID
- * @param {Object} iParam
- * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]> | undefined }
- */
-async function getStudyImagesPath(iParam) {
-    let { studyUID } = iParam;
-    try {
-        let query = [
-            {
-                $match: {
-                    studyUID: studyUID
-                }
-            },
-            {
-                $group: {
-                    _id: "$studyUID",
-                    pathList: {
-                        $addToSet: {
-                            studyUID: "$studyUID",
-                            seriesUID: "$seriesUID",
-                            instanceUID: "$instanceUID",
-                            instancePath: "$instancePath"
-                        }
-                    }
-                }
-            }
-        ];
-        let docs = await mongoose.model("dicom").aggregate(query).exec();
-        let pathList = _.get(docs, "0.pathList", []);
-        if (pathList.length > 0) {
-            for (let i = 0; i < pathList.length; i++) {
-                pathList[i].instancePath = path.join(
-                    dicomStoreRootPath,
-                    pathList[i].instancePath
-                );
-            }
-            return pathList;
-        }
-        return undefined;
-    } catch (e) {
-        throw e;
-    }
-}
-
-/**
  * Get path list of all study's series' instances with specific study UID
  * @param {Object} iParam
  * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]> | undefined }
@@ -165,8 +120,8 @@ async function getInstanceImagePath(iParam) {
 const multipartFunc = {
     "application/dicom": {
         getStudyDICOMFiles: async (iParam, req, res, type) => {
-            let imagesPath = await getStudyImagesPath(iParam);
-            if (!imagesPath) return {
+            let imagesPath = await mongoose.model("dicomStudy").getPathGroupOfInstances(iParam);
+            if (imagesPath.length === 0) return {
                 status: false,
                 code: 404,
                 message: `not found, Study UID: ${iParam.studyUID}`
@@ -247,7 +202,6 @@ function addHostnameOfBulkDataUrl(metadata, req) {
 }
 
 module.exports.getAcceptType = getAcceptType;
-module.exports.getStudyImagesPath = getStudyImagesPath;
 module.exports.getSeriesImagesPath = getSeriesImagesPath;
 module.exports.getInstanceImagePath = getInstanceImagePath;
 module.exports.multipartFunc = multipartFunc;
