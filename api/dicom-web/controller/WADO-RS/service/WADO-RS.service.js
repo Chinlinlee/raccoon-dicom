@@ -46,7 +46,7 @@ const multipartFunc = {
             return multipartWriter.writeDICOMFiles(type);
         },
         getInstanceDICOMFile: async (iParam, req, res, type) => {
-            let imagePath = await mongoose.model("dicom").getPathGroupOfInstances(iParam);
+            let imagePath = await mongoose.model("dicom").getPathOfInstance(iParam);
             if (!imagePath) return {
                 status: false,
                 code: 404,

@@ -18,7 +18,7 @@ class RetrieveInstanceMetadataController extends Controller {
         try {
             let responseMetadata = [];
 
-            let imagePathObj = await mongoose.model("dicom").getPathGroupOfInstances(this.request.params);
+            let imagePathObj = await mongoose.model("dicom").getPathOfInstance(this.request.params);
             if (imagePathObj) {
                 let instanceDir = path.dirname(imagePathObj.instancePath);
                 let metadataPath = path.join(instanceDir, `${imagePathObj.instanceUID}.metadata.json`);

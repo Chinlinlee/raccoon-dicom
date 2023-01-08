@@ -57,7 +57,7 @@ class WADOZip {
     }
 
     async getZipOfInstanceDICOMFile() {
-        let imagePath = await mongoose.model("dicom").getPathGroupOfInstances(this.requestParams);
+        let imagePath = await mongoose.model("dicom").getPathOfInstance(this.requestParams);
         if (imagePath) {
             this.setHeaders(this.instanceUID);
 

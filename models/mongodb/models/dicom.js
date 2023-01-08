@@ -374,7 +374,7 @@ function getInstanceLevelFields() {
  * @param {string} iParam.seriesUID
  * @param {string} iParam.instanceUID
  */
-dicomModelSchema.statics.getPathGroupOfInstances = async function(iParam) {
+dicomModelSchema.statics.getPathOfInstance = async function(iParam) {
     let { studyUID, seriesUID, instanceUID } = iParam;
 
     try {
