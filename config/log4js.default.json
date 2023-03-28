@@ -6,6 +6,13 @@
                 "type": "pattern",
                 "pattern": "%[[%d] [%p] [file: %f] [line: %l]%] %c - %m"
             }
+        },
+        "api": {
+            "type": "console",
+            "layout": {
+                "type": "pattern",
+                "pattern": "%[[%d] [%p] [file: %f] [line: %l]%] %c - [%X{apiName}] [path: %X{originalUrl}] [IP: %X{ip}] [%m]%n"
+            }
         }
     },
     "categories": {
@@ -32,6 +39,13 @@
         "raccoon-polka-python": {
             "appenders": [
                 "console"
+            ],
+            "level": "DEBUG",
+            "enableCallStack": true
+        },
+        "api": {
+            "appenders": [
+                "api"
             ],
             "level": "DEBUG",
             "enableCallStack": true

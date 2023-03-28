@@ -22,7 +22,9 @@ class ApiLogger {
         this.apiName = apiName;
 
         let ip = this.request.headers["x-forwarded-for"] || this.request.socket.remoteAddress;
+        this.ip = ip;
         this.prefixMessage = `[${this.apiName}] [path: ${this.request.originalUrl}] [IP: ${ip}]`;
+        this.logger = getLogger("api");
     }
 
     /**
@@ -60,6 +62,12 @@ class ApiLogger {
         }
 
         raccoonLogger.error(errorMessage);
+    }
+
+    addTokenValue() {
+        this.logger.addContext("apiName", this.apiName);
+        this.logger.addContext("originalUrl", this.request.originalUrl);
+        this.logger.addContext("ip", this.ip);
     }
 }
 
