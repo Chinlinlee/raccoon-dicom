@@ -26,7 +26,7 @@ class RetrieveRenderedInstancesController extends Controller {
         }
         
         try {
-            let imagePathObj = await mongoose.model("dicom").getPathOfInstance(this.requestParams);
+            let imagePathObj = await mongoose.model("dicom").getPathOfInstance(this.request.params);
     
             if (imagePathObj) {
                 let multipartWriter = new MultipartWriter([], this.response, this.request);
