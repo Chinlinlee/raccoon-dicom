@@ -1,6 +1,6 @@
 module.exports.pluginsConfig = {
     "helloWorld": {
-        enable: true,
+        enable: false,
         before: true,
         routers: [
             {
