@@ -18,8 +18,6 @@ class Magick {
         try {
             this.magickCommand.push("-quality");
             this.magickCommand.push(q);
-            /*await imagemagickCli.exec(`${this.magickPrefix} ${this.tempFilename} -quality ${q} ${this.tempFilename}`)*/
-            //execSync(`magick ${this.tempFilename} -quality ${q} ${this.tempFilename}`);
             return this;
         } catch(e) {
             console.error(e);
