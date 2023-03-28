@@ -1,22 +1,19 @@
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const renderedService = require("./service/rendered.service");
-const { MultipartWriter } = require("../../../../utils/multipartWriter");
-const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-const { ApiLogger } = require("../../../../utils/logs/api-logger");
-const { Controller } = require("../../../controller.class");
+const renderedService = require("../service/rendered.service");
+const { MultipartWriter } = require("../../../../../utils/multipartWriter");
+const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
+const { logger } = require("../../../../../utils/log");
+const { Controller } = require("../../../../controller.class");
 
-class RetrieveRenderedStudyController extends Controller {
+class RetrieveRenderedSeriesController extends Controller {
     constructor(req, res) {
         super(req, res);
     }
 
     async mainProcess() {
         let headerAccept = _.get(this.request.headers, "accept", "");
-        let apiLogger = new ApiLogger(this.request, "WADO-RS");
-    
-        apiLogger.info(`[Get study's rendered instances, study UID: ${this.request.params.studyUID}]`);
-    
+        logger.info(`[WADO-RS] [Get study's series' rendered instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}]`);
         if (!headerAccept == `multipart/related; type="image/jpeg"`) {
             let badRequestMessage = errorResponse.getBadRequestErrorMessage(`header accept only allow \`multipart/related; type="image/jpeg"\`, exception : ${headerAccept}`);
             this.response.writeHead(badRequestMessage.HttpStatus, {
@@ -26,12 +23,12 @@ class RetrieveRenderedStudyController extends Controller {
         }
         
         try {
-            let pathGroupOfInstancesInStudy = await mongoose.model("dicomStudy").getPathGroupOfInstances(this.request.params);
-
-            if (pathGroupOfInstancesInStudy.length > 0) {
+            let instancesInSeries = await mongoose.model("dicomSeries").getPathGroupOfInstances(this.request.params);
+    
+            if (instancesInSeries.length > 0) {
                 let multipartWriter = new MultipartWriter([], this.response, this.request);
                 
-                for(let imagePathObj of pathGroupOfInstancesInStudy) {
+                for(let imagePathObj of instancesInSeries) {
                     let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
                     let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
                     dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
@@ -43,13 +40,11 @@ class RetrieveRenderedStudyController extends Controller {
                     "content-type": "application/dicom+json"
                 });
             }
-    
-            apiLogger.info(`[Write Multipart Successfully, study's rendered instances, study UID: ${this.request.params.studyUID}]`);
-    
+
+            logger.info(`[WADO-RS] [path: ${this.request.originalUrl}] [Write Multipart Successfully, study's series' rendered instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}]`);
+
             return this.response.end();
         } catch(e) {
-            apiLogger.error(e);
-
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"
             });
@@ -64,7 +59,7 @@ class RetrieveRenderedStudyController extends Controller {
  * @returns 
  */
 module.exports = async function(req, res) {
-    let controller = new RetrieveRenderedStudyController(req, res);
+    let controller = new RetrieveRenderedSeriesController(req, res);
 
     await controller.doPipeline();
 };

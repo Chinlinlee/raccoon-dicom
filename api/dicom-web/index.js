@@ -421,19 +421,19 @@ const renderedQueryValidation = {
 app.get(
     "/studies/:studyUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/retrieveRenderedStudy")
+    require("./controller/WADO-RS/rendered/study")
 );
 
 app.get(
     "/studies/:studyUID/series/:seriesUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/retrieveRenderedSeries")
+    require("./controller/WADO-RS/rendered/series")
 );
 
 app.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/retrieveRenderedInstances")
+    require("./controller/WADO-RS/rendered/instances")
 );
 
 app.get(
@@ -442,7 +442,7 @@ app.get(
         frameNumber : intArrayJoi.intArray().items(Joi.number().integer().min(1)).single()
     } , "params" , {allowUnknown : true}), 
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/retrieveRenderedInstanceFrames")
+    require("./controller/WADO-RS/rendered/instanceFrames")
 );
 
 //#endregion

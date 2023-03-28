@@ -1,10 +1,10 @@
 const _ = require("lodash");
 const mongoose = require("mongoose");
-const renderedService = require("./service/rendered.service");
-const { MultipartWriter } = require("../../../../utils/multipartWriter");
-const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-const { ApiLogger } = require("../../../../utils/logs/api-logger");
-const { Controller } = require("../../../controller.class");
+const renderedService = require("../service/rendered.service");
+const { MultipartWriter } = require("../../../../../utils/multipartWriter");
+const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
+const { ApiLogger } = require("../../../../../utils/logs/api-logger");
+const { Controller } = require("../../../../controller.class");
 
 class RetrieveRenderedInstancesController extends Controller {
     constructor(req, res) {
