@@ -1,3 +1,4 @@
+const { pipe } = require("../utils/pipe.js");
 const { pluginGroup, LocalPlugin } = require("../plugins/plugin.class");
 
 class Controller {
@@ -18,6 +19,7 @@ class Controller {
         try {
 
             for(let preFn of currentRouterPlugin.preFns) {
+                if (this.response.headersSent) break;
                 await preFn(this.request, this.response);
             }
             
@@ -41,6 +43,15 @@ class Controller {
         } catch(e) {
             throw new Error(`post process error in path "${this.request.originalUrl}", ${e.message}`);
         }
+    }
+
+    async doPipeline() {
+        await this.preProcess();
+
+        if (this.response.headersSent) return;
+        await this.mainProcess();
+    
+        this.postProcess();
     }
 }
 

@@ -67,9 +67,5 @@ class RetrieveStudyMetadataController extends Controller {
 module.exports = async function(req, res) {
     let controller = new RetrieveStudyMetadataController(req, res);
 
-    await controller.preProcess();
-
-    await controller.mainProcess();
-
-    controller.postProcess();
+    await controller.doPipeline();
 };

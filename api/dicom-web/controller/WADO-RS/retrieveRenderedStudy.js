@@ -66,9 +66,5 @@ class RetrieveRenderedStudyController extends Controller {
 module.exports = async function(req, res) {
     let controller = new RetrieveRenderedStudyController(req, res);
 
-    await controller.preProcess();
-
-    await controller.mainProcess();
-
-    controller.postProcess();
+    await controller.doPipeline();
 };

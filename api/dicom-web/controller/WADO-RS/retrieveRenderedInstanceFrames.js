@@ -19,7 +19,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
             instanceUID,
             frameNumber
         } = this.request.params;
-    
+        
         apiLogger.info(`[Get study's series' rendered instances' frames, study UID: ${studyUID}, series UID: ${seriesUID}, instance UID: ${instanceUID}, frame: ${frameNumber}]`);
     
         let headerAccept = _.get(this.request.headers, "accept", "");
@@ -108,9 +108,5 @@ class RetrieveRenderedInstanceFramesController extends Controller {
 module.exports = async function(req, res) {
     let controller = new RetrieveRenderedInstanceFramesController(req, res);
 
-    await controller.preProcess();
-
-    await controller.mainProcess();
-
-    controller.postProcess();
+    await controller.doPipeline();
 };

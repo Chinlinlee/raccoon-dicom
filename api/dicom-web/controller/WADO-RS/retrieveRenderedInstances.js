@@ -57,9 +57,5 @@ class RetrieveRenderedInstancesController extends Controller {
 module.exports = async function(req, res) {
     let controller = new RetrieveRenderedInstancesController(req, res);
 
-    await controller.preProcess();
-
-    await controller.mainProcess();
-
-    controller.postProcess();
+    await controller.doPipeline();
 };
