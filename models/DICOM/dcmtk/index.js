@@ -22,7 +22,7 @@ const dcmtkSupportTransferSyntax = [
 const { dcm2json } = require("dicom-to-json");
 const dcm2jsonV8 = {
     exec: function (dcmfile) {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             try {
                 dcm2json(dcmfile, function (data) {
                     data = data.replace(/,\\u0000/g, "");
@@ -32,7 +32,7 @@ const dcm2jsonV8 = {
                 });
             } catch (e) {
                 console.error(e);
-                return resolve(false);
+                return reject(e);
             }
         });
     },
