@@ -105,7 +105,7 @@ const {
  * @param {Object} iParam 
  * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj> | Promise<undefined> }
  */
-async function getInstanceFrameObj(iParam) {
+async function getInstanceFrameObj(iParam, otherFields={}) {
     let { studyUID, seriesUID, instanceUID } = iParam;
     try {
         let query = {
@@ -127,7 +127,8 @@ async function getInstanceFrameObj(iParam) {
             instanceUID: 1,
             instancePath: 1,
             "00280008": 1, //number of frames
-            "00020010": 1 //transfer syntax UID
+            "00020010": 1, //transfer syntax UID
+            ...otherFields
         }).exec();
         if (doc) {
             let docObj = doc.toObject();
