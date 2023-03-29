@@ -76,22 +76,16 @@ const wadoUriValidationSchema = joi.object({
     windowCenter: joi.number().when("contentType", {
         is: joi.equal("application/dicom"),
         then: joi.forbidden()
-    }).when("windowWidth", {
-        is: joi.exist(),
-        then: joi.required()
     }),
     windowWidth: joi.number().when("contentType", {
         is: joi.equal("application/dicom"),
         then: joi.forbidden()
-    }).when("windowCenter", {
-        is: joi.exist(),
-        then: joi.exist()
     }),
     iccprofile: joi.string().default("no").valid("no", "yes", "srgb", "adobergb", "rommrgb").when("contentType", {
         is: joi.equal("application/dicom"),
         then: joi.forbidden()
     })
-});
+}).and("windowCenter", "windowWidth");
 
 
 module.exports.wadoUriValidationSchema = wadoUriValidationSchema;
