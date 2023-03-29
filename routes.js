@@ -14,4 +14,6 @@ module.exports = function (app) {
     loadAllPlugin();
 
     app.use("/dicom-web", require("./api/dicom-web"));
+
+    app.use("/wado", require("./api/WADO-URI"));
 };
