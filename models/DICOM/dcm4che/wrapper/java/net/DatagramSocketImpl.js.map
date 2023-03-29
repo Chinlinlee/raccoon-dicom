@@ -1,0 +1,1 @@
+{"version":3,"file":"DatagramSocketImpl.js","sourceRoot":"","sources":["../../../java-wrapper/java/net/DatagramSocketImpl.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAgNtE;;;;;;;;GAQG;AACH,MAAa,kBAAmB,SAAQ,IAAA,yBAAW,EAAiC,6BAA6B,CAAC;IAC9G;;;OAGG;IACH;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;CACJ;AARD,gDAQC;AACD,kBAAe,kBAAkB,CAAC"}

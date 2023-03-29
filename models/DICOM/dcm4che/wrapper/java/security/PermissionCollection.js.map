@@ -1,0 +1,1 @@
+{"version":3,"file":"PermissionCollection.js","sourceRoot":"","sources":["../../../java-wrapper/java/security/PermissionCollection.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AA8KtE;;;;;;;;GAQG;AACH,MAAa,oBAAqB,SAAQ,IAAA,yBAAW,EAAmC,oCAAoC,CAAC;IACzH;;;OAGG;IACH;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;CACJ;AARD,oDAQC;AACD,kBAAe,oBAAoB,CAAC"}

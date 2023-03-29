@@ -1,0 +1,1 @@
+{"version":3,"file":"FileSystemProvider.js","sourceRoot":"","sources":["../../../../../java-wrapper/java/nio/file/spi/FileSystemProvider.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AAugB1F;;;;;;;;GAQG;AACH,MAAa,kBAAmB,SAAQ,IAAA,yBAAW,EAAiC,sCAAsC,CAAC;IACvH;;;OAGG;IACH;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;CACJ;AARD,gDAQC;AACD,kBAAe,kBAAkB,CAAC"}

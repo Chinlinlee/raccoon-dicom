@@ -1,0 +1,1 @@
+{"version":3,"file":"ByteBuffer.js","sourceRoot":"","sources":["../../../java-wrapper/java/nio/ByteBuffer.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAyiCtE;;;;;;;;GAQG;AACH,MAAa,UAAW,SAAQ,IAAA,yBAAW,EAAyB,qBAAqB,CAAC;IACtF;;;OAGG;IACH;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;CACJ;AARD,gCAQC;AACD,kBAAe,UAAU,CAAC"}

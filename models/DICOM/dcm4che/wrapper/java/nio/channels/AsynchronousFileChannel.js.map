@@ -1,0 +1,1 @@
+{"version":3,"file":"AsynchronousFileChannel.js","sourceRoot":"","sources":["../../../../java-wrapper/java/nio/channels/AsynchronousFileChannel.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AAmV1F;;;;;;;;GAQG;AACH,MAAa,uBAAwB,SAAQ,IAAA,yBAAW,EAAsC,2CAA2C,CAAC;IACtI;;;OAGG;IACH;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;CACJ;AARD,0DAQC;AACD,kBAAe,uBAAuB,CAAC"}

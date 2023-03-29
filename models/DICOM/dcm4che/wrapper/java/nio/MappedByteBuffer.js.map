@@ -1,0 +1,1 @@
+{"version":3,"file":"MappedByteBuffer.js","sourceRoot":"","sources":["../../../java-wrapper/java/nio/MappedByteBuffer.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAorCtE;;;;;;;;GAQG;AACH,MAAa,gBAAiB,SAAQ,IAAA,yBAAW,EAA+B,2BAA2B,CAAC;IACxG;;;OAGG;IACH;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;CACJ;AARD,4CAQC;AACD,kBAAe,gBAAgB,CAAC"}

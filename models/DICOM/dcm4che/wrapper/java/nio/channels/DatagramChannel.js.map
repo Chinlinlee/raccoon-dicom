@@ -1,0 +1,1 @@
+{"version":3,"file":"DatagramChannel.js","sourceRoot":"","sources":["../../../../java-wrapper/java/nio/channels/DatagramChannel.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AA0gB1F;;;;;;;;GAQG;AACH,MAAa,eAAgB,SAAQ,IAAA,yBAAW,EAA8B,mCAAmC,CAAC;IAC9G;;;OAGG;IACH;QACI,KAAK,EAAE,CAAC;IACZ,CAAC;CACJ;AARD,0CAQC;AACD,kBAAe,eAAe,CAAC"}
