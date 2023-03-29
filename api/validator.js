@@ -46,8 +46,38 @@ const validateParams = function (paramSchema, item, options) {
     };
 };
 
+/**
+ * 
+ * @param {Joi.Schema} joiSchema 
+ * @param {string} field 
+ * @param {Joi.ValidationOptions} joiOptions 
+ */
+function validateByJoi(joiSchema, field, joiOptions) {
+    return async (req, res, next) => {
+        try {
+            let value = await joiSchema.validateAsync(req[field], joiOptions);
+            req[field] = {
+                ...req[field],
+                ...value["value"]
+            };
+        } catch (err) {
+            let message = {
+                Details: err.details[0].message,
+                HttpStatus: 400,
+                Message: "Bad request"
+            };
+            res.writeHead(400, {
+                "Content-Type": "application/json"
+            });
+            return res.end(JSON.stringify(message));
+        }
+        next();
+    };
+}
+
 module.exports = {
     ...module.exports,
     validateParams: validateParams,
     intArrayJoi: intArrayJoi
 };
+module.exports.validateByJoi = validateByJoi;
