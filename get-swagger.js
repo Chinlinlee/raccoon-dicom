@@ -21,11 +21,12 @@ const fsP = require("fs").promises;
         apis: [
             `${__dirname}/api/**/*.js`,
             `${__dirname}/docs/swagger/parameters/*.yaml`,
-            `${__dirname}/docs/swagger/schemas/*.yaml`
+            `${__dirname}/docs/swagger/schemas/*.yaml`,
+            `${__dirname}/docs/swagger/responses/*.yaml`
         ]
     };
 
     const swaggerSpec = await swaggerJsDoc(options);
     console.log(JSON.stringify(swaggerSpec, null, 4));
-    fsP.writeFile("docs/swagger/openapi.json", JSON.stringify(swaggerSpec, null, 4));
+    await fsP.writeFile("docs/swagger/openapi.json", JSON.stringify(swaggerSpec, null, 4));
 })();
