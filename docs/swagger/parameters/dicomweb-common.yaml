@@ -17,3 +17,15 @@ components:
             type: array
             items:
               type: object
+    
+    "WadoUriData":
+      description: "The binary data"
+      content:
+        "application/dicom":
+          schema:
+            type: string
+            format: byte
+        "image/jpeg":
+          schema:
+            type: string
+            format: byte

@@ -564,6 +564,60 @@
                     }
                 }
             }
+        },
+        "/wado": {
+            "get": {
+                "tags": [
+                    "WADO-URI"
+                ],
+                "description": "Retrieve instance's metadata",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/requestType"
+                    },
+                    {
+                        "$ref": "#/components/parameters/queryStudyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/querySeriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/queryInstanceUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/contentType"
+                    },
+                    {
+                        "$ref": "#/components/parameters/frameNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/imageQuality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/region"
+                    },
+                    {
+                        "$ref": "#/components/parameters/rows"
+                    },
+                    {
+                        "$ref": "#/components/parameters/columns"
+                    },
+                    {
+                        "$ref": "#/components/parameters/windowCenter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/windowWidth"
+                    },
+                    {
+                        "$ref": "#/components/parameters/iccprofile"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/WadoUriData"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -589,6 +643,23 @@
                             "items": {
                                 "type": "object"
                             }
+                        }
+                    }
+                }
+            },
+            "WadoUriData": {
+                "description": "The binary data",
+                "content": {
+                    "application/dicom": {
+                        "schema": {
+                            "type": "string",
+                            "format": "byte"
+                        }
+                    },
+                    "image/jpeg": {
+                        "schema": {
+                            "type": "string",
+                            "format": "byte"
                         }
                     }
                 }
@@ -709,6 +780,129 @@
                 "in": "query",
                 "schema": {
                     "type": "string"
+                }
+            },
+            "requestType": {
+                "name": "requestType",
+                "description": "Request Type",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "WADO"
+                    ]
+                }
+            },
+            "queryStudyUID": {
+                "name": "studyUID",
+                "description": "Study Instance UID for a single Study",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "querySeriesUID": {
+                "name": "studyUID",
+                "description": "Series Instance UID for a single Series",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "queryInstanceUID": {
+                "name": "objectUID",
+                "description": "SOP Instance UID for a single Instance",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "contentType": {
+                "name": "contentType",
+                "description": "Alternative to Accept header field",
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "image/jpeg",
+                        "application/dicom"
+                    ]
+                }
+            },
+            "frameNumber": {
+                "name": "frameNumber",
+                "description": "Frame Number",
+                "in": "query",
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "imageQuality": {
+                "name": "imageQuality",
+                "description": "Image Quality",
+                "in": "query",
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "region": {
+                "name": "region",
+                "description": "Region of the Image, its values shall be a comma-separated list of four positive decimal numbers",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                },
+                "example": "0,0,0,0"
+            },
+            "rows": {
+                "name": "rows",
+                "description": "number of pixel rows in the returned image",
+                "in": "query",
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "columns": {
+                "name": "columns",
+                "description": " number of pixel columns in the returned image",
+                "in": "query",
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "windowCenter": {
+                "name": "windowCenter",
+                "description": "Window Center of the returned image, required if `windowWidth` present",
+                "in": "query",
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "windowWidth": {
+                "name": "windowWidth",
+                "description": "Window Width of the returned image, required if `windowCenter` present",
+                "in": "query",
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "iccprofile": {
+                "name": "iccprofile",
+                "description": " the color characteristics of, and inclusion of an ICC Profile in, the rendered images",
+                "in": "query",
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "no",
+                        "yes",
+                        "srgb",
+                        "adobergb",
+                        "rommrgb"
+                    ]
                 }
             }
         },
