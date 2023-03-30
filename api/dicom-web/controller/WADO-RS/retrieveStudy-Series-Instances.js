@@ -17,6 +17,9 @@ class RetrieveInstancesOfSeries extends Controller {
                 return await this.responseZip();
             } else if (this.request.headers.accept.includes("multipart/related")) {
                 return await this.responseMultipartRelated();
+            } else if (this.request.headers.accept.includes("*")){
+                this.request.headers.accept = "multipart/related; type=\"application/dicom\"";
+                return await this.responseMultipartRelated();
             }
 
             return wadoService.sendNotSupportedMediaType(this.response, this.request.headers.accept);
