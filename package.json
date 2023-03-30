@@ -15,6 +15,7 @@
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
+    "colorette": "^2.0.19",
     "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
