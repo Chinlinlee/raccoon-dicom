@@ -23,7 +23,6 @@ class QidoRsService {
         this.level = level;
 
         this.query = {};
-        this.initQuery_();
 
         /**
          * @private
@@ -36,6 +35,8 @@ class QidoRsService {
          */
         this.skip_ = parseInt(this.request.query.offset) || 0;
         delete this.request.query["offset"];
+
+        this.initQuery_();
     }
 
     /**
