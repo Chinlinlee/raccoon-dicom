@@ -9,8 +9,10 @@ class RetrieveInstanceOfSeriesOfStudiesController extends Controller {
 
     async mainProcess() {
         let apiLogger = new ApiLogger(this.request, "WADO-RS");
+        apiLogger.addTokenValue();
 
-        apiLogger.info(`[Get study's series' instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}] [Request Accept: ${this.request.headers.accept}]`);
+        apiLogger.logger.info(`Get study's series' instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}`);
+        apiLogger.logger.info(`Request Accept: ${this.request.headers.accept}`);
     
         try {
             
@@ -23,7 +25,7 @@ class RetrieveInstanceOfSeriesOfStudiesController extends Controller {
             return wadoService.sendNotSupportedMediaType(this.response, this.request.headers.accept);
         } catch(e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.error(errorStr);
+            apiLogger.logger.error(errorStr);
     
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"

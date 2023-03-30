@@ -27,43 +27,6 @@ class ApiLogger {
         this.logger = getLogger("api");
     }
 
-    /**
-     * 
-     * @param {string} message 
-     */
-    info(message="") {
-        let infoMessage = `${this.prefixMessage}`;
-        if (message) {
-            infoMessage += ` ${message}`;
-        }
-        
-        raccoonLogger.info(infoMessage);
-    }
-
-    /**
-     * 
-     * @param {string} message 
-     */
-    warning(message="") {
-        let warningMessage = `${this.prefixMessage}`;
-
-        if (message) {
-            warningMessage += ` ${message}`;
-        } 
-
-        raccoonLogger.warn(warningMessage);
-    }
-
-    error(message="") {
-        let errorMessage = `${this.prefixMessage}`;
-
-        if (message) {
-            errorMessage += ` [Error: ${message}]`;
-        }
-
-        raccoonLogger.error(errorMessage);
-    }
-
     addTokenValue() {
         this.logger.addContext("apiName", this.apiName);
         this.logger.addContext("originalUrl", this.request.originalUrl);

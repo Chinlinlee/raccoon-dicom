@@ -12,6 +12,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
 
     async mainProcess() {
         let apiLogger = new ApiLogger(this.request, "WADO-RS");
+        apiLogger.addTokenValue();
 
         let {
             studyUID,
@@ -20,7 +21,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
             frameNumber
         } = this.request.params;
         
-        apiLogger.info(`[Get study's series' rendered instances' frames, study UID: ${studyUID}, series UID: ${seriesUID}, instance UID: ${instanceUID}, frame: ${frameNumber}]`);
+        apiLogger.logger.info(`Get study's series' rendered instances' frames, study UID: ${studyUID}, series UID: ${seriesUID}, instance UID: ${instanceUID}, frame: ${frameNumber}`);
     
         let headerAccept = _.get(this.request.headers, "accept", "");
         if (!headerAccept.includes("*/*") && !headerAccept.includes("image/jpeg")) {
@@ -47,7 +48,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
                 
                 let notFoundMessageStr = JSON.stringify(notFoundMessage);
     
-                apiLogger.warning(`[${notFoundMessageStr}]`);
+                apiLogger.logger.warn(`[${notFoundMessageStr}]`);
     
                 return this.response.end(notFoundMessageStr);
             }
@@ -64,7 +65,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
     
                     let badRequestMessageStr = JSON.stringify(badRequestMessage);
     
-                    apiLogger.warning(badRequestMessageStr);
+                    apiLogger.logger.warn(badRequestMessageStr);
     
                     return this.response.end(JSON.stringify(badRequestMessageStr));
                 }
@@ -77,7 +78,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
                     this.response.writeHead(200, {
                         "Content-Type": "image/jpeg"
                     });
-                    apiLogger.info(`[Get instance's frame successfully, instance UID: ${instanceUID}, frame number: ${frameNumber[0]}]`);
+                    apiLogger.logger.info(`Get instance's frame successfully, instance UID: ${instanceUID}, frame number: ${frameNumber[0]}`);
                     return this.response.end(postProcessResult.magick.toBuffer(), "binary");
                 }
                 throw new Error(`Can not process this image, instanceUID: ${instanceFramesObj.instanceUID}, frameNumber: ${this.request.frameNumber[0]}`);
@@ -86,7 +87,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
                 await renderedService.writeSpecificFramesRenderedImages(this.request, frameNumber, instanceFramesObj, multipartWriter);
                 multipartWriter.writeFinalBoundary();
     
-                apiLogger.info(`[Get instance's frame successfully, instance UID: ${instanceUID}, frame numbers: ${frameNumber}]`);
+                apiLogger.logger.info(`Get instance's frame successfully, instance UID: ${instanceUID}, frame numbers: ${frameNumber}`);
     
                 return this.response.end();
             }

@@ -17,8 +17,9 @@ class RetrieveStudyMetadataController extends Controller {
     async mainProcess() {
 
         let apiLogger = new ApiLogger(this.request, "WADO-RS");
+        apiLogger.addTokenValue();
 
-        apiLogger.info(`[WADO-RS] [Get Study's Instances Metadata] [study UID: ${this.request.params.studyUID}]`);
+        apiLogger.logger.info(`Get Study's Instances Metadata [study UID: ${this.request.params.studyUID}]`);
 
         try {
             let responseMetadata = [];
@@ -49,7 +50,7 @@ class RetrieveStudyMetadataController extends Controller {
 
         } catch(e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.error(errorStr);
+            apiLogger.logger.error(errorStr);
 
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"

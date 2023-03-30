@@ -12,7 +12,8 @@ class QueryAllInstancesController extends Controller {
     async mainProcess() {
         let apiLogger = new ApiLogger(this.request, "QIDO-RS");
 
-        apiLogger.info("[Query all instances]");
+        apiLogger.addTokenValue();
+        apiLogger.logger.info("Query all instances");
         
         try {
             let qidoRsService = new QidoRsService(this.request, this.response, "instance");
@@ -20,7 +21,7 @@ class QueryAllInstancesController extends Controller {
             await qidoRsService.getAndResponseDicomJson();
         } catch (e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.error(errorStr);
+            apiLogger.logger.error(errorStr);
 
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"

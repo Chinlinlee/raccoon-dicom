@@ -12,7 +12,8 @@ class QueryAllStudiesController extends Controller {
     async mainProcess() {
         let apiLogger = new ApiLogger(this.request, "QIDO-RS");
 
-        apiLogger.info(`[Query All Studies]`);
+        apiLogger.addTokenValue();
+        apiLogger.logger.info(`Query All Studies`);
     
         try {
     
@@ -22,7 +23,7 @@ class QueryAllStudiesController extends Controller {
     
         } catch (e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.error(errorStr);
+            apiLogger.logger.error(errorStr);
 
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"

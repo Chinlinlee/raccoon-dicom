@@ -14,8 +14,9 @@ class RetrieveRenderedStudyController extends Controller {
     async mainProcess() {
         let headerAccept = _.get(this.request.headers, "accept", "");
         let apiLogger = new ApiLogger(this.request, "WADO-RS");
+        apiLogger.addTokenValue();
     
-        apiLogger.info(`[Get study's rendered instances, study UID: ${this.request.params.studyUID}]`);
+        apiLogger.logger.info(`Get study's rendered instances, study UID: ${this.request.params.studyUID}`);
     
         if (!headerAccept == `multipart/related; type="image/jpeg"`) {
             let badRequestMessage = errorResponse.getBadRequestErrorMessage(`header accept only allow \`multipart/related; type="image/jpeg"\`, exception : ${headerAccept}`);
@@ -44,11 +45,11 @@ class RetrieveRenderedStudyController extends Controller {
                 });
             }
     
-            apiLogger.info(`[Write Multipart Successfully, study's rendered instances, study UID: ${this.request.params.studyUID}]`);
+            apiLogger.logger.info(`Write Multipart Successfully, study's rendered instances, study UID: ${this.request.params.studyUID}`);
     
             return this.response.end();
         } catch(e) {
-            apiLogger.error(e);
+            apiLogger.logger.error(e);
 
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"

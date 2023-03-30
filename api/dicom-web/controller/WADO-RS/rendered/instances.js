@@ -13,9 +13,11 @@ class RetrieveRenderedInstancesController extends Controller {
 
     async mainProcess() {
         let apiLogger = new ApiLogger(this.request, "WADO-RS");
+        apiLogger.addTokenValue();
+
         let headerAccept = _.get(this.request.headers, "accept", "");
     
-        apiLogger.info(`[Get study's series' rendered instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}]`);
+        apiLogger.logger.info(`Get study's series' rendered instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}`);
         
         if (!headerAccept == `multipart/related; type="image/jpeg"`) {
             let badRequestMessage = errorResponse.getBadRequestErrorMessage(`header accept only allow \`multipart/related; type="image/jpeg"\`, exception : ${headerAccept}`);
@@ -37,7 +39,7 @@ class RetrieveRenderedInstancesController extends Controller {
                 multipartWriter.writeFinalBoundary();
             }
     
-            apiLogger.info(`[Write Multipart Successfully, study's series' instances' rendered images, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}, instance UID: ${this.request.params.instanceUID}]`);
+            apiLogger.logger.info(`Write Multipart Successfully, study's series' instances' rendered images, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}, instance UID: ${this.request.params.instanceUID}`);
             return this.response.end();
         } catch(e) {
             this.response.writeHead(500, {

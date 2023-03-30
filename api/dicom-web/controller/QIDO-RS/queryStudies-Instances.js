@@ -12,7 +12,8 @@ class QueryInstancesOfStudiesController extends Controller {
     async mainProcess() {
         let apiLogger = new ApiLogger(this.request, "QIDO-RS");
 
-        apiLogger.info(`[Query instances in study, Study UID: ${this.request.params.studyUID}]`);
+        apiLogger.addTokenValue();
+        apiLogger.logger.info(`Query instances in study, Study UID: ${this.request.params.studyUID}`);
 
         try {
 
@@ -21,7 +22,7 @@ class QueryInstancesOfStudiesController extends Controller {
             await qidoRsService.getAndResponseDicomJson();
         } catch (e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.error(errorStr);
+            apiLogger.logger.error(errorStr);
 
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"
