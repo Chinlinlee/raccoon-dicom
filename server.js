@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const compress = require("compression");
+const cors = require("cors");
 const os = require("os");
 
 const mongoose = require("mongoose");
@@ -19,6 +20,7 @@ require("dotenv");
 
 app.use(compress());
 app.use(cookieParser());
+app.use(cors());
 
 //#region body parser
 
@@ -63,23 +65,6 @@ app.use(passport.session());
 
 //#endregion
 
-//#region global headers
-
-app.use((req, res, next) => {
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept ,Authorization"
-    );
-    res.setHeader("Vary", "Origin");
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "POST, GET, OPTIONS, PUT, DELETE"
-    );
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    next();
-});
-
-//#endregion
 
 require("./routes.js")(app);
 // require('./services/user/passport')(passport);
