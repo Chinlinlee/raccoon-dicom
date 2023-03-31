@@ -1,3 +1,4 @@
+const urlObj = require("url");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const { mongoDateQuery } = require("../../../../../models/mongodb/service");
@@ -60,7 +61,7 @@ class QidoRsService {
                 query: this.query,
                 skip: this.skip_,
                 limit: this.limit_,
-                retrieveBaseUrl: `${this.protocol}://${this.request.headers.host}/${dicomWebApiPath}/studies`,
+                retrieveBaseUrl: `${this.getBasicURL()}/studies`,
                 requestParams: this.request.params
             };
     
@@ -82,6 +83,24 @@ class QidoRsService {
         } catch(e) {
             throw e;
         }
+    }
+
+    getBasicURL() {
+
+        let hostname = raccoonConfig.dicomWebConfig.host;
+
+        if (raccoonConfig.dicomWebConfig.host.includes("{host}")) {
+            hostname = raccoonConfig.dicomWebConfig.host.replace("{host}", this.request.headers.host);
+        }
+
+        let hostnameSplit = _.compact(hostname.split("/"));
+        let realHostname = hostnameSplit.shift();
+        let pathname = [...hostnameSplit, ...dicomWebApiPath.split("/")].join("/");
+        let basicUrlObj = new urlObj.URL(`${this.protocol}://${realHostname}`);
+
+        basicUrlObj.pathname = pathname;
+
+        return basicUrlObj.href;
     }
 
 }
