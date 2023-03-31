@@ -8,8 +8,8 @@
 const { wadoUriValidationSchema } = require("./middleware/validation-schema");
 const { defaultContentType } = require("./middleware/default-contentType");
 const { validateByJoi} = require("../validator");
-const polka = require("polka");
-const app = polka();
+const express = require("express");
+const router = express.Router();
 
 /**
  *  @openapi
@@ -37,9 +37,9 @@ const app = polka();
  *          $ref: "#/components/responses/WadoUriData"
  *          
  */
-app.get("/", defaultContentType, validateByJoi(wadoUriValidationSchema, "query", {
+router.get("/", defaultContentType, validateByJoi(wadoUriValidationSchema, "query", {
     allowUnknown: false
 }), require("./controller/retrieveInstance"));
 
 
-module.exports = app;
+module.exports = router;

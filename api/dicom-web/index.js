@@ -1,7 +1,7 @@
+const express = require("express");
 const Joi = require("joi");
-const polka = require("polka");
-const app = polka();
 const { validateParams, intArrayJoi } = require("../validator");
+const router = express();
 
 //#region QIDO-RS
 
@@ -32,7 +32,7 @@ const { validateParams, intArrayJoi } = require("../validator");
  *                  allOf:
  *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
  */
-app.get("/studies", require("./controller/QIDO-RS/queryAllStudies"));
+router.get("/studies", require("./controller/QIDO-RS/queryAllStudies"));
 
 /**
  *  @openapi
@@ -65,7 +65,7 @@ app.get("/studies", require("./controller/QIDO-RS/queryAllStudies"));
  *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  */
-app.get(
+router.get(
     "/studies/:studyUID/series",
     require("./controller/QIDO-RS/queryStudies-Series")
 );
@@ -104,7 +104,7 @@ app.get(
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
-app.get(
+router.get(
     "/studies/:studyUID/instances",
     require("./controller/QIDO-RS/queryStudies-Instances")
 );
@@ -144,7 +144,7 @@ app.get(
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
-app.get(
+router.get(
     "/studies/:studyUID/series/:seriesUID/instances",
     require("./controller/QIDO-RS/queryStudies-Series-Instance")
 );
@@ -180,7 +180,7 @@ app.get(
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  * 
  */
-app.get(
+router.get(
     "/series",
     require("./controller/QIDO-RS/queryAllSeries")
 );
@@ -218,7 +218,7 @@ app.get(
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
-app.get(
+router.get(
     "/instances",
     require("./controller/QIDO-RS/queryAllInstances")
 );
@@ -250,7 +250,7 @@ app.get(
  *        "200":
  *          description: The DICOM instance store successfully
  */
-app.post("/studies", require("./controller/STOW-RS/storeInstance"));
+router.post("/studies", require("./controller/STOW-RS/storeInstance"));
 
 //#endregion
 
@@ -270,7 +270,7 @@ app.post("/studies", require("./controller/STOW-RS/storeInstance"));
  *          $ref: "#/components/responses/MultipartRelatedDICOM"
  *          
  */
-app.get(
+router.get(
     "/studies/:studyUID",
     require("./controller/WADO-RS/retrieveStudyInstances")
 );
@@ -290,7 +290,7 @@ app.get(
  *          $ref: "#/components/responses/MultipartRelatedDICOM"
  *          
  */
-app.get(
+router.get(
     "/studies/:studyUID/series/:seriesUID",
     require("./controller/WADO-RS/retrieveStudy-Series-Instances")
 );
@@ -311,7 +311,7 @@ app.get(
  *          $ref: "#/components/responses/MultipartRelatedDICOM"
  *          
  */
-app.get(
+router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID",
     require("./controller/WADO-RS/retrieveInstance")
 );
@@ -334,7 +334,7 @@ app.get(
  *          $ref: "#/components/responses/DicomMetadata"
  *          
  */
-app.get(
+router.get(
     "/studies/:studyUID/metadata",
     require("./controller/WADO-RS/retrieveStudyMetadata")
 );
@@ -354,7 +354,7 @@ app.get(
  *          $ref: "#/components/responses/DicomMetadata"
  *          
  */
-app.get(
+router.get(
     "/studies/:studyUID/series/:seriesUID/metadata",
     require("./controller/WADO-RS/retrieveSeriesMetadata")
 );
@@ -375,7 +375,7 @@ app.get(
  *          $ref: "#/components/responses/DicomMetadata"
  *          
  */
-app.get(
+router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/metadata",
     require("./controller/WADO-RS/retrieveInstanceMetadata")
 );
@@ -418,25 +418,25 @@ const renderedQueryValidation = {
     })
 };
 
-app.get(
+router.get(
     "/studies/:studyUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
     require("./controller/WADO-RS/rendered/study")
 );
 
-app.get(
+router.get(
     "/studies/:studyUID/series/:seriesUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
     require("./controller/WADO-RS/rendered/series")
 );
 
-app.get(
+router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
     require("./controller/WADO-RS/rendered/instances")
 );
 
-app.get(
+router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/frames/:frameNumber/rendered",
     validateParams({
         frameNumber : intArrayJoi.intArray().items(Joi.number().integer().min(1)).single()
@@ -447,4 +447,4 @@ app.get(
 
 //#endregion
 
-module.exports = app;
+module.exports = router;

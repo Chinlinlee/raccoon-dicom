@@ -1,5 +1,4 @@
 const { app } = require("./app");
-
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -64,7 +63,7 @@ app.use(passport.session());
 
 
 require("./routes.js")(app);
-// require('./services/user/passport')(passport);
+
 
 const PORT = raccoonConfig.serverConfig.port;
 app.listen(PORT, () => {
@@ -73,6 +72,7 @@ app.listen(PORT, () => {
         console.log("Connect successfully, " + socket.id);
     });
 });
+
 
 let osPlatform = os.platform().toLocaleLowerCase();
 if (osPlatform.includes("linux")) {
