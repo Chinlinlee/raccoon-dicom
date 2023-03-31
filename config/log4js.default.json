@@ -36,13 +36,6 @@
             "level": "DEBUG",
             "enableCallStack": true
         },
-        "raccoon-polka-python": {
-            "appenders": [
-                "console"
-            ],
-            "level": "DEBUG",
-            "enableCallStack": true
-        },
         "api": {
             "appenders": [
                 "api"

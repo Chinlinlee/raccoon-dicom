@@ -39,24 +39,12 @@ class FhirConfig {
     }
 }
 
-class Dcm2JpegConfig {
-    constructor() {
-        this.enable = env.get("USE_DCM2JPEG_PYTHONAPI").default("true").asBool();
-        this.apiHost = env.get("DCM2JPEG_PYTHONAPI_HOST").default("127.0.0.1").asString();
-        this.apiPort = env.get("DCM2JPEG_PYTHONAPI_PORT").default("5000").asInt();
-
-        this.useConda = env.get("USE_CONDA").default("false").asBool();
-        this.condaPath = env.get("CONDA_PATH").default("~/anaconda3/Scripts/conda.exe").asString();
-        this.condaGdcmEnvName = env.get("CONDA_GDCM_ENV_NAME").default("gdcm").asString();
-    }
-}
 
 class RaccoonConfig {
     constructor() {
         this.mongoDbConfig = new MongoDbConfig();
         this.serverConfig = new ServerConfig();
         this.dicomWebConfig = new DicomWebConfig();
-        this.dcm2JpegConfig = new Dcm2JpegConfig();
         this.fhirConfig = new FhirConfig();
     }
 }
