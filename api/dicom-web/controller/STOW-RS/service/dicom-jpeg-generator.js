@@ -1,16 +1,14 @@
-const mongoose = require("mongoose");
 const fs = require("fs");
-const {
-    dcm2jsonV8,
-    dcm2jpegCustomCmd,
-    dcmtkSupportTransferSyntax
-} = require("../../../../../models/DICOM/dcmtk");
-const {
-    DicomToJpegCommand
-} = require("../../../../../models/DICOM/dicom-to-jpeg-command");
-const { logger, pythonLogger } = require("../../../../../utils/log");
-const PyDicomJpegConvert = require("../../../../../python").getJpeg;
+const { JsDcm2Jpeg } = require("../../../../../models/DICOM/dcm4che/Dcm2Jpeg");
+const { logger } = require("../../../../../utils/log");
 const dicomToJpegTask = require("../../../../../models/mongodb/models/dicomToJpegTask");
+const colorette = require("colorette");
+
+/**
+ * @typedef JsDcm2JpegTask
+ * @property {JsDcm2Jpeg} jsDcm2Jpeg
+ * @property {string} jpegFilename
+ */
 
 const DCMTK_GENERATE_JPEG_EVERY_N_STEP = 4;
 class DicomJpegGenerator {
@@ -32,26 +30,12 @@ class DicomJpegGenerator {
 
             await this.insertStartTask_();
 
-            if (dcmtkSupportTransferSyntax.includes(this.dicomJsonModel.getTransferSyntax())) {
-                await this.generateByDcmtk();
-
-                logger.info(
-                    `[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(
-                        this.dicomJsonModel.uidObj
-                    )}]`
-                );
-
-            } else {
-
-                await this.generateByPython();
-
-                pythonLogger.info(
-                    `[STOW-RS] [Background generating jpeg finished, ${JSON.stringify(
-                        this.dicomJsonModel.uidObj
-                    )}]`
-                );
-
-            }
+            await this.generateJpeg();
+            logger.info(
+                `[STOW-RS] [${colorette.yellowBright("Background generating jpeg finished")}, ${JSON.stringify(
+                    this.dicomJsonModel.uidObj
+                )}]`
+            );
 
             await this.insertEndTask_();
 
@@ -66,40 +50,35 @@ class DicomJpegGenerator {
 
     }
 
-    async generateByDcmtk() {
+    async generateJpeg() {
 
-        let execCmdGroup = [];
+        /** @type {JsDcm2JpegTask[]} */
+        let jsDcm2JpegArr = new Array();
 
         for(let i =1 ; i <= this.dicomJsonModel.getFrameNumber(); i++) {
-            let dicomToJpegCommand = new DicomToJpegCommand({
-                windowCenter: this.dicomJsonModel.getWindowCenter(),
-                windowWidth: this.dicomJsonModel.getWindowWidth(),
-                frameNumber: i,
-                dicomFilename: this.dicomInstanceFilename,
-                jpegFilename: this.jpegFilename
+            let jsDcm2Jpeg = new JsDcm2Jpeg({
+                ...JsDcm2Jpeg.defaultOptions,
+                windowCenter:  this.dicomJsonModel.getWindowCenter(),
+                windowWidth: this.dicomJsonModel.getWindowWidth()
             });
 
-            let execCmd = dicomToJpegCommand.getFrameCommandStringByOs();
-            execCmdGroup.push(execCmd);
-            
+            await jsDcm2Jpeg.init();
+            await jsDcm2Jpeg.dcm2jpg.setFrame(i);
+
+            jsDcm2JpegArr.push({
+                jsDcm2Jpeg,
+                jpegFilename:  `${this.jpegFilename}.${i-1}.jpg`
+            });
+
             if (i % DCMTK_GENERATE_JPEG_EVERY_N_STEP === 0) {
                 await Promise.allSettled(
-                    execCmdGroup.map((cmd) => dcm2jpegCustomCmd(cmd))
+                    jsDcm2JpegArr.map((j) => j.jsDcm2Jpeg.convert(this.dicomInstanceFilename, j.jpegFilename))
                 );
-                execCmdGroup = new Array();
+                jsDcm2JpegArr = new Array();
             }
-
         }
     }
 
-    async generateByPython() {
-        for (let i = 1; i <= this.dicomJsonModel.getFrameNumber(); i++) {
-            await PyDicomJpegConvert[process.env.OS].getJpegByPyDicom(
-                this.dicomInstanceFilename,
-                i
-            );
-        }
-    }
 
     /**
      * @private

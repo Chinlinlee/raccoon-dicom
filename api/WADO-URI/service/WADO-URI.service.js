@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const _ = require("lodash");
 const renderedService = require("../../dicom-web/controller/WADO-RS/service/rendered.service");
-const pythonService = require("../../../python");
-const dcmtk = require("../../../models/DICOM/dcmtk");
 const { JsDcm2Jpeg } = require("../../../models/DICOM/dcm4che/Dcm2Jpeg");
 const sharp = require('sharp');
 const Magick = require("../../../models/magick");
@@ -148,7 +146,6 @@ class WadoUriService {
             throw new InvalidFrameNumberError(`Invalid Frame Number, total ${instanceTotalFrameNumber}, but requested ${frameNumber}`);
         }
 
-        let getFrameImageStatus;
         let otherOptions = {};
 
         if (windowCenter && windowWidth) {
@@ -161,20 +158,7 @@ class WadoUriService {
             ...otherOptions
         }).init();
 
-        getFrameImageStatus = await jsDcm2Jpeg.getFrameImage(instanceFramesObj.instancePath, frameNumber);
-
-        // if (dcmtk.dcmtkSupportTransferSyntax.includes(transferSyntax)) {
-        //     getFrameImageStatus = await dcmtk.getFrameImage(
-        //         instanceFramesObj.instancePath,
-        //         frameNumber,
-        //         otherOptions
-        //     );
-        // } else {
-        //     getFrameImageStatus = await pythonService.getFrameImage(
-        //         instanceFramesObj.instancePath,
-        //         frameNumber
-        //     );
-        // }
+        let getFrameImageStatus = await jsDcm2Jpeg.getFrameImage(instanceFramesObj.instancePath, frameNumber);
 
         if (getFrameImageStatus.status) {
             let imagePath = getFrameImageStatus.imagePath;

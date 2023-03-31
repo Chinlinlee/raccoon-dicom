@@ -2,8 +2,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const sharp = require("sharp");
-const pythonService = require("../../../../../python");
-const dcmtk = require("../../../../../models/DICOM/dcmtk");
+const { JsDcm2Jpeg } = require("../../../../../models/DICOM/dcm4che/Dcm2Jpeg");
 const Magick = require("../../../../../models/magick");
 const _ = require("lodash");
 
@@ -148,23 +147,16 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
  * 
  * @param {import("http").IncomingMessage} req 
  * @param {*} instanceFramesObj 
- * @param {string} transferSyntax 
  * @returns 
  */
-async function postProcessFrameImage(req, frameNumber, instanceFramesObj, transferSyntax) {
+async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
     try {
-        let getFrameImageStatus;
-        if (dcmtk.dcmtkSupportTransferSyntax.includes(transferSyntax)) {
-            getFrameImageStatus = await dcmtk.getFrameImage(
-                instanceFramesObj.instancePath,
-                frameNumber
-            );
-        } else {
-            getFrameImageStatus = await pythonService.getFrameImage(
-                instanceFramesObj.instancePath,
-                frameNumber
-            );
-        }
+
+        let jsDcm2Jpeg = new JsDcm2Jpeg();
+        await jsDcm2Jpeg.init();
+
+        let getFrameImageStatus = await jsDcm2Jpeg.getFrameImage(instanceFramesObj.instancePath, frameNumber);
+
         if (getFrameImageStatus.status) {
             let imagePath = getFrameImageStatus.imagePath;
             let imageSharp = sharp(imagePath);
@@ -215,8 +207,7 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj, transf
 async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, multipartWriter) {
     try {
         for (let i = 0 ; i < dicomNumberOfFrames; i++) {
-            let transferSyntax = _.get(instanceFramesObj, "00020010.Value.0");
-            let postProcessResult = await postProcessFrameImage(req, i+1, instanceFramesObj, transferSyntax);
+            let postProcessResult = await postProcessFrameImage(req, i+1, instanceFramesObj);
             let buffer = postProcessResult.magick.toBuffer();
             multipartWriter.writeBuffer(buffer, {
                 "Content-Type": "image/jpeg",
@@ -240,8 +231,7 @@ async function writeSpecificFramesRenderedImages(req, frames, instanceFramesObj,
     try {
         for (let i = 0 ; i < frames.length; i++) {
             let frameNumber = frames[i];
-            let transferSyntax = _.get(instanceFramesObj, "00020010.Value.0");
-            let postProcessResult = await postProcessFrameImage(req, frameNumber, instanceFramesObj, transferSyntax);
+            let postProcessResult = await postProcessFrameImage(req, frameNumber, instanceFramesObj);
             let buffer = postProcessResult.magick.toBuffer();
             multipartWriter.writeBuffer(buffer, {
                 "Content-Type": "image/jpeg",

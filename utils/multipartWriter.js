@@ -4,7 +4,7 @@ const fs = require("fs");
 const _ = require("lodash");
 const dicomParser = require("dicom-parser");
 const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
-const { dcm2jpegCustomCmd } = require("../models/DICOM/dcmtk");
+const { JsDcm2Jpeg } = require("../models/DICOM/dcm4che/Dcm2Jpeg");
 const { URL } = require("url");
 const path = require("path");
 const { raccoonConfig } = require("../config-class");
@@ -166,14 +166,16 @@ class MultipartWriter {
         if (minFrameNumber == maxFrameNumber) {
             frameNumberCount = 1;
         }
-        let execCmd = "";
-        if (process.env.OS == "windows") {
-            execCmd = `models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic/bin/dcmj2pnm.exe --write-jpeg "${dicomFilename}" "${jpegFile}" --frame-range ${minFrameNumber} ${frameNumberCount}`;
-        } else if (process.env.OS == "linux") {
-            execCmd = `dcmj2pnm --write-jpeg "${dicomFilename}" "${jpegFile}" --frame-range ${minFrameNumber} ${frameNumberCount}`;
-        }
-        let dcm2jpegStatus = await dcm2jpegCustomCmd(execCmd);
-        if (dcm2jpegStatus) {
+
+        try {
+            let jsDcm2Jpeg = new JsDcm2Jpeg();
+            await jsDcm2Jpeg.init();
+    
+            for(let i = 1 ; i <= frameNumberCount ; i++) {
+                await jsDcm2Jpeg.dcm2jpg.setFrame(i);
+                await jsDcm2Jpeg.convert(dicomFilename, `${jpegFile}.${i-1}.jpg`);
+            }
+            
             for (let x = 0; x < frameList.length; x++) {
                 let frameJpegFile = dicomFilename.replace(
                     /\.dcm\b/gi,
@@ -193,8 +195,10 @@ class MultipartWriter {
             }
             this.writeFinalBoundary();
             return true;
+        } catch(e) {
+            logger.error(e);
+            return false;
         }
-        return false;
     }
 
     /**
