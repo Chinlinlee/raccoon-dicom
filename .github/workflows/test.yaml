@@ -38,7 +38,7 @@ jobs:
     - name: Checkout Chinlinlee/raccoon-test
       uses: actions/checkout@v3
       with:
-        repository: Chinlinlee/raccoon-test
+        repository: Chinlinlee/raccoon-test@main
         token: ${{ secrets.GITHUB_TOKEN }}
         lfs: true
         path: "raccoon-test"
