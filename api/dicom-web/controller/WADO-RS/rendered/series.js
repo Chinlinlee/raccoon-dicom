@@ -26,7 +26,7 @@ class RetrieveRenderedSeriesController extends Controller {
             let instancesInSeries = await mongoose.model("dicomSeries").getPathGroupOfInstances(this.request.params);
     
             if (instancesInSeries.length > 0) {
-                let multipartWriter = new MultipartWriter([], this.response, this.request);
+                let multipartWriter = new MultipartWriter([], this.request, this.response);
                 
                 for(let imagePathObj of instancesInSeries) {
                     let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);

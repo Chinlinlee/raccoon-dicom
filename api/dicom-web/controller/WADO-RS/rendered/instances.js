@@ -31,7 +31,7 @@ class RetrieveRenderedInstancesController extends Controller {
             let imagePathObj = await mongoose.model("dicom").getPathOfInstance(this.request.params);
     
             if (imagePathObj) {
-                let multipartWriter = new MultipartWriter([], this.response, this.request);
+                let multipartWriter = new MultipartWriter([], this.request, this.response);
                 let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
                 let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
                 dicomNumberOfFrames = parseInt(dicomNumberOfFrames);

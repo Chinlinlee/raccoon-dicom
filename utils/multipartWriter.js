@@ -24,14 +24,14 @@ class MultipartWriter {
     /**
      *
      * @param {Array<ImagePathObj>} imagePathObjList The path list of the images
-     * @param {import('express').Response} res The express response
      * @param {import('express').Request} req
+     * @param {import('express').Response} res The express response
      */
-    constructor(imagePathObjList, res, req = {}) {
+    constructor(imagePathObjList, req={}, res) {
         this.BOUNDARY = `${uuid.v4()}-${uuid.v4()}-raccoon`;
         this.imagePathObjList = imagePathObjList;
-        this.res = res;
         this.req = req;
+        this.res = res;
     }
 
     /**

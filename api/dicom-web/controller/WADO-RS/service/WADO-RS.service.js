@@ -32,7 +32,7 @@ const multipartFunc = {
                 code: 404,
                 message: `not found, Study UID: ${iParam.studyUID}`
             };
-            let multipartWriter = new MultipartWriter(imagesPath, res, req);
+            let multipartWriter = new MultipartWriter(imagesPath, req, res);
             return multipartWriter.writeDICOMFiles(type);
         },
         getSeriesDICOMFiles: async (iParam, req, res, type) => {
@@ -42,7 +42,7 @@ const multipartFunc = {
                 code: 404,
                 message: `not found, Series UID: ${iParam.seriesUID}, Study UID: ${iParam.studyUID}`
             };
-            let multipartWriter = new MultipartWriter(imagesPath, res, req);
+            let multipartWriter = new MultipartWriter(imagesPath, req, res);
             return multipartWriter.writeDICOMFiles(type);
         },
         getInstanceDICOMFile: async (iParam, req, res, type) => {
@@ -52,7 +52,7 @@ const multipartFunc = {
                 code: 404,
                 message: `not found, Instance UID: ${iParam.instanceUID}, Series UID: ${iParam.seriesUID}, Study UID: ${iParam.studyUID}`
             };
-            let multipartWriter = new MultipartWriter([imagePath], res, req);
+            let multipartWriter = new MultipartWriter([imagePath], req, res);
             return multipartWriter.writeDICOMFiles(type);
         }
     }

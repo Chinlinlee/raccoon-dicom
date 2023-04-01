@@ -83,7 +83,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
                 }
                 throw new Error(`Can not process this image, instanceUID: ${instanceFramesObj.instanceUID}, frameNumber: ${this.request.frameNumber[0]}`);
             } else {
-                let multipartWriter = new MultipartWriter([], this.response, this.request);
+                let multipartWriter = new MultipartWriter([], this.request, this.response);
                 await renderedService.writeSpecificFramesRenderedImages(this.request, frameNumber, instanceFramesObj, multipartWriter);
                 multipartWriter.writeFinalBoundary();
     
