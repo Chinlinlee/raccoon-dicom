@@ -1,3 +1,5 @@
+RegExp.prototype.toJSON = RegExp.prototype.toString;
+
 const { app } = require("./app");
 const bodyParser = require("body-parser");
 const session = require("express-session");
