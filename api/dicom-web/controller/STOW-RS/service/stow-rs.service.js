@@ -29,7 +29,7 @@ const StowRsFailureCode = {
 
 class StowRsService {
     /**
-     * @param {import('http').IncomingMessage} req
+     * @param {import('express').Request} req
      * @param {import('formidable').File[]} uploadFiles
      */
     constructor(req, uploadFiles) {

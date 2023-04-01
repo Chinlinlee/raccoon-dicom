@@ -14,8 +14,8 @@ class QidoRsService {
 
     /**
      * 
-     * @param {import('http').IncomingMessage} req
-     *  @param {import('http').ServerResponse} res 
+     * @param {import('express').Request} req
+     *  @param {import('express').Response} res 
      */
     constructor(req, res, level="instance") {
         this.request = req;

@@ -14,7 +14,7 @@ let raccoonLogger = getLogger("raccoon-polka");
 class ApiLogger {
     /**
      * 
-     * @param {import('http').IncomingMessage} req 
+     * @param {import('express').Request} req 
      * @param {string} apiName
      */
     constructor(req, apiName) {

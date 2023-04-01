@@ -60,8 +60,8 @@ class StoreInstanceController extends Controller {
  * 2. parse DICOM to JSON and store DICOM file from step 1
  * 3. parse DICOM json model to FHIR (Patient, Endpoint, ImagingStudy)
  * 4. upload FHIR to FHIR server
- * @param {import('http').IncomingMessage} req
- * @param {import('http').ServerResponse} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 module.exports = async function (req, res) {
     let controller = new StoreInstanceController(req, res);

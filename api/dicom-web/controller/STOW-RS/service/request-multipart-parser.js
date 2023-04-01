@@ -4,7 +4,7 @@ const _ = require("lodash");
 
 class StowRsRequestMultipartParser {
     /**
-     * @param {import('http').IncomingMessage} req
+     * @param {import('express').Request} req
      */
     constructor(req) {
         this.request = req;

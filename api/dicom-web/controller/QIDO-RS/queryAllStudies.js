@@ -38,8 +38,8 @@ class QueryAllStudiesController extends Controller {
 
 /**
  *
- * @param {import('http').IncomingMessage} req
- * @param {import('http').ServerResponse} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 module.exports = async function (req, res) {
     let controller = new QueryAllStudiesController(req, res);

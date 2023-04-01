@@ -24,7 +24,7 @@ class MultipartWriter {
     /**
      *
      * @param {Array<ImagePathObj>} imagePathObjList The path list of the images
-     * @param {import('http').ServerResponse} res The express response
+     * @param {import('express').Response} res The express response
      * @param {import('express').Request} req
      */
     constructor(imagePathObjList, res, req = {}) {

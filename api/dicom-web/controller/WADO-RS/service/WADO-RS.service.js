@@ -67,7 +67,7 @@ const supportInstanceMultipartType = ["application/dicom", "application/octet-st
 
 /**
  * 
- * @param { import('http').ServerResponse } res 
+ * @param { import('express').Response } res 
  * @param { string } type 
  * @returns 
  */
