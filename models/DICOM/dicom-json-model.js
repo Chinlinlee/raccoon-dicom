@@ -268,7 +268,7 @@ class DicomJsonBinaryDataModel {
             studyUID,
             seriesUID,
             sopInstanceUID
-        } = this.dicomJsonModel.dicomJson;
+        } = this.dicomJsonModel.uidObj;
 
         for(let i = 0; i < this.binaryKeys.length ; i++) {
             let binaryKey = this.binaryKeys[i];
