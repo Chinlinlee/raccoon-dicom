@@ -3,12 +3,9 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
-const flatten = require("flat");
 const { raccoonConfig } = require("../../../../../config-class");
-const {
-    rootPath: dicomStoreRootPath
-} = raccoonConfig.dicomWebConfig;
 const { JSONPath } = require("jsonpath-plus");
+const { DicomWebService } = require("../../../service/dicom-web.service");
 
 
 /**
@@ -81,7 +78,7 @@ function sendNotSupportedMediaType(res, type) {
 }
 
 function addHostnameOfBulkDataUrl(metadata, req) {
-    let protocol = req.secure ? "https" : "http";
+    let dicomWebService = new DicomWebService(req, undefined);
 
     let urItems = JSONPath({
         path: "$..BulkDataURI",
@@ -93,7 +90,7 @@ function addHostnameOfBulkDataUrl(metadata, req) {
         let bulkDataUriPath = JSONPath.toPathArray(urItem.path).join(".").substring(2);
         let relativeUrl = _.get(metadata, bulkDataUriPath);
 
-       _.set(metadata, bulkDataUriPath, `${protocol}://${req.headers.host}${relativeUrl}`);
+       _.set(metadata, bulkDataUriPath, `${dicomWebService.getBasicURL()}${relativeUrl}`);
     }
 }
 

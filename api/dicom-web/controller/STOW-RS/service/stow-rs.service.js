@@ -11,6 +11,7 @@ const { DicomJpegGenerator } = require("./dicom-jpeg-generator");
 const { logger } = require("../../../../../utils/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
+const { DicomWebService } = require("../../../service/dicom-web.service");
 
 const {
     apiPath: DICOM_WEB_API_PATH
@@ -202,8 +203,8 @@ class StowRsService {
     }
 
     getRetrieveUrl(uidObj) {
-        let protocol = this.request.secure ? "https" : "http";
-        let url = `${protocol}://${this.request.headers.host}/${DICOM_WEB_API_PATH}/studies`;
+        let dicomWebService = new DicomWebService(this.request, undefined);
+        let url = `${dicomWebService.getBasicURL()}/studies`;
     
         return {
             study: `${url}/${uidObj.studyUID}`,
