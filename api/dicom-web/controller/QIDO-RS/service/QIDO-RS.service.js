@@ -8,6 +8,7 @@ const {
 } = require("../../../../../models/DICOM/dicom-tags-mapping");
 const { logger } = require("../../../../../utils/log");
 const { raccoonConfig } = require("../../../../../config-class");
+const { DicomWebService } = require("../../../service/dicom-web.service");
 const dicomWebApiPath = raccoonConfig.dicomWebConfig.apiPath;
 
 class QidoRsService {
@@ -20,7 +21,6 @@ class QidoRsService {
     constructor(req, res, level="instance") {
         this.request = req;
         this.response = res;
-        this.protocol = req.secure ? "https" : "http";
         this.level = level;
 
         this.query = {};
@@ -57,11 +57,13 @@ class QidoRsService {
     async getAndResponseDicomJson() {
         try {
 
+            let dicomWebService = new DicomWebService(this.request, this.response);
+
             let queryOptions = {
                 query: this.query,
                 skip: this.skip_,
                 limit: this.limit_,
-                retrieveBaseUrl: `${this.getBasicURL()}/studies`,
+                retrieveBaseUrl: `${dicomWebService.getBasicURL()}/studies`,
                 requestParams: this.request.params
             };
     
@@ -83,24 +85,6 @@ class QidoRsService {
         } catch(e) {
             throw e;
         }
-    }
-
-    getBasicURL() {
-
-        let hostname = raccoonConfig.dicomWebConfig.host;
-
-        if (raccoonConfig.dicomWebConfig.host.includes("{host}")) {
-            hostname = raccoonConfig.dicomWebConfig.host.replace("{host}", this.request.headers.host);
-        }
-
-        let hostnameSplit = _.compact(hostname.split("/"));
-        let realHostname = hostnameSplit.shift();
-        let pathname = [...hostnameSplit, ...dicomWebApiPath.split("/")].join("/");
-        let basicUrlObj = new urlObj.URL(`${this.protocol}://${realHostname}`);
-
-        basicUrlObj.pathname = pathname;
-
-        return basicUrlObj.href;
     }
 
 }
