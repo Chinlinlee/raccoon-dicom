@@ -1,0 +1,43 @@
+version: '3.4'
+services:
+  mongodb:
+    image: mongo:5.0
+    container_name : mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb/db:/data/db
+    environment:
+      # provide your credentials here
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_PORT=27017
+  raccoon:
+    build:
+      context : ./
+      dockerfile : Dockerfile
+    container_name: raccoon
+    command: >
+      /bin/sh -c '
+      while ! echo >/dev/tcp/mongodb/27017;
+      do
+        echo "waiting for database ...";
+        sleep 3;
+      done;
+      echo "db is ready!";
+      npm install;
+      pm2-runtime start ecosystem.config.js --node-args="--max-old-space-size=4096";
+      '
+    volumes :
+      - ./:/nodejs/raccoon
+      - ./raccoon-storage:/dicomFiles
+      - ./raccoon-null/node_modules:/nodejs/raccoon/node_modules
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongodb
+    tty : true
+    restart: on-failure:3
+    stdin_open : true
