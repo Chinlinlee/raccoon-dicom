@@ -11,6 +11,7 @@
  *     studyUID: string,
  *     seriesUID: string,
  *     instanceUID: string,
+ *     instancePath: string,
  *     "00280008": string,
  *     "00020010": string
  * } } InstanceFrameObj

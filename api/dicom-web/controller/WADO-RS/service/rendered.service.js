@@ -146,7 +146,7 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
 /**
  * 
  * @param {import("http").IncomingMessage} req 
- * @param {*} instanceFramesObj 
+ * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj} instanceFramesObj 
  * @returns 
  */
 async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
