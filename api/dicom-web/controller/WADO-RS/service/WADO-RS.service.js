@@ -8,6 +8,7 @@ const { raccoonConfig } = require("../../../../../config-class");
 const {
     rootPath: dicomStoreRootPath
 } = raccoonConfig.dicomWebConfig;
+const { JSONPath } = require("jsonpath-plus");
 
 
 /**
@@ -80,30 +81,19 @@ function sendNotSupportedMediaType(res, type) {
 }
 
 function addHostnameOfBulkDataUrl(metadata, req) {
-    let flattenMetadata = flatten(metadata);
-    let objKeys = Object.keys(flattenMetadata);
-    let binaryTag = objKeys
-    .filter(
-        v => v.indexOf(".vr") > -1
-    )
-    .filter(
-        v => {
-            let value = _.get(flattenMetadata, v);
-            return (value.indexOf("OB") > -1) || 
-            (value.indexOf("OW") > -1);
-        }
-    )
-    .map(
-        v => v.substring(0 , v.lastIndexOf(".vr"))
-    );
-
     let protocol = req.secure ? "https" : "http";
-    for (let i = 0 ; i < binaryTag.length; i++) {
-        let tag = binaryTag[i];
-        let relativeUrl = flattenMetadata[`${tag}.BulkDataURI`];
-        // Reset VR to UR, because BulkDataURI is URI
-        _.set(metadata, `${tag}.vr`, "UR");
-        _.set(metadata, `${tag}.BulkDataURI`, `${protocol}://${req.headers.host}${relativeUrl}`);
+
+    let urItems = JSONPath({
+        path: "$..BulkDataURI",
+        json: metadata,
+        resultType: "all"
+    });
+
+    for(let urItem of urItems) {
+        let bulkDataUriPath = JSONPath.toPathArray(urItem.path).join(".").substring(2);
+        let relativeUrl = _.get(metadata, bulkDataUriPath);
+
+       _.set(metadata, bulkDataUriPath, `${protocol}://${req.headers.host}${relativeUrl}`);
     }
 }
 
