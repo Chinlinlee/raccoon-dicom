@@ -5,6 +5,7 @@ const { MultipartWriter } = require("../../../../../utils/multipartWriter");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 const { Controller } = require("../../../../controller.class");
+const dicomModel = require("../../../../../models/mongodb/models/dicom");
 
 class RetrieveRenderedInstancesController extends Controller {
     constructor(req, res) {
@@ -28,7 +29,7 @@ class RetrieveRenderedInstancesController extends Controller {
         }
         
         try {
-            let imagePathObj = await mongoose.model("dicom").getPathOfInstance(this.request.params);
+            let imagePathObj = await dicomModel.getPathOfInstance(this.request.params);
     
             if (imagePathObj) {
                 let multipartWriter = new MultipartWriter([], this.request, this.response);

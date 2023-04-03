@@ -413,6 +413,30 @@ dicomModelSchema.statics.getPathOfInstance = async function(iParam) {
     }
 };
 
+/**
+ * @typedef {function(s: string, b: boolean): Promise<number>} getDicomJson
+ * @param {object} iParam 
+ * @param {string} iParam.studyUID
+ * @param {string} iParam.seriesUID
+ * @param {string} iParam.instanceUID
+ * @returns
+ */
+
+/**
+ * @typedef { mongoose.Model<dicomModelSchema> & { 
+ * getPathOfInstance: function(iParam: {
+ *      studyUID: string,
+ *      seriesUID: string,
+ *      instanceUID: string
+ *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
+ * getDicomJson: function(queryOptions: DicomJsonMongoQueryOptions): Promise<function>
+ * }} DicomModelSchema
+ */
+
+/** @type {DicomModelSchema} */
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
+
+/** @type {DicomModelSchema} */
 module.exports = dicomModel;
+
 module.exports.getModalitiesInStudy = getModalitiesInStudy;

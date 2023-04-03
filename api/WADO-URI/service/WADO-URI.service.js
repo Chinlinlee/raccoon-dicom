@@ -6,6 +6,7 @@ const { JsDcm2Jpeg } = require("../../../models/DICOM/dcm4che/Dcm2Jpeg");
 const sharp = require('sharp');
 const Magick = require("../../../models/magick");
 const { NotFoundInstanceError, InvalidFrameNumberError } = require("../../../error/dicom-instance");
+const dicomModel = require("../../../models/mongodb/models/dicom");
 
 class WadoUriService {
 
@@ -96,7 +97,7 @@ class WadoUriService {
             objectUID: instanceUID
         } = this.request.query;
 
-        let imagePathObj = await mongoose.model("dicom").getPathOfInstance({
+        let imagePathObj = await dicomModel.getPathOfInstance({
             studyUID,
             seriesUID,
             instanceUID

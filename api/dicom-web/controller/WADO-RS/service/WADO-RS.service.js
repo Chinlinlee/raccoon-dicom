@@ -6,7 +6,7 @@ const errorResponse = require("../../../../../utils/errorResponse/errorResponseM
 const { raccoonConfig } = require("../../../../../config-class");
 const { JSONPath } = require("jsonpath-plus");
 const { DicomWebService } = require("../../../service/dicom-web.service");
-
+const dicomModel = require("../../../../../models/mongodb/models/dicom");
 
 /**
  *
@@ -44,7 +44,7 @@ const multipartFunc = {
             return multipartWriter.writeDICOMFiles(type);
         },
         getInstanceDICOMFile: async (iParam, req, res, type) => {
-            let imagePath = await mongoose.model("dicom").getPathOfInstance(iParam);
+            let imagePath = await dicomModel.getPathOfInstance(iParam);
             if (!imagePath) return {
                 status: false,
                 code: 404,

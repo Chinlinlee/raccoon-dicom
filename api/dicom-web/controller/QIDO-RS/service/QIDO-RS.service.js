@@ -10,6 +10,7 @@ const { logger } = require("../../../../../utils/log");
 const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
 const dicomWebApiPath = raccoonConfig.dicomWebConfig.apiPath;
+const dicomModel = require("../../../../../models/mongodb/models/dicom");
 
 class QidoRsService {
 
@@ -348,7 +349,7 @@ async function getInstanceDicomJson(queryOptions) {
         logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
         
         queryOptions.query = { ...query };
-        let docs = await mongoose.model("dicom").getDicomJson(queryOptions);
+        let docs = await dicomModel.getDicomJson(queryOptions);
 
         let sortedInstanceDicomJson = sortArrayObjByFieldKey(docs);
 

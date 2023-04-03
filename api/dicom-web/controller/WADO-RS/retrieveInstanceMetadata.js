@@ -7,6 +7,7 @@ const wadoService = require("./service/WADO-RS.service");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
 const { logger } = require("../../../../utils/log");
 const { Controller } = require("../../../controller.class");
+const dicomModel = require("../../../../models/mongodb/models/dicom");
 
 class RetrieveInstanceMetadataController extends Controller {
     constructor(req, res) {
@@ -18,7 +19,7 @@ class RetrieveInstanceMetadataController extends Controller {
         try {
             let responseMetadata = [];
 
-            let imagePathObj = await mongoose.model("dicom").getPathOfInstance(this.request.params);
+            let imagePathObj = await dicomModel.getPathOfInstance(this.request.params);
             if (imagePathObj) {
                 let instanceDir = path.dirname(imagePathObj.instancePath);
                 let metadataPath = path.join(instanceDir, `${imagePathObj.instanceUID}.metadata.json`);
