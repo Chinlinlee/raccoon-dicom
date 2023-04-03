@@ -1,6 +1,5 @@
 # raccoon-only-dicom
 Another raccoon focus on dicom. The original raccoon combine the FHIR and DICOM together in MongoDB, I think it will cause performance and maintenance issues. So, here start a new project only for DICOM.
-- Using polka instead of express. (might change to express in the future
 
 # Features
 The features implemented here:
@@ -10,6 +9,14 @@ The features implemented here:
 - [WADO-RS](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_10.4.1.1.1)
     - [Retrieve Transaction Instance Resources](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#table_10.4.1-1)
 
+# Environment Requirements
+- node.js >= 16
+- Java JDK >= 11
+
+> **Note**
+> - You should copy opencv_java library to JDK's lib directory
+> - In windows, copy `opencv_java.dll`
+> - In linux, copy `libclib_jiio.so` and `libopencv_java.so`
 # APIs
 ## example
 
