@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { JsDcm2Jpeg } = require("../../../../../models/DICOM/dcm4che/Dcm2Jpeg");
+const { jsDcm2Jpeg, JsDcm2Jpeg } = require("../../../../../models/DICOM/dcm4che/Dcm2Jpeg");
 const { logger } = require("../../../../../utils/log");
 const dicomToJpegTask = require("../../../../../models/mongodb/models/dicomToJpegTask");
 const colorette = require("colorette");
@@ -56,23 +56,22 @@ class DicomJpegGenerator {
         let jsDcm2JpegArr = new Array();
 
         for(let i =1 ; i <= this.dicomJsonModel.getFrameNumber(); i++) {
-            let jsDcm2Jpeg = new JsDcm2Jpeg({
-                ...JsDcm2Jpeg.defaultOptions,
-                windowCenter:  this.dicomJsonModel.getWindowCenter(),
-                windowWidth: this.dicomJsonModel.getWindowWidth()
-            });
-
-            await jsDcm2Jpeg.init();
-            await jsDcm2Jpeg.dcm2jpg.setFrame(i);
 
             jsDcm2JpegArr.push({
-                jsDcm2Jpeg,
+                jsDcm2JpegOption: {
+                    ...JsDcm2Jpeg.defaultOptions,
+                    windowCenter:  this.dicomJsonModel.getWindowCenter(),
+                    windowWidth: this.dicomJsonModel.getWindowWidth(),
+                    frameNumber: i
+                },
                 jpegFilename:  `${this.jpegFilename}.${i-1}.jpg`
             });
 
             if (i % DCMTK_GENERATE_JPEG_EVERY_N_STEP === 0) {
                 await Promise.allSettled(
-                    jsDcm2JpegArr.map((j) => j.jsDcm2Jpeg.convert(this.dicomInstanceFilename, j.jpegFilename))
+                    jsDcm2JpegArr.map(async (j) => 
+                         jsDcm2Jpeg.convert(this.dicomInstanceFilename, j.jpegFilename, j.jsDcm2JpegOption)
+                    )
                 );
                 jsDcm2JpegArr = new Array();
             }

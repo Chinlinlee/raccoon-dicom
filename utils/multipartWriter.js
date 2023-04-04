@@ -4,12 +4,12 @@ const fs = require("fs");
 const _ = require("lodash");
 const dicomParser = require("dicom-parser");
 const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
-const { JsDcm2Jpeg } = require("../models/DICOM/dcm4che/Dcm2Jpeg");
+const { jsDcm2Jpeg, JsDcm2Jpeg } = require("../models/DICOM/dcm4che/Dcm2Jpeg");
 const { URL } = require("url");
 const path = require("path");
 const { raccoonConfig } = require("../config-class");
 const {
-    rootPath : DICOM_STORE_ROOTPATH
+    rootPath: DICOM_STORE_ROOTPATH
 } = raccoonConfig.dicomWebConfig;
 
 /**
@@ -27,7 +27,7 @@ class MultipartWriter {
      * @param {import('express').Request} req
      * @param {import('express').Response} res The express response
      */
-    constructor(imagePathObjList, req={}, res) {
+    constructor(imagePathObjList, req = {}, res) {
         this.BOUNDARY = `${uuid.v4()}-${uuid.v4()}-raccoon`;
         this.imagePathObjList = imagePathObjList;
         this.req = req;
@@ -117,7 +117,7 @@ class MultipartWriter {
             if (this.imagePathObjList) {
                 this.setHeaderMultipartRelatedContentType(type);
                 for (let i = 0; i < this.imagePathObjList.length; i++) {
-                    let {studyUID, seriesUID, instanceUID} = this.imagePathObjList[i];
+                    let { studyUID, seriesUID, instanceUID } = this.imagePathObjList[i];
                     let imagePath = this.imagePathObjList[i].instancePath;
                     let fileBuffer = await streamToBuffer(
                         fs.createReadStream(
@@ -133,18 +133,18 @@ class MultipartWriter {
                 }
                 this.writeFinalBoundary();
                 return {
-                    status : true
+                    status: true
                 };
             }
             return {
-                status : false
+                status: false
             };
         } catch (e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
             logger.error(errorStr);
             return {
-                status : false,
-                code : 500,
+                status: false,
+                code: 500,
                 message: errorStr
             };
         }
@@ -168,14 +168,13 @@ class MultipartWriter {
         }
 
         try {
-            let jsDcm2Jpeg = new JsDcm2Jpeg();
-            await jsDcm2Jpeg.init();
-    
-            for(let i = 1 ; i <= frameNumberCount ; i++) {
-                await jsDcm2Jpeg.dcm2jpg.setFrame(i);
-                await jsDcm2Jpeg.convert(dicomFilename, `${jpegFile}.${i-1}.jpg`);
+
+            for (let i = 1; i <= frameNumberCount; i++) {
+                await jsDcm2Jpeg.convert(dicomFilename, `${jpegFile}.${i - 1}.jpg`, {
+                    frameNumber: i
+                });
             }
-            
+
             for (let x = 0; x < frameList.length; x++) {
                 let frameJpegFile = dicomFilename.replace(
                     /\.dcm\b/gi,
@@ -195,7 +194,7 @@ class MultipartWriter {
             }
             this.writeFinalBoundary();
             return true;
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
             return false;
         }
@@ -235,7 +234,7 @@ class MultipartWriter {
             let bulkDataUrlPath = headers["Content-Location"];
             this.writeContentLocation(bulkDataUrlPath);
             this.writeBufferData(buffer);
-        } catch(e) {
+        } catch (e) {
             logger.error(e);
             throw e;
         }

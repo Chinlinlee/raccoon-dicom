@@ -2,7 +2,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const sharp = require("sharp");
-const { JsDcm2Jpeg } = require("../../../../../models/DICOM/dcm4che/Dcm2Jpeg");
+const { jsDcm2Jpeg } = require("../../../../../models/DICOM/dcm4che/Dcm2Jpeg");
 const Magick = require("../../../../../models/magick");
 const _ = require("lodash");
 
@@ -152,10 +152,7 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
 async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
     try {
 
-        let jsDcm2Jpeg = new JsDcm2Jpeg();
-        await jsDcm2Jpeg.init();
-
-        let getFrameImageStatus = await jsDcm2Jpeg.getFrameImage(instanceFramesObj.instancePath, frameNumber);
+        let getFrameImageStatus = await jsDcm2Jpeg.getFrameImage(instanceFramesObj.instancePath, {frameNumber});
 
         if (getFrameImageStatus.status) {
             let imagePath = getFrameImageStatus.imagePath;

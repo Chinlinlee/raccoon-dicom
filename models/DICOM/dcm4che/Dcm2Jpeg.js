@@ -7,6 +7,7 @@ const { createDcm2Jpg$ReadImageProxy } = require("./wrapper/org/dcm4che3/tool/dc
 const { ICCProfile$Option } = require("./wrapper/org/dcm4che3/image/ICCProfile$Option");
 const { Float } = require("./wrapper/java/lang/Float");
 
+
 /**
  * @typedef Dcm2JpgOptions
  * @property {string} dicomFile
@@ -29,11 +30,9 @@ class JsDcm2Jpeg {
      * 
      * @param {Dcm2JpgOptions} options
      */
-    constructor(options = { format: "JPEG", jpgQuality: 0.9, frameNumber: 1 }) {
+    constructor() {
         /** @type {Dcm2Jpg} */
         this.dcm2jpg;
-
-        this.options = options;
     }
 
     async init() {
@@ -49,24 +48,30 @@ class JsDcm2Jpeg {
 
         await this.dcm2jpg.setReadImage(readImageProxy);
         await this.dcm2jpg.setICCProfile(await ICCProfile$Option.valueOf("no"));
-        await this.dcm2jpg.setFrame(this.options.frameNumber);
-
-        await this.initSetWindowCenter();
-        await this.initSetWindowWidth();
-        
-        await this.dcm2jpg.initImageWriter(this.options.format,
+        await this.dcm2jpg.initImageWriter(JsDcm2Jpeg.defaultOptions.format,
             null,
             "com.sun.imageio.plugins.*",
             null,
-            await Float.newInstanceAsync(this.options.jpgQuality)
+            await Float.newInstanceAsync(JsDcm2Jpeg.defaultOptions.jpgQuality)
         );
-
-        readImageProxy.reset();
 
         return this;
     }
 
-    async convert(src, dest) {
+    async convert(src, dest, options) {
+
+        if (options.frameNumber) {
+            await this.dcm2jpg.setFrame(options.frameNumber);
+        }
+        
+        await this.dcm2jpg.initImageWriter(options.format || JsDcm2Jpeg.defaultOptions.format,
+            null,
+            "com.sun.imageio.plugins.*",
+            null,
+            await Float.newInstanceAsync(options.jpgQuality ||JsDcm2Jpeg.defaultOptions.jpgQuality)
+        );
+        await this.initSetWindowCenter(options);
+        await this.initSetWindowWidth(options);
 
         if (_.isString(src)) {
             src = await File.newInstanceAsync(src);
@@ -77,33 +82,37 @@ class JsDcm2Jpeg {
         }
 
         await this.dcm2jpg.convert(src, dest);
+        java.importClass("java.lang.System").gc();
     }
 
     /**
      * @private
      */
-    async initSetWindowWidth() {
-        if (this.options.windowWidth) {
-            await this.dcm2jpg.setWindowWidth(this.options.windowWidth);
+    async initSetWindowWidth(options) {
+        if (options.windowWidth) {
+            await this.dcm2jpg.setWindowWidth(options.windowWidth);
         }
     }
 
     /**
      * @private
      */
-    async initSetWindowCenter() {
-        if (this.options.windowCenter) {
-            await this.dcm2jpg.setWindowCenter(this.options.windowCenter);
+    async initSetWindowCenter(options) {
+        if (options.windowCenter) {
+            await this.dcm2jpg.setWindowCenter(options.windowCenter);
         }
     }
 
-    async getFrameImage(imagesPath , frameNumber) {
+    async getFrameImage(imagesPath , options={}) {
+        let { frameNumber } = options;
         let jpegFile = imagesPath.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
 
         try {
-            await this.dcm2jpg.setFrame(frameNumber);
 
-            await this.convert(imagesPath, jpegFile);
+            await this.convert(imagesPath, jpegFile, {
+                ...JsDcm2Jpeg.defaultOptions,
+                ...options
+            });
 
             let rs = fs.createReadStream(jpegFile);
             return {
@@ -123,3 +132,4 @@ class JsDcm2Jpeg {
 }
 
 module.exports.JsDcm2Jpeg = JsDcm2Jpeg;
+module.exports.jsDcm2Jpeg = new JsDcm2Jpeg();

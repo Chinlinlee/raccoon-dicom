@@ -10,6 +10,7 @@ const os = require("os");
 
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
+const { jsDcm2Jpeg } = require("./models/DICOM/dcm4che/Dcm2Jpeg");
 
 const passport = require("passport");
 let io = require("./socket").init();
@@ -82,3 +83,8 @@ if (osPlatform.includes("linux")) {
 } else if (osPlatform.includes("win")) {
     process.env.OS = "windows";
 }
+
+(async ()=> {
+    await jsDcm2Jpeg.init();
+    console.log("dcm2jpeg init successful");
+})();
