@@ -1,12 +1,13 @@
 const fs = require("fs");
-const { jsDcm2Jpeg, JsDcm2Jpeg } = require("../../../../../models/DICOM/dcm4che/Dcm2Jpeg");
+const { Dcm2JpgExecutor } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
+const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 const { logger } = require("../../../../../utils/log");
 const dicomToJpegTask = require("../../../../../models/mongodb/models/dicomToJpegTask");
 const colorette = require("colorette");
 
 /**
  * @typedef JsDcm2JpegTask
- * @property {JsDcm2Jpeg} jsDcm2Jpeg
+ * @property {Dcm2JpgExecutor$Dcm2JpgOptions} jsDcm2Jpeg
  * @property {string} jpegFilename
  */
 
@@ -39,7 +40,7 @@ class DicomJpegGenerator {
 
             await this.insertEndTask_();
 
-        } catch(e) {
+        } catch (e) {
 
             let errorMessage = JSON.stringify(e, Object.getOwnPropertyNames(e));
             await this.insertErrorTask_(errorMessage);
@@ -55,22 +56,28 @@ class DicomJpegGenerator {
         /** @type {JsDcm2JpegTask[]} */
         let jsDcm2JpegArr = new Array();
 
-        for(let i =1 ; i <= this.dicomJsonModel.getFrameNumber(); i++) {
+        for (let i = 1; i <= this.dicomJsonModel.getFrameNumber(); i++) {
 
+            /** @type { Dcm2JpgExecutor$Dcm2JpgOptions } */
+            let opt = await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync();
+            let windowCenter = this.dicomJsonModel.getWindowCenter();
+            let windowWidth = this.dicomJsonModel.getWindowCenter();
+
+            if (windowCenter && windowWidth) {
+                opt.windowCenter = windowCenter;
+                opt.windowWidth = windowWidth;
+            }
+
+            opt.frameNumber = i;
             jsDcm2JpegArr.push({
-                jsDcm2JpegOption: {
-                    ...JsDcm2Jpeg.defaultOptions,
-                    windowCenter:  this.dicomJsonModel.getWindowCenter(),
-                    windowWidth: this.dicomJsonModel.getWindowWidth(),
-                    frameNumber: i
-                },
-                jpegFilename:  `${this.jpegFilename}.${i-1}.jpg`
+                jsDcm2JpegOption: opt,
+                jpegFilename: `${this.jpegFilename}.${i - 1}.jpg`
             });
 
             if (i % DCMTK_GENERATE_JPEG_EVERY_N_STEP === 0) {
                 await Promise.allSettled(
                     jsDcm2JpegArr.map(async (j) => 
-                         jsDcm2Jpeg.convert(this.dicomInstanceFilename, j.jpegFilename, j.jsDcm2JpegOption)
+                        Dcm2JpgExecutor.convertDcmToJpgFromFilename(this.dicomInstanceFilename, j.jpegFilename, j.jsDcm2JpegOption)
                     )
                 );
                 jsDcm2JpegArr = new Array();
@@ -95,7 +102,7 @@ class DicomJpegGenerator {
         };
 
         await dicomToJpegTask.insertOrUpdate(startTaskObj);
-    } 
+    }
 
     /**
      * @private
@@ -127,7 +134,7 @@ class DicomJpegGenerator {
         };
         await dicomToJpegTask.insertOrUpdate(errorTaskObj);
     }
-    
+
 }
 
 module.exports.DicomJpegGenerator = DicomJpegGenerator;

@@ -2,7 +2,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const sharp = require("sharp");
-const { jsDcm2Jpeg } = require("../../../../../models/DICOM/dcm4che/Dcm2Jpeg");
+const { Dcm2JpgExecutor } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
+const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 const Magick = require("../../../../../models/magick");
 const _ = require("lodash");
 
@@ -152,12 +153,18 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
 async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
     try {
 
-        let getFrameImageStatus = await jsDcm2Jpeg.getFrameImage(instanceFramesObj.instancePath, {frameNumber});
+        let dicomFilename = instanceFramesObj.instancePath;
+        let jpegFile = dicomFilename.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
+
+        let getFrameImageStatus = await Dcm2JpgExecutor.convertDcmToJpgFromFilename(
+            dicomFilename,
+            jpegFile,
+            await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync()
+        );
 
         if (getFrameImageStatus.status) {
-            let imagePath = getFrameImageStatus.imagePath;
-            let imageSharp = sharp(imagePath);
-            let magick = new Magick(imagePath);
+            let imageSharp = sharp(jpegFile);
+            let magick = new Magick(jpegFile);
             handleImageQuality(
                 req.query,
                 magick

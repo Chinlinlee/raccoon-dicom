@@ -4,7 +4,8 @@ const fs = require("fs");
 const _ = require("lodash");
 const dicomParser = require("dicom-parser");
 const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
-const { jsDcm2Jpeg, JsDcm2Jpeg } = require("../models/DICOM/dcm4che/Dcm2Jpeg");
+const { Dcm2JpgExecutor } = require("../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
+const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 const { URL } = require("url");
 const path = require("path");
 const { raccoonConfig } = require("../config-class");
@@ -170,9 +171,10 @@ class MultipartWriter {
         try {
 
             for (let i = 1; i <= frameNumberCount; i++) {
-                await jsDcm2Jpeg.convert(dicomFilename, `${jpegFile}.${i - 1}.jpg`, {
-                    frameNumber: i
-                });
+                /** @type {Dcm2JpgExecutor$Dcm2JpgOptions} */
+                let opt = await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync();
+                opt.frameNumber = i;
+                await Dcm2JpgExecutor.convertDcmToJpgFromFilename(dicomFilename, `${jpegFile}.${i - 1}.jpg`, opt);
             }
 
             for (let x = 0; x < frameList.length; x++) {
