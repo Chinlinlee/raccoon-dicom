@@ -46,11 +46,11 @@
     "sharp": "^0.30.4",
     "shorthash2": "^1.0.3",
     "socket.io": "^4.5.0",
-    "swagger-jsdoc": "^6.2.1",
-    "trouter": "^3.2.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^8.5.0"
+    "eslint-config-prettier": "^8.5.0",
+    "mongodb-memory-server": "^8.12.2",
+    "swagger-jsdoc": "^6.2.8"
   }
 }
