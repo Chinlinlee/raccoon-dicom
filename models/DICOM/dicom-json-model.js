@@ -91,16 +91,16 @@ class DicomJsonModel {
             delete dicomJsonClone.sopInstanceUID;
 
             await Promise.all([
-                this.storeToDbInstanceCollection(dicomJsonClone),
-                this.storeToDbStudyCollection(dicomJsonClone),
-                this.storeToDbSeriesCollection(dicomJsonClone)
+                this.storeInstanceCollection(dicomJsonClone),
+                this.storeStudyCollection(dicomJsonClone),
+                this.storeSeriesCollection(dicomJsonClone)
             ]);
         } catch(e) {
             throw e;
         }
     }
 
-    async storeToDbInstanceCollection(dicomJson) {
+    async storeInstanceCollection(dicomJson) {
         let query = {
             $and: [
                 {
@@ -121,7 +121,7 @@ class DicomJsonModel {
         });
     }
 
-    async storeToDbStudyCollection(dicomJson) {
+    async storeStudyCollection(dicomJson) {
         await mongoose.model("dicomStudy").findOneAndUpdate(
             {
                 studyUID: this.uidObj.studyUID
@@ -134,7 +134,7 @@ class DicomJsonModel {
         );
     }
 
-    async storeToDbSeriesCollection(dicomJson) {
+    async storeSeriesCollection(dicomJson) {
         await mongoose.model("dicomSeries").findOneAndUpdate(
             {
                 $and: [
