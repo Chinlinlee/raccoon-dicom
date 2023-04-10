@@ -8,9 +8,6 @@ const Magick = require("../../../../../models/magick");
 const _ = require("lodash");
 
 const { raccoonConfig } = require("../../../../../config-class");
-const {
-    rootPath: dicomStoreRootPath
-} = raccoonConfig.dicomWebConfig;
 
 /**
  * 
@@ -44,8 +41,8 @@ const {
                 ]
             });
             if(!iccProfileBinaryFile) throw new Error("The Image dose not have icc profile tag");
-            let iccProfileSrc = path.join(dicomStoreRootPath, iccProfileBinaryFile.filename);
-            let dest = path.join(dicomStoreRootPath, iccProfileBinaryFile.filename + `.icc`);
+            let iccProfileSrc = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename);
+            let dest = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename + `.icc`);
             if (!fs.existsSync(dest)) fs.copyFileSync(iccProfileSrc, dest);
             magick.iccProfile(dest);
         },
@@ -133,7 +130,7 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
         if (doc) {
             let docObj = doc.toObject();
             docObj.instancePath = path.join(
-                dicomStoreRootPath,
+                raccoonConfig.dicomWebConfig.storeRootPath,
                 docObj.instancePath
             );
             return docObj;

@@ -6,10 +6,6 @@ const { logger } = require("../../../../../utils/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
 
-const {
-    rootPath: STORE_DICOM_ROOT_PATH
-} = raccoonConfig.dicomWebConfig;
-
 
 class DicomFileSaver {
     constructor(file, dicomJsonModel) {
@@ -57,7 +53,7 @@ class DicomFileSaver {
 
     getFullStorePath_(relativeStorePath) {
         return path.join(
-            STORE_DICOM_ROOT_PATH,
+            raccoonConfig.dicomWebConfig.storeRootPath,
             relativeStorePath
         );
     }

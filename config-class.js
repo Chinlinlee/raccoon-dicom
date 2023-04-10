@@ -33,7 +33,7 @@ class ServerConfig {
 
 class DicomWebConfig {
     constructor() {
-        this.rootPath = env.get("DICOM_STORE_ROOTPATH").default("/dicomFiles").asString();
+        this.storeRootPath = env.get("DICOM_STORE_ROOTPATH").default("/dicomFiles").asString();
         this.host = env.get("DICOMWEB_HOST").default("127.0.0.1").asString();
         this.port = env.get("DICOMWEB_PORT").default("8081").asInt();
         this.apiPath = env.get("DICOMWEB_API").default("dicom-web").asString();

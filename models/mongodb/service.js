@@ -2,9 +2,6 @@ const path = require("path");
 const moment = require("moment-timezone");
 moment.tz.setDefault("GMT");
 const { raccoonConfig } = require("../../config-class");
-const {
-    rootPath: STORE_DICOM_ROOT_PATH
-} = raccoonConfig.dicomWebConfig;
 
 
 /**
@@ -134,7 +131,7 @@ function getStoreDicomFullPathGroup(pathGroup) {
 
 function getStoreDicomFullPath(storeInstanceObj) {
     return path.join(
-        STORE_DICOM_ROOT_PATH,
+        raccoonConfig.dicomWebConfig.storeRootPath,
         storeInstanceObj.instancePath
     );
 }

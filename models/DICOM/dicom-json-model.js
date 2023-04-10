@@ -11,12 +11,9 @@ const flat = require("flat");
 const shortHash = require("shorthash2");
 const dicomBulkDataModel = require("../mongodb/models/dicomBulkData");
 const { logger } = require("../../utils/log");
+const patientModel = require("../mongodb/models/patient");
 
 const { raccoonConfig } = require("../../config-class");
-
-const {
-    rootPath: STORE_DICOM_ROOT_PATH
-} = raccoonConfig.dicomWebConfig;
 
 /**
  * *The SQ of Whole slide may have over thousand of length cause process block.
@@ -312,13 +309,13 @@ class DicomJsonBinaryDataModel {
             if(binaryData) {
                 relativeFilename += `${pathOfBinaryProperty}.raw`;
                 let filename = path.join(
-                    STORE_DICOM_ROOT_PATH,
+                    raccoonConfig.dicomWebConfig.storeRootPath,
                     relativeFilename
                 );
 
                 mkdirp.sync(
                     path.join(
-                        STORE_DICOM_ROOT_PATH,
+                        raccoonConfig.dicomWebConfig.storeRootPath,
                         `files/bulkData/${shortInstanceUID}`
                     )
                 );

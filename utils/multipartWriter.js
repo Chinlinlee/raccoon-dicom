@@ -9,10 +9,6 @@ const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../models/DICOM/dcm4che/wrap
 const { URL } = require("url");
 const path = require("path");
 const { raccoonConfig } = require("../config-class");
-const {
-    rootPath: DICOM_STORE_ROOTPATH
-} = raccoonConfig.dicomWebConfig;
-
 /**
  * @typedef {Object} ImagePathObj
  * @property {string} studyUID
@@ -210,7 +206,7 @@ class MultipartWriter {
     async writeBulkData(bulkDataObj, isFirst = true) {
         try {
             let filename = path.join(
-                DICOM_STORE_ROOTPATH,
+                raccoonConfig.dicomWebConfig.storeRootPath,
                 bulkDataObj.filename
             );
             let fileStream = fs.createReadStream(filename);
