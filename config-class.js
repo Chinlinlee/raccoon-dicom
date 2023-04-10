@@ -1,6 +1,15 @@
 require("dotenv").config();
 const { logger } = require("env-var");
+const uuid = require("uuid");
+
 const env = require("env-var").from(process.env, {}, logger);
+const NAME_SPACE = "be81894e-49fc-50cf-8c11-5983da942dac";
+
+function generateUidFromGuid(iGuid) {
+    let guidBytes = `0x${iGuid.replace(/-/g, "")}`; //add prefix 0 and remove `-`
+    let bigInteger = BigInt(guidBytes, 16);        //As big integer are not still in all browser supported I use BigInteger **) packaged to parse the integer with base 16 from uuid string
+    return `2.25.${bigInteger.toString()}`;       //Output the previus parsed integer as string by adding `2.25.` as prefix
+}
 
 class MongoDbConfig {
     constructor() {
@@ -46,6 +55,14 @@ class RaccoonConfig {
         this.serverConfig = new ServerConfig();
         this.dicomWebConfig = new DicomWebConfig();
         this.fhirConfig = new FhirConfig();
+        
+        /** @type {string} */
+        this.mediaStorageUID = generateUidFromGuid(
+            uuid.v5(this.mongoDbConfig.dbName, NAME_SPACE)
+        );
+        
+        /** @type {string} */
+        this.mediaStorageID = this.mongoDbConfig.dbName;
     }
 }
 
