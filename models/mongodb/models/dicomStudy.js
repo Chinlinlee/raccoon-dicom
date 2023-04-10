@@ -23,7 +23,7 @@ let dicomStudySchema = new mongoose.Schema(
     },
     {
         strict: true,
-        version: false,
+        versionKey: false,
         toObject: {
             getters: true
         }
