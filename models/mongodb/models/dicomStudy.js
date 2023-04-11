@@ -47,7 +47,7 @@ dicomStudySchema.index({
 
 /**
  * 
- * @param {DicomJsonMongoQueryOptions} queryOptions
+ * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
  * @returns 
  */
 dicomStudySchema.statics.getDicomJson = async function (queryOptions) {

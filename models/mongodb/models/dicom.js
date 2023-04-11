@@ -314,7 +314,7 @@ async function updateStudyNumberOfStudyRelatedInstance(doc) {
 
 /**
  * 
- * @param {DicomJsonMongoQueryOptions} queryOptions
+ * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
  * @returns 
  */
 dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
@@ -429,7 +429,7 @@ dicomModelSchema.statics.getPathOfInstance = async function(iParam) {
  *      seriesUID: string,
  *      instanceUID: string
  *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
- * getDicomJson: function(queryOptions: DicomJsonMongoQueryOptions): Promise<function>
+ * getDicomJson: function(queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<function>
  * }} DicomModelSchema
  */
 

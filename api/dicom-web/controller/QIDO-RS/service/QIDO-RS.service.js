@@ -94,7 +94,7 @@ class QidoDicomJsonFactory {
 
     /**
      * 
-     * @param {import("../../../../../utils/typedef/dicom").DicomJsonMongoQueryOptions} queryOptions 
+     * @param {import("../../../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions 
      * @param {string} level 
      */
     constructor(queryOptions, level="instance") {
@@ -281,7 +281,7 @@ const vrQueryLookup = {
 
 /**
  * 
- * @param {import("../../../../../utils/typedef/dicom").DicomJsonMongoQueryOptions} queryOptions 
+ * @param {import("../../../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions 
  * @returns 
  */
 async function getStudyDicomJson(queryOptions) {
@@ -308,7 +308,7 @@ async function getStudyDicomJson(queryOptions) {
 
 /**
  * 
- * @param {import("../../../../../utils/typedef/dicom").DicomJsonMongoQueryOptions} queryOptions 
+ * @param {import("../../../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions 
  * @returns 
  */
 async function getSeriesDicomJson(queryOptions) {
@@ -335,7 +335,7 @@ async function getSeriesDicomJson(queryOptions) {
 
 /**
  * 
- * @param {import("../../../../../utils/typedef/dicom").DicomJsonMongoQueryOptions} queryOptions
+ * @param {import("../../../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
  * @returns 
  */
 async function getInstanceDicomJson(queryOptions) {

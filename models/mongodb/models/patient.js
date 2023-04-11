@@ -48,7 +48,7 @@ patientSchema.index({
 
 /**
  * 
- * @param {DicomJsonMongoQueryOptions} queryOptions
+ * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
  * @returns 
  */
 patientSchema.statics.getDicomJson = async function (queryOptions) {

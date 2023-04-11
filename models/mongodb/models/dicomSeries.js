@@ -75,7 +75,7 @@ function getSeriesLevelFields() {
 
 /**
  * 
- * @param {DicomJsonMongoQueryOptions} queryOptions
+ * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
  * @returns 
  */
 dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
