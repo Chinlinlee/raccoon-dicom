@@ -49,7 +49,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint-config-prettier": "^8.5.0",
+    "mocha": "^10.2.0",
     "mongodb-memory-server": "^8.12.2",
     "swagger-jsdoc": "^6.2.8"
   }
