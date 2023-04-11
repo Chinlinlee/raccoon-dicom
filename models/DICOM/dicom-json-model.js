@@ -70,6 +70,10 @@ class DicomJsonModel {
             seriesUID: dcm2jsonV8.dcmString(
                 this.dicomJson,
                 "0020000E"
+            ),
+            patientID: dcm2jsonV8.dcmString(
+                this.dicomJson,
+                "00100020"
             )
         };
     }
@@ -90,7 +94,8 @@ class DicomJsonModel {
             await Promise.all([
                 this.storeInstanceCollection(dicomJsonClone),
                 this.storeStudyCollection(dicomJsonClone),
-                this.storeSeriesCollection(dicomJsonClone)
+                this.storeSeriesCollection(dicomJsonClone),
+                this.storePatientCollection(dicomJsonClone)
             ]);
         } catch(e) {
             throw e;
@@ -151,6 +156,27 @@ class DicomJsonModel {
         );
     }
 
+    async storePatientCollection(dicomJson) {
+        let mediaStorage = this.getMediaStorageInfo();
+
+        await patientModel.findOneAndUpdate(
+            {
+                patientID: this.uidObj.patientID
+            },
+            {
+                ...dicomJson,
+                ...mediaStorage,
+                $addToSet: {
+                    studyPaths: dicomJson.studyPath
+                }
+            },
+            {
+                upsert: true,
+                new: true
+            }
+        );
+    }
+
     async saveMetadataToFile(storeFullPath) {
         try {
             let dicomJsonClone = _.cloneDeep(this.dicomJson);
@@ -177,6 +203,23 @@ class DicomJsonModel {
         } catch (e) {
             throw e;
         }
+    }
+
+    getMediaStorageInfo() {
+        return {
+            "00880130": {
+                "vr": "SH",
+                "Value": [
+                    raccoonConfig.mediaStorageID
+                ]
+            },
+            "00880140": {
+                "vr": "UI",
+                "Value": [
+                    raccoonConfig.mediaStorageUID
+                ]
+            }
+        };
     }
 
     getWindowCenter() {

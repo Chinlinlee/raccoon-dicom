@@ -4,6 +4,7 @@
  * @property {string} seriesUID
  * @property {string} sopInstanceUID
  * @property {string} sopClass
+ * @property {string} patientID
  *
  */
 
