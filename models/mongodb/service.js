@@ -64,15 +64,15 @@ function gte_Date(i_Date, format = "YYYYMMDD") {
 
 function lte_Date(i_Date, format = "YYYYMMDD") {
     let query = {
-        $lte: moment(i_Date[0], format).toDate()
+        $lte: moment(i_Date[0], format).endOf("day").toDate()
     };
     return query;
 }
 
 function between_Date(i_Date, format = "YYYYMMDD") {
     let query = {
-        $gte: moment(i_Date[0], format).toDate(),
-        $lte: moment(i_Date[1], format).toDate()
+        $gte: moment(i_Date[0], format).startOf("day").toDate(),
+        $lte: moment(i_Date[1], format).endOf("day").toDate()
     };
     return query;
 }
