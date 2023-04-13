@@ -223,6 +223,34 @@ router.get(
     require("./controller/QIDO-RS/queryAllInstances")
 );
 
+/**
+ *  @openapi
+ *  /dicom-web/patients:
+ *    get:
+ *      tags:
+ *        - QIDO-RS
+ *      description: Query all patients in server
+ *      parameters:
+ *        - $ref: "#/components/parameters/PatientName"
+ *        - $ref: "#/components/parameters/PatientID"
+ *        - $ref: "#/components/parameters/PatientBirthDate"
+ *        - $ref: "#/components/parameters/PatientBirthTime"
+ *      responses:
+ *        200:
+ *          description: Query successfully
+ *          content:
+ *            "application/dicom+json":
+ *              schema:
+ *                type: array
+ *                items:
+ *                  allOf:
+ *                  - $ref: "#/components/schemas/PatientRequiredMatchingAttributes"
+ */
+router.get(
+    "/patients",
+    require("./controller/QIDO-RS/allPatient")
+);
+
 //#endregion
 
 //#region STOW-RS

@@ -11,6 +11,7 @@ const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
 const dicomWebApiPath = raccoonConfig.dicomWebConfig.apiPath;
 const dicomModel = require("../../../../../models/mongodb/models/dicom");
+const patientModel = require("../../../../../models/mongodb/models/patient");
 
 class QidoRsService {
 
@@ -101,6 +102,9 @@ class QidoDicomJsonFactory {
         this.level = level;
 
         this.getDicomJsonByLevel = {
+            "patient": async() => {
+                return await getPatientDicomJson(queryOptions);
+            },
             "study": async () => {
                 return await getStudyDicomJson(queryOptions);
             },
@@ -281,6 +285,33 @@ const vrQueryLookup = {
 
 /**
  * 
+ * @param {import("../../../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+ * @returns 
+ */
+async function getPatientDicomJson(queryOptions) {
+    try {
+        let mongoQuery = await convertRequestQueryToMongoQuery(queryOptions.query);
+
+        let query = {
+            ...queryOptions.requestParams,
+            ...mongoQuery.$match
+        };
+        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
+        
+        queryOptions.query = { ...query };
+        let docs = await patientModel.getDicomJson(queryOptions);
+
+        let sortedInstanceDicomJson = sortArrayObjByFieldKey(docs);
+
+        return sortedInstanceDicomJson;
+    } catch (e) {
+        console.error("get Series DICOM error", e);
+        throw e;
+    }
+}
+
+/**
+ * 
  * @param {import("../../../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions 
  * @returns 
  */
@@ -361,3 +392,6 @@ async function getInstanceDicomJson(queryOptions) {
 }
 
 module.exports.QidoRsService = QidoRsService;
+module.exports.QidoDicomJsonFactory = QidoDicomJsonFactory;
+module.exports.convertAllQueryToDICOMTag = convertAllQueryToDICOMTag;
+module.exports.convertRequestQueryToMongoQuery = convertRequestQueryToMongoQuery;
