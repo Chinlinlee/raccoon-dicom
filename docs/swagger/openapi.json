@@ -439,6 +439,47 @@
                 }
             }
         },
+        "/dicom-web/patients": {
+            "get": {
+                "tags": [
+                    "QIDO-RS"
+                ],
+                "description": "Query all patients in server",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/PatientName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientBirthDate"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientBirthTime"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/PatientRequiredMatchingAttributes"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/dicom-web/studies/{studyUID}": {
             "get": {
                 "tags": [
@@ -666,6 +707,38 @@
             }
         },
         "parameters": {
+            "PatientName": {
+                "name": "00100010",
+                "description": "Patient's full name.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "PatientID": {
+                "name": "00100020",
+                "description": "Primary identifier for the Patient.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "PatientBirthDate": {
+                "name": "00100030",
+                "description": "Birth date of the Patient.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "PatientBirthTime": {
+                "name": "00100032",
+                "description": "Birth time of the Patient.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
             "studyUID": {
                 "name": "studyUID",
                 "in": "path",
@@ -753,22 +826,6 @@
             "ReferringPhysicianName": {
                 "name": "00080090",
                 "description": "Name of the Patient's referring physician",
-                "in": "query",
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "PatientName": {
-                "name": "00100010",
-                "description": "Patient's full name.",
-                "in": "query",
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "PatientID": {
-                "name": "00100020",
-                "description": "Primary identifier for the Patient.",
                 "in": "query",
                 "schema": {
                     "type": "string"
@@ -943,6 +1000,106 @@
                         }
                     }
                 ]
+            },
+            "PatientRequiredMatchingAttributes": {
+                "properties": {
+                    "00100010": {
+                        "description": "Patient Name",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00100020": {
+                        "description": "Patient ID",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00100021": {
+                        "description": "Issuer of Patient ID ",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00100030": {
+                        "description": "Patient's Birth Date",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00100032": {
+                        "description": "Patient's Birth Time",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00100040": {
+                        "description": "Patient's Sex",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00101001": {
+                        "description": "Other Patient Names",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00101002": {
+                        "description": "Other Patient IDs Sequence",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00102160": {
+                        "description": "Ethnic Group",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00104000": {
+                        "description": "Patient Comments",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00880130": {
+                        "description": "Storage Media File-set ID",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    },
+                    "00880140": {
+                        "description": "Storage Media File-set UID",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/GeneralJsonModel"
+                            }
+                        ]
+                    }
+                }
             },
             "SeriesRequiredMatchingAttributes": {
                 "allOf": [

@@ -30,18 +30,6 @@ components:
             in: query
             schema:
                 type: string
-        "PatientName":
-            name: "00100010"
-            description: Patient's full name.
-            in: query
-            schema:
-                type: string
-        "PatientID":
-            name: "00100020"
-            description: Primary identifier for the Patient.
-            in: query
-            schema:
-                type: string
         "StudyID":
             name: "00200010"
             description: User or equipment generated Study identifier.

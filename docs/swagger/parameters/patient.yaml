@@ -1,0 +1,28 @@
+components:
+    parameters:
+        "PatientName":
+            name: "00100010"
+            description: Patient's full name.
+            in: query
+            schema:
+                type: string
+        "PatientID":
+            name: "00100020"
+            description: Primary identifier for the Patient.
+            in: query
+            schema:
+                type: string
+
+        "PatientBirthDate":
+            name: "00100030"
+            description: Birth date of the Patient.
+            in: query
+            schema:
+                type: string
+        
+        "PatientBirthTime":
+            name: "00100032"
+            description: Birth time of the Patient.
+            in: query
+            schema:
+              type: string

@@ -1,0 +1,63 @@
+components:
+  schemas:
+    "PatientRequiredMatchingAttributes":
+      properties:
+        "00100010":
+          description: "Patient Name"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00100020":
+          description: "Patient ID"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00100021":
+          description: "Issuer of Patient ID "
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+        
+        "00100030":
+          description: "Patient's Birth Date"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00100032":
+          description: "Patient's Birth Time"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00100040":
+          description: "Patient's Sex"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+          
+        "00101001":
+          description: "Other Patient Names"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+        
+        "00101002":
+          description: "Other Patient IDs Sequence"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00102160":
+          description: "Ethnic Group"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+        
+        "00104000":
+          description: "Patient Comments"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00880130":
+          description: "Storage Media File-set ID"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
+
+        "00880140":
+          description: "Storage Media File-set UID"
+          allOf:
+            - $ref: "#/components/schemas/GeneralJsonModel"
