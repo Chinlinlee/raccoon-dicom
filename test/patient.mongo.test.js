@@ -45,17 +45,24 @@ describe("Patient MongoDB and DicomJsonModel", async() => {
                 "M"
             ]
         },
-        "00101000": {
-            "vr": "LO",
-            "Value": [
-                "98765"
-            ]
-        },
         "00101001": {
             "vr": "PN",
             "Value": [
                 {
                     "Alphabetic": "Doe, John"
+                }
+            ]
+        },
+        "00101002": {
+            "vr": "SQ",
+            "Value": [
+                {
+                    "00100020": {
+                        "vr": "LO",
+                        "Value": [
+                            "98765"
+                        ]
+                    }
                 }
             ]
         },
