@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const {
     DICOMFHIRConverter
 } = require("../../../../../models/FHIR/DICOM/DICOMToFHIR");
-const { fhirLogger } = require("../../../../../utils/log");
+const { fhirLogger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
 

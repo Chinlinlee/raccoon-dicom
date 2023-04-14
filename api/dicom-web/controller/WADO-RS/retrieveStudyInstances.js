@@ -1,4 +1,4 @@
-const { logger } = require("../../../../utils/log");
+const { logger } = require("../../../../utils/logs/log");
 const wadoService = require("./service/WADO-RS.service");
 const { WADOZip } = require("./service/WADOZip");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");

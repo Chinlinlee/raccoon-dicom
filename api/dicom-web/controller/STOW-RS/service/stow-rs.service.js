@@ -8,7 +8,7 @@ const {
 const { DicomFileSaver } = require("./dicom-file-saver");
 const { DicomFhirService} = require("./dicom-fhir.service");
 const { DicomJpegGenerator } = require("./dicom-jpeg-generator");
-const { logger } = require("../../../../../utils/log");
+const { logger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");

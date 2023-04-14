@@ -10,7 +10,7 @@ const {
 const flat = require("flat");
 const shortHash = require("shorthash2");
 const dicomBulkDataModel = require("../mongodb/models/dicomBulkData");
-const { logger } = require("../../utils/log");
+const { logger } = require("../../utils/logs/log");
 const patientModel = require("../mongodb/models/patient");
 
 const { raccoonConfig } = require("../../config-class");

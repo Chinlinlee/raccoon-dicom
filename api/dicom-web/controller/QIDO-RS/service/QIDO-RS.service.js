@@ -6,7 +6,7 @@ const { dictionary } = require("../../../../../models/DICOM/dicom-tags-dic");
 const {
     tagsOfRequiredMatching
 } = require("../../../../../models/DICOM/dicom-tags-mapping");
-const { logger } = require("../../../../../utils/log");
+const { logger } = require("../../../../../utils/logs/log");
 const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
 const dicomWebApiPath = raccoonConfig.dicomWebConfig.apiPath;

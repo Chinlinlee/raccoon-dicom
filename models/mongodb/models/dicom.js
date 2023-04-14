@@ -6,7 +6,7 @@ const {
     getVRSchema
 } = require("../schema/dicomJsonAttribute");
 const { getStoreDicomFullPath } = require("../service");
-const { logger } = require("../../../utils/log");
+const { logger } = require("../../../utils/logs/log");
 const { getStudyLevelFields } = require("./dicomStudy");
 const { getSeriesLevelFields } = require("./dicomSeries");
 const { tagsOfRequiredMatching } = require("../../DICOM/dicom-tags-mapping");

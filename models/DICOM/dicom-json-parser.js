@@ -2,7 +2,7 @@ const { DicomUtf8Converter } = require("./dcm4che/DicomUtf8Converter");
 const {
     dcm2jsonV8
 } = require("./dcmtk");
-const { logger } = require("../../utils/log");
+const { logger } = require("../../utils/logs/log");
 
 
 class DicomJsonParser {

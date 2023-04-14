@@ -2,7 +2,7 @@ const path = require("path");
 const shortHash = require("shorthash2");
 const mkdirp = require("mkdirp");
 const moveFile = require("../../../../../utils/file/moveFile");
-const { logger } = require("../../../../../utils/log");
+const { logger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
 

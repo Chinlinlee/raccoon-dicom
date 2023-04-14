@@ -5,7 +5,7 @@ const path = require("path");
 const fileExist = require("../../../../utils/file/fileExist");
 const wadoService = require("./service/WADO-RS.service");
 const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-const { logger } = require("../../../../utils/log");
+const { logger } = require("../../../../utils/logs/log");
 const { Controller } = require("../../../controller.class");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 

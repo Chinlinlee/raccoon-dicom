@@ -3,7 +3,7 @@ const _ = require("lodash");
 const renderedService = require("../service/rendered.service");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
-const { logger } = require("../../../../../utils/log");
+const { logger } = require("../../../../../utils/logs/log");
 const { Controller } = require("../../../../controller.class");
 
 class RetrieveRenderedSeriesController extends Controller {

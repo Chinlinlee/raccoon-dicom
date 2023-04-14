@@ -1,4 +1,4 @@
-const { logger } = require("../utils/log");
+const { logger } = require("../utils/logs/log");
 const uuid = require("uuid");
 const fs = require("fs");
 const _ = require("lodash");
