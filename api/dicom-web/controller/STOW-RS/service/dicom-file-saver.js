@@ -41,7 +41,7 @@ class DicomFileSaver {
 
             return {
                 fullPath: fullStorePath,
-                relativePath: `${relativeStorePath}${this.file.originalFilename}`,
+                relativePath: path.join(relativeStorePath, this.file.originalFilename),
                 instancePath: instanceStorePath,
                 seriesPath: `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}`,
                 studyPath: `files/${year}/${month}/${shortStudyUID}`
