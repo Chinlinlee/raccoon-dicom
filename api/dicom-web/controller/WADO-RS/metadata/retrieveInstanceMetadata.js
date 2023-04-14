@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const fs = require("fs");
 const path = require("path");
-const fileExist = require("../../../../utils/file/fileExist");
-const wadoService = require("./service/WADO-RS.service");
-const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-const { logger } = require("../../../../utils/log");
-const { Controller } = require("../../../controller.class");
-const dicomModel = require("../../../../models/mongodb/models/dicom");
+const fileExist = require("../../../../../utils/file/fileExist");
+const wadoService = require("../service/WADO-RS.service");
+const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
+const { Controller } = require("../../../../controller.class");
+const dicomModel = require("../../../../../models/mongodb/models/dicom");
+const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 
 class RetrieveInstanceMetadataController extends Controller {
     constructor(req, res) {
@@ -15,7 +15,10 @@ class RetrieveInstanceMetadataController extends Controller {
     }
 
     async mainProcess() {
-        logger.info(`[WADO-RS] [Get Study's Series' Instance Metadata] [instance UID: ${this.request.params.instanceUID}, series UID: ${this.request.params.seriesUID}, study UID: ${this.request.params.studyUID}]`);
+        let apiLogger = new ApiLogger(this.request, "WADO-RS");
+
+        apiLogger.addTokenValue();
+        apiLogger.logger.info(`[WADO-RS] [Get Study's Series' Instance Metadata] [instance UID: ${this.request.params.instanceUID}, series UID: ${this.request.params.seriesUID}, study UID: ${this.request.params.studyUID}]`);
         try {
             let responseMetadata = [];
 

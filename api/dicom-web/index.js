@@ -364,7 +364,7 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/metadata",
-    require("./controller/WADO-RS/retrieveStudyMetadata")
+    require("./controller/WADO-RS/metadata/retrieveStudyMetadata")
 );
 
 /**
@@ -384,7 +384,7 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/metadata",
-    require("./controller/WADO-RS/retrieveSeriesMetadata")
+    require("./controller/WADO-RS/metadata/retrieveSeriesMetadata")
 );
 
 /**
@@ -405,7 +405,7 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/metadata",
-    require("./controller/WADO-RS/retrieveInstanceMetadata")
+    require("./controller/WADO-RS/metadata/retrieveInstanceMetadata")
 );
 
 //#endregion

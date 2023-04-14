@@ -2,12 +2,11 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const fs = require("fs");
 const path = require("path");
-const fileExist = require("../../../../utils/file/fileExist");
-const wadoService = require("./service/WADO-RS.service");
-const errorResponse = require("../../../../utils/errorResponse/errorResponseMessage");
-const { logger } = require("../../../../utils/logs/log");
-const { Controller } = require("../../../controller.class");
-const { ApiLogger } = require("../../../../utils/logs/api-logger");
+const fileExist = require("../../../../../utils/file/fileExist");
+const wadoService = require("../service/WADO-RS.service");
+const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
+const { Controller } = require("../../../../controller.class");
+const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 
 class RetrieveStudyMetadataController extends Controller {
     constructor(req, res) {
