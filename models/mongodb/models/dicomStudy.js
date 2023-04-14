@@ -128,6 +128,16 @@ dicomStudySchema.statics.getPathGroupOfInstances = async function(iParam) {
     }
 };
 
+/**
+ * @typedef { mongoose.Model<dicomStudySchema> & { 
+ * getPathGroupOfInstances: function(iParam: {
+ *      studyUID: string,
+ *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]>;
+ * getDicomJson: function(queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<JSON[]>
+ * }} DicomStudyModel
+*/
+
+/** @type { DicomStudyModel } */
 let dicomStudyModel = mongoose.model(
     "dicomStudy",
     dicomStudySchema,
