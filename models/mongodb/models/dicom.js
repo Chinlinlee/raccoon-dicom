@@ -345,7 +345,7 @@ dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
             obj["00081190"] = {
                 vr: "UR",
                 Value: [
-                    `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
+                    `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instances/${obj["00080018"]["Value"][0]}`
                 ]
             };
             return obj;
