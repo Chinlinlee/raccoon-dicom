@@ -8,5 +8,13 @@ module.exports = {
     "ui": "bdd",
     "parallel": false,
     "sort": false,
-    "recursive": true
+    "recursive": true,
+    "file": [
+        "test/before.js",
+        "test/QIDO-RS-Service/common.test.js",
+        "test/QIDO-RS-Service/patient.test.js",
+        "test/patient.mongo.test.js",
+        "test/store-instances.test.js",
+        "test/query.test.js"
+    ]
 };
