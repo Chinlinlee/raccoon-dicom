@@ -40,24 +40,98 @@ const renderedQueryValidation = {
     })
 };
 
+/**
+ *  @openapi
+ *  /dicom-web/studies/{studyUID}/rendered:
+ *    get:
+ *      tags:
+ *        - WADO-RS
+ *      description: Retrieve Study's rendered images
+ *      parameters:
+ *        - $ref: "#/components/parameters/studyUID"
+ *        - $ref: "#/components/parameters/quality"
+ *        - $ref: "#/components/parameters/viewport"
+ *        - $ref: "#/components/parameters/iccprofile"
+ *      responses:
+ *        200:
+ *          $ref: "#/components/responses/MultipartRelatedImageJpeg"
+ *          
+ */
 router.get(
     "/studies/:studyUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
     require("./controller/WADO-RS/rendered/study")
 );
 
+/**
+ *  @openapi
+ *  /dicom-web/studies/{studyUID}/series/{seriesUID}/rendered:
+ *    get:
+ *      tags:
+ *        - WADO-RS
+ *      description: Retrieve Study's Series' rendered images
+ *      parameters:
+ *        - $ref: "#/components/parameters/studyUID"
+ *        - $ref: "#/components/parameters/seriesUID"
+ *        - $ref: "#/components/parameters/quality"
+ *        - $ref: "#/components/parameters/viewport"
+ *        - $ref: "#/components/parameters/iccprofile"
+ *      responses:
+ *        200:
+ *          $ref: "#/components/responses/MultipartRelatedImageJpeg"
+ *          
+ */
 router.get(
     "/studies/:studyUID/series/:seriesUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
     require("./controller/WADO-RS/rendered/series")
 );
 
+/**
+ *  @openapi
+ *  /dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/rendered:
+ *    get:
+ *      tags:
+ *        - WADO-RS
+ *      description: Retrieve Study's Series' instance's rendered images
+ *      parameters:
+ *        - $ref: "#/components/parameters/studyUID"
+ *        - $ref: "#/components/parameters/seriesUID"
+ *        - $ref: "#/components/parameters/instanceUID"
+ *        - $ref: "#/components/parameters/quality"
+ *        - $ref: "#/components/parameters/viewport"
+ *        - $ref: "#/components/parameters/iccprofile"
+ *      responses:
+ *        200:
+ *          $ref: "#/components/responses/MultipartRelatedImageJpeg"
+ *          
+ */
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
     require("./controller/WADO-RS/rendered/instances")
 );
 
+/**
+ *  @openapi
+ *  /dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/frames/{frameNumbers}/rendered:
+ *    get:
+ *      tags:
+ *        - WADO-RS
+ *      description: Retrieve Study's rendered images
+ *      parameters:
+ *        - $ref: "#/components/parameters/studyUID"
+ *        - $ref: "#/components/parameters/seriesUID"
+ *        - $ref: "#/components/parameters/instanceUID"
+ *        - $ref: "#/components/parameters/frameNumbers"
+ *        - $ref: "#/components/parameters/quality"
+ *        - $ref: "#/components/parameters/viewport"
+ *        - $ref: "#/components/parameters/iccprofile"
+ *      responses:
+ *        200:
+ *          $ref: "#/components/responses/RetrieveRenderedByFrameNumbers"
+ *          
+ */
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/frames/:frameNumber/rendered",
     validateParams({

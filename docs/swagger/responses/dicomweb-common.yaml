@@ -1,14 +1,23 @@
 components:
-  responses: 
+  responses:
     "MultipartRelatedDICOM":
       description: "The response payload for WADO-RS"
       content:
-        "multipart/related; type=\"application/dicom\"":
+        'multipart/related; type="application/dicom"':
           schema:
             type: string
             format: binary
             example: "--boundary-raccoon\r\nContent-Type: application/dicom\r\nContent-Length: {length}\r\nContent-Location: http://example.com/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}\r\n\r\n{data}\r\n--boundary-raccoon--"
-    
+
+    "MultipartRelatedImageJpeg":
+      description: "The response payload for WADO-RS"
+      content:
+        'multipart/related; type="image/jpeg"':
+          schema:
+            type: string
+            format: binary
+            example: "--boundary-raccoon\r\nContent-Type: image/jpeg\r\nContent-Length: {length}\r\nContent-Location: http://example.com/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/rendered\r\n\r\n{data}\r\n--boundary-raccoon--"
+
     "DicomMetadata":
       description: "The metadata JSON of DICOM instance"
       content:
@@ -17,3 +26,16 @@ components:
             type: array
             items:
               type: object
+
+    "RetrieveRenderedByFrameNumbers":
+      description: "The response payload for WADO-RS"
+      content:
+        'multipart/related; type="image/jpeg"':
+          schema:
+            type: string
+            format: binary
+            example: "--boundary-raccoon\r\nContent-Type: image/jpeg\r\nContent-Length: {length}\r\nContent-Location: http://example.com/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/rendered\r\n\r\n{data}\r\n--boundary-raccoon--"
+        "image/jpeg":
+          schema:
+            type: string
+            format: binary

@@ -1,0 +1,25 @@
+components:
+    parameters:
+        "frameNumbers":
+            name: "frameNumbers"
+            description: "comma separated list of one or more non duplicate frame numbers"
+            in: path
+            required: true
+            schema:
+                type: string
+
+        "quality":
+            name: "quality"
+            description: Image Quality
+            in: query
+            schema:
+                type: integer
+                minimum: 1
+                maximum: 100
+
+        "viewport":
+            name: "viewport"
+            description: "Viewport Scaling of Image in format, viewport=vw,vh or viewport=vw,vh,sx,sy,sw,sh"
+            in: query
+            schema:
+                type: string

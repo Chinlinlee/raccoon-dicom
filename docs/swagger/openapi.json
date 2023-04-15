@@ -606,6 +606,132 @@
                 }
             }
         },
+        "/dicom-web/studies/{studyUID}/rendered": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's rendered images",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/quality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/viewport"
+                    },
+                    {
+                        "$ref": "#/components/parameters/iccprofile"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedImageJpeg"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/rendered": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's Series' rendered images",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/quality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/viewport"
+                    },
+                    {
+                        "$ref": "#/components/parameters/iccprofile"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedImageJpeg"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/rendered": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's Series' instance's rendered images",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/instanceUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/quality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/viewport"
+                    },
+                    {
+                        "$ref": "#/components/parameters/iccprofile"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedImageJpeg"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/frames/{frameNumbers}/rendered": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's rendered images",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/instanceUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/frameNumbers"
+                    },
+                    {
+                        "$ref": "#/components/parameters/quality"
+                    },
+                    {
+                        "$ref": "#/components/parameters/viewport"
+                    },
+                    {
+                        "$ref": "#/components/parameters/iccprofile"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RetrieveRenderedByFrameNumbers"
+                    }
+                }
+            }
+        },
         "/wado": {
             "get": {
                 "tags": [
@@ -701,6 +827,36 @@
                         "schema": {
                             "type": "string",
                             "format": "byte"
+                        }
+                    }
+                }
+            },
+            "MultipartRelatedImageJpeg": {
+                "description": "The response payload for WADO-RS",
+                "content": {
+                    "multipart/related; type=\"image/jpeg\"": {
+                        "schema": {
+                            "type": "string",
+                            "format": "binary",
+                            "example": "--boundary-raccoon\r\nContent-Type: image/jpeg\r\nContent-Length: {length}\r\nContent-Location: http://example.com/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/rendered\r\n\r\n{data}\r\n--boundary-raccoon--"
+                        }
+                    }
+                }
+            },
+            "RetrieveRenderedByFrameNumbers": {
+                "description": "The response payload for WADO-RS",
+                "content": {
+                    "multipart/related; type=\"image/jpeg\"": {
+                        "schema": {
+                            "type": "string",
+                            "format": "binary",
+                            "example": "--boundary-raccoon\r\nContent-Type: image/jpeg\r\nContent-Length: {length}\r\nContent-Location: http://example.com/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/rendered\r\n\r\n{data}\r\n--boundary-raccoon--"
+                        }
+                    },
+                    "image/jpeg": {
+                        "schema": {
+                            "type": "string",
+                            "format": "binary"
                         }
                     }
                 }
@@ -834,6 +990,33 @@
             "StudyID": {
                 "name": "00200010",
                 "description": "User or equipment generated Study identifier.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "frameNumbers": {
+                "name": "frameNumbers",
+                "description": "comma separated list of one or more non duplicate frame numbers",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "quality": {
+                "name": "quality",
+                "description": "Image Quality",
+                "in": "query",
+                "schema": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                }
+            },
+            "viewport": {
+                "name": "viewport",
+                "description": "Viewport Scaling of Image in format, viewport=vw,vh or viewport=vw,vh,sx,sy,sw,sh",
                 "in": "query",
                 "schema": {
                     "type": "string"
