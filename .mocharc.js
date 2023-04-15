@@ -15,6 +15,7 @@ module.exports = {
         "test/QIDO-RS-Service/patient.test.js",
         "test/patient.mongo.test.js",
         "test/store-instances.test.js",
-        "test/query.test.js"
+        "test/query.test.js",
+        "test/delete.test.js"
     ]
 };
