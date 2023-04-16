@@ -5,11 +5,8 @@ const {
     dicomJsonAttributeDASchema,
     getVRSchema
 } = require("../schema/dicomJsonAttribute");
-const { getStoreDicomFullPath } = require("../service");
+const { getStoreDicomFullPath, IncludeFieldsFactory } = require("../service");
 const { logger } = require("../../../utils/logs/log");
-const { getStudyLevelFields } = require("./dicomStudy");
-const { getSeriesLevelFields } = require("./dicomSeries");
-const { tagsOfRequiredMatching } = require("../../DICOM/dicom-tags-mapping");
 
 let dicomModelSchema = new mongoose.Schema(
     {
@@ -318,17 +315,15 @@ async function updateStudyNumberOfStudyRelatedInstance(doc) {
  * @returns 
  */
 dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
-    let studyFields = getStudyLevelFields();
-    let seriesFields = getSeriesLevelFields();
-    let instanceFields = getInstanceLevelFields();
+
+    let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
+    let instanceFields = includeFieldsFactory.getInstanceLevelFields();
 
     try {
 
         let docs = await mongoose
         .model("dicom")
         .find(queryOptions.query, {
-            ...studyFields,
-            ...seriesFields,
             ...instanceFields
         })
         .setOptions({
@@ -358,14 +353,6 @@ dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
     }
     
 };
-
-function getInstanceLevelFields() {
-    let fields = {};
-    for (let tag in tagsOfRequiredMatching.Instance) {
-        fields[tag] = 1;
-    }
-    return fields;
-}
 
 /**
  * 

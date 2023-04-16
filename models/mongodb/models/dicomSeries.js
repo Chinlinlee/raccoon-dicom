@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
-const { getStoreDicomFullPathGroup } = require("../service");
-const {
-    tagsOfRequiredMatching
-} = require("../../DICOM/dicom-tags-mapping");
-const { getStudyLevelFields } = require("./dicomStudy");
+const { getStoreDicomFullPathGroup, IncludeFieldsFactory } = require("../service");
 
 let dicomSeriesSchema = new mongoose.Schema(
     {
@@ -65,13 +61,6 @@ dicomSeriesSchema.index({
     "0020000E": 1
 });
 
-function getSeriesLevelFields() {
-    let fields = {};
-    for (let tag in tagsOfRequiredMatching.Series) {
-        fields[tag] = 1;
-    }
-    return fields;
-}
 
 /**
  * 
@@ -79,14 +68,13 @@ function getSeriesLevelFields() {
  * @returns 
  */
 dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
-    let studyFields = getStudyLevelFields();
-    let seriesFields = getSeriesLevelFields();
+    let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
+    let seriesFields = includeFieldsFactory.getSeriesLevelFields();
 
     try {
         let docs = await mongoose
             .model("dicomSeries")
             .find(queryOptions.query, {
-                ...studyFields,
                 ...seriesFields
             })
             .setOptions({
@@ -183,4 +171,3 @@ let dicomSeriesModel = mongoose.model(
 );
 
 module.exports = dicomSeriesModel;
-module.exports.getSeriesLevelFields = getSeriesLevelFields;

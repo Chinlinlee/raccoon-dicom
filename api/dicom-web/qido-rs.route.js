@@ -1,9 +1,52 @@
 const express = require("express");
 const Joi = require("joi");
-const { validateParams, intArrayJoi } = require("../validator");
+const { validateParams, intArrayJoi, stringArrayJoi } = require("../validator");
 const router = express();
+const {
+    dictionary
+} = require("../../models/DICOM/dicom-tags-dic");
+
+const KEYWORD_KEYS = Object.keys(dictionary.keyword);
+const HEX_KEYS = Object.keys(dictionary.tag);
 
 //#region QIDO-RS
+const queryValidation = {
+    limit: Joi.number().integer().min(1).max(100),
+    offset: Joi.number().integer().min(0),
+    includefield: stringArrayJoi.stringArray().items(
+        Joi.string().custom(
+            (attribute, helper) => {
+                if (!isValidAttribute(attribute)) {
+                    return helper.message(`Invalid DICOM attribute: ${attribute}, please enter valid keyword or tag`);
+                }
+                return convertKeywordToHex(attribute);
+            }
+        )
+    ).single()
+};
+
+/**
+ * 
+ * @param {string} attribute 
+ */
+function isValidAttribute(attribute) {
+    if (KEYWORD_KEYS.indexOf(attribute) >= 0 ||
+        HEX_KEYS.indexOf(attribute) >= 0 ||
+        attribute === "all") {
+
+        return true;
+    }
+
+    return false;
+}
+
+function convertKeywordToHex(attribute) {
+    if (KEYWORD_KEYS.indexOf(attribute) >= 0) {
+        return dictionary.keyword[attribute];
+    }
+    return attribute;
+}
+
 
 /**
  *  @openapi
@@ -32,7 +75,9 @@ const router = express();
  *                  allOf:
  *                  - $ref: "#/components/schemas/StudyRequiredMatchingAttributes"
  */
-router.get("/studies", require("./controller/QIDO-RS/queryAllStudies"));
+router.get("/studies", validateParams(queryValidation, "query", {
+    allowUnknown: true
+}), require("./controller/QIDO-RS/queryAllStudies"));
 
 /**
  *  @openapi
@@ -66,7 +111,9 @@ router.get("/studies", require("./controller/QIDO-RS/queryAllStudies"));
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  */
 router.get(
-    "/studies/:studyUID/series",
+    "/studies/:studyUID/series", validateParams(queryValidation, "query", {
+        allowUnknown: true
+    }),
     require("./controller/QIDO-RS/queryStudies-Series")
 );
 
@@ -105,7 +152,9 @@ router.get(
  *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
 router.get(
-    "/studies/:studyUID/instances",
+    "/studies/:studyUID/instances", validateParams(queryValidation, "query", {
+        allowUnknown: true
+    }),
     require("./controller/QIDO-RS/queryStudies-Instances")
 );
 
@@ -145,7 +194,9 @@ router.get(
  *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
 router.get(
-    "/studies/:studyUID/series/:seriesUID/instances",
+    "/studies/:studyUID/series/:seriesUID/instances", validateParams(queryValidation, "query", {
+        allowUnknown: true
+    }),
     require("./controller/QIDO-RS/queryStudies-Series-Instance")
 );
 
@@ -181,7 +232,9 @@ router.get(
  * 
  */
 router.get(
-    "/series",
+    "/series", validateParams(queryValidation, "query", {
+        allowUnknown: true
+    }),
     require("./controller/QIDO-RS/queryAllSeries")
 );
 
@@ -219,7 +272,9 @@ router.get(
  *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
 router.get(
-    "/instances",
+    "/instances", validateParams(queryValidation, "query", {
+        allowUnknown: true
+    }),
     require("./controller/QIDO-RS/queryAllInstances")
 );
 

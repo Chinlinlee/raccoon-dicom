@@ -6,9 +6,31 @@ const intArrayJoi = Joi.extend((joi) => {
         type: "intArray",
         base: joi.array(),
         coerce: (value, helper) => {
-            let item = (value.split ? value.split(',').map(v=> parseInt(v)) : parseInt(value));
+            let item = (value.split ? value.split(',').map(v => parseInt(v)) : parseInt(value));
             return {
                 value: item
+            };
+        }
+    };
+});
+
+const stringArrayJoi = Joi.extend((joi) => {
+    return {
+        type: "stringArray",
+        base: joi.array(),
+        coerce: (value, helper) => {
+            if (lodash.isArray(value)) {
+                value = value.join(",");
+            }
+
+            if (typeof value !== 'string') {
+                return {
+                    value: value
+                };
+            }
+
+            return {
+                value: value.replace(/^,+|,+$/mg, '').split(',')
             };
         }
     };
@@ -81,3 +103,4 @@ module.exports = {
     intArrayJoi: intArrayJoi
 };
 module.exports.validateByJoi = validateByJoi;
+module.exports.stringArrayJoi = stringArrayJoi;

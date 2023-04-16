@@ -15,6 +15,7 @@
  * @property {number} skip
  * @property {string} retrieveBaseUrl
  * @property {object} requestParams?
+ * @property {string[]} includeFields
  */
 
 const DICOM = true;

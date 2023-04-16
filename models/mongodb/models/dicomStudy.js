@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
-const { getStoreDicomFullPathGroup } = require("../service");
+const { 
+    getStoreDicomFullPathGroup,
+    IncludeFieldsFactory
+} = require("../service");
 const {
     tagsOfRequiredMatching
 } = require("../../DICOM/dicom-tags-mapping");
@@ -51,7 +54,8 @@ dicomStudySchema.index({
  * @returns 
  */
 dicomStudySchema.statics.getDicomJson = async function (queryOptions) {
-    let studyFields = getStudyLevelFields();
+    let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
+    let studyFields = includeFieldsFactory.getStudyLevelFields();
 
     try {
         let docs = await mongoose.model("dicomStudy").find(queryOptions.query, studyFields)
@@ -79,14 +83,6 @@ dicomStudySchema.statics.getDicomJson = async function (queryOptions) {
         throw e;
     }
 };
-
-function getStudyLevelFields() {
-    let fields = {};
-    for (let tag in tagsOfRequiredMatching.Study) {
-        fields[tag] = 1;
-    }
-    return fields;
-}
 
 /**
  * 
@@ -145,4 +141,3 @@ let dicomStudyModel = mongoose.model(
 );
 
 module.exports = dicomStudyModel;
-module.exports.getStudyLevelFields = getStudyLevelFields;

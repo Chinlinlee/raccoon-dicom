@@ -39,6 +39,17 @@ class QidoRsService {
         this.skip_ = parseInt(this.request.query.offset) || 0;
         delete this.request.query["offset"];
 
+        /**
+         * @private
+         */
+        this.includeFields_ = this.request.query["includefield"] || [];
+
+        if (this.includeFields_.includes("all")) {
+            this.includeFields_ = ["all"];
+        }
+
+        delete this.request.query["includefield"];
+
         this.initQuery_();
     }
 
@@ -65,6 +76,7 @@ class QidoRsService {
                 query: this.query,
                 skip: this.skip_,
                 limit: this.limit_,
+                includeFields: this.includeFields_,
                 retrieveBaseUrl: `${dicomWebService.getBasicURL()}/studies`,
                 requestParams: this.request.params
             };

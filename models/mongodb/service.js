@@ -2,6 +2,9 @@ const path = require("path");
 const moment = require("moment-timezone");
 moment.tz.setDefault("GMT");
 const { raccoonConfig } = require("../../config-class");
+const {
+    tagsOfRequiredMatching
+} = require("../DICOM/dicom-tags-mapping");
 
 
 /**
@@ -136,6 +139,91 @@ function getStoreDicomFullPath(storeInstanceObj) {
     );
 }
 
+
+class IncludeFieldsFactory {
+    constructor(includeFields=[]) {
+        
+        this.includeFields = includeFields;
+        this.all = false;
+        if (this.includeFields.indexOf("all") >= 0) this.all = true;
+    }
+
+    getStudyLevelFields() {
+        if (this.all) {
+            return {
+                studyUID: 0,
+                studyPath: 0
+            };
+        }
+
+        let fields = {};
+        for (let tag in tagsOfRequiredMatching.Study) {
+            fields[tag] = 1;
+        }
+
+        return this.appendIncludeFieldOfRequestQuery_(fields);
+    }
+
+    getSeriesLevelFields() {
+        if (this.all) {
+            return {
+                studyUID: 0,
+                seriesUID: 0,
+                seriesPath: 0
+            };
+        }
+
+        let fields = {};
+        for (let tag in tagsOfRequiredMatching.Series) {
+            fields[tag] = 1;
+        }
+
+        let studyFields = this.getStudyLevelFields();
+
+        return {
+            ...studyFields,
+            ...fields
+        };
+    }
+
+    getInstanceLevelFields() {
+        if (this.all) {
+            return {
+                patientID: 0,
+                studyUID: 0,
+                seriesUID: 0,
+                instanceUID: 0,
+                studyPath : 0,
+                seriesPath : 0,
+                instancePath : 0
+            };
+        }
+
+        let fields = {};
+        for (let tag in tagsOfRequiredMatching.Instance) {
+            fields[tag] = 1;
+        }
+
+        let seriesFields = this.getSeriesLevelFields();
+
+        return {
+            ...seriesFields,
+            ...fields
+        };
+    }
+
+    /**
+     * @private
+     */
+    appendIncludeFieldOfRequestQuery_(fields) {
+        for (let includeField of this.includeFields) {
+            fields[includeField] = 1;
+        }
+        return fields;
+    }
+}
+
 module.exports.mongoDateQuery = mongoDateQuery;
 module.exports.getStoreDicomFullPathGroup = getStoreDicomFullPathGroup;
 module.exports.getStoreDicomFullPath = getStoreDicomFullPath;
+module.exports.IncludeFieldsFactory = IncludeFieldsFactory;
