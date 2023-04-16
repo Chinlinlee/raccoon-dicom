@@ -99,6 +99,14 @@ module.exports.tagsNeedStore = {
             "vr": "UI"
         }
     },
+    /**
+     * 
+     * @description 
+     * tag from: {@link https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.html|Common Study IE Modules}
+     * ,{@link https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.2.html|Patient Study Module}
+     * and {@link https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.3.html|Clinical Trial Study Module}
+     * 
+     */
     Study: {
         "00080005": {
             vr: "CS"
@@ -112,6 +120,9 @@ module.exports.tagsNeedStore = {
         "00080050": {
             vr: "SH"
         },
+        "00080051": {
+            vr: "SQ"
+        },
         "00080056": {
             vr: "CS"
         },
@@ -124,8 +135,38 @@ module.exports.tagsNeedStore = {
         "00080090": {
             vr: "PN"
         },
+        "00080096": {
+            vr: "SQ"
+        },
+        "0008009C": {
+            vr: "PN"
+        },
+        "0008009D": {
+            vr: "SQ"
+        },
         "00080201": {
             vr: "SH"
+        },
+        "00081030": {
+            vr: "LO"
+        },
+        "00081032": {
+            vr: "SQ"
+        },
+        "00081048": {
+            vr: "PN"
+        },
+        "00081049": {
+            vr: "SQ"
+        },
+        "00081060": {
+            vr: "PN"
+        },
+        "00081062": {
+            vr: "SQ"
+        },
+        "00081110": {
+            vr: "SQ"
         },
         "00100010": {
             vr: "PN"
@@ -159,6 +200,96 @@ module.exports.tagsNeedStore = {
         },
         "00401012": {
             vr: "SQ"
+        },
+        "00081080": {
+            vr: "LO"
+        },
+        "00081084": {
+            vr: "SQ"
+        },
+        "00101010": {
+            vr: "AS"
+        },
+        "00101020": {
+            vr: "DS"
+        },
+        "00101021": {
+            vr: "SQ"
+        },
+        "00101022": {
+            vr: "DS"
+        },
+        "00101023": {
+            vr: "DS"
+        },
+        "00101024": {
+            vr: "DS"
+        },
+        "00101030": {
+            vr: "DS"
+        },
+        "00102000": {
+            vr: "LO"
+        },
+        "00102110": {
+            vr: "LO"
+        },
+        "001021C0": {
+            vr: "US"
+        },
+        "001021D0": {
+            vr: "DA"
+        },
+        "00380500": {
+            vr: "LO"
+        },
+        "00102180": {
+            vr: "SH"
+        },
+        "001021B0": {
+            vr: "LT"
+        },
+        "00380010": {
+            vr: "LO"
+        },
+        "00380014": {
+            vr: "SQ"
+        },
+        "00321066": {
+            vr: "UT"
+        },
+        "00321067": {
+            vr: "SQ"
+        },
+        "00380060": {
+            vr: "LO"
+        },
+        "00380064": {
+            vr: "SQ"
+        },
+        "00380062": {
+            vr: "LO"
+        },
+        "00102203": {
+            vr: "CS"
+        },
+        "00120050": {
+            vr: "LO"
+        },
+        "00120051": {
+            vr: "ST"
+        },
+        "00120054": {
+            "vr": "SQ"
+        },
+        "00120052": {
+            "vr": "FD"
+        },
+        "00120053": {
+            "vr": "CS"
+        },
+        "00120083": {
+            "vr": "SQ"
         }
     },
     Series: {
