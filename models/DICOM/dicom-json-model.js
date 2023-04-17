@@ -327,6 +327,8 @@ class DicomJsonBinaryDataModel {
                 `${binaryKey}.BulkDataURI`,
                 `/studies/${studyUID}/series/${seriesUID}/instances/${sopInstanceUID}/bulkdata/${pathOfBinaryProperty}`
             );
+            
+            _.unset(this.dicomJsonModel.dicomJson, `${binaryKey}.InlineBinary`);
         }
 
         this.dicomJsonModel.dicomJson["7FE00010"] = {
