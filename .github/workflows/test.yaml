@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout self
+      uses: actions/checkout@v3
+      with:
+        path: "raccoon-dicom"
+        
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install libssl
+      run: |
+        wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.0l-1~deb9u6_amd64.deb
+        sudo dpkg -i libssl1.1_1.1.0l-1~deb9u6_amd64.deb
+
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Build and test
+      run: |
+        cd raccoon-dicom
+        npm install
+        cp ./plugins/config.template.js ./plugins/config.js
+        export DCMDICTPATH=$PWD/models/DICOM/dcmtk/dicom.dic
+        cp ./models/DICOM/dcm4che/javaNode/dcm4chee-5.27.0/lib/linux-x86-64/libclib_jiio.so $JAVA_HOME/lib
+        cp ./models/DICOM/dcm4che/javaNode/dcm4chee-5.27.0/lib/linux-x86-64/libopencv_java.so $JAVA_HOME/lib
+        npm install -g mocha
+        export MONGOMS_VERSION=4.4.19 && export MONGOMS_DEBUG=DEBUG && mocha
