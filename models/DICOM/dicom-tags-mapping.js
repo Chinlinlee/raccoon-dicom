@@ -292,6 +292,12 @@ module.exports.tagsNeedStore = {
             "vr": "SQ"
         }
     },
+    /**
+     * @description
+     * tag from: {@link https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html|Common Series IE Modules}
+     * ,{@link https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.2.html|Clinical Trial Series Module}
+     * and {@link https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.3.html|Enhanced Series Module}
+     */
     Series: {
         "00080021": {
             vr: "DA"
@@ -334,6 +340,45 @@ module.exports.tagsNeedStore = {
         },
         "00400275": {
             vr: "SQ"
+        },
+        "00200060": {
+            "vr": "CS"
+        },
+        "00080031": {
+            "vr": "TM"
+        },
+        "00181030": {
+            "vr": "LO"
+        },
+        "00081111": {
+            "vr": "SQ"
+        },
+        "00180015": {
+            "vr": "CS"
+        },
+        "00185100": {
+            "vr": "CS"
+        },
+        "00280108": {
+            "vr": "SS"
+        },
+        "00280109": {
+            "vr": "SS"
+        },
+        "00102210": {
+            "vr": "CS"
+        },
+        "300A0700": {
+            "vr": "UI"
+        },
+        "00120060": {
+            "vr": "LO"
+        },
+        "00120071": {
+            "vr": "LO"
+        },
+        "00120072": {
+            "vr": "LO"
         }
     }
 };
