@@ -198,32 +198,6 @@ class MultipartWriter {
         }
     }
 
-    /**
-     * Write multipart/related of multiple bulk data.
-     * @param {import('./typeDef/bulkdata.js').BulkData} bulkDataObj
-     * @returns
-     */
-    async writeBulkData(bulkDataObj, isFirst = true) {
-        try {
-            let filename = path.join(
-                raccoonConfig.dicomWebConfig.storeRootPath,
-                bulkDataObj.filename
-            );
-            let fileStream = fs.createReadStream(filename);
-            let fileBuffer = await streamToBuffer(fileStream);
-            this.writeBoundary();
-            this.writeContentType("application/octet-stream");
-            this.writeContentLength(fileBuffer.length);
-            let bulkDataUrlPath = `/api/dicom/instance/${bulkDataObj.instanceUID}/bulkdata/${bulkDataObj.binaryValuePath}`;
-            this.writeContentLocation(bulkDataUrlPath);
-            this.writeBufferData(fileBuffer);
-            return true;
-        } catch (e) {
-            logger.error(e);
-            return false;
-        }
-    }
-
     writeBuffer(buffer, headers) {
         try {
             this.writeBoundary();
