@@ -480,6 +480,96 @@
                 }
             }
         },
+        "/dicom-web/studies/{studyUID}/bulkdata": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve study's bulk data",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedOctet"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/bulkdata": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve series's bulk data",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedOctet"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/bulkdata": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve instance's bulk data",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/instanceUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedOctet"
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/bulkdata/{binaryValuePath}": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve instance's bulk data of specific tag",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/instanceUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/binaryValuePath"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/MultipartRelatedOctet"
+                    }
+                }
+            }
+        },
         "/dicom-web/studies/{studyUID}": {
             "get": {
                 "tags": [
@@ -843,6 +933,18 @@
                     }
                 }
             },
+            "MultipartRelatedOctet": {
+                "description": "The response payload for WADO-RS",
+                "content": {
+                    "multipart/related; type=\"application/octet-stream\"": {
+                        "schema": {
+                            "type": "string",
+                            "format": "binary",
+                            "example": "--boundary-raccoon\r\nContent-Type: application/octet-stream\r\nContent-Length: {length}\r\nContent-Location: http://example.com/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/bulkdata/{tag|tag.InlineBinary}\r\n\r\n{data}\r\n--boundary-raccoon--"
+                        }
+                    }
+                }
+            },
             "RetrieveRenderedByFrameNumbers": {
                 "description": "The response payload for WADO-RS",
                 "content": {
@@ -1017,6 +1119,14 @@
             "viewport": {
                 "name": "viewport",
                 "description": "Viewport Scaling of Image in format, viewport=vw,vh or viewport=vw,vh,sx,sy,sw,sh",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "binaryValuePath": {
+                "name": "binaryValuePath",
+                "description": "{dicomTag} or {dicomTag.InlineBinary} or {dicomTag.Value.itemIndex.Tag}",
                 "in": "query",
                 "schema": {
                     "type": "string"

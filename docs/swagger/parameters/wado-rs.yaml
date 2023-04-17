@@ -23,3 +23,11 @@ components:
             in: query
             schema:
                 type: string
+
+
+        "binaryValuePath":
+            name: "binaryValuePath"
+            description: "{dicomTag} or {dicomTag.InlineBinary} or {dicomTag.Value.itemIndex.Tag}"
+            in: query
+            schema:
+                type: string
