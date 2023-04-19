@@ -12,6 +12,7 @@ const shortHash = require("shorthash2");
 const dicomBulkDataModel = require("../mongodb/models/dicomBulkData");
 const { logger } = require("../../utils/logs/log");
 const patientModel = require("../mongodb/models/patient");
+const { tagsNeedStore } = require("./dicom-tags-mapping");
 
 const { raccoonConfig } = require("../../config-class");
 
@@ -81,12 +82,14 @@ class DicomJsonModel {
     async storeToDb(dicomFileSaveInfo) {
         let dicomJsonClone = _.cloneDeep(this.dicomJson);
         try {
+            let mediaStorage = this.getMediaStorageInfo();
             _.merge(dicomJsonClone, this.uidObj);
             _.merge(dicomJsonClone, {
                 studyPath: dicomFileSaveInfo.studyPath,
                 seriesPath: dicomFileSaveInfo.seriesPath,
                 instancePath: dicomFileSaveInfo.relativePath
             });
+            _.merge(dicomJsonClone, mediaStorage);
 
             delete dicomJsonClone.sopClass;
             delete dicomJsonClone.sopInstanceUID;
@@ -128,7 +131,7 @@ class DicomJsonModel {
             {
                 studyUID: this.uidObj.studyUID
             },
-            dicomJson,
+            this.getStudyDicomJson(dicomJson),
             {
                 upsert: true,
                 new: true
@@ -148,7 +151,7 @@ class DicomJsonModel {
                     }
                 ]
             },
-            dicomJson,
+            this.getSeriesDicomJson(dicomJson),
             {
                 upsert: true,
                 new: true
@@ -157,15 +160,12 @@ class DicomJsonModel {
     }
 
     async storePatientCollection(dicomJson) {
-        let mediaStorage = this.getMediaStorageInfo();
-
         await patientModel.findOneAndUpdate(
             {
                 patientID: this.uidObj.patientID
             },
             {
-                ...dicomJson,
-                ...mediaStorage,
+                ...this.getPatientDicomJson(dicomJson),
                 $addToSet: {
                     studyPaths: dicomJson.studyPath
                 }
@@ -255,6 +255,68 @@ class DicomJsonModel {
         return {
             year: year,
             month: month
+        };
+    }
+
+    getPatientDicomJson(dicomJson=undefined) {
+        if (!dicomJson) dicomJson = this.dicomJson;
+
+        let patientDicomJson = {
+            patientID: dicomJson.patientID
+        };
+
+        for(let tag in tagsNeedStore.Patient) {
+            let value = _.get(dicomJson, tag);
+            if (value)
+                _.set(patientDicomJson, tag, value);
+        }
+
+        return patientDicomJson;
+    }
+
+    getStudyDicomJson(dicomJson=undefined) {
+
+        if (!dicomJson) dicomJson = this.dicomJson;
+
+        let studyDicomJson = {
+            studyUID: dicomJson.studyUID,
+            studyPath: dicomJson.studyPath
+        };
+
+        for(let tag in tagsNeedStore.Study) {
+            let value = _.get(dicomJson, tag);
+            if (value)
+                _.set(studyDicomJson, tag, value);
+        }
+
+        let patientDicomJson = this.getPatientDicomJson(dicomJson);
+
+        return {
+            ...patientDicomJson,
+            ...studyDicomJson
+        };
+    }
+
+    getSeriesDicomJson(dicomJson=undefined) {
+        if (!dicomJson) dicomJson = this.dicomJson;
+
+        let seriesDicomJson = {
+            studyUID: dicomJson.studyUID,
+            seriesUID: dicomJson.seriesUID,
+            seriesPath: dicomJson.seriesPath
+        };
+
+        for(let tag in tagsNeedStore.Series) {
+            let value = _.get(dicomJson, tag);
+            if(value)
+                _.set(seriesDicomJson, tag, value);
+        }
+
+        let studyDicomJson = this.getStudyDicomJson(dicomJson);
+
+        return {
+            ...studyDicomJson,
+            ...seriesDicomJson
         };
     }
 
