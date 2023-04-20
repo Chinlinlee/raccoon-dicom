@@ -28,7 +28,7 @@ class DicomFileSaver {
             let {
                 year,
                 month
-            } = this.dicomJsonModel.getStartedDateYearAndMonth();
+            } = this.dicomJsonModel.getStudyDateYearAndMonth();
     
             let relativeStorePath = `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}/`;
     

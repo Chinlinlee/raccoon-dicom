@@ -238,20 +238,36 @@ class DicomJsonModel {
         return _.get(this.dicomJson, "00020010.Value.0");
     }
 
+    getStudyDate() {
+        return _.get(this.dicomJson, "00080020.Value.0");
+    }
+
+    getStudyTime() {
+        return _.get(this.dicomJson, "00080030.Value.0");
+    }
+
     getStartedDate() {
         let startedDate = "";
-        startedDate =
-            dcm2jsonV8.dcmString(this.dicomJson, "00080020") +
-            dcm2jsonV8.dcmString(this.dicomJson, "00080030");
+        let studyDate = this.getStudyDate();
+        let studyTime = this.getStudyTime();
 
-        if (!startedDate) startedDate = Date.now();
-        startedDate = moment(startedDate, "YYYYMMDDhhmmss").toISOString();
+        if (studyDate && studyTime) {
+            startedDate = studyDate + studyTime;
+        }
+
+        if (!startedDate) {
+            startedDate = moment().format("YYYYMMDDhhmmss");
+        } else {
+            startedDate = moment(startedDate, "YYYYMMDDhhmmss").toISOString();
+        }
+        
         return startedDate;
     }
 
-    getStartedDateYearAndMonth() {
-        let startedDate = this.getStartedDate();
-        let [year, month] = startedDate.split("-");
+    getStudyDateYearAndMonth() {
+        let studyDateYYYYMMDD = moment(this.getStudyDate(), "YYYYMMDD").format("YYYY-MM-DD");
+
+        let [year, month] = studyDateYYYYMMDD.split("-");
         return {
             year: year,
             month: month
