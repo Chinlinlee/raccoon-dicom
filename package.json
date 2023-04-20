@@ -42,6 +42,8 @@
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "regexparam": "^2.0.1",
+    "request-compose": "^2.1.6",
+    "request-multipart": "^1.0.0",
     "run-script-os": "^1.1.6",
     "sharp": "^0.30.4",
     "shorthash2": "^1.0.3",
