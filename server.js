@@ -82,3 +82,16 @@ if (osPlatform.includes("linux")) {
 } else if (osPlatform.includes("win")) {
     process.env.OS = "windows";
 }
+
+
+// #region DIMSE
+
+(async () => {
+    if (raccoonConfig.dicomDimseConfig.enableDimse) {
+        const { java } = require("./models/DICOM/dcm4che/java-instance");
+        let dcmQrScpClass = await java.importClassAsync("org.dcm4che3.tool.dcmqrscp.DcmQRSCP");
+        await dcmQrScpClass.main(raccoonConfig.dicomDimseConfig.dcm4cheQrscpArgv);
+    }
+})();
+
+// #endregion

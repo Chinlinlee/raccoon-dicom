@@ -18,3 +18,5 @@
 
 /local/local-upload-log.json
 /local/local-upload-wado-log.json
+
+/config/raccoon-dimse-app.json

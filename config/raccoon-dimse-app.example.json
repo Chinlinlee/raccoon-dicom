@@ -1,0 +1,17 @@
+{
+  "mongodb": {
+    "hosts": ["127.0.0.1"],
+    "ports": [27017],
+    "username": "root",
+    "password": "root",
+    "authSource": "admin",
+    "database": "raccoon-dicom",
+    "debug": false
+  },
+  "raccoon": {
+    "dicomStoreRoot": "./",
+    "raccoonUploadScriptPath": "local/dicom-uploader-wado.js",
+    "mode": "WADO",
+    "wadoUrl": "http://127.0.0.1:8081/dicom-web/studies"
+  }
+}
