@@ -35,10 +35,7 @@ let dicomModelSchema = new mongoose.Schema(
                 getters: true
             }
         }),
-        "00080030": {
-            ...dicomJsonAttributeSchema,
-            Value: [mongoose.SchemaTypes.Number]
-        },
+        "00080030": getVRSchema("TM"),
         "00080050": {
             ...dicomJsonAttributeSchema,
             Value: [mongoose.SchemaTypes.String]
