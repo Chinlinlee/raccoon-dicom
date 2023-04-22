@@ -1,6 +1,13 @@
+const fs = require("fs");
 const path = require("path");
+
+let dotenvPath = path.join(__dirname, ".env");
+if (!fs.existsSync(dotenvPath)) {
+    dotenvPath = path.join(__dirname, ".env.template");
+}
+
 require("dotenv").config({
-    path: path.join(__dirname, ".env")
+    path: dotenvPath
 });
 const { logger } = require("env-var");
 const uuid = require("uuid");
@@ -44,6 +51,24 @@ class DicomWebConfig {
     }
 }
 
+class DicomDimseConfig {
+    constructor() {
+        this.enableDimse = env.get("ENABLE_DIMSE").default("true").asBool();
+
+        if (this.enableDimse) {
+            this.dcm4cheQrscpArgv = env.get("DCM4CHE_QRSCP_COMMAND").required().asJsonArray();
+            this.replacePathInArgv();
+        }
+    }
+    
+    replacePathInArgv() {
+        for(let i = 0 ; i < this.dcm4cheQrscpArgv.length ; i++) {
+            this.dcm4cheQrscpArgv[i] = this.dcm4cheQrscpArgv[i].replace(/{project}/gm, __dirname);
+        }
+    }
+
+}
+
 class FhirConfig {
     constructor() {
         this.isSyncToFhir = env.get("SYCN_TO_FHIR_SERVER").default("true").asBool();
@@ -57,6 +82,7 @@ class RaccoonConfig {
         this.mongoDbConfig = new MongoDbConfig();
         this.serverConfig = new ServerConfig();
         this.dicomWebConfig = new DicomWebConfig();
+        this.dicomDimseConfig = new DicomDimseConfig();
         this.fhirConfig = new FhirConfig();
         
         /** @type {string} */
