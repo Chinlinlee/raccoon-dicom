@@ -39,6 +39,7 @@ jobs:
         echo 'SERVER_PORT=8082' >> raccoon-dicom/.env
         echo 'SERVER_SESSION_SECRET_KEY="se-key"' >> raccoon-dicom/.env
         echo 'DICOM_STORE_ROOTPATH=/home/runner/work/dicomFiles' >> raccoon-dicom/.env
+        echo 'ENABLE_DIMSE=false' >> raccoon-dicom/.env
         echo 'SYCN_TO_FHIR_SERVER=false' >> raccoon-dicom/.env
 
     - name: Set up JDK 17
