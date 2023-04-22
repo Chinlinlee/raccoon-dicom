@@ -53,7 +53,7 @@ jobs:
         npm install
         cp ./plugins/config.template.js ./plugins/config.js
         export DCMDICTPATH=$PWD/models/DICOM/dcmtk/dicom.dic
-        cp ./models/DICOM/dcm4che/javaNode/dcm4chee-5.27.0/lib/linux-x86-64/libclib_jiio.so $JAVA_HOME/lib
-        cp ./models/DICOM/dcm4che/javaNode/dcm4chee-5.27.0/lib/linux-x86-64/libopencv_java.so $JAVA_HOME/lib
+        cp ./models/DICOM/dcm4che/javaNode/dcm4chee/lib/linux-x86-64/libclib_jiio.so $JAVA_HOME/lib
+        cp ./models/DICOM/dcm4che/javaNode/dcm4chee/lib/linux-x86-64/libopencv_java.so $JAVA_HOME/lib
         npm install -g mocha
         export MONGOMS_VERSION=4.4.19 && export MONGOMS_DEBUG=DEBUG && mocha
