@@ -184,18 +184,24 @@ function commaValue(iKey, iValue) {
     return $or;
 }
 
-async function wildCardFirst(iValue) {
-    return new Promise((resolve) => {
-        iValue = iValue.replace(/\*/gi, ".*");
-        return resolve(new RegExp(iValue, "gi"));
-    });
-}
-async function wildCard(iValue) {
-    return new Promise((resolve) => {
-        iValue = "^" + iValue;
-        iValue = iValue.replace(/\*/gi, ".*");
-        return resolve(new RegExp(iValue, "gi"));
-    });
+/**
+ * 
+ * @param {string} value 
+ * @returns 
+ */
+function getWildCardQuery(value) {
+    let wildCardIndex = value.indexOf("*");
+    let questionIndex = value.indexOf("?");
+    
+    if (wildCardIndex >= 0 || questionIndex >= 0) {
+        value = value.replace(/\*/gm, ".*");
+        value = value.replace(/\?/gm, ".");
+        value = value.replace(/\^/gm, "\\^");
+        value = "^" + value;
+        return new RegExp(value, "gm");
+    }
+
+    return value;
 }
 
 /**
@@ -218,15 +224,7 @@ async function convertRequestQueryToMongoQuery(iQuery) {
         let value = commaValue(nowKey, iQuery[nowKey]);
         for (let x = 0; x < value.length; x++) {
             let nowValue = value[x][nowKey];
-            let wildCardFunc = {};
-            wildCardFunc[nowValue.indexOf("*")] = wildCard;
-            wildCardFunc["0"] = wildCardFirst;
-            wildCardFunc["-1"] = (value) => {
-                return value;
-            };
-            value[x][nowKey] = await wildCardFunc[nowValue.indexOf("*")](
-                nowValue
-            );
+            value[x][nowKey] = getWildCardQuery(nowValue);
 
             try {
                 let keySplit = nowKey.split(".");
