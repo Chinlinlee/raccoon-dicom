@@ -32,7 +32,7 @@ class WadoUriService {
         } catch (e) {
 
             if (e instanceof NotFoundInstanceError) {
-                this.response.writeHead(204, {
+                this.response.writeHead(404, {
                     "Content-Type": "application/dicom+json"
                 });
                 return this.response.end();
@@ -55,7 +55,7 @@ class WadoUriService {
 
             if (e instanceof NotFoundInstanceError) {
 
-                this.response.writeHead(204, {
+                this.response.writeHead(404, {
                     "Content-Type": "application/dicom+json"
                 });
                 return this.response.end();
