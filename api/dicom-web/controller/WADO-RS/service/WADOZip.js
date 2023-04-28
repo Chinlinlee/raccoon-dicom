@@ -3,6 +3,9 @@ const archiver = require("archiver");
 const wadoService = require("./WADO-RS.service");
 const path = require("path");
 const dicomModel = require("../../../../../models/mongodb/models/dicom");
+const fs = require("fs");
+const uuid = require("uuid");
+const { Writable } = require("stream");
 
 class WADOZip {
     constructor(iParam, iRes) {
@@ -72,12 +75,39 @@ class WADOZip {
     }
 }
 
+/**
+ * 
+ * @param {import('express').Response} res 
+ * @param {string[]} folders 
+ * @param {string} filename 
+ * @returns 
+ */
 function toZip(res, folders = [], filename = "") {
     return new Promise((resolve) => {
+
+        const bufferArray = [];
+        const converter = new Writable();
+        converter._write = (chunk, encoding, cb) => {
+            bufferArray.push(chunk);
+            process.nextTick(cb);
+        };
+
+        converter.on('finish', () => {
+            let fullBuffer = Buffer.concat(bufferArray);
+            res.setHeader("Content-Length", fullBuffer.length);
+            res.write(fullBuffer);
+            resolve({
+                status: true,
+                code: 200,
+                data: "success"
+            });
+        });
+
         let archive = archiver('zip', {
             gzip: true,
             zlib: { level: 9 } // Sets the compression level.
         });
+
         archive.on('error', function (err) {
             console.error(err);
             resolve({
@@ -86,7 +116,9 @@ function toZip(res, folders = [], filename = "") {
                 data: err
             });
         });
-        archive.pipe(res);
+
+        archive.pipe(converter);
+
         if (folders.length > 0) {
             for (let i = 0; i < folders.length; i++) {
                 let folderName = path.basename(folders[i]);
@@ -94,15 +126,12 @@ function toZip(res, folders = [], filename = "") {
                 archive.glob("*.dcm", { cwd: folders[i] }, { prefix: folderName });
             }
         } else {
-            archive.file(filename);
-        }
-        archive.finalize().then(() => {
-            resolve({
-                status: true,
-                code: 200,
-                data: "success"
+            archive.file(filename, {
+                name: path.basename(filename)
             });
-        });
+        }
+
+        archive.finalize();
     });
 }
 
