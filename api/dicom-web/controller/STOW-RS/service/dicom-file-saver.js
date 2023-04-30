@@ -14,6 +14,9 @@ class DicomFileSaver {
         /** @type {import("../../../../../models/DICOM/dicom-json-model").DicomJsonModel} */
         this.dicomJsonModel = dicomJsonModel;
         this.originalFilename = path.basename(this.file.originalFilename);
+        if (this.originalFilename.indexOf(".dcm") < 0) {
+            this.originalFilename = this.originalFilename + ".dcm";
+        }
     }
 
     async saveAndGetSaveInfo() {
