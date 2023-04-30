@@ -6,7 +6,7 @@ const { Dcm2JpgExecutor } = require("../../../models/DICOM/dcm4che/wrapper/org/g
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 const sharp = require('sharp');
 const Magick = require("../../../models/magick");
-const { NotFoundInstanceError, InvalidFrameNumberError } = require("../../../error/dicom-instance");
+const { NotFoundInstanceError, InvalidFrameNumberError, InstanceGoneError } = require("../../../error/dicom-instance");
 const dicomModel = require("../../../models/mongodb/models/dicom");
 
 class WadoUriService {
@@ -36,6 +36,16 @@ class WadoUriService {
                     "Content-Type": "application/dicom+json"
                 });
                 return this.response.end();
+            } else if (e instanceof InstanceGoneError) {
+                this.response.writeHead(410, {
+                    "Content-Type": "application/dicom+json"
+                });
+                return this.response.end(JSON.stringify({
+                    Details: e.message,
+                    HttpStatus: 410,
+                    Message: "Image Gone",
+                    Method: "GET"
+                }));
             }
 
             throw e;
@@ -73,6 +83,16 @@ class WadoUriService {
                     Method: "GET"
                 }));
 
+            } else if (e instanceof InstanceGoneError) {
+                this.response.writeHead(410, {
+                    "Content-Type": "application/dicom+json"
+                });
+                return this.response.end(JSON.stringify({
+                    Details: e.message,
+                    HttpStatus: 410,
+                    Message: "Image Gone",
+                    Method: "GET"
+                }));
             }
 
             throw e;
@@ -85,7 +105,7 @@ class WadoUriService {
      * @returns {Promise<fs.ReadStream>}
      */
     async getDicomInstanceReadStream() {
-
+        
         let imagePathObj = await this.getDicomInstancePathObj();
 
         return fs.createReadStream(imagePathObj.instancePath);
@@ -105,6 +125,14 @@ class WadoUriService {
         });
 
         if (imagePathObj) {
+
+            try {
+                await fs.promises.access(imagePathObj.instancePath, fs.constants.F_OK);
+            } catch(e) {
+                console.error(e);
+                throw new InstanceGoneError("The image is deleted permanently, but meta data remain");
+            }
+
             return imagePathObj;
         }
 
