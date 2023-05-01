@@ -153,25 +153,11 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
         let dicomFilename = instanceFramesObj.instancePath;
         let jpegFile = dicomFilename.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
 
-        let isJpegFileExist = false;
-        let getFrameImageStatus = {
-            status: false
-        };
-        try {
-            await fs.promises.access(jpegFile, fs.promises.constants.R_OK);
-            isJpegFileExist = true;
-            getFrameImageStatus.status = true;
-        } catch(e) {
-            isJpegFileExist = false;
-        }
-
-        if (!isJpegFileExist) {
-            getFrameImageStatus = await Dcm2JpgExecutor.convertDcmToJpgFromFilename(
-                dicomFilename,
-                jpegFile,
-                await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync()
-            );
-        }
+        let getFrameImageStatus = await Dcm2JpgExecutor.convertDcmToJpgFromFilename(
+            dicomFilename,
+            jpegFile,
+            await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync()
+        );
 
         if (getFrameImageStatus.status) {
             let imageSharp = sharp(jpegFile);
