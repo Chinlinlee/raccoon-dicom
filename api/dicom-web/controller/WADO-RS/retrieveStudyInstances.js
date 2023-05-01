@@ -17,7 +17,7 @@ class RetrieveStudyInstancesController extends Controller {
                 return await this.responseZip();
             } else if (this.request.headers.accept.includes("multipart/related")) {
                 return await this.responseMultipartRelated();
-            } else if (this.request.headers.accept.includes("*")){
+            } else if (this.request.headers.accept.includes("*")) {
                 this.request.headers.accept = "multipart/related; type=\"application/dicom\"";
                 return await this.responseMultipartRelated();
             }
@@ -26,7 +26,7 @@ class RetrieveStudyInstancesController extends Controller {
         } catch (e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
             logger.error(`[WADO-RS] [Error: ${errorStr}]`);
-            
+
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"
             });
@@ -57,15 +57,14 @@ class RetrieveStudyInstancesController extends Controller {
             return wadoService.sendNotSupportedMediaType(this.response, type);
         }
 
-        let writeMultipartResult = await wadoService.multipartFunc[type].getStudyDICOMFiles(this.request.params, this.request, this.response, type);
-        if (!writeMultipartResult.status) {
-            this.response.writeHead(writeMultipartResult.code, {
-                "Content-Type": "application/dicom+json"
-            });
-            return this.response.end(JSON.stringify(writeMultipartResult));
-        }
+        let imageMultipartWriter = new wadoService.ImageMultipartWriter(
+            this.request, 
+            this.response, 
+            wadoService.StudyImagePathFactory, 
+            wadoService.multipartContentTypeWriter[type]
+        );
 
-        return this.response.end();
+        return await imageMultipartWriter.write();
     }
 }
 

@@ -60,15 +60,14 @@ class RetrieveInstanceOfSeriesOfStudiesController extends Controller {
             return wadoService.sendNotSupportedMediaType(this.response, type);
         }
 
-        let writeMultipartResult = await wadoService.multipartFunc[type].getInstanceDICOMFile(this.request.params, this.request, this.response, type);
-        if (!writeMultipartResult.status) {
-            this.response.writeHead(writeMultipartResult.code, {
-                "Content-Type": "application/dicom+json"
-            });
-            return this.response.end(JSON.stringify(writeMultipartResult));
-        }
+        let imageMultipartWriter = new wadoService.ImageMultipartWriter(
+            this.request,
+            this.response,
+            wadoService.InstanceImagePathFactory,
+            wadoService.multipartContentTypeWriter[type]
+        );
 
-        return this.response.end();
+        return await imageMultipartWriter.write();
     }
 }
 
