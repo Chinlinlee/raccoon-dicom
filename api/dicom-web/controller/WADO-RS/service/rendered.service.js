@@ -153,10 +153,12 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
         let dicomFilename = instanceFramesObj.instancePath;
         let jpegFile = dicomFilename.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
 
+        let dcm2jpgOptions = await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync();
+        dcm2jpgOptions.frameNumber = frameNumber;
         let getFrameImageStatus = await Dcm2JpgExecutor.convertDcmToJpgFromFilename(
             dicomFilename,
             jpegFile,
-            await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync()
+            dcm2jpgOptions
         );
 
         if (getFrameImageStatus.status) {
