@@ -573,19 +573,19 @@ export declare class BigIntegerClass extends JavaClass {
      * @param var1 original type: 'java.util.Random'
      * @return original return type: 'java.math.BigInteger'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_util_Random | null): Promise<BigInteger>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_util_Random | null): Promise<BigInteger>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.math.BigInteger'
      */
-    static newInstance(var0: string | null): Promise<BigInteger>;
+    static newInstanceAsync(var0: string | null): Promise<BigInteger>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'java.util.Random'
      * @return original return type: 'java.math.BigInteger'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_util_Random | null): Promise<BigInteger>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_util_Random | null): Promise<BigInteger>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'byte[]'
@@ -593,31 +593,31 @@ export declare class BigIntegerClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.math.BigInteger'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: Buffer | null, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<BigInteger>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: Buffer | null, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<BigInteger>;
     /**
      * @param var0 original type: 'byte[]'
      * @return original return type: 'java.math.BigInteger'
      */
-    static newInstance(var0: Buffer | null): Promise<BigInteger>;
+    static newInstanceAsync(var0: Buffer | null): Promise<BigInteger>;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @return original return type: 'java.math.BigInteger'
      */
-    static newInstance(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<BigInteger>;
+    static newInstanceAsync(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<BigInteger>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'int'
      * @return original return type: 'java.math.BigInteger'
      */
-    static newInstance(var0: string | null, var1: java_lang_Integer | number): Promise<BigInteger>;
+    static newInstanceAsync(var0: string | null, var1: java_lang_Integer | number): Promise<BigInteger>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'byte[]'
      * @return original return type: 'java.math.BigInteger'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: Buffer | null): Promise<BigInteger>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: Buffer | null): Promise<BigInteger>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'java.util.Random'

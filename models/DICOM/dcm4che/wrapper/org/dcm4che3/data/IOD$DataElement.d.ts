@@ -92,16 +92,6 @@ export declare class IOD$DataElementClass extends JavaClass {
      */
     setValuesSync(var0: (string | null)[] | null): IOD$DataElement | null;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
-     */
-    setLineNumber(var0: java_lang_Integer | number): Promise<IOD$DataElement | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
-     */
-    setLineNumberSync(var0: java_lang_Integer | number): IOD$DataElement | null;
-    /**
      * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
      * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
      */
@@ -121,6 +111,16 @@ export declare class IOD$DataElementClass extends JavaClass {
      * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
      */
     addItemIODSync(var0: org_dcm4che3_data_IOD | null): IOD$DataElement | null;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
+     */
+    setLineNumber(var0: java_lang_Integer | number): Promise<IOD$DataElement | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
+     */
+    setLineNumberSync(var0: java_lang_Integer | number): IOD$DataElement | null;
     /**
      * @return original return type: 'int'
      */
@@ -218,7 +218,7 @@ export declare class IOD$DataElementClass extends JavaClass {
      * @param var5 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: org_dcm4che3_data_IOD$DataElementType | null, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): Promise<IOD$DataElement>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: org_dcm4che3_data_IOD$DataElementType | null, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): Promise<IOD$DataElement>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'org.dcm4che3.data.VR'

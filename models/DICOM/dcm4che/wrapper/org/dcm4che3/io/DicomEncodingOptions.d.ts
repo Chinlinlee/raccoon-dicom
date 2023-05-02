@@ -121,7 +121,7 @@ export declare class DicomEncodingOptionsClass extends JavaClass {
      * @param var4 original type: 'boolean'
      * @return original return type: 'org.dcm4che3.io.DicomEncodingOptions'
      */
-    static newInstance(var0: java_lang_Boolean | boolean, var1: java_lang_Boolean | boolean, var2: java_lang_Boolean | boolean, var3: java_lang_Boolean | boolean, var4: java_lang_Boolean | boolean): Promise<DicomEncodingOptions>;
+    static newInstanceAsync(var0: java_lang_Boolean | boolean, var1: java_lang_Boolean | boolean, var2: java_lang_Boolean | boolean, var3: java_lang_Boolean | boolean, var4: java_lang_Boolean | boolean): Promise<DicomEncodingOptions>;
     /**
      * @param var0 original type: 'boolean'
      * @param var1 original type: 'boolean'

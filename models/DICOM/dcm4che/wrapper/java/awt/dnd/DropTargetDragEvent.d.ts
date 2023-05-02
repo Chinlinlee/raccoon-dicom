@@ -22,16 +22,6 @@ export declare class DropTargetDragEventClass extends JavaClass {
      */
     getLocationSync(): java_awt_Point | null;
     /**
-     * @param var0 original type: 'java.awt.datatransfer.DataFlavor'
-     * @return original return type: 'boolean'
-     */
-    isDataFlavorSupported(var0: java_awt_datatransfer_DataFlavor | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.awt.datatransfer.DataFlavor'
-     * @return original return type: 'boolean'
-     */
-    isDataFlavorSupportedSync(var0: java_awt_datatransfer_DataFlavor | null): boolean;
-    /**
      * @return original return type: 'int'
      */
     getSourceActions(): Promise<number>;
@@ -89,6 +79,16 @@ export declare class DropTargetDragEventClass extends JavaClass {
      * @return original return type: 'void'
      */
     rejectDragSync(): void;
+    /**
+     * @param var0 original type: 'java.awt.datatransfer.DataFlavor'
+     * @return original return type: 'boolean'
+     */
+    isDataFlavorSupported(var0: java_awt_datatransfer_DataFlavor | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.awt.datatransfer.DataFlavor'
+     * @return original return type: 'boolean'
+     */
+    isDataFlavorSupportedSync(var0: java_awt_datatransfer_DataFlavor | null): boolean;
     /**
      * @return original return type: 'java.awt.dnd.DropTargetContext'
      */
@@ -192,7 +192,7 @@ export declare class DropTargetDragEventClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.awt.dnd.DropTargetDragEvent'
      */
-    static newInstance(var0: java_awt_dnd_DropTargetContext | null, var1: java_awt_Point | null, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<DropTargetDragEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DropTargetContext | null, var1: java_awt_Point | null, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<DropTargetDragEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DropTargetContext'
      * @param var1 original type: 'java.awt.Point'

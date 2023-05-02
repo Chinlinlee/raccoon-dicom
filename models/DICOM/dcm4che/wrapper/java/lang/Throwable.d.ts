@@ -201,22 +201,22 @@ export declare class ThrowableClass extends JavaClass {
      * @param var0 original type: 'java.lang.Throwable'
      * @return original return type: 'java.lang.Throwable'
      */
-    static newInstance(var0: ThrowableClass | null): Promise<Throwable>;
+    static newInstanceAsync(var0: ThrowableClass | null): Promise<Throwable>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.Throwable'
      * @return original return type: 'java.lang.Throwable'
      */
-    static newInstance(var0: string | null, var1: ThrowableClass | null): Promise<Throwable>;
+    static newInstanceAsync(var0: string | null, var1: ThrowableClass | null): Promise<Throwable>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Throwable'
      */
-    static newInstance(var0: string | null): Promise<Throwable>;
+    static newInstanceAsync(var0: string | null): Promise<Throwable>;
     /**
      * @return original return type: 'java.lang.Throwable'
      */
-    static newInstance(): Promise<Throwable>;
+    static newInstanceAsync(): Promise<Throwable>;
     /**
      * @param var0 original type: 'java.lang.Throwable'
      */

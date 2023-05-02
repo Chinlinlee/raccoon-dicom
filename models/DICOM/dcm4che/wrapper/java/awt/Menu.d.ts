@@ -468,16 +468,16 @@ export declare class MenuClass extends JavaClass {
      * @param var1 original type: 'boolean'
      * @return original return type: 'java.awt.Menu'
      */
-    static newInstance(var0: string | null, var1: java_lang_Boolean | boolean): Promise<Menu>;
+    static newInstanceAsync(var0: string | null, var1: java_lang_Boolean | boolean): Promise<Menu>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.awt.Menu'
      */
-    static newInstance(var0: string | null): Promise<Menu>;
+    static newInstanceAsync(var0: string | null): Promise<Menu>;
     /**
      * @return original return type: 'java.awt.Menu'
      */
-    static newInstance(): Promise<Menu>;
+    static newInstanceAsync(): Promise<Menu>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'boolean'

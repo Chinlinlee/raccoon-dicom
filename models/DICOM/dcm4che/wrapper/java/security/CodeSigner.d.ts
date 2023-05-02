@@ -111,7 +111,7 @@ export declare class CodeSignerClass extends JavaClass {
      * @param var1 original type: 'java.security.Timestamp'
      * @return original return type: 'java.security.CodeSigner'
      */
-    static newInstance(var0: java_security_cert_CertPath | null, var1: java_security_Timestamp | null): Promise<CodeSigner>;
+    static newInstanceAsync(var0: java_security_cert_CertPath | null, var1: java_security_Timestamp | null): Promise<CodeSigner>;
     /**
      * @param var0 original type: 'java.security.cert.CertPath'
      * @param var1 original type: 'java.security.Timestamp'

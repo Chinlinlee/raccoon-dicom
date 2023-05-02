@@ -100,18 +100,18 @@ export declare class DatePrecisionClass extends JavaClass {
     /**
      * @return original return type: 'org.dcm4che3.data.DatePrecision'
      */
-    static newInstance(): Promise<DatePrecision>;
+    static newInstanceAsync(): Promise<DatePrecision>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.DatePrecision'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<DatePrecision>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<DatePrecision>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'boolean'
      * @return original return type: 'org.dcm4che3.data.DatePrecision'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Boolean | boolean): Promise<DatePrecision>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Boolean | boolean): Promise<DatePrecision>;
     constructor();
     /**
      * @param var0 original type: 'int'

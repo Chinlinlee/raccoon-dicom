@@ -117,7 +117,7 @@ export declare class ImageCapabilitiesClass extends JavaClass {
      * @param var0 original type: 'boolean'
      * @return original return type: 'java.awt.ImageCapabilities'
      */
-    static newInstance(var0: java_lang_Boolean | boolean): Promise<ImageCapabilities>;
+    static newInstanceAsync(var0: java_lang_Boolean | boolean): Promise<ImageCapabilities>;
     /**
      * @param var0 original type: 'boolean'
      */

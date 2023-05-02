@@ -228,7 +228,7 @@ export declare class SubjectClass extends JavaClass {
     /**
      * @return original return type: 'javax.security.auth.Subject'
      */
-    static newInstance(): Promise<Subject>;
+    static newInstanceAsync(): Promise<Subject>;
     /**
      * @param var0 original type: 'boolean'
      * @param var1 original type: 'java.util.Set'
@@ -236,7 +236,7 @@ export declare class SubjectClass extends JavaClass {
      * @param var3 original type: 'java.util.Set'
      * @return original return type: 'javax.security.auth.Subject'
      */
-    static newInstance(var0: java_lang_Boolean | boolean, var1: java_util_Set | JavaInterfaceProxy<java_util_SetInterface> | null, var2: java_util_Set | JavaInterfaceProxy<java_util_SetInterface> | null, var3: java_util_Set | JavaInterfaceProxy<java_util_SetInterface> | null): Promise<Subject>;
+    static newInstanceAsync(var0: java_lang_Boolean | boolean, var1: java_util_Set | JavaInterfaceProxy<java_util_SetInterface> | null, var2: java_util_Set | JavaInterfaceProxy<java_util_SetInterface> | null, var3: java_util_Set | JavaInterfaceProxy<java_util_SetInterface> | null): Promise<Subject>;
     constructor();
     /**
      * @param var0 original type: 'boolean'

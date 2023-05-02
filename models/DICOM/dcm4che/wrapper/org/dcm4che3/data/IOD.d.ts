@@ -77,15 +77,15 @@ export declare class IODClass extends JavaClass {
      */
     getConditionSync(): org_dcm4che3_data_IOD$Condition | null;
     /**
-     * @param var0 original type: 'int'
+     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
      * @return original return type: 'void'
      */
-    setLineNumber(var0: java_lang_Integer | number): Promise<void>;
+    setType(var0: org_dcm4che3_data_IOD$DataElementType | null): Promise<void>;
     /**
-     * @param var0 original type: 'int'
+     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
      * @return original return type: 'void'
      */
-    setLineNumberSync(var0: java_lang_Integer | number): void;
+    setTypeSync(var0: org_dcm4che3_data_IOD$DataElementType | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
      * @return original return type: 'void'
@@ -97,15 +97,15 @@ export declare class IODClass extends JavaClass {
      */
     setConditionSync(var0: org_dcm4che3_data_IOD$Condition | null): void;
     /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
+     * @param var0 original type: 'int'
      * @return original return type: 'void'
      */
-    setType(var0: org_dcm4che3_data_IOD$DataElementType | null): Promise<void>;
+    setLineNumber(var0: java_lang_Integer | number): Promise<void>;
     /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
+     * @param var0 original type: 'int'
      * @return original return type: 'void'
      */
-    setTypeSync(var0: org_dcm4che3_data_IOD$DataElementType | null): void;
+    setLineNumberSync(var0: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'
@@ -515,7 +515,7 @@ export declare class IODClass extends JavaClass {
     /**
      * @return original return type: 'org.dcm4che3.data.IOD'
      */
-    static newInstance(): Promise<IOD>;
+    static newInstanceAsync(): Promise<IOD>;
     constructor();
 }
 declare const IOD_base: typeof IODClass;

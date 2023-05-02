@@ -244,18 +244,18 @@ export declare class AccessibleRelationClass extends JavaClass {
      * @param var1 original type: 'java.lang.Object[]'
      * @return original return type: 'javax.accessibility.AccessibleRelation'
      */
-    static newInstance(var0: string | null, var1: (BasicOrJavaType | null)[] | null): Promise<AccessibleRelation>;
+    static newInstanceAsync(var0: string | null, var1: (BasicOrJavaType | null)[] | null): Promise<AccessibleRelation>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'javax.accessibility.AccessibleRelation'
      */
-    static newInstance(var0: string | null, var1: BasicOrJavaType | null): Promise<AccessibleRelation>;
+    static newInstanceAsync(var0: string | null, var1: BasicOrJavaType | null): Promise<AccessibleRelation>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'javax.accessibility.AccessibleRelation'
      */
-    static newInstance(var0: string | null): Promise<AccessibleRelation>;
+    static newInstanceAsync(var0: string | null): Promise<AccessibleRelation>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.Object[]'

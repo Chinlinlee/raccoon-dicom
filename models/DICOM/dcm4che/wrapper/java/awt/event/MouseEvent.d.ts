@@ -308,6 +308,24 @@ export declare class MouseEventClass extends JavaClass {
      */
     getModifiersExSync(): number;
     /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.String'
+     */
+    static getMouseModifiersText(var0: java_lang_Integer | number): Promise<string | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.String'
+     */
+    static getMouseModifiersTextSync(var0: java_lang_Integer | number): string | null;
+    /**
+     * @return original return type: 'java.awt.Point'
+     */
+    getPoint(): Promise<java_awt_Point | null>;
+    /**
+     * @return original return type: 'java.awt.Point'
+     */
+    getPointSync(): java_awt_Point | null;
+    /**
      * @return original return type: 'int'
      */
     getButton(): Promise<number>;
@@ -327,24 +345,6 @@ export declare class MouseEventClass extends JavaClass {
      * @return original return type: 'void'
      */
     translatePointSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.String'
-     */
-    static getMouseModifiersText(var0: java_lang_Integer | number): Promise<string | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.String'
-     */
-    static getMouseModifiersTextSync(var0: java_lang_Integer | number): string | null;
-    /**
-     * @return original return type: 'java.awt.Point'
-     */
-    getPoint(): Promise<java_awt_Point | null>;
-    /**
-     * @return original return type: 'java.awt.Point'
-     */
-    getPointSync(): java_awt_Point | null;
     /**
      * @return original return type: 'int'
      */
@@ -563,7 +563,7 @@ export declare class MouseEventClass extends JavaClass {
      * @param var8 original type: 'int'
      * @return original return type: 'java.awt.event.MouseEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_lang_Boolean | boolean, var8: java_lang_Integer | number): Promise<MouseEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_lang_Boolean | boolean, var8: java_lang_Integer | number): Promise<MouseEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -575,7 +575,7 @@ export declare class MouseEventClass extends JavaClass {
      * @param var7 original type: 'boolean'
      * @return original return type: 'java.awt.event.MouseEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_lang_Boolean | boolean): Promise<MouseEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_lang_Boolean | boolean): Promise<MouseEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -590,7 +590,7 @@ export declare class MouseEventClass extends JavaClass {
      * @param var10 original type: 'int'
      * @return original return type: 'java.awt.event.MouseEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_lang_Integer | number, var8: java_lang_Integer | number, var9: java_lang_Boolean | boolean, var10: java_lang_Integer | number): Promise<MouseEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_lang_Integer | number, var8: java_lang_Integer | number, var9: java_lang_Boolean | boolean, var10: java_lang_Integer | number): Promise<MouseEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'

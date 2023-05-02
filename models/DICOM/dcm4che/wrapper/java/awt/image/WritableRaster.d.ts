@@ -88,6 +88,24 @@ export declare class WritableRasterClass extends JavaClass {
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @param var3 original type: 'int'
+     * @param var4 original type: 'int[]'
+     * @return original return type: 'void'
+     */
+    setPixels(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int[]'
+     * @return original return type: 'void'
+     */
+    setPixelsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
      * @param var4 original type: 'double[]'
      * @return original return type: 'void'
      */
@@ -123,24 +141,6 @@ export declare class WritableRasterClass extends JavaClass {
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int[]'
-     * @return original return type: 'void'
-     */
-    setPixels(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int[]'
-     * @return original return type: 'void'
-     */
-    setPixelsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
      * @param var3 original type: 'float'
      * @return original return type: 'void'
      */
@@ -153,22 +153,6 @@ export declare class WritableRasterClass extends JavaClass {
      * @return original return type: 'void'
      */
     setSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Float | number): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'double'
-     * @return original return type: 'void'
-     */
-    setSample(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Double | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'double'
-     * @return original return type: 'void'
-     */
-    setSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Double | number): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -188,17 +172,57 @@ export declare class WritableRasterClass extends JavaClass {
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @param var2 original type: 'double[]'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'double'
      * @return original return type: 'void'
      */
-    setPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null): Promise<void>;
+    setSample(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Double | number): Promise<void>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @param var2 original type: 'double[]'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'double'
      * @return original return type: 'void'
      */
-    setPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null): void;
+    setSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Double | number): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.awt.image.Raster'
+     * @return original return type: 'void'
+     */
+    setRect(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_awt_image_Raster | null): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.awt.image.Raster'
+     * @return original return type: 'void'
+     */
+    setRectSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_awt_image_Raster | null): void;
+    /**
+     * @param var0 original type: 'java.awt.image.Raster'
+     * @return original return type: 'void'
+     */
+    setRect(var0: java_awt_image_Raster | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.image.Raster'
+     * @return original return type: 'void'
+     */
+    setRectSync(var0: java_awt_image_Raster | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int[]'
+     * @return original return type: 'void'
+     */
+    setPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int[]'
+     * @return original return type: 'void'
+     */
+    setPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -216,17 +240,37 @@ export declare class WritableRasterClass extends JavaClass {
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @param var2 original type: 'int[]'
+     * @param var2 original type: 'double[]'
      * @return original return type: 'void'
      */
-    setPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null): Promise<void>;
+    setPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null): Promise<void>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @param var2 original type: 'int[]'
+     * @param var2 original type: 'double[]'
      * @return original return type: 'void'
      */
-    setPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null): void;
+    setPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'float[]'
+     * @return original return type: 'void'
+     */
+    setSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'float[]'
+     * @return original return type: 'void'
+     */
+    setSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -267,50 +311,6 @@ export declare class WritableRasterClass extends JavaClass {
      * @return original return type: 'void'
      */
     setSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'float[]'
-     * @return original return type: 'void'
-     */
-    setSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'float[]'
-     * @return original return type: 'void'
-     */
-    setSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.awt.image.Raster'
-     * @return original return type: 'void'
-     */
-    setRect(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_awt_image_Raster | null): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.awt.image.Raster'
-     * @return original return type: 'void'
-     */
-    setRectSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_awt_image_Raster | null): void;
-    /**
-     * @param var0 original type: 'java.awt.image.Raster'
-     * @return original return type: 'void'
-     */
-    setRect(var0: java_awt_image_Raster | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.image.Raster'
-     * @return original return type: 'void'
-     */
-    setRectSync(var0: java_awt_image_Raster | null): void;
     /**
      * @return original return type: 'java.awt.image.WritableRaster'
      */
@@ -496,6 +496,24 @@ export declare class WritableRasterClass extends JavaClass {
      */
     static createInterleavedRasterSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null, var6: java_awt_Point | null): WritableRaster | null;
     /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int[]'
+     * @param var4 original type: 'java.awt.Point'
+     * @return original return type: 'java.awt.image.WritableRaster'
+     */
+    static createPackedRaster(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: (java_lang_Integer | number)[] | null, var4: java_awt_Point | null): Promise<WritableRaster | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int[]'
+     * @param var4 original type: 'java.awt.Point'
+     * @return original return type: 'java.awt.image.WritableRaster'
+     */
+    static createPackedRasterSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: (java_lang_Integer | number)[] | null, var4: java_awt_Point | null): WritableRaster | null;
+    /**
      * @param var0 original type: 'java.awt.image.DataBuffer'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
@@ -515,26 +533,6 @@ export declare class WritableRasterClass extends JavaClass {
      * @return original return type: 'java.awt.image.WritableRaster'
      */
     static createPackedRasterSync(var0: java_awt_image_DataBuffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_awt_Point | null): WritableRaster | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'java.awt.Point'
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    static createPackedRaster(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_awt_Point | null): Promise<WritableRaster | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'java.awt.Point'
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    static createPackedRasterSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_awt_Point | null): WritableRaster | null;
     /**
      * @param var0 original type: 'java.awt.image.DataBuffer'
      * @param var1 original type: 'int'
@@ -557,20 +555,22 @@ export declare class WritableRasterClass extends JavaClass {
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
-     * @param var3 original type: 'int[]'
-     * @param var4 original type: 'java.awt.Point'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'java.awt.Point'
      * @return original return type: 'java.awt.image.WritableRaster'
      */
-    static createPackedRaster(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: (java_lang_Integer | number)[] | null, var4: java_awt_Point | null): Promise<WritableRaster | null>;
+    static createPackedRaster(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_awt_Point | null): Promise<WritableRaster | null>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
-     * @param var3 original type: 'int[]'
-     * @param var4 original type: 'java.awt.Point'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'java.awt.Point'
      * @return original return type: 'java.awt.image.WritableRaster'
      */
-    static createPackedRasterSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: (java_lang_Integer | number)[] | null, var4: java_awt_Point | null): WritableRaster | null;
+    static createPackedRasterSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_awt_Point | null): WritableRaster | null;
     /**
      * @return original return type: 'int'
      */
@@ -579,6 +579,20 @@ export declare class WritableRasterClass extends JavaClass {
      * @return original return type: 'int'
      */
     getNumBandsSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.lang.Object'
+     * @return original return type: 'java.lang.Object'
+     */
+    getDataElements(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.lang.Object'
+     * @return original return type: 'java.lang.Object'
+     */
+    getDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): BasicOrJavaType | null;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -597,20 +611,6 @@ export declare class WritableRasterClass extends JavaClass {
      * @return original return type: 'java.lang.Object'
      */
     getDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: BasicOrJavaType | null): BasicOrJavaType | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.lang.Object'
-     * @return original return type: 'java.lang.Object'
-     */
-    getDataElements(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.lang.Object'
-     * @return original return type: 'java.lang.Object'
-     */
-    getDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): BasicOrJavaType | null;
     /**
      * @return original return type: 'java.awt.image.DataBuffer'
      */
@@ -666,6 +666,24 @@ export declare class WritableRasterClass extends JavaClass {
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @param var3 original type: 'int'
+     * @param var4 original type: 'int[]'
+     * @return original return type: 'int[]'
+     */
+    getPixels(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int[]'
+     * @return original return type: 'int[]'
+     */
+    getPixelsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
      * @param var4 original type: 'float[]'
      * @return original return type: 'float[]'
      */
@@ -698,24 +716,6 @@ export declare class WritableRasterClass extends JavaClass {
      */
     getPixelsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Double | number)[] | null): (number)[] | null;
     /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int[]'
-     * @return original return type: 'int[]'
-     */
-    getPixels(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int[]'
-     * @return original return type: 'int[]'
-     */
-    getPixelsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null): (number)[] | null;
-    /**
      * @return original return type: 'int'
      */
     getTransferType(): Promise<number>;
@@ -723,28 +723,6 @@ export declare class WritableRasterClass extends JavaClass {
      * @return original return type: 'int'
      */
     getTransferTypeSync(): number;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @return original return type: 'int'
-     */
-    getSample(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @return original return type: 'int'
-     */
-    getSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): number;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumDataElements(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumDataElementsSync(): number;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -763,118 +741,16 @@ export declare class WritableRasterClass extends JavaClass {
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
-     * @return original return type: 'double'
+     * @return original return type: 'int'
      */
-    getSampleDouble(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<number>;
+    getSample(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<number>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
-     * @return original return type: 'double'
+     * @return original return type: 'int'
      */
-    getSampleDoubleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): number;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'double[]'
-     * @return original return type: 'double[]'
-     */
-    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'double[]'
-     * @return original return type: 'double[]'
-     */
-    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null): (number)[] | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'float[]'
-     * @return original return type: 'float[]'
-     */
-    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'float[]'
-     * @return original return type: 'float[]'
-     */
-    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null): (number)[] | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int[]'
-     * @return original return type: 'int[]'
-     */
-    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int[]'
-     * @return original return type: 'int[]'
-     */
-    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null): (number)[] | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'double[]'
-     * @return original return type: 'double[]'
-     */
-    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'double[]'
-     * @return original return type: 'double[]'
-     */
-    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null): (number)[] | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'int[]'
-     * @return original return type: 'int[]'
-     */
-    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'int[]'
-     * @return original return type: 'int[]'
-     */
-    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null): (number)[] | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'float[]'
-     * @return original return type: 'float[]'
-     */
-    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'float[]'
-     * @return original return type: 'float[]'
-     */
-    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null): (number)[] | null;
+    getSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): number;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -938,6 +814,14 @@ export declare class WritableRasterClass extends JavaClass {
      */
     static createBandedRasterSync(var0: java_awt_image_DataBuffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: (java_lang_Integer | number)[] | null, var6: java_awt_Point | null): WritableRaster | null;
     /**
+     * @return original return type: 'int'
+     */
+    getNumDataElements(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumDataElementsSync(): number;
+    /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
@@ -959,6 +843,122 @@ export declare class WritableRasterClass extends JavaClass {
      * @return original return type: 'java.awt.image.Raster'
      */
     createChildSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: (java_lang_Integer | number)[] | null): java_awt_image_Raster | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'double[]'
+     * @return original return type: 'double[]'
+     */
+    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'double[]'
+     * @return original return type: 'double[]'
+     */
+    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int[]'
+     * @return original return type: 'int[]'
+     */
+    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int[]'
+     * @return original return type: 'int[]'
+     */
+    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'float[]'
+     * @return original return type: 'float[]'
+     */
+    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'float[]'
+     * @return original return type: 'float[]'
+     */
+    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @return original return type: 'double'
+     */
+    getSampleDouble(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @return original return type: 'double'
+     */
+    getSampleDoubleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): number;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'float[]'
+     * @return original return type: 'float[]'
+     */
+    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'float[]'
+     * @return original return type: 'float[]'
+     */
+    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'int[]'
+     * @return original return type: 'int[]'
+     */
+    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'int[]'
+     * @return original return type: 'int[]'
+     */
+    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'double[]'
+     * @return original return type: 'double[]'
+     */
+    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'double[]'
+     * @return original return type: 'double[]'
+     */
+    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null): (number)[] | null;
     /**
      * @param var0 original type: 'java.awt.image.SampleModel'
      * @param var1 original type: 'java.awt.image.DataBuffer'

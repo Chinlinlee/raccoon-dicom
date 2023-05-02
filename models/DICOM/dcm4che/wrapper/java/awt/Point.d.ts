@@ -279,16 +279,16 @@ export declare class PointClass extends JavaClass {
      * @param var1 original type: 'int'
      * @return original return type: 'java.awt.Point'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<Point>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<Point>;
     /**
      * @param var0 original type: 'java.awt.Point'
      * @return original return type: 'java.awt.Point'
      */
-    static newInstance(var0: PointClass | null): Promise<Point>;
+    static newInstanceAsync(var0: PointClass | null): Promise<Point>;
     /**
      * @return original return type: 'java.awt.Point'
      */
-    static newInstance(): Promise<Point>;
+    static newInstanceAsync(): Promise<Point>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

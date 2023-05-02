@@ -38,22 +38,6 @@ export declare class SampleModelClass extends JavaClass {
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @param var2 original type: 'java.lang.Object'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'java.lang.Object'
-     */
-    getDataElements(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null, var3: java_awt_image_DataBuffer | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.lang.Object'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'java.lang.Object'
-     */
-    getDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null, var3: java_awt_image_DataBuffer | null): BasicOrJavaType | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @param var3 original type: 'int'
      * @param var4 original type: 'java.lang.Object'
@@ -72,6 +56,22 @@ export declare class SampleModelClass extends JavaClass {
      */
     getDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: BasicOrJavaType | null, var5: java_awt_image_DataBuffer | null): BasicOrJavaType | null;
     /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.lang.Object'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'java.lang.Object'
+     */
+    getDataElements(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null, var3: java_awt_image_DataBuffer | null): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.lang.Object'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'java.lang.Object'
+     */
+    getDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null, var3: java_awt_image_DataBuffer | null): BasicOrJavaType | null;
+    /**
      * @return original return type: 'int'
      */
     getDataType(): Promise<number>;
@@ -79,6 +79,22 @@ export declare class SampleModelClass extends JavaClass {
      * @return original return type: 'int'
      */
     getDataTypeSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.lang.Object'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'void'
+     */
+    setDataElements(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null, var3: java_awt_image_DataBuffer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.lang.Object'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'void'
+     */
+    setDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null, var3: java_awt_image_DataBuffer | null): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -99,22 +115,6 @@ export declare class SampleModelClass extends JavaClass {
      * @return original return type: 'void'
      */
     setDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: BasicOrJavaType | null, var5: java_awt_image_DataBuffer | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.lang.Object'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'void'
-     */
-    setDataElements(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null, var3: java_awt_image_DataBuffer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.lang.Object'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'void'
-     */
-    setDataElementsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: BasicOrJavaType | null, var3: java_awt_image_DataBuffer | null): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -257,28 +257,22 @@ export declare class SampleModelClass extends JavaClass {
     getTransferTypeSync(): number;
     /**
      * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
      * @return original return type: 'int'
      */
-    getSample(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): Promise<number>;
+    getSampleSize(var0: java_lang_Integer | number): Promise<number>;
     /**
      * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
      * @return original return type: 'int'
      */
-    getSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): number;
+    getSampleSizeSync(var0: java_lang_Integer | number): number;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'int[]'
      */
-    getNumDataElements(): Promise<number>;
+    getSampleSize(): Promise<(number)[] | null>;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'int[]'
      */
-    getNumDataElementsSync(): number;
+    getSampleSizeSync(): (number)[] | null;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -295,40 +289,6 @@ export declare class SampleModelClass extends JavaClass {
      * @return original return type: 'float'
      */
     getSampleFloatSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): number;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'double'
-     */
-    getSampleDouble(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'double'
-     */
-    getSampleDoubleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): number;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'float'
-     * @param var4 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'void'
-     */
-    setSample(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Float | number, var4: java_awt_image_DataBuffer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'float'
-     * @param var4 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'void'
-     */
-    setSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Float | number, var4: java_awt_image_DataBuffer | null): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -351,6 +311,24 @@ export declare class SampleModelClass extends JavaClass {
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
+     * @param var3 original type: 'float'
+     * @param var4 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'void'
+     */
+    setSample(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Float | number, var4: java_awt_image_DataBuffer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'float'
+     * @param var4 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'void'
+     */
+    setSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Float | number, var4: java_awt_image_DataBuffer | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
      * @param var3 original type: 'int'
      * @param var4 original type: 'java.awt.image.DataBuffer'
      * @return original return type: 'void'
@@ -368,117 +346,37 @@ export declare class SampleModelClass extends JavaClass {
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @param var2 original type: 'float[]'
+     * @param var2 original type: 'int'
      * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'float[]'
+     * @return original return type: 'int'
      */
-    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'float[]'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'float[]'
-     */
-    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_awt_image_DataBuffer | null): (number)[] | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int[]'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'int[]'
-     */
-    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int[]'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'int[]'
-     */
-    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_awt_image_DataBuffer | null): (number)[] | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'double[]'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'double[]'
-     */
-    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null, var3: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'double[]'
-     * @param var3 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'double[]'
-     */
-    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null, var3: java_awt_image_DataBuffer | null): (number)[] | null;
+    getSample(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): Promise<number>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'int[]'
-     * @param var6 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'int[]'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'int'
      */
-    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null, var6: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
+    getSampleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): number;
     /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'int[]'
-     * @param var6 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'int[]'
+     * @return original return type: 'java.awt.image.DataBuffer'
      */
-    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null, var6: java_awt_image_DataBuffer | null): (number)[] | null;
+    createDataBuffer(): Promise<java_awt_image_DataBuffer | null>;
     /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'float[]'
-     * @param var6 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'float[]'
+     * @return original return type: 'java.awt.image.DataBuffer'
      */
-    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null, var6: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
+    createDataBufferSync(): java_awt_image_DataBuffer | null;
     /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'float[]'
-     * @param var6 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'float[]'
+     * @param var0 original type: 'int[]'
+     * @return original return type: 'java.awt.image.SampleModel'
      */
-    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null, var6: java_awt_image_DataBuffer | null): (number)[] | null;
+    createSubsetSampleModel(var0: (java_lang_Integer | number)[] | null): Promise<SampleModel | null>;
     /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'double[]'
-     * @param var6 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'double[]'
+     * @param var0 original type: 'int[]'
+     * @return original return type: 'java.awt.image.SampleModel'
      */
-    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null, var6: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'double[]'
-     * @param var6 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'double[]'
-     */
-    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null, var6: java_awt_image_DataBuffer | null): (number)[] | null;
+    createSubsetSampleModelSync(var0: (java_lang_Integer | number)[] | null): SampleModel | null;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -533,28 +431,6 @@ export declare class SampleModelClass extends JavaClass {
      * @param var2 original type: 'int'
      * @param var3 original type: 'int'
      * @param var4 original type: 'int'
-     * @param var5 original type: 'float[]'
-     * @param var6 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'void'
-     */
-    setSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null, var6: java_awt_image_DataBuffer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
-     * @param var5 original type: 'float[]'
-     * @param var6 original type: 'java.awt.image.DataBuffer'
-     * @return original return type: 'void'
-     */
-    setSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null, var6: java_awt_image_DataBuffer | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int'
      * @param var5 original type: 'int[]'
      * @param var6 original type: 'java.awt.image.DataBuffer'
      * @return original return type: 'void'
@@ -594,41 +470,165 @@ export declare class SampleModelClass extends JavaClass {
      */
     setSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null, var6: java_awt_image_DataBuffer | null): void;
     /**
-     * @param var0 original type: 'int[]'
-     * @return original return type: 'java.awt.image.SampleModel'
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'float[]'
+     * @param var6 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'void'
      */
-    createSubsetSampleModel(var0: (java_lang_Integer | number)[] | null): Promise<SampleModel | null>;
-    /**
-     * @param var0 original type: 'int[]'
-     * @return original return type: 'java.awt.image.SampleModel'
-     */
-    createSubsetSampleModelSync(var0: (java_lang_Integer | number)[] | null): SampleModel | null;
-    /**
-     * @return original return type: 'java.awt.image.DataBuffer'
-     */
-    createDataBuffer(): Promise<java_awt_image_DataBuffer | null>;
-    /**
-     * @return original return type: 'java.awt.image.DataBuffer'
-     */
-    createDataBufferSync(): java_awt_image_DataBuffer | null;
+    setSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null, var6: java_awt_image_DataBuffer | null): Promise<void>;
     /**
      * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'float[]'
+     * @param var6 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'void'
+     */
+    setSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null, var6: java_awt_image_DataBuffer | null): void;
+    /**
      * @return original return type: 'int'
      */
-    getSampleSize(var0: java_lang_Integer | number): Promise<number>;
+    getNumDataElements(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumDataElementsSync(): number;
     /**
      * @param var0 original type: 'int'
-     * @return original return type: 'int'
-     */
-    getSampleSizeSync(var0: java_lang_Integer | number): number;
-    /**
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int[]'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
      * @return original return type: 'int[]'
      */
-    getSampleSize(): Promise<(number)[] | null>;
+    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
     /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int[]'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
      * @return original return type: 'int[]'
      */
-    getSampleSizeSync(): (number)[] | null;
+    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_awt_image_DataBuffer | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'float[]'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'float[]'
+     */
+    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'float[]'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'float[]'
+     */
+    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_awt_image_DataBuffer | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'double[]'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'double[]'
+     */
+    getPixel(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null, var3: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'double[]'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'double[]'
+     */
+    getPixelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null, var3: java_awt_image_DataBuffer | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'double'
+     */
+    getSampleDouble(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'double'
+     */
+    getSampleDoubleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_DataBuffer | null): number;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'int[]'
+     * @param var6 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'int[]'
+     */
+    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null, var6: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'int[]'
+     * @param var6 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'int[]'
+     */
+    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Integer | number)[] | null, var6: java_awt_image_DataBuffer | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'double[]'
+     * @param var6 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'double[]'
+     */
+    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null, var6: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'double[]'
+     * @param var6 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'double[]'
+     */
+    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Double | number)[] | null, var6: java_awt_image_DataBuffer | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'float[]'
+     * @param var6 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'float[]'
+     */
+    getSamples(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null, var6: java_awt_image_DataBuffer | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int'
+     * @param var5 original type: 'float[]'
+     * @param var6 original type: 'java.awt.image.DataBuffer'
+     * @return original return type: 'float[]'
+     */
+    getSamplesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: (java_lang_Float | number)[] | null, var6: java_awt_image_DataBuffer | null): (number)[] | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

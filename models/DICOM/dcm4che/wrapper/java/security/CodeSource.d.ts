@@ -130,13 +130,13 @@ export declare class CodeSourceClass extends JavaClass {
      * @param var1 original type: 'java.security.cert.Certificate[]'
      * @return original return type: 'java.security.CodeSource'
      */
-    static newInstance(var0: java_net_URL | null, var1: (java_security_cert_Certificate | null)[] | null): Promise<CodeSource>;
+    static newInstanceAsync(var0: java_net_URL | null, var1: (java_security_cert_Certificate | null)[] | null): Promise<CodeSource>;
     /**
      * @param var0 original type: 'java.net.URL'
      * @param var1 original type: 'java.security.CodeSigner[]'
      * @return original return type: 'java.security.CodeSource'
      */
-    static newInstance(var0: java_net_URL | null, var1: (java_security_CodeSigner | null)[] | null): Promise<CodeSource>;
+    static newInstanceAsync(var0: java_net_URL | null, var1: (java_security_CodeSigner | null)[] | null): Promise<CodeSource>;
     /**
      * @param var0 original type: 'java.net.URL'
      * @param var1 original type: 'java.security.cert.Certificate[]'

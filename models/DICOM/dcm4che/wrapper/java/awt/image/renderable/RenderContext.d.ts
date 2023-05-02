@@ -198,25 +198,25 @@ export declare class RenderContextClass extends JavaClass {
      * @param var1 original type: 'java.awt.Shape'
      * @return original return type: 'java.awt.image.renderable.RenderContext'
      */
-    static newInstance(var0: java_awt_geom_AffineTransform | null, var1: java_awt_Shape | JavaInterfaceProxy<java_awt_ShapeInterface> | null): Promise<RenderContext>;
+    static newInstanceAsync(var0: java_awt_geom_AffineTransform | null, var1: java_awt_Shape | JavaInterfaceProxy<java_awt_ShapeInterface> | null): Promise<RenderContext>;
     /**
      * @param var0 original type: 'java.awt.geom.AffineTransform'
      * @param var1 original type: 'java.awt.RenderingHints'
      * @return original return type: 'java.awt.image.renderable.RenderContext'
      */
-    static newInstance(var0: java_awt_geom_AffineTransform | null, var1: java_awt_RenderingHints | null): Promise<RenderContext>;
+    static newInstanceAsync(var0: java_awt_geom_AffineTransform | null, var1: java_awt_RenderingHints | null): Promise<RenderContext>;
     /**
      * @param var0 original type: 'java.awt.geom.AffineTransform'
      * @return original return type: 'java.awt.image.renderable.RenderContext'
      */
-    static newInstance(var0: java_awt_geom_AffineTransform | null): Promise<RenderContext>;
+    static newInstanceAsync(var0: java_awt_geom_AffineTransform | null): Promise<RenderContext>;
     /**
      * @param var0 original type: 'java.awt.geom.AffineTransform'
      * @param var1 original type: 'java.awt.Shape'
      * @param var2 original type: 'java.awt.RenderingHints'
      * @return original return type: 'java.awt.image.renderable.RenderContext'
      */
-    static newInstance(var0: java_awt_geom_AffineTransform | null, var1: java_awt_Shape | JavaInterfaceProxy<java_awt_ShapeInterface> | null, var2: java_awt_RenderingHints | null): Promise<RenderContext>;
+    static newInstanceAsync(var0: java_awt_geom_AffineTransform | null, var1: java_awt_Shape | JavaInterfaceProxy<java_awt_ShapeInterface> | null, var2: java_awt_RenderingHints | null): Promise<RenderContext>;
     /**
      * @param var0 original type: 'java.awt.geom.AffineTransform'
      * @param var1 original type: 'java.awt.Shape'

@@ -232,7 +232,7 @@ export declare class DragGestureEventClass extends JavaClass {
      * @param var3 original type: 'java.util.List'
      * @return original return type: 'java.awt.dnd.DragGestureEvent'
      */
-    static newInstance(var0: java_awt_dnd_DragGestureRecognizer | null, var1: java_lang_Integer | number, var2: java_awt_Point | null, var3: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null): Promise<DragGestureEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DragGestureRecognizer | null, var1: java_lang_Integer | number, var2: java_awt_Point | null, var3: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null): Promise<DragGestureEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DragGestureRecognizer'
      * @param var1 original type: 'int'

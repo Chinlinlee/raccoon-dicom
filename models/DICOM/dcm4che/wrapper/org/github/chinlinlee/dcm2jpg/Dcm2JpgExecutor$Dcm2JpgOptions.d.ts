@@ -116,7 +116,7 @@ export declare class Dcm2JpgExecutor$Dcm2JpgOptionsClass extends JavaClass {
     /**
      * @return original return type: 'org.github.chinlinlee.dcm2jpg.Dcm2JpgExecutor$Dcm2JpgOptions'
      */
-    static newInstance(): Promise<Dcm2JpgExecutor$Dcm2JpgOptions>;
+    static newInstanceAsync(): Promise<Dcm2JpgExecutor$Dcm2JpgOptions>;
     constructor();
 }
 declare const Dcm2JpgExecutor$Dcm2JpgOptions_base: typeof Dcm2JpgExecutor$Dcm2JpgOptionsClass;

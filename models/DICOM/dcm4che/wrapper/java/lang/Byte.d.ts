@@ -317,12 +317,12 @@ export declare class ByteClass extends JavaClass {
      * @param var0 original type: 'byte'
      * @return original return type: 'java.lang.Byte'
      */
-    static newInstance(var0: ByteClass | number): Promise<number>;
+    static newInstanceAsync(var0: ByteClass | number): Promise<number>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Byte'
      */
-    static newInstance(var0: string | null): Promise<number>;
+    static newInstanceAsync(var0: string | null): Promise<number>;
     /**
      * @param var0 original type: 'byte'
      */

@@ -708,14 +708,14 @@ export declare class BufferedImageClass extends JavaClass {
      * @param var3 original type: 'java.awt.image.IndexColorModel'
      * @return original return type: 'java.awt.image.BufferedImage'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_IndexColorModel | null): Promise<BufferedImage>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_awt_image_IndexColorModel | null): Promise<BufferedImage>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @return original return type: 'java.awt.image.BufferedImage'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<BufferedImage>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<BufferedImage>;
     /**
      * @param var0 original type: 'java.awt.image.ColorModel'
      * @param var1 original type: 'java.awt.image.WritableRaster'
@@ -723,7 +723,7 @@ export declare class BufferedImageClass extends JavaClass {
      * @param var3 original type: 'java.util.Hashtable'
      * @return original return type: 'java.awt.image.BufferedImage'
      */
-    static newInstance(var0: java_awt_image_ColorModel | null, var1: java_awt_image_WritableRaster | null, var2: java_lang_Boolean | boolean, var3: java_util_Hashtable | null): Promise<BufferedImage>;
+    static newInstanceAsync(var0: java_awt_image_ColorModel | null, var1: java_awt_image_WritableRaster | null, var2: java_lang_Boolean | boolean, var3: java_util_Hashtable | null): Promise<BufferedImage>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

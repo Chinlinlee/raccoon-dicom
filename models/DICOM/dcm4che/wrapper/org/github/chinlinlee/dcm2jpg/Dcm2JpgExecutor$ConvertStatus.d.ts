@@ -100,7 +100,7 @@ export declare class Dcm2JpgExecutor$ConvertStatusClass extends JavaClass {
     /**
      * @return original return type: 'org.github.chinlinlee.dcm2jpg.Dcm2JpgExecutor$ConvertStatus'
      */
-    static newInstance(): Promise<Dcm2JpgExecutor$ConvertStatus>;
+    static newInstanceAsync(): Promise<Dcm2JpgExecutor$ConvertStatus>;
     constructor();
 }
 declare const Dcm2JpgExecutor$ConvertStatus_base: typeof Dcm2JpgExecutor$ConvertStatusClass;

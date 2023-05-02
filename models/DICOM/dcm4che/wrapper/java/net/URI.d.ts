@@ -325,7 +325,7 @@ export declare class URIClass extends JavaClass {
      * @param var4 original type: 'java.lang.String'
      * @return original return type: 'java.net.URI'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null, var3: string | null, var4: string | null): Promise<URI>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null, var3: string | null, var4: string | null): Promise<URI>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -333,19 +333,19 @@ export declare class URIClass extends JavaClass {
      * @param var3 original type: 'java.lang.String'
      * @return original return type: 'java.net.URI'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null, var3: string | null): Promise<URI>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null, var3: string | null): Promise<URI>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'java.lang.String'
      * @return original return type: 'java.net.URI'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null): Promise<URI>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null): Promise<URI>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.net.URI'
      */
-    static newInstance(var0: string | null): Promise<URI>;
+    static newInstanceAsync(var0: string | null): Promise<URI>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -356,7 +356,7 @@ export declare class URIClass extends JavaClass {
      * @param var6 original type: 'java.lang.String'
      * @return original return type: 'java.net.URI'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: string | null, var5: string | null, var6: string | null): Promise<URI>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: string | null, var5: string | null, var6: string | null): Promise<URI>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'

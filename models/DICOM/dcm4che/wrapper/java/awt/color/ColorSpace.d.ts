@@ -158,6 +158,24 @@ export declare class ColorSpaceClass extends JavaClass {
      */
     getTypeSync(): number;
     /**
+     * @param var0 original type: 'float[]'
+     * @return original return type: 'float[]'
+     */
+    toRGB(var0: (java_lang_Float | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'float[]'
+     * @return original return type: 'float[]'
+     */
+    toRGBSync(var0: (java_lang_Float | number)[] | null): (number)[] | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isCS_sRGB(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isCS_sRGBSync(): boolean;
+    /**
      * @return original return type: 'int'
      */
     getNumComponents(): Promise<number>;
@@ -215,24 +233,6 @@ export declare class ColorSpaceClass extends JavaClass {
      * @return original return type: 'float'
      */
     getMaxValueSync(var0: java_lang_Integer | number): number;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCS_sRGB(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCS_sRGBSync(): boolean;
-    /**
-     * @param var0 original type: 'float[]'
-     * @return original return type: 'float[]'
-     */
-    toRGB(var0: (java_lang_Float | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'float[]'
-     * @return original return type: 'float[]'
-     */
-    toRGBSync(var0: (java_lang_Float | number)[] | null): (number)[] | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

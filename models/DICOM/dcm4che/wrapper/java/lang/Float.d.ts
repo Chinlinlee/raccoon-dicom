@@ -419,17 +419,17 @@ export declare class FloatClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Float'
      */
-    static newInstance(var0: string | null): Promise<number>;
+    static newInstanceAsync(var0: string | null): Promise<number>;
     /**
      * @param var0 original type: 'double'
      * @return original return type: 'java.lang.Float'
      */
-    static newInstance(var0: java_lang_Double | number): Promise<number>;
+    static newInstanceAsync(var0: java_lang_Double | number): Promise<number>;
     /**
      * @param var0 original type: 'float'
      * @return original return type: 'java.lang.Float'
      */
-    static newInstance(var0: FloatClass | number): Promise<number>;
+    static newInstanceAsync(var0: FloatClass | number): Promise<number>;
     /**
      * @param var0 original type: 'java.lang.String'
      */

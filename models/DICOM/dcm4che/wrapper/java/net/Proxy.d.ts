@@ -115,7 +115,7 @@ export declare class ProxyClass extends JavaClass {
      * @param var1 original type: 'java.net.SocketAddress'
      * @return original return type: 'java.net.Proxy'
      */
-    static newInstance(var0: java_net_Proxy$Type | null, var1: java_net_SocketAddress | null): Promise<Proxy>;
+    static newInstanceAsync(var0: java_net_Proxy$Type | null, var1: java_net_SocketAddress | null): Promise<Proxy>;
     /**
      * @param var0 original type: 'java.net.Proxy$Type'
      * @param var1 original type: 'java.net.SocketAddress'

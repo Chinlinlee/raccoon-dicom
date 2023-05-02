@@ -182,7 +182,7 @@ export declare class ClipboardClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.awt.datatransfer.Clipboard'
      */
-    static newInstance(var0: string | null): Promise<Clipboard>;
+    static newInstanceAsync(var0: string | null): Promise<Clipboard>;
     /**
      * @param var0 original type: 'java.lang.String'
      */

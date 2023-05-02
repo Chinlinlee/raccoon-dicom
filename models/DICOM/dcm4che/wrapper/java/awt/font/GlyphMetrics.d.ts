@@ -214,7 +214,7 @@ export declare class GlyphMetricsClass extends JavaClass {
      * @param var2 original type: 'byte'
      * @return original return type: 'java.awt.font.GlyphMetrics'
      */
-    static newInstance(var0: java_lang_Float | number, var1: java_awt_geom_Rectangle2D | null, var2: java_lang_Byte | number): Promise<GlyphMetrics>;
+    static newInstanceAsync(var0: java_lang_Float | number, var1: java_awt_geom_Rectangle2D | null, var2: java_lang_Byte | number): Promise<GlyphMetrics>;
     /**
      * @param var0 original type: 'boolean'
      * @param var1 original type: 'float'
@@ -223,7 +223,7 @@ export declare class GlyphMetricsClass extends JavaClass {
      * @param var4 original type: 'byte'
      * @return original return type: 'java.awt.font.GlyphMetrics'
      */
-    static newInstance(var0: java_lang_Boolean | boolean, var1: java_lang_Float | number, var2: java_lang_Float | number, var3: java_awt_geom_Rectangle2D | null, var4: java_lang_Byte | number): Promise<GlyphMetrics>;
+    static newInstanceAsync(var0: java_lang_Boolean | boolean, var1: java_lang_Float | number, var2: java_lang_Float | number, var3: java_awt_geom_Rectangle2D | null, var4: java_lang_Byte | number): Promise<GlyphMetrics>;
     /**
      * @param var0 original type: 'float'
      * @param var1 original type: 'java.awt.geom.Rectangle2D'

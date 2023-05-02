@@ -282,14 +282,14 @@ export declare class FocusEventClass extends JavaClass {
      * @param var1 original type: 'int'
      * @return original return type: 'java.awt.event.FocusEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number): Promise<FocusEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number): Promise<FocusEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
      * @param var2 original type: 'boolean'
      * @return original return type: 'java.awt.event.FocusEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Boolean | boolean): Promise<FocusEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Boolean | boolean): Promise<FocusEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -298,7 +298,7 @@ export declare class FocusEventClass extends JavaClass {
      * @param var4 original type: 'java.awt.event.FocusEvent$Cause'
      * @return original return type: 'java.awt.event.FocusEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Boolean | boolean, var3: java_awt_Component | null, var4: java_awt_event_FocusEvent$Cause | null): Promise<FocusEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Boolean | boolean, var3: java_awt_Component | null, var4: java_awt_event_FocusEvent$Cause | null): Promise<FocusEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -306,7 +306,7 @@ export declare class FocusEventClass extends JavaClass {
      * @param var3 original type: 'java.awt.Component'
      * @return original return type: 'java.awt.event.FocusEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Boolean | boolean, var3: java_awt_Component | null): Promise<FocusEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Boolean | boolean, var3: java_awt_Component | null): Promise<FocusEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'

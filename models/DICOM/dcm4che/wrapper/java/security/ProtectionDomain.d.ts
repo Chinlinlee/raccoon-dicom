@@ -148,7 +148,7 @@ export declare class ProtectionDomainClass extends JavaClass {
      * @param var1 original type: 'java.security.PermissionCollection'
      * @return original return type: 'java.security.ProtectionDomain'
      */
-    static newInstance(var0: java_security_CodeSource | null, var1: java_security_PermissionCollection | null): Promise<ProtectionDomain>;
+    static newInstanceAsync(var0: java_security_CodeSource | null, var1: java_security_PermissionCollection | null): Promise<ProtectionDomain>;
     /**
      * @param var0 original type: 'java.security.CodeSource'
      * @param var1 original type: 'java.security.PermissionCollection'
@@ -156,7 +156,7 @@ export declare class ProtectionDomainClass extends JavaClass {
      * @param var3 original type: 'java.security.Principal[]'
      * @return original return type: 'java.security.ProtectionDomain'
      */
-    static newInstance(var0: java_security_CodeSource | null, var1: java_security_PermissionCollection | null, var2: java_lang_ClassLoader | null, var3: (java_security_Principal | JavaInterfaceProxy<java_security_PrincipalInterface> | null)[] | null): Promise<ProtectionDomain>;
+    static newInstanceAsync(var0: java_security_CodeSource | null, var1: java_security_PermissionCollection | null, var2: java_lang_ClassLoader | null, var3: (java_security_Principal | JavaInterfaceProxy<java_security_PrincipalInterface> | null)[] | null): Promise<ProtectionDomain>;
     /**
      * @param var0 original type: 'java.security.CodeSource'
      * @param var1 original type: 'java.security.PermissionCollection'

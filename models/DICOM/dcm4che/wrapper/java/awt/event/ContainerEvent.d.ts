@@ -274,7 +274,7 @@ export declare class ContainerEventClass extends JavaClass {
      * @param var2 original type: 'java.awt.Component'
      * @return original return type: 'java.awt.event.ContainerEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_awt_Component | null): Promise<ContainerEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_awt_Component | null): Promise<ContainerEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'

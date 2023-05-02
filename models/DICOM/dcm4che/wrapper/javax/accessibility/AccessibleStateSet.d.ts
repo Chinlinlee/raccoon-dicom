@@ -148,12 +148,12 @@ export declare class AccessibleStateSetClass extends JavaClass {
     /**
      * @return original return type: 'javax.accessibility.AccessibleStateSet'
      */
-    static newInstance(): Promise<AccessibleStateSet>;
+    static newInstanceAsync(): Promise<AccessibleStateSet>;
     /**
      * @param var0 original type: 'javax.accessibility.AccessibleState[]'
      * @return original return type: 'javax.accessibility.AccessibleStateSet'
      */
-    static newInstance(var0: (javax_accessibility_AccessibleState | null)[] | null): Promise<AccessibleStateSet>;
+    static newInstanceAsync(var0: (javax_accessibility_AccessibleState | null)[] | null): Promise<AccessibleStateSet>;
     constructor();
     /**
      * @param var0 original type: 'javax.accessibility.AccessibleState[]'

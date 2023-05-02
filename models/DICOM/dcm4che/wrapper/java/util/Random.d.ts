@@ -413,12 +413,12 @@ export declare class RandomClass extends JavaClass {
     /**
      * @return original return type: 'java.util.Random'
      */
-    static newInstance(): Promise<Random>;
+    static newInstanceAsync(): Promise<Random>;
     /**
      * @param var0 original type: 'long'
      * @return original return type: 'java.util.Random'
      */
-    static newInstance(var0: java_lang_Long | bigint | number): Promise<Random>;
+    static newInstanceAsync(var0: java_lang_Long | bigint | number): Promise<Random>;
     constructor();
     /**
      * @param var0 original type: 'long'

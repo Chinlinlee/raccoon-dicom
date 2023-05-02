@@ -461,27 +461,27 @@ export declare class ThreadClass extends JavaClass {
      * @param var1 original type: 'java.lang.Runnable'
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(var0: java_lang_ThreadGroup | null, var1: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null): Promise<Thread>;
+    static newInstanceAsync(var0: java_lang_ThreadGroup | null, var1: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null): Promise<Thread>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(var0: string | null): Promise<Thread>;
+    static newInstanceAsync(var0: string | null): Promise<Thread>;
     /**
      * @param var0 original type: 'java.lang.ThreadGroup'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(var0: java_lang_ThreadGroup | null, var1: string | null): Promise<Thread>;
+    static newInstanceAsync(var0: java_lang_ThreadGroup | null, var1: string | null): Promise<Thread>;
     /**
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(): Promise<Thread>;
+    static newInstanceAsync(): Promise<Thread>;
     /**
      * @param var0 original type: 'java.lang.Runnable'
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null): Promise<Thread>;
+    static newInstanceAsync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null): Promise<Thread>;
     /**
      * @param var0 original type: 'java.lang.ThreadGroup'
      * @param var1 original type: 'java.lang.Runnable'
@@ -490,7 +490,7 @@ export declare class ThreadClass extends JavaClass {
      * @param var4 original type: 'boolean'
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(var0: java_lang_ThreadGroup | null, var1: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var2: string | null, var3: java_lang_Long | bigint | number, var4: java_lang_Boolean | boolean): Promise<Thread>;
+    static newInstanceAsync(var0: java_lang_ThreadGroup | null, var1: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var2: string | null, var3: java_lang_Long | bigint | number, var4: java_lang_Boolean | boolean): Promise<Thread>;
     /**
      * @param var0 original type: 'java.lang.ThreadGroup'
      * @param var1 original type: 'java.lang.Runnable'
@@ -498,20 +498,20 @@ export declare class ThreadClass extends JavaClass {
      * @param var3 original type: 'long'
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(var0: java_lang_ThreadGroup | null, var1: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var2: string | null, var3: java_lang_Long | bigint | number): Promise<Thread>;
+    static newInstanceAsync(var0: java_lang_ThreadGroup | null, var1: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var2: string | null, var3: java_lang_Long | bigint | number): Promise<Thread>;
     /**
      * @param var0 original type: 'java.lang.ThreadGroup'
      * @param var1 original type: 'java.lang.Runnable'
      * @param var2 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(var0: java_lang_ThreadGroup | null, var1: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var2: string | null): Promise<Thread>;
+    static newInstanceAsync(var0: java_lang_ThreadGroup | null, var1: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var2: string | null): Promise<Thread>;
     /**
      * @param var0 original type: 'java.lang.Runnable'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Thread'
      */
-    static newInstance(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: string | null): Promise<Thread>;
+    static newInstanceAsync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: string | null): Promise<Thread>;
     /**
      * @param var0 original type: 'java.lang.ThreadGroup'
      * @param var1 original type: 'java.lang.Runnable'

@@ -109,7 +109,7 @@ export declare class DropTargetEventClass extends JavaClass {
      * @param var0 original type: 'java.awt.dnd.DropTargetContext'
      * @return original return type: 'java.awt.dnd.DropTargetEvent'
      */
-    static newInstance(var0: java_awt_dnd_DropTargetContext | null): Promise<DropTargetEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DropTargetContext | null): Promise<DropTargetEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DropTargetContext'
      */

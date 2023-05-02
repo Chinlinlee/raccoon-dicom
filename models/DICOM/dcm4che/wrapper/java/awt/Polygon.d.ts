@@ -304,14 +304,14 @@ export declare class PolygonClass extends JavaClass {
     /**
      * @return original return type: 'java.awt.Polygon'
      */
-    static newInstance(): Promise<Polygon>;
+    static newInstanceAsync(): Promise<Polygon>;
     /**
      * @param var0 original type: 'int[]'
      * @param var1 original type: 'int[]'
      * @param var2 original type: 'int'
      * @return original return type: 'java.awt.Polygon'
      */
-    static newInstance(var0: (java_lang_Integer | number)[] | null, var1: (java_lang_Integer | number)[] | null, var2: java_lang_Integer | number): Promise<Polygon>;
+    static newInstanceAsync(var0: (java_lang_Integer | number)[] | null, var1: (java_lang_Integer | number)[] | null, var2: java_lang_Integer | number): Promise<Polygon>;
     constructor();
     /**
      * @param var0 original type: 'int[]'

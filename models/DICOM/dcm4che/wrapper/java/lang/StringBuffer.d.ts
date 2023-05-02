@@ -1069,21 +1069,21 @@ export declare class StringBufferClass extends JavaClass {
      * @param var0 original type: 'java.lang.CharSequence'
      * @return original return type: 'java.lang.StringBuffer'
      */
-    static newInstance(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null): Promise<StringBuffer>;
+    static newInstanceAsync(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null): Promise<StringBuffer>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.StringBuffer'
      */
-    static newInstance(var0: string | null): Promise<StringBuffer>;
+    static newInstanceAsync(var0: string | null): Promise<StringBuffer>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.lang.StringBuffer'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<StringBuffer>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<StringBuffer>;
     /**
      * @return original return type: 'java.lang.StringBuffer'
      */
-    static newInstance(): Promise<StringBuffer>;
+    static newInstanceAsync(): Promise<StringBuffer>;
     /**
      * @param var0 original type: 'java.lang.CharSequence'
      */

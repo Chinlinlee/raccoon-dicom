@@ -145,7 +145,7 @@ export declare class PropertyChangeEventClass extends JavaClass {
      * @param var3 original type: 'java.lang.Object'
      * @return original return type: 'java.beans.PropertyChangeEvent'
      */
-    static newInstance(var0: BasicOrJavaType | null, var1: string | null, var2: BasicOrJavaType | null, var3: BasicOrJavaType | null): Promise<PropertyChangeEvent>;
+    static newInstanceAsync(var0: BasicOrJavaType | null, var1: string | null, var2: BasicOrJavaType | null, var3: BasicOrJavaType | null): Promise<PropertyChangeEvent>;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @param var1 original type: 'java.lang.String'
