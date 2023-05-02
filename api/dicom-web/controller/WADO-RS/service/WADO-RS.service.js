@@ -65,17 +65,11 @@ class ImageMultipartWriter {
 }
 
 
-/**
- * @typedef Uids
- * @property {string} studyUID
- * @property {string} [seriesUID]
- * @property {string} [instanceUID]
- */
 class ImagePathFactory {
 
     /**
      * 
-     * @param {Uids} uids 
+     * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
      */
     constructor(uids) {
         /** @type { import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[] } */
