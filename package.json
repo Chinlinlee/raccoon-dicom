@@ -4,7 +4,52 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "standard-version"
+  },
+  "standard-version": {
+    "skip": {
+      "tag": true,
+      "commit": true
+    },
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "hidden": true
+      },
+      {
+        "type": "style",
+        "hidden": true
+      },
+      {
+        "type": "refactor",
+        "hidden": true
+      },
+      {
+        "type": "perf",
+        "hidden": true
+      },
+      {
+        "type": "test",
+        "hidden": true
+      },
+      {
+        "type": "build",
+        "section": "Build"
+      }
+    ]
   },
   "keywords": [],
   "author": "chinlinlee",
@@ -55,6 +100,7 @@
     "eslint-config-prettier": "^8.5.0",
     "mocha": "^10.2.0",
     "mongodb-memory-server": "^8.12.2",
+    "standard-version": "^9.5.0",
     "swagger-jsdoc": "^6.2.8"
   }
 }
