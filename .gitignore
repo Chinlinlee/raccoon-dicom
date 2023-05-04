@@ -17,6 +17,6 @@
 /plugins/config.js
 
 /local/local-upload-log.json
-/local/local-upload-wado-log.json
+/local/local-upload-stow-log.json
 
 /config/raccoon-dimse-app.json
