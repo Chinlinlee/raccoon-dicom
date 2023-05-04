@@ -3,10 +3,11 @@ Another Raccoon focus on DICOM.
 
 **Raccoon-DICOM** is a noSQL-based medical image archive designed for managing DICOM images, utilizing MongoDB to store and manage the images while providing RESTful APIs that support [DICOMweb](https://www.dicomstandard.org/dicomweb/") protocols for querying, retrieving, and managing DICOM images.
 
-# Installation
-* Before starting Raccoon, MongoDB, imagemagick must be installed.
-* [Node.js](https://nodejs.org/en/download/) >= 16
-* Java JDK >= 11
+# Environment Requirements
+- Before starting Raccoon, MongoDB, imagemagick, node.js, and JAVA JDK must be installed.
+- node.js >= 16
+- Java JDK >= 11
+- [imagemagick](https://imagemagick.org/script/download.php)
 
 # Configuration
 ## dotenv `.env`
@@ -74,11 +75,11 @@ FHIRSERVER_BASE_URL="http://localhost:8088/fhir"
 | SERVER_SESSION_SECRET_KEY | string | The secret key to use for session management.
 | #DICOMweb | |
 | DICOM_STORE_ROOTPATH | string | The root directory where DICOM files will be stored.
-| DICOMWEB_HOST | string | The hostname of the DICOM Web server. Which use to combine 00081190 (Retrieve URL)
+| DICOMWEB_HOST | string | The hostname of the DICOM Web server. Which use to combine 00081190 (Retrieve URL).<br/><br/>You can use {host} in string that will replace to `request.headers.host`
 | DICOMWEB_PORT | number | The port number on which the DICOM Web server will run. Which use to combine 00081190 (Retrieve URL)
 | #DIMSE | |
 | ENABLE_DIMSE | boolean | A flag indicating whether or not the DICOM DIMSE service should be enabled.
-| DCM4CHE_QRSCP_COMMAND | string | The command to start the DCM4CHE QRSCP service. Please see [dcm4che-tool-dcmqrscp](https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmqrscp/README.md), and you must pass `--raccoon {json-config-file}` to allow DCM4CHE QRSCP communicate with raccoon. DIMSE config of racoon please see <a href="#configuration">Configuration</a>
+| DCM4CHE_QRSCP_COMMAND | string | The command to start the DCM4CHE QRSCP service. Please see the usage from[dcm4che-tool-dcmqrscp](https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmqrscp/README.md), and you must pass `--raccoon {json-config-file}` to allow DCM4CHE QRSCP communicate with raccoon.<br/><br/>DIMSE config of racoon please see <a href="#dimse-app">DIMSE APP</a>.<br/><br/>You can use {project} in string that will replace to __dirname
 
 
 </details>
@@ -143,10 +144,6 @@ Query Parameter | Support |
 - [Retrieve Transaction Rendered Resources](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#table_10.4.1-3)
 - [Retrieve Transaction Thumbnail Resources](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#table_10.4.1-4)
 - [Retrieve Transaction Bulkdata Resources](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#table_10.4.1.5-1)
-
-# Environment Requirements
-- node.js >= 16
-- Java JDK >= 11
 
 > **Note**
 > - You must copy opencv_java library to JDK's lib directory
