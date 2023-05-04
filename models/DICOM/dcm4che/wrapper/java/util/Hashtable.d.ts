@@ -376,22 +376,22 @@ export declare class HashtableClass extends JavaClass {
      * @param var0 original type: 'java.util.Map'
      * @return original return type: 'java.util.Hashtable'
      */
-    static newInstance(var0: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<Hashtable>;
+    static newInstanceAsync(var0: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<Hashtable>;
     /**
      * @return original return type: 'java.util.Hashtable'
      */
-    static newInstance(): Promise<Hashtable>;
+    static newInstanceAsync(): Promise<Hashtable>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.util.Hashtable'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<Hashtable>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<Hashtable>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'float'
      * @return original return type: 'java.util.Hashtable'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Float | number): Promise<Hashtable>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Float | number): Promise<Hashtable>;
     /**
      * @param var0 original type: 'java.util.Map'
      */

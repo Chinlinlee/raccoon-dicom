@@ -35,10 +35,7 @@ let dicomModelSchema = new mongoose.Schema(
                 getters: true
             }
         }),
-        "00080030": {
-            ...dicomJsonAttributeSchema,
-            Value: [mongoose.SchemaTypes.Number]
-        },
+        "00080030": getVRSchema("TM"),
         "00080050": {
             ...dicomJsonAttributeSchema,
             Value: [mongoose.SchemaTypes.String]
@@ -401,6 +398,30 @@ dicomModelSchema.statics.getPathOfInstance = async function(iParam) {
 };
 
 /**
+ * 
+ * @param {string} studyUID 
+ * @param {string} seriesUID 
+ */
+dicomModelSchema.statics.getInstanceOfMedianIndex = async function (studyUID, seriesUID) {
+    let instanceCountOfSeries = await mongoose.model("dicomSeries").countDocuments({
+        studyUID,
+        seriesUID
+    });
+
+    return await mongoose.model("dicom").findOne({
+        studyUID
+    }, {
+        studyUID: 1,
+        seriesUID: 1,
+        instanceUID: 1,
+        instancePath: 1
+    })
+    .skip(instanceCountOfSeries >> 1)
+    .limit(1)
+    .exec();
+};
+
+/**
  * @typedef {function(s: string, b: boolean): Promise<number>} getDicomJson
  * @param {object} iParam 
  * @param {string} iParam.studyUID
@@ -416,7 +437,8 @@ dicomModelSchema.statics.getPathOfInstance = async function(iParam) {
  *      seriesUID: string,
  *      instanceUID: string
  *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
- * getDicomJson: function(queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<function>
+ * getDicomJson: function(queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<function>;
+ * getInstanceOfMedianIndex: function(studyUID: string, seriesUID: string): Promise<any>
  * }} DicomModelSchema
  */
 

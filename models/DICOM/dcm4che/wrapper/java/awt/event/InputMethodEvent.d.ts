@@ -284,7 +284,7 @@ export declare class InputMethodEventClass extends JavaClass {
      * @param var3 original type: 'java.awt.font.TextHitInfo'
      * @return original return type: 'java.awt.event.InputMethodEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_awt_font_TextHitInfo | null, var3: java_awt_font_TextHitInfo | null): Promise<InputMethodEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_awt_font_TextHitInfo | null, var3: java_awt_font_TextHitInfo | null): Promise<InputMethodEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -294,7 +294,7 @@ export declare class InputMethodEventClass extends JavaClass {
      * @param var5 original type: 'java.awt.font.TextHitInfo'
      * @return original return type: 'java.awt.event.InputMethodEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_text_AttributedCharacterIterator | JavaInterfaceProxy<java_text_AttributedCharacterIteratorInterface> | null, var3: java_lang_Integer | number, var4: java_awt_font_TextHitInfo | null, var5: java_awt_font_TextHitInfo | null): Promise<InputMethodEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_text_AttributedCharacterIterator | JavaInterfaceProxy<java_text_AttributedCharacterIteratorInterface> | null, var3: java_lang_Integer | number, var4: java_awt_font_TextHitInfo | null, var5: java_awt_font_TextHitInfo | null): Promise<InputMethodEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -305,7 +305,7 @@ export declare class InputMethodEventClass extends JavaClass {
      * @param var6 original type: 'java.awt.font.TextHitInfo'
      * @return original return type: 'java.awt.event.InputMethodEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_text_AttributedCharacterIterator | JavaInterfaceProxy<java_text_AttributedCharacterIteratorInterface> | null, var4: java_lang_Integer | number, var5: java_awt_font_TextHitInfo | null, var6: java_awt_font_TextHitInfo | null): Promise<InputMethodEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_text_AttributedCharacterIterator | JavaInterfaceProxy<java_text_AttributedCharacterIteratorInterface> | null, var4: java_lang_Integer | number, var5: java_awt_font_TextHitInfo | null, var6: java_awt_font_TextHitInfo | null): Promise<InputMethodEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'

@@ -2,10 +2,10 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { VR as org_dcm4che3_data_VR } from "./../data/VR";
-import { SpecificCharacterSet as org_dcm4che3_data_SpecificCharacterSet } from "./../data/SpecificCharacterSet";
 import { Value as org_dcm4che3_data_Value, ValueInterface as org_dcm4che3_data_ValueInterface } from "./../data/Value";
-import { Attributes as org_dcm4che3_data_Attributes } from "./../data/Attributes";
+import { SpecificCharacterSet as org_dcm4che3_data_SpecificCharacterSet } from "./../data/SpecificCharacterSet";
 import { DicomEncodingOptions as org_dcm4che3_io_DicomEncodingOptions } from "./DicomEncodingOptions";
+import { Attributes as org_dcm4che3_data_Attributes } from "./../data/Attributes";
 import { OutputStream as java_io_OutputStream } from "./../../../java/io/OutputStream";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -77,19 +77,17 @@ export declare class DicomOutputStreamClass extends JavaClass {
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'org.dcm4che3.data.VR'
-     * @param var2 original type: 'java.lang.Object'
-     * @param var3 original type: 'org.dcm4che3.data.SpecificCharacterSet'
+     * @param var2 original type: 'byte[]'
      * @return original return type: 'void'
      */
-    writeAttribute(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: BasicOrJavaType | null, var3: org_dcm4che3_data_SpecificCharacterSet | null): Promise<void>;
+    writeAttribute(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: Buffer | null): Promise<void>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'org.dcm4che3.data.VR'
-     * @param var2 original type: 'java.lang.Object'
-     * @param var3 original type: 'org.dcm4che3.data.SpecificCharacterSet'
+     * @param var2 original type: 'byte[]'
      * @return original return type: 'void'
      */
-    writeAttributeSync(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: BasicOrJavaType | null, var3: org_dcm4che3_data_SpecificCharacterSet | null): void;
+    writeAttributeSync(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: Buffer | null): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'org.dcm4che3.data.VR'
@@ -107,37 +105,19 @@ export declare class DicomOutputStreamClass extends JavaClass {
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'org.dcm4che3.data.VR'
-     * @param var2 original type: 'byte[]'
+     * @param var2 original type: 'java.lang.Object'
+     * @param var3 original type: 'org.dcm4che3.data.SpecificCharacterSet'
      * @return original return type: 'void'
      */
-    writeAttribute(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: Buffer | null): Promise<void>;
+    writeAttribute(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: BasicOrJavaType | null, var3: org_dcm4che3_data_SpecificCharacterSet | null): Promise<void>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'org.dcm4che3.data.VR'
-     * @param var2 original type: 'byte[]'
+     * @param var2 original type: 'java.lang.Object'
+     * @param var3 original type: 'org.dcm4che3.data.SpecificCharacterSet'
      * @return original return type: 'void'
      */
-    writeAttributeSync(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: Buffer | null): void;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isExplicitVR(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isExplicitVRSync(): boolean;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Attributes'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'void'
-     */
-    writeDataset(var0: org_dcm4che3_data_Attributes | null, var1: org_dcm4che3_data_Attributes | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Attributes'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'void'
-     */
-    writeDatasetSync(var0: org_dcm4che3_data_Attributes | null, var1: org_dcm4che3_data_Attributes | null): void;
+    writeAttributeSync(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: BasicOrJavaType | null, var3: org_dcm4che3_data_SpecificCharacterSet | null): void;
     /**
      * @return original return type: 'org.dcm4che3.io.DicomEncodingOptions'
      */
@@ -173,25 +153,35 @@ export declare class DicomOutputStreamClass extends JavaClass {
      */
     writeHeaderSync(var0: java_lang_Integer | number, var1: org_dcm4che3_data_VR | null, var2: java_lang_Integer | number): void;
     /**
-     * @param var0 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    writeFileMetaInformation(var0: org_dcm4che3_data_Attributes | null): Promise<void>;
+    isExplicitVR(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isExplicitVRSync(): boolean;
     /**
      * @param var0 original type: 'org.dcm4che3.data.Attributes'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @return original return type: 'void'
      */
-    writeFileMetaInformationSync(var0: org_dcm4che3_data_Attributes | null): void;
+    writeDataset(var0: org_dcm4che3_data_Attributes | null, var1: org_dcm4che3_data_Attributes | null): Promise<void>;
     /**
-     * @param var0 original type: 'java.lang.String'
+     * @param var0 original type: 'org.dcm4che3.data.Attributes'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @return original return type: 'void'
      */
-    switchTransferSyntax(var0: string | null): Promise<void>;
+    writeDatasetSync(var0: org_dcm4che3_data_Attributes | null, var1: org_dcm4che3_data_Attributes | null): void;
     /**
-     * @param var0 original type: 'java.lang.String'
+     * @param var0 original type: 'byte[]'
      * @return original return type: 'void'
      */
-    switchTransferSyntaxSync(var0: string | null): void;
+    setPreamble(var0: Buffer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'byte[]'
+     * @return original return type: 'void'
+     */
+    setPreambleSync(var0: Buffer | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
      * @return original return type: 'void'
@@ -213,15 +203,25 @@ export declare class DicomOutputStreamClass extends JavaClass {
      */
     writeCommandSync(var0: org_dcm4che3_data_Attributes | null): void;
     /**
-     * @param var0 original type: 'byte[]'
+     * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
-    setPreamble(var0: Buffer | null): Promise<void>;
+    switchTransferSyntax(var0: string | null): Promise<void>;
     /**
-     * @param var0 original type: 'byte[]'
+     * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
-    setPreambleSync(var0: Buffer | null): void;
+    switchTransferSyntaxSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Attributes'
+     * @return original return type: 'void'
+     */
+    writeFileMetaInformation(var0: org_dcm4che3_data_Attributes | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Attributes'
+     * @return original return type: 'void'
+     */
+    writeFileMetaInformationSync(var0: org_dcm4che3_data_Attributes | null): void;
     /**
      * @return original return type: 'void'
      */
@@ -323,12 +323,12 @@ export declare class DicomOutputStreamClass extends JavaClass {
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'org.dcm4che3.io.DicomOutputStream'
      */
-    static newInstance(var0: java_io_OutputStream | null, var1: string | null): Promise<DicomOutputStream>;
+    static newInstanceAsync(var0: java_io_OutputStream | null, var1: string | null): Promise<DicomOutputStream>;
     /**
      * @param var0 original type: 'java.io.File'
      * @return original return type: 'org.dcm4che3.io.DicomOutputStream'
      */
-    static newInstance(var0: java_io_File | null): Promise<DicomOutputStream>;
+    static newInstanceAsync(var0: java_io_File | null): Promise<DicomOutputStream>;
     /**
      * @param var0 original type: 'java.io.OutputStream'
      * @param var1 original type: 'java.lang.String'

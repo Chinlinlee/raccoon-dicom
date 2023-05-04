@@ -1,4 +1,11 @@
 /**
+ * @typedef Uids
+ * @property {string} studyUID
+ * @property {string} [seriesUID]
+ * @property {string} [instanceUID]
+ */
+
+/**
  * @typedef {object} UIDObject
  * @property {string} studyUID
  * @property {string} seriesUID

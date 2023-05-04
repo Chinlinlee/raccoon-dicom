@@ -644,12 +644,12 @@ export declare class IntegerClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Integer'
      */
-    static newInstance(var0: string | null): Promise<number>;
+    static newInstanceAsync(var0: string | null): Promise<number>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.lang.Integer'
      */
-    static newInstance(var0: IntegerClass | number): Promise<number>;
+    static newInstanceAsync(var0: IntegerClass | number): Promise<number>;
     /**
      * @param var0 original type: 'java.lang.String'
      */

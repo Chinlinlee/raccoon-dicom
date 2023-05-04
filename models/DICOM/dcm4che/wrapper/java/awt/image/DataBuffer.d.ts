@@ -81,14 +81,6 @@ export declare class DataBufferClass extends JavaClass {
      */
     static getDataTypeSizeSync(var0: java_lang_Integer | number): number;
     /**
-     * @return original return type: 'int'
-     */
-    getNumBanks(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumBanksSync(): number;
-    /**
      * @param var0 original type: 'int'
      * @return original return type: 'int'
      */
@@ -136,6 +128,14 @@ export declare class DataBufferClass extends JavaClass {
      * @return original return type: 'void'
      */
     setElemSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): void;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumBanks(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumBanksSync(): number;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

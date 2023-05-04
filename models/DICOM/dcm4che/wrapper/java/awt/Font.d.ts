@@ -772,14 +772,14 @@ export declare class FontClass extends JavaClass {
      * @param var0 original type: 'java.util.Map'
      * @return original return type: 'java.awt.Font'
      */
-    static newInstance(var0: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<Font>;
+    static newInstanceAsync(var0: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<Font>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @return original return type: 'java.awt.Font'
      */
-    static newInstance(var0: string | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<Font>;
+    static newInstanceAsync(var0: string | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<Font>;
     /**
      * @param var0 original type: 'java.util.Map'
      */

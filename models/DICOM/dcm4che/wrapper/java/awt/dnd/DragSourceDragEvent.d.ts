@@ -177,7 +177,7 @@ export declare class DragSourceDragEventClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.awt.dnd.DragSourceDragEvent'
      */
-    static newInstance(var0: java_awt_dnd_DragSourceContext | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<DragSourceDragEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DragSourceContext | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<DragSourceDragEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DragSourceContext'
      * @param var1 original type: 'int'
@@ -187,7 +187,7 @@ export declare class DragSourceDragEventClass extends JavaClass {
      * @param var5 original type: 'int'
      * @return original return type: 'java.awt.dnd.DragSourceDragEvent'
      */
-    static newInstance(var0: java_awt_dnd_DragSourceContext | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): Promise<DragSourceDragEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DragSourceContext | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): Promise<DragSourceDragEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DragSourceContext'
      * @param var1 original type: 'int'

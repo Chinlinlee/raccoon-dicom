@@ -116,24 +116,24 @@ export declare class ItemPointerClass extends JavaClass {
      * @param var2 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.ItemPointer'
      */
-    static newInstance(var0: string | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<ItemPointer>;
+    static newInstanceAsync(var0: string | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<ItemPointer>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.ItemPointer'
      */
-    static newInstance(var0: string | null, var1: java_lang_Integer | number): Promise<ItemPointer>;
+    static newInstanceAsync(var0: string | null, var1: java_lang_Integer | number): Promise<ItemPointer>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.ItemPointer'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<ItemPointer>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<ItemPointer>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.ItemPointer'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<ItemPointer>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<ItemPointer>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'int'

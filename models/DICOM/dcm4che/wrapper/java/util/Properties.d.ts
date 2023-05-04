@@ -558,16 +558,16 @@ export declare class PropertiesClass extends JavaClass {
      * @param var0 original type: 'java.util.Properties'
      * @return original return type: 'java.util.Properties'
      */
-    static newInstance(var0: PropertiesClass | null): Promise<Properties>;
+    static newInstanceAsync(var0: PropertiesClass | null): Promise<Properties>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.util.Properties'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<Properties>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<Properties>;
     /**
      * @return original return type: 'java.util.Properties'
      */
-    static newInstance(): Promise<Properties>;
+    static newInstanceAsync(): Promise<Properties>;
     /**
      * @param var0 original type: 'java.util.Properties'
      */

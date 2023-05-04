@@ -128,7 +128,7 @@ export declare class ParsePositionClass extends JavaClass {
      * @param var0 original type: 'int'
      * @return original return type: 'java.text.ParsePosition'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<ParsePosition>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<ParsePosition>;
     /**
      * @param var0 original type: 'int'
      */

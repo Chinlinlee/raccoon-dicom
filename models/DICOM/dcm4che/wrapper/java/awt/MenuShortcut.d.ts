@@ -119,13 +119,13 @@ export declare class MenuShortcutClass extends JavaClass {
      * @param var0 original type: 'int'
      * @return original return type: 'java.awt.MenuShortcut'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<MenuShortcut>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<MenuShortcut>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'boolean'
      * @return original return type: 'java.awt.MenuShortcut'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Boolean | boolean): Promise<MenuShortcut>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Boolean | boolean): Promise<MenuShortcut>;
     /**
      * @param var0 original type: 'int'
      */

@@ -578,22 +578,22 @@ export declare class VectorClass extends JavaClass {
      * @param var0 original type: 'java.util.Collection'
      * @return original return type: 'java.util.Vector'
      */
-    static newInstance(var0: java_util_Collection | JavaInterfaceProxy<java_util_CollectionInterface> | null): Promise<Vector>;
+    static newInstanceAsync(var0: java_util_Collection | JavaInterfaceProxy<java_util_CollectionInterface> | null): Promise<Vector>;
     /**
      * @return original return type: 'java.util.Vector'
      */
-    static newInstance(): Promise<Vector>;
+    static newInstanceAsync(): Promise<Vector>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.util.Vector'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<Vector>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<Vector>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'java.util.Vector'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<Vector>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<Vector>;
     /**
      * @param var0 original type: 'java.util.Collection'
      */

@@ -260,18 +260,18 @@ export declare class URLClass extends JavaClass {
      * @param var2 original type: 'java.net.URLStreamHandler'
      * @return original return type: 'java.net.URL'
      */
-    static newInstance(var0: URLClass | null, var1: string | null, var2: java_net_URLStreamHandler | null): Promise<URL>;
+    static newInstanceAsync(var0: URLClass | null, var1: string | null, var2: java_net_URLStreamHandler | null): Promise<URL>;
     /**
      * @param var0 original type: 'java.net.URL'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.net.URL'
      */
-    static newInstance(var0: URLClass | null, var1: string | null): Promise<URL>;
+    static newInstanceAsync(var0: URLClass | null, var1: string | null): Promise<URL>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.net.URL'
      */
-    static newInstance(var0: string | null): Promise<URL>;
+    static newInstanceAsync(var0: string | null): Promise<URL>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -279,14 +279,14 @@ export declare class URLClass extends JavaClass {
      * @param var3 original type: 'java.lang.String'
      * @return original return type: 'java.net.URL'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: string | null): Promise<URL>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: string | null): Promise<URL>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'java.lang.String'
      * @return original return type: 'java.net.URL'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null): Promise<URL>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null): Promise<URL>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -295,7 +295,7 @@ export declare class URLClass extends JavaClass {
      * @param var4 original type: 'java.net.URLStreamHandler'
      * @return original return type: 'java.net.URL'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: string | null, var4: java_net_URLStreamHandler | null): Promise<URL>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: string | null, var4: java_net_URLStreamHandler | null): Promise<URL>;
     /**
      * @param var0 original type: 'java.net.URL'
      * @param var1 original type: 'java.lang.String'

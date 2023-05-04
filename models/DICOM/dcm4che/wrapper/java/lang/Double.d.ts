@@ -418,12 +418,12 @@ export declare class DoubleClass extends JavaClass {
      * @param var0 original type: 'double'
      * @return original return type: 'java.lang.Double'
      */
-    static newInstance(var0: DoubleClass | number): Promise<number>;
+    static newInstanceAsync(var0: DoubleClass | number): Promise<number>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Double'
      */
-    static newInstance(var0: string | null): Promise<number>;
+    static newInstanceAsync(var0: string | null): Promise<number>;
     /**
      * @param var0 original type: 'double'
      */

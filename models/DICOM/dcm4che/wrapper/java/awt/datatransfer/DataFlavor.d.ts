@@ -406,31 +406,31 @@ export declare class DataFlavorClass extends JavaClass {
     /**
      * @return original return type: 'java.awt.datatransfer.DataFlavor'
      */
-    static newInstance(): Promise<DataFlavor>;
+    static newInstanceAsync(): Promise<DataFlavor>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.awt.datatransfer.DataFlavor'
      */
-    static newInstance(var0: string | null): Promise<DataFlavor>;
+    static newInstanceAsync(var0: string | null): Promise<DataFlavor>;
     /**
      * @param var0 original type: 'java.lang.Class'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.awt.datatransfer.DataFlavor'
      */
-    static newInstance(var0: java_lang_Class | null, var1: string | null): Promise<DataFlavor>;
+    static newInstanceAsync(var0: java_lang_Class | null, var1: string | null): Promise<DataFlavor>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.awt.datatransfer.DataFlavor'
      */
-    static newInstance(var0: string | null, var1: string | null): Promise<DataFlavor>;
+    static newInstanceAsync(var0: string | null, var1: string | null): Promise<DataFlavor>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'java.lang.ClassLoader'
      * @return original return type: 'java.awt.datatransfer.DataFlavor'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: java_lang_ClassLoader | null): Promise<DataFlavor>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: java_lang_ClassLoader | null): Promise<DataFlavor>;
     constructor();
     /**
      * @param var0 original type: 'java.lang.String'

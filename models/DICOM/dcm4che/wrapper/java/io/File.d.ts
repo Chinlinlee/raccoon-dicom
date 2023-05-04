@@ -540,24 +540,24 @@ export declare class FileClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.io.File'
      */
-    static newInstance(var0: string | null): Promise<File>;
+    static newInstanceAsync(var0: string | null): Promise<File>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.io.File'
      */
-    static newInstance(var0: string | null, var1: string | null): Promise<File>;
+    static newInstanceAsync(var0: string | null, var1: string | null): Promise<File>;
     /**
      * @param var0 original type: 'java.net.URI'
      * @return original return type: 'java.io.File'
      */
-    static newInstance(var0: java_net_URI | null): Promise<File>;
+    static newInstanceAsync(var0: java_net_URI | null): Promise<File>;
     /**
      * @param var0 original type: 'java.io.File'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.io.File'
      */
-    static newInstance(var0: FileClass | null, var1: string | null): Promise<File>;
+    static newInstanceAsync(var0: FileClass | null, var1: string | null): Promise<File>;
     /**
      * @param var0 original type: 'java.lang.String'
      */

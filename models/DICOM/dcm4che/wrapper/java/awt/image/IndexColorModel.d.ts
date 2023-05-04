@@ -5,11 +5,11 @@ import { WritableRaster as java_awt_image_WritableRaster } from "./WritableRaste
 import { Raster as java_awt_image_Raster } from "./Raster";
 import { Float as java_lang_Float } from "./../../lang/Float";
 import { SampleModel as java_awt_image_SampleModel } from "./SampleModel";
+import { BigInteger as java_math_BigInteger } from "./../../math/BigInteger";
 import { BufferedImage as java_awt_image_BufferedImage } from "./BufferedImage";
 import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
-import { BigInteger as java_math_BigInteger } from "./../../math/BigInteger";
-import { ColorModel as java_awt_image_ColorModel } from "./ColorModel";
 import { ColorSpace as java_awt_color_ColorSpace } from "./../color/ColorSpace";
+import { ColorModel as java_awt_image_ColorModel } from "./ColorModel";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Class as java_lang_Class } from "./../../lang/Class";
 /**
@@ -411,6 +411,14 @@ export declare class IndexColorModelClass extends JavaClass {
      */
     getRGBsSync(var0: (java_lang_Integer | number)[] | null): void;
     /**
+     * @return original return type: 'java.math.BigInteger'
+     */
+    getValidPixels(): Promise<java_math_BigInteger | null>;
+    /**
+     * @return original return type: 'java.math.BigInteger'
+     */
+    getValidPixelsSync(): java_math_BigInteger | null;
+    /**
      * @param var0 original type: 'java.awt.image.Raster'
      * @param var1 original type: 'boolean'
      * @return original return type: 'java.awt.image.BufferedImage'
@@ -423,13 +431,13 @@ export declare class IndexColorModelClass extends JavaClass {
      */
     convertToIntDiscreteSync(var0: java_awt_image_Raster | null, var1: java_lang_Boolean | boolean): java_awt_image_BufferedImage | null;
     /**
-     * @return original return type: 'java.math.BigInteger'
+     * @return original return type: 'java.awt.color.ColorSpace'
      */
-    getValidPixels(): Promise<java_math_BigInteger | null>;
+    getColorSpace(): Promise<java_awt_color_ColorSpace | null>;
     /**
-     * @return original return type: 'java.math.BigInteger'
+     * @return original return type: 'java.awt.color.ColorSpace'
      */
-    getValidPixelsSync(): java_math_BigInteger | null;
+    getColorSpaceSync(): java_awt_color_ColorSpace | null;
     /**
      * @return original return type: 'java.awt.image.ColorModel'
      */
@@ -467,14 +475,6 @@ export declare class IndexColorModelClass extends JavaClass {
      */
     coerceDataSync(var0: java_awt_image_WritableRaster | null, var1: java_lang_Boolean | boolean): java_awt_image_ColorModel | null;
     /**
-     * @return original return type: 'java.awt.color.ColorSpace'
-     */
-    getColorSpace(): Promise<java_awt_color_ColorSpace | null>;
-    /**
-     * @return original return type: 'java.awt.color.ColorSpace'
-     */
-    getColorSpaceSync(): java_awt_color_ColorSpace | null;
-    /**
      * @return original return type: 'int'
      */
     getPixelSize(): Promise<number>;
@@ -501,21 +501,19 @@ export declare class IndexColorModelClass extends JavaClass {
      */
     getAlphaRasterSync(var0: java_awt_image_WritableRaster | null): java_awt_image_WritableRaster | null;
     /**
-     * @param var0 original type: 'float[]'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int[]'
-     * @param var3 original type: 'int'
-     * @return original return type: 'int[]'
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'float[]'
+     * @param var2 original type: 'int'
+     * @return original return type: 'float[]'
      */
-    getUnnormalizedComponents(var0: (java_lang_Float | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_lang_Integer | number): Promise<(number)[] | null>;
+    getNormalizedComponents(var0: BasicOrJavaType | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Integer | number): Promise<(number)[] | null>;
     /**
-     * @param var0 original type: 'float[]'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int[]'
-     * @param var3 original type: 'int'
-     * @return original return type: 'int[]'
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'float[]'
+     * @param var2 original type: 'int'
+     * @return original return type: 'float[]'
      */
-    getUnnormalizedComponentsSync(var0: (java_lang_Float | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_lang_Integer | number): (number)[] | null;
+    getNormalizedComponentsSync(var0: BasicOrJavaType | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Integer | number): (number)[] | null;
     /**
      * @param var0 original type: 'int[]'
      * @param var1 original type: 'int'
@@ -533,20 +531,6 @@ export declare class IndexColorModelClass extends JavaClass {
      */
     getNormalizedComponentsSync(var0: (java_lang_Integer | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_lang_Integer | number): (number)[] | null;
     /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'float[]'
-     * @param var2 original type: 'int'
-     * @return original return type: 'float[]'
-     */
-    getNormalizedComponents(var0: BasicOrJavaType | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Integer | number): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'float[]'
-     * @param var2 original type: 'int'
-     * @return original return type: 'float[]'
-     */
-    getNormalizedComponentsSync(var0: BasicOrJavaType | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Integer | number): (number)[] | null;
-    /**
      * @return original return type: 'int'
      */
     getTransferType(): Promise<number>;
@@ -554,6 +538,22 @@ export declare class IndexColorModelClass extends JavaClass {
      * @return original return type: 'int'
      */
     getTransferTypeSync(): number;
+    /**
+     * @param var0 original type: 'float[]'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int[]'
+     * @param var3 original type: 'int'
+     * @return original return type: 'int[]'
+     */
+    getUnnormalizedComponents(var0: (java_lang_Float | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_lang_Integer | number): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'float[]'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int[]'
+     * @param var3 original type: 'int'
+     * @return original return type: 'int[]'
+     */
+    getUnnormalizedComponentsSync(var0: (java_lang_Float | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_lang_Integer | number): (number)[] | null;
     /**
      * @return original return type: 'int'
      */
@@ -625,7 +625,7 @@ export declare class IndexColorModelClass extends JavaClass {
      * @param var5 original type: 'byte[]'
      * @return original return type: 'java.awt.image.IndexColorModel'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: Buffer | null, var4: Buffer | null, var5: Buffer | null): Promise<IndexColorModel>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: Buffer | null, var4: Buffer | null, var5: Buffer | null): Promise<IndexColorModel>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -634,7 +634,7 @@ export declare class IndexColorModelClass extends JavaClass {
      * @param var4 original type: 'boolean'
      * @return original return type: 'java.awt.image.IndexColorModel'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: java_lang_Integer | number, var4: java_lang_Boolean | boolean): Promise<IndexColorModel>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: java_lang_Integer | number, var4: java_lang_Boolean | boolean): Promise<IndexColorModel>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -644,7 +644,7 @@ export declare class IndexColorModelClass extends JavaClass {
      * @param var5 original type: 'int'
      * @return original return type: 'java.awt.image.IndexColorModel'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: java_lang_Integer | number, var4: java_lang_Boolean | boolean, var5: java_lang_Integer | number): Promise<IndexColorModel>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: java_lang_Integer | number, var4: java_lang_Boolean | boolean, var5: java_lang_Integer | number): Promise<IndexColorModel>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -654,7 +654,7 @@ export declare class IndexColorModelClass extends JavaClass {
      * @param var5 original type: 'java.math.BigInteger'
      * @return original return type: 'java.awt.image.IndexColorModel'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_math_BigInteger | null): Promise<IndexColorModel>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_math_BigInteger | null): Promise<IndexColorModel>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -664,7 +664,7 @@ export declare class IndexColorModelClass extends JavaClass {
      * @param var5 original type: 'int'
      * @return original return type: 'java.awt.image.IndexColorModel'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: Buffer | null, var4: Buffer | null, var5: java_lang_Integer | number): Promise<IndexColorModel>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: Buffer | null, var4: Buffer | null, var5: java_lang_Integer | number): Promise<IndexColorModel>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -673,7 +673,7 @@ export declare class IndexColorModelClass extends JavaClass {
      * @param var4 original type: 'byte[]'
      * @return original return type: 'java.awt.image.IndexColorModel'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: Buffer | null, var4: Buffer | null): Promise<IndexColorModel>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: Buffer | null, var3: Buffer | null, var4: Buffer | null): Promise<IndexColorModel>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -684,7 +684,7 @@ export declare class IndexColorModelClass extends JavaClass {
      * @param var6 original type: 'int'
      * @return original return type: 'java.awt.image.IndexColorModel'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_lang_Integer | number, var4: java_lang_Boolean | boolean, var5: java_lang_Integer | number, var6: java_lang_Integer | number): Promise<IndexColorModel>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: (java_lang_Integer | number)[] | null, var3: java_lang_Integer | number, var4: java_lang_Boolean | boolean, var5: java_lang_Integer | number, var6: java_lang_Integer | number): Promise<IndexColorModel>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

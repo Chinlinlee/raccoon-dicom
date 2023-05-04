@@ -4,7 +4,52 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "standard-version"
+  },
+  "standard-version": {
+    "skip": {
+      "tag": true,
+      "commit": true
+    },
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "hidden": true
+      },
+      {
+        "type": "style",
+        "hidden": true
+      },
+      {
+        "type": "refactor",
+        "hidden": true
+      },
+      {
+        "type": "perf",
+        "hidden": true
+      },
+      {
+        "type": "test",
+        "hidden": true
+      },
+      {
+        "type": "build",
+        "section": "Build"
+      }
+    ]
   },
   "keywords": [],
   "author": "chinlinlee",
@@ -15,44 +60,47 @@
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
-    "colorette": "^2.0.19",
+    "colorette": "^2.0.20",
     "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dicom-parser": "^1.8.13",
     "dicom-to-json": "^1.2.1",
-    "dotenv": "^16.0.0",
-    "env-var": "^7.3.0",
+    "dotenv": "^16.0.3",
+    "env-var": "^7.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.2",
     "flat": "^5.0.2",
     "formidable": "^2.0.1",
     "iconv-lite": "^0.6.3",
     "imagemagick-cli": "^0.5.0",
-    "java-bridge": "^2.2.3",
+    "java-bridge": "^2.3.0",
     "joi": "^17.6.0",
     "jsonpath-plus": "^7.2.0",
     "lodash": "^4.17.21",
-    "log4js": "^6.4.5",
+    "log4js": "^6.9.1",
     "mkdirp": "^1.0.4",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "mongoose": "^6.7.2",
-    "passport": "^0.5.2",
+    "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "regexparam": "^2.0.1",
+    "request-compose": "^2.1.6",
+    "request-multipart": "^1.0.0",
     "run-script-os": "^1.1.6",
     "sharp": "^0.30.4",
     "shorthash2": "^1.0.3",
     "socket.io": "^4.5.0",
-    "uuid": "^8.3.2"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "chai": "^4.3.7",
     "eslint-config-prettier": "^8.5.0",
     "mocha": "^10.2.0",
     "mongodb-memory-server": "^8.12.2",
+    "standard-version": "^9.5.0",
     "swagger-jsdoc": "^6.2.8"
   }
 }

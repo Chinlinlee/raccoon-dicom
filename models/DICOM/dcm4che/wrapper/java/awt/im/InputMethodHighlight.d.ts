@@ -153,20 +153,20 @@ export declare class InputMethodHighlightClass extends JavaClass {
      * @param var3 original type: 'java.util.Map'
      * @return original return type: 'java.awt.im.InputMethodHighlight'
      */
-    static newInstance(var0: java_lang_Boolean | boolean, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<InputMethodHighlight>;
+    static newInstanceAsync(var0: java_lang_Boolean | boolean, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<InputMethodHighlight>;
     /**
      * @param var0 original type: 'boolean'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @return original return type: 'java.awt.im.InputMethodHighlight'
      */
-    static newInstance(var0: java_lang_Boolean | boolean, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<InputMethodHighlight>;
+    static newInstanceAsync(var0: java_lang_Boolean | boolean, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<InputMethodHighlight>;
     /**
      * @param var0 original type: 'boolean'
      * @param var1 original type: 'int'
      * @return original return type: 'java.awt.im.InputMethodHighlight'
      */
-    static newInstance(var0: java_lang_Boolean | boolean, var1: java_lang_Integer | number): Promise<InputMethodHighlight>;
+    static newInstanceAsync(var0: java_lang_Boolean | boolean, var1: java_lang_Integer | number): Promise<InputMethodHighlight>;
     /**
      * @param var0 original type: 'boolean'
      * @param var1 original type: 'int'

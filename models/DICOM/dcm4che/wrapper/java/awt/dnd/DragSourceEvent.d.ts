@@ -134,14 +134,14 @@ export declare class DragSourceEventClass extends JavaClass {
      * @param var0 original type: 'java.awt.dnd.DragSourceContext'
      * @return original return type: 'java.awt.dnd.DragSourceEvent'
      */
-    static newInstance(var0: java_awt_dnd_DragSourceContext | null): Promise<DragSourceEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DragSourceContext | null): Promise<DragSourceEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DragSourceContext'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @return original return type: 'java.awt.dnd.DragSourceEvent'
      */
-    static newInstance(var0: java_awt_dnd_DragSourceContext | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<DragSourceEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DragSourceContext | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<DragSourceEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DragSourceContext'
      */

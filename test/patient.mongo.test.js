@@ -99,7 +99,10 @@ describe("Patient MongoDB and DicomJsonModel", async() => {
         let dicomJsonModel = new DicomJsonModel(cloneFakePatientData);
         dicomJsonModel.setUidObj();
 
-        await dicomJsonModel.storePatientCollection(cloneFakePatientData);
+        await dicomJsonModel.storePatientCollection({
+            ...dicomJsonModel.getMediaStorageInfo(),
+            ...cloneFakePatientData
+        });
 
         let findDoc = await patientModel.findOne();
         expect(findDoc).property("studyPaths").that.is.an("array").include("/foo/bar");

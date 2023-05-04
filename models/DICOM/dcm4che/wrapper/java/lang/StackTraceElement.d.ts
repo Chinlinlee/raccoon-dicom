@@ -162,7 +162,7 @@ export declare class StackTraceElementClass extends JavaClass {
      * @param var6 original type: 'int'
      * @return original return type: 'java.lang.StackTraceElement'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null, var3: string | null, var4: string | null, var5: string | null, var6: java_lang_Integer | number): Promise<StackTraceElement>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null, var3: string | null, var4: string | null, var5: string | null, var6: java_lang_Integer | number): Promise<StackTraceElement>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -170,7 +170,7 @@ export declare class StackTraceElementClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.lang.StackTraceElement'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number): Promise<StackTraceElement>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number): Promise<StackTraceElement>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'

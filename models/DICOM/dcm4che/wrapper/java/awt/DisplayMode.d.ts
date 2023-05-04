@@ -145,7 +145,7 @@ export declare class DisplayModeClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.awt.DisplayMode'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<DisplayMode>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<DisplayMode>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

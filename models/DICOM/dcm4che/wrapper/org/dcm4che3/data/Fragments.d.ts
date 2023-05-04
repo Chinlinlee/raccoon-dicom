@@ -148,14 +148,6 @@ export declare class FragmentsClass extends JavaClass {
      */
     writeToSync(var0: org_dcm4che3_io_DicomOutputStream | null, var1: org_dcm4che3_data_VR | null): void;
     /**
-     * @return original return type: 'org.dcm4che3.data.VR'
-     */
-    vr(): Promise<org_dcm4che3_data_VR | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.VR'
-     */
-    vrSync(): org_dcm4che3_data_VR | null;
-    /**
      * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
      * @param var1 original type: 'boolean'
      * @param var2 original type: 'org.dcm4che3.data.VR'
@@ -169,6 +161,14 @@ export declare class FragmentsClass extends JavaClass {
      * @return original return type: 'int'
      */
     calcLengthSync(var0: org_dcm4che3_io_DicomEncodingOptions | null, var1: java_lang_Boolean | boolean, var2: org_dcm4che3_data_VR | null): number;
+    /**
+     * @return original return type: 'org.dcm4che3.data.VR'
+     */
+    vr(): Promise<org_dcm4che3_data_VR | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.VR'
+     */
+    vrSync(): org_dcm4che3_data_VR | null;
     /**
      * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
      * @param var1 original type: 'boolean'
@@ -525,7 +525,7 @@ export declare class FragmentsClass extends JavaClass {
      * @param var2 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.Fragments'
      */
-    static newInstance(var0: org_dcm4che3_data_VR | null, var1: java_lang_Boolean | boolean, var2: java_lang_Integer | number): Promise<Fragments>;
+    static newInstanceAsync(var0: org_dcm4che3_data_VR | null, var1: java_lang_Boolean | boolean, var2: java_lang_Integer | number): Promise<Fragments>;
     /**
      * @param var0 original type: 'org.dcm4che3.data.VR'
      * @param var1 original type: 'boolean'

@@ -70,6 +70,38 @@ let dicomJsonAttributeISSchema = {
     }
 };
 
+let decimalSchema = {
+    vr: String,
+    Value: {
+        type: [mongoose.SchemaTypes.Decimal128],
+        default: void 0,
+        get: function(v) {
+            let length = _.get(v, "length");
+            if (length > 0) {
+                return v.map((decimalValue) => {
+                    return String(decimalValue);
+                });
+            }
+        }
+    }
+};
+
+let tmSchema = {
+    vr: String,
+    Value: {
+        type: [mongoose.SchemaTypes.Decimal128],
+        default: void 0,
+        get: function(v) {
+            let length = _.get(v, "length");
+            if (length > 0) {
+                return v.map((decimalValue) => {
+                    return String(decimalValue).padStart(6, "0");
+                });
+            }
+        }
+    }
+};
+
 const vrSchemaMap = {
     "DA": new mongoose.Schema(dicomJsonAttributeDASchema, {
         _id: false,
@@ -97,7 +129,17 @@ const vrSchemaMap = {
         toObject: {
             getters: true
         }
-    })
+    }),
+    "TM": new mongoose.Schema(
+        tmSchema,
+        {
+            _id: false,
+            id: false,
+            toObject: {
+                getters: true
+            }
+        }
+    )
 };
 
 function getVRSchema(vr) {

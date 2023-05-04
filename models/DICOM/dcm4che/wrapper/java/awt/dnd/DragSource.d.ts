@@ -6,12 +6,12 @@ import { DragGestureRecognizer as java_awt_dnd_DragGestureRecognizer } from "./D
 import { Component as java_awt_Component } from "./../Component";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { DragGestureListener as java_awt_dnd_DragGestureListener, DragGestureListenerInterface as java_awt_dnd_DragGestureListenerInterface } from "./DragGestureListener";
-import { FlavorMap as java_awt_datatransfer_FlavorMap, FlavorMapInterface as java_awt_datatransfer_FlavorMapInterface } from "./../datatransfer/FlavorMap";
 import { DragGestureEvent as java_awt_dnd_DragGestureEvent } from "./DragGestureEvent";
 import { Image as java_awt_Image } from "./../Image";
 import { Point as java_awt_Point } from "./../Point";
 import { Transferable as java_awt_datatransfer_Transferable, TransferableInterface as java_awt_datatransfer_TransferableInterface } from "./../datatransfer/Transferable";
 import { DragSourceListener as java_awt_dnd_DragSourceListener, DragSourceListenerInterface as java_awt_dnd_DragSourceListenerInterface } from "./DragSourceListener";
+import { FlavorMap as java_awt_datatransfer_FlavorMap, FlavorMapInterface as java_awt_datatransfer_FlavorMapInterface } from "./../datatransfer/FlavorMap";
 import { DragSourceMotionListener as java_awt_dnd_DragSourceMotionListener, DragSourceMotionListenerInterface as java_awt_dnd_DragSourceMotionListenerInterface } from "./DragSourceMotionListener";
 import { Long as java_lang_Long } from "./../../lang/Long";
 /**
@@ -70,14 +70,6 @@ export declare class DragSourceClass extends JavaClass {
      * @return original return type: 'java.awt.dnd.DragGestureRecognizer'
      */
     createDragGestureRecognizerSync(var0: java_lang_Class | null, var1: java_awt_Component | null, var2: java_lang_Integer | number, var3: java_awt_dnd_DragGestureListener | JavaInterfaceProxy<java_awt_dnd_DragGestureListenerInterface> | null): java_awt_dnd_DragGestureRecognizer | null;
-    /**
-     * @return original return type: 'java.awt.datatransfer.FlavorMap'
-     */
-    getFlavorMap(): Promise<java_awt_datatransfer_FlavorMap | null>;
-    /**
-     * @return original return type: 'java.awt.datatransfer.FlavorMap'
-     */
-    getFlavorMapSync(): java_awt_datatransfer_FlavorMap | null;
     /**
      * @param var0 original type: 'java.awt.dnd.DragGestureEvent'
      * @param var1 original type: 'java.awt.Cursor'
@@ -249,6 +241,14 @@ export declare class DragSourceClass extends JavaClass {
      */
     static getDragThresholdSync(): number;
     /**
+     * @return original return type: 'java.awt.datatransfer.FlavorMap'
+     */
+    getFlavorMap(): Promise<java_awt_datatransfer_FlavorMap | null>;
+    /**
+     * @return original return type: 'java.awt.datatransfer.FlavorMap'
+     */
+    getFlavorMapSync(): java_awt_datatransfer_FlavorMap | null;
+    /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
      * @return original return type: 'void'
@@ -331,7 +331,7 @@ export declare class DragSourceClass extends JavaClass {
     /**
      * @return original return type: 'java.awt.dnd.DragSource'
      */
-    static newInstance(): Promise<DragSource>;
+    static newInstanceAsync(): Promise<DragSource>;
     constructor();
 }
 declare const DragSource_base: typeof DragSourceClass;

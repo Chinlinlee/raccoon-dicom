@@ -158,14 +158,6 @@ export declare class Rectangle2DClass extends JavaClass {
      */
     static intersectSync(var0: Rectangle2DClass | null, var1: Rectangle2DClass | null, var2: Rectangle2DClass | null): void;
     /**
-     * @return original return type: 'java.awt.geom.Rectangle2D'
-     */
-    getBounds2D(): Promise<Rectangle2D | null>;
-    /**
-     * @return original return type: 'java.awt.geom.Rectangle2D'
-     */
-    getBounds2DSync(): Rectangle2D | null;
-    /**
      * @param var0 original type: 'java.awt.geom.Rectangle2D'
      * @return original return type: 'void'
      */
@@ -191,6 +183,14 @@ export declare class Rectangle2DClass extends JavaClass {
      * @return original return type: 'void'
      */
     setRectSync(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): void;
+    /**
+     * @return original return type: 'java.awt.geom.Rectangle2D'
+     */
+    getBounds2D(): Promise<Rectangle2D | null>;
+    /**
+     * @return original return type: 'java.awt.geom.Rectangle2D'
+     */
+    getBounds2DSync(): Rectangle2D | null;
     /**
      * @param var0 original type: 'double'
      * @param var1 original type: 'double'

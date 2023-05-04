@@ -154,7 +154,7 @@ export declare class GlyphJustificationInfoClass extends JavaClass {
      * @param var8 original type: 'float'
      * @return original return type: 'java.awt.font.GlyphJustificationInfo'
      */
-    static newInstance(var0: java_lang_Float | number, var1: java_lang_Boolean | boolean, var2: java_lang_Integer | number, var3: java_lang_Float | number, var4: java_lang_Float | number, var5: java_lang_Boolean | boolean, var6: java_lang_Integer | number, var7: java_lang_Float | number, var8: java_lang_Float | number): Promise<GlyphJustificationInfo>;
+    static newInstanceAsync(var0: java_lang_Float | number, var1: java_lang_Boolean | boolean, var2: java_lang_Integer | number, var3: java_lang_Float | number, var4: java_lang_Float | number, var5: java_lang_Boolean | boolean, var6: java_lang_Integer | number, var7: java_lang_Float | number, var8: java_lang_Float | number): Promise<GlyphJustificationInfo>;
     /**
      * @param var0 original type: 'float'
      * @param var1 original type: 'boolean'

@@ -342,16 +342,16 @@ export declare class MenuItemClass extends JavaClass {
      * @param var1 original type: 'java.awt.MenuShortcut'
      * @return original return type: 'java.awt.MenuItem'
      */
-    static newInstance(var0: string | null, var1: java_awt_MenuShortcut | null): Promise<MenuItem>;
+    static newInstanceAsync(var0: string | null, var1: java_awt_MenuShortcut | null): Promise<MenuItem>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.awt.MenuItem'
      */
-    static newInstance(var0: string | null): Promise<MenuItem>;
+    static newInstanceAsync(var0: string | null): Promise<MenuItem>;
     /**
      * @return original return type: 'java.awt.MenuItem'
      */
-    static newInstance(): Promise<MenuItem>;
+    static newInstanceAsync(): Promise<MenuItem>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.awt.MenuShortcut'

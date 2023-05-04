@@ -152,7 +152,7 @@ export declare class BufferCapabilitiesClass extends JavaClass {
      * @param var2 original type: 'java.awt.BufferCapabilities$FlipContents'
      * @return original return type: 'java.awt.BufferCapabilities'
      */
-    static newInstance(var0: java_awt_ImageCapabilities | null, var1: java_awt_ImageCapabilities | null, var2: java_awt_BufferCapabilities$FlipContents | null): Promise<BufferCapabilities>;
+    static newInstanceAsync(var0: java_awt_ImageCapabilities | null, var1: java_awt_ImageCapabilities | null, var2: java_awt_BufferCapabilities$FlipContents | null): Promise<BufferCapabilities>;
     /**
      * @param var0 original type: 'java.awt.ImageCapabilities'
      * @param var1 original type: 'java.awt.ImageCapabilities'

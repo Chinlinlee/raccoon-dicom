@@ -162,7 +162,7 @@ export declare class IntSummaryStatisticsClass extends JavaClass {
     /**
      * @return original return type: 'java.util.IntSummaryStatistics'
      */
-    static newInstance(): Promise<IntSummaryStatistics>;
+    static newInstanceAsync(): Promise<IntSummaryStatistics>;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
@@ -170,7 +170,7 @@ export declare class IntSummaryStatisticsClass extends JavaClass {
      * @param var3 original type: 'long'
      * @return original return type: 'java.util.IntSummaryStatistics'
      */
-    static newInstance(var0: java_lang_Long | bigint | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Long | bigint | number): Promise<IntSummaryStatistics>;
+    static newInstanceAsync(var0: java_lang_Long | bigint | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Long | bigint | number): Promise<IntSummaryStatistics>;
     constructor();
     /**
      * @param var0 original type: 'long'

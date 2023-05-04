@@ -36,7 +36,7 @@ class RetrieveRenderedSeriesController extends Controller {
                 }
                 multipartWriter.writeFinalBoundary();
             } else {
-                this.response.writeHead(204, {
+                this.response.writeHead(404, {
                     "content-type": "application/dicom+json"
                 });
             }

@@ -101,7 +101,7 @@ export declare class FlavorEventClass extends JavaClass {
      * @param var0 original type: 'java.awt.datatransfer.Clipboard'
      * @return original return type: 'java.awt.datatransfer.FlavorEvent'
      */
-    static newInstance(var0: java_awt_datatransfer_Clipboard | null): Promise<FlavorEvent>;
+    static newInstanceAsync(var0: java_awt_datatransfer_Clipboard | null): Promise<FlavorEvent>;
     /**
      * @param var0 original type: 'java.awt.datatransfer.Clipboard'
      */

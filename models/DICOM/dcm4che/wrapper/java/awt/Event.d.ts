@@ -430,7 +430,7 @@ export declare class EventClass extends JavaClass {
      * @param var6 original type: 'int'
      * @return original return type: 'java.awt.Event'
      */
-    static newInstance(var0: BasicOrJavaType | null, var1: java_lang_Long | bigint | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number): Promise<Event>;
+    static newInstanceAsync(var0: BasicOrJavaType | null, var1: java_lang_Long | bigint | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number): Promise<Event>;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @param var1 original type: 'long'
@@ -442,14 +442,14 @@ export declare class EventClass extends JavaClass {
      * @param var7 original type: 'java.lang.Object'
      * @return original return type: 'java.awt.Event'
      */
-    static newInstance(var0: BasicOrJavaType | null, var1: java_lang_Long | bigint | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: BasicOrJavaType | null): Promise<Event>;
+    static newInstanceAsync(var0: BasicOrJavaType | null, var1: java_lang_Long | bigint | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: BasicOrJavaType | null): Promise<Event>;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @param var1 original type: 'int'
      * @param var2 original type: 'java.lang.Object'
      * @return original return type: 'java.awt.Event'
      */
-    static newInstance(var0: BasicOrJavaType | null, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): Promise<Event>;
+    static newInstanceAsync(var0: BasicOrJavaType | null, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): Promise<Event>;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @param var1 original type: 'long'

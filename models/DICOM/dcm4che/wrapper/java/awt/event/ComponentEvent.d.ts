@@ -240,7 +240,7 @@ export declare class ComponentEventClass extends JavaClass {
      * @param var1 original type: 'int'
      * @return original return type: 'java.awt.event.ComponentEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number): Promise<ComponentEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number): Promise<ComponentEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'

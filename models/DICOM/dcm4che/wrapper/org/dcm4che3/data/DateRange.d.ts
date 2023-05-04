@@ -128,7 +128,7 @@ export declare class DateRangeClass extends JavaClass {
      * @param var1 original type: 'java.util.Date'
      * @return original return type: 'org.dcm4che3.data.DateRange'
      */
-    static newInstance(var0: java_util_Date | null, var1: java_util_Date | null): Promise<DateRange>;
+    static newInstanceAsync(var0: java_util_Date | null, var1: java_util_Date | null): Promise<DateRange>;
     /**
      * @param var0 original type: 'java.util.Date'
      * @param var1 original type: 'java.util.Date'

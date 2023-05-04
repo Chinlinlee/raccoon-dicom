@@ -146,17 +146,17 @@ export declare class FieldPositionClass extends JavaClass {
      * @param var1 original type: 'int'
      * @return original return type: 'java.text.FieldPosition'
      */
-    static newInstance(var0: java_text_Format$Field | null, var1: java_lang_Integer | number): Promise<FieldPosition>;
+    static newInstanceAsync(var0: java_text_Format$Field | null, var1: java_lang_Integer | number): Promise<FieldPosition>;
     /**
      * @param var0 original type: 'java.text.Format$Field'
      * @return original return type: 'java.text.FieldPosition'
      */
-    static newInstance(var0: java_text_Format$Field | null): Promise<FieldPosition>;
+    static newInstanceAsync(var0: java_text_Format$Field | null): Promise<FieldPosition>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.text.FieldPosition'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<FieldPosition>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<FieldPosition>;
     /**
      * @param var0 original type: 'java.text.Format$Field'
      * @param var1 original type: 'int'

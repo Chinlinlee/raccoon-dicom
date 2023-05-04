@@ -822,6 +822,128 @@
                 }
             }
         },
+        "/dicom-web/studies/{studyUID}/thumbnail": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's instances' metadata",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The response payload for WADO-RS Thumbnail",
+                        "content": {
+                            "image/jpeg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/thumbnail": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's series' thumbnail",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The response payload for WADO-RS Thumbnail",
+                        "content": {
+                            "image/jpeg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/thumbnail": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's Series' instances' Thumbnail",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/instanceUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The response payload for WADO-RS Thumbnail",
+                        "content": {
+                            "image/jpeg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dicom-web/studies/{studyUID}/series/{seriesUID}/instances/{instanceUID}/frames/{frameNumbers}/thumbnail": {
+            "get": {
+                "tags": [
+                    "WADO-RS"
+                ],
+                "description": "Retrieve Study's instances' metadata",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/seriesUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/instanceUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/frameNumbers"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The response payload for WADO-RS Thumbnail",
+                        "content": {
+                            "image/jpeg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/wado": {
             "get": {
                 "tags": [

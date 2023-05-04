@@ -196,7 +196,7 @@ export declare class CursorClass extends JavaClass {
      * @param var0 original type: 'int'
      * @return original return type: 'java.awt.Cursor'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<Cursor>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<Cursor>;
     /**
      * @param var0 original type: 'int'
      */

@@ -178,17 +178,17 @@ export declare class DimensionClass extends JavaClass {
      * @param var0 original type: 'java.awt.Dimension'
      * @return original return type: 'java.awt.Dimension'
      */
-    static newInstance(var0: DimensionClass | null): Promise<Dimension>;
+    static newInstanceAsync(var0: DimensionClass | null): Promise<Dimension>;
     /**
      * @return original return type: 'java.awt.Dimension'
      */
-    static newInstance(): Promise<Dimension>;
+    static newInstanceAsync(): Promise<Dimension>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'java.awt.Dimension'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<Dimension>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<Dimension>;
     /**
      * @param var0 original type: 'java.awt.Dimension'
      */

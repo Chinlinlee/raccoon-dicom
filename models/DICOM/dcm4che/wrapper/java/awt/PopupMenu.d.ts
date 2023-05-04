@@ -481,12 +481,12 @@ export declare class PopupMenuClass extends JavaClass {
     /**
      * @return original return type: 'java.awt.PopupMenu'
      */
-    static newInstance(): Promise<PopupMenu>;
+    static newInstanceAsync(): Promise<PopupMenu>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.awt.PopupMenu'
      */
-    static newInstance(var0: string | null): Promise<PopupMenu>;
+    static newInstanceAsync(var0: string | null): Promise<PopupMenu>;
     constructor();
     /**
      * @param var0 original type: 'java.lang.String'

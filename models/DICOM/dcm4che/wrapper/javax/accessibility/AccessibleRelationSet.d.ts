@@ -166,12 +166,12 @@ export declare class AccessibleRelationSetClass extends JavaClass {
     /**
      * @return original return type: 'javax.accessibility.AccessibleRelationSet'
      */
-    static newInstance(): Promise<AccessibleRelationSet>;
+    static newInstanceAsync(): Promise<AccessibleRelationSet>;
     /**
      * @param var0 original type: 'javax.accessibility.AccessibleRelation[]'
      * @return original return type: 'javax.accessibility.AccessibleRelationSet'
      */
-    static newInstance(var0: (javax_accessibility_AccessibleRelation | null)[] | null): Promise<AccessibleRelationSet>;
+    static newInstanceAsync(var0: (javax_accessibility_AccessibleRelation | null)[] | null): Promise<AccessibleRelationSet>;
     constructor();
     /**
      * @param var0 original type: 'javax.accessibility.AccessibleRelation[]'

@@ -135,7 +135,7 @@ export declare class InsetsClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.awt.Insets'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<Insets>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<Insets>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

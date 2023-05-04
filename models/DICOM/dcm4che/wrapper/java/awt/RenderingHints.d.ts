@@ -547,13 +547,13 @@ export declare class RenderingHintsClass extends JavaClass {
      * @param var0 original type: 'java.util.Map'
      * @return original return type: 'java.awt.RenderingHints'
      */
-    static newInstance(var0: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<RenderingHints>;
+    static newInstanceAsync(var0: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<RenderingHints>;
     /**
      * @param var0 original type: 'java.awt.RenderingHints$Key'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'java.awt.RenderingHints'
      */
-    static newInstance(var0: java_awt_RenderingHints$Key | null, var1: BasicOrJavaType | null): Promise<RenderingHints>;
+    static newInstanceAsync(var0: java_awt_RenderingHints$Key | null, var1: BasicOrJavaType | null): Promise<RenderingHints>;
     /**
      * @param var0 original type: 'java.util.Map'
      */

@@ -162,14 +162,14 @@ export declare class FontRenderContextClass extends JavaClass {
      * @param var2 original type: 'java.lang.Object'
      * @return original return type: 'java.awt.font.FontRenderContext'
      */
-    static newInstance(var0: java_awt_geom_AffineTransform | null, var1: BasicOrJavaType | null, var2: BasicOrJavaType | null): Promise<FontRenderContext>;
+    static newInstanceAsync(var0: java_awt_geom_AffineTransform | null, var1: BasicOrJavaType | null, var2: BasicOrJavaType | null): Promise<FontRenderContext>;
     /**
      * @param var0 original type: 'java.awt.geom.AffineTransform'
      * @param var1 original type: 'boolean'
      * @param var2 original type: 'boolean'
      * @return original return type: 'java.awt.font.FontRenderContext'
      */
-    static newInstance(var0: java_awt_geom_AffineTransform | null, var1: java_lang_Boolean | boolean, var2: java_lang_Boolean | boolean): Promise<FontRenderContext>;
+    static newInstanceAsync(var0: java_awt_geom_AffineTransform | null, var1: java_lang_Boolean | boolean, var2: java_lang_Boolean | boolean): Promise<FontRenderContext>;
     /**
      * @param var0 original type: 'java.awt.geom.AffineTransform'
      * @param var1 original type: 'java.lang.Object'

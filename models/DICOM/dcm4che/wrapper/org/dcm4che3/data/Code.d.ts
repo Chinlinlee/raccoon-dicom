@@ -47,6 +47,14 @@ export declare class CodeClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
+    getCodeValue(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodeValueSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
     getCodingSchemeDesignator(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
@@ -60,14 +68,6 @@ export declare class CodeClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     getCodingSchemeVersionSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodeValue(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodeValueSync(): string | null;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -152,12 +152,12 @@ export declare class CodeClass extends JavaClass {
      * @param var0 original type: 'org.dcm4che3.data.Attributes'
      * @return original return type: 'org.dcm4che3.data.Code'
      */
-    static newInstance(var0: org_dcm4che3_data_Attributes | null): Promise<Code>;
+    static newInstanceAsync(var0: org_dcm4che3_data_Attributes | null): Promise<Code>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'org.dcm4che3.data.Code'
      */
-    static newInstance(var0: string | null): Promise<Code>;
+    static newInstanceAsync(var0: string | null): Promise<Code>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -165,7 +165,7 @@ export declare class CodeClass extends JavaClass {
      * @param var3 original type: 'java.lang.String'
      * @return original return type: 'org.dcm4che3.data.Code'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null, var3: string | null): Promise<Code>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null, var3: string | null): Promise<Code>;
     /**
      * @param var0 original type: 'org.dcm4che3.data.Attributes'
      */

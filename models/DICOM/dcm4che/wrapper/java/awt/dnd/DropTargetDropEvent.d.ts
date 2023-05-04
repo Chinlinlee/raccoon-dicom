@@ -23,24 +23,6 @@ export declare class DropTargetDropEventClass extends JavaClass {
      */
     getLocationSync(): java_awt_Point | null;
     /**
-     * @return original return type: 'void'
-     */
-    rejectDrop(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    rejectDropSync(): void;
-    /**
-     * @param var0 original type: 'java.awt.datatransfer.DataFlavor'
-     * @return original return type: 'boolean'
-     */
-    isDataFlavorSupported(var0: java_awt_datatransfer_DataFlavor | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.awt.datatransfer.DataFlavor'
-     * @return original return type: 'boolean'
-     */
-    isDataFlavorSupportedSync(var0: java_awt_datatransfer_DataFlavor | null): boolean;
-    /**
      * @return original return type: 'int'
      */
     getSourceActions(): Promise<number>;
@@ -108,6 +90,24 @@ export declare class DropTargetDropEventClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isLocalTransferSync(): boolean;
+    /**
+     * @return original return type: 'void'
+     */
+    rejectDrop(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    rejectDropSync(): void;
+    /**
+     * @param var0 original type: 'java.awt.datatransfer.DataFlavor'
+     * @return original return type: 'boolean'
+     */
+    isDataFlavorSupported(var0: java_awt_datatransfer_DataFlavor | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.awt.datatransfer.DataFlavor'
+     * @return original return type: 'boolean'
+     */
+    isDataFlavorSupportedSync(var0: java_awt_datatransfer_DataFlavor | null): boolean;
     /**
      * @return original return type: 'java.awt.dnd.DropTargetContext'
      */
@@ -211,7 +211,7 @@ export declare class DropTargetDropEventClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.awt.dnd.DropTargetDropEvent'
      */
-    static newInstance(var0: java_awt_dnd_DropTargetContext | null, var1: java_awt_Point | null, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<DropTargetDropEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DropTargetContext | null, var1: java_awt_Point | null, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<DropTargetDropEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DropTargetContext'
      * @param var1 original type: 'java.awt.Point'
@@ -220,7 +220,7 @@ export declare class DropTargetDropEventClass extends JavaClass {
      * @param var4 original type: 'boolean'
      * @return original return type: 'java.awt.dnd.DropTargetDropEvent'
      */
-    static newInstance(var0: java_awt_dnd_DropTargetContext | null, var1: java_awt_Point | null, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Boolean | boolean): Promise<DropTargetDropEvent>;
+    static newInstanceAsync(var0: java_awt_dnd_DropTargetContext | null, var1: java_awt_Point | null, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Boolean | boolean): Promise<DropTargetDropEvent>;
     /**
      * @param var0 original type: 'java.awt.dnd.DropTargetContext'
      * @param var1 original type: 'java.awt.Point'

@@ -163,7 +163,7 @@ export declare class DoubleSummaryStatisticsClass extends JavaClass {
     /**
      * @return original return type: 'java.util.DoubleSummaryStatistics'
      */
-    static newInstance(): Promise<DoubleSummaryStatistics>;
+    static newInstanceAsync(): Promise<DoubleSummaryStatistics>;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'double'
@@ -171,7 +171,7 @@ export declare class DoubleSummaryStatisticsClass extends JavaClass {
      * @param var3 original type: 'double'
      * @return original return type: 'java.util.DoubleSummaryStatistics'
      */
-    static newInstance(var0: java_lang_Long | bigint | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): Promise<DoubleSummaryStatistics>;
+    static newInstanceAsync(var0: java_lang_Long | bigint | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): Promise<DoubleSummaryStatistics>;
     constructor();
     /**
      * @param var0 original type: 'long'

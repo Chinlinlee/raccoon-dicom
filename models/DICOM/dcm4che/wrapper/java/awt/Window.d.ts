@@ -1763,6 +1763,22 @@ export declare class WindowClass extends JavaClass {
      */
     createImageSync(var0: java_awt_image_ImageProducer | JavaInterfaceProxy<java_awt_image_ImageProducerInterface> | null): java_awt_Image | null;
     /**
+     * @return original return type: 'int'
+     */
+    getX(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getXSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getY(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getYSync(): number;
+    /**
      * @param var0 original type: 'java.awt.Image'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
@@ -1782,22 +1798,6 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     imageUpdateSync(var0: java_awt_Image | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): boolean;
-    /**
-     * @return original return type: 'int'
-     */
-    getX(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getXSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
-    getY(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getYSync(): number;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -3000,18 +3000,18 @@ export declare class WindowClass extends JavaClass {
      * @param var0 original type: 'java.awt.Frame'
      * @return original return type: 'java.awt.Window'
      */
-    static newInstance(var0: java_awt_Frame | null): Promise<Window>;
+    static newInstanceAsync(var0: java_awt_Frame | null): Promise<Window>;
     /**
      * @param var0 original type: 'java.awt.Window'
      * @return original return type: 'java.awt.Window'
      */
-    static newInstance(var0: WindowClass | null): Promise<Window>;
+    static newInstanceAsync(var0: WindowClass | null): Promise<Window>;
     /**
      * @param var0 original type: 'java.awt.Window'
      * @param var1 original type: 'java.awt.GraphicsConfiguration'
      * @return original return type: 'java.awt.Window'
      */
-    static newInstance(var0: WindowClass | null, var1: java_awt_GraphicsConfiguration | null): Promise<Window>;
+    static newInstanceAsync(var0: WindowClass | null, var1: java_awt_GraphicsConfiguration | null): Promise<Window>;
     /**
      * @param var0 original type: 'java.awt.Frame'
      */

@@ -290,16 +290,16 @@ export declare class PageAttributesClass extends JavaClass {
      * @param var5 original type: 'int[]'
      * @return original return type: 'java.awt.PageAttributes'
      */
-    static newInstance(var0: java_awt_PageAttributes$ColorType | null, var1: java_awt_PageAttributes$MediaType | null, var2: java_awt_PageAttributes$OrientationRequestedType | null, var3: java_awt_PageAttributes$OriginType | null, var4: java_awt_PageAttributes$PrintQualityType | null, var5: (java_lang_Integer | number)[] | null): Promise<PageAttributes>;
+    static newInstanceAsync(var0: java_awt_PageAttributes$ColorType | null, var1: java_awt_PageAttributes$MediaType | null, var2: java_awt_PageAttributes$OrientationRequestedType | null, var3: java_awt_PageAttributes$OriginType | null, var4: java_awt_PageAttributes$PrintQualityType | null, var5: (java_lang_Integer | number)[] | null): Promise<PageAttributes>;
     /**
      * @param var0 original type: 'java.awt.PageAttributes'
      * @return original return type: 'java.awt.PageAttributes'
      */
-    static newInstance(var0: PageAttributesClass | null): Promise<PageAttributes>;
+    static newInstanceAsync(var0: PageAttributesClass | null): Promise<PageAttributes>;
     /**
      * @return original return type: 'java.awt.PageAttributes'
      */
-    static newInstance(): Promise<PageAttributes>;
+    static newInstanceAsync(): Promise<PageAttributes>;
     /**
      * @param var0 original type: 'java.awt.PageAttributes$ColorType'
      * @param var1 original type: 'java.awt.PageAttributes$MediaType'

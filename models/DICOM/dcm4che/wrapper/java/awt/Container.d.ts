@@ -1128,6 +1128,22 @@ export declare class ContainerClass extends JavaClass {
      */
     createImageSync(var0: java_awt_image_ImageProducer | JavaInterfaceProxy<java_awt_image_ImageProducerInterface> | null): java_awt_Image | null;
     /**
+     * @return original return type: 'int'
+     */
+    getX(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getXSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getY(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getYSync(): number;
+    /**
      * @param var0 original type: 'java.awt.Image'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
@@ -1147,22 +1163,6 @@ export declare class ContainerClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     imageUpdateSync(var0: java_awt_Image | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): boolean;
-    /**
-     * @return original return type: 'int'
-     */
-    getX(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getXSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
-    getY(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getYSync(): number;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -2552,7 +2552,7 @@ export declare class ContainerClass extends JavaClass {
     /**
      * @return original return type: 'java.awt.Container'
      */
-    static newInstance(): Promise<Container>;
+    static newInstanceAsync(): Promise<Container>;
     constructor();
 }
 declare const Container_base: typeof ContainerClass;

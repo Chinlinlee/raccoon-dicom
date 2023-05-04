@@ -262,7 +262,7 @@ export declare class ActionEventClass extends JavaClass {
      * @param var4 original type: 'int'
      * @return original return type: 'java.awt.event.ActionEvent'
      */
-    static newInstance(var0: BasicOrJavaType | null, var1: java_lang_Integer | number, var2: string | null, var3: java_lang_Long | bigint | number, var4: java_lang_Integer | number): Promise<ActionEvent>;
+    static newInstanceAsync(var0: BasicOrJavaType | null, var1: java_lang_Integer | number, var2: string | null, var3: java_lang_Long | bigint | number, var4: java_lang_Integer | number): Promise<ActionEvent>;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @param var1 original type: 'int'
@@ -270,14 +270,14 @@ export declare class ActionEventClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.awt.event.ActionEvent'
      */
-    static newInstance(var0: BasicOrJavaType | null, var1: java_lang_Integer | number, var2: string | null, var3: java_lang_Integer | number): Promise<ActionEvent>;
+    static newInstanceAsync(var0: BasicOrJavaType | null, var1: java_lang_Integer | number, var2: string | null, var3: java_lang_Integer | number): Promise<ActionEvent>;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @param var1 original type: 'int'
      * @param var2 original type: 'java.lang.String'
      * @return original return type: 'java.awt.event.ActionEvent'
      */
-    static newInstance(var0: BasicOrJavaType | null, var1: java_lang_Integer | number, var2: string | null): Promise<ActionEvent>;
+    static newInstanceAsync(var0: BasicOrJavaType | null, var1: java_lang_Integer | number, var2: string | null): Promise<ActionEvent>;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @param var1 original type: 'int'

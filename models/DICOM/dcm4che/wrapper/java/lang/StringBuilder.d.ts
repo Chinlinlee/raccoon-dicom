@@ -1070,21 +1070,21 @@ export declare class StringBuilderClass extends JavaClass {
      * @param var0 original type: 'java.lang.CharSequence'
      * @return original return type: 'java.lang.StringBuilder'
      */
-    static newInstance(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null): Promise<StringBuilder>;
+    static newInstanceAsync(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null): Promise<StringBuilder>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.StringBuilder'
      */
-    static newInstance(var0: string | null): Promise<StringBuilder>;
+    static newInstanceAsync(var0: string | null): Promise<StringBuilder>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.lang.StringBuilder'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<StringBuilder>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<StringBuilder>;
     /**
      * @return original return type: 'java.lang.StringBuilder'
      */
-    static newInstance(): Promise<StringBuilder>;
+    static newInstanceAsync(): Promise<StringBuilder>;
     /**
      * @param var0 original type: 'java.lang.CharSequence'
      */

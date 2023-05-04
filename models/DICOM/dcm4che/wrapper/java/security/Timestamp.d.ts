@@ -111,7 +111,7 @@ export declare class TimestampClass extends JavaClass {
      * @param var1 original type: 'java.security.cert.CertPath'
      * @return original return type: 'java.security.Timestamp'
      */
-    static newInstance(var0: java_util_Date | null, var1: java_security_cert_CertPath | null): Promise<Timestamp>;
+    static newInstanceAsync(var0: java_util_Date | null, var1: java_security_cert_CertPath | null): Promise<Timestamp>;
     /**
      * @param var0 original type: 'java.util.Date'
      * @param var1 original type: 'java.security.cert.CertPath'

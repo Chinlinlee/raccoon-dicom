@@ -462,39 +462,39 @@ export declare class ColorClass extends JavaClass {
      * @param var3 original type: 'float'
      * @return original return type: 'java.awt.Color'
      */
-    static newInstance(var0: java_lang_Float | number, var1: java_lang_Float | number, var2: java_lang_Float | number, var3: java_lang_Float | number): Promise<Color>;
+    static newInstanceAsync(var0: java_lang_Float | number, var1: java_lang_Float | number, var2: java_lang_Float | number, var3: java_lang_Float | number): Promise<Color>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.awt.Color'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<Color>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<Color>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'boolean'
      * @return original return type: 'java.awt.Color'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Boolean | boolean): Promise<Color>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Boolean | boolean): Promise<Color>;
     /**
      * @param var0 original type: 'float'
      * @param var1 original type: 'float'
      * @param var2 original type: 'float'
      * @return original return type: 'java.awt.Color'
      */
-    static newInstance(var0: java_lang_Float | number, var1: java_lang_Float | number, var2: java_lang_Float | number): Promise<Color>;
+    static newInstanceAsync(var0: java_lang_Float | number, var1: java_lang_Float | number, var2: java_lang_Float | number): Promise<Color>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @return original return type: 'java.awt.Color'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<Color>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<Color>;
     /**
      * @param var0 original type: 'java.awt.color.ColorSpace'
      * @param var1 original type: 'float[]'
      * @param var2 original type: 'float'
      * @return original return type: 'java.awt.Color'
      */
-    static newInstance(var0: java_awt_color_ColorSpace | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Float | number): Promise<Color>;
+    static newInstanceAsync(var0: java_awt_color_ColorSpace | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Float | number): Promise<Color>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -502,7 +502,7 @@ export declare class ColorClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.awt.Color'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<Color>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<Color>;
     /**
      * @param var0 original type: 'float'
      * @param var1 original type: 'float'

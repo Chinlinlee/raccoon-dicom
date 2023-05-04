@@ -303,13 +303,13 @@ export declare class ThreadGroupClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.ThreadGroup'
      */
-    static newInstance(var0: string | null): Promise<ThreadGroup>;
+    static newInstanceAsync(var0: string | null): Promise<ThreadGroup>;
     /**
      * @param var0 original type: 'java.lang.ThreadGroup'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.lang.ThreadGroup'
      */
-    static newInstance(var0: ThreadGroupClass | null, var1: string | null): Promise<ThreadGroup>;
+    static newInstanceAsync(var0: ThreadGroupClass | null, var1: string | null): Promise<ThreadGroup>;
     /**
      * @param var0 original type: 'java.lang.String'
      */

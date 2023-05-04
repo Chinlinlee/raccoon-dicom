@@ -1030,14 +1030,6 @@ export declare class KeyEventClass extends JavaClass {
      */
     getKeyCharSync(): string | null;
     /**
-     * @return original return type: 'int'
-     */
-    getExtendedKeyCode(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getExtendedKeyCodeSync(): number;
-    /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.lang.String'
      */
@@ -1085,6 +1077,14 @@ export declare class KeyEventClass extends JavaClass {
      * @return original return type: 'int'
      */
     getKeyLocationSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getExtendedKeyCode(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getExtendedKeyCodeSync(): number;
     /**
      * @return original return type: 'int'
      */
@@ -1308,7 +1308,7 @@ export declare class KeyEventClass extends JavaClass {
      * @param var5 original type: 'char'
      * @return original return type: 'java.awt.event.KeyEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: string | null): Promise<KeyEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: string | null): Promise<KeyEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -1319,7 +1319,7 @@ export declare class KeyEventClass extends JavaClass {
      * @param var6 original type: 'int'
      * @return original return type: 'java.awt.event.KeyEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: string | null, var6: java_lang_Integer | number): Promise<KeyEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: string | null, var6: java_lang_Integer | number): Promise<KeyEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -1328,7 +1328,7 @@ export declare class KeyEventClass extends JavaClass {
      * @param var4 original type: 'int'
      * @return original return type: 'java.awt.event.KeyEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number): Promise<KeyEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_lang_Long | bigint | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number): Promise<KeyEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'

@@ -96,7 +96,7 @@ export declare class DatePrecisionsClass extends JavaClass {
     /**
      * @return original return type: 'org.dcm4che3.data.DatePrecisions'
      */
-    static newInstance(): Promise<DatePrecisions>;
+    static newInstanceAsync(): Promise<DatePrecisions>;
     constructor();
 }
 declare const DatePrecisions_base: typeof DatePrecisionsClass;

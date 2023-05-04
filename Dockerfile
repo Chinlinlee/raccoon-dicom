@@ -20,7 +20,7 @@ COPY package*.json /nodejs/raccoon/
 COPY . /nodejs/raccoon/
 
 # Move opencv libs to jdk's lib dir
-RUN mv /nodejs/raccoon/models/DICOM/dcm4che/javaNode/dcm4chee-5.27.0/lib/linux-x86-64/*.so $JAVA_HOME/lib
+RUN mv /nodejs/raccoon/models/DICOM/dcm4che/javaNode/dcm4chee/lib/linux-x86-64/*.so $JAVA_HOME/lib
 
 # Install raccoon dependencies
 ENV NPM_CONFIG_LOGLEVEL warn

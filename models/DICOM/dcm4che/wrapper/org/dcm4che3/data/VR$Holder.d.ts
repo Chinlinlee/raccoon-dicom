@@ -96,7 +96,7 @@ export declare class VR$HolderClass extends JavaClass {
     /**
      * @return original return type: 'org.dcm4che3.data.VR$Holder'
      */
-    static newInstance(): Promise<VR$Holder>;
+    static newInstanceAsync(): Promise<VR$Holder>;
     constructor();
 }
 declare const VR$Holder_base: typeof VR$HolderClass;

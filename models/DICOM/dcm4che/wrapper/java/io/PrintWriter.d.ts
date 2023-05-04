@@ -534,65 +534,65 @@ export declare class PrintWriterClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: string | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: string | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: string | null, var1: string | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: string | null, var1: string | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.nio.charset.Charset'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: string | null, var1: java_nio_charset_Charset | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: string | null, var1: java_nio_charset_Charset | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.io.File'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: java_io_File | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: java_io_File | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.io.File'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: java_io_File | null, var1: string | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: java_io_File | null, var1: string | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.io.File'
      * @param var1 original type: 'java.nio.charset.Charset'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: java_io_File | null, var1: java_nio_charset_Charset | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: java_io_File | null, var1: java_nio_charset_Charset | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.io.Writer'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: java_io_Writer | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: java_io_Writer | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.io.Writer'
      * @param var1 original type: 'boolean'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: java_io_Writer | null, var1: java_lang_Boolean | boolean): Promise<PrintWriter>;
+    static newInstanceAsync(var0: java_io_Writer | null, var1: java_lang_Boolean | boolean): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.io.OutputStream'
      * @param var1 original type: 'boolean'
      * @param var2 original type: 'java.nio.charset.Charset'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: java_io_OutputStream | null, var1: java_lang_Boolean | boolean, var2: java_nio_charset_Charset | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: java_io_OutputStream | null, var1: java_lang_Boolean | boolean, var2: java_nio_charset_Charset | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.io.OutputStream'
      * @param var1 original type: 'boolean'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: java_io_OutputStream | null, var1: java_lang_Boolean | boolean): Promise<PrintWriter>;
+    static newInstanceAsync(var0: java_io_OutputStream | null, var1: java_lang_Boolean | boolean): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.io.OutputStream'
      * @return original return type: 'java.io.PrintWriter'
      */
-    static newInstance(var0: java_io_OutputStream | null): Promise<PrintWriter>;
+    static newInstanceAsync(var0: java_io_OutputStream | null): Promise<PrintWriter>;
     /**
      * @param var0 original type: 'java.lang.String'
      */

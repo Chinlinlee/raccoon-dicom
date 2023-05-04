@@ -73,34 +73,6 @@ export declare class MenuBarClass extends JavaClass {
      */
     getAccessibleContextSync(): javax_accessibility_AccessibleContext | null;
     /**
-     * @param var0 original type: 'java.awt.MenuShortcut'
-     * @return original return type: 'java.awt.MenuItem'
-     */
-    getShortcutMenuItem(var0: java_awt_MenuShortcut | null): Promise<java_awt_MenuItem | null>;
-    /**
-     * @param var0 original type: 'java.awt.MenuShortcut'
-     * @return original return type: 'java.awt.MenuItem'
-     */
-    getShortcutMenuItemSync(var0: java_awt_MenuShortcut | null): java_awt_MenuItem | null;
-    /**
-     * @return original return type: 'java.util.Enumeration'
-     */
-    shortcuts(): Promise<java_util_Enumeration | null>;
-    /**
-     * @return original return type: 'java.util.Enumeration'
-     */
-    shortcutsSync(): java_util_Enumeration | null;
-    /**
-     * @param var0 original type: 'java.awt.MenuShortcut'
-     * @return original return type: 'void'
-     */
-    deleteShortcut(var0: java_awt_MenuShortcut | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.MenuShortcut'
-     * @return original return type: 'void'
-     */
-    deleteShortcutSync(var0: java_awt_MenuShortcut | null): void;
-    /**
      * @return original return type: 'int'
      */
     getMenuCount(): Promise<number>;
@@ -144,6 +116,34 @@ export declare class MenuBarClass extends JavaClass {
      * @return original return type: 'void'
      */
     setHelpMenuSync(var0: java_awt_Menu | null): void;
+    /**
+     * @param var0 original type: 'java.awt.MenuShortcut'
+     * @return original return type: 'java.awt.MenuItem'
+     */
+    getShortcutMenuItem(var0: java_awt_MenuShortcut | null): Promise<java_awt_MenuItem | null>;
+    /**
+     * @param var0 original type: 'java.awt.MenuShortcut'
+     * @return original return type: 'java.awt.MenuItem'
+     */
+    getShortcutMenuItemSync(var0: java_awt_MenuShortcut | null): java_awt_MenuItem | null;
+    /**
+     * @return original return type: 'java.util.Enumeration'
+     */
+    shortcuts(): Promise<java_util_Enumeration | null>;
+    /**
+     * @return original return type: 'java.util.Enumeration'
+     */
+    shortcutsSync(): java_util_Enumeration | null;
+    /**
+     * @param var0 original type: 'java.awt.MenuShortcut'
+     * @return original return type: 'void'
+     */
+    deleteShortcut(var0: java_awt_MenuShortcut | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.MenuShortcut'
+     * @return original return type: 'void'
+     */
+    deleteShortcutSync(var0: java_awt_MenuShortcut | null): void;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -291,7 +291,7 @@ export declare class MenuBarClass extends JavaClass {
     /**
      * @return original return type: 'java.awt.MenuBar'
      */
-    static newInstance(): Promise<MenuBar>;
+    static newInstanceAsync(): Promise<MenuBar>;
     constructor();
 }
 declare const MenuBar_base: typeof MenuBarClass;

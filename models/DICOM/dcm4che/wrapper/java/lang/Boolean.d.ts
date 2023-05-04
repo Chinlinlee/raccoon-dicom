@@ -249,12 +249,12 @@ export declare class BooleanClass extends JavaClass {
      * @param var0 original type: 'boolean'
      * @return original return type: 'java.lang.Boolean'
      */
-    static newInstance(var0: BooleanClass | boolean): Promise<boolean>;
+    static newInstanceAsync(var0: BooleanClass | boolean): Promise<boolean>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Boolean'
      */
-    static newInstance(var0: string | null): Promise<boolean>;
+    static newInstanceAsync(var0: string | null): Promise<boolean>;
     /**
      * @param var0 original type: 'boolean'
      */

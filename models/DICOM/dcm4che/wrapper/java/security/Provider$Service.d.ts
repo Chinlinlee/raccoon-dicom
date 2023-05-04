@@ -162,7 +162,7 @@ export declare class Provider$ServiceClass extends JavaClass {
      * @param var5 original type: 'java.util.Map'
      * @return original return type: 'java.security.Provider$Service'
      */
-    static newInstance(var0: java_security_Provider | null, var1: string | null, var2: string | null, var3: string | null, var4: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null, var5: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<Provider$Service>;
+    static newInstanceAsync(var0: java_security_Provider | null, var1: string | null, var2: string | null, var3: string | null, var4: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null, var5: java_util_Map | JavaInterfaceProxy<java_util_MapInterface> | null): Promise<Provider$Service>;
     /**
      * @param var0 original type: 'java.security.Provider'
      * @param var1 original type: 'java.lang.String'

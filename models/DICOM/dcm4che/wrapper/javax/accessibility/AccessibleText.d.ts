@@ -22,14 +22,6 @@ export declare class AccessibleTextClass extends JavaClass {
      */
     static readonly SENTENCE: java_lang_Integer | number;
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSelectedText(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSelectedTextSync(): string | null;
-    /**
      * @param var0 original type: 'java.awt.Point'
      * @return original return type: 'int'
      */
@@ -127,6 +119,14 @@ export declare class AccessibleTextClass extends JavaClass {
      * @return original return type: 'int'
      */
     getSelectionEndSync(): number;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSelectedText(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSelectedTextSync(): string | null;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -140,10 +140,6 @@ export declare class AccessibleTextClass extends JavaClass {
  * You should probably not edit this.
  */
 export interface AccessibleTextInterface {
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSelectedText(): string | null;
     /**
      * @param var0 original type: 'java.awt.Point'
      * @return original return type: 'int'
@@ -193,6 +189,10 @@ export interface AccessibleTextInterface {
      * @return original return type: 'int'
      */
     getSelectionEnd(): number;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSelectedText(): string | null;
 }
 /**
  * Create a proxy for the {@link AccessibleText} interface.

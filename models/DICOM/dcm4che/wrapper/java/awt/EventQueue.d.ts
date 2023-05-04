@@ -192,7 +192,7 @@ export declare class EventQueueClass extends JavaClass {
     /**
      * @return original return type: 'java.awt.EventQueue'
      */
-    static newInstance(): Promise<EventQueue>;
+    static newInstanceAsync(): Promise<EventQueue>;
     constructor();
 }
 declare const EventQueue_base: typeof EventQueueClass;

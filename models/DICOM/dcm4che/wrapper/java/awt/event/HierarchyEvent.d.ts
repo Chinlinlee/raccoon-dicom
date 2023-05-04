@@ -275,7 +275,7 @@ export declare class HierarchyEventClass extends JavaClass {
      * @param var3 original type: 'java.awt.Container'
      * @return original return type: 'java.awt.event.HierarchyEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_awt_Component | null, var3: java_awt_Container | null): Promise<HierarchyEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_awt_Component | null, var3: java_awt_Container | null): Promise<HierarchyEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'
@@ -284,7 +284,7 @@ export declare class HierarchyEventClass extends JavaClass {
      * @param var4 original type: 'long'
      * @return original return type: 'java.awt.event.HierarchyEvent'
      */
-    static newInstance(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_awt_Component | null, var3: java_awt_Container | null, var4: java_lang_Long | bigint | number): Promise<HierarchyEvent>;
+    static newInstanceAsync(var0: java_awt_Component | null, var1: java_lang_Integer | number, var2: java_awt_Component | null, var3: java_awt_Container | null, var4: java_lang_Long | bigint | number): Promise<HierarchyEvent>;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @param var1 original type: 'int'

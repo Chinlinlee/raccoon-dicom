@@ -7,6 +7,15 @@ class NotFoundInstanceError extends Error {
     }
 }
 
+class InstanceGoneError extends Error {
+    constructor(message) {
+        super(message);
+        Error.captureStackTrace(this, this.constructor);
+
+        this.name = this.constructor.name;
+    }
+}
+
 class InvalidFrameNumberError extends Error {
     constructor(message) {
         super(message);
@@ -17,4 +26,6 @@ class InvalidFrameNumberError extends Error {
 }
 
 module.exports.NotFoundInstanceError = NotFoundInstanceError;
+module.exports.InstanceGoneError = InstanceGoneError;
 module.exports.InvalidFrameNumberError = InvalidFrameNumberError;
+

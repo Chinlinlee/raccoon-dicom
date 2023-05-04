@@ -347,7 +347,7 @@ export declare class DateClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.util.Date'
      */
-    static newInstance(var0: string | null): Promise<Date>;
+    static newInstanceAsync(var0: string | null): Promise<Date>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -357,7 +357,7 @@ export declare class DateClass extends JavaClass {
      * @param var5 original type: 'int'
      * @return original return type: 'java.util.Date'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): Promise<Date>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): Promise<Date>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -366,23 +366,23 @@ export declare class DateClass extends JavaClass {
      * @param var4 original type: 'int'
      * @return original return type: 'java.util.Date'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number): Promise<Date>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number): Promise<Date>;
     /**
      * @return original return type: 'java.util.Date'
      */
-    static newInstance(): Promise<Date>;
+    static newInstanceAsync(): Promise<Date>;
     /**
      * @param var0 original type: 'long'
      * @return original return type: 'java.util.Date'
      */
-    static newInstance(var0: java_lang_Long | bigint | number): Promise<Date>;
+    static newInstanceAsync(var0: java_lang_Long | bigint | number): Promise<Date>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @return original return type: 'java.util.Date'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<Date>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<Date>;
     /**
      * @param var0 original type: 'java.lang.String'
      */

@@ -130,14 +130,6 @@ export declare class AccessibleEditableTextClass extends JavaClass {
      */
     setAttributesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: javax_swing_text_AttributeSet | JavaInterfaceProxy<javax_swing_text_AttributeSetInterface> | null): void;
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSelectedText(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSelectedTextSync(): string | null;
-    /**
      * @param var0 original type: 'java.awt.Point'
      * @return original return type: 'int'
      */
@@ -235,6 +227,14 @@ export declare class AccessibleEditableTextClass extends JavaClass {
      * @return original return type: 'int'
      */
     getSelectionEndSync(): number;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSelectedText(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSelectedTextSync(): string | null;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -303,10 +303,6 @@ export interface AccessibleEditableTextInterface {
      */
     setAttributes(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: javax_swing_text_AttributeSet | JavaInterfaceProxy<javax_swing_text_AttributeSetInterface> | null): void;
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSelectedText(): string | null;
-    /**
      * @param var0 original type: 'java.awt.Point'
      * @return original return type: 'int'
      */
@@ -355,6 +351,10 @@ export interface AccessibleEditableTextInterface {
      * @return original return type: 'int'
      */
     getSelectionEnd(): number;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSelectedText(): string | null;
 }
 /**
  * Create a proxy for the {@link AccessibleEditableText} interface.

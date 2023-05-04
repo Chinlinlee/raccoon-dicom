@@ -368,106 +368,6 @@ export declare class RectangleClass extends JavaClass {
      */
     intersectionSync(var0: RectangleClass | null): Rectangle | null;
     /**
-     * @return original return type: 'double'
-     */
-    getX(): Promise<number>;
-    /**
-     * @return original return type: 'double'
-     */
-    getXSync(): number;
-    /**
-     * @return original return type: 'double'
-     */
-    getY(): Promise<number>;
-    /**
-     * @return original return type: 'double'
-     */
-    getYSync(): number;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setBounds(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setBoundsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'void'
-     */
-    setBounds(var0: RectangleClass | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'void'
-     */
-    setBoundsSync(var0: RectangleClass | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @return original return type: 'void'
-     */
-    reshape(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @return original return type: 'void'
-     */
-    reshapeSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'java.awt.Point'
-     * @return original return type: 'void'
-     */
-    setLocation(var0: java_awt_Point | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Point'
-     * @return original return type: 'void'
-     */
-    setLocationSync(var0: java_awt_Point | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setLocation(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setLocationSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'boolean'
-     */
-    inside(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<boolean>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'boolean'
-     */
-    insideSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): boolean;
-    /**
-     * @return original return type: 'java.awt.geom.Rectangle2D'
-     */
-    getBounds2D(): Promise<java_awt_geom_Rectangle2D | null>;
-    /**
-     * @return original return type: 'java.awt.geom.Rectangle2D'
-     */
-    getBounds2DSync(): java_awt_geom_Rectangle2D | null;
-    /**
      * @param var0 original type: 'double'
      * @param var1 original type: 'double'
      * @param var2 original type: 'double'
@@ -493,6 +393,106 @@ export declare class RectangleClass extends JavaClass {
      * @return original return type: 'void'
      */
     setRectSync(var0: java_awt_geom_Rectangle2D | null): void;
+    /**
+     * @return original return type: 'double'
+     */
+    getX(): Promise<number>;
+    /**
+     * @return original return type: 'double'
+     */
+    getXSync(): number;
+    /**
+     * @return original return type: 'double'
+     */
+    getY(): Promise<number>;
+    /**
+     * @return original return type: 'double'
+     */
+    getYSync(): number;
+    /**
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'void'
+     */
+    setBounds(var0: RectangleClass | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'void'
+     */
+    setBoundsSync(var0: RectangleClass | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setBounds(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setBoundsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @return original return type: 'void'
+     */
+    reshape(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @return original return type: 'void'
+     */
+    reshapeSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setLocation(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setLocationSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'java.awt.Point'
+     * @return original return type: 'void'
+     */
+    setLocation(var0: java_awt_Point | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.Point'
+     * @return original return type: 'void'
+     */
+    setLocationSync(var0: java_awt_Point | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'boolean'
+     */
+    inside(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<boolean>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'boolean'
+     */
+    insideSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): boolean;
+    /**
+     * @return original return type: 'java.awt.geom.Rectangle2D'
+     */
+    getBounds2D(): Promise<java_awt_geom_Rectangle2D | null>;
+    /**
+     * @return original return type: 'java.awt.geom.Rectangle2D'
+     */
+    getBounds2DSync(): java_awt_geom_Rectangle2D | null;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -872,38 +872,38 @@ export declare class RectangleClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.awt.Rectangle'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<Rectangle>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<Rectangle>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'java.awt.Rectangle'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<Rectangle>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<Rectangle>;
     /**
      * @param var0 original type: 'java.awt.Dimension'
      * @return original return type: 'java.awt.Rectangle'
      */
-    static newInstance(var0: java_awt_Dimension | null): Promise<Rectangle>;
+    static newInstanceAsync(var0: java_awt_Dimension | null): Promise<Rectangle>;
     /**
      * @param var0 original type: 'java.awt.Point'
      * @return original return type: 'java.awt.Rectangle'
      */
-    static newInstance(var0: java_awt_Point | null): Promise<Rectangle>;
+    static newInstanceAsync(var0: java_awt_Point | null): Promise<Rectangle>;
     /**
      * @param var0 original type: 'java.awt.Rectangle'
      * @return original return type: 'java.awt.Rectangle'
      */
-    static newInstance(var0: RectangleClass | null): Promise<Rectangle>;
+    static newInstanceAsync(var0: RectangleClass | null): Promise<Rectangle>;
     /**
      * @return original return type: 'java.awt.Rectangle'
      */
-    static newInstance(): Promise<Rectangle>;
+    static newInstanceAsync(): Promise<Rectangle>;
     /**
      * @param var0 original type: 'java.awt.Point'
      * @param var1 original type: 'java.awt.Dimension'
      * @return original return type: 'java.awt.Rectangle'
      */
-    static newInstance(var0: java_awt_Point | null, var1: java_awt_Dimension | null): Promise<Rectangle>;
+    static newInstanceAsync(var0: java_awt_Point | null, var1: java_awt_Dimension | null): Promise<Rectangle>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

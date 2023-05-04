@@ -634,12 +634,12 @@ export declare class LongClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Long'
      */
-    static newInstance(var0: string | null): Promise<number>;
+    static newInstanceAsync(var0: string | null): Promise<number>;
     /**
      * @param var0 original type: 'long'
      * @return original return type: 'java.lang.Long'
      */
-    static newInstance(var0: LongClass | bigint | number): Promise<number>;
+    static newInstanceAsync(var0: LongClass | bigint | number): Promise<number>;
     /**
      * @param var0 original type: 'java.lang.String'
      */

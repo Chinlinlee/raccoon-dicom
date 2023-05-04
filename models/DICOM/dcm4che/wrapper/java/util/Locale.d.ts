@@ -569,19 +569,19 @@ export declare class LocaleClass extends JavaClass {
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.util.Locale'
      */
-    static newInstance(var0: string | null, var1: string | null): Promise<Locale>;
+    static newInstanceAsync(var0: string | null, var1: string | null): Promise<Locale>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'java.lang.String'
      * @return original return type: 'java.util.Locale'
      */
-    static newInstance(var0: string | null, var1: string | null, var2: string | null): Promise<Locale>;
+    static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null): Promise<Locale>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.util.Locale'
      */
-    static newInstance(var0: string | null): Promise<Locale>;
+    static newInstanceAsync(var0: string | null): Promise<Locale>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'

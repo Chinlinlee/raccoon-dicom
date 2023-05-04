@@ -383,16 +383,16 @@ export declare class JobAttributesClass extends JavaClass {
      * @param var10 original type: 'java.awt.JobAttributes$SidesType'
      * @return original return type: 'java.awt.JobAttributes'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_awt_JobAttributes$DefaultSelectionType | null, var2: java_awt_JobAttributes$DestinationType | null, var3: java_awt_JobAttributes$DialogType | null, var4: string | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_awt_JobAttributes$MultipleDocumentHandlingType | null, var8: ((java_lang_Integer | number)[] | null)[] | null, var9: string | null, var10: java_awt_JobAttributes$SidesType | null): Promise<JobAttributes>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_awt_JobAttributes$DefaultSelectionType | null, var2: java_awt_JobAttributes$DestinationType | null, var3: java_awt_JobAttributes$DialogType | null, var4: string | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_awt_JobAttributes$MultipleDocumentHandlingType | null, var8: ((java_lang_Integer | number)[] | null)[] | null, var9: string | null, var10: java_awt_JobAttributes$SidesType | null): Promise<JobAttributes>;
     /**
      * @param var0 original type: 'java.awt.JobAttributes'
      * @return original return type: 'java.awt.JobAttributes'
      */
-    static newInstance(var0: JobAttributesClass | null): Promise<JobAttributes>;
+    static newInstanceAsync(var0: JobAttributesClass | null): Promise<JobAttributes>;
     /**
      * @return original return type: 'java.awt.JobAttributes'
      */
-    static newInstance(): Promise<JobAttributes>;
+    static newInstanceAsync(): Promise<JobAttributes>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'java.awt.JobAttributes$DefaultSelectionType'

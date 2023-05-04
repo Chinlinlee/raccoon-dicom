@@ -114,12 +114,12 @@ export declare class AccessControlContextClass extends JavaClass {
      * @param var1 original type: 'java.security.DomainCombiner'
      * @return original return type: 'java.security.AccessControlContext'
      */
-    static newInstance(var0: AccessControlContextClass | null, var1: java_security_DomainCombiner | JavaInterfaceProxy<java_security_DomainCombinerInterface> | null): Promise<AccessControlContext>;
+    static newInstanceAsync(var0: AccessControlContextClass | null, var1: java_security_DomainCombiner | JavaInterfaceProxy<java_security_DomainCombinerInterface> | null): Promise<AccessControlContext>;
     /**
      * @param var0 original type: 'java.security.ProtectionDomain[]'
      * @return original return type: 'java.security.AccessControlContext'
      */
-    static newInstance(var0: (java_security_ProtectionDomain | null)[] | null): Promise<AccessControlContext>;
+    static newInstanceAsync(var0: (java_security_ProtectionDomain | null)[] | null): Promise<AccessControlContext>;
     /**
      * @param var0 original type: 'java.security.AccessControlContext'
      * @param var1 original type: 'java.security.DomainCombiner'
