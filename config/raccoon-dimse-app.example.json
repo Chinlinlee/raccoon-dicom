@@ -10,8 +10,8 @@
   },
   "raccoon": {
     "dicomStoreRoot": "./",
-    "raccoonUploadScriptPath": "local/dicom-uploader-wado.js",
-    "mode": "WADO",
-    "wadoUrl": "http://127.0.0.1:8081/dicom-web/studies"
+    "raccoonUploadScriptPath": "local/dicom-uploader-stow.js",
+    "mode": "STOW",
+    "stowUrl": "http://127.0.0.1:8081/dicom-web/studies"
   }
 }

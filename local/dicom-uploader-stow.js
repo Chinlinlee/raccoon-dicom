@@ -105,7 +105,7 @@ async function storeFromDir(dir) {
             }
         }
 
-        fs.writeFileSync(path.join(__dirname, "local-upload-wado-log.json"), JSON.stringify({
+        fs.writeFileSync(path.join(__dirname, "local-upload-stow-log.json"), JSON.stringify({
             successFiles,
             errorFiles
         }, null, 4));
