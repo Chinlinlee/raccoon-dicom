@@ -113,7 +113,20 @@ FHIRSERVER_BASE_URL="http://localhost:8088/fhir"
 <details>
     <summary><h3>Config properties</h3></summary>
 
-🚧 WIP
+| Field Name | Type of Value | Description |
+| --- | --- | --- |
+| mongodb.hosts | array of strings | A list of hostnames or IP addresses where the MongoDB server is running. |
+| mongodb.ports | array of numbers | A list of port numbers corresponding to the MongoDB servers specified in mongodb.hosts. |
+| mongodb.username | string | The username to use when connecting to the MongoDB server. |
+| mongodb.password | string | The password to use when connecting to the MongoDB server. |
+| mongodb.authSource | string | The name of the MongoDB database to authenticate against. |
+| mongodb.database | string | The name of the MongoDB database. |
+| mongodb.debug | boolean | A flag indicating whether or not debug mode is enabled for MongoDB. |
+| raccoon.dicomStoreRoot | string | The root directory of Raccoon-DICOM that use in C-MOVE <br/><br/>⚠️Please use absolute path|
+| raccoon.raccoonUploadScriptPath | string | The path to the DICOM uploader script (i.e. dicom-uploader-stow.js or dicom-uploader.js) of the Raccoon-DICOM. <br/><br/>⚠️Please use absolute path|
+| raccoon.mode | string | The mode of operation of upload script ("STOW" or "LOCAL") |
+| raccoon.stowUrl | string | The URL for the STOW endpoint of the Raccoon-DICOM. |
+
 </details>
 
 # Features
