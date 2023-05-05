@@ -36,6 +36,7 @@ services:
       - ./raccoon-null/node_modules:/nodejs/raccoon/node_modules
     ports:
       - 8081:8081
+      - 11112:11112
     depends_on:
       - mongodb
     tty : true
