@@ -67,6 +67,13 @@ class DicomDimseConfig {
         }
     }
 
+    getPort() {
+        let bindArgIndex = this.dcm4cheQrscpArgv.findIndex(v => v === "-b");
+        /** @type {string} */
+        let bindInfo = this.dcm4cheQrscpArgv[bindArgIndex + 1];
+        return bindInfo.split(":").pop();
+    }
+
 }
 
 class FhirConfig {

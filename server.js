@@ -90,7 +90,18 @@ if (osPlatform.includes("linux")) {
     if (raccoonConfig.dicomDimseConfig.enableDimse) {
         const { java } = require("./models/DICOM/dcm4che/java-instance");
         let dcmQrScpClass = await java.importClassAsync("org.dcm4che3.tool.dcmqrscp.DcmQRSCP");
-        await dcmQrScpClass.main(raccoonConfig.dicomDimseConfig.dcm4cheQrscpArgv);
+        const net = require("net");
+        let checkPortServer = net.createServer()
+        .once("listening", async function () {
+            checkPortServer.close();
+            await dcmQrScpClass.main(raccoonConfig.dicomDimseConfig.dcm4cheQrscpArgv);
+        })
+        .once("error", function(err) {
+            if(err.code === "EADDRINUSE") {
+                console.log("QRSCP's port is already in use, please check is QRSCP running or another app running");
+            }
+        })
+        .listen(raccoonConfig.dicomDimseConfig.getPort());
     }
 })();
 
