@@ -12,6 +12,7 @@ Another Raccoon focus on DICOM.
 - 請注意！在使用 Raccoon 前，務必安裝 MongoDB、ImageMagick
 - node.js >= 16
 - Java JDK >= 11
+- MongoDB >= 4.4
 - [imagemagick](https://imagemagick.org/script/download.php)
 
 > **Note**

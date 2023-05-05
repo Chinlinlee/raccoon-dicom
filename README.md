@@ -11,6 +11,7 @@ Another Raccoon focus on DICOM.
 - Before starting Raccoon, MongoDB, imagemagick, node.js, and JAVA JDK must be installed.
 - node.js >= 16
 - Java JDK >= 11
+- MongoDB >= 4.4
 - [imagemagick](https://imagemagick.org/script/download.php)
 
 > **Note**
