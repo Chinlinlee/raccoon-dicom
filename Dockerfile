@@ -12,6 +12,9 @@ RUN source /root/.bashrc && nvm install $NODE_VERSION
 RUN n=$(which node);n=${n%/bin/node}; chmod -R 755 $n/bin/*; cp -r $n/{bin,lib,share} /usr/local
 SHELL ["/bin/bash", "--login", "-c"]
 
+# Installing imagemagick
+RUN apt-get update -y && apt-get install -qq -y --no-install-recommends imagemagick
+
 WORKDIR /
 RUN mkdir -p /nodejs/raccoon/
 WORKDIR /nodejs/raccoon/
