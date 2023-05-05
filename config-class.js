@@ -29,6 +29,7 @@ class MongoDbConfig {
         this.user = env.get("MONGODB_USER").default("").asString();
         this.password = env.get("MONGODB_PASSWORD").default("").asString();
         this.authSource = env.get("MONGODB_AUTH_SOURCE").default("admin").asString();
+        this.urlOptions = env.get("MONGODB_OPTIONS").default("").asString();
         this.isShardingMode = env.get("MONGODB_IS_SHARDING_MODE").default("false").asBool();
     }
 }

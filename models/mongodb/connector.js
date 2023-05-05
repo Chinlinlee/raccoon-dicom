@@ -12,7 +12,8 @@ const {
     user,
     password,
     authSource,
-    isShardingMode
+    isShardingMode,
+    urlOptions
 } = raccoonConfig.mongoDbConfig;
 module.exports = exports = function () {
 
@@ -27,6 +28,11 @@ module.exports = exports = function () {
         }
     });
     databaseUrl += `/${dbName}`;
+
+    if (urlOptions) {
+        databaseUrl += `?${urlOptions}`;
+    }
+
     console.log(databaseUrl);
     /**@type {mongoose.ConnectOptions} */
     let connectionOptions = {};
