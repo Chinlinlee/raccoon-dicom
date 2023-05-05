@@ -139,6 +139,26 @@ FHIRSERVER_BASE_URL="http://localhost:8088/fhir"
 
 </details>
 
+# Deploy
+## Local
+- Run command below to deploy Raccoon-DICOM
+
+```bash
+node server.js
+```
+
+## Docker-compose
+- You can also use Docker-compose to deploy
+- ⚠️ You should do [Configuration](#Configuration) first
+- Run command below to deploy Raccoon-DICOM
+
+```bash
+sudo docker compose up
+```
+
+> **Note**
+> You may need to copy docker-compose.yaml to another directory and modify path of raccoon.build.context
+> To prevent mapping too much data in volumes (i.e. mongodb, raccoon-storage)
 # Troubleshooting on linux
 - `Unknown VR: Tag not found in data dictionary` when using `STOW-RS`
     - You need set the `DCMDICTPATH` environment variable

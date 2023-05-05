@@ -140,6 +140,27 @@ FHIRSERVER_BASE_URL="http://localhost:8088/fhir"
 
 </details>
 
+# 部屬
+## Local
+- 運行以下指令部屬 Raccoon-DICOM
+
+```bash
+node server.js
+```
+
+## Docker-compose
+- 您也可以使用 Docker-compose 進行部屬
+- ⚠️ 建議您先進行[設定](#設定)再進行部屬
+- 運行以下指令部屬 Raccoon-DICOM
+
+```bash
+sudo docker compose up
+```
+
+> **Note**
+> 您可能會需要把 docker-compose.yaml 複製至另一個資料夾，並更改 raccoon.build.context 的路徑
+> 以防止在 volumes 當中映射過多資料 (i.e. mongodb, raccoon-storage)
+
 # Troubleshooting on linux
 - `Unknown VR: Tag not found in data dictionary` when using `STOW-RS`
     - 您必須設定 `DCMDICTPATH` 環境變數
