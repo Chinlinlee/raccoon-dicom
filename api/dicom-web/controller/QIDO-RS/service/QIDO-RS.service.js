@@ -1,7 +1,7 @@
 const urlObj = require("url");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const { mongoDateQuery } = require("../../../../../models/mongodb/service");
+const { mongoDateQuery, timeQuery } = require("../../../../../models/mongodb/service");
 const { dictionary } = require("../../../../../models/DICOM/dicom-tags-dic");
 const {
     tagsOfRequiredMatching
@@ -290,6 +290,9 @@ const vrQueryLookup = {
                 [`${tag}.suffix`] : queryValue
             }
         ]};
+    },
+    TM: async (value, tag) => {
+        value[tag] = timeQuery(value, tag);
     }
 };
 
@@ -330,11 +333,11 @@ async function getStudyDicomJson(queryOptions) {
 
     try {
         let query = await convertRequestQueryToMongoQuery(queryOptions.query);
-        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
-        
         queryOptions.query = {
             ...query.$match
         };
+
+        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(queryOptions.query)}]`);
 
         let docs = await mongoose.model("dicomStudy").getDicomJson(queryOptions);
 
