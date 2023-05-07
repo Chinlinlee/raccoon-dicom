@@ -9,8 +9,8 @@ Another Raccoon focus on DICOM.
 
 # Installation
 - [Installation](https://github.com/Chinlinlee/raccoon-dicom/wiki/Installation)
-- Step by Step guideline of installing Raccoon-DICOM - Windows (WIP🚧)
-- Step by Step guideline of installing Raccoon-DICOM - Ubuntu (WIP🚧)
+- Step by Step guide to installing Raccoon-DICOM - Windows (WIP🚧)
+- Step by Step guide to installing Raccoon-DICOM - Ubuntu (WIP🚧)
 
 # Troubleshooting on linux
 - `Unknown VR: Tag not found in data dictionary` when using `STOW-RS`
