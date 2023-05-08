@@ -1,4 +1,10 @@
 # raccoon-dicom
+
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/49154622/236814496-a87eb89f-9cbe-4898-a7bf-aa2b27d97596.svg" alt="logo" width="10%"/>
+</p>
+<br/>
+
 Another Raccoon focus on DICOM.
 
 [English](README.md) | [繁體中文](README.zh-TW.md)
