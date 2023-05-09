@@ -152,26 +152,6 @@ dicomSeriesSchema.statics.getPathGroupOfInstances = async function(iParam) {
     }
 };
 
-/**
- * 
- * @param {string} studyUID 
- */
-dicomSeriesSchema.statics.getSeriesOfMedianIndex = async function (studyUID) {
-    let seriesCountOfStudy = await mongoose.model("dicomSeries").countDocuments({
-        studyUID
-    });
-
-    return await mongoose.model("dicomSeries").findOne({
-        studyUID
-    }, {
-        studyUID: 1,
-        seriesUID: 1
-    })
-    .skip(seriesCountOfStudy >> 1)
-    .limit(1)
-    .exec();
-};
-
 
 /**
  * @typedef { mongoose.Model<dicomSeriesSchema> & { 
@@ -180,7 +160,6 @@ dicomSeriesSchema.statics.getSeriesOfMedianIndex = async function (studyUID) {
  *      seriesUID: string
  *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]>;
  * getDicomJson: function(queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<JSON[]>;
- * getSeriesOfMedianIndex: function(studyUID: string): Promise<any>
  * }} DicomSeriesModel
 */
 

@@ -104,15 +104,14 @@ class StudyThumbnailFactory extends ThumbnailFactory {
      * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
      */
     async getThumbnailInstance() {
-        let medianSeries = await dicomSeriesModel.getSeriesOfMedianIndex(this.uids.studyUID);
-        if (!medianSeries) return undefined;
-
-        let medianInstance = await dicomModel.getInstanceOfMedianIndex(this.uids.studyUID, medianSeries.seriesUID);
+        let medianInstance = await dicomModel.getInstanceOfMedianIndex({
+            studyUID: this.uids.studyUID
+        });
         if (!medianInstance) return undefined;
 
         let instanceFramesObj = await renderedService.getInstanceFrameObj({
             studyUID: this.uids.studyUID,
-            seriesUID: medianSeries.seriesUID,
+            seriesUID: medianInstance.seriesUID,
             instanceUID: medianInstance.instanceUID
         });
 
@@ -131,7 +130,10 @@ class SeriesThumbnailFactory extends ThumbnailFactory {
      * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
      */
     async getThumbnailInstance() {
-        let medianInstance = await dicomModel.getInstanceOfMedianIndex(this.uids.studyUID, this.uids.seriesUID);
+        let medianInstance = await dicomModel.getInstanceOfMedianIndex({
+            studyUID: this.uids.studyUID,
+            seriesUID: this.uids.seriesUID
+        });
         if (!medianInstance) return undefined;
 
         let instanceFramesObj = await renderedService.getInstanceFrameObj({

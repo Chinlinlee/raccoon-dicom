@@ -402,21 +402,22 @@ dicomModelSchema.statics.getPathOfInstance = async function(iParam) {
  * @param {string} studyUID 
  * @param {string} seriesUID 
  */
-dicomModelSchema.statics.getInstanceOfMedianIndex = async function (studyUID, seriesUID) {
-    let instanceCountOfSeries = await mongoose.model("dicomSeries").countDocuments({
-        studyUID,
-        seriesUID
+dicomModelSchema.statics.getInstanceOfMedianIndex = async function (query) {
+    let instanceCountOfStudy = await mongoose.model("dicom").countDocuments({
+        studyUID: query.studyUID
     });
 
-    return await mongoose.model("dicom").findOne({
-        studyUID
-    }, {
+    return await mongoose.model("dicom").findOne(query, {
         studyUID: 1,
         seriesUID: 1,
         instanceUID: 1,
         instancePath: 1
     })
-    .skip(instanceCountOfSeries >> 1)
+    .sort({
+        studyUID: 1,
+        seriesUID: 1
+    })
+    .skip(instanceCountOfStudy >> 1)
     .limit(1)
     .exec();
 };
