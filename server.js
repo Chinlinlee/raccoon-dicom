@@ -18,7 +18,10 @@ require("dotenv");
 
 app.use(compress());
 app.use(cookieParser());
-app.use(cors());
+
+if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "dev") {
+    app.use(cors());
+}
 
 //#region body parser
 
