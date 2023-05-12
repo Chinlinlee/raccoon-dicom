@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const renderedService = require("../service/rendered.service");
+const dicomModel = require("../../../../../models/mongodb/models/dicom");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("../../../../../utils/logs/api-logger");
@@ -11,8 +12,8 @@ class RetrieveRenderedInstanceFramesController extends Controller {
     }
 
     async mainProcess() {
-        let apiLogger = new ApiLogger(this.request, "WADO-RS");
-        apiLogger.addTokenValue();
+        this.apiLogger = new ApiLogger(this.request, "WADO-RS");
+        this.apiLogger.addTokenValue();
 
         let {
             studyUID,
@@ -21,7 +22,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
             frameNumber
         } = this.request.params;
         
-        apiLogger.logger.info(`Get study's series' rendered instances' frames, study UID: ${studyUID}, series UID: ${seriesUID}, instance UID: ${instanceUID}, frame: ${frameNumber}`);
+        this.apiLogger.logger.info(`Get study's series' rendered instances' frames, study UID: ${studyUID}, series UID: ${seriesUID}, instance UID: ${instanceUID}, frame: ${frameNumber}`);
     
         let headerAccept = _.get(this.request.headers, "accept", "");
         if (!headerAccept.includes("*/*") && !headerAccept.includes("image/jpeg")) {
@@ -33,25 +34,19 @@ class RetrieveRenderedInstanceFramesController extends Controller {
         }
     
         try {
-            let instanceFramesObj = await renderedService.getInstanceFrameObj(this.request.params);
-            if (!instanceFramesObj) {
-                this.response.writeHead(404, {
-                    "Content-Type": "application/dicom+json"
-                });
-                let notFoundMessage = errorResponse.getNotFoundErrorMessage(`Not Found Instance, Instance UID: ${
-                    instanceUID
-                }, Series UID: ${
-                    seriesUID
-                }, Study UID: ${
-                    studyUID
-                }`);
-                
-                let notFoundMessageStr = JSON.stringify(notFoundMessage);
-    
-                apiLogger.logger.warn(`[${notFoundMessageStr}]`);
-    
-                return this.response.end(notFoundMessageStr);
+            let imagePathObj = await dicomModel.getPathOfInstance(this.request.params);
+
+            if(!imagePathObj) {
+                return this.responseNotFound();
             }
+
+            let instanceFramesObj = await renderedService.getInstanceFrameObj(this.request.params);
+            if (_.isUndefined(instanceFramesObj)) {
+                return this.response.status(400).json(
+                    errorResponse.getBadRequestErrorMessage(`instance: ${this.request.params.instanceUID} doesn't have pixel data`)
+                );
+            }
+            
             let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
             dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
     
@@ -65,7 +60,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
     
                     let badRequestMessageStr = JSON.stringify(badRequestMessage);
     
-                    apiLogger.logger.warn(badRequestMessageStr);
+                    this.apiLogger.logger.warn(badRequestMessageStr);
     
                     return this.response.end(JSON.stringify(badRequestMessageStr));
                 }
@@ -78,7 +73,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
                     this.response.writeHead(200, {
                         "Content-Type": "image/jpeg"
                     });
-                    apiLogger.logger.info(`Get instance's frame successfully, instance UID: ${instanceUID}, frame number: ${frameNumber[0]}`);
+                    this.apiLogger.logger.info(`Get instance's frame successfully, instance UID: ${instanceUID}, frame number: ${frameNumber[0]}`);
                     return this.response.end(postProcessResult.magick.toBuffer(), "binary");
                 }
                 throw new Error(`Can not process this image, instanceUID: ${instanceFramesObj.instanceUID}, frameNumber: ${this.request.frameNumber[0]}`);
@@ -87,7 +82,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
                 await renderedService.writeSpecificFramesRenderedImages(this.request, frameNumber, instanceFramesObj, multipartWriter);
                 multipartWriter.writeFinalBoundary();
     
-                apiLogger.logger.info(`Get instance's frame successfully, instance UID: ${instanceUID}, frame numbers: ${frameNumber}`);
+                this.apiLogger.logger.info(`Get instance's frame successfully, instance UID: ${instanceUID}, frame numbers: ${frameNumber}`);
     
                 return this.response.end();
             }
@@ -98,6 +93,18 @@ class RetrieveRenderedInstanceFramesController extends Controller {
             });
             this.response.end(JSON.stringify(e, Object.getOwnPropertyNames(e), 4), "utf8");
         }
+    }
+
+    responseNotFound() {
+        let notFoundStr = `Not Found Instance, ${this.paramsToString()}`;
+
+        this.apiLogger.logger.warn(notFoundStr);
+
+        let notFoundMessage = errorResponse.getNotFoundErrorMessage(
+            notFoundStr
+        );
+
+        return this.response.status(404).json(notFoundMessage);
     }
 }
 /**

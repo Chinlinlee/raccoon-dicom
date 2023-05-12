@@ -168,7 +168,11 @@ class InstanceImagePathFactory extends ImagePathFactory {
 
     async getImagePaths() {
         let imagePath = await dicomModel.getPathOfInstance(this.uids);
-        this.imagePaths = [imagePath];
+
+        if(imagePath)
+            this.imagePaths = [imagePath];
+        else
+            this.imagePaths = [];
     }
 }
 

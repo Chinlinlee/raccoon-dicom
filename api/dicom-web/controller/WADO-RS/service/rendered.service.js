@@ -4,6 +4,7 @@ const fs = require("fs");
 const sharp = require("sharp");
 const { Dcm2JpgExecutor } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
+const notImageSOPClass = require("../../../../../models/DICOM/dicomWEB/notImageSOPClass");
 const Magick = require("../../../../../models/magick");
 const _ = require("lodash");
 
@@ -105,6 +106,7 @@ const { raccoonConfig } = require("../../../../../config-class");
 async function getInstanceFrameObj(iParam, otherFields={}) {
     let { studyUID, seriesUID, instanceUID } = iParam;
     try {
+        /** @type { import("mongoose").FilterQuery<any> } */
         let query = {
             $and: [
                 {
@@ -115,6 +117,11 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
                 },
                 {
                     instanceUID: instanceUID
+                },
+                {
+                    "00080016.Value": {
+                        $nin: notImageSOPClass
+                    }
                 }
             ]
         };

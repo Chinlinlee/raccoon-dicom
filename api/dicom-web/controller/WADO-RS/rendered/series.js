@@ -30,6 +30,7 @@ class RetrieveRenderedSeriesController extends Controller {
                 
                 for(let imagePathObj of instancesInSeries) {
                     let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
+                    if (_.isUndefined(instanceFramesObj)) continue;
                     let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
                     dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
                     await renderedService.writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);

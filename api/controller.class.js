@@ -53,6 +53,19 @@ class Controller {
     
         this.postProcess();
     }
+
+    /**
+     * @return {string}
+     */
+    paramsToString() {
+        let strArr = [];
+        let keys = Object.keys(this.request.params);
+        for(let i = 0 ; i < keys.length; i++) {
+            let key = keys[i];
+            strArr.push(`${key}: ${this.request.params[key]}`);
+        }
+        return strArr.join(" ");
+    }
 }
 
 module.exports.Controller = Controller;

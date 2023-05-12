@@ -34,6 +34,11 @@ class RetrieveRenderedInstancesController extends Controller {
             if (imagePathObj) {
                 let multipartWriter = new MultipartWriter([], this.request, this.response);
                 let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
+                if (_.isUndefined(instanceFramesObj)) {
+                    return this.response.status(400).json(
+                        errorResponse.getBadRequestErrorMessage(`instance: ${this.request.params.instanceUID} doesn't have pixel data`)
+                    );
+                }
                 let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
                 dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
                 await renderedService.writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);

@@ -238,6 +238,10 @@ class DicomJsonModel {
         return _.get(this.dicomJson, "00020010.Value.0");
     }
 
+    getSopClassUid() {
+        return _.get(this.dicomJson, "00080016.Value.0");
+    }
+
     getStudyDate() {
         return _.get(this.dicomJson, "00080020.Value.0");
     }

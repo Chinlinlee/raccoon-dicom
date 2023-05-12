@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { Dcm2JpgExecutor } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
+const notImageSOPClass = require("../../../../../models/DICOM/dicomWEB/notImageSOPClass");
 const { logger } = require("../../../../../utils/logs/log");
 const dicomToJpegTask = require("../../../../../models/mongodb/models/dicomToJpegTask");
 const colorette = require("colorette");
@@ -28,6 +29,10 @@ class DicomJpegGenerator {
 
     async generateAllFrames() {
         try {
+            
+            if (notImageSOPClass.includes(this.dicomJsonModel.getSopClassUid())) {
+                return;
+            }
 
             await this.insertStartTask_();
 
