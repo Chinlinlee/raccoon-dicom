@@ -246,6 +246,7 @@ module.exports.getAcceptType = getAcceptType;
 module.exports.supportInstanceMultipartType = supportInstanceMultipartType;
 module.exports.sendNotSupportedMediaType = sendNotSupportedMediaType;
 module.exports.addHostnameOfBulkDataUrl = addHostnameOfBulkDataUrl;
+module.exports.ImagePathFactory = ImagePathFactory;
 module.exports.StudyImagePathFactory = StudyImagePathFactory;
 module.exports.SeriesImagePathFactory = SeriesImagePathFactory;
 module.exports.InstanceImagePathFactory = InstanceImagePathFactory;
