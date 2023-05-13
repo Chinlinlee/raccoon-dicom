@@ -133,14 +133,6 @@ export declare class HierarchyEventClass extends JavaClass {
     /**
      * @return original return type: 'java.awt.Component'
      */
-    getComponent(): Promise<java_awt_Component | null>;
-    /**
-     * @return original return type: 'java.awt.Component'
-     */
-    getComponentSync(): java_awt_Component | null;
-    /**
-     * @return original return type: 'java.awt.Component'
-     */
     getChanged(): Promise<java_awt_Component | null>;
     /**
      * @return original return type: 'java.awt.Component'
@@ -162,6 +154,14 @@ export declare class HierarchyEventClass extends JavaClass {
      * @return original return type: 'long'
      */
     getChangeFlagsSync(): number;
+    /**
+     * @return original return type: 'java.awt.Component'
+     */
+    getComponent(): Promise<java_awt_Component | null>;
+    /**
+     * @return original return type: 'java.awt.Component'
+     */
+    getComponentSync(): java_awt_Component | null;
     /**
      * @return original return type: 'java.lang.String'
      */

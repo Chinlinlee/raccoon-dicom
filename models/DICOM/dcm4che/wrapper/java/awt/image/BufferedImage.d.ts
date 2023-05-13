@@ -2,15 +2,15 @@ import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { ImageObserver as java_awt_image_ImageObserver, ImageObserverInterface as java_awt_image_ImageObserverInterface } from "./ImageObserver";
 import { ImageProducer as java_awt_image_ImageProducer } from "./ImageProducer";
-import { Vector as java_util_Vector } from "./../../util/Vector";
-import { ColorModel as java_awt_image_ColorModel } from "./ColorModel";
-import { SampleModel as java_awt_image_SampleModel } from "./SampleModel";
+import { WritableRaster as java_awt_image_WritableRaster } from "./WritableRaster";
 import { Raster as java_awt_image_Raster } from "./Raster";
 import { Rectangle as java_awt_Rectangle } from "./../Rectangle";
-import { WritableRaster as java_awt_image_WritableRaster } from "./WritableRaster";
+import { SampleModel as java_awt_image_SampleModel } from "./SampleModel";
 import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
 import { Graphics2D as java_awt_Graphics2D } from "./../Graphics2D";
+import { ColorModel as java_awt_image_ColorModel } from "./ColorModel";
 import { Graphics as java_awt_Graphics } from "./../Graphics";
+import { Vector as java_util_Vector } from "./../../util/Vector";
 import { TileObserver as java_awt_image_TileObserver, TileObserverInterface as java_awt_image_TileObserverInterface } from "./TileObserver";
 import { Point as java_awt_Point } from "./../Point";
 import { ImageCapabilities as java_awt_ImageCapabilities } from "./../ImageCapabilities";
@@ -166,55 +166,31 @@ export declare class BufferedImageClass extends JavaClass {
      */
     getSourceSync(): java_awt_image_ImageProducer | null;
     /**
-     * @return original return type: 'java.util.Vector'
+     * @return original return type: 'java.awt.image.WritableRaster'
      */
-    getSources(): Promise<java_util_Vector | null>;
+    getRaster(): Promise<java_awt_image_WritableRaster | null>;
     /**
-     * @return original return type: 'java.util.Vector'
+     * @return original return type: 'java.awt.image.WritableRaster'
      */
-    getSourcesSync(): java_util_Vector | null;
+    getRasterSync(): java_awt_image_WritableRaster | null;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getPropertyNames(): Promise<(string | null)[] | null>;
+    getData(): Promise<java_awt_image_Raster | null>;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getPropertyNamesSync(): (string | null)[] | null;
+    getDataSync(): java_awt_image_Raster | null;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getColorModel(): Promise<java_awt_image_ColorModel | null>;
+    getData(var0: java_awt_Rectangle | null): Promise<java_awt_image_Raster | null>;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getColorModelSync(): java_awt_image_ColorModel | null;
-    /**
-     * @return original return type: 'java.awt.image.SampleModel'
-     */
-    getSampleModel(): Promise<java_awt_image_SampleModel | null>;
-    /**
-     * @return original return type: 'java.awt.image.SampleModel'
-     */
-    getSampleModelSync(): java_awt_image_SampleModel | null;
-    /**
-     * @param var0 original type: 'java.awt.image.ImageObserver'
-     * @return original return type: 'int'
-     */
-    getWidth(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.awt.image.ImageObserver'
-     * @return original return type: 'int'
-     */
-    getWidthSync(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): number;
-    /**
-     * @return original return type: 'int'
-     */
-    getWidth(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getWidthSync(): number;
+    getDataSync(var0: java_awt_Rectangle | null): java_awt_image_Raster | null;
     /**
      * @return original return type: 'int'
      */
@@ -234,6 +210,100 @@ export declare class BufferedImageClass extends JavaClass {
      */
     getHeightSync(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): number;
     /**
+     * @param var0 original type: 'java.awt.image.ImageObserver'
+     * @return original return type: 'int'
+     */
+    getWidth(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): Promise<number>;
+    /**
+     * @param var0 original type: 'java.awt.image.ImageObserver'
+     * @return original return type: 'int'
+     */
+    getWidthSync(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getWidth(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getWidthSync(): number;
+    /**
+     * @return original return type: 'java.awt.image.SampleModel'
+     */
+    getSampleModel(): Promise<java_awt_image_SampleModel | null>;
+    /**
+     * @return original return type: 'java.awt.image.SampleModel'
+     */
+    getSampleModelSync(): java_awt_image_SampleModel | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isAlphaPremultiplied(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isAlphaPremultipliedSync(): boolean;
+    /**
+     * @return original return type: 'int'
+     */
+    getTransparency(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getTransparencySync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'int'
+     */
+    getRGB(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'int'
+     */
+    getRGBSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): number;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int[]'
+     * @param var5 original type: 'int'
+     * @param var6 original type: 'int'
+     * @return original return type: 'int[]'
+     */
+    getRGB(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int[]'
+     * @param var5 original type: 'int'
+     * @param var6 original type: 'int'
+     * @return original return type: 'int[]'
+     */
+    getRGBSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number): (number)[] | null;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    coerceData(var0: java_lang_Boolean | boolean): Promise<void>;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    coerceDataSync(var0: java_lang_Boolean | boolean): void;
+    /**
+     * @return original return type: 'java.awt.image.WritableRaster'
+     */
+    getAlphaRaster(): Promise<java_awt_image_WritableRaster | null>;
+    /**
+     * @return original return type: 'java.awt.image.WritableRaster'
+     */
+    getAlphaRasterSync(): java_awt_image_WritableRaster | null;
+    /**
      * @return original return type: 'int'
      */
     getMinX(): Promise<number>;
@@ -249,6 +319,98 @@ export declare class BufferedImageClass extends JavaClass {
      * @return original return type: 'int'
      */
     getMinYSync(): number;
+    /**
+     * @return original return type: 'java.awt.Graphics2D'
+     */
+    createGraphics(): Promise<java_awt_Graphics2D | null>;
+    /**
+     * @return original return type: 'java.awt.Graphics2D'
+     */
+    createGraphicsSync(): java_awt_Graphics2D | null;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModel(): Promise<java_awt_image_ColorModel | null>;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModelSync(): java_awt_image_ColorModel | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setRGB(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setRGBSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int[]'
+     * @param var5 original type: 'int'
+     * @param var6 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setRGB(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'int[]'
+     * @param var5 original type: 'int'
+     * @param var6 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setRGBSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number): void;
+    /**
+     * @return original return type: 'java.awt.Graphics'
+     */
+    getGraphics(): Promise<java_awt_Graphics | null>;
+    /**
+     * @return original return type: 'java.awt.Graphics'
+     */
+    getGraphicsSync(): java_awt_Graphics | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @return original return type: 'java.awt.image.BufferedImage'
+     */
+    getSubimage(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<BufferedImage | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @return original return type: 'java.awt.image.BufferedImage'
+     */
+    getSubimageSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): BufferedImage | null;
+    /**
+     * @return original return type: 'java.util.Vector'
+     */
+    getSources(): Promise<java_util_Vector | null>;
+    /**
+     * @return original return type: 'java.util.Vector'
+     */
+    getSourcesSync(): java_util_Vector | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPropertyNames(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPropertyNamesSync(): (string | null)[] | null;
     /**
      * @return original return type: 'int'
      */
@@ -326,24 +488,6 @@ export declare class BufferedImageClass extends JavaClass {
      */
     getTileSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): java_awt_image_Raster | null;
     /**
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getData(): Promise<java_awt_image_Raster | null>;
-    /**
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getDataSync(): java_awt_image_Raster | null;
-    /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getData(var0: java_awt_Rectangle | null): Promise<java_awt_image_Raster | null>;
-    /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getDataSync(var0: java_awt_Rectangle | null): java_awt_image_Raster | null;
-    /**
      * @param var0 original type: 'java.awt.image.WritableRaster'
      * @return original return type: 'java.awt.image.WritableRaster'
      */
@@ -353,150 +497,6 @@ export declare class BufferedImageClass extends JavaClass {
      * @return original return type: 'java.awt.image.WritableRaster'
      */
     copyDataSync(var0: java_awt_image_WritableRaster | null): java_awt_image_WritableRaster | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAlphaPremultiplied(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAlphaPremultipliedSync(): boolean;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    coerceData(var0: java_lang_Boolean | boolean): Promise<void>;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    coerceDataSync(var0: java_lang_Boolean | boolean): void;
-    /**
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    getAlphaRaster(): Promise<java_awt_image_WritableRaster | null>;
-    /**
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    getAlphaRasterSync(): java_awt_image_WritableRaster | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'int'
-     */
-    getRGB(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'int'
-     */
-    getRGBSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): number;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int[]'
-     * @param var5 original type: 'int'
-     * @param var6 original type: 'int'
-     * @return original return type: 'int[]'
-     */
-    getRGB(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int[]'
-     * @param var5 original type: 'int'
-     * @param var6 original type: 'int'
-     * @return original return type: 'int[]'
-     */
-    getRGBSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number): (number)[] | null;
-    /**
-     * @return original return type: 'java.awt.Graphics2D'
-     */
-    createGraphics(): Promise<java_awt_Graphics2D | null>;
-    /**
-     * @return original return type: 'java.awt.Graphics2D'
-     */
-    createGraphicsSync(): java_awt_Graphics2D | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getTransparency(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getTransparencySync(): number;
-    /**
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    getRaster(): Promise<java_awt_image_WritableRaster | null>;
-    /**
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    getRasterSync(): java_awt_image_WritableRaster | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int[]'
-     * @param var5 original type: 'int'
-     * @param var6 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setRGB(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'int[]'
-     * @param var5 original type: 'int'
-     * @param var6 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setRGBSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: (java_lang_Integer | number)[] | null, var5: java_lang_Integer | number, var6: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setRGB(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setRGBSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): void;
-    /**
-     * @return original return type: 'java.awt.Graphics'
-     */
-    getGraphics(): Promise<java_awt_Graphics | null>;
-    /**
-     * @return original return type: 'java.awt.Graphics'
-     */
-    getGraphicsSync(): java_awt_Graphics | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @return original return type: 'java.awt.image.BufferedImage'
-     */
-    getSubimage(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<BufferedImage | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
-     * @return original return type: 'java.awt.image.BufferedImage'
-     */
-    getSubimageSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): BufferedImage | null;
     /**
      * @param var0 original type: 'java.awt.image.Raster'
      * @return original return type: 'void'

@@ -986,50 +986,6 @@ export declare class KeyEventClass extends JavaClass {
      */
     paramStringSync(): string | null;
     /**
-     * @return original return type: 'boolean'
-     */
-    isActionKey(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isActionKeySync(): boolean;
-    /**
-     * @return original return type: 'int'
-     */
-    getKeyCode(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getKeyCodeSync(): number;
-    /**
-     * @param var0 original type: 'char'
-     * @return original return type: 'void'
-     */
-    setKeyChar(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'char'
-     * @return original return type: 'void'
-     */
-    setKeyCharSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setModifiers(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setModifiersSync(var0: java_lang_Integer | number): void;
-    /**
-     * @return original return type: 'char'
-     */
-    getKeyChar(): Promise<string | null>;
-    /**
-     * @return original return type: 'char'
-     */
-    getKeyCharSync(): string | null;
-    /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.lang.String'
      */
@@ -1077,6 +1033,50 @@ export declare class KeyEventClass extends JavaClass {
      * @return original return type: 'int'
      */
     getKeyLocationSync(): number;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isActionKey(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isActionKeySync(): boolean;
+    /**
+     * @return original return type: 'int'
+     */
+    getKeyCode(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getKeyCodeSync(): number;
+    /**
+     * @param var0 original type: 'char'
+     * @return original return type: 'void'
+     */
+    setKeyChar(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'char'
+     * @return original return type: 'void'
+     */
+    setKeyCharSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setModifiers(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setModifiersSync(var0: java_lang_Integer | number): void;
+    /**
+     * @return original return type: 'char'
+     */
+    getKeyChar(): Promise<string | null>;
+    /**
+     * @return original return type: 'char'
+     */
+    getKeyCharSync(): string | null;
     /**
      * @return original return type: 'int'
      */

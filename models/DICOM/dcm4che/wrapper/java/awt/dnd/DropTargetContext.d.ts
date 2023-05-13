@@ -1,7 +1,7 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
+import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
 import { Component as java_awt_Component } from "./../Component";
 import { DropTarget as java_awt_dnd_DropTarget } from "./DropTarget";
-import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { Class as java_lang_Class } from "./../../lang/Class";
@@ -11,6 +11,16 @@ import { Class as java_lang_Class } from "./../../lang/Class";
  * You should probably not edit this.
  */
 export declare class DropTargetContextClass extends JavaClass {
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    dropComplete(var0: java_lang_Boolean | boolean): Promise<void>;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    dropCompleteSync(var0: java_lang_Boolean | boolean): void;
     /**
      * @return original return type: 'java.awt.Component'
      */
@@ -27,16 +37,6 @@ export declare class DropTargetContextClass extends JavaClass {
      * @return original return type: 'java.awt.dnd.DropTarget'
      */
     getDropTargetSync(): java_awt_dnd_DropTarget | null;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    dropComplete(var0: java_lang_Boolean | boolean): Promise<void>;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    dropCompleteSync(var0: java_lang_Boolean | boolean): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

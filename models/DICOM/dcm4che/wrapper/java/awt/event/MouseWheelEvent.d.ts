@@ -255,6 +255,14 @@ export declare class MouseWheelEventClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
+    getUnitsToScroll(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getUnitsToScrollSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
     getScrollType(): Promise<number>;
     /**
      * @return original return type: 'int'
@@ -285,13 +293,23 @@ export declare class MouseWheelEventClass extends JavaClass {
      */
     getPreciseWheelRotationSync(): number;
     /**
-     * @return original return type: 'int'
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.String'
      */
-    getUnitsToScroll(): Promise<number>;
+    static getMouseModifiersText(var0: java_lang_Integer | number): Promise<string | null>;
     /**
-     * @return original return type: 'int'
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.String'
      */
-    getUnitsToScrollSync(): number;
+    static getMouseModifiersTextSync(var0: java_lang_Integer | number): string | null;
+    /**
+     * @return original return type: 'java.awt.Point'
+     */
+    getPoint(): Promise<java_awt_Point | null>;
+    /**
+     * @return original return type: 'java.awt.Point'
+     */
+    getPointSync(): java_awt_Point | null;
     /**
      * @return original return type: 'int'
      */
@@ -356,24 +374,6 @@ export declare class MouseWheelEventClass extends JavaClass {
      * @return original return type: 'int'
      */
     getModifiersExSync(): number;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.String'
-     */
-    static getMouseModifiersText(var0: java_lang_Integer | number): Promise<string | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.String'
-     */
-    static getMouseModifiersTextSync(var0: java_lang_Integer | number): string | null;
-    /**
-     * @return original return type: 'java.awt.Point'
-     */
-    getPoint(): Promise<java_awt_Point | null>;
-    /**
-     * @return original return type: 'java.awt.Point'
-     */
-    getPointSync(): java_awt_Point | null;
     /**
      * @return original return type: 'int'
      */

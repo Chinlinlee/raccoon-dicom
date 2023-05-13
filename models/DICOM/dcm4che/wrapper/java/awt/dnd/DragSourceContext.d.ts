@@ -1,11 +1,11 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
-import { Cursor as java_awt_Cursor } from "./../Cursor";
-import { Component as java_awt_Component } from "./../Component";
 import { DragSourceDropEvent as java_awt_dnd_DragSourceDropEvent } from "./DragSourceDropEvent";
 import { DragSourceDragEvent as java_awt_dnd_DragSourceDragEvent } from "./DragSourceDragEvent";
 import { DragSourceListener as java_awt_dnd_DragSourceListener, DragSourceListenerInterface as java_awt_dnd_DragSourceListenerInterface } from "./DragSourceListener";
 import { DragSource as java_awt_dnd_DragSource } from "./DragSource";
 import { Transferable as java_awt_datatransfer_Transferable, TransferableInterface as java_awt_datatransfer_TransferableInterface } from "./../datatransfer/Transferable";
+import { Cursor as java_awt_Cursor } from "./../Cursor";
+import { Component as java_awt_Component } from "./../Component";
 import { DragSourceEvent as java_awt_dnd_DragSourceEvent } from "./DragSourceEvent";
 import { DragGestureEvent as java_awt_dnd_DragGestureEvent } from "./DragGestureEvent";
 import { Long as java_lang_Long } from "./../../lang/Long";
@@ -19,32 +19,6 @@ import { Point as java_awt_Point } from "./../Point";
  * You should probably not edit this.
  */
 export declare class DragSourceContextClass extends JavaClass {
-    /**
-     * @param var0 original type: 'java.awt.Cursor'
-     * @return original return type: 'void'
-     */
-    setCursor(var0: java_awt_Cursor | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Cursor'
-     * @return original return type: 'void'
-     */
-    setCursorSync(var0: java_awt_Cursor | null): void;
-    /**
-     * @return original return type: 'java.awt.Component'
-     */
-    getComponent(): Promise<java_awt_Component | null>;
-    /**
-     * @return original return type: 'java.awt.Component'
-     */
-    getComponentSync(): java_awt_Component | null;
-    /**
-     * @return original return type: 'java.awt.Cursor'
-     */
-    getCursor(): Promise<java_awt_Cursor | null>;
-    /**
-     * @return original return type: 'java.awt.Cursor'
-     */
-    getCursorSync(): java_awt_Cursor | null;
     /**
      * @param var0 original type: 'java.awt.dnd.DragSourceDropEvent'
      * @return original return type: 'void'
@@ -109,6 +83,32 @@ export declare class DragSourceContextClass extends JavaClass {
      * @return original return type: 'java.awt.datatransfer.Transferable'
      */
     getTransferableSync(): java_awt_datatransfer_Transferable | null;
+    /**
+     * @param var0 original type: 'java.awt.Cursor'
+     * @return original return type: 'void'
+     */
+    setCursor(var0: java_awt_Cursor | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.Cursor'
+     * @return original return type: 'void'
+     */
+    setCursorSync(var0: java_awt_Cursor | null): void;
+    /**
+     * @return original return type: 'java.awt.Component'
+     */
+    getComponent(): Promise<java_awt_Component | null>;
+    /**
+     * @return original return type: 'java.awt.Component'
+     */
+    getComponentSync(): java_awt_Component | null;
+    /**
+     * @return original return type: 'java.awt.Cursor'
+     */
+    getCursor(): Promise<java_awt_Cursor | null>;
+    /**
+     * @return original return type: 'java.awt.Cursor'
+     */
+    getCursorSync(): java_awt_Cursor | null;
     /**
      * @param var0 original type: 'java.awt.dnd.DragSourceDragEvent'
      * @return original return type: 'void'

@@ -1,11 +1,11 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
-import { ColorSpace as java_awt_color_ColorSpace } from "./../color/ColorSpace";
-import { WritableRaster as java_awt_image_WritableRaster } from "./WritableRaster";
-import { Raster as java_awt_image_Raster } from "./Raster";
-import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
 import { Float as java_lang_Float } from "./../../lang/Float";
 import { SampleModel as java_awt_image_SampleModel } from "./SampleModel";
+import { ColorSpace as java_awt_color_ColorSpace } from "./../color/ColorSpace";
+import { WritableRaster as java_awt_image_WritableRaster } from "./WritableRaster";
+import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
+import { Raster as java_awt_image_Raster } from "./Raster";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Class as java_lang_Class } from "./../../lang/Class";
 /**
@@ -61,127 +61,13 @@ export declare class ColorModelClass extends JavaClass {
      */
     hashCodeSync(): number;
     /**
-     * @return original return type: 'java.awt.color.ColorSpace'
-     */
-    getColorSpace(): Promise<java_awt_color_ColorSpace | null>;
-    /**
-     * @return original return type: 'java.awt.color.ColorSpace'
-     */
-    getColorSpaceSync(): java_awt_color_ColorSpace | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    createCompatibleWritableRaster(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<java_awt_image_WritableRaster | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    createCompatibleWritableRasterSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): java_awt_image_WritableRaster | null;
-    /**
-     * @return original return type: 'java.awt.image.ColorModel'
-     */
-    static getRGBdefault(): Promise<ColorModel | null>;
-    /**
-     * @return original return type: 'java.awt.image.ColorModel'
-     */
-    static getRGBdefaultSync(): ColorModel | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    hasAlpha(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    hasAlphaSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAlphaPremultiplied(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAlphaPremultipliedSync(): boolean;
-    /**
-     * @param var0 original type: 'java.awt.image.Raster'
-     * @return original return type: 'boolean'
-     */
-    isCompatibleRaster(var0: java_awt_image_Raster | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.awt.image.Raster'
-     * @return original return type: 'boolean'
-     */
-    isCompatibleRasterSync(var0: java_awt_image_Raster | null): boolean;
-    /**
-     * @param var0 original type: 'java.awt.image.WritableRaster'
-     * @param var1 original type: 'boolean'
-     * @return original return type: 'java.awt.image.ColorModel'
-     */
-    coerceData(var0: java_awt_image_WritableRaster | null, var1: java_lang_Boolean | boolean): Promise<ColorModel | null>;
-    /**
-     * @param var0 original type: 'java.awt.image.WritableRaster'
-     * @param var1 original type: 'boolean'
-     * @return original return type: 'java.awt.image.ColorModel'
-     */
-    coerceDataSync(var0: java_awt_image_WritableRaster | null, var1: java_lang_Boolean | boolean): ColorModel | null;
-    /**
-     * @param var0 original type: 'int'
      * @return original return type: 'int'
      */
-    getComponentSize(var0: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'int'
-     */
-    getComponentSizeSync(var0: java_lang_Integer | number): number;
-    /**
-     * @return original return type: 'int[]'
-     */
-    getComponentSize(): Promise<(number)[] | null>;
-    /**
-     * @return original return type: 'int[]'
-     */
-    getComponentSizeSync(): (number)[] | null;
+    getTransferType(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    getPixelSize(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getPixelSizeSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumComponents(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumComponentsSync(): number;
-    /**
-     * @param var0 original type: 'java.awt.image.WritableRaster'
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    getAlphaRaster(var0: java_awt_image_WritableRaster | null): Promise<java_awt_image_WritableRaster | null>;
-    /**
-     * @param var0 original type: 'java.awt.image.WritableRaster'
-     * @return original return type: 'java.awt.image.WritableRaster'
-     */
-    getAlphaRasterSync(var0: java_awt_image_WritableRaster | null): java_awt_image_WritableRaster | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'java.lang.Object'
-     */
-    getDataElements(var0: java_lang_Integer | number, var1: BasicOrJavaType | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'java.lang.Object'
-     */
-    getDataElementsSync(var0: java_lang_Integer | number, var1: BasicOrJavaType | null): BasicOrJavaType | null;
+    getTransferTypeSync(): number;
     /**
      * @param var0 original type: 'int[]'
      * @param var1 original type: 'int'
@@ -196,6 +82,18 @@ export declare class ColorModelClass extends JavaClass {
      * @return original return type: 'java.lang.Object'
      */
     getDataElementsSync(var0: (java_lang_Integer | number)[] | null, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): BasicOrJavaType | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'java.lang.Object'
+     */
+    getDataElements(var0: java_lang_Integer | number, var1: BasicOrJavaType | null): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'java.lang.Object'
+     */
+    getDataElementsSync(var0: java_lang_Integer | number, var1: BasicOrJavaType | null): BasicOrJavaType | null;
     /**
      * @param var0 original type: 'float[]'
      * @param var1 original type: 'int'
@@ -212,26 +110,6 @@ export declare class ColorModelClass extends JavaClass {
     getDataElementsSync(var0: (java_lang_Float | number)[] | null, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): BasicOrJavaType | null;
     /**
      * @param var0 original type: 'int'
-     * @return original return type: 'int'
-     */
-    getRGB(var0: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'int'
-     */
-    getRGBSync(var0: java_lang_Integer | number): number;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @return original return type: 'int'
-     */
-    getRGB(var0: BasicOrJavaType | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @return original return type: 'int'
-     */
-    getRGBSync(var0: BasicOrJavaType | null): number;
-    /**
-     * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'java.awt.image.SampleModel'
      */
@@ -243,51 +121,21 @@ export declare class ColorModelClass extends JavaClass {
      */
     createCompatibleSampleModelSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): java_awt_image_SampleModel | null;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'boolean'
      */
-    getTransparency(): Promise<number>;
+    isAlphaPremultiplied(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isAlphaPremultipliedSync(): boolean;
     /**
      * @return original return type: 'int'
      */
-    getTransparencySync(): number;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'float[]'
-     * @param var2 original type: 'int'
-     * @return original return type: 'float[]'
-     */
-    getNormalizedComponents(var0: BasicOrJavaType | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Integer | number): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'float[]'
-     * @param var2 original type: 'int'
-     * @return original return type: 'float[]'
-     */
-    getNormalizedComponentsSync(var0: BasicOrJavaType | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Integer | number): (number)[] | null;
-    /**
-     * @param var0 original type: 'int[]'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'float[]'
-     * @param var3 original type: 'int'
-     * @return original return type: 'float[]'
-     */
-    getNormalizedComponents(var0: (java_lang_Integer | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_lang_Integer | number): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'int[]'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'float[]'
-     * @param var3 original type: 'int'
-     * @return original return type: 'float[]'
-     */
-    getNormalizedComponentsSync(var0: (java_lang_Integer | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_lang_Integer | number): (number)[] | null;
+    getNumComponents(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    getTransferType(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getTransferTypeSync(): number;
+    getNumComponentsSync(): number;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'int'
@@ -409,20 +257,6 @@ export declare class ColorModelClass extends JavaClass {
      */
     getDataElementSync(var0: (java_lang_Float | number)[] | null, var1: java_lang_Integer | number): number;
     /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'int[]'
-     * @param var2 original type: 'int'
-     * @return original return type: 'int[]'
-     */
-    getComponents(var0: BasicOrJavaType | null, var1: (java_lang_Integer | number)[] | null, var2: java_lang_Integer | number): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'int[]'
-     * @param var2 original type: 'int'
-     * @return original return type: 'int[]'
-     */
-    getComponentsSync(var0: BasicOrJavaType | null, var1: (java_lang_Integer | number)[] | null, var2: java_lang_Integer | number): (number)[] | null;
-    /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int[]'
      * @param var2 original type: 'int'
@@ -437,6 +271,170 @@ export declare class ColorModelClass extends JavaClass {
      */
     getComponentsSync(var0: java_lang_Integer | number, var1: (java_lang_Integer | number)[] | null, var2: java_lang_Integer | number): (number)[] | null;
     /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'int[]'
+     * @param var2 original type: 'int'
+     * @return original return type: 'int[]'
+     */
+    getComponents(var0: BasicOrJavaType | null, var1: (java_lang_Integer | number)[] | null, var2: java_lang_Integer | number): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'int[]'
+     * @param var2 original type: 'int'
+     * @return original return type: 'int[]'
+     */
+    getComponentsSync(var0: BasicOrJavaType | null, var1: (java_lang_Integer | number)[] | null, var2: java_lang_Integer | number): (number)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'float[]'
+     * @param var2 original type: 'int'
+     * @return original return type: 'float[]'
+     */
+    getNormalizedComponents(var0: BasicOrJavaType | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Integer | number): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'float[]'
+     * @param var2 original type: 'int'
+     * @return original return type: 'float[]'
+     */
+    getNormalizedComponentsSync(var0: BasicOrJavaType | null, var1: (java_lang_Float | number)[] | null, var2: java_lang_Integer | number): (number)[] | null;
+    /**
+     * @param var0 original type: 'int[]'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'float[]'
+     * @param var3 original type: 'int'
+     * @return original return type: 'float[]'
+     */
+    getNormalizedComponents(var0: (java_lang_Integer | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_lang_Integer | number): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'int[]'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'float[]'
+     * @param var3 original type: 'int'
+     * @return original return type: 'float[]'
+     */
+    getNormalizedComponentsSync(var0: (java_lang_Integer | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Float | number)[] | null, var3: java_lang_Integer | number): (number)[] | null;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    static getRGBdefault(): Promise<ColorModel | null>;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    static getRGBdefaultSync(): ColorModel | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasAlpha(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasAlphaSync(): boolean;
+    /**
+     * @return original return type: 'int'
+     */
+    getPixelSize(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getPixelSizeSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'int'
+     */
+    getComponentSize(var0: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'int'
+     */
+    getComponentSizeSync(var0: java_lang_Integer | number): number;
+    /**
+     * @return original return type: 'int[]'
+     */
+    getComponentSize(): Promise<(number)[] | null>;
+    /**
+     * @return original return type: 'int[]'
+     */
+    getComponentSizeSync(): (number)[] | null;
+    /**
+     * @return original return type: 'int'
+     */
+    getTransparency(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getTransparencySync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumColorComponents(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumColorComponentsSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'int'
+     */
+    getRGB(var0: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'int'
+     */
+    getRGBSync(var0: java_lang_Integer | number): number;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @return original return type: 'int'
+     */
+    getRGB(var0: BasicOrJavaType | null): Promise<number>;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @return original return type: 'int'
+     */
+    getRGBSync(var0: BasicOrJavaType | null): number;
+    /**
+     * @return original return type: 'java.awt.color.ColorSpace'
+     */
+    getColorSpace(): Promise<java_awt_color_ColorSpace | null>;
+    /**
+     * @return original return type: 'java.awt.color.ColorSpace'
+     */
+    getColorSpaceSync(): java_awt_color_ColorSpace | null;
+    /**
+     * @param var0 original type: 'java.awt.image.WritableRaster'
+     * @param var1 original type: 'boolean'
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    coerceData(var0: java_awt_image_WritableRaster | null, var1: java_lang_Boolean | boolean): Promise<ColorModel | null>;
+    /**
+     * @param var0 original type: 'java.awt.image.WritableRaster'
+     * @param var1 original type: 'boolean'
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    coerceDataSync(var0: java_awt_image_WritableRaster | null, var1: java_lang_Boolean | boolean): ColorModel | null;
+    /**
+     * @param var0 original type: 'java.awt.image.Raster'
+     * @return original return type: 'boolean'
+     */
+    isCompatibleRaster(var0: java_awt_image_Raster | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.awt.image.Raster'
+     * @return original return type: 'boolean'
+     */
+    isCompatibleRasterSync(var0: java_awt_image_Raster | null): boolean;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'java.awt.image.WritableRaster'
+     */
+    createCompatibleWritableRaster(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<java_awt_image_WritableRaster | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'java.awt.image.WritableRaster'
+     */
+    createCompatibleWritableRasterSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): java_awt_image_WritableRaster | null;
+    /**
      * @param var0 original type: 'java.awt.image.SampleModel'
      * @return original return type: 'boolean'
      */
@@ -447,13 +445,15 @@ export declare class ColorModelClass extends JavaClass {
      */
     isCompatibleSampleModelSync(var0: java_awt_image_SampleModel | null): boolean;
     /**
-     * @return original return type: 'int'
+     * @param var0 original type: 'java.awt.image.WritableRaster'
+     * @return original return type: 'java.awt.image.WritableRaster'
      */
-    getNumColorComponents(): Promise<number>;
+    getAlphaRaster(var0: java_awt_image_WritableRaster | null): Promise<java_awt_image_WritableRaster | null>;
     /**
-     * @return original return type: 'int'
+     * @param var0 original type: 'java.awt.image.WritableRaster'
+     * @return original return type: 'java.awt.image.WritableRaster'
      */
-    getNumColorComponentsSync(): number;
+    getAlphaRasterSync(var0: java_awt_image_WritableRaster | null): java_awt_image_WritableRaster | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

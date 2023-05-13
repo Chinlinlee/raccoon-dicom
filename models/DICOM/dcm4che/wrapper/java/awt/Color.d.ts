@@ -1,13 +1,13 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { Integer as java_lang_Integer } from "./../lang/Integer";
-import { ColorSpace as java_awt_color_ColorSpace } from "./color/ColorSpace";
-import { Float as java_lang_Float } from "./../lang/Float";
 import { PaintContext as java_awt_PaintContext } from "./PaintContext";
 import { ColorModel as java_awt_image_ColorModel } from "./image/ColorModel";
 import { Rectangle as java_awt_Rectangle } from "./Rectangle";
 import { Rectangle2D as java_awt_geom_Rectangle2D } from "./geom/Rectangle2D";
 import { AffineTransform as java_awt_geom_AffineTransform } from "./geom/AffineTransform";
 import { RenderingHints as java_awt_RenderingHints } from "./RenderingHints";
+import { ColorSpace as java_awt_color_ColorSpace } from "./color/ColorSpace";
+import { Float as java_lang_Float } from "./../lang/Float";
 import { Long as java_lang_Long } from "./../lang/Long";
 import { Class as java_lang_Class } from "./../lang/Class";
 import { Boolean as java_lang_Boolean } from "./../lang/Boolean";
@@ -170,29 +170,23 @@ export declare class ColorClass extends JavaClass {
      */
     static decodeSync(var0: string | null): Color | null;
     /**
-     * @return original return type: 'java.awt.color.ColorSpace'
+     * @param var0 original type: 'java.awt.image.ColorModel'
+     * @param var1 original type: 'java.awt.Rectangle'
+     * @param var2 original type: 'java.awt.geom.Rectangle2D'
+     * @param var3 original type: 'java.awt.geom.AffineTransform'
+     * @param var4 original type: 'java.awt.RenderingHints'
+     * @return original return type: 'java.awt.PaintContext'
      */
-    getColorSpace(): Promise<java_awt_color_ColorSpace | null>;
+    createContext(var0: java_awt_image_ColorModel | null, var1: java_awt_Rectangle | null, var2: java_awt_geom_Rectangle2D | null, var3: java_awt_geom_AffineTransform | null, var4: java_awt_RenderingHints | null): Promise<java_awt_PaintContext | null>;
     /**
-     * @return original return type: 'java.awt.color.ColorSpace'
+     * @param var0 original type: 'java.awt.image.ColorModel'
+     * @param var1 original type: 'java.awt.Rectangle'
+     * @param var2 original type: 'java.awt.geom.Rectangle2D'
+     * @param var3 original type: 'java.awt.geom.AffineTransform'
+     * @param var4 original type: 'java.awt.RenderingHints'
+     * @return original return type: 'java.awt.PaintContext'
      */
-    getColorSpaceSync(): java_awt_color_ColorSpace | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getRGB(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getRGBSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
-    getTransparency(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getTransparencySync(): number;
+    createContextSync(var0: java_awt_image_ColorModel | null, var1: java_awt_Rectangle | null, var2: java_awt_geom_Rectangle2D | null, var3: java_awt_geom_AffineTransform | null, var4: java_awt_RenderingHints | null): java_awt_PaintContext | null;
     /**
      * @return original return type: 'int'
      */
@@ -226,16 +220,6 @@ export declare class ColorClass extends JavaClass {
      */
     getBlueSync(): number;
     /**
-     * @param var0 original type: 'float[]'
-     * @return original return type: 'float[]'
-     */
-    getComponents(var0: (java_lang_Float | number)[] | null): Promise<(number)[] | null>;
-    /**
-     * @param var0 original type: 'float[]'
-     * @return original return type: 'float[]'
-     */
-    getComponentsSync(var0: (java_lang_Float | number)[] | null): (number)[] | null;
-    /**
      * @param var0 original type: 'java.awt.color.ColorSpace'
      * @param var1 original type: 'float[]'
      * @return original return type: 'float[]'
@@ -247,6 +231,40 @@ export declare class ColorClass extends JavaClass {
      * @return original return type: 'float[]'
      */
     getComponentsSync(var0: java_awt_color_ColorSpace | null, var1: (java_lang_Float | number)[] | null): (number)[] | null;
+    /**
+     * @param var0 original type: 'float[]'
+     * @return original return type: 'float[]'
+     */
+    getComponents(var0: (java_lang_Float | number)[] | null): Promise<(number)[] | null>;
+    /**
+     * @param var0 original type: 'float[]'
+     * @return original return type: 'float[]'
+     */
+    getComponentsSync(var0: (java_lang_Float | number)[] | null): (number)[] | null;
+    /**
+     * @return original return type: 'int'
+     */
+    getTransparency(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getTransparencySync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getRGB(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getRGBSync(): number;
+    /**
+     * @return original return type: 'java.awt.color.ColorSpace'
+     */
+    getColorSpace(): Promise<java_awt_color_ColorSpace | null>;
+    /**
+     * @return original return type: 'java.awt.color.ColorSpace'
+     */
+    getColorSpaceSync(): java_awt_color_ColorSpace | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'int'
@@ -297,24 +315,6 @@ export declare class ColorClass extends JavaClass {
      * @return original return type: 'java.awt.Color'
      */
     darkerSync(): Color | null;
-    /**
-     * @param var0 original type: 'java.awt.image.ColorModel'
-     * @param var1 original type: 'java.awt.Rectangle'
-     * @param var2 original type: 'java.awt.geom.Rectangle2D'
-     * @param var3 original type: 'java.awt.geom.AffineTransform'
-     * @param var4 original type: 'java.awt.RenderingHints'
-     * @return original return type: 'java.awt.PaintContext'
-     */
-    createContext(var0: java_awt_image_ColorModel | null, var1: java_awt_Rectangle | null, var2: java_awt_geom_Rectangle2D | null, var3: java_awt_geom_AffineTransform | null, var4: java_awt_RenderingHints | null): Promise<java_awt_PaintContext | null>;
-    /**
-     * @param var0 original type: 'java.awt.image.ColorModel'
-     * @param var1 original type: 'java.awt.Rectangle'
-     * @param var2 original type: 'java.awt.geom.Rectangle2D'
-     * @param var3 original type: 'java.awt.geom.AffineTransform'
-     * @param var4 original type: 'java.awt.RenderingHints'
-     * @return original return type: 'java.awt.PaintContext'
-     */
-    createContextSync(var0: java_awt_image_ColorModel | null, var1: java_awt_Rectangle | null, var2: java_awt_geom_Rectangle2D | null, var3: java_awt_geom_AffineTransform | null, var4: java_awt_RenderingHints | null): java_awt_PaintContext | null;
     /**
      * @param var0 original type: 'float'
      * @param var1 original type: 'float'

@@ -3,8 +3,8 @@ import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
 import { ColorModel as java_awt_image_ColorModel } from "./image/ColorModel";
 import { Image as java_awt_Image } from "./Image";
 import { Integer as java_lang_Integer } from "./../lang/Integer";
-import { ImageProducer as java_awt_image_ImageProducer, ImageProducerInterface as java_awt_image_ImageProducerInterface } from "./image/ImageProducer";
 import { URL as java_net_URL } from "./../net/URL";
+import { ImageProducer as java_awt_image_ImageProducer, ImageProducerInterface as java_awt_image_ImageProducerInterface } from "./image/ImageProducer";
 import { FontMetrics as java_awt_FontMetrics } from "./FontMetrics";
 import { Font as java_awt_Font } from "./Font";
 import { Boolean as java_lang_Boolean } from "./../lang/Boolean";
@@ -12,9 +12,9 @@ import { Insets as java_awt_Insets } from "./Insets";
 import { GraphicsConfiguration as java_awt_GraphicsConfiguration } from "./GraphicsConfiguration";
 import { PrintJob as java_awt_PrintJob } from "./PrintJob";
 import { Frame as java_awt_Frame } from "./Frame";
+import { Properties as java_util_Properties } from "./../util/Properties";
 import { JobAttributes as java_awt_JobAttributes } from "./JobAttributes";
 import { PageAttributes as java_awt_PageAttributes } from "./PageAttributes";
-import { Properties as java_util_Properties } from "./../util/Properties";
 import { Clipboard as java_awt_datatransfer_Clipboard } from "./datatransfer/Clipboard";
 import { Cursor as java_awt_Cursor } from "./Cursor";
 import { Point as java_awt_Point } from "./Point";
@@ -86,16 +86,6 @@ export declare class ToolkitClass extends JavaClass {
      */
     createImageSync(var0: Buffer | null): java_awt_Image | null;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.awt.Image'
-     */
-    createImage(var0: string | null): Promise<java_awt_Image | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.awt.Image'
-     */
-    createImageSync(var0: string | null): java_awt_Image | null;
-    /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
@@ -110,16 +100,6 @@ export declare class ToolkitClass extends JavaClass {
      */
     createImageSync(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): java_awt_Image | null;
     /**
-     * @param var0 original type: 'java.awt.image.ImageProducer'
-     * @return original return type: 'java.awt.Image'
-     */
-    createImage(var0: java_awt_image_ImageProducer | JavaInterfaceProxy<java_awt_image_ImageProducerInterface> | null): Promise<java_awt_Image | null>;
-    /**
-     * @param var0 original type: 'java.awt.image.ImageProducer'
-     * @return original return type: 'java.awt.Image'
-     */
-    createImageSync(var0: java_awt_image_ImageProducer | JavaInterfaceProxy<java_awt_image_ImageProducerInterface> | null): java_awt_Image | null;
-    /**
      * @param var0 original type: 'java.net.URL'
      * @return original return type: 'java.awt.Image'
      */
@@ -129,6 +109,26 @@ export declare class ToolkitClass extends JavaClass {
      * @return original return type: 'java.awt.Image'
      */
     createImageSync(var0: java_net_URL | null): java_awt_Image | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.awt.Image'
+     */
+    createImage(var0: string | null): Promise<java_awt_Image | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.awt.Image'
+     */
+    createImageSync(var0: string | null): java_awt_Image | null;
+    /**
+     * @param var0 original type: 'java.awt.image.ImageProducer'
+     * @return original return type: 'java.awt.Image'
+     */
+    createImage(var0: java_awt_image_ImageProducer | JavaInterfaceProxy<java_awt_image_ImageProducerInterface> | null): Promise<java_awt_Image | null>;
+    /**
+     * @param var0 original type: 'java.awt.image.ImageProducer'
+     * @return original return type: 'java.awt.Image'
+     */
+    createImageSync(var0: java_awt_image_ImageProducer | JavaInterfaceProxy<java_awt_image_ImageProducerInterface> | null): java_awt_Image | null;
     /**
      * @param var0 original type: 'java.awt.Font'
      * @return original return type: 'java.awt.FontMetrics'
@@ -170,6 +170,20 @@ export declare class ToolkitClass extends JavaClass {
     /**
      * @param var0 original type: 'java.awt.Frame'
      * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.util.Properties'
+     * @return original return type: 'java.awt.PrintJob'
+     */
+    getPrintJob(var0: java_awt_Frame | null, var1: string | null, var2: java_util_Properties | null): Promise<java_awt_PrintJob | null>;
+    /**
+     * @param var0 original type: 'java.awt.Frame'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.util.Properties'
+     * @return original return type: 'java.awt.PrintJob'
+     */
+    getPrintJobSync(var0: java_awt_Frame | null, var1: string | null, var2: java_util_Properties | null): java_awt_PrintJob | null;
+    /**
+     * @param var0 original type: 'java.awt.Frame'
+     * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'java.awt.JobAttributes'
      * @param var3 original type: 'java.awt.PageAttributes'
      * @return original return type: 'java.awt.PrintJob'
@@ -183,20 +197,6 @@ export declare class ToolkitClass extends JavaClass {
      * @return original return type: 'java.awt.PrintJob'
      */
     getPrintJobSync(var0: java_awt_Frame | null, var1: string | null, var2: java_awt_JobAttributes | null, var3: java_awt_PageAttributes | null): java_awt_PrintJob | null;
-    /**
-     * @param var0 original type: 'java.awt.Frame'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.util.Properties'
-     * @return original return type: 'java.awt.PrintJob'
-     */
-    getPrintJob(var0: java_awt_Frame | null, var1: string | null, var2: java_util_Properties | null): Promise<java_awt_PrintJob | null>;
-    /**
-     * @param var0 original type: 'java.awt.Frame'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.util.Properties'
-     * @return original return type: 'java.awt.PrintJob'
-     */
-    getPrintJobSync(var0: java_awt_Frame | null, var1: string | null, var2: java_util_Properties | null): java_awt_PrintJob | null;
     /**
      * @return original return type: 'java.awt.datatransfer.Clipboard'
      */
@@ -284,14 +284,6 @@ export declare class ToolkitClass extends JavaClass {
      */
     removePropertyChangeListenerSync(var0: string | null, var1: java_beans_PropertyChangeListener | JavaInterfaceProxy<java_beans_PropertyChangeListenerInterface> | null): void;
     /**
-     * @return original return type: 'java.beans.PropertyChangeListener[]'
-     */
-    getPropertyChangeListeners(): Promise<(java_beans_PropertyChangeListener | null)[] | null>;
-    /**
-     * @return original return type: 'java.beans.PropertyChangeListener[]'
-     */
-    getPropertyChangeListenersSync(): (java_beans_PropertyChangeListener | null)[] | null;
-    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.beans.PropertyChangeListener[]'
      */
@@ -301,6 +293,14 @@ export declare class ToolkitClass extends JavaClass {
      * @return original return type: 'java.beans.PropertyChangeListener[]'
      */
     getPropertyChangeListenersSync(var0: string | null): (java_beans_PropertyChangeListener | null)[] | null;
+    /**
+     * @return original return type: 'java.beans.PropertyChangeListener[]'
+     */
+    getPropertyChangeListeners(): Promise<(java_beans_PropertyChangeListener | null)[] | null>;
+    /**
+     * @return original return type: 'java.beans.PropertyChangeListener[]'
+     */
+    getPropertyChangeListenersSync(): (java_beans_PropertyChangeListener | null)[] | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -334,16 +334,6 @@ export declare class ToolkitClass extends JavaClass {
      */
     getFontListSync(): (string | null)[] | null;
     /**
-     * @param var0 original type: 'java.net.URL'
-     * @return original return type: 'java.awt.Image'
-     */
-    getImage(var0: java_net_URL | null): Promise<java_awt_Image | null>;
-    /**
-     * @param var0 original type: 'java.net.URL'
-     * @return original return type: 'java.awt.Image'
-     */
-    getImageSync(var0: java_net_URL | null): java_awt_Image | null;
-    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.awt.Image'
      */
@@ -353,6 +343,16 @@ export declare class ToolkitClass extends JavaClass {
      * @return original return type: 'java.awt.Image'
      */
     getImageSync(var0: string | null): java_awt_Image | null;
+    /**
+     * @param var0 original type: 'java.net.URL'
+     * @return original return type: 'java.awt.Image'
+     */
+    getImage(var0: java_net_URL | null): Promise<java_awt_Image | null>;
+    /**
+     * @param var0 original type: 'java.net.URL'
+     * @return original return type: 'java.awt.Image'
+     */
+    getImageSync(var0: java_net_URL | null): java_awt_Image | null;
     /**
      * @param var0 original type: 'java.awt.Image'
      * @param var1 original type: 'int'
@@ -516,14 +516,6 @@ export declare class ToolkitClass extends JavaClass {
      */
     removeAWTEventListenerSync(var0: java_awt_event_AWTEventListener | JavaInterfaceProxy<java_awt_event_AWTEventListenerInterface> | null): void;
     /**
-     * @return original return type: 'java.awt.event.AWTEventListener[]'
-     */
-    getAWTEventListeners(): Promise<(java_awt_event_AWTEventListener | null)[] | null>;
-    /**
-     * @return original return type: 'java.awt.event.AWTEventListener[]'
-     */
-    getAWTEventListenersSync(): (java_awt_event_AWTEventListener | null)[] | null;
-    /**
      * @param var0 original type: 'long'
      * @return original return type: 'java.awt.event.AWTEventListener[]'
      */
@@ -533,6 +525,14 @@ export declare class ToolkitClass extends JavaClass {
      * @return original return type: 'java.awt.event.AWTEventListener[]'
      */
     getAWTEventListenersSync(var0: java_lang_Long | bigint | number): (java_awt_event_AWTEventListener | null)[] | null;
+    /**
+     * @return original return type: 'java.awt.event.AWTEventListener[]'
+     */
+    getAWTEventListeners(): Promise<(java_awt_event_AWTEventListener | null)[] | null>;
+    /**
+     * @return original return type: 'java.awt.event.AWTEventListener[]'
+     */
+    getAWTEventListenersSync(): (java_awt_event_AWTEventListener | null)[] | null;
     /**
      * @param var0 original type: 'java.awt.im.InputMethodHighlight'
      * @return original return type: 'java.util.Map'

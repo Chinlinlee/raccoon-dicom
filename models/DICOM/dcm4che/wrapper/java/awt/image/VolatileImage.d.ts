@@ -86,6 +86,24 @@ export declare class VolatileImageClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
+    getHeight(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getHeightSync(): number;
+    /**
+     * @param var0 original type: 'java.awt.image.ImageObserver'
+     * @return original return type: 'int'
+     */
+    getHeight(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): Promise<number>;
+    /**
+     * @param var0 original type: 'java.awt.image.ImageObserver'
+     * @return original return type: 'int'
+     */
+    getHeightSync(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): number;
+    /**
+     * @return original return type: 'int'
+     */
     getWidth(): Promise<number>;
     /**
      * @return original return type: 'int'
@@ -104,21 +122,11 @@ export declare class VolatileImageClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    getHeight(): Promise<number>;
+    getTransparency(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    getHeightSync(): number;
-    /**
-     * @param var0 original type: 'java.awt.image.ImageObserver'
-     * @return original return type: 'int'
-     */
-    getHeight(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.awt.image.ImageObserver'
-     * @return original return type: 'int'
-     */
-    getHeightSync(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): number;
+    getTransparencySync(): number;
     /**
      * @return original return type: 'java.awt.Graphics2D'
      */
@@ -127,14 +135,6 @@ export declare class VolatileImageClass extends JavaClass {
      * @return original return type: 'java.awt.Graphics2D'
      */
     createGraphicsSync(): java_awt_Graphics2D | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getTransparency(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getTransparencySync(): number;
     /**
      * @return original return type: 'java.awt.Graphics'
      */

@@ -4,13 +4,13 @@ import { Integer as java_lang_Integer } from "./../lang/Integer";
 import { Window$Type as java_awt_Window$Type } from "./Window$Type";
 import { Dimension as java_awt_Dimension } from "./Dimension";
 import { Locale as java_util_Locale } from "./../util/Locale";
-import { Shape as java_awt_Shape, ShapeInterface as java_awt_ShapeInterface } from "./Shape";
 import { Rectangle as java_awt_Rectangle } from "./Rectangle";
 import { Point as java_awt_Point } from "./Point";
 import { Color as java_awt_Color } from "./Color";
 import { PropertyChangeListener as java_beans_PropertyChangeListener, PropertyChangeListenerInterface as java_beans_PropertyChangeListenerInterface } from "./../beans/PropertyChangeListener";
 import { EventListener as java_util_EventListener } from "./../util/EventListener";
 import { Class as java_lang_Class } from "./../lang/Class";
+import { Shape as java_awt_Shape, ShapeInterface as java_awt_ShapeInterface } from "./Shape";
 import { Boolean as java_lang_Boolean } from "./../lang/Boolean";
 import { Toolkit as java_awt_Toolkit } from "./Toolkit";
 import { List as java_util_List, ListInterface as java_util_ListInterface } from "./../util/List";
@@ -157,6 +157,16 @@ export declare class WindowClass extends JavaClass {
      */
     getOwnerSync(): Window | null;
     /**
+     * @param var0 original type: 'java.awt.Dimension'
+     * @return original return type: 'void'
+     */
+    setSize(var0: java_awt_Dimension | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.Dimension'
+     * @return original return type: 'void'
+     */
+    setSizeSync(var0: java_awt_Dimension | null): void;
+    /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'void'
@@ -168,16 +178,6 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'void'
      */
     setSizeSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'java.awt.Dimension'
-     * @return original return type: 'void'
-     */
-    setSize(var0: java_awt_Dimension | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Dimension'
-     * @return original return type: 'void'
-     */
-    setSizeSync(var0: java_awt_Dimension | null): void;
     /**
      * @return original return type: 'java.util.Locale'
      */
@@ -195,29 +195,15 @@ export declare class WindowClass extends JavaClass {
      */
     disposeSync(): void;
     /**
-     * @return original return type: 'java.awt.Shape'
-     */
-    getShape(): Promise<java_awt_Shape | null>;
-    /**
-     * @return original return type: 'java.awt.Shape'
-     */
-    getShapeSync(): java_awt_Shape | null;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
+     * @param var0 original type: 'java.awt.Window$Type'
      * @return original return type: 'void'
      */
-    setBounds(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<void>;
+    setType(var0: java_awt_Window$Type | null): Promise<void>;
     /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'int'
+     * @param var0 original type: 'java.awt.Window$Type'
      * @return original return type: 'void'
      */
-    setBoundsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): void;
+    setTypeSync(var0: java_awt_Window$Type | null): void;
     /**
      * @param var0 original type: 'java.awt.Rectangle'
      * @return original return type: 'void'
@@ -235,6 +221,22 @@ export declare class WindowClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'void'
      */
+    setBounds(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setBoundsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'int'
+     * @return original return type: 'void'
+     */
     reshape(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): Promise<void>;
     /**
      * @param var0 original type: 'int'
@@ -244,6 +246,16 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'void'
      */
     reshapeSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'java.awt.Point'
+     * @return original return type: 'void'
+     */
+    setLocation(var0: java_awt_Point | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.Point'
+     * @return original return type: 'void'
+     */
+    setLocationSync(var0: java_awt_Point | null): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -256,16 +268,6 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'void'
      */
     setLocationSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'java.awt.Point'
-     * @return original return type: 'void'
-     */
-    setLocation(var0: java_awt_Point | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Point'
-     * @return original return type: 'void'
-     */
-    setLocationSync(var0: java_awt_Point | null): void;
     /**
      * @param var0 original type: 'java.awt.Color'
      * @return original return type: 'void'
@@ -324,6 +326,14 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isAlwaysOnTopSupportedSync(): boolean;
+    /**
+     * @return original return type: 'java.awt.Shape'
+     */
+    getShape(): Promise<java_awt_Shape | null>;
+    /**
+     * @return original return type: 'java.awt.Shape'
+     */
+    getShapeSync(): java_awt_Shape | null;
     /**
      * @param var0 original type: 'java.awt.Shape'
      * @return original return type: 'void'
@@ -561,16 +571,6 @@ export declare class WindowClass extends JavaClass {
      */
     getFocusableWindowStateSync(): boolean;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    applyResourceBundle(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    applyResourceBundleSync(var0: string | null): void;
-    /**
      * @param var0 original type: 'java.util.ResourceBundle'
      * @return original return type: 'void'
      */
@@ -580,6 +580,16 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'void'
      */
     applyResourceBundleSync(var0: java_util_ResourceBundle | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    applyResourceBundle(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    applyResourceBundleSync(var0: string | null): void;
     /**
      * @param var0 original type: 'java.awt.event.WindowListener'
      * @return original return type: 'void'
@@ -622,6 +632,16 @@ export declare class WindowClass extends JavaClass {
     setModalExclusionTypeSync(var0: java_awt_Dialog$ModalExclusionType | null): void;
     /**
      * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    createBufferStrategy(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    createBufferStrategySync(var0: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'int'
      * @param var1 original type: 'java.awt.BufferCapabilities'
      * @return original return type: 'void'
      */
@@ -632,16 +652,6 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'void'
      */
     createBufferStrategySync(var0: java_lang_Integer | number, var1: java_awt_BufferCapabilities | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    createBufferStrategy(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    createBufferStrategySync(var0: java_lang_Integer | number): void;
     /**
      * @return original return type: 'java.awt.image.BufferStrategy'
      */
@@ -880,16 +890,6 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isLocationByPlatformSync(): boolean;
-    /**
-     * @param var0 original type: 'java.awt.Window$Type'
-     * @return original return type: 'void'
-     */
-    setType(var0: java_awt_Window$Type | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Window$Type'
-     * @return original return type: 'void'
-     */
-    setTypeSync(var0: java_awt_Window$Type | null): void;
     /**
      * @param var0 original type: 'java.awt.Component'
      * @return original return type: 'java.awt.Component'
@@ -1709,13 +1709,13 @@ export declare class WindowClass extends JavaClass {
      */
     isValidSync(): boolean;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @return original return type: 'int'
      */
-    getColorModel(): Promise<java_awt_image_ColorModel | null>;
+    getHeight(): Promise<number>;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @return original return type: 'int'
      */
-    getColorModelSync(): java_awt_image_ColorModel | null;
+    getHeightSync(): number;
     /**
      * @return original return type: 'int'
      */
@@ -1727,11 +1727,27 @@ export declare class WindowClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    getHeight(): Promise<number>;
+    getX(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    getHeightSync(): number;
+    getXSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getY(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getYSync(): number;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModel(): Promise<java_awt_image_ColorModel | null>;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModelSync(): java_awt_image_ColorModel | null;
     /**
      * @return original return type: 'java.awt.Graphics'
      */
@@ -1762,22 +1778,6 @@ export declare class WindowClass extends JavaClass {
      * @return original return type: 'java.awt.Image'
      */
     createImageSync(var0: java_awt_image_ImageProducer | JavaInterfaceProxy<java_awt_image_ImageProducerInterface> | null): java_awt_Image | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getX(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getXSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
-    getY(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getYSync(): number;
     /**
      * @param var0 original type: 'java.awt.Image'
      * @param var1 original type: 'int'

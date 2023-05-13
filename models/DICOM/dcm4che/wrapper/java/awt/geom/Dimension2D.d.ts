@@ -42,19 +42,19 @@ export declare class Dimension2DClass extends JavaClass {
     /**
      * @return original return type: 'double'
      */
-    getWidth(): Promise<number>;
-    /**
-     * @return original return type: 'double'
-     */
-    getWidthSync(): number;
-    /**
-     * @return original return type: 'double'
-     */
     getHeight(): Promise<number>;
     /**
      * @return original return type: 'double'
      */
     getHeightSync(): number;
+    /**
+     * @return original return type: 'double'
+     */
+    getWidth(): Promise<number>;
+    /**
+     * @return original return type: 'double'
+     */
+    getWidthSync(): number;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

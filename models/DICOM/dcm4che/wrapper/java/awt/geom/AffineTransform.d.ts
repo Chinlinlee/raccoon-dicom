@@ -243,6 +243,18 @@ export declare class AffineTransformClass extends JavaClass {
     /**
      * @param var0 original type: 'double'
      * @param var1 original type: 'double'
+     * @return original return type: 'void'
+     */
+    rotate(var0: java_lang_Double | number, var1: java_lang_Double | number): Promise<void>;
+    /**
+     * @param var0 original type: 'double'
+     * @param var1 original type: 'double'
+     * @return original return type: 'void'
+     */
+    rotateSync(var0: java_lang_Double | number, var1: java_lang_Double | number): void;
+    /**
+     * @param var0 original type: 'double'
+     * @param var1 original type: 'double'
      * @param var2 original type: 'double'
      * @param var3 original type: 'double'
      * @return original return type: 'void'
@@ -256,28 +268,6 @@ export declare class AffineTransformClass extends JavaClass {
      * @return original return type: 'void'
      */
     rotateSync(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): void;
-    /**
-     * @param var0 original type: 'double'
-     * @param var1 original type: 'double'
-     * @return original return type: 'void'
-     */
-    rotate(var0: java_lang_Double | number, var1: java_lang_Double | number): Promise<void>;
-    /**
-     * @param var0 original type: 'double'
-     * @param var1 original type: 'double'
-     * @return original return type: 'void'
-     */
-    rotateSync(var0: java_lang_Double | number, var1: java_lang_Double | number): void;
-    /**
-     * @param var0 original type: 'double[]'
-     * @return original return type: 'void'
-     */
-    getMatrix(var0: (java_lang_Double | number)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'double[]'
-     * @return original return type: 'void'
-     */
-    getMatrixSync(var0: (java_lang_Double | number)[] | null): void;
     /**
      * @param var0 original type: 'double'
      * @param var1 original type: 'double'
@@ -374,6 +364,16 @@ export declare class AffineTransformClass extends JavaClass {
     setToRotationSync(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): void;
     /**
      * @param var0 original type: 'double'
+     * @return original return type: 'void'
+     */
+    setToRotation(var0: java_lang_Double | number): Promise<void>;
+    /**
+     * @param var0 original type: 'double'
+     * @return original return type: 'void'
+     */
+    setToRotationSync(var0: java_lang_Double | number): void;
+    /**
+     * @param var0 original type: 'double'
      * @param var1 original type: 'double'
      * @param var2 original type: 'double'
      * @return original return type: 'void'
@@ -387,15 +387,15 @@ export declare class AffineTransformClass extends JavaClass {
      */
     setToRotationSync(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number): void;
     /**
-     * @param var0 original type: 'double'
+     * @param var0 original type: 'int'
      * @return original return type: 'void'
      */
-    setToRotation(var0: java_lang_Double | number): Promise<void>;
+    setToQuadrantRotation(var0: java_lang_Integer | number): Promise<void>;
     /**
-     * @param var0 original type: 'double'
+     * @param var0 original type: 'int'
      * @return original return type: 'void'
      */
-    setToRotationSync(var0: java_lang_Double | number): void;
+    setToQuadrantRotationSync(var0: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'double'
@@ -410,16 +410,6 @@ export declare class AffineTransformClass extends JavaClass {
      * @return original return type: 'void'
      */
     setToQuadrantRotationSync(var0: java_lang_Integer | number, var1: java_lang_Double | number, var2: java_lang_Double | number): void;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setToQuadrantRotation(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setToQuadrantRotationSync(var0: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'double'
      * @param var1 original type: 'double'
@@ -470,6 +460,22 @@ export declare class AffineTransformClass extends JavaClass {
      * @param var0 original type: 'double'
      * @param var1 original type: 'double'
      * @param var2 original type: 'double'
+     * @param var3 original type: 'double'
+     * @return original return type: 'java.awt.geom.AffineTransform'
+     */
+    static getRotateInstance(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): Promise<AffineTransform | null>;
+    /**
+     * @param var0 original type: 'double'
+     * @param var1 original type: 'double'
+     * @param var2 original type: 'double'
+     * @param var3 original type: 'double'
+     * @return original return type: 'java.awt.geom.AffineTransform'
+     */
+    static getRotateInstanceSync(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): AffineTransform | null;
+    /**
+     * @param var0 original type: 'double'
+     * @param var1 original type: 'double'
+     * @param var2 original type: 'double'
      * @return original return type: 'java.awt.geom.AffineTransform'
      */
     static getRotateInstance(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number): Promise<AffineTransform | null>;
@@ -492,22 +498,6 @@ export declare class AffineTransformClass extends JavaClass {
      * @return original return type: 'java.awt.geom.AffineTransform'
      */
     static getRotateInstanceSync(var0: java_lang_Double | number, var1: java_lang_Double | number): AffineTransform | null;
-    /**
-     * @param var0 original type: 'double'
-     * @param var1 original type: 'double'
-     * @param var2 original type: 'double'
-     * @param var3 original type: 'double'
-     * @return original return type: 'java.awt.geom.AffineTransform'
-     */
-    static getRotateInstance(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): Promise<AffineTransform | null>;
-    /**
-     * @param var0 original type: 'double'
-     * @param var1 original type: 'double'
-     * @param var2 original type: 'double'
-     * @param var3 original type: 'double'
-     * @return original return type: 'java.awt.geom.AffineTransform'
-     */
-    static getRotateInstanceSync(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): AffineTransform | null;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.awt.geom.AffineTransform'
@@ -565,6 +555,16 @@ export declare class AffineTransformClass extends JavaClass {
      */
     getDeterminantSync(): number;
     /**
+     * @param var0 original type: 'double[]'
+     * @return original return type: 'void'
+     */
+    getMatrix(var0: (java_lang_Double | number)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'double[]'
+     * @return original return type: 'void'
+     */
+    getMatrixSync(var0: (java_lang_Double | number)[] | null): void;
+    /**
      * @return original return type: 'double'
      */
     getScaleX(): Promise<number>;
@@ -614,6 +614,16 @@ export declare class AffineTransformClass extends JavaClass {
     getTranslateYSync(): number;
     /**
      * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    quadrantRotate(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    quadrantRotateSync(var0: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'int'
      * @param var1 original type: 'double'
      * @param var2 original type: 'double'
      * @return original return type: 'void'
@@ -626,16 +636,6 @@ export declare class AffineTransformClass extends JavaClass {
      * @return original return type: 'void'
      */
     quadrantRotateSync(var0: java_lang_Integer | number, var1: java_lang_Double | number, var2: java_lang_Double | number): void;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    quadrantRotate(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    quadrantRotateSync(var0: java_lang_Integer | number): void;
     /**
      * @return original return type: 'void'
      */
@@ -681,6 +681,18 @@ export declare class AffineTransformClass extends JavaClass {
      */
     invertSync(): void;
     /**
+     * @param var0 original type: 'java.awt.geom.Point2D'
+     * @param var1 original type: 'java.awt.geom.Point2D'
+     * @return original return type: 'java.awt.geom.Point2D'
+     */
+    inverseTransform(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): Promise<java_awt_geom_Point2D | null>;
+    /**
+     * @param var0 original type: 'java.awt.geom.Point2D'
+     * @param var1 original type: 'java.awt.geom.Point2D'
+     * @return original return type: 'java.awt.geom.Point2D'
+     */
+    inverseTransformSync(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): java_awt_geom_Point2D | null;
+    /**
      * @param var0 original type: 'double[]'
      * @param var1 original type: 'int'
      * @param var2 original type: 'double[]'
@@ -699,30 +711,6 @@ export declare class AffineTransformClass extends JavaClass {
      */
     inverseTransformSync(var0: (java_lang_Double | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null, var3: java_lang_Integer | number, var4: java_lang_Integer | number): void;
     /**
-     * @param var0 original type: 'java.awt.geom.Point2D'
-     * @param var1 original type: 'java.awt.geom.Point2D'
-     * @return original return type: 'java.awt.geom.Point2D'
-     */
-    inverseTransform(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): Promise<java_awt_geom_Point2D | null>;
-    /**
-     * @param var0 original type: 'java.awt.geom.Point2D'
-     * @param var1 original type: 'java.awt.geom.Point2D'
-     * @return original return type: 'java.awt.geom.Point2D'
-     */
-    inverseTransformSync(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): java_awt_geom_Point2D | null;
-    /**
-     * @param var0 original type: 'java.awt.geom.Point2D'
-     * @param var1 original type: 'java.awt.geom.Point2D'
-     * @return original return type: 'java.awt.geom.Point2D'
-     */
-    deltaTransform(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): Promise<java_awt_geom_Point2D | null>;
-    /**
-     * @param var0 original type: 'java.awt.geom.Point2D'
-     * @param var1 original type: 'java.awt.geom.Point2D'
-     * @return original return type: 'java.awt.geom.Point2D'
-     */
-    deltaTransformSync(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): java_awt_geom_Point2D | null;
-    /**
      * @param var0 original type: 'double[]'
      * @param var1 original type: 'int'
      * @param var2 original type: 'double[]'
@@ -740,6 +728,18 @@ export declare class AffineTransformClass extends JavaClass {
      * @return original return type: 'void'
      */
     deltaTransformSync(var0: (java_lang_Double | number)[] | null, var1: java_lang_Integer | number, var2: (java_lang_Double | number)[] | null, var3: java_lang_Integer | number, var4: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'java.awt.geom.Point2D'
+     * @param var1 original type: 'java.awt.geom.Point2D'
+     * @return original return type: 'java.awt.geom.Point2D'
+     */
+    deltaTransform(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): Promise<java_awt_geom_Point2D | null>;
+    /**
+     * @param var0 original type: 'java.awt.geom.Point2D'
+     * @param var1 original type: 'java.awt.geom.Point2D'
+     * @return original return type: 'java.awt.geom.Point2D'
+     */
+    deltaTransformSync(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): java_awt_geom_Point2D | null;
     /**
      * @param var0 original type: 'java.awt.Shape'
      * @return original return type: 'java.awt.Shape'

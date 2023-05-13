@@ -244,6 +244,24 @@ export declare class MouseEventClass extends JavaClass {
      */
     paramStringSync(): string | null;
     /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.String'
+     */
+    static getMouseModifiersText(var0: java_lang_Integer | number): Promise<string | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.String'
+     */
+    static getMouseModifiersTextSync(var0: java_lang_Integer | number): string | null;
+    /**
+     * @return original return type: 'java.awt.Point'
+     */
+    getPoint(): Promise<java_awt_Point | null>;
+    /**
+     * @return original return type: 'java.awt.Point'
+     */
+    getPointSync(): java_awt_Point | null;
+    /**
      * @return original return type: 'int'
      */
     getX(): Promise<number>;
@@ -307,24 +325,6 @@ export declare class MouseEventClass extends JavaClass {
      * @return original return type: 'int'
      */
     getModifiersExSync(): number;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.String'
-     */
-    static getMouseModifiersText(var0: java_lang_Integer | number): Promise<string | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.String'
-     */
-    static getMouseModifiersTextSync(var0: java_lang_Integer | number): string | null;
-    /**
-     * @return original return type: 'java.awt.Point'
-     */
-    getPoint(): Promise<java_awt_Point | null>;
-    /**
-     * @return original return type: 'java.awt.Point'
-     */
-    getPointSync(): java_awt_Point | null;
     /**
      * @return original return type: 'int'
      */

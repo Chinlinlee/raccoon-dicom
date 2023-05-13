@@ -1,8 +1,8 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
 import { Code as org_dcm4che3_data_Code } from "./Code";
 import { IOD$DataElementType as org_dcm4che3_data_IOD$DataElementType } from "./IOD$DataElementType";
-import { IOD$Condition as org_dcm4che3_data_IOD$Condition } from "./IOD$Condition";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
+import { IOD$Condition as org_dcm4che3_data_IOD$Condition } from "./IOD$Condition";
 import { UnaryOperator as java_util_function_UnaryOperator, UnaryOperatorInterface as java_util_function_UnaryOperatorInterface } from "./../../../java/util/function/UnaryOperator";
 import { List as java_util_List } from "./../../../java/util/List";
 import { IntFunction as java_util_function_IntFunction, IntFunctionInterface as java_util_function_IntFunctionInterface } from "./../../../java/util/function/IntFunction";
@@ -69,23 +69,15 @@ export declare class IODClass extends JavaClass {
      */
     parseSync(var0: string | null): void;
     /**
-     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
-     */
-    getCondition(): Promise<org_dcm4che3_data_IOD$Condition | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
-     */
-    getConditionSync(): org_dcm4che3_data_IOD$Condition | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
+     * @param var0 original type: 'int'
      * @return original return type: 'void'
      */
-    setType(var0: org_dcm4che3_data_IOD$DataElementType | null): Promise<void>;
+    setLineNumber(var0: java_lang_Integer | number): Promise<void>;
     /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
+     * @param var0 original type: 'int'
      * @return original return type: 'void'
      */
-    setTypeSync(var0: org_dcm4che3_data_IOD$DataElementType | null): void;
+    setLineNumberSync(var0: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
      * @return original return type: 'void'
@@ -97,15 +89,23 @@ export declare class IODClass extends JavaClass {
      */
     setConditionSync(var0: org_dcm4che3_data_IOD$Condition | null): void;
     /**
-     * @param var0 original type: 'int'
+     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
      * @return original return type: 'void'
      */
-    setLineNumber(var0: java_lang_Integer | number): Promise<void>;
+    setType(var0: org_dcm4che3_data_IOD$DataElementType | null): Promise<void>;
     /**
-     * @param var0 original type: 'int'
+     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
      * @return original return type: 'void'
      */
-    setLineNumberSync(var0: java_lang_Integer | number): void;
+    setTypeSync(var0: org_dcm4che3_data_IOD$DataElementType | null): void;
+    /**
+     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
+     */
+    getCondition(): Promise<org_dcm4che3_data_IOD$Condition | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
+     */
+    getConditionSync(): org_dcm4che3_data_IOD$Condition | null;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'

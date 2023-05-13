@@ -53,13 +53,21 @@ export declare class CodeClass extends JavaClass {
      */
     getCodeValueSync(): string | null;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.data.Attributes'
      */
-    getCodingSchemeDesignator(): Promise<string | null>;
+    toItem(): Promise<org_dcm4che3_data_Attributes | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Attributes'
+     */
+    toItemSync(): org_dcm4che3_data_Attributes | null;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getCodingSchemeDesignatorSync(): string | null;
+    getCodeMeaning(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodeMeaningSync(): string | null;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -71,19 +79,11 @@ export declare class CodeClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
-    getCodeMeaning(): Promise<string | null>;
+    getCodingSchemeDesignator(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getCodeMeaningSync(): string | null;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
-    toItem(): Promise<org_dcm4che3_data_Attributes | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
-    toItemSync(): org_dcm4che3_data_Attributes | null;
+    getCodingSchemeDesignatorSync(): string | null;
     /**
      * @param var0 original type: 'org.dcm4che3.data.Code'
      * @return original return type: 'boolean'
@@ -155,11 +155,6 @@ export declare class CodeClass extends JavaClass {
     static newInstanceAsync(var0: org_dcm4che3_data_Attributes | null): Promise<Code>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.data.Code'
-     */
-    static newInstanceAsync(var0: string | null): Promise<Code>;
-    /**
-     * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'java.lang.String'
      * @param var3 original type: 'java.lang.String'
@@ -167,13 +162,14 @@ export declare class CodeClass extends JavaClass {
      */
     static newInstanceAsync(var0: string | null, var1: string | null, var2: string | null, var3: string | null): Promise<Code>;
     /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.data.Code'
+     */
+    static newInstanceAsync(var0: string | null): Promise<Code>;
+    /**
      * @param var0 original type: 'org.dcm4che3.data.Attributes'
      */
     constructor(var0: org_dcm4che3_data_Attributes | null);
-    /**
-     * @param var0 original type: 'java.lang.String'
-     */
-    constructor(var0: string | null);
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -181,6 +177,10 @@ export declare class CodeClass extends JavaClass {
      * @param var3 original type: 'java.lang.String'
      */
     constructor(var0: string | null, var1: string | null, var2: string | null, var3: string | null);
+    /**
+     * @param var0 original type: 'java.lang.String'
+     */
+    constructor(var0: string | null);
 }
 declare const Code_base: typeof CodeClass;
 /**

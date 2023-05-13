@@ -1,7 +1,7 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { Menu as java_awt_Menu } from "./Menu";
-import { Integer as java_lang_Integer } from "./../lang/Integer";
 import { MenuComponent as java_awt_MenuComponent } from "./MenuComponent";
+import { Integer as java_lang_Integer } from "./../lang/Integer";
 import { AccessibleContext as javax_accessibility_AccessibleContext } from "./../../javax/accessibility/AccessibleContext";
 import { MenuItem as java_awt_MenuItem } from "./MenuItem";
 import { MenuShortcut as java_awt_MenuShortcut } from "./MenuShortcut";
@@ -29,16 +29,6 @@ export declare class MenuBarClass extends JavaClass {
      */
     addSync(var0: java_awt_Menu | null): java_awt_Menu | null;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    remove(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    removeSync(var0: java_lang_Integer | number): void;
-    /**
      * @param var0 original type: 'java.awt.MenuComponent'
      * @return original return type: 'void'
      */
@@ -49,29 +39,15 @@ export declare class MenuBarClass extends JavaClass {
      */
     removeSync(var0: java_awt_MenuComponent | null): void;
     /**
+     * @param var0 original type: 'int'
      * @return original return type: 'void'
      */
-    addNotify(): Promise<void>;
+    remove(var0: java_lang_Integer | number): Promise<void>;
     /**
+     * @param var0 original type: 'int'
      * @return original return type: 'void'
      */
-    addNotifySync(): void;
-    /**
-     * @return original return type: 'void'
-     */
-    removeNotify(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    removeNotifySync(): void;
-    /**
-     * @return original return type: 'javax.accessibility.AccessibleContext'
-     */
-    getAccessibleContext(): Promise<javax_accessibility_AccessibleContext | null>;
-    /**
-     * @return original return type: 'javax.accessibility.AccessibleContext'
-     */
-    getAccessibleContextSync(): javax_accessibility_AccessibleContext | null;
+    removeSync(var0: java_lang_Integer | number): void;
     /**
      * @return original return type: 'int'
      */
@@ -116,6 +92,30 @@ export declare class MenuBarClass extends JavaClass {
      * @return original return type: 'void'
      */
     setHelpMenuSync(var0: java_awt_Menu | null): void;
+    /**
+     * @return original return type: 'void'
+     */
+    addNotify(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    addNotifySync(): void;
+    /**
+     * @return original return type: 'void'
+     */
+    removeNotify(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    removeNotifySync(): void;
+    /**
+     * @return original return type: 'javax.accessibility.AccessibleContext'
+     */
+    getAccessibleContext(): Promise<javax_accessibility_AccessibleContext | null>;
+    /**
+     * @return original return type: 'javax.accessibility.AccessibleContext'
+     */
+    getAccessibleContextSync(): javax_accessibility_AccessibleContext | null;
     /**
      * @param var0 original type: 'java.awt.MenuShortcut'
      * @return original return type: 'java.awt.MenuItem'
