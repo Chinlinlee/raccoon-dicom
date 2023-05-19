@@ -143,6 +143,32 @@ export declare class BulkDataClass extends JavaClass {
      */
     writeToSync(var0: org_dcm4che3_io_DicomOutputStream | null, var1: org_dcm4che3_data_VR | null): void;
     /**
+     * @return original return type: 'java.lang.String'
+     */
+    uriWithoutOffsetAndLength(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    uriWithoutOffsetAndLengthSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getURI(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getURISync(): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setURI(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setURISync(var0: string | null): void;
+    /**
      * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
      * @param var1 original type: 'boolean'
      * @param var2 original type: 'org.dcm4che3.data.VR'
@@ -156,24 +182,6 @@ export declare class BulkDataClass extends JavaClass {
      * @return original return type: 'int'
      */
     getEncodedLengthSync(var0: org_dcm4che3_io_DicomEncodingOptions | null, var1: java_lang_Boolean | boolean, var2: org_dcm4che3_data_VR | null): number;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setURI(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setURISync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getURI(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getURISync(): string | null;
     /**
      * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
      * @param var1 original type: 'boolean'
@@ -191,6 +199,14 @@ export declare class BulkDataClass extends JavaClass {
     /**
      * @return original return type: 'long'
      */
+    longLength(): Promise<number>;
+    /**
+     * @return original return type: 'long'
+     */
+    longLengthSync(): number;
+    /**
+     * @return original return type: 'long'
+     */
     getSegmentEnd(): Promise<number>;
     /**
      * @return original return type: 'long'
@@ -204,22 +220,6 @@ export declare class BulkDataClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     getUUIDSync(): string | null;
-    /**
-     * @return original return type: 'long'
-     */
-    longLength(): Promise<number>;
-    /**
-     * @return original return type: 'long'
-     */
-    longLengthSync(): number;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    uriWithoutOffsetAndLength(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    uriWithoutOffsetAndLengthSync(): string | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

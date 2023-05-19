@@ -162,6 +162,14 @@ export declare class FragmentsClass extends JavaClass {
      */
     getEncodedLengthSync(var0: org_dcm4che3_io_DicomEncodingOptions | null, var1: java_lang_Boolean | boolean, var2: org_dcm4che3_data_VR | null): number;
     /**
+     * @return original return type: 'org.dcm4che3.data.VR'
+     */
+    vr(): Promise<org_dcm4che3_data_VR | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.VR'
+     */
+    vrSync(): org_dcm4che3_data_VR | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
      * @param var1 original type: 'boolean'
      * @param var2 original type: 'org.dcm4che3.data.VR'
@@ -175,14 +183,6 @@ export declare class FragmentsClass extends JavaClass {
      * @return original return type: 'int'
      */
     calcLengthSync(var0: org_dcm4che3_io_DicomEncodingOptions | null, var1: java_lang_Boolean | boolean, var2: org_dcm4che3_data_VR | null): number;
-    /**
-     * @return original return type: 'org.dcm4che3.data.VR'
-     */
-    vr(): Promise<org_dcm4che3_data_VR | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.VR'
-     */
-    vrSync(): org_dcm4che3_data_VR | null;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'

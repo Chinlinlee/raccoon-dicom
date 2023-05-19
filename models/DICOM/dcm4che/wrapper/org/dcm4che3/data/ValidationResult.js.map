@@ -1,1 +1,1 @@
-{"version":3,"file":"ValidationResult.js","sourceRoot":"","sources":["../../../../java-wrapper/org/dcm4che3/data/ValidationResult.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAkTtE;;;;;;;;GAQG;AACH,MAAa,gBAAiB,SAAQ,IAAA,yBAAW,EAA+B,oCAAoC,CAAC;CACpH;AADD,4CACC;AACD,kBAAe,gBAAgB,CAAC"}
+{"version":3,"file":"ValidationResult.js","sourceRoot":"","sources":["../../../../../java-wrapper-json/org/dcm4che3/data/ValidationResult.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAkTtE;;;;;;;;GAQG;AACH,MAAa,gBAAiB,SAAQ,IAAA,yBAAW,EAA+B,oCAAoC,CAAC;CACpH;AADD,4CACC;AACD,kBAAe,gBAAgB,CAAC"}

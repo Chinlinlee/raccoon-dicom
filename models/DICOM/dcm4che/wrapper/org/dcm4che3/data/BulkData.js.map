@@ -1,1 +1,1 @@
-{"version":3,"file":"BulkData.js","sourceRoot":"","sources":["../../../../java-wrapper/org/dcm4che3/data/BulkData.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AAwW1F;;;;;;;;GAQG;AACH,MAAa,QAAS,SAAQ,IAAA,yBAAW,EAAuB,4BAA4B,CAAC;CAC5F;AADD,4BACC;AACD,kBAAe,QAAQ,CAAC"}
+{"version":3,"file":"BulkData.js","sourceRoot":"","sources":["../../../../../java-wrapper-json/org/dcm4che3/data/BulkData.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AAwW1F;;;;;;;;GAQG;AACH,MAAa,QAAS,SAAQ,IAAA,yBAAW,EAAuB,4BAA4B,CAAC;CAC5F;AADD,4BACC;AACD,kBAAe,QAAQ,CAAC"}

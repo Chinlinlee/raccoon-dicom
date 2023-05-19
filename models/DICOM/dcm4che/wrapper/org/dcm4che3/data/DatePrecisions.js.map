@@ -1,1 +1,1 @@
-{"version":3,"file":"DatePrecisions.js","sourceRoot":"","sources":["../../../../java-wrapper/org/dcm4che3/data/DatePrecisions.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAwHtE;;;;;;;;GAQG;AACH,MAAa,cAAe,SAAQ,IAAA,yBAAW,EAA6B,kCAAkC,CAAC;CAC9G;AADD,wCACC;AACD,kBAAe,cAAc,CAAC"}
+{"version":3,"file":"DatePrecisions.js","sourceRoot":"","sources":["../../../../../java-wrapper-json/org/dcm4che3/data/DatePrecisions.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAwHtE;;;;;;;;GAQG;AACH,MAAa,cAAe,SAAQ,IAAA,yBAAW,EAA6B,kCAAkC,CAAC;CAC9G;AADD,wCACC;AACD,kBAAe,cAAc,CAAC"}

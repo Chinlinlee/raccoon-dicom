@@ -1,1 +1,1 @@
-{"version":3,"file":"Attributes.js","sourceRoot":"","sources":["../../../../java-wrapper/org/dcm4che3/data/Attributes.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AAkoH1F;;;;;;;;GAQG;AACH,MAAa,UAAW,SAAQ,IAAA,yBAAW,EAAyB,8BAA8B,CAAC;CAClG;AADD,gCACC;AACD,kBAAe,UAAU,CAAC"}
+{"version":3,"file":"Attributes.js","sourceRoot":"","sources":["../../../../../java-wrapper-json/org/dcm4che3/data/Attributes.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AAkoH1F;;;;;;;;GAQG;AACH,MAAa,UAAW,SAAQ,IAAA,yBAAW,EAAyB,8BAA8B,CAAC;CAClG;AADD,gCACC;AACD,kBAAe,UAAU,CAAC"}
