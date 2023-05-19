@@ -78,10 +78,7 @@ function validateByJoi(joiSchema, field, joiOptions) {
     return async (req, res, next) => {
         try {
             let value = await joiSchema.validateAsync(req[field], joiOptions);
-            req[field] = {
-                ...req[field],
-                ...value["value"]
-            };
+            req[field] = value;
         } catch (err) {
             let message = {
                 Details: err.details[0].message,
