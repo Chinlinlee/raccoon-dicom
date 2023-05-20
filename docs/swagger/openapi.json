@@ -480,6 +480,42 @@
                 }
             }
         },
+        "/dicom-web/workitems": {
+            "post": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction creates a Workitem on the target Worklist. It corresponds to the UPS DIMSE N-CREATE operation. See [Create Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.4)\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/workitem"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The workitem create successfully"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation. See [Retrieve Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.5)\n",
+                "responses": {
+                    "200": {
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/dicom-web/studies/{studyUID}/bulkdata": {
             "get": {
                 "tags": [
@@ -1214,6 +1250,14 @@
             "StudyID": {
                 "name": "00200010",
                 "description": "User or equipment generated Study identifier.",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "workitem": {
+                "name": "workitem",
+                "description": "workitem instance UID",
                 "in": "query",
                 "schema": {
                     "type": "string"

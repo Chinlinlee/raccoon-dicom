@@ -36,7 +36,7 @@ function timeQuery(iQuery, colName) {
     if (dashIndex === 0) { // -HHMMSS
         let timeStr = value.substring(1);
         let time = getTimeFloatFromString(timeStr);
-        
+
         return getLessThanOrEqualTimeQuery(time);
     } else if (dashIndex === value.length - 1) { // HHMMSS-
         let timeStr = value.substring(0, dashIndex);
@@ -63,7 +63,7 @@ function timeQuery(iQuery, colName) {
  */
 function getEqualTimeQuery(time) {
     return {
-        $eq : time
+        $eq: time
     };
 }
 
@@ -83,7 +83,7 @@ function getGreaterThanOrEqualTimeQuery(time) {
  */
 function getLessThanOrEqualTimeQuery(time) {
     return {
-        $lte : time
+        $lte: time
     };
 }
 

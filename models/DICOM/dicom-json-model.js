@@ -205,6 +205,14 @@ class DicomJsonModel {
         }
     }
 
+    /**
+     * 
+     * @param {string} tag 
+     */
+    getString(tag) {
+        return String(_.get(this.dicomJson, `${tag}.Value.0`, ""));
+    }
+
     getMediaStorageInfo() {
         return {
             "00880130": {

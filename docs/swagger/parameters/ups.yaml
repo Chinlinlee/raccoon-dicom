@@ -1,0 +1,8 @@
+components:
+    parameters:
+        "workitem":
+            name: "workitem"
+            description: workitem instance UID
+            in: query
+            schema:
+                type: string
