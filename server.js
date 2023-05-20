@@ -15,6 +15,7 @@ const passport = require("passport");
 let io = require("./socket").init();
 const { raccoonConfig } = require("./config-class");
 require("dotenv");
+require('module-alias/register');
 
 app.use(compress());
 app.use(cookieParser());

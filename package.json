@@ -51,9 +51,15 @@
       }
     ]
   },
-  "keywords": [],
+  "keywords": [], 
   "author": "chinlinlee",
   "license": "MIT",
+  "_moduleAliases": {
+    "@dcm4che": "./models/DICOM/dcm4che/wrapper/org/dcm4che3",
+    "@java-wrapper": "./models/DICOM/dcm4che/wrapper",
+    "@models": "./models",
+    "@error": "./error"
+  },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",
     "archiver": "^5.3.1",
@@ -82,6 +88,7 @@
     "lodash": "^4.17.21",
     "log4js": "^6.9.1",
     "mkdirp": "^1.0.4",
+    "module-alias": "^2.2.2",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "mongoose": "^6.7.2",
