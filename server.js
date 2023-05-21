@@ -34,7 +34,7 @@ app.use(
 
 app.use(
     bodyParser.json({
-        type: ["application/json"]
+        type: ["application/json", "application/dicom+json"]
     })
 );
 
