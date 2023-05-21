@@ -49,8 +49,16 @@ for (let tag in tagsNeedStore.UPS) {
 workItemSchema.statics.getDicomJson = async function (queryOptions) {
     let workItemFields = getWorkItemFields();
 
+    let {
+        workItem
+    } = queryOptions.requestParams;
+
+    let query = workItem ? {
+        upsInstanceUID: workItem
+    } : queryOptions.query;
+
     try {
-        let docs = await mongoose.model("workItems").find(queryOptions.query, workItemFields)
+        let docs = await mongoose.model("workItems").find(query, workItemFields)
             .limit(queryOptions.limit)
             .skip(queryOptions.skip)
             .setOptions({

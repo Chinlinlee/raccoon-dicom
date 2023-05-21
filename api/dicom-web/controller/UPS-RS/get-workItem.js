@@ -13,7 +13,7 @@ class GetWorkItemController extends Controller {
         let apiLogger = new ApiLogger(this.request, "UPS-RS");
 
         apiLogger.addTokenValue();
-        apiLogger.logger.info(`Get workItem, query: ${this.queryToString()}`);
+        apiLogger.logger.info(`Get workItem, query: ${this.queryToString()}, param: ${this.paramsToString()}`);
         
         try {
             let getWorkItemService = new GetWorkItemService(this.request, this.response);

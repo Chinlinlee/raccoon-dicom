@@ -1,5 +1,5 @@
 /**
- * https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11
+ * https://dicom.nema.org/medical/dicom/current/output/html/part18.html#chapter_11
  * https://dicom.nema.org/medical/dicom/2019a/output/chtml/part18/sect_6.9.html
  * @author Chin-Lin, Lee <a5566qq2581@gmail.com>
  */
@@ -59,6 +59,48 @@ router.post("/workitems",
  */
 router.get("/workitems",
     require("./controller/UPS-RS/get-workItem")
+);
+
+/**
+ *  @openapi
+ *  /dicom-web/workitems/{workitemUID}:
+ *    get:
+ *      tags:
+ *        - UPS-RS
+ *      description: >
+ *          This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation.
+ *          See [Retrieve Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.5)
+ *      responses:
+ *        "200":
+ *           description: Query successfully
+ *           content:
+ *             "application/dicom+json":
+ *               schema:
+ *                 type: array
+ */
+router.get("/workitems/:workItem",
+    require("./controller/UPS-RS/get-workItem")
+);
+
+/**
+ *  @openapi
+ *  /dicom-web/workitems/{workitemUID}:
+ *    get:
+ *      tags:
+ *        - UPS-RS
+ *      description: >
+ *          This transaction modifies Attributes of an existing Workitem. It corresponds to the UPS DIMSE N-SET operation.
+ *          See [Update Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.6)
+ *      responses:
+ *        "200":
+ *           description: Query successfully
+ *           content:
+ *             "application/dicom+json":
+ *               schema:
+ *                 type: array
+ */
+router.post("/workitems/:workItem",
+    require("./controller/UPS-RS/update-workItem")
 );
 
 //#endregion

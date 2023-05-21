@@ -39,7 +39,17 @@ class GetWorkItemService {
 
         let docs = await workItemsModel.getDicomJson(queryOptions);
         
-        return docs;
+        return this.adjustDocs(docs);
+    }
+
+    async adjustDocs(docs) {
+        return docs.map( doc => {
+            _.set(doc, "00080016", {
+                vr: "UI",
+                Value: ["1.2.840.10008.5.1.4.34.6.1"]
+            });
+            return doc;
+        });
     }
 
     initQuery_() {
