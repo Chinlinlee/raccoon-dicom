@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const {
     GetWorkItemService
 } = require("./service/get-workItem.service");
@@ -18,6 +19,13 @@ class GetWorkItemController extends Controller {
         try {
             let getWorkItemService = new GetWorkItemService(this.request, this.response);
             let workItems = await getWorkItemService.getUps();
+
+            if (workItems.length === 0 && !_.get(this.request, "params.workItem")) {
+                return this.response.status(204).end();
+            } else if (workItems.length === 0) {
+                return this.response.status(404).end();
+            }
+
             return this.response.set("Content-Type", "application/dicom+json").status(200).json(workItems);
         } catch (e) {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
