@@ -1,6 +1,12 @@
 const DicomWebStatusCodes = {
+    "InvalidAttributeValue": "0106",
     "DuplicateSOPinstance": "0111",
-    "UPSNotScheduled": "C309"
+    "MissingAttribute": "0120",
+    "UPSMayNoLongerBeUpdated": "C300",
+    "UPSTransactionUIDNotCorrect": "C301",
+    "UPSDoesNotExist": "C307",
+    "UPSNotScheduled": "C309",
+    "UPSNotYetInProgress": "C310"
 };
 
 class DicomWebServiceError extends Error {
