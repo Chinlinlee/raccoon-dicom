@@ -25,7 +25,7 @@ let workItemSchema = new mongoose.Schema(
         }
     },
     {
-        strict: false,
+        strict: true,
         versionKey: false,
         toObject: {
             getters: true
@@ -35,6 +35,14 @@ let workItemSchema = new mongoose.Schema(
 
 for (let tag in tagsNeedStore.UPS) {
     let vr = tagsNeedStore.UPS[tag].vr;
+    let tagSchema = getVRSchema(vr);
+    workItemSchema.add({
+        [tag]: tagSchema
+    });
+}
+
+for (let tag in tagsNeedStore.Patient) {
+    let vr = tagsNeedStore.Patient[tag].vr;
     let tagSchema = getVRSchema(vr);
     workItemSchema.add({
         [tag]: tagSchema
