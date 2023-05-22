@@ -85,7 +85,7 @@ router.get("/workitems/:workItem",
 /**
  *  @openapi
  *  /dicom-web/workitems/{workitemUID}:
- *    get:
+ *    post:
  *      tags:
  *        - UPS-RS
  *      description: >
@@ -93,11 +93,7 @@ router.get("/workitems/:workItem",
  *          See [Update Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.6)
  *      responses:
  *        "200":
- *           description: Query successfully
- *           content:
- *             "application/dicom+json":
- *               schema:
- *                 type: array
+ *           description: modify successfully
  */
 router.post("/workitems/:workItem",
     require("./controller/UPS-RS/update-workItem")
