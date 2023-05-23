@@ -86,7 +86,7 @@ class UpdateWorkItemService {
                 }
             },
             "IN PROGRESS": () => {
-                let foundUpsTransactionUID = this.workItem.getString("00741000");
+                let foundUpsTransactionUID = this.workItem.getString("00081195");
                 if (!this.transactionUID) {
                     throw new DicomWebServiceError(
                         DicomWebStatusCodes.UPSTransactionUIDNotCorrect,
