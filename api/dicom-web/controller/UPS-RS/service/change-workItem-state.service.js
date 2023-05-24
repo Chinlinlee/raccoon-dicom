@@ -20,14 +20,26 @@ class ChangeWorkItemStateService {
         this.requestState = /**  @type {Object[]} */(this.request.body).pop();
         /** @type {DicomJsonModel} */
         this.requestState = new DicomJsonModel(this.requestState);
+        this.transactionUID = this.requestState.getString("00081195");
+        if (!this.transactionUID) {
+            this.response.set("Warning", "299 Raccoon: The Transaction UID is missing.");
+            throw new DicomWebServiceError(
+                DicomWebStatusCodes.UPSTransactionUIDNotCorrect,
+                "Refused: The Transaction UID is missing.",
+                400
+            );
+        }
+
         this.workItem = null;
         this.workItemState = "";
+        this.workItemTransactionUID = "";
     }
 
     async changeWorkItemState() {
         await this.findOneWorkItem();
         
         this.workItemState = this.workItem.getString("00741000");
+        this.workItemTransactionUID = this.workItem.getString("00081195");
         let requestState = this.requestState.getString("00741000");
 
         if (requestState === "IN PROGRESS") {
@@ -96,9 +108,7 @@ class ChangeWorkItemStateService {
             this.response.set("Warning", "299 Raccoon: The UPS is already in the requested state of CANCELED.");
         }
 
-        let transactionUID = this.requestState.getString("00081195");
-        let workItemTransactionUID = this.requestState.getString("00081195");
-        if (transactionUID !== workItemTransactionUID) {
+        if (this.transactionUID !== this.workItemTransactionUID) {
             throw new DicomWebServiceError(
                 DicomWebStatusCodes.UPSTransactionUIDNotCorrect,
                 "Refused: The correct Transaction UID was not provided",
@@ -125,9 +135,7 @@ class ChangeWorkItemStateService {
             this.response.set("Warning", "299 Raccoon: The UPS is already in the requested state of COMPLETED.");
         }
 
-        let transactionUID = this.requestState.getString("00081195");
-        let workItemTransactionUID = this.requestState.getString("00081195");
-        if (transactionUID !== workItemTransactionUID) {
+        if (this.transactionUID !== this.workItemTransactionUID) {
             throw new DicomWebServiceError(
                 DicomWebStatusCodes.UPSTransactionUIDNotCorrect,
                 "Refused: The correct Transaction UID was not provided",
