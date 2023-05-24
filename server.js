@@ -1,6 +1,6 @@
 RegExp.prototype.toJSON = RegExp.prototype.toString;
 
-const { app } = require("./app");
+const { app, server } = require("./app");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -12,7 +12,6 @@ const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
 
 const passport = require("passport");
-let io = require("./socket").init();
 const { raccoonConfig } = require("./config-class");
 require("dotenv");
 require('module-alias/register');
@@ -72,11 +71,8 @@ require("./routes.js")(app);
 
 
 const PORT = raccoonConfig.serverConfig.port;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`http server is listening on port:${PORT}`);
-    io.on("connection", (socket) => {
-        console.log("Connect successfully, " + socket.id);
-    });
 });
 
 

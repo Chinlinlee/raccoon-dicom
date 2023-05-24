@@ -5,7 +5,8 @@
             "@dcm4che/*": ["./models/DICOM/dcm4che/wrapper/org/dcm4che3/*"],
             "@java-wrapper/*": ["./models/DICOM/dcm4che/wrapper/*"],
             "@models/*": ["./models/*"],
-            "@error/*" : ["./error/*"]
+            "@error/*" : ["./error/*"],
+            "@root/*": ["./*"]
         }
     },
     "exclude": [
