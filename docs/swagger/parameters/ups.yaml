@@ -6,3 +6,10 @@ components:
             in: query
             schema:
                 type: string
+        "workitemUID":
+            name: "workitemUID"
+            description: workitem instance UID in path
+            in: path
+            required: true
+            schema:
+                type: string

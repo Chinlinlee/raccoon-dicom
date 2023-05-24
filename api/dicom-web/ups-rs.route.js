@@ -70,6 +70,8 @@ router.get("/workitems",
  *      description: >
  *          This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation.
  *          See [Retrieve Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.5)
+ *      parameters:
+ *        - $ref: "#/components/parameters/workitemUID"
  *      responses:
  *        "200":
  *           description: Query successfully
@@ -91,12 +93,46 @@ router.get("/workitems/:workItem",
  *      description: >
  *          This transaction modifies Attributes of an existing Workitem. It corresponds to the UPS DIMSE N-SET operation.
  *          See [Update Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.6)
+ *      parameters:
+ *        - $ref: "#/components/parameters/workitemUID"
  *      responses:
  *        "200":
  *           description: modify successfully
  */
 router.post("/workitems/:workItem",
     require("./controller/UPS-RS/update-workItem")
+);
+
+/**
+ *  @openapi
+ *  /dicom-web/workitems/{workitemUID}/state:
+ *    put:
+ *      tags:
+ *        - UPS-RS
+ *      description: >
+ *          This transaction is used to change the state of a Workitem. It corresponds to the UPS DIMSE N-ACTION operation "Change UPS State".<br/>
+ *          State changes are used to claim ownership, complete, or cancel a Workitem.<br/>
+ *          See [Change Workitem State](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.7)
+ *      parameters:
+ *        - $ref: "#/components/parameters/workitemUID"
+ *      responses:
+ *        "200":
+ *           description: The update was successful, and the response payload contains a Status Report document.
+ */
+router.put("/workitems/:workItem/state", 
+    validateByJoi(Joi.array().items(
+        Joi.object({
+            "00741000": Joi.object({
+                vr: Joi.string().valid("CS"),
+                Value: Joi.array().items(Joi.string().valid("IN PROGRESS", "COMPLETED", "CANCELED")).min(1).max(1)
+            }),
+            "00081195": Joi.object({
+                vr: Joi.string().valid("UI"),
+                Value: Joi.array().items(Joi.string()).min(1).max(1)
+            })
+        })
+    ).min(1).max(1), "body"),
+    require("./controller/UPS-RS/change-workItem-state")
 );
 
 //#endregion

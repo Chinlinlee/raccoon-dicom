@@ -435,6 +435,9 @@ module.exports.tagsNeedStore = {
         "00081084": {
             "vr": "SQ"
         },
+        "00081195": {
+            "vr": "UI"
+        },
         "00101010": {
             "vr": "AS"
         },

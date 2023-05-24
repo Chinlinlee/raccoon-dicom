@@ -4,6 +4,8 @@ const DicomWebStatusCodes = {
     "MissingAttribute": "0120",
     "UPSMayNoLongerBeUpdated": "C300",
     "UPSTransactionUIDNotCorrect": "C301",
+    "UPSAlreadyInProgress": "C302",
+    "UPSNotMetFinalStateRequirements": "C304",
     "UPSDoesNotExist": "C307",
     "UPSNotScheduled": "C309",
     "UPSNotYetInProgress": "C310"
