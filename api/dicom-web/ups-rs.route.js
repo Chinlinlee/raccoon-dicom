@@ -7,10 +7,7 @@ const express = require("express");
 const Joi = require("joi");
 const { validateParams, intArrayJoi, validateByJoi } = require("../validator");
 const router = express();
-const GLOBAL_SUBSCRIPTION_UIDS = [
-    "1.2.840.10008.5.1.4.34.5",
-    "1.2.840.10008.5.1.4.34.5.1"
-];
+const { SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/ups");
 
 //#region UPS-RS
 
@@ -31,7 +28,7 @@ const GLOBAL_SUBSCRIPTION_UIDS = [
  */
 router.post("/workitems",
     validateParams({
-        workitem: Joi.string().invalid(...GLOBAL_SUBSCRIPTION_UIDS).optional()
+        workitem: Joi.string().invalid(SUBSCRIPTION_FIXED_UIDS.FilteredGlobalUID, SUBSCRIPTION_FIXED_UIDS.GlobalUID).optional()
     }, "query", {
         allowUnknown: false
     }),
@@ -119,7 +116,7 @@ router.post("/workitems/:workItem",
  *        "200":
  *           description: The update was successful, and the response payload contains a Status Report document.
  */
-router.put("/workitems/:workItem/state", 
+router.put("/workitems/:workItem/state",
     validateByJoi(Joi.array().items(
         Joi.object({
             "00741000": Joi.object({
@@ -133,6 +130,13 @@ router.put("/workitems/:workItem/state",
         })
     ).min(1).max(1), "body"),
     require("./controller/UPS-RS/change-workItem-state")
+);
+
+router.post("/workitems/:workItem/subscribers/:subscriberAeTitle",
+    validateParams({
+        deletionlock: Joi.boolean().default(false)
+    }, "query", { allowUnknown: true }),
+    require("./controller/UPS-RS/subscribe")
 );
 
 //#endregion

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
+const { SUBSCRIPTION_STATE } = require("../../DICOM/ups");
 
 let workItemSchema = new mongoose.Schema(
     {
@@ -22,6 +23,10 @@ let workItemSchema = new mongoose.Schema(
             type: String,
             default: void 0,
             index: true
+        },
+        subscribed: {
+            type: Number,
+            default: SUBSCRIPTION_STATE.NOT_SUBSCRIBED
         }
     },
     {
