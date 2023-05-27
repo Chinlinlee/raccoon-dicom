@@ -34,11 +34,10 @@ class SubscribeService extends BaseWorkItemService {
         if (this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.GlobalUID || 
             this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.FilteredGlobalUID) {
 
-            this.checkQueryMatchingKey();
             this.query = convertAllQueryToDICOMTag(this.request.query);
             await this.createOrUpdateGlobalSubscription();
         } else {
-            let workItem = await this.findOneWorkItem(this.request.params.workItem);
+            let workItem = await this.findOneWorkItem(this.upsInstanceUID);
             await this.createOrUpdateSubscription(workItem);
             this.addUpsEvent(UPS_EVENT_TYPE.StateReport, this.upsInstanceUID, this.stateReportOf(workItem), [this.subscriberAeTitle]);
         }
@@ -109,14 +108,14 @@ class SubscribeService extends BaseWorkItemService {
                 _id: subscription._id
             }, {
                 $set: {
-                    isDeletionLock: this.isDeletionLock,
+                    isDeletionLock: this.deletionLock,
                     subscribed: subscribed
                 },
                 $addToSet: {
                     workItems: workItem.dicomJson._id
                 }
             });
-            subscription.isDeletionLock = this.isDeletionLock;
+            subscription.isDeletionLock = this.deletionLock;
             subscription.subscribed = subscribed;
             return updatedSubscription;
         }
@@ -165,19 +164,6 @@ class SubscribeService extends BaseWorkItemService {
             await this.createOrUpdateSubscription(workItemDicomJson);
             
             this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItemDicomJson), [this.subscriberAeTitle]);
-        }
-    }
-
-    checkQueryMatchingKey() {
-        let hexRegex = /[0-9a-fA-F]/g;
-        for(let key in this.request.query) {
-            if (!hexRegex.test(key) || key.length !== 8) {
-                throw new DicomWebServiceError(
-                    DicomWebStatusCodes.InvalidArgumentValue,
-                    `Invalid Argument: ${key}`,
-                    400
-                );
-            }
         }
     }
 
