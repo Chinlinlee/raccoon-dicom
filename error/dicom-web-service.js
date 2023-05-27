@@ -1,6 +1,7 @@
 const DicomWebStatusCodes = {
     "InvalidAttributeValue": "0106",
     "DuplicateSOPinstance": "0111",
+    "InvalidArgumentValue": "0115",
     "MissingAttribute": "0120",
     "UPSMayNoLongerBeUpdated": "C300",
     "UPSTransactionUIDNotCorrect": "C301",

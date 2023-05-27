@@ -12,6 +12,10 @@ const { DicomWebService } = require("../../../service/dicom-web.service");
 const dicomWebApiPath = raccoonConfig.dicomWebConfig.apiPath;
 const dicomModel = require("../../../../../models/mongodb/models/dicom");
 const patientModel = require("../../../../../models/mongodb/models/patient");
+const {
+    DicomWebServiceError,
+    DicomWebStatusCodes
+} = require("@error/dicom-web-service");
 
 class QidoRsService {
 
@@ -153,6 +157,13 @@ function convertAllQueryToDICOMTag(iParam) {
                 newKeyNames.push(keyNameSplit);
             }
         }
+        if (newKeyNames.length === 0) {
+            throw new DicomWebServiceError(
+                DicomWebStatusCodes.InvalidArgumentValue,
+                `Invalid request query: ${keyNameSplit}`,
+                400
+            );
+        };
         newKeyNames.push("Value");
         let retKeyName = newKeyNames.join(".");
         newQS[retKeyName] = iParam[keyName];
