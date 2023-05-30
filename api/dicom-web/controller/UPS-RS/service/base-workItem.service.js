@@ -1,11 +1,13 @@
 const _ = require("lodash");
 const { WorkItemEvent } = require("./workItem-event");
 const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
-const subscriptionModel = require("@models/mongodb/models/upsSubscription");
 const { findWsArrayByAeTitle } = require("@root/websocket");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
-
-
+const { convertRequestQueryToMongoQuery } = require("../../QIDO-RS/service/QIDO-RS.service");
+const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
+const subscriptionModel = require("@models/mongodb/models/upsSubscription");
+const workItemModel = require("@models/mongodb/models/workItems");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 class BaseWorkItemService {
 
     constructor(req, res) {
@@ -45,6 +47,7 @@ class BaseWorkItemService {
     }
 
     /**
+     * Use for getting event information
      * @param {DicomJsonModel} workItem
      */
     stateReportOf(workItem) {
@@ -84,6 +87,71 @@ class BaseWorkItemService {
 
         return subscription.subscribed === SUBSCRIPTION_STATE.SUBSCRIBED_LOCK || 
                subscription.subscribed === SUBSCRIPTION_STATE.SUBSCRIBED_NO_LOCK;
+    }
+
+    async getGlobalSubscriptionsCursor() {
+        return globalSubscriptionModel.find({}).cursor();
+    }
+
+    /**
+     * @param {DicomJsonModel} workItem
+     */
+    async getHitGlobalSubscriptions(workItem) {
+        let globalSubscriptionsCursor = await this.getGlobalSubscriptionsCursor();
+        let hitGlobalSubscriptions = [];
+        let globalSubscription = await globalSubscriptionsCursor.next();
+        while(globalSubscription) {
+            if (!globalSubscription.queryKeys) {
+                hitGlobalSubscriptions.push(globalSubscription);
+            } else {
+                let { $match } = await convertRequestQueryToMongoQuery(globalSubscription.queryKeys);
+                $match.$and.push({
+                    upsInstanceUID: workItem.dicomJson.upsInstanceUID
+                });
+                let count = await workItemModel.countDocuments({
+                    ...$match
+                });
+                if (count > 0)
+                    hitGlobalSubscriptions.push(globalSubscription);
+            }
+            globalSubscription = await globalSubscriptionsCursor.next();
+        }
+        return hitGlobalSubscriptions;
+    }
+
+    async getHitSubscriptions(workItem) {
+        let hitSubscriptions = await subscriptionModel.find({
+            workItems: workItem.dicomJson._id
+        });
+
+        return hitSubscriptions;
+    }
+
+    async getAssignedEventInformationArray(workItem, stationNameUpdated, performerUpdated) {
+        if (!performerUpdated) {
+            let scheduledStationCodeSeq = _.get(workItem.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}.Value`);
+            return stationNameUpdated ? scheduledStationCodeSeq : [];
+        }
+        /** @type {Array<any>} */
+        let scheduledHumanPerformersSeq = _.get(workItem.dicomJson, `${dictionary.keyword.ScheduledHumanPerformersSequence}.Value`);
+        let assignedEventInfo = scheduledHumanPerformersSeq.map(item => this.getAssignedOf(workItem, stationNameUpdated, item));
+        return assignedEventInfo;
+    }
+
+    /**
+     * 
+     * @param {*} workItem
+     * @param {boolean} stationNameUpdated 
+     * @param {*} seqItem 
+     */
+    getAssignedOf(workItem, stationNameUpdated, seqItem) {
+        let eventInformation = {};
+        _.set(eventInformation, `${dictionary.keyword.HumanPerformerCodeSequence}`, _.get(seqItem, `${dictionary.keyword.HumanPerformerCodeSequence}`));
+        _.set(eventInformation, `${dictionary.keyword.HumanPerformerOrganization}`, _.get(seqItem, `${dictionary.keyword.HumanPerformerOrganization}`));
+        if (stationNameUpdated) {
+            _.set(eventInformation, `${dictionary.keyword.ScheduledStationNameCodeSequence}`, _.get(workItem.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}`));
+        }
+        return eventInformation;
     }
 }
 

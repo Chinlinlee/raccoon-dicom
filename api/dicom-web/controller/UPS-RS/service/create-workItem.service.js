@@ -7,11 +7,14 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { BaseWorkItemService } = require("./base-workItem.service");
+const { SubscribeService } = require("./subscribe.service");
+const { UPS_EVENT_TYPE } = require("./workItem-event");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
-class CreateWorkItemService {
+class CreateWorkItemService extends BaseWorkItemService {
     constructor(req, res) {
-        this.request = req;
-        this.response = res;
+        super(req, res);
         this.requestWorkItem = /**  @type {Object[]} */(this.request.body).pop();
         /** @type {DicomJsonModel} */
         this.requestWorkItem = new DicomJsonModel(this.requestWorkItem);
@@ -57,10 +60,37 @@ class CreateWorkItemService {
                 400
             );
         }
-        await workItem.save();
+        let savedWorkItem = await workItem.save();
 
 
-        //TODO: subscription
+        let workItemDicomJson = new DicomJsonModel(savedWorkItem);
+        let hitGlobalSubscriptions = await this.getHitGlobalSubscriptions(workItemDicomJson);
+        for(let hitGlobalSubscription of hitGlobalSubscriptions) {
+            let subscribeService = new SubscribeService(this.request, this.response);
+            subscribeService.upsInstanceUID = workItemDicomJson.dicomJson.upsInstanceUID;
+            subscribeService.deletionLock = hitGlobalSubscription.isDeletionLock;
+            subscribeService.subscriberAeTitle = hitGlobalSubscription.aeTitle;
+            await subscribeService.create();
+        }
+
+        let hitSubscriptions = await this.getHitSubscriptions(workItemDicomJson);
+        
+        if (hitSubscriptions) {
+            let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItemDicomJson), hitSubscriptionAeTitleArray);
+            let assignedEventInformationArray = await this.getAssignedEventInformationArray(
+                workItemDicomJson,
+                _.get(workItemDicomJson.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}`, false),
+                _.get(workItemDicomJson.dicomJson, `${dictionary.keyword.ScheduledHumanPerformersSequence}`, false)
+            );
+            
+            for(let assignedEventInfo of assignedEventInformationArray) {
+                this.addUpsEvent(UPS_EVENT_TYPE.Assigned, workItemDicomJson.dicomJson.upsInstanceUID, assignedEventInfo, hitSubscriptionAeTitleArray);
+            }
+        }
+        
+        this.triggerUpsEvents();
+
         return workItem;
     }
 
