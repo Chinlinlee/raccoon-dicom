@@ -99,7 +99,8 @@ function getWorkItemFields() {
         upsInstanceUID: 0,
         patientID: 0,
         transactionUID: 0,
-        "00081195": 0
+        "00081195": 0,
+        subscribed: 0
     };
 }
 
