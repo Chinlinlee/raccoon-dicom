@@ -149,7 +149,6 @@ class SubscribeService extends BaseWorkItemService {
             });
 
             let createdSubscription = await subscriptionObj.save();
-            return createdSubscription;
         } else {
             //Update
             subscription.isDeletionLock = this.deletionLock;
