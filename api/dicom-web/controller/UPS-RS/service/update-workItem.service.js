@@ -7,6 +7,9 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { BaseWorkItemService } = require("./base-workItem.service");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { UPS_EVENT_TYPE } = require("./workItem-event");
 
 
 const notAllowedAttributes = [
@@ -25,15 +28,14 @@ const notAllowedAttributes = [
     "00741000"
 ];
 
-class UpdateWorkItemService {
+class UpdateWorkItemService extends BaseWorkItemService {
     /**
      * 
      * @param {import('express').Request} req 
      * @param {import('express').Response} res 
      */
     constructor(req, res) {
-        this.request = req;
-        this.response = res;
+        super(req, res);
         this.requestWorkItem = /**  @type {Object[]} */(this.request.body).pop();
         /** @type {DicomJsonModel} */
         this.requestWorkItem = new DicomJsonModel(this.requestWorkItem);
@@ -46,14 +48,69 @@ class UpdateWorkItemService {
         await this.findOneWorkItem();
         await this.checkRequestUpsIsValid();
         this.adjustRequestWorkItem();
-        
-        await workItemModel.findOneAndUpdate({
+
+        let updatedWorkItem = await workItemModel.findOneAndUpdate({
             upsInstanceUID: this.workItem.dicomJson.upsInstanceUID
         }, {
             ...this.requestWorkItem.dicomJson
+        }, {
+            new: true
         });
+
+        let updateWorkItemDicomJson = new DicomJsonModel(updatedWorkItem);
+        let hitSubscriptions = await this.getHitSubscriptions(updateWorkItemDicomJson);
+        if (hitSubscriptions.length === 0) {
+            return updatedWorkItem;
+        }
+        let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
+
+
+        //Each time the SCP changes the Input Readiness State (0040,4041) Attribute for a UPS instance, the SCP shall send a UPS State Report Event to subscribed SCUs.
+        let modifiedInputReadLineState = this.requestWorkItem.getString(`${dictionary.keyword.InputReadinessState}`);
+        let originalInputReadLineState = this.workItem.getString(`${dictionary.keyword.InputReadinessState}`);
+        if (modifiedInputReadLineState && modifiedInputReadLineState !== originalInputReadLineState) {
+            this.addUpsEvent(
+                UPS_EVENT_TYPE.StateReport,
+                this.workItem.dicomJson.upsInstanceUID,
+                this.stateReportOf(updateWorkItemDicomJson),
+                hitSubscriptionAeTitleArray
+            );
+        }
+
+        this.addProgressInfoUpdatedEvent(updateWorkItemDicomJson, hitSubscriptionAeTitleArray);
+        this.addAssignedEvents(updateWorkItemDicomJson, hitSubscriptionAeTitleArray);
+
+        this.triggerUpsEvents();
     }
     
+    addProgressInfoUpdatedEvent(workItemDicomJson, aeTitles) {
+        let modifiedProcedureStepProgressInfo = _.get(this.requestWorkItem.dicomJson, dictionary.keyword.ProcedureStepProgressInformationSequence);
+        let originalProcedureStepProgressInfo = _.get(this.workItem.dicomJson , dictionary.keyword.ProcedureStepProgressInformationSequence);
+        if (modifiedProcedureStepProgressInfo && !_.isEqual(modifiedProcedureStepProgressInfo, originalProcedureStepProgressInfo)) {
+            this.addUpsEvent(
+                UPS_EVENT_TYPE.ProgressReport,
+                this.workItem.dicomJson.upsInstanceUID,
+                this.progressReportOf(workItemDicomJson),
+                aeTitles
+            );
+        }
+    }
+
+    addAssignedEvents(workItemDicomJson, aeTitles) {
+        let modifiedPerformer = _.get(this.requestWorkItem.dicomJson, dictionary.keyword.ScheduledHumanPerformersSequence);
+        let originalPerformer = _.get(this.workItem.dicomJson, dictionary.keyword.ScheduledHumanPerformersSequence);
+        let performerUpdated = modifiedPerformer && !_.isEqual(modifiedPerformer, originalPerformer);
+
+        let modifiedStationName = _.get(this.requestWorkItem.dicomJson, dictionary.keyword.ScheduledStationNameCodeSequence);
+        let originalStationName = _.get(this.workItem.dicomJson, dictionary.keyword.ScheduledStationNameCodeSequence);
+        let stationNameUpdate = modifiedStationName && !_.isEqual(modifiedStationName, originalStationName);
+
+        let assignedEventInformationArray = this.getAssignedEventInformationArray(workItemDicomJson, performerUpdated, stationNameUpdate);
+        for(let assignedEventInfo of assignedEventInformationArray) {
+            this.addUpsEvent(UPS_EVENT_TYPE.Assigned, workItemDicomJson.dicomJson.upsInstanceUID, assignedEventInfo, aeTitles);
+        }
+    }
+
     async findOneWorkItem() {
 
         let workItem = await workItemModel.findOne({
@@ -67,9 +124,9 @@ class UpdateWorkItemService {
                 404
             );
         }
-        
-        this.workItem = new DicomJsonModel(workItem);
-        
+
+        this.workItem = new DicomJsonModel(workItem.toObject());
+
     }
 
     checkRequestUpsIsValid() {
@@ -114,7 +171,7 @@ class UpdateWorkItemService {
                 );
             }
         };
-        
+
         return mappingMethod[procedureState]() || true;
     }
 
@@ -122,7 +179,7 @@ class UpdateWorkItemService {
      * remove not allowed updating attribute in request work item
      */
     adjustRequestWorkItem() {
-        for(let i = 0 ; i < notAllowedAttributes.length ; i++) {
+        for (let i = 0; i < notAllowedAttributes.length; i++) {
             let notAllowedAttr = notAllowedAttributes[i];
             _.unset(this.requestWorkItem.dicomJson, notAllowedAttr);
         }

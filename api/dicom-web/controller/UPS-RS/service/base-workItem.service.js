@@ -77,6 +77,12 @@ class BaseWorkItemService {
         return eventInformation;
     }
 
+    progressReportOf(workItem) {
+        return {
+            "00741002": _.get(workItem.dicomJson, dictionary.keyword.ProcedureStepProgressInformationSequence)
+        };
+    }
+
     async isAeTileSubscribed(aeTitle) {
         let subscription = await subscriptionModel.findOne({
             aeTitle: aeTitle
@@ -127,7 +133,7 @@ class BaseWorkItemService {
         return hitSubscriptions;
     }
 
-    async getAssignedEventInformationArray(workItem, stationNameUpdated, performerUpdated) {
+    getAssignedEventInformationArray(workItem, stationNameUpdated, performerUpdated) {
         if (!performerUpdated) {
             let scheduledStationCodeSeq = _.get(workItem.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}.Value`);
             return stationNameUpdated ? scheduledStationCodeSeq : [];
