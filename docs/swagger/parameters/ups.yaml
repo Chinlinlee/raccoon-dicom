@@ -13,3 +13,10 @@ components:
             required: true
             schema:
                 type: string
+        "aeTitle":
+            name: "aeTitle"
+            description: The Application Entity Title of a Subscriber.
+            in: path
+            required: true
+            schema:
+                type: string

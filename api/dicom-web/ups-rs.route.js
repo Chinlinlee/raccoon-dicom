@@ -18,7 +18,7 @@ const { SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/ups");
  *      tags:
  *        - UPS-RS
  *      description: >
- *          This transaction creates a Workitem on the target Worklist. It corresponds to the UPS DIMSE N-CREATE operation.
+ *          This transaction creates a Workitem on the target Worklist. It corresponds to the UPS DIMSE N-CREATE operation.<br/><br/>
  *          See [Create Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.4)
  *      parameters:
  *        - $ref: "#/components/parameters/workitem"
@@ -44,7 +44,7 @@ router.post("/workitems",
  *      tags:
  *        - UPS-RS
  *      description: >
- *          This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation.
+ *          This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation.<br/><br/>
  *          See [Retrieve Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.5)
  *      responses:
  *        "200":
@@ -65,7 +65,7 @@ router.get("/workitems",
  *      tags:
  *        - UPS-RS
  *      description: >
- *          This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation.
+ *          This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation.<br/><br/>
  *          See [Retrieve Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.5)
  *      parameters:
  *        - $ref: "#/components/parameters/workitemUID"
@@ -88,7 +88,7 @@ router.get("/workitems/:workItem",
  *      tags:
  *        - UPS-RS
  *      description: >
- *          This transaction modifies Attributes of an existing Workitem. It corresponds to the UPS DIMSE N-SET operation.
+ *          This transaction modifies Attributes of an existing Workitem. It corresponds to the UPS DIMSE N-SET operation.<br/><br/>
  *          See [Update Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.6)
  *      parameters:
  *        - $ref: "#/components/parameters/workitemUID"
@@ -108,7 +108,7 @@ router.post("/workitems/:workItem",
  *        - UPS-RS
  *      description: >
  *          This transaction is used to change the state of a Workitem. It corresponds to the UPS DIMSE N-ACTION operation "Change UPS State".<br/>
- *          State changes are used to claim ownership, complete, or cancel a Workitem.<br/>
+ *          State changes are used to claim ownership, complete, or cancel a Workitem.<br/><br/>
  *          See [Change Workitem State](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.7)
  *      parameters:
  *        - $ref: "#/components/parameters/workitemUID"
@@ -132,6 +132,22 @@ router.put("/workitems/:workItem/state",
     require("./controller/UPS-RS/change-workItem-state")
 );
 
+/**
+ *  @openapi
+ *  /dicom-web/workitems/{workitemUID}/subscribers/{aeTitle}:
+ *    post:
+ *      tags:
+ *        - UPS-RS
+ *      description: >
+ *          This transaction creates a Subscription to a Worklist or Workitem resource. It corresponds to the UPS DIMSE N-ACTION operation "Subscribe to Receive UPS Event Reports".<br/><br/>
+ *          See [Subscribe Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.10)
+ *      parameters:
+ *        - $ref: "#/components/parameters/workitemUID"
+ *        - $ref: "#/components/parameters/aeTitle"
+ *      responses:
+ *        "201":
+ *           description: The Subscription was created.
+ */
 router.post("/workitems/:workItem/subscribers/:subscriberAeTitle",
     validateParams({
         deletionlock: Joi.boolean().default(false)
@@ -139,8 +155,48 @@ router.post("/workitems/:workItem/subscribers/:subscriberAeTitle",
     require("./controller/UPS-RS/subscribe")
 );
 
+/**
+ *  @openapi
+ *  /dicom-web/workitems/{workitemUID}/subscribers/{aeTitle}:
+ *    delete:
+ *      tags:
+ *        - UPS-RS
+ *      description: >
+ *          This transaction is used to stop the origin server from sending new Event Reports to the user agent and may also stop the origin server from subscribing the user agent to new Workitems.<br/><br/>
+ *          See [Unsubscribe Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.11)
+ *      parameters:
+ *        - $ref: "#/components/parameters/workitemUID"
+ *        - $ref: "#/components/parameters/aeTitle"
+ *      responses:
+ *        "200":
+ *           description: The Subscription(s) were removed.
+ */
 router.delete("/workitems/:workItem/subscribers/:subscriberAeTitle",
     require("./controller/UPS-RS/unsubscribe")
+);
+
+/**
+ *  @openapi
+ *  /dicom-web/workitems/{workitemUID}/subscribers/{aeTitle}/suspend:
+ *    post:
+ *      tags:
+ *        - UPS-RS
+ *      description: >
+ *          This transaction is used to stop the origin server from automatically subscribing the User-Agent to new Workitems. This does not delete any existing subscriptions to specific Workitems.<br/>
+ *          See [Suspend Global Subscription Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.12)
+ *      parameters:
+ *        - $ref: "#/components/parameters/workitemUID"
+ *        - $ref: "#/components/parameters/aeTitle"
+ *      responses:
+ *        "200":
+ *           description: The Subscription(s) were removed.
+ */
+router.post("/workitems/:workItem/subscribers/:subscriberAeTitle/suspend", 
+    validateParams({
+        workItem: Joi.string().valid(SUBSCRIPTION_FIXED_UIDS.GlobalUID, SUBSCRIPTION_FIXED_UIDS.FilteredGlobalUID),
+        subscriberAeTitle: Joi.string()
+    }, "params"),
+    require("./controller/UPS-RS/suspend-subscription")
 );
 
 //#endregion

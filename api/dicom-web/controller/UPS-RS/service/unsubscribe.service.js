@@ -24,8 +24,6 @@ class UnSubscribeService extends BaseWorkItemService {
         this.upsInstanceUID = this.request.params.workItem;
         this.workItem = null;
         this.subscriberAeTitle = this.request.params.subscriberAeTitle;
-        this.deletionLock = _.clone(this.request.query.deletionlock);
-        delete this.request.query["deletionlock"];
     }
 
     async delete() {
