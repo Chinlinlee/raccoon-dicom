@@ -3,11 +3,14 @@ const DicomWebStatusCodes = {
     "DuplicateSOPinstance": "0111",
     "InvalidArgumentValue": "0115",
     "MissingAttribute": "0120",
+    "ProcessingFailure": "0272",
+    "NoSuchObjectInstance": "0274",
     "UPSMayNoLongerBeUpdated": "C300",
     "UPSTransactionUIDNotCorrect": "C301",
     "UPSAlreadyInProgress": "C302",
     "UPSNotMetFinalStateRequirements": "C304",
     "UPSDoesNotExist": "C307",
+    "UPSUnknownReceivingAET": "C308",
     "UPSNotScheduled": "C309",
     "UPSNotYetInProgress": "C310"
 };

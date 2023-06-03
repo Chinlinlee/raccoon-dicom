@@ -139,6 +139,10 @@ router.post("/workitems/:workItem/subscribers/:subscriberAeTitle",
     require("./controller/UPS-RS/subscribe")
 );
 
+router.delete("/workitems/:workItem/subscribers/:subscriberAeTitle",
+    require("./controller/UPS-RS/unsubscribe")
+);
+
 //#endregion
 
 module.exports = router;
