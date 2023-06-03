@@ -7,16 +7,17 @@ const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
+const { BaseWorkItemService } = require("./base-workItem.service");
+const { UPS_EVENT_TYPE } = require("./workItem-event");
 
-class ChangeWorkItemStateService {
+class ChangeWorkItemStateService extends BaseWorkItemService {
     /**
      * 
      * @param {import('express').Request} req 
      * @param {import('express').Response} res 
      */
     constructor(req, res) {
-        this.request = req;
-        this.response = res;
+        super(req, res);
         this.requestState = /**  @type {Object[]} */(this.request.body).pop();
         /** @type {DicomJsonModel} */
         this.requestState = new DicomJsonModel(this.requestState);
@@ -50,11 +51,24 @@ class ChangeWorkItemStateService {
             this.completeChange();
         }
 
-        await workItemModel.findOneAndUpdate({
+        let updatedWorkItem = await workItemModel.findOneAndUpdate({
             upsInstanceUID: this.request.params.workItem
         }, {
             ...this.requestState.dicomJson
+        }, {
+            new: true
         });
+
+        let updatedWorkItemDicomJson = new DicomJsonModel(updatedWorkItem.toObject());
+
+        let hitSubscriptions = await this.getHitSubscriptions(updatedWorkItemDicomJson);
+
+        if (hitSubscriptions.length === 0) return;
+
+        let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
+        
+        this.addUpsEvent(UPS_EVENT_TYPE.StateReport, updatedWorkItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(updatedWorkItemDicomJson), hitSubscriptionAeTitleArray);
+        this.triggerUpsEvents();
     }
 
     async findOneWorkItem() {
