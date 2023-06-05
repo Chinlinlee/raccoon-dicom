@@ -199,6 +199,10 @@ router.post("/workitems/:workItem/subscribers/:subscriberAeTitle/suspend",
     require("./controller/UPS-RS/suspend-subscription")
 );
 
+router.post("/workitems/:workItem/cancelrequest",
+    require("./controller/UPS-RS/cancel")
+);
+
 //#endregion
 
 module.exports = router;

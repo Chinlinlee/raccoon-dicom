@@ -5,6 +5,7 @@ const DicomWebStatusCodes = {
     "MissingAttribute": "0120",
     "ProcessingFailure": "0272",
     "NoSuchObjectInstance": "0274",
+    "UPSAlreadyInRequestedStateOfCanceled": "B304",
     "UPSMayNoLongerBeUpdated": "C300",
     "UPSTransactionUIDNotCorrect": "C301",
     "UPSAlreadyInProgress": "C302",
@@ -12,7 +13,9 @@ const DicomWebStatusCodes = {
     "UPSDoesNotExist": "C307",
     "UPSUnknownReceivingAET": "C308",
     "UPSNotScheduled": "C309",
-    "UPSNotYetInProgress": "C310"
+    "UPSNotYetInProgress": "C310",
+    "UPSAlreadyCompleted": "C311",
+    "UPSPerformerChoosesNotToCancel": "C313"
 };
 
 class DicomWebServiceError extends Error {
