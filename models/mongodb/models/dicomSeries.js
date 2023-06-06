@@ -3,6 +3,8 @@ const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { getStoreDicomFullPathGroup, IncludeFieldsFactory } = require("../service");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { raccoonConfig } = require("@root/config-class");
 
 let dicomSeriesSchema = new mongoose.Schema(
     {
@@ -95,6 +97,12 @@ dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
                     `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
                 ]
             };
+
+            _.set(obj, dictionary.keyword.RetrieveAETitle, {
+                ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
+                Value: [raccoonConfig.aeTitle]
+            });
+
             return obj;
         });
 

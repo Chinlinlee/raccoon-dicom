@@ -75,6 +75,16 @@ class DicomDimseConfig {
         return bindInfo.split(":").pop();
     }
 
+    getAeTitle() {
+        let bindArgIndex = this.dcm4cheQrscpArgv.findIndex(v => v === "-b");
+        /** @type {string} */
+        let bindInfo = this.dcm4cheQrscpArgv[bindArgIndex + 1];
+
+        let aeTitleAndIp = bindInfo.split(":").shift();
+        let aeTitle = aeTitleAndIp.includes("@") ? aeTitleAndIp.split("@").shift() : aeTitleAndIp;
+        return aeTitle;
+    }
+
 }
 
 class FhirConfig {
@@ -100,6 +110,10 @@ class RaccoonConfig {
         
         /** @type {string} */
         this.mediaStorageID = this.mongoDbConfig.dbName;
+
+        this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.getAeTitle() : this.dicomWebConfig.aeTitle;
+        if (!this.aeTitle)
+            throw new Error("Missing required config `aeTitle`");
     }
 }
 
