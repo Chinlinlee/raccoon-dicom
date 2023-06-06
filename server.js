@@ -1,4 +1,5 @@
 RegExp.prototype.toJSON = RegExp.prototype.toString;
+require('module-alias')(__dirname);
 
 const { app, server } = require("./app");
 const bodyParser = require("body-parser");
@@ -13,7 +14,6 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const { raccoonConfig } = require("./config-class");
 require("dotenv");
-require('module-alias/register');
 require("./websocket");
 
 app.use(compress());
