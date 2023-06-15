@@ -1,9 +1,9 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
-import { Component as java_awt_Component } from "./../Component";
 import { DragGestureListener as java_awt_dnd_DragGestureListener, DragGestureListenerInterface as java_awt_dnd_DragGestureListenerInterface } from "./DragGestureListener";
 import { DragSource as java_awt_dnd_DragSource } from "./DragSource";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { InputEvent as java_awt_event_InputEvent } from "./../event/InputEvent";
+import { Component as java_awt_Component } from "./../Component";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Class as java_lang_Class } from "./../../lang/Class";
 /**
@@ -12,24 +12,6 @@ import { Class as java_lang_Class } from "./../../lang/Class";
  * You should probably not edit this.
  */
 export declare class DragGestureRecognizerClass extends JavaClass {
-    /**
-     * @return original return type: 'java.awt.Component'
-     */
-    getComponent(): Promise<java_awt_Component | null>;
-    /**
-     * @return original return type: 'java.awt.Component'
-     */
-    getComponentSync(): java_awt_Component | null;
-    /**
-     * @param var0 original type: 'java.awt.Component'
-     * @return original return type: 'void'
-     */
-    setComponent(var0: java_awt_Component | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Component'
-     * @return original return type: 'void'
-     */
-    setComponentSync(var0: java_awt_Component | null): void;
     /**
      * @param var0 original type: 'java.awt.dnd.DragGestureListener'
      * @return original return type: 'void'
@@ -92,6 +74,24 @@ export declare class DragGestureRecognizerClass extends JavaClass {
      * @return original return type: 'void'
      */
     removeDragGestureListenerSync(var0: java_awt_dnd_DragGestureListener | JavaInterfaceProxy<java_awt_dnd_DragGestureListenerInterface> | null): void;
+    /**
+     * @return original return type: 'java.awt.Component'
+     */
+    getComponent(): Promise<java_awt_Component | null>;
+    /**
+     * @return original return type: 'java.awt.Component'
+     */
+    getComponentSync(): java_awt_Component | null;
+    /**
+     * @param var0 original type: 'java.awt.Component'
+     * @return original return type: 'void'
+     */
+    setComponent(var0: java_awt_Component | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.Component'
+     * @return original return type: 'void'
+     */
+    setComponentSync(var0: java_awt_Component | null): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

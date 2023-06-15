@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const mongoose = require("mongoose");
 const {
     dicomJsonAttributeSchema,
@@ -7,6 +8,8 @@ const {
 } = require("../schema/dicomJsonAttribute");
 const { getStoreDicomFullPath, IncludeFieldsFactory } = require("../service");
 const { logger } = require("../../../utils/logs/log");
+const { raccoonConfig } = require("@root/config-class");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
 let dicomModelSchema = new mongoose.Schema(
     {
@@ -319,16 +322,16 @@ dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
     try {
 
         let docs = await mongoose
-        .model("dicom")
-        .find(queryOptions.query, {
-            ...instanceFields
-        })
-        .setOptions({
-            strictQuery: false
-        })
-        .limit(queryOptions.limit)
-        .skip(queryOptions.skip)
-        .exec();
+            .model("dicom")
+            .find(queryOptions.query, {
+                ...instanceFields
+            })
+            .setOptions({
+                strictQuery: false
+            })
+            .limit(queryOptions.limit)
+            .skip(queryOptions.skip)
+            .exec();
 
         let instanceDicomJson = docs.map(v => {
             let obj = v.toObject();
@@ -340,15 +343,21 @@ dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
                     `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instances/${obj["00080018"]["Value"][0]}`
                 ]
             };
+
+            _.set(obj, dictionary.keyword.RetrieveAETitle, {
+                ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
+                Value: [raccoonConfig.aeTitle]
+            });
+
             return obj;
         });
 
         return instanceDicomJson;
 
-    } catch(e) {
+    } catch (e) {
         throw e;
     }
-    
+
 };
 
 /**
@@ -358,22 +367,22 @@ dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
  * @param {string} iParam.seriesUID
  * @param {string} iParam.instanceUID
  */
-dicomModelSchema.statics.getPathOfInstance = async function(iParam) {
+dicomModelSchema.statics.getPathOfInstance = async function (iParam) {
     let { studyUID, seriesUID, instanceUID } = iParam;
 
     try {
         let query = {
-                $and: [
-                    {
-                        studyUID: studyUID
-                    },
-                    {
-                        seriesUID: seriesUID
-                    },
-                    {
-                        instanceUID: instanceUID
-                    }
-                ]
+            $and: [
+                {
+                    studyUID: studyUID
+                },
+                {
+                    seriesUID: seriesUID
+                },
+                {
+                    instanceUID: instanceUID
+                }
+            ]
         };
 
         let doc = await mongoose.model("dicom").findOne(query, {
@@ -402,23 +411,24 @@ dicomModelSchema.statics.getPathOfInstance = async function(iParam) {
  * @param {string} studyUID 
  * @param {string} seriesUID 
  */
-dicomModelSchema.statics.getInstanceOfMedianIndex = async function (studyUID, seriesUID) {
-    let instanceCountOfSeries = await mongoose.model("dicomSeries").countDocuments({
-        studyUID,
-        seriesUID
+dicomModelSchema.statics.getInstanceOfMedianIndex = async function (query) {
+    let instanceCountOfStudy = await mongoose.model("dicom").countDocuments({
+        studyUID: query.studyUID
     });
 
-    return await mongoose.model("dicom").findOne({
-        studyUID
-    }, {
+    return await mongoose.model("dicom").findOne(query, {
         studyUID: 1,
         seriesUID: 1,
         instanceUID: 1,
         instancePath: 1
     })
-    .skip(instanceCountOfSeries >> 1)
-    .limit(1)
-    .exec();
+        .sort({
+            studyUID: 1,
+            seriesUID: 1
+        })
+        .skip(instanceCountOfStudy >> 1)
+        .limit(1)
+        .exec();
 };
 
 /**

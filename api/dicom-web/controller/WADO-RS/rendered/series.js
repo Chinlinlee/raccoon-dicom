@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const renderedService = require("../service/rendered.service");
-const { MultipartWriter } = require("../../../../../utils/multipartWriter");
+const { SeriesImagePathFactory } = require("../service/WADO-RS.service");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { logger } = require("../../../../../utils/logs/log");
 const { Controller } = require("../../../../controller.class");
@@ -23,23 +23,14 @@ class RetrieveRenderedSeriesController extends Controller {
         }
         
         try {
-            let instancesInSeries = await mongoose.model("dicomSeries").getPathGroupOfInstances(this.request.params);
-    
-            if (instancesInSeries.length > 0) {
-                let multipartWriter = new MultipartWriter([], this.request, this.response);
-                
-                for(let imagePathObj of instancesInSeries) {
-                    let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
-                    let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
-                    dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
-                    await renderedService.writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);
-                }
-                multipartWriter.writeFinalBoundary();
-            } else {
-                this.response.writeHead(404, {
-                    "content-type": "application/dicom+json"
-                });
-            }
+            let renderedImageMultipartWriter = new renderedService.RenderedImageMultipartWriter(
+                this.request,
+                this.response,
+                SeriesImagePathFactory,
+                renderedService.SeriesFramesWriter
+            );
+
+            await renderedImageMultipartWriter.write();
 
             logger.info(`[WADO-RS] [path: ${this.request.originalUrl}] [Write Multipart Successfully, study's series' rendered instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}]`);
 

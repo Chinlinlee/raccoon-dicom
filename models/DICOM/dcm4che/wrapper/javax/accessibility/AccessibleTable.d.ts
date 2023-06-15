@@ -8,18 +8,6 @@ import { Integer as java_lang_Integer } from "./../../java/lang/Integer";
  */
 export declare class AccessibleTableClass extends JavaClass {
     /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'javax.accessibility.Accessible'
-     */
-    getAccessibleAt(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<javax_accessibility_Accessible | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'javax.accessibility.Accessible'
-     */
-    getAccessibleAtSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): javax_accessibility_Accessible | null;
-    /**
      * @return original return type: 'javax.accessibility.Accessible'
      */
     getAccessibleCaption(): Promise<javax_accessibility_Accessible | null>;
@@ -223,6 +211,18 @@ export declare class AccessibleTableClass extends JavaClass {
      * @return original return type: 'int[]'
      */
     getSelectedAccessibleColumnsSync(): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'javax.accessibility.Accessible'
+     */
+    getAccessibleAt(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<javax_accessibility_Accessible | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'javax.accessibility.Accessible'
+     */
+    getAccessibleAtSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): javax_accessibility_Accessible | null;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -236,12 +236,6 @@ export declare class AccessibleTableClass extends JavaClass {
  * You should probably not edit this.
  */
 export interface AccessibleTableInterface {
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'javax.accessibility.Accessible'
-     */
-    getAccessibleAt(var0: java_lang_Integer | number, var1: java_lang_Integer | number): javax_accessibility_Accessible | null;
     /**
      * @return original return type: 'javax.accessibility.Accessible'
      */
@@ -344,6 +338,12 @@ export interface AccessibleTableInterface {
      * @return original return type: 'int[]'
      */
     getSelectedAccessibleColumns(): (number)[] | null;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'javax.accessibility.Accessible'
+     */
+    getAccessibleAt(var0: java_lang_Integer | number, var1: java_lang_Integer | number): javax_accessibility_Accessible | null;
 }
 /**
  * Create a proxy for the {@link AccessibleTable} interface.

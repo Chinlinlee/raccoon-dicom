@@ -2,10 +2,14 @@ const path = require("path");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const sharp = require("sharp");
+const _ = require("lodash");
 const { Dcm2JpgExecutor } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
+const { MultipartWriter } = require("../../../../../utils/multipartWriter");
+const notImageSOPClass = require("../../../../../models/DICOM/dicomWEB/notImageSOPClass");
 const Magick = require("../../../../../models/magick");
-const _ = require("lodash");
+const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
+const { logger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
 
@@ -97,6 +101,170 @@ const { raccoonConfig } = require("../../../../../config-class");
         }
     }
 }
+
+class RenderedImageMultipartWriter {
+
+    /**
+     * 
+     * @param {import('express').Request} req 
+     * @param {import('express').Response} res 
+     * @param {boolean} isMultiple
+     * @param {typeof import('./WADO-RS.service.js').ImagePathFactory} imagePathFactory 
+     * @param {typeof FramesWriter}
+     */
+    constructor(req, res, imagePathFactory, framesWriterClass) {
+        /** @type {import('express').Request} */
+        this.request = req;
+        /** @type {import('express').Response} */
+        this.response = res;
+        /** @type {import('./WADO-RS.service.js').ImagePathFactory} */
+        this.imagePathFactory = new imagePathFactory(req.params);
+        /** @type {typeof FramesWriter} */
+        this.framesWriterClass = framesWriterClass;
+    }
+
+    async write() {
+        await this.imagePathFactory.getImagePaths();
+        let checkAllImageExistResult = await this.imagePathFactory.checkAllImageExist();
+        this.response.statusCode = checkAllImageExistResult.code;
+        if (!checkAllImageExistResult.status) {
+            this.response.setHeader("Content-Type", "application/dicom+json");
+            return this.response.json(checkAllImageExistResult);
+        }
+
+        let framesWriter = new this.framesWriterClass(
+            this.request,
+            this.response,
+            this.imagePathFactory.imagePaths
+        );
+        return await framesWriter.write();
+    }
+}
+
+class FramesWriter {
+    /**
+     * 
+     * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]} imagePaths 
+     */
+    constructor(req, res, imagePaths) {
+        this.request = req;
+        this.response = res;
+        this.imagePaths = imagePaths;
+    }
+
+    async write() {
+        let multipartWriter = new MultipartWriter([], this.request, this.response);
+        for(let imagePathObj of this.imagePaths) {
+            let instanceFramesObj = await getInstanceFrameObj(imagePathObj);
+            if(_.isUndefined(instanceFramesObj)) continue;
+            let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
+            dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
+            await writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);
+        }
+        multipartWriter.writeFinalBoundary();
+    }
+}
+
+class StudyFramesWriter extends FramesWriter {
+    /**
+     * 
+     * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]} imagePaths 
+     */
+    constructor(req, res, imagePaths) {
+        super(req, res, imagePaths);
+    }
+}
+
+class SeriesFramesWriter extends FramesWriter {
+    constructor(req, res, imagePaths) {
+        super(req, res, imagePaths);
+    }
+}
+
+class InstanceFramesWriter extends FramesWriter {
+    constructor(req, res, imagePaths) {
+        super(req, res, imagePaths);
+    }
+
+    async write() {
+        let multipartWriter = new MultipartWriter([], this.request, this.response);
+        let instanceFramesObj = await getInstanceFrameObj(this.imagePaths[0]);
+        if (_.isUndefined(instanceFramesObj)) {
+            return this.response.status(400).json(
+                errorResponse.getBadRequestErrorMessage(`instance: ${this.request.params.instanceUID} doesn't have pixel data`)
+            );
+        }
+        let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
+        dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
+        await writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);
+        multipartWriter.writeFinalBoundary();
+    }
+}
+
+class InstanceFramesListWriter extends FramesWriter {
+    constructor(req, res, imagePaths) {
+        super(req, res, imagePaths);
+        this.instanceFramesObj = {};
+        this.dicomNumberOfFrames = 1;
+    }
+
+    async write() {
+        let {frameNumber} = this.request.params;
+
+        this.instanceFramesObj = await getInstanceFrameObj(this.imagePaths[0]);
+        if (_.isUndefined(this.instanceFramesObj)) {
+            return this.response.status(400).json(
+                errorResponse.getBadRequestErrorMessage(`instance: ${this.request.params.instanceUID} doesn't have pixel data`)
+            );
+        }
+        this.dicomNumberOfFrames = _.get(this.instanceFramesObj, "00280008.Value.0", 1);
+        this.dicomNumberOfFrames = parseInt(this.dicomNumberOfFrames);
+
+        if (this.isInvalidFrameNumber()) return;
+
+        if (frameNumber.length == 1) {
+            return this.writeSingleFrame();
+        } else {
+            let multipartWriter = new MultipartWriter([], this.request, this.response);
+            await writeSpecificFramesRenderedImages(this.request, frameNumber, this.instanceFramesObj, multipartWriter);
+            multipartWriter.writeFinalBoundary();
+            return true;
+        }
+    }
+
+    isInvalidFrameNumber() {
+        for(let i = 0; i < this.request.params.frameNumber.length ; i++) {
+            let frame = this.request.params.frameNumber[i];
+            if (frame > this.dicomNumberOfFrames) {
+                let badRequestMessage = errorResponse.getBadRequestErrorMessage(`Bad frame number , \
+This instance NumberOfFrames is : ${this.dicomNumberOfFrames} , But request ${JSON.stringify(this.request.params.frameNumber)}`);
+                this.response.writeHead(badRequestMessage.HttpStatus, {
+                    "Content-Type": "application/dicom+json"
+                });
+
+                let badRequestMessageStr = JSON.stringify(badRequestMessage);
+
+                logger.warn(badRequestMessageStr);
+
+                return this.response.end(JSON.stringify(badRequestMessageStr));
+            }
+        }
+        return false;
+    }
+
+    async writeSingleFrame() {
+        let postProcessResult = await postProcessFrameImage(this.request, this.request.params.frameNumber[0], this.instanceFramesObj);
+        if (postProcessResult.status) {
+            this.response.writeHead(200, {
+                "Content-Type": "image/jpeg"
+            });
+            
+            return postProcessResult.magick.toBuffer();
+        }
+        throw new Error(`Can not process this image, instanceUID: ${this.instanceFramesObj.instanceUID}, frameNumber: ${this.request.frameNumber[0]}`);
+    }
+}
+
 /**
  * 
  * @param {Object} iParam 
@@ -105,6 +273,7 @@ const { raccoonConfig } = require("../../../../../config-class");
 async function getInstanceFrameObj(iParam, otherFields={}) {
     let { studyUID, seriesUID, instanceUID } = iParam;
     try {
+        /** @type { import("mongoose").FilterQuery<any> } */
         let query = {
             $and: [
                 {
@@ -115,6 +284,11 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
                 },
                 {
                     instanceUID: instanceUID
+                },
+                {
+                    "00080016.Value": {
+                        $nin: notImageSOPClass
+                    }
                 }
             ]
         };
@@ -254,3 +428,8 @@ module.exports.getInstanceFrameObj = getInstanceFrameObj;
 module.exports.postProcessFrameImage = postProcessFrameImage;
 module.exports.writeRenderedImages = writeRenderedImages;
 module.exports.writeSpecificFramesRenderedImages = writeSpecificFramesRenderedImages;
+module.exports.RenderedImageMultipartWriter = RenderedImageMultipartWriter;
+module.exports.StudyFramesWriter = StudyFramesWriter;
+module.exports.SeriesFramesWriter = SeriesFramesWriter;
+module.exports.InstanceFramesWriter = InstanceFramesWriter;
+module.exports.InstanceFramesListWriter = InstanceFramesListWriter;

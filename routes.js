@@ -1,5 +1,11 @@
+const fs = require("fs");
 const { Plugin, pluginGroup } = require("./plugins/plugin.class");
-const { pluginsConfig } = require("./plugins/config");
+let pluginsConfig;
+if (fs.existsSync("./plugins/config")) {
+    pluginsConfig = require("./plugins/config").pluginsConfig;
+} else {
+    pluginsConfig = require("./plugins/config.template").pluginsConfig;
+}
 
 function loadAllPlugin() {
     for (let pluginName in pluginsConfig) {
@@ -21,6 +27,7 @@ module.exports = function (app) {
     app.use("/dicom-web", require("./api/dicom-web/wado-rs-bulkdata.route"));
     app.use("/dicom-web", require("./api/dicom-web/wado-rs-thumbnail.route"));
     app.use("/dicom-web", require("./api/dicom-web/delete.route"));
+    app.use("/dicom-web", require("./api/dicom-web/ups-rs.route"));
 
     app.use("/wado", require("./api/WADO-URI"));
 };

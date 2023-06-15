@@ -480,6 +480,162 @@
                 }
             }
         },
+        "/dicom-web/workitems": {
+            "post": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction creates a Workitem on the target Worklist. It corresponds to the UPS DIMSE N-CREATE operation.<br/><br/> See [Create Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.4)\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/workitem"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The workitem create successfully"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation.<br/><br/> See [Retrieve Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.5)\n",
+                "responses": {
+                    "200": {
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dicom-web/workitems/{workitemUID}": {
+            "get": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction retrieves a Workitem. It corresponds to the UPS DIMSE N-GET operation.<br/><br/> See [Retrieve Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.5)\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/workitemUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction modifies Attributes of an existing Workitem. It corresponds to the UPS DIMSE N-SET operation.<br/><br/> See [Update Workitem Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.6)\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/workitemUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "modify successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/workitems/{workitemUID}/state": {
+            "put": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction is used to change the state of a Workitem. It corresponds to the UPS DIMSE N-ACTION operation \"Change UPS State\".<br/> State changes are used to claim ownership, complete, or cancel a Workitem.<br/><br/> See [Change Workitem State](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.7)\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/workitemUID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The update was successful, and the response payload contains a Status Report document."
+                    }
+                }
+            }
+        },
+        "/dicom-web/workitems/{workitemUID}/subscribers/{aeTitle}": {
+            "post": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction creates a Subscription to a Worklist or Workitem resource. It corresponds to the UPS DIMSE N-ACTION operation \"Subscribe to Receive UPS Event Reports\".<br/><br/> See [Subscribe Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.10)\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/workitemUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/aeTitle"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The Subscription was created."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction is used to stop the origin server from sending new Event Reports to the user agent and may also stop the origin server from subscribing the user agent to new Workitems.<br/><br/> See [Unsubscribe Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.11)\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/workitemUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/aeTitle"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The Subscription(s) were removed."
+                    }
+                }
+            }
+        },
+        "/dicom-web/workitems/{workitemUID}/subscribers/{aeTitle}/suspend": {
+            "post": {
+                "tags": [
+                    "UPS-RS"
+                ],
+                "description": "This transaction is used to stop the origin server from automatically subscribing the User-Agent to new Workitems. This does not delete any existing subscriptions to specific Workitems.<br/> See [Suspend Global Subscription Transaction](https://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_11.12)\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/workitemUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/aeTitle"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The Subscription(s) were removed."
+                    }
+                }
+            }
+        },
         "/dicom-web/studies/{studyUID}/bulkdata": {
             "get": {
                 "tags": [
@@ -1215,6 +1371,32 @@
                 "name": "00200010",
                 "description": "User or equipment generated Study identifier.",
                 "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "workitem": {
+                "name": "workitem",
+                "description": "workitem instance UID",
+                "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "workitemUID": {
+                "name": "workitemUID",
+                "description": "workitem instance UID in path",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "aeTitle": {
+                "name": "aeTitle",
+                "description": "The Application Entity Title of a Subscriber.",
+                "in": "path",
+                "required": true,
                 "schema": {
                     "type": "string"
                 }

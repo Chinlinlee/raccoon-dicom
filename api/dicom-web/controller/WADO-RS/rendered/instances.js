@@ -1,11 +1,10 @@
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const renderedService = require("../service/rendered.service");
-const { MultipartWriter } = require("../../../../../utils/multipartWriter");
+const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 const { Controller } = require("../../../../controller.class");
-const dicomModel = require("../../../../../models/mongodb/models/dicom");
 
 class RetrieveRenderedInstancesController extends Controller {
     constructor(req, res) {
@@ -29,16 +28,14 @@ class RetrieveRenderedInstancesController extends Controller {
         }
         
         try {
-            let imagePathObj = await dicomModel.getPathOfInstance(this.request.params);
-    
-            if (imagePathObj) {
-                let multipartWriter = new MultipartWriter([], this.request, this.response);
-                let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
-                let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
-                dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
-                await renderedService.writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);
-                multipartWriter.writeFinalBoundary();
-            }
+            let renderedImageMultipartWriter = new renderedService.RenderedImageMultipartWriter(
+                this.request,
+                this.response,
+                InstanceImagePathFactory,
+                renderedService.InstanceFramesWriter
+            );
+
+            await renderedImageMultipartWriter.write();
     
             apiLogger.logger.info(`Write Multipart Successfully, study's series' instances' rendered images, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}, instance UID: ${this.request.params.instanceUID}`);
             return this.response.end();

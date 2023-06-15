@@ -1,13 +1,13 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
 import { Iterator as java_util_Iterator } from "./../../util/Iterator";
-import { Component as java_awt_Component } from "./../Component";
 import { Cursor as java_awt_Cursor } from "./../Cursor";
-import { Image as java_awt_Image } from "./../Image";
-import { Point as java_awt_Point } from "./../Point";
 import { Transferable as java_awt_datatransfer_Transferable, TransferableInterface as java_awt_datatransfer_TransferableInterface } from "./../datatransfer/Transferable";
 import { DragSourceListener as java_awt_dnd_DragSourceListener, DragSourceListenerInterface as java_awt_dnd_DragSourceListenerInterface } from "./DragSourceListener";
+import { Image as java_awt_Image } from "./../Image";
+import { Point as java_awt_Point } from "./../Point";
 import { DragSource as java_awt_dnd_DragSource } from "./DragSource";
 import { InputEvent as java_awt_event_InputEvent } from "./../event/InputEvent";
+import { Component as java_awt_Component } from "./../Component";
 import { DragGestureRecognizer as java_awt_dnd_DragGestureRecognizer } from "./DragGestureRecognizer";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
@@ -46,13 +46,31 @@ export declare class DragGestureEventClass extends JavaClass {
      */
     iteratorSync(): java_util_Iterator | null;
     /**
-     * @return original return type: 'java.awt.Component'
+     * @param var0 original type: 'java.awt.Cursor'
+     * @param var1 original type: 'java.awt.datatransfer.Transferable'
+     * @return original return type: 'void'
      */
-    getComponent(): Promise<java_awt_Component | null>;
+    startDrag(var0: java_awt_Cursor | null, var1: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null): Promise<void>;
     /**
-     * @return original return type: 'java.awt.Component'
+     * @param var0 original type: 'java.awt.Cursor'
+     * @param var1 original type: 'java.awt.datatransfer.Transferable'
+     * @return original return type: 'void'
      */
-    getComponentSync(): java_awt_Component | null;
+    startDragSync(var0: java_awt_Cursor | null, var1: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null): void;
+    /**
+     * @param var0 original type: 'java.awt.Cursor'
+     * @param var1 original type: 'java.awt.datatransfer.Transferable'
+     * @param var2 original type: 'java.awt.dnd.DragSourceListener'
+     * @return original return type: 'void'
+     */
+    startDrag(var0: java_awt_Cursor | null, var1: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null, var2: java_awt_dnd_DragSourceListener | JavaInterfaceProxy<java_awt_dnd_DragSourceListenerInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.Cursor'
+     * @param var1 original type: 'java.awt.datatransfer.Transferable'
+     * @param var2 original type: 'java.awt.dnd.DragSourceListener'
+     * @return original return type: 'void'
+     */
+    startDragSync(var0: java_awt_Cursor | null, var1: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null, var2: java_awt_dnd_DragSourceListener | JavaInterfaceProxy<java_awt_dnd_DragSourceListenerInterface> | null): void;
     /**
      * @param var0 original type: 'java.awt.Cursor'
      * @param var1 original type: 'java.awt.Image'
@@ -72,32 +90,6 @@ export declare class DragGestureEventClass extends JavaClass {
      */
     startDragSync(var0: java_awt_Cursor | null, var1: java_awt_Image | null, var2: java_awt_Point | null, var3: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null, var4: java_awt_dnd_DragSourceListener | JavaInterfaceProxy<java_awt_dnd_DragSourceListenerInterface> | null): void;
     /**
-     * @param var0 original type: 'java.awt.Cursor'
-     * @param var1 original type: 'java.awt.datatransfer.Transferable'
-     * @param var2 original type: 'java.awt.dnd.DragSourceListener'
-     * @return original return type: 'void'
-     */
-    startDrag(var0: java_awt_Cursor | null, var1: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null, var2: java_awt_dnd_DragSourceListener | JavaInterfaceProxy<java_awt_dnd_DragSourceListenerInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Cursor'
-     * @param var1 original type: 'java.awt.datatransfer.Transferable'
-     * @param var2 original type: 'java.awt.dnd.DragSourceListener'
-     * @return original return type: 'void'
-     */
-    startDragSync(var0: java_awt_Cursor | null, var1: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null, var2: java_awt_dnd_DragSourceListener | JavaInterfaceProxy<java_awt_dnd_DragSourceListenerInterface> | null): void;
-    /**
-     * @param var0 original type: 'java.awt.Cursor'
-     * @param var1 original type: 'java.awt.datatransfer.Transferable'
-     * @return original return type: 'void'
-     */
-    startDrag(var0: java_awt_Cursor | null, var1: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Cursor'
-     * @param var1 original type: 'java.awt.datatransfer.Transferable'
-     * @return original return type: 'void'
-     */
-    startDragSync(var0: java_awt_Cursor | null, var1: java_awt_datatransfer_Transferable | JavaInterfaceProxy<java_awt_datatransfer_TransferableInterface> | null): void;
-    /**
      * @return original return type: 'java.awt.dnd.DragSource'
      */
     getDragSource(): Promise<java_awt_dnd_DragSource | null>;
@@ -113,6 +105,14 @@ export declare class DragGestureEventClass extends JavaClass {
      * @return original return type: 'java.awt.event.InputEvent'
      */
     getTriggerEventSync(): java_awt_event_InputEvent | null;
+    /**
+     * @return original return type: 'java.awt.Component'
+     */
+    getComponent(): Promise<java_awt_Component | null>;
+    /**
+     * @return original return type: 'java.awt.Component'
+     */
+    getComponentSync(): java_awt_Component | null;
     /**
      * @return original return type: 'java.awt.dnd.DragGestureRecognizer'
      */

@@ -43,14 +43,6 @@ export declare class InputMethodHighlightClass extends JavaClass {
      */
     getStateSync(): number;
     /**
-     * @return original return type: 'java.util.Map'
-     */
-    getStyle(): Promise<java_util_Map | null>;
-    /**
-     * @return original return type: 'java.util.Map'
-     */
-    getStyleSync(): java_util_Map | null;
-    /**
      * @return original return type: 'boolean'
      */
     isSelected(): Promise<boolean>;
@@ -66,6 +58,14 @@ export declare class InputMethodHighlightClass extends JavaClass {
      * @return original return type: 'int'
      */
     getVariationSync(): number;
+    /**
+     * @return original return type: 'java.util.Map'
+     */
+    getStyle(): Promise<java_util_Map | null>;
+    /**
+     * @return original return type: 'java.util.Map'
+     */
+    getStyleSync(): java_util_Map | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

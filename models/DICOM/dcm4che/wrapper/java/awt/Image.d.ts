@@ -70,22 +70,22 @@ export declare class ImageClass extends JavaClass {
      * @param var0 original type: 'java.awt.image.ImageObserver'
      * @return original return type: 'int'
      */
-    getWidth(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.awt.image.ImageObserver'
-     * @return original return type: 'int'
-     */
-    getWidthSync(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): number;
-    /**
-     * @param var0 original type: 'java.awt.image.ImageObserver'
-     * @return original return type: 'int'
-     */
     getHeight(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): Promise<number>;
     /**
      * @param var0 original type: 'java.awt.image.ImageObserver'
      * @return original return type: 'int'
      */
     getHeightSync(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): number;
+    /**
+     * @param var0 original type: 'java.awt.image.ImageObserver'
+     * @return original return type: 'int'
+     */
+    getWidth(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): Promise<number>;
+    /**
+     * @param var0 original type: 'java.awt.image.ImageObserver'
+     * @return original return type: 'int'
+     */
+    getWidthSync(var0: java_awt_image_ImageObserver | JavaInterfaceProxy<java_awt_image_ImageObserverInterface> | null): number;
     /**
      * @return original return type: 'java.awt.Graphics'
      */

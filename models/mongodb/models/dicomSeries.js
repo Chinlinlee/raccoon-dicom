@@ -3,6 +3,8 @@ const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { getStoreDicomFullPathGroup, IncludeFieldsFactory } = require("../service");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { raccoonConfig } = require("@root/config-class");
 
 let dicomSeriesSchema = new mongoose.Schema(
     {
@@ -95,6 +97,12 @@ dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
                     `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
                 ]
             };
+
+            _.set(obj, dictionary.keyword.RetrieveAETitle, {
+                ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
+                Value: [raccoonConfig.aeTitle]
+            });
+
             return obj;
         });
 
@@ -152,26 +160,6 @@ dicomSeriesSchema.statics.getPathGroupOfInstances = async function(iParam) {
     }
 };
 
-/**
- * 
- * @param {string} studyUID 
- */
-dicomSeriesSchema.statics.getSeriesOfMedianIndex = async function (studyUID) {
-    let seriesCountOfStudy = await mongoose.model("dicomSeries").countDocuments({
-        studyUID
-    });
-
-    return await mongoose.model("dicomSeries").findOne({
-        studyUID
-    }, {
-        studyUID: 1,
-        seriesUID: 1
-    })
-    .skip(seriesCountOfStudy >> 1)
-    .limit(1)
-    .exec();
-};
-
 
 /**
  * @typedef { mongoose.Model<dicomSeriesSchema> & { 
@@ -180,7 +168,6 @@ dicomSeriesSchema.statics.getSeriesOfMedianIndex = async function (studyUID) {
  *      seriesUID: string
  *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]>;
  * getDicomJson: function(queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<JSON[]>;
- * getSeriesOfMedianIndex: function(studyUID: string): Promise<any>
  * }} DicomSeriesModel
 */
 

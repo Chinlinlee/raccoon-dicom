@@ -49,22 +49,22 @@ export declare class DicomInputHandlerClass extends JavaClass {
      * @param var0 original type: 'org.dcm4che3.io.DicomInputStream'
      * @return original return type: 'void'
      */
-    endDataset(var0: org_dcm4che3_io_DicomInputStream | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.io.DicomInputStream'
-     * @return original return type: 'void'
-     */
-    endDatasetSync(var0: org_dcm4che3_io_DicomInputStream | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.io.DicomInputStream'
-     * @return original return type: 'void'
-     */
     startDataset(var0: org_dcm4che3_io_DicomInputStream | null): Promise<void>;
     /**
      * @param var0 original type: 'org.dcm4che3.io.DicomInputStream'
      * @return original return type: 'void'
      */
     startDatasetSync(var0: org_dcm4che3_io_DicomInputStream | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.io.DicomInputStream'
+     * @return original return type: 'void'
+     */
+    endDataset(var0: org_dcm4che3_io_DicomInputStream | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.io.DicomInputStream'
+     * @return original return type: 'void'
+     */
+    endDatasetSync(var0: org_dcm4che3_io_DicomInputStream | null): void;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -100,12 +100,12 @@ export interface DicomInputHandlerInterface {
      * @param var0 original type: 'org.dcm4che3.io.DicomInputStream'
      * @return original return type: 'void'
      */
-    endDataset(var0: org_dcm4che3_io_DicomInputStream | null): void;
+    startDataset(var0: org_dcm4che3_io_DicomInputStream | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.io.DicomInputStream'
      * @return original return type: 'void'
      */
-    startDataset(var0: org_dcm4che3_io_DicomInputStream | null): void;
+    endDataset(var0: org_dcm4che3_io_DicomInputStream | null): void;
 }
 /**
  * Create a proxy for the {@link DicomInputHandler} interface.

@@ -145,20 +145,6 @@ export declare class Rectangle2DClass extends JavaClass {
     static unionSync(var0: Rectangle2DClass | null, var1: Rectangle2DClass | null, var2: Rectangle2DClass | null): void;
     /**
      * @param var0 original type: 'java.awt.geom.Rectangle2D'
-     * @param var1 original type: 'java.awt.geom.Rectangle2D'
-     * @param var2 original type: 'java.awt.geom.Rectangle2D'
-     * @return original return type: 'void'
-     */
-    static intersect(var0: Rectangle2DClass | null, var1: Rectangle2DClass | null, var2: Rectangle2DClass | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.geom.Rectangle2D'
-     * @param var1 original type: 'java.awt.geom.Rectangle2D'
-     * @param var2 original type: 'java.awt.geom.Rectangle2D'
-     * @return original return type: 'void'
-     */
-    static intersectSync(var0: Rectangle2DClass | null, var1: Rectangle2DClass | null, var2: Rectangle2DClass | null): void;
-    /**
-     * @param var0 original type: 'java.awt.geom.Rectangle2D'
      * @return original return type: 'void'
      */
     setRect(var0: Rectangle2DClass | null): Promise<void>;
@@ -183,6 +169,20 @@ export declare class Rectangle2DClass extends JavaClass {
      * @return original return type: 'void'
      */
     setRectSync(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): void;
+    /**
+     * @param var0 original type: 'java.awt.geom.Rectangle2D'
+     * @param var1 original type: 'java.awt.geom.Rectangle2D'
+     * @param var2 original type: 'java.awt.geom.Rectangle2D'
+     * @return original return type: 'void'
+     */
+    static intersect(var0: Rectangle2DClass | null, var1: Rectangle2DClass | null, var2: Rectangle2DClass | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.geom.Rectangle2D'
+     * @param var1 original type: 'java.awt.geom.Rectangle2D'
+     * @param var2 original type: 'java.awt.geom.Rectangle2D'
+     * @return original return type: 'void'
+     */
+    static intersectSync(var0: Rectangle2DClass | null, var1: Rectangle2DClass | null, var2: Rectangle2DClass | null): void;
     /**
      * @return original return type: 'java.awt.geom.Rectangle2D'
      */
@@ -372,19 +372,19 @@ export declare class Rectangle2DClass extends JavaClass {
     /**
      * @return original return type: 'double'
      */
-    getWidth(): Promise<number>;
-    /**
-     * @return original return type: 'double'
-     */
-    getWidthSync(): number;
-    /**
-     * @return original return type: 'double'
-     */
     getHeight(): Promise<number>;
     /**
      * @return original return type: 'double'
      */
     getHeightSync(): number;
+    /**
+     * @return original return type: 'double'
+     */
+    getWidth(): Promise<number>;
+    /**
+     * @return original return type: 'double'
+     */
+    getWidthSync(): number;
     /**
      * @return original return type: 'double'
      */
@@ -434,18 +434,6 @@ export declare class Rectangle2DClass extends JavaClass {
      */
     getMaxYSync(): number;
     /**
-     * @param var0 original type: 'java.awt.geom.Point2D'
-     * @param var1 original type: 'java.awt.geom.Point2D'
-     * @return original return type: 'void'
-     */
-    setFrameFromDiagonal(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.geom.Point2D'
-     * @param var1 original type: 'java.awt.geom.Point2D'
-     * @return original return type: 'void'
-     */
-    setFrameFromDiagonalSync(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): void;
-    /**
      * @param var0 original type: 'double'
      * @param var1 original type: 'double'
      * @param var2 original type: 'double'
@@ -461,6 +449,18 @@ export declare class Rectangle2DClass extends JavaClass {
      * @return original return type: 'void'
      */
     setFrameFromDiagonalSync(var0: java_lang_Double | number, var1: java_lang_Double | number, var2: java_lang_Double | number, var3: java_lang_Double | number): void;
+    /**
+     * @param var0 original type: 'java.awt.geom.Point2D'
+     * @param var1 original type: 'java.awt.geom.Point2D'
+     * @return original return type: 'void'
+     */
+    setFrameFromDiagonal(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.geom.Point2D'
+     * @param var1 original type: 'java.awt.geom.Point2D'
+     * @return original return type: 'void'
+     */
+    setFrameFromDiagonalSync(var0: java_awt_geom_Point2D | null, var1: java_awt_geom_Point2D | null): void;
     /**
      * @param var0 original type: 'java.awt.geom.Point2D'
      * @param var1 original type: 'java.awt.geom.Point2D'

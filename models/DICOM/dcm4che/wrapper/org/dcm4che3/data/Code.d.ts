@@ -47,14 +47,6 @@ export declare class CodeClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
-    getCodeValue(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodeValueSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
     getCodingSchemeDesignator(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
@@ -71,6 +63,24 @@ export declare class CodeClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
+    getCodeValue(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodeValueSync(): string | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Code'
+     * @return original return type: 'boolean'
+     */
+    equalsIgnoreMeaning(var0: CodeClass | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Code'
+     * @return original return type: 'boolean'
+     */
+    equalsIgnoreMeaningSync(var0: CodeClass | null): boolean;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
     getCodeMeaning(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
@@ -84,16 +94,6 @@ export declare class CodeClass extends JavaClass {
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
     toItemSync(): org_dcm4che3_data_Attributes | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Code'
-     * @return original return type: 'boolean'
-     */
-    equalsIgnoreMeaning(var0: CodeClass | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Code'
-     * @return original return type: 'boolean'
-     */
-    equalsIgnoreMeaningSync(var0: CodeClass | null): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

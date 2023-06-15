@@ -1,24 +1,27 @@
 RegExp.prototype.toJSON = RegExp.prototype.toString;
+require('module-alias')(__dirname);
 
-const { app } = require("./app");
+const { app, server } = require("./app");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const compress = require("compression");
 const cors = require("cors");
 const os = require("os");
-
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
 
 const passport = require("passport");
-let io = require("./socket").init();
 const { raccoonConfig } = require("./config-class");
 require("dotenv");
+require("./websocket");
 
 app.use(compress());
 app.use(cookieParser());
-app.use(cors());
+
+if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "dev") {
+    app.use(cors());
+}
 
 //#region body parser
 
@@ -30,7 +33,7 @@ app.use(
 
 app.use(
     bodyParser.json({
-        type: ["application/json"]
+        type: ["application/json", "application/dicom+json"]
     })
 );
 
@@ -66,13 +69,9 @@ app.use(passport.session());
 
 require("./routes.js")(app);
 
-
 const PORT = raccoonConfig.serverConfig.port;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`http server is listening on port:${PORT}`);
-    io.on("connection", (socket) => {
-        console.log("Connect successfully, " + socket.id);
-    });
 });
 
 
@@ -90,7 +89,18 @@ if (osPlatform.includes("linux")) {
     if (raccoonConfig.dicomDimseConfig.enableDimse) {
         const { java } = require("./models/DICOM/dcm4che/java-instance");
         let dcmQrScpClass = await java.importClassAsync("org.dcm4che3.tool.dcmqrscp.DcmQRSCP");
-        await dcmQrScpClass.main(raccoonConfig.dicomDimseConfig.dcm4cheQrscpArgv);
+        const net = require("net");
+        let checkPortServer = net.createServer()
+            .once("listening", async function () {
+                checkPortServer.close();
+                await dcmQrScpClass.main(raccoonConfig.dicomDimseConfig.dcm4cheQrscpArgv);
+            })
+            .once("error", function (err) {
+                if (err.code === "EADDRINUSE") {
+                    console.log("QRSCP's port is already in use, please check is QRSCP running or another app running");
+                }
+            })
+            .listen(raccoonConfig.dicomDimseConfig.getPort());
     }
 })();
 

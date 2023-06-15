@@ -27,6 +27,112 @@ function mongoDateQuery(iQuery, colName, isRegex, format = "YYYYMMDD") {
     return iQuery;
 }
 
+//#region Time Query Operations
+function timeQuery(iQuery, colName) {
+    /** @type {string} */
+    let value = iQuery[colName];
+
+    let dashIndex = value.indexOf("-");
+    if (dashIndex === 0) { // -HHMMSS
+        let timeStr = value.substring(1);
+        let time = getTimeFloatFromString(timeStr);
+
+        return getLessThanOrEqualTimeQuery(time);
+    } else if (dashIndex === value.length - 1) { // HHMMSS-
+        let timeStr = value.substring(0, dashIndex);
+        let time = getTimeFloatFromString(timeStr);
+
+        return getGreaterThanOrEqualTimeQuery(time);
+    } else if (dashIndex > 0) { //HHMMSS-HHMMSS
+        let startTimeStr = value.substring(0, dashIndex);
+        let endTimeStr = value.substring(dashIndex + 1);
+
+        let startTime = getTimeFloatFromString(startTimeStr);
+        let endTime = getTimeFloatFromString(endTimeStr);
+
+        return getBetweenTimeQuery(startTime, endTime);
+    } else {
+        let time = getTimeFloatFromString(value);
+        return getEqualTimeQuery(time);
+    }
+}
+
+/**
+ * 
+ * @param {number} time 
+ */
+function getEqualTimeQuery(time) {
+    return {
+        $eq: time
+    };
+}
+
+/**
+ * 
+ * @param {number} time 
+ */
+function getGreaterThanOrEqualTimeQuery(time) {
+    return {
+        $gte: time
+    };
+}
+
+/**
+ * 
+ * @param {number} time 
+ */
+function getLessThanOrEqualTimeQuery(time) {
+    return {
+        $lte: time
+    };
+}
+
+/**
+ * 
+ * @param {number} startTime 
+ * @param {number} endTime 
+ * @returns 
+ */
+function getBetweenTimeQuery(startTime, endTime) {
+    return {
+        $gte: startTime,
+        $lte: endTime
+    };
+}
+
+/**
+ * 
+ * @param {string} str 
+ * @returns {number}
+ */
+function getTimeFloatFromString(str) {
+    let fullTimeStr = getTimePadding(str);
+    if (str.includes(".")) {
+        let timeStrSplit = str.split("\\.");
+        let timeStr = timeStrSplit[0];
+        let millionthSecondStr = timeStrSplit[1];
+        fullTimeStr = getTimePadding(timeStr) + "." + millionthSecondStr;
+    }
+    return Number.parseFloat(fullTimeStr);
+}
+
+/**
+ * 
+ * @param {string} str 
+ * @returns {string}
+ */
+function getTimePadding(str) {
+    let hhmmssTimeStr = str.padEnd(6, '0');
+    if (str.length == 5) {
+        hhmmssTimeStr = str.padStart(6, '0');
+    }
+    return hhmmssTimeStr;
+}
+
+//#endregion
+
+//#region Date operation
+
 function getDateCondition(iDate) {
     if (iDate.indexOf("-") == 0) {
         //Only end date (end to date)
@@ -120,6 +226,8 @@ const dateCallBack = {
     "=": eq_Date
 };
 
+//#endregion
+
 function getStoreDicomFullPathGroup(pathGroup) {
     let fullPathGroup = [];
 
@@ -141,8 +249,8 @@ function getStoreDicomFullPath(storeInstanceObj) {
 
 
 class IncludeFieldsFactory {
-    constructor(includeFields=[]) {
-        
+    constructor(includeFields = []) {
+
         this.includeFields = includeFields;
         this.all = false;
         if (this.includeFields.indexOf("all") >= 0) this.all = true;
@@ -193,9 +301,9 @@ class IncludeFieldsFactory {
                 studyUID: 0,
                 seriesUID: 0,
                 instanceUID: 0,
-                studyPath : 0,
-                seriesPath : 0,
-                instancePath : 0
+                studyPath: 0,
+                seriesPath: 0,
+                instancePath: 0
             };
         }
 
@@ -224,6 +332,7 @@ class IncludeFieldsFactory {
 }
 
 module.exports.mongoDateQuery = mongoDateQuery;
+module.exports.timeQuery = timeQuery;
 module.exports.getStoreDicomFullPathGroup = getStoreDicomFullPathGroup;
 module.exports.getStoreDicomFullPath = getStoreDicomFullPath;
 module.exports.IncludeFieldsFactory = IncludeFieldsFactory;

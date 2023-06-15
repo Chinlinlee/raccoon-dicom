@@ -10,6 +10,8 @@ const {
 const {
     tagsOfRequiredMatching
 } = require("../../DICOM/dicom-tags-mapping");
+const { raccoonConfig } = require("../../../config-class");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
 let dicomStudySchema = new mongoose.Schema(
     {
@@ -74,6 +76,12 @@ dicomStudySchema.statics.getDicomJson = async function (queryOptions) {
                 vr: "UR",
                 Value: [`${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}`]
             };
+
+            _.set(obj, dictionary.keyword.RetrieveAETitle, {
+                ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
+                Value: [raccoonConfig.aeTitle]
+            });
+            
             return obj;
         });
 

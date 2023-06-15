@@ -76,14 +76,6 @@ export declare class JobAttributesClass extends JavaClass {
      */
     setDestinationSync(var0: java_awt_JobAttributes$DestinationType | null): void;
     /**
-     * @return original return type: 'java.awt.JobAttributes$DestinationType'
-     */
-    getDestination(): Promise<java_awt_JobAttributes$DestinationType | null>;
-    /**
-     * @return original return type: 'java.awt.JobAttributes$DestinationType'
-     */
-    getDestinationSync(): java_awt_JobAttributes$DestinationType | null;
-    /**
      * @return original return type: 'void'
      */
     setCopiesToDefault(): Promise<void>;
@@ -255,6 +247,14 @@ export declare class JobAttributesClass extends JavaClass {
      * @return original return type: 'java.awt.JobAttributes$DefaultSelectionType'
      */
     getDefaultSelectionSync(): java_awt_JobAttributes$DefaultSelectionType | null;
+    /**
+     * @return original return type: 'java.awt.JobAttributes$DestinationType'
+     */
+    getDestination(): Promise<java_awt_JobAttributes$DestinationType | null>;
+    /**
+     * @return original return type: 'java.awt.JobAttributes$DestinationType'
+     */
+    getDestinationSync(): java_awt_JobAttributes$DestinationType | null;
     /**
      * @return original return type: 'java.awt.JobAttributes$DialogType'
      */

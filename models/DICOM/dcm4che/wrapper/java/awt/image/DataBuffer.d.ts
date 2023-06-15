@@ -81,6 +81,14 @@ export declare class DataBufferClass extends JavaClass {
      */
     static getDataTypeSizeSync(var0: java_lang_Integer | number): number;
     /**
+     * @return original return type: 'int'
+     */
+    getNumBanks(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumBanksSync(): number;
+    /**
      * @param var0 original type: 'int'
      * @return original return type: 'int'
      */
@@ -102,40 +110,6 @@ export declare class DataBufferClass extends JavaClass {
      * @return original return type: 'int'
      */
     getElemSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): number;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setElem(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setElemSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setElem(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setElemSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): void;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumBanks(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumBanksSync(): number;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
@@ -161,17 +135,51 @@ export declare class DataBufferClass extends JavaClass {
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @param var2 original type: 'float'
-     * @return original return type: 'void'
+     * @return original return type: 'double'
      */
-    setElemFloat(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Float | number): Promise<void>;
+    getElemDouble(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<number>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @param var2 original type: 'float'
+     * @return original return type: 'double'
+     */
+    getElemDoubleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'double'
+     */
+    getElemDouble(var0: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'double'
+     */
+    getElemDoubleSync(var0: java_lang_Integer | number): number;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
      * @return original return type: 'void'
      */
-    setElemFloatSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Float | number): void;
+    setElem(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setElemSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setElem(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setElemSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'float'
@@ -186,26 +194,18 @@ export declare class DataBufferClass extends JavaClass {
     setElemFloatSync(var0: java_lang_Integer | number, var1: java_lang_Float | number): void;
     /**
      * @param var0 original type: 'int'
-     * @return original return type: 'double'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'float'
+     * @return original return type: 'void'
      */
-    getElemDouble(var0: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'double'
-     */
-    getElemDoubleSync(var0: java_lang_Integer | number): number;
+    setElemFloat(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Float | number): Promise<void>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
-     * @return original return type: 'double'
+     * @param var2 original type: 'float'
+     * @return original return type: 'void'
      */
-    getElemDouble(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'int'
-     * @return original return type: 'double'
-     */
-    getElemDoubleSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): number;
+    setElemFloatSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Float | number): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'double'

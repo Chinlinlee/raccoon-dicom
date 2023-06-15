@@ -15,6 +15,8 @@ const patientModel = require("../mongodb/models/patient");
 const { tagsNeedStore } = require("./dicom-tags-mapping");
 
 const { raccoonConfig } = require("../../config-class");
+const { JSONPath } = require("jsonpath-plus");
+const { dictionary } = require("./dicom-tags-dic");
 
 /**
  * *The SQ of Whole slide may have over thousand of length cause process block.
@@ -24,6 +26,57 @@ const BIG_VALUE_TAGS = [
     "52009230", 
     "00480200"
 ];
+
+class BaseDicomJson {
+    /**
+     * 
+     * @param {Object} dicomJson 
+     * @param  {...string} selection 
+     */
+    constructor(dicomJson, ...selection) {
+        this.dicomJson = dicomJson;
+        if(selection.length > 0) {
+            this.initSelectionJson(selection);
+        }
+    }
+
+    /**
+     * 
+     * @param {string[]} selection 
+     */
+    initSelectionJson(selection) {
+        let selectionJson = {};
+        for(let i = 0; i < selection.length; i++) {
+            let tag = selection[i];
+            let item = this.getItem(tag);
+            if (item) {
+                _.set(selectionJson, tag, item);
+            }
+        }
+        this.dicomJson = selectionJson;
+    }
+
+    getItem(tag) {
+        return _.get(this.dicomJson, tag, undefined);
+    }
+
+    getValue(tag) {
+        return _.get(this.dicomJson, `${tag}.Value`, undefined);
+    }
+
+    getSequenceItem(tag) {
+        return JSONPath({
+            path: `$..${tag}`,
+            json: this.dicomJson
+        });
+    }
+
+    setValue(tag, value) {
+        let vrOfTag = _.get(dictionary.tagVR, `${tag}.vr`);
+        _.set(this.dicomJson, `${tag}.vr`, vrOfTag);
+        _.set(this.dicomJson, `${tag}.Value`, [value]);
+    }
+}
 
 class DicomJsonModel {
     constructor(dicomJson) {
@@ -205,6 +258,14 @@ class DicomJsonModel {
         }
     }
 
+    /**
+     * 
+     * @param {string} tag 
+     */
+    getString(tag) {
+        return String(_.get(this.dicomJson, `${tag}.Value.0`, ""));
+    }
+
     getMediaStorageInfo() {
         return {
             "00880130": {
@@ -236,6 +297,10 @@ class DicomJsonModel {
 
     getTransferSyntax() {
         return _.get(this.dicomJson, "00020010.Value.0");
+    }
+
+    getSopClassUid() {
+        return _.get(this.dicomJson, "00080016.Value.0");
     }
 
     getStudyDate() {
@@ -501,3 +566,4 @@ class BulkData {
 
 module.exports.DicomJsonModel = DicomJsonModel;
 module.exports.DicomJsonBinaryDataModel = DicomJsonBinaryDataModel;
+module.exports.BaseDicomJson = BaseDicomJson;

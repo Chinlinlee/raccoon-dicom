@@ -1,7 +1,7 @@
 const urlObj = require("url");
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const { mongoDateQuery } = require("../../../../../models/mongodb/service");
+const { mongoDateQuery, timeQuery } = require("../../../../../models/mongodb/service");
 const { dictionary } = require("../../../../../models/DICOM/dicom-tags-dic");
 const {
     tagsOfRequiredMatching
@@ -12,6 +12,10 @@ const { DicomWebService } = require("../../../service/dicom-web.service");
 const dicomWebApiPath = raccoonConfig.dicomWebConfig.apiPath;
 const dicomModel = require("../../../../../models/mongodb/models/dicom");
 const patientModel = require("../../../../../models/mongodb/models/patient");
+const {
+    DicomWebServiceError,
+    DicomWebStatusCodes
+} = require("@error/dicom-web-service");
 
 class QidoRsService {
 
@@ -153,6 +157,13 @@ function convertAllQueryToDICOMTag(iParam) {
                 newKeyNames.push(keyNameSplit);
             }
         }
+        if (newKeyNames.length === 0) {
+            throw new DicomWebServiceError(
+                DicomWebStatusCodes.InvalidArgumentValue,
+                `Invalid request query: ${keyNameSplit}`,
+                400
+            );
+        };
         newKeyNames.push("Value");
         let retKeyName = newKeyNames.join(".");
         newQS[retKeyName] = iParam[keyName];
@@ -290,6 +301,9 @@ const vrQueryLookup = {
                 [`${tag}.suffix`] : queryValue
             }
         ]};
+    },
+    TM: async (value, tag) => {
+        value[tag] = timeQuery(value, tag);
     }
 };
 
@@ -330,11 +344,11 @@ async function getStudyDicomJson(queryOptions) {
 
     try {
         let query = await convertRequestQueryToMongoQuery(queryOptions.query);
-        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(query)}]`);
-        
         queryOptions.query = {
             ...query.$match
         };
+
+        logger.info(`[QIDO-RS] [Query for MongoDB: ${JSON.stringify(queryOptions.query)}]`);
 
         let docs = await mongoose.model("dicomStudy").getDicomJson(queryOptions);
 

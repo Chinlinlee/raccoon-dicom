@@ -99,19 +99,19 @@ export declare class DimensionClass extends JavaClass {
     /**
      * @return original return type: 'double'
      */
-    getWidth(): Promise<number>;
-    /**
-     * @return original return type: 'double'
-     */
-    getWidthSync(): number;
-    /**
-     * @return original return type: 'double'
-     */
     getHeight(): Promise<number>;
     /**
      * @return original return type: 'double'
      */
     getHeightSync(): number;
+    /**
+     * @return original return type: 'double'
+     */
+    getWidth(): Promise<number>;
+    /**
+     * @return original return type: 'double'
+     */
+    getWidthSync(): number;
     /**
      * @return original return type: 'java.lang.Object'
      */

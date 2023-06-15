@@ -1,0 +1,22 @@
+components:
+    parameters:
+        "workitem":
+            name: "workitem"
+            description: workitem instance UID
+            in: query
+            schema:
+                type: string
+        "workitemUID":
+            name: "workitemUID"
+            description: workitem instance UID in path
+            in: path
+            required: true
+            schema:
+                type: string
+        "aeTitle":
+            name: "aeTitle"
+            description: The Application Entity Title of a Subscriber.
+            in: path
+            required: true
+            schema:
+                type: string

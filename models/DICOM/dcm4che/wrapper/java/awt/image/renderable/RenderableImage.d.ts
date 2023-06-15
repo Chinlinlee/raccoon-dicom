@@ -25,21 +25,13 @@ export declare class RenderableImageClass extends JavaClass {
      */
     getPropertySync(var0: string | null): BasicOrJavaType | null;
     /**
-     * @return original return type: 'java.util.Vector'
+     * @return original return type: 'float'
      */
-    getSources(): Promise<java_util_Vector | null>;
+    getHeight(): Promise<number>;
     /**
-     * @return original return type: 'java.util.Vector'
+     * @return original return type: 'float'
      */
-    getSourcesSync(): java_util_Vector | null;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getPropertyNames(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getPropertyNamesSync(): (string | null)[] | null;
+    getHeightSync(): number;
     /**
      * @return original return type: 'float'
      */
@@ -48,14 +40,6 @@ export declare class RenderableImageClass extends JavaClass {
      * @return original return type: 'float'
      */
     getWidthSync(): number;
-    /**
-     * @return original return type: 'float'
-     */
-    getHeight(): Promise<number>;
-    /**
-     * @return original return type: 'float'
-     */
-    getHeightSync(): number;
     /**
      * @return original return type: 'float'
      */
@@ -72,6 +56,22 @@ export declare class RenderableImageClass extends JavaClass {
      * @return original return type: 'float'
      */
     getMinYSync(): number;
+    /**
+     * @return original return type: 'java.util.Vector'
+     */
+    getSources(): Promise<java_util_Vector | null>;
+    /**
+     * @return original return type: 'java.util.Vector'
+     */
+    getSourcesSync(): java_util_Vector | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPropertyNames(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPropertyNamesSync(): (string | null)[] | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -131,21 +131,13 @@ export interface RenderableImageInterface {
      */
     getProperty(var0: string | null): BasicOrJavaType | null;
     /**
-     * @return original return type: 'java.util.Vector'
+     * @return original return type: 'float'
      */
-    getSources(): java_util_Vector | null;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getPropertyNames(): (string | null)[] | null;
+    getHeight(): number;
     /**
      * @return original return type: 'float'
      */
     getWidth(): number;
-    /**
-     * @return original return type: 'float'
-     */
-    getHeight(): number;
     /**
      * @return original return type: 'float'
      */
@@ -154,6 +146,14 @@ export interface RenderableImageInterface {
      * @return original return type: 'float'
      */
     getMinY(): number;
+    /**
+     * @return original return type: 'java.util.Vector'
+     */
+    getSources(): java_util_Vector | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPropertyNames(): (string | null)[] | null;
     /**
      * @return original return type: 'boolean'
      */

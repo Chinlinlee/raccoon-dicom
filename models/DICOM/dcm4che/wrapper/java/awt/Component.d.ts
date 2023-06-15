@@ -472,13 +472,13 @@ export declare class ComponentClass extends JavaClass {
      */
     isValidSync(): boolean;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @return original return type: 'int'
      */
-    getColorModel(): Promise<java_awt_image_ColorModel | null>;
+    getHeight(): Promise<number>;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @return original return type: 'int'
      */
-    getColorModelSync(): java_awt_image_ColorModel | null;
+    getHeightSync(): number;
     /**
      * @return original return type: 'int'
      */
@@ -490,11 +490,27 @@ export declare class ComponentClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    getHeight(): Promise<number>;
+    getX(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    getHeightSync(): number;
+    getXSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getY(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getYSync(): number;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModel(): Promise<java_awt_image_ColorModel | null>;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModelSync(): java_awt_image_ColorModel | null;
     /**
      * @return original return type: 'java.awt.Graphics'
      */
@@ -526,22 +542,6 @@ export declare class ComponentClass extends JavaClass {
      */
     createImageSync(var0: java_awt_image_ImageProducer | JavaInterfaceProxy<java_awt_image_ImageProducerInterface> | null): java_awt_Image | null;
     /**
-     * @return original return type: 'int'
-     */
-    getX(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getXSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
-    getY(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getYSync(): number;
-    /**
      * @param var0 original type: 'java.awt.Image'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
@@ -562,6 +562,16 @@ export declare class ComponentClass extends JavaClass {
      */
     imageUpdateSync(var0: java_awt_Image | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number): boolean;
     /**
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'void'
+     */
+    setBounds(var0: java_awt_Rectangle | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'void'
+     */
+    setBoundsSync(var0: java_awt_Rectangle | null): void;
+    /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
@@ -577,16 +587,6 @@ export declare class ComponentClass extends JavaClass {
      * @return original return type: 'void'
      */
     setBoundsSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'void'
-     */
-    setBounds(var0: java_awt_Rectangle | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'void'
-     */
-    setBoundsSync(var0: java_awt_Rectangle | null): void;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

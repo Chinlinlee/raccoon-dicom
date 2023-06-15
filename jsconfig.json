@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "paths": {
+            "@dcm4che/*": ["./models/DICOM/dcm4che/wrapper/org/dcm4che3/*"],
+            "@java-wrapper/*": ["./models/DICOM/dcm4che/wrapper/*"],
+            "@models/*": ["./models/*"],
+            "@error/*" : ["./error/*"],
+            "@root/*": ["./*"]
+        }
+    },
+    "exclude": [
+        "node_modules", "**/node_modules/*"
+    ]
+}

@@ -43,5 +43,7 @@
             "level": "DEBUG",
             "enableCallStack": true
         }
-    }
+    },
+    "pm2": true,
+    "pm2InstanceVar": "NODE_APP_INSTANCE"
 }

@@ -54,6 +54,13 @@
   "keywords": [],
   "author": "chinlinlee",
   "license": "MIT",
+  "_moduleAliases": {
+    "@dcm4che": "./models/DICOM/dcm4che/wrapper/org/dcm4che3",
+    "@java-wrapper": "./models/DICOM/dcm4che/wrapper",
+    "@models": "./models",
+    "@error": "./error",
+    "@root": "./"
+  },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",
     "archiver": "^5.3.1",
@@ -61,6 +68,7 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "colorette": "^2.0.20",
+    "commander": "^10.0.1",
     "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
@@ -81,19 +89,21 @@
     "lodash": "^4.17.21",
     "log4js": "^6.9.1",
     "mkdirp": "^1.0.4",
+    "module-alias": "^2.2.2",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "mongoose": "^6.7.2",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "path-match": "^1.2.4",
     "regexparam": "^2.0.1",
     "request-compose": "^2.1.6",
     "request-multipart": "^1.0.0",
     "run-script-os": "^1.1.6",
     "sharp": "^0.30.4",
     "shorthash2": "^1.0.3",
-    "socket.io": "^4.5.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "ws": "^8.13.0"
   },
   "devDependencies": {
     "chai": "^4.3.7",

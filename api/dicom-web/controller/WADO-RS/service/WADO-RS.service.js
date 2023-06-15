@@ -168,7 +168,11 @@ class InstanceImagePathFactory extends ImagePathFactory {
 
     async getImagePaths() {
         let imagePath = await dicomModel.getPathOfInstance(this.uids);
-        this.imagePaths = [imagePath];
+
+        if(imagePath)
+            this.imagePaths = [imagePath];
+        else
+            this.imagePaths = [];
     }
 }
 
@@ -242,6 +246,7 @@ module.exports.getAcceptType = getAcceptType;
 module.exports.supportInstanceMultipartType = supportInstanceMultipartType;
 module.exports.sendNotSupportedMediaType = sendNotSupportedMediaType;
 module.exports.addHostnameOfBulkDataUrl = addHostnameOfBulkDataUrl;
+module.exports.ImagePathFactory = ImagePathFactory;
 module.exports.StudyImagePathFactory = StudyImagePathFactory;
 module.exports.SeriesImagePathFactory = SeriesImagePathFactory;
 module.exports.InstanceImagePathFactory = InstanceImagePathFactory;

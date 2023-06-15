@@ -132,22 +132,6 @@ export declare class InputMethodEventClass extends JavaClass {
      */
     getTextSync(): java_text_AttributedCharacterIterator | null;
     /**
-     * @return original return type: 'boolean'
-     */
-    isConsumed(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isConsumedSync(): boolean;
-    /**
-     * @return original return type: 'long'
-     */
-    getWhen(): Promise<number>;
-    /**
-     * @return original return type: 'long'
-     */
-    getWhenSync(): number;
-    /**
      * @return original return type: 'int'
      */
     getCommittedCharacterCount(): Promise<number>;
@@ -171,6 +155,22 @@ export declare class InputMethodEventClass extends JavaClass {
      * @return original return type: 'java.awt.font.TextHitInfo'
      */
     getVisiblePositionSync(): java_awt_font_TextHitInfo | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isConsumed(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isConsumedSync(): boolean;
+    /**
+     * @return original return type: 'long'
+     */
+    getWhen(): Promise<number>;
+    /**
+     * @return original return type: 'long'
+     */
+    getWhenSync(): number;
     /**
      * @return original return type: 'java.lang.String'
      */

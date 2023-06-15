@@ -90,29 +90,17 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      */
     isUTF8Sync(): boolean;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'void'
      */
-    toCodes(): Promise<(string | null)[] | null>;
+    static setCharsetNameMapping(var0: string | null, var1: string | null): Promise<void>;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'void'
      */
-    toCodesSync(): (string | null)[] | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    containsASCII(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    containsASCIISync(): boolean;
-    /**
-     * @return original return type: 'org.dcm4che3.data.SpecificCharacterSet'
-     */
-    static getDefaultCharacterSet(): Promise<SpecificCharacterSet | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.SpecificCharacterSet'
-     */
-    static getDefaultCharacterSetSync(): SpecificCharacterSet | null;
+    static setCharsetNameMappingSync(var0: string | null, var1: string | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.String'
@@ -123,36 +111,6 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     static checkSpecificCharacterSetSync(var0: string | null): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.String'
-     */
-    toText(var0: string | null): Promise<string | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.String'
-     */
-    toTextSync(var0: string | null): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.String'
-     */
-    static checkCharsetName(var0: string | null): Promise<string | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.String'
-     */
-    static checkCharsetNameSync(var0: string | null): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'boolean'
-     */
-    static trimISO2022(var0: (string | null)[] | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'boolean'
-     */
-    static trimISO2022Sync(var0: (string | null)[] | null): boolean;
     /**
      * @return original return type: 'void'
      */
@@ -173,16 +131,58 @@ export declare class SpecificCharacterSetClass extends JavaClass {
     static setDefaultCharacterSetSync(var0: string | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'void'
+     * @return original return type: 'java.lang.String'
      */
-    static setCharsetNameMapping(var0: string | null, var1: string | null): Promise<void>;
+    static checkCharsetName(var0: string | null): Promise<string | null>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'void'
+     * @return original return type: 'java.lang.String'
      */
-    static setCharsetNameMappingSync(var0: string | null, var1: string | null): void;
+    static checkCharsetNameSync(var0: string | null): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.String'
+     */
+    toText(var0: string | null): Promise<string | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.String'
+     */
+    toTextSync(var0: string | null): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'boolean'
+     */
+    static trimISO2022(var0: (string | null)[] | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'boolean'
+     */
+    static trimISO2022Sync(var0: (string | null)[] | null): boolean;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    toCodes(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    toCodesSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'org.dcm4che3.data.SpecificCharacterSet'
+     */
+    static getDefaultCharacterSet(): Promise<SpecificCharacterSet | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.SpecificCharacterSet'
+     */
+    static getDefaultCharacterSetSync(): SpecificCharacterSet | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    containsASCII(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    containsASCIISync(): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

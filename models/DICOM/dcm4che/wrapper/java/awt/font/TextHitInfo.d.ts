@@ -45,16 +45,6 @@ export declare class TextHitInfoClass extends JavaClass {
      */
     hashCodeSync(): number;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.awt.font.TextHitInfo'
-     */
-    static leading(var0: java_lang_Integer | number): Promise<TextHitInfo | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.awt.font.TextHitInfo'
-     */
-    static leadingSync(var0: java_lang_Integer | number): TextHitInfo | null;
-    /**
      * @return original return type: 'boolean'
      */
     isLeadingEdge(): Promise<boolean>;
@@ -126,6 +116,16 @@ export declare class TextHitInfoClass extends JavaClass {
      * @return original return type: 'java.awt.font.TextHitInfo'
      */
     getOffsetHitSync(var0: java_lang_Integer | number): TextHitInfo | null;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.awt.font.TextHitInfo'
+     */
+    static leading(var0: java_lang_Integer | number): Promise<TextHitInfo | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.awt.font.TextHitInfo'
+     */
+    static leadingSync(var0: java_lang_Integer | number): TextHitInfo | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

@@ -158,6 +158,34 @@ export declare class ColorSpaceClass extends JavaClass {
      */
     getTypeSync(): number;
     /**
+     * @return original return type: 'int'
+     */
+    getNumComponents(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumComponentsSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'float'
+     */
+    getMinValue(var0: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'float'
+     */
+    getMinValueSync(var0: java_lang_Integer | number): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'float'
+     */
+    getMaxValue(var0: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'float'
+     */
+    getMaxValueSync(var0: java_lang_Integer | number): number;
+    /**
      * @param var0 original type: 'float[]'
      * @return original return type: 'float[]'
      */
@@ -167,22 +195,6 @@ export declare class ColorSpaceClass extends JavaClass {
      * @return original return type: 'float[]'
      */
     toRGBSync(var0: (java_lang_Float | number)[] | null): (number)[] | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCS_sRGB(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCS_sRGBSync(): boolean;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumComponents(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumComponentsSync(): number;
     /**
      * @param var0 original type: 'float[]'
      * @return original return type: 'float[]'
@@ -214,25 +226,13 @@ export declare class ColorSpaceClass extends JavaClass {
      */
     fromCIEXYZSync(var0: (java_lang_Float | number)[] | null): (number)[] | null;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'float'
+     * @return original return type: 'boolean'
      */
-    getMinValue(var0: java_lang_Integer | number): Promise<number>;
+    isCS_sRGB(): Promise<boolean>;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'float'
+     * @return original return type: 'boolean'
      */
-    getMinValueSync(var0: java_lang_Integer | number): number;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'float'
-     */
-    getMaxValue(var0: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'float'
-     */
-    getMaxValueSync(var0: java_lang_Integer | number): number;
+    isCS_sRGBSync(): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

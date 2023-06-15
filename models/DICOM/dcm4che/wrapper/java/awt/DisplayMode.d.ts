@@ -55,19 +55,19 @@ export declare class DisplayModeClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    getWidth(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getWidthSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
     getHeight(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
     getHeightSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getWidth(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getWidthSync(): number;
     /**
      * @return original return type: 'int'
      */

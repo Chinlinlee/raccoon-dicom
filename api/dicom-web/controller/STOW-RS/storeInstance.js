@@ -2,8 +2,6 @@ const { performance } = require("node:perf_hooks");
 const errorResponseMessage = require("../../../../utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
-/**@type {import('socket.io').Server} */
-const io = require("../../../../socket").get();
 const { StowRsRequestMultipartParser } = require("./service/request-multipart-parser");
 const { StowRsService } = require("./service/stow-rs.service");
 

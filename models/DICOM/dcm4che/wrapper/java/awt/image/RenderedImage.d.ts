@@ -1,10 +1,10 @@
 import { JavaClass, BasicOrJavaType, InterfaceProxyOptions, JavaInterfaceProxy } from "java-bridge";
-import { Vector as java_util_Vector } from "./../../util/Vector";
-import { ColorModel as java_awt_image_ColorModel } from "./ColorModel";
-import { SampleModel as java_awt_image_SampleModel } from "./SampleModel";
 import { Raster as java_awt_image_Raster } from "./Raster";
-import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { Rectangle as java_awt_Rectangle } from "./../Rectangle";
+import { SampleModel as java_awt_image_SampleModel } from "./SampleModel";
+import { ColorModel as java_awt_image_ColorModel } from "./ColorModel";
+import { Vector as java_util_Vector } from "./../../util/Vector";
+import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { WritableRaster as java_awt_image_WritableRaster } from "./WritableRaster";
 /**
  * This class just defines types, you should import {@link RenderedImage} instead of this.
@@ -23,37 +23,31 @@ export declare class RenderedImageClass extends JavaClass {
      */
     getPropertySync(var0: string | null): BasicOrJavaType | null;
     /**
-     * @return original return type: 'java.util.Vector'
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getSources(): Promise<java_util_Vector | null>;
+    getData(var0: java_awt_Rectangle | null): Promise<java_awt_image_Raster | null>;
     /**
-     * @return original return type: 'java.util.Vector'
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getSourcesSync(): java_util_Vector | null;
+    getDataSync(var0: java_awt_Rectangle | null): java_awt_image_Raster | null;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getPropertyNames(): Promise<(string | null)[] | null>;
+    getData(): Promise<java_awt_image_Raster | null>;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getPropertyNamesSync(): (string | null)[] | null;
+    getDataSync(): java_awt_image_Raster | null;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @return original return type: 'int'
      */
-    getColorModel(): Promise<java_awt_image_ColorModel | null>;
+    getHeight(): Promise<number>;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @return original return type: 'int'
      */
-    getColorModelSync(): java_awt_image_ColorModel | null;
-    /**
-     * @return original return type: 'java.awt.image.SampleModel'
-     */
-    getSampleModel(): Promise<java_awt_image_SampleModel | null>;
-    /**
-     * @return original return type: 'java.awt.image.SampleModel'
-     */
-    getSampleModelSync(): java_awt_image_SampleModel | null;
+    getHeightSync(): number;
     /**
      * @return original return type: 'int'
      */
@@ -63,13 +57,13 @@ export declare class RenderedImageClass extends JavaClass {
      */
     getWidthSync(): number;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'java.awt.image.SampleModel'
      */
-    getHeight(): Promise<number>;
+    getSampleModel(): Promise<java_awt_image_SampleModel | null>;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'java.awt.image.SampleModel'
      */
-    getHeightSync(): number;
+    getSampleModelSync(): java_awt_image_SampleModel | null;
     /**
      * @return original return type: 'int'
      */
@@ -86,6 +80,30 @@ export declare class RenderedImageClass extends JavaClass {
      * @return original return type: 'int'
      */
     getMinYSync(): number;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModel(): Promise<java_awt_image_ColorModel | null>;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModelSync(): java_awt_image_ColorModel | null;
+    /**
+     * @return original return type: 'java.util.Vector'
+     */
+    getSources(): Promise<java_util_Vector | null>;
+    /**
+     * @return original return type: 'java.util.Vector'
+     */
+    getSourcesSync(): java_util_Vector | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPropertyNames(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPropertyNamesSync(): (string | null)[] | null;
     /**
      * @return original return type: 'int'
      */
@@ -163,24 +181,6 @@ export declare class RenderedImageClass extends JavaClass {
      */
     getTileSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): java_awt_image_Raster | null;
     /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getData(var0: java_awt_Rectangle | null): Promise<java_awt_image_Raster | null>;
-    /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getDataSync(var0: java_awt_Rectangle | null): java_awt_image_Raster | null;
-    /**
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getData(): Promise<java_awt_image_Raster | null>;
-    /**
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getDataSync(): java_awt_image_Raster | null;
-    /**
      * @param var0 original type: 'java.awt.image.WritableRaster'
      * @return original return type: 'java.awt.image.WritableRaster'
      */
@@ -209,29 +209,26 @@ export interface RenderedImageInterface {
      */
     getProperty(var0: string | null): BasicOrJavaType | null;
     /**
-     * @return original return type: 'java.util.Vector'
+     * @param var0 original type: 'java.awt.Rectangle'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getSources(): java_util_Vector | null;
+    getData(var0: java_awt_Rectangle | null): java_awt_image_Raster | null;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'java.awt.image.Raster'
      */
-    getPropertyNames(): (string | null)[] | null;
+    getData(): java_awt_image_Raster | null;
     /**
-     * @return original return type: 'java.awt.image.ColorModel'
+     * @return original return type: 'int'
      */
-    getColorModel(): java_awt_image_ColorModel | null;
-    /**
-     * @return original return type: 'java.awt.image.SampleModel'
-     */
-    getSampleModel(): java_awt_image_SampleModel | null;
+    getHeight(): number;
     /**
      * @return original return type: 'int'
      */
     getWidth(): number;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'java.awt.image.SampleModel'
      */
-    getHeight(): number;
+    getSampleModel(): java_awt_image_SampleModel | null;
     /**
      * @return original return type: 'int'
      */
@@ -240,6 +237,18 @@ export interface RenderedImageInterface {
      * @return original return type: 'int'
      */
     getMinY(): number;
+    /**
+     * @return original return type: 'java.awt.image.ColorModel'
+     */
+    getColorModel(): java_awt_image_ColorModel | null;
+    /**
+     * @return original return type: 'java.util.Vector'
+     */
+    getSources(): java_util_Vector | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPropertyNames(): (string | null)[] | null;
     /**
      * @return original return type: 'int'
      */
@@ -278,15 +287,6 @@ export interface RenderedImageInterface {
      * @return original return type: 'java.awt.image.Raster'
      */
     getTile(var0: java_lang_Integer | number, var1: java_lang_Integer | number): java_awt_image_Raster | null;
-    /**
-     * @param var0 original type: 'java.awt.Rectangle'
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getData(var0: java_awt_Rectangle | null): java_awt_image_Raster | null;
-    /**
-     * @return original return type: 'java.awt.image.Raster'
-     */
-    getData(): java_awt_image_Raster | null;
     /**
      * @param var0 original type: 'java.awt.image.WritableRaster'
      * @return original return type: 'java.awt.image.WritableRaster'

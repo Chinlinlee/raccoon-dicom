@@ -29,6 +29,7 @@ class MongoDbConfig {
         this.user = env.get("MONGODB_USER").default("").asString();
         this.password = env.get("MONGODB_PASSWORD").default("").asString();
         this.authSource = env.get("MONGODB_AUTH_SOURCE").default("admin").asString();
+        this.urlOptions = env.get("MONGODB_OPTIONS").default("").asString();
         this.isShardingMode = env.get("MONGODB_IS_SHARDING_MODE").default("false").asBool();
     }
 }
@@ -47,7 +48,7 @@ class DicomWebConfig {
         this.host = env.get("DICOMWEB_HOST").default("127.0.0.1").asString();
         this.port = env.get("DICOMWEB_PORT").default("8081").asInt();
         this.apiPath = env.get("DICOMWEB_API").default("dicom-web").asString();
-
+        this.aeTitle = env.get("DICOMWEB_AE").default("RACCOON").asString();
     }
 }
 
@@ -65,6 +66,23 @@ class DicomDimseConfig {
         for(let i = 0 ; i < this.dcm4cheQrscpArgv.length ; i++) {
             this.dcm4cheQrscpArgv[i] = this.dcm4cheQrscpArgv[i].replace(/{project}/gm, __dirname);
         }
+    }
+
+    getPort() {
+        let bindArgIndex = this.dcm4cheQrscpArgv.findIndex(v => v === "-b");
+        /** @type {string} */
+        let bindInfo = this.dcm4cheQrscpArgv[bindArgIndex + 1];
+        return bindInfo.split(":").pop();
+    }
+
+    getAeTitle() {
+        let bindArgIndex = this.dcm4cheQrscpArgv.findIndex(v => v === "-b");
+        /** @type {string} */
+        let bindInfo = this.dcm4cheQrscpArgv[bindArgIndex + 1];
+
+        let aeTitleAndIp = bindInfo.split(":").shift();
+        let aeTitle = aeTitleAndIp.includes("@") ? aeTitleAndIp.split("@").shift() : aeTitleAndIp;
+        return aeTitle;
     }
 
 }
@@ -92,6 +110,10 @@ class RaccoonConfig {
         
         /** @type {string} */
         this.mediaStorageID = this.mongoDbConfig.dbName;
+
+        this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.getAeTitle() : this.dicomWebConfig.aeTitle;
+        if (!this.aeTitle)
+            throw new Error("Missing required config `aeTitle`");
     }
 }
 

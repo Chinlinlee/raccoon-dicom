@@ -1,1 +1,1 @@
-{"version":3,"file":"IOD.js","sourceRoot":"","sources":["../../../../java-wrapper/org/dcm4che3/data/IOD.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AAomB1F;;;;;;;;GAQG;AACH,MAAa,GAAI,SAAQ,IAAA,yBAAW,EAAkB,uBAAuB,CAAC;CAC7E;AADD,kBACC;AACD,kBAAe,GAAG,CAAC"}
+{"version":3,"file":"IOD.js","sourceRoot":"","sources":["../../../../../java-wrapper-json/org/dcm4che3/data/IOD.ts"],"names":[],"mappings":";;;AAAA,6CAA0F;AAomB1F;;;;;;;;GAQG;AACH,MAAa,GAAI,SAAQ,IAAA,yBAAW,EAAkB,uBAAuB,CAAC;CAC7E;AADD,kBACC;AACD,kBAAe,GAAG,CAAC"}

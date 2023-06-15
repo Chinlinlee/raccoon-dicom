@@ -1,1 +1,1 @@
-{"version":3,"file":"VR.js","sourceRoot":"","sources":["../../../../java-wrapper/org/dcm4che3/data/VR.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAwvBtE;;;;;;;;GAQG;AACH,MAAa,EAAG,SAAQ,IAAA,yBAAW,EAAiB,sBAAsB,CAAC;CAC1E;AADD,gBACC;AACD,kBAAe,EAAE,CAAC"}
+{"version":3,"file":"VR.js","sourceRoot":"","sources":["../../../../../java-wrapper-json/org/dcm4che3/data/VR.ts"],"names":[],"mappings":";;;AAAA,6CAAsE;AAwvBtE;;;;;;;;GAQG;AACH,MAAa,EAAG,SAAQ,IAAA,yBAAW,EAAiB,sBAAsB,CAAC;CAC1E;AADD,gBACC;AACD,kBAAe,EAAE,CAAC"}
