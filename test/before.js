@@ -1,3 +1,4 @@
+require("module-alias/register");
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const {getLogger} = require("log4js");
