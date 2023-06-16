@@ -15,6 +15,9 @@
 /models/DICOM/dcmtk/dcmtk-3.6.5-win64-dynamic
 
 /plugins/config.js
+/plugins/dcm4raccoon/dicomFiles
+/plugins/dcm4raccoon/dcmtk/dcmqrscpMongoConfig.cfg
+/plugins/dcm4raccoon/dcmqrscp.cfg
 
 /local/local-upload-log.json
 /local/local-upload-stow-log.json
