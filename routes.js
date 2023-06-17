@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { Plugin, pluginGroup } = require("./plugins/plugin.class");
 let pluginsConfig;
-if (fs.existsSync("./plugins/config")) {
+if (fs.existsSync("./plugins/config.js")) {
     pluginsConfig = require("./plugins/config").pluginsConfig;
 } else {
     pluginsConfig = require("./plugins/config.template").pluginsConfig;
