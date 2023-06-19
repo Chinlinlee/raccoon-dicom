@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Chinlinlee/raccoon-dicom/compare/v1.1.0...v1.2.0) (2023-06-17)
+
+
+### Features
+
+* [#11](https://github.com/Chinlinlee/raccoon-dicom/issues/11) ([7d2d9ed](https://github.com/Chinlinlee/raccoon-dicom/commit/7d2d9ed000d32bbc87aade7d0a16a1eef9d66a20))
+
+
+### Bug Fixes
+
+* wrong config filename of plugin of checking ([4b6de1a](https://github.com/Chinlinlee/raccoon-dicom/commit/4b6de1aa70d02e2e71ff5d86c7da0b57d134f247))
+
 ## [1.1.0](https://github.com/Chinlinlee/raccoon-dicom/compare/v1.0.1...v1.1.0) (2023-06-15)
 
 

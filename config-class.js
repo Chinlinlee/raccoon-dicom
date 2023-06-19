@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { URL } = require("url");
 
 let dotenvPath = path.join(__dirname, ".env");
 if (!fs.existsSync(dotenvPath)) {
@@ -53,13 +54,44 @@ class DicomWebConfig {
 }
 
 class DicomDimseConfig {
-    constructor() {
+    constructor(mongodbConfig, serverConfig, dicomWebConfig) {
+        /** @type { MongoDbConfig } */
+        this.mongodbConfig = mongodbConfig;
+        /** @type { ServerConfig } */
+        this.serverConfig = serverConfig;
+        /** @type { DicomWebConfig } */
+        this.dicomWebConfig = dicomWebConfig;
         this.enableDimse = env.get("ENABLE_DIMSE").default("true").asBool();
 
         if (this.enableDimse) {
             this.dcm4cheQrscpArgv = env.get("DCM4CHE_QRSCP_COMMAND").required().asJsonArray();
+            this.generateDimseJsonConfig();
             this.replacePathInArgv();
         }
+    }
+
+    generateDimseJsonConfig() {
+        let stowUrlObj = new URL(`http://${this.serverConfig.host}`);
+        stowUrlObj.port = this.serverConfig.port;
+        stowUrlObj.pathname = "dicom-web/studies";
+
+        let dimseConfig = {
+            mongodb: {
+                hosts: this.mongodbConfig.hosts,
+                ports: this.mongodbConfig.ports,
+                username: this.mongodbConfig.user,
+                password: this.mongodbConfig.password,
+                authSource: this.mongodbConfig.authSource,
+                database: this.mongodbConfig.dbName
+            },
+            raccoon: {
+                dicomStoreRoot: this.dicomWebConfig.storeRootPath,
+                raccoonUploadScriptPath: path.join(__dirname, "./local/dicom-uploader-stow.js"),
+                mode: "STOW",
+                stowUrl: stowUrlObj.href
+            }
+        };
+        fs.writeFileSync(path.join(__dirname, "./config/raccoon-dimse-app.json"), JSON.stringify(dimseConfig));
     }
     
     replacePathInArgv() {
@@ -100,7 +132,7 @@ class RaccoonConfig {
         this.mongoDbConfig = new MongoDbConfig();
         this.serverConfig = new ServerConfig();
         this.dicomWebConfig = new DicomWebConfig();
-        this.dicomDimseConfig = new DicomDimseConfig();
+        this.dicomDimseConfig = new DicomDimseConfig(this.mongoDbConfig, this.serverConfig, this.dicomWebConfig);
         this.fhirConfig = new FhirConfig();
         
         /** @type {string} */
