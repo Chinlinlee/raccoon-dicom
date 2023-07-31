@@ -8,8 +8,8 @@ const cookieParser = require("cookie-parser");
 const compress = require("compression");
 const cors = require("cors");
 const os = require("os");
-const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const sequelizeInstance = require("./plugins/sql/instance");
 
 const passport = require("passport");
 const { raccoonConfig } = require("./config-class");
@@ -50,9 +50,8 @@ app.use(
             httpOnly: true,
             maxAge: 60 * 60 * 1000
         },
-        store: MongoStore.create({
-            client: mongoose.connection.getClient(),
-            dbName: raccoonConfig.mongoDbConfig.dbName
+        store: new SequelizeStore({
+            db: sequelizeInstance
         })
     })
 );
@@ -85,23 +84,23 @@ if (osPlatform.includes("linux")) {
 
 // #region DIMSE
 
-(async () => {
-    if (raccoonConfig.dicomDimseConfig.enableDimse) {
-        const { java } = require("./models/DICOM/dcm4che/java-instance");
-        let dcmQrScpClass = await java.importClassAsync("org.dcm4che3.tool.dcmqrscp.DcmQRSCP");
-        const net = require("net");
-        let checkPortServer = net.createServer()
-            .once("listening", async function () {
-                checkPortServer.close();
-                await dcmQrScpClass.main(raccoonConfig.dicomDimseConfig.dcm4cheQrscpArgv);
-            })
-            .once("error", function (err) {
-                if (err.code === "EADDRINUSE") {
-                    console.log("QRSCP's port is already in use, please check is QRSCP running or another app running");
-                }
-            })
-            .listen(raccoonConfig.dicomDimseConfig.getPort());
-    }
-})();
+// (async () => {
+//     if (raccoonConfig.dicomDimseConfig.enableDimse) {
+//         const { java } = require("./models/DICOM/dcm4che/java-instance");
+//         let dcmQrScpClass = await java.importClassAsync("org.dcm4che3.tool.dcmqrscp.DcmQRSCP");
+//         const net = require("net");
+//         let checkPortServer = net.createServer()
+//             .once("listening", async function () {
+//                 checkPortServer.close();
+//                 await dcmQrScpClass.main(raccoonConfig.dicomDimseConfig.dcm4cheQrscpArgv);
+//             })
+//             .once("error", function (err) {
+//                 if (err.code === "EADDRINUSE") {
+//                     console.log("QRSCP's port is already in use, please check is QRSCP running or another app running");
+//                 }
+//             })
+//             .listen(raccoonConfig.dicomDimseConfig.getPort());
+//     }
+// })();
 
 // #endregion

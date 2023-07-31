@@ -22,18 +22,18 @@ function generateUidFromGuid(iGuid) {
     return `2.25.${bigInteger.toString()}`;       //Output the previus parsed integer as string by adding `2.25.` as prefix
 }
 
-class MongoDbConfig {
-    constructor() {
-        this.dbName = env.get("MONGODB_NAME").default("raccoon").asString();
-        this.hosts = env.get("MONGODB_HOSTS").required().asJsonArray();
-        this.ports = env.get("MONGODB_PORTS").required().asJsonArray();
-        this.user = env.get("MONGODB_USER").default("").asString();
-        this.password = env.get("MONGODB_PASSWORD").default("").asString();
-        this.authSource = env.get("MONGODB_AUTH_SOURCE").default("admin").asString();
-        this.urlOptions = env.get("MONGODB_OPTIONS").default("").asString();
-        this.isShardingMode = env.get("MONGODB_IS_SHARDING_MODE").default("false").asBool();
-    }
-}
+/**
+ *  @type {import("sequelize").Options}
+ */
+const SqlDbConfig = {
+    host: env.get("SQL_HOST").default("127.0.0.1").asString(),
+    port: env.get("SQL_PORT").default("5432").asString(),
+    database: env.get("SQL_DB").default("raccoon").asString(),
+    dialect: env.get("SQL_TYPE").default("postgres").asString(),
+    username: env.get("SQL_USERNAME").default("postgres").asString(),
+    password: env.get("SQL_PASSWORD").default("postgres").asString()
+};
+
 
 class ServerConfig {
     constructor() {
@@ -53,71 +53,71 @@ class DicomWebConfig {
     }
 }
 
-class DicomDimseConfig {
-    constructor(mongodbConfig, serverConfig, dicomWebConfig) {
-        /** @type { MongoDbConfig } */
-        this.mongodbConfig = mongodbConfig;
-        /** @type { ServerConfig } */
-        this.serverConfig = serverConfig;
-        /** @type { DicomWebConfig } */
-        this.dicomWebConfig = dicomWebConfig;
-        this.enableDimse = env.get("ENABLE_DIMSE").default("true").asBool();
+// class DicomDimseConfig {
+//     constructor(mongodbConfig, serverConfig, dicomWebConfig) {
+//         /** @type { MongoDbConfig } */
+//         this.mongodbConfig = mongodbConfig;
+//         /** @type { ServerConfig } */
+//         this.serverConfig = serverConfig;
+//         /** @type { DicomWebConfig } */
+//         this.dicomWebConfig = dicomWebConfig;
+//         this.enableDimse = env.get("ENABLE_DIMSE").default("true").asBool();
 
-        if (this.enableDimse) {
-            this.dcm4cheQrscpArgv = env.get("DCM4CHE_QRSCP_COMMAND").required().asJsonArray();
-            this.generateDimseJsonConfig();
-            this.replacePathInArgv();
-        }
-    }
+//         if (this.enableDimse) {
+//             this.dcm4cheQrscpArgv = env.get("DCM4CHE_QRSCP_COMMAND").required().asJsonArray();
+//             this.generateDimseJsonConfig();
+//             this.replacePathInArgv();
+//         }
+//     }
 
-    generateDimseJsonConfig() {
-        let stowUrlObj = new URL(`http://${this.serverConfig.host}`);
-        stowUrlObj.port = this.serverConfig.port;
-        stowUrlObj.pathname = "dicom-web/studies";
+//     generateDimseJsonConfig() {
+//         let stowUrlObj = new URL(`http://${this.serverConfig.host}`);
+//         stowUrlObj.port = this.serverConfig.port;
+//         stowUrlObj.pathname = "dicom-web/studies";
 
-        let dimseConfig = {
-            mongodb: {
-                hosts: this.mongodbConfig.hosts,
-                ports: this.mongodbConfig.ports,
-                username: this.mongodbConfig.user,
-                password: this.mongodbConfig.password,
-                authSource: this.mongodbConfig.authSource,
-                database: this.mongodbConfig.dbName
-            },
-            raccoon: {
-                dicomStoreRoot: this.dicomWebConfig.storeRootPath,
-                raccoonUploadScriptPath: path.join(__dirname, "./local/dicom-uploader-stow.js"),
-                mode: "STOW",
-                stowUrl: stowUrlObj.href
-            }
-        };
-        fs.writeFileSync(path.join(__dirname, "./config/raccoon-dimse-app.json"), JSON.stringify(dimseConfig));
-    }
+//         let dimseConfig = {
+//             mongodb: {
+//                 hosts: this.mongodbConfig.hosts,
+//                 ports: this.mongodbConfig.ports,
+//                 username: this.mongodbConfig.user,
+//                 password: this.mongodbConfig.password,
+//                 authSource: this.mongodbConfig.authSource,
+//                 database: this.mongodbConfig.dbName
+//             },
+//             raccoon: {
+//                 dicomStoreRoot: this.dicomWebConfig.storeRootPath,
+//                 raccoonUploadScriptPath: path.join(__dirname, "./local/dicom-uploader-stow.js"),
+//                 mode: "STOW",
+//                 stowUrl: stowUrlObj.href
+//             }
+//         };
+//         fs.writeFileSync(path.join(__dirname, "./config/raccoon-dimse-app.json"), JSON.stringify(dimseConfig));
+//     }
     
-    replacePathInArgv() {
-        for(let i = 0 ; i < this.dcm4cheQrscpArgv.length ; i++) {
-            this.dcm4cheQrscpArgv[i] = this.dcm4cheQrscpArgv[i].replace(/{project}/gm, __dirname);
-        }
-    }
+//     replacePathInArgv() {
+//         for(let i = 0 ; i < this.dcm4cheQrscpArgv.length ; i++) {
+//             this.dcm4cheQrscpArgv[i] = this.dcm4cheQrscpArgv[i].replace(/{project}/gm, __dirname);
+//         }
+//     }
 
-    getPort() {
-        let bindArgIndex = this.dcm4cheQrscpArgv.findIndex(v => v === "-b");
-        /** @type {string} */
-        let bindInfo = this.dcm4cheQrscpArgv[bindArgIndex + 1];
-        return bindInfo.split(":").pop();
-    }
+//     getPort() {
+//         let bindArgIndex = this.dcm4cheQrscpArgv.findIndex(v => v === "-b");
+//         /** @type {string} */
+//         let bindInfo = this.dcm4cheQrscpArgv[bindArgIndex + 1];
+//         return bindInfo.split(":").pop();
+//     }
 
-    getAeTitle() {
-        let bindArgIndex = this.dcm4cheQrscpArgv.findIndex(v => v === "-b");
-        /** @type {string} */
-        let bindInfo = this.dcm4cheQrscpArgv[bindArgIndex + 1];
+//     getAeTitle() {
+//         let bindArgIndex = this.dcm4cheQrscpArgv.findIndex(v => v === "-b");
+//         /** @type {string} */
+//         let bindInfo = this.dcm4cheQrscpArgv[bindArgIndex + 1];
 
-        let aeTitleAndIp = bindInfo.split(":").shift();
-        let aeTitle = aeTitleAndIp.includes("@") ? aeTitleAndIp.split("@").shift() : aeTitleAndIp;
-        return aeTitle;
-    }
+//         let aeTitleAndIp = bindInfo.split(":").shift();
+//         let aeTitle = aeTitleAndIp.includes("@") ? aeTitleAndIp.split("@").shift() : aeTitleAndIp;
+//         return aeTitle;
+//     }
 
-}
+// }
 
 class FhirConfig {
     constructor() {
@@ -129,21 +129,23 @@ class FhirConfig {
 
 class RaccoonConfig {
     constructor() {
-        this.mongoDbConfig = new MongoDbConfig();
+        this.sqlDbConfig = SqlDbConfig;
         this.serverConfig = new ServerConfig();
         this.dicomWebConfig = new DicomWebConfig();
-        this.dicomDimseConfig = new DicomDimseConfig(this.mongoDbConfig, this.serverConfig, this.dicomWebConfig);
+        // this.dicomDimseConfig = new DicomDimseConfig(this.mongoDbConfig, this.serverConfig, this.dicomWebConfig);
         this.fhirConfig = new FhirConfig();
         
         /** @type {string} */
         this.mediaStorageUID = generateUidFromGuid(
-            uuid.v5(this.mongoDbConfig.dbName, NAME_SPACE)
+            uuid.v5(this.sqlDbConfig.database, NAME_SPACE)
         );
         
         /** @type {string} */
-        this.mediaStorageID = this.mongoDbConfig.dbName;
+        this.mediaStorageID = this.sqlDbConfig.database;
 
-        this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.getAeTitle() : this.dicomWebConfig.aeTitle;
+        this.aeTitle = this.dicomWebConfig.aeTitle;
+        // this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.getAeTitle() : this.dicomWebConfig.aeTitle;
+
         if (!this.aeTitle)
             throw new Error("Missing required config `aeTitle`");
     }
