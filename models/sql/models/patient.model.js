@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
-const sequelizeInstance = require("@root/plugins/sql/instance");
+const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 
 class PatientModel extends Model {};
@@ -22,9 +22,6 @@ PatientModel.init({
     },
     "x00100040": {
         type: vrTypeMapping.CS
-    },
-    "x00101001": {
-        type: vrTypeMapping.PN
     },
     "x00102160": {
         type: vrTypeMapping.SH

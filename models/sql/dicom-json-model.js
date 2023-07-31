@@ -1,6 +1,7 @@
 const _ = require("lodash");
 
 const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { PatientPersistentObject } = require("./po/patient.po");
 
 
 class SqlDicomJsonModel extends DicomJsonModel {
@@ -32,8 +33,8 @@ class SqlDicomJsonModel extends DicomJsonModel {
     }
 
     async storePatientCollection(dicomJson) {
-        console.log(dicomJson);
-        console.log("TODO: Store Patient");
+        let patientPo = new PatientPersistentObject(dicomJson);
+        let patient = await patientPo.createPatient();
     }
 }
 

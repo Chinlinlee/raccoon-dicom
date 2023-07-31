@@ -3,7 +3,8 @@ const _ = require("lodash");
 const { DicomJsonParser } = require("@models/DICOM/dicom-json-parser");
 const { StowRsService } = require("@root/api/dicom-web/controller/STOW-RS/service/stow-rs.service");
 const { DicomFileSaver } = require("@root/api/dicom-web/controller/STOW-RS/service/dicom-file-saver");
-const { SqlDicomJsonModel: DicomJsonModel } = require("../../sql/models/dicom-json-model");
+const { SqlDicomJsonModel: DicomJsonModel } = require("@models/sql/dicom-json-model");
+const { SqlDicomJpegGenerator: DicomJpegGenerator } = require("./dicom-jpeg-generator");
 
 class SqlStowRsService extends StowRsService {
     /**
@@ -12,6 +13,35 @@ class SqlStowRsService extends StowRsService {
      */
     constructor(req, uploadFiles) {
         super(req, uploadFiles);
+    }
+
+    async storeInstances() {
+        for (let i = 0; i < this.uploadFiles.length; i++) {
+
+            let currentFile = this.uploadFiles[i];
+
+            let {
+                dicomJsonModel,
+                dicomFileSaveInfo
+            } = await this.storeInstance(currentFile);
+
+
+            //sync DICOM to FHIR
+            // if (isSyncToFhir) {
+            //     let dicomFhirService = new DicomFhirService(this.request, dicomJsonModel);
+            //     await dicomFhirService.initDicomFhirConverter();
+            //     await dicomFhirService.postDicomToFhirServerAndStoreLog();
+            // }
+
+            //generate JPEG
+            // let dicomJpegGenerator = new DicomJpegGenerator(dicomJsonModel, dicomFileSaveInfo.instancePath);
+            // dicomJpegGenerator.generateAllFrames();
+        }
+
+        return {
+            code: this.responseCode,
+            responseMessage: this.responseMessage
+        };
     }
 
     /**

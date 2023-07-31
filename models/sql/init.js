@@ -10,7 +10,7 @@ async function init() {
             foreignKey: "x00100010"
         });
     
-        await sequelizeInstance.sync({});
+        await sequelizeInstance.sync({force: true});
     } catch (e) {
         console.error('Unable to connect to the database:', e);
         process.exit(1);

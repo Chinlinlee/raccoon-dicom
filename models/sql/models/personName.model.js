@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
-const sequelizeInstance = require("@root/plugins/sql/instance");
+const sequelizeInstance = require("@models/sql/instance");
 
 
 class PersonNameModel extends Model {}

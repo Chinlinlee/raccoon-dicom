@@ -9,7 +9,7 @@ const compress = require("compression");
 const cors = require("cors");
 const os = require("os");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-const sequelizeInstance = require("./plugins/sql/instance");
+const sequelizeInstance = require("./models/sql/instance");
 
 const passport = require("passport");
 const { raccoonConfig } = require("./config-class");

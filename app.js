@@ -1,5 +1,5 @@
 // const mongodb = require("./models/mongodb/index");
-require("./plugins/sql/init");
+require("./models/sql/init");
 const express = require("express");
 const { createServer } = require("http");
 const app = express();
