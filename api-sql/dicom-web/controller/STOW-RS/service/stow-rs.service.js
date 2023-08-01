@@ -34,8 +34,8 @@ class SqlStowRsService extends StowRsService {
             // }
 
             //generate JPEG
-            // let dicomJpegGenerator = new DicomJpegGenerator(dicomJsonModel, dicomFileSaveInfo.instancePath);
-            // dicomJpegGenerator.generateAllFrames();
+            let dicomJpegGenerator = new DicomJpegGenerator(dicomJsonModel, dicomFileSaveInfo.instancePath);
+            dicomJpegGenerator.generateAllFrames();
         }
 
         return {

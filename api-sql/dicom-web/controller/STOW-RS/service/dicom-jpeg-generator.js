@@ -2,6 +2,7 @@ const fs = require("fs");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 const colorette = require("colorette");
 const { DicomJpegGenerator } = require("@root/api/dicom-web/controller/STOW-RS/service/dicom-jpeg-generator");
+const { DicomToJpegTaskModel } = require("@models/sql/models/dicomToJpegTask.model");
 /**
  * @typedef JsDcm2JpegTask
  * @property {Dcm2JpgExecutor$Dcm2JpgOptions} jsDcm2Jpeg
@@ -21,7 +22,6 @@ class SqlDicomJpegGenerator extends DicomJpegGenerator {
 
 
     /**
-     * TODO
      * @private
      */
     async insertStartTask_() {
@@ -35,8 +35,8 @@ class SqlDicomJpegGenerator extends DicomJpegGenerator {
             finishedTime: null,
             fileSize: `${(fs.statSync(this.dicomInstanceFilename).size / 1024 / 1024).toFixed(3)}MB`
         };
-
-       
+        
+        await DicomToJpegTaskModel.insertOrUpdate(startTaskObj);
     }
 
     /**
@@ -52,7 +52,8 @@ class SqlDicomJpegGenerator extends DicomJpegGenerator {
             message: "generated",
             finishedTime: new Date()
         };
-       
+
+        await DicomToJpegTaskModel.insertOrUpdate(endTaskObj);
     }
 
     /**
@@ -69,7 +70,8 @@ class SqlDicomJpegGenerator extends DicomJpegGenerator {
             message: message,
             finishedTime: new Date()
         };
-      
+
+        await DicomToJpegTaskModel.insertOrUpdate(errorTaskObj);
     }
 
 }
