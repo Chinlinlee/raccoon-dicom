@@ -1,5 +1,5 @@
 // const mongodb = require("./models/mongodb/index");
-require("./models/sql/init");
+require("./models/sql/init").then(()=> console.log("Sequelize initialized"));
 const express = require("express");
 const { createServer } = require("http");
 const app = express();
