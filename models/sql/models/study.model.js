@@ -1,6 +1,8 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
+const { SeriesModel } = require("./series.model");
+const _ = require("lodash");
 
 class StudyModel extends Model { };
 
@@ -27,8 +29,8 @@ StudyModel.init({
     "x00080056": {
         type: vrTypeMapping.CS
     },
-    "x00080061": { 
-        type: DataTypes.JSON 
+    "x00080061": {
+        type: DataTypes.JSON
     },
     "x00080090": {
         type: vrTypeMapping.PN
@@ -59,5 +61,31 @@ StudyModel.init({
     tableName: "Study",
     freezeTableName: true
 });
+
+StudyModel.updateModalitiesInStudy = async function (studyInstanceUid) {
+    let seriesArray = await SeriesModel.findAll({
+        where: {
+            x0020000D: studyInstanceUid
+        },
+        attributes: [
+            [Sequelize.fn("DISTINCT", Sequelize.col("x00080060")), "modality"]
+        ]
+    });
+
+    let modalities = [];
+    for(let item of seriesArray) {
+        if (_.get(item, "dataValues.modality")) 
+            modalities.push(item.dataValues.modality);
+    }
+
+    await StudyModel.update({
+        x00080061: modalities
+    }, {
+        where: {
+            x0020000D: studyInstanceUid
+
+        }
+    });
+};
 
 module.exports.StudyModel = StudyModel;

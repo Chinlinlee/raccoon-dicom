@@ -5,6 +5,7 @@ const { PatientPersistentObject } = require("./po/patient.po");
 const { StudyPersistentObject } = require("./po/study.po");
 const { SeriesPersistentObject } = require("./po/series.po");
 const { InstancePersistentObject } = require("./po/instance.po");
+const { StudyModel } = require("./models/study.model");
 
 
 class SqlDicomJsonModel extends DicomJsonModel {
@@ -31,6 +32,8 @@ class SqlDicomJsonModel extends DicomJsonModel {
             let storedStudy = await this.storeStudyCollection(dicomJsonClone, storedPatient);
             let storedSeries = await this.storeSeriesCollection(dicomJsonClone, storedStudy);
             await this.storeInstanceCollection(dicomJsonClone, storedSeries);
+
+            await StudyModel.updateModalitiesInStudy(storedStudy.x0020000D);
         } catch(e) {
             throw e;
         }

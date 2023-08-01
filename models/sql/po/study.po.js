@@ -1,7 +1,6 @@
 const moment = require("moment");
 const _ = require("lodash");
 const { PersonNameModel } = require("../models/personName.model");
-const { PatientModel } = require("../models/patient.model");
 const { StudyModel } = require("../models/study.model");
 const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
 
@@ -73,10 +72,6 @@ class StudyPersistentObject {
         }
 
         return study;
-    }
-
-    async updateModalitiesInStudy() {
-        //TODO
     }
 
 }
