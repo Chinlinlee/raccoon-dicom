@@ -1,11 +1,19 @@
 const _ = require("lodash");
+const shortHash = require("shorthash2");
+const fsP = require("fs/promises");
+const path = require("path");
+const mkdirp = require("mkdirp");
 
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { DicomJsonModel, DicomJsonBinaryDataModel } = require("@models/DICOM/dicom-json-model");
 const { PatientPersistentObject } = require("./po/patient.po");
 const { StudyPersistentObject } = require("./po/study.po");
 const { SeriesPersistentObject } = require("./po/series.po");
 const { InstancePersistentObject } = require("./po/instance.po");
 const { StudyModel } = require("./models/study.model");
+const { DicomBulkDataModel } = require("./models/dicomBulkData.model");
+
+const { raccoonConfig } = require("@root/config-class");
+const { logger } = require("@root/utils/logs/log");
 
 
 class SqlDicomJsonModel extends DicomJsonModel {
@@ -63,5 +71,80 @@ class SqlDicomJsonModel extends DicomJsonModel {
     }
 }
 
+class SqlDicomJsonBinaryDataModel extends DicomJsonBinaryDataModel {
+    constructor(dicomJsonModel) {
+        super(dicomJsonModel);
+    }
+
+    async storeAllBinaryDataToFileAndDb() {
+        let {
+            sopInstanceUID
+        } = this.dicomJsonModel.uidObj;
+
+        let shortInstanceUID = shortHash(sopInstanceUID);
+
+        
+        for(let i = 0; i < this.pathGroupOfBinaryProperties.length ; i++) {
+            let relativeFilename = `files/bulkData/${shortInstanceUID}/`;
+            let pathOfBinaryProperty = this.pathGroupOfBinaryProperties[i];
+
+            let binaryData = _.get(this.dicomJsonModel.dicomJson, pathOfBinaryProperty);
+
+            if(binaryData) {
+                relativeFilename += `${pathOfBinaryProperty}.raw`;
+                let filename = path.join(
+                    raccoonConfig.dicomWebConfig.storeRootPath,
+                    relativeFilename
+                );
+
+                mkdirp.sync(
+                    path.join(
+                        raccoonConfig.dicomWebConfig.storeRootPath,
+                        `files/bulkData/${shortInstanceUID}`
+                    )
+                );
+
+                await fsP.writeFile(filename, Buffer.from(binaryData, "base64"));
+                logger.info(`[STOW-RS] [Store binary data to ${filename}]`);
+
+                let bulkData = new BulkData(this.dicomJsonModel.uidObj, relativeFilename, pathOfBinaryProperty);
+                await bulkData.storeToDb();
+            }
+
+        }
+    }
+
+}
+
+class BulkData {
+    constructor(uidObj, filename, pathOfBinaryProperty) {
+        /** @type {import("../../utils/typeDef/dicom").UIDObject} */
+        this.uidObj = uidObj;
+        this.filename = filename;
+        this.pathOfBinaryProperty = pathOfBinaryProperty;
+    }
+
+    async storeToDb() {
+
+        let item = {
+            studyUID: this.uidObj.studyUID,
+            seriesUID: this.uidObj.seriesUID,
+            instanceUID: this.uidObj.sopInstanceUID,
+            filename: this.filename,
+            binaryValuePath: this.pathOfBinaryProperty
+        };
+
+        await DicomBulkDataModel.findOrCreate({
+            where: {
+                instanceUID: this.uidObj.sopInstanceUID,
+                binaryValuePath: this.pathOfBinaryProperty
+            },
+            defaults: item
+        });
+
+        logger.info(`[STOW-RS] [Store bulkdata ${JSON.stringify(item)} successful]`);
+    }
+}
 
 module.exports.SqlDicomJsonModel = SqlDicomJsonModel;
+module.exports.SqlDicomJsonBinaryDataModel = SqlDicomJsonBinaryDataModel;

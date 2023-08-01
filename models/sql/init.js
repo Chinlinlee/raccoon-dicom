@@ -3,6 +3,7 @@ const { PatientModel } = require("./models/patient.model");
 const { StudyModel } = require("./models/study.model");
 const { SeriesModel } = require("./models/series.model");
 const { InstanceModel } = require("./models/instance.mode");
+const { DicomBulkDataModel } = require("./models/dicomBulkData.model");
 
 const sequelizeInstance = require("./instance");
 

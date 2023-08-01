@@ -3,7 +3,7 @@ const _ = require("lodash");
 const { DicomJsonParser } = require("@models/DICOM/dicom-json-parser");
 const { StowRsService } = require("@root/api/dicom-web/controller/STOW-RS/service/stow-rs.service");
 const { DicomFileSaver } = require("@root/api/dicom-web/controller/STOW-RS/service/dicom-file-saver");
-const { SqlDicomJsonModel: DicomJsonModel } = require("@models/sql/dicom-json-model");
+const { SqlDicomJsonModel: DicomJsonModel, SqlDicomJsonBinaryDataModel: DicomJsonBinaryDataModel } = require("@models/sql/dicom-json-model");
 const { SqlDicomJpegGenerator: DicomJpegGenerator } = require("./dicom-jpeg-generator");
 
 class SqlStowRsService extends StowRsService {
@@ -61,10 +61,9 @@ class SqlStowRsService extends StowRsService {
             this.responseCode = 409;
         }
 
-        // TODO
-        // let dicomJsonBinaryDataModel = new DicomJsonBinaryDataModel(dicomJsonModel);
-        // await dicomJsonBinaryDataModel.storeAllBinaryDataToFileAndDb();
-        // dicomJsonBinaryDataModel.replaceAllBinaryToURI();
+        let dicomJsonBinaryDataModel = new DicomJsonBinaryDataModel(dicomJsonModel);
+        await dicomJsonBinaryDataModel.storeAllBinaryDataToFileAndDb();
+        dicomJsonBinaryDataModel.replaceAllBinaryToURI();
 
         let dicomFileSaver = new DicomFileSaver(file, dicomJsonModel);
         let dicomFileSaveInfo = await dicomFileSaver.saveAndGetSaveInfo();
