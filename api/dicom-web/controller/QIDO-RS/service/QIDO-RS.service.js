@@ -154,7 +154,7 @@ function convertAllQueryToDICOMTag(iParam) {
             if (dictionary.keyword[keyNameSplit[x]]) {
                 newKeyNames.push(dictionary.keyword[keyNameSplit[x]]);
             } else if (dictionary.tag[keyNameSplit[x]]) {
-                newKeyNames.push(keyNameSplit);
+                newKeyNames.push(keyNameSplit[x]);
             }
         }
         if (newKeyNames.length === 0) {
