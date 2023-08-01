@@ -9,7 +9,9 @@ PatientModel.init({
         type: DataTypes.INTEGER
     },
     "x00100020": {
-        type: vrTypeMapping.LO
+        type: vrTypeMapping.LO,
+        allowNull: false,
+        unique: true
     },
     "x00100021": {
         type: vrTypeMapping.LO
