@@ -4,6 +4,7 @@ const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
 const { PatientPersistentObject } = require("./po/patient.po");
 const { StudyPersistentObject } = require("./po/study.po");
 const { SeriesPersistentObject } = require("./po/series.po");
+const { InstancePersistentObject } = require("./po/instance.po");
 
 
 class SqlDicomJsonModel extends DicomJsonModel {
@@ -28,8 +29,8 @@ class SqlDicomJsonModel extends DicomJsonModel {
 
             let storedPatient = await this.storePatientCollection(dicomJsonClone);
             let storedStudy = await this.storeStudyCollection(dicomJsonClone, storedPatient);
-            await this.storeSeriesCollection(dicomJsonClone, storedStudy);
-            this.storeInstanceCollection(dicomJsonClone);
+            let storedSeries = await this.storeSeriesCollection(dicomJsonClone, storedStudy);
+            await this.storeInstanceCollection(dicomJsonClone, storedSeries);
         } catch(e) {
             throw e;
         }
@@ -53,8 +54,9 @@ class SqlDicomJsonModel extends DicomJsonModel {
         return series;
     }
 
-    async storeInstanceCollection(dicomJson) {
-        // TODO
+    async storeInstanceCollection(dicomJson, series) {
+        let instancePo = new InstancePersistentObject(dicomJson, series);
+        return await instancePo.createInstance();
     }
 }
 
