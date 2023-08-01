@@ -61,6 +61,7 @@ class SqlStowRsService extends StowRsService {
             this.responseCode = 409;
         }
 
+        // TODO
         // let dicomJsonBinaryDataModel = new DicomJsonBinaryDataModel(dicomJsonModel);
         // await dicomJsonBinaryDataModel.storeAllBinaryDataToFileAndDb();
         // dicomJsonBinaryDataModel.replaceAllBinaryToURI();
