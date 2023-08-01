@@ -28,7 +28,7 @@ async function init() {
         });
     
         //TODO: 設計完畢後要將 force 刪除
-        await sequelizeInstance.sync({force: true});
+        await sequelizeInstance.sync();
     } catch (e) {
         console.error('Unable to connect to the database:', e);
         process.exit(1);
