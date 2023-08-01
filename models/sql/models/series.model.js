@@ -5,6 +5,9 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 class SeriesModel extends Model { };
 
 SeriesModel.init({
+    "seriesPath": {
+        type: DataTypes.TEXT("long")
+    },
     "x0020000D": {
         type: vrTypeMapping.UI,
         allowNull: false

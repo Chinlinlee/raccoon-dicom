@@ -16,6 +16,7 @@ class StudyPersistentObject {
             value ? _.set(this.json, key, value) : undefined;
         });
         this.patient = patient;
+        this.studyPath = _.get(dicomJson, "studyPath", "");
 
         this.x00080005 = _.get(dicomJson, "00080005.Value", undefined);
         this.x00080020 = _.get(dicomJson, "00080020.Value.0", "");
@@ -60,7 +61,8 @@ class StudyPersistentObject {
                 x0020000D : this.x0020000D,
                 x00200010 : this.x00200010,
                 x00201206 : this.x00201206,
-                x00201208 : this.x00201208
+                x00201208 : this.x00201208,
+                studyPath: this.studyPath
             }
         });
 

@@ -14,6 +14,7 @@ class SeriesPersistentObject {
             value ? _.set(this.json, key, value) : undefined;
         });
         this.study = study;
+        this.seriesPath = _.get(dicomJson, "seriesPath", "");
 
         this.x0020000D = this.study.x0020000D;
         this.x0020000E = _.get(dicomJson, "0020000E.Value.0", "");
@@ -67,7 +68,8 @@ class SeriesPersistentObject {
                 x00400244: this.x00400244,
                 x00400245: this.x00400245 ? Number(this.x00400245) : undefined,
                 x00400275: this.x00400275,
-                x00080031: this.x00080031 ? Number(this.x00080031) : undefined
+                x00080031: this.x00080031 ? Number(this.x00080031) : undefined,
+                seriesPath: this.seriesPath
             }
         });
 

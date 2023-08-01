@@ -5,6 +5,9 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 class StudyModel extends Model { };
 
 StudyModel.init({
+    "studyPath": {
+        type: DataTypes.TEXT("long")
+    },
     "x00100020": {
         type: vrTypeMapping.LO,
         allowNull: false

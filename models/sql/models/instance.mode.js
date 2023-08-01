@@ -5,6 +5,9 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 class InstanceModel extends Model { };
 
 InstanceModel.init({
+    "instancePath": {
+        type: DataTypes.TEXT("long")
+    },
     "x0020000D": {
         type: vrTypeMapping.UI,
         allowNull: false

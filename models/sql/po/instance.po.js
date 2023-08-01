@@ -51,6 +51,7 @@ class InstancePersistentObject {
             value ? _.set(this.json, key, value) : undefined;
         });
         this.series = series;
+        this.instancePath = _.get(dicomJson, "instancePath", "");
 
         this.x0020000D = this.series.x0020000D;
         this.x0020000E = this.series.x0020000E;
@@ -87,7 +88,8 @@ class InstancePersistentObject {
                 x0040A073: this.x0040A073,
                 x0040A491: this.x0040A491,
                 x0040A493: this.x0040A493,
-                x0040A730: this.x0040A730
+                x0040A730: this.x0040A730,
+                instancePath: this.instancePath
             }
         });
 
