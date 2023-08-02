@@ -30,14 +30,9 @@ class BaseQueryBuilder {
     getStringArrayJsonQuery(tag, value) {
         if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
             return {
-                [Op.or]: [
-                    Sequelize.where(
-                        cast(Sequelize.col(`x${tag}`), "jsonb"),
-                        {
-                            [Op.contains]: cast(JSON.stringify([value]), "jsonb")
-                        }
-                    )
-                ]
+                [`x${tag}`]: {
+                    [Op.contains]: cast(JSON.stringify([value]), "jsonb")
+                }
             };
         } else {
             return {
@@ -244,7 +239,7 @@ class StudyQueryBuilder extends BaseQueryBuilder {
         let q = this.getStringArrayJsonQuery(dictionary.keyword.ModalitiesInStudy, value);
         this.query = {
             ...this.query,
-            q
+            ...q
         };
     }
 }
