@@ -2,6 +2,7 @@ const _ = require("lodash");
 const moment = require("moment");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { Op } = require("sequelize");
+const { raccoonConfig } = require("@root/config-class");
 
 class BaseQueryBuilder {
     constructor(queryOptions) {
@@ -60,13 +61,13 @@ class BaseQueryBuilder {
         if (dashIndex === 0) { // -YYYYMMDD
             return {
                 [`x${tag}`]: {
-                    [Op.lte]: this.dateStringToSqlDateOnly(value)
+                    [Op.lte]: this.dateStringToSqlDateOnly(value.substring(1))
                 }
             };
         } else if (dashIndex === value.length - 1) { // YYYYMMDD-
             return {
                 [`x${tag}`]: {
-                    [Op.gte]: this.dateStringToSqlDateOnly(value)
+                    [Op.gte]: this.dateStringToSqlDateOnly(value.substring(0, dashIndex))
                 }
             };
         } else if (dashIndex > 0) { // YYYYMMDD-YYYYMMDD
@@ -85,10 +86,66 @@ class BaseQueryBuilder {
         }
     }
 
+    /**
+     * 
+     * @param {string} tag 
+     * @param {string} value 
+     */
+    getTimeQuery(tag, value) {
+        let dashIndex = value.indexOf("-");
+        if (dashIndex === 0) { // -HHmmss
+            return {
+                [`x${tag}`]: {
+                    [Op.lte]: this.timeStringToSqlTimeDecimal(value.substring(1))
+                }
+            };
+        } else if (dashIndex === value.length - 1) { // HHmmss-
+            return {
+                [`x${tag}`]: {
+                    [Op.gte]: this.timeStringToSqlTimeDecimal(value.substring(0, dashIndex))
+                }
+            };
+        } else if (dashIndex > 0) { // HHmmss-HHmmss
+            return {
+                [`x${tag}`]: {
+                    [Op.and]: [
+                        { [Op.gte]: this.timeStringToSqlTimeDecimal(value.substring(0, dashIndex)) },
+                        { [Op.lte]: this.timeStringToSqlTimeDecimal(value.substring(dashIndex + 1)) }
+                    ]
+                }
+            };
+        } else {
+            return {
+                [`x${tag}`]: this.timeStringToSqlTimeDecimal(value)
+            };
+        }
+    }
+
     dateStringToSqlDateOnly(value) {
         return moment(value, "YYYYMMDD").format("YYYY-MM-DD");
     }
 
+    /**
+     * 
+     * @param {string} timeStr 
+     */
+    getTimePadding(timeStr) {
+        let hhmmssStr = timeStr.padEnd(6, "0");
+        if (timeStr.length === 5) {
+            hhmmssStr.padStart(6, "0");
+        }
+        return hhmmssStr;
+    }
+
+
+    timeStringToSqlTimeDecimal(value) {
+        let hhmmssStr = this.getTimePadding(value);
+        if (hhmmssStr.includes(".")) {
+            let [timeStr, millionthSecondStr] = hhmmssStr.split(".");
+            hhmmssStr = this.getTimePadding(timeStr) + "." + millionthSecondStr;
+        }
+        return parseFloat(hhmmssStr);
+    }
 
     /**
      * 
@@ -163,6 +220,10 @@ class StudyQueryBuilder extends BaseQueryBuilder {
         this.mergeQuery(q);
     }
 
+    getStudyTime(value) {
+        let q = this.getTimeQuery(dictionary.keyword.StudyTime, value);
+        this.mergeQuery(q);
+    }
 }
 
 
