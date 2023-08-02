@@ -21,7 +21,20 @@ class BaseQueryBuilder {
         return $or;
     }
 
+    /**
+     * 
+     * @param {string} tag 
+     * @param {string} value 
+     * @returns 
+     */
     getStringQuery(tag, value) {
+        if (value.includes("%") || value.includes("_")) {
+            return {
+                [`x${tag}`]: {
+                    [Op.like]: value
+                }
+            };
+        }
         return {
             [`x${tag}`]: value
         };
@@ -47,11 +60,27 @@ class BaseQueryBuilder {
         };
     }
 
-    getNumberArrayQuery(tag, value) {
-        //TODO
-    }
-
+    /**
+     * 
+     * @param {string} value 
+     * @returns 
+     */
     getPersonNameQuery(value) {
+        if (value.includes("%") || value.includes("_")) {
+            return {
+                [Op.or]: {
+                    [Op.like]: {
+                        alphabetic: value
+                    },
+                    [Op.like]: {
+                        ideographic: value
+                    },
+                    [Op.like]: {
+                        phonetic: value
+                    }
+                }
+            };
+        }
         return {
             [Op.or]: {
                 alphabetic: value,
@@ -233,6 +262,14 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     getStudyTime(value) {
         let q = this.getTimeQuery(dictionary.keyword.StudyTime, value);
         this.mergeQuery(q);
+    }
+
+    getAccessionNumber(value) {
+        let q = this.getStringQuery(dictionary.keyword.AccessionNumber, value);
+        this.query = {
+            ...this.query,
+            ...q
+        };
     }
 
     getModalitiesInStudy(value) {
