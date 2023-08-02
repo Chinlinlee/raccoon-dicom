@@ -4,10 +4,41 @@ const { StudyModel } = require("./models/study.model");
 const { SeriesModel } = require("./models/series.model");
 const { InstanceModel } = require("./models/instance.mode");
 const { DicomBulkDataModel } = require("./models/dicomBulkData.model");
+const { raccoonConfig } = require("@root/config-class");
 
 const sequelizeInstance = require("./instance");
 
+async function initDatabasePostgres() {
+    const { Client } = require("pg");
+    const client = new Client({
+        user: raccoonConfig.sqlDbConfig.username,
+        password: raccoonConfig.sqlDbConfig.password,
+        host: raccoonConfig.sqlDbConfig.host,
+        port: raccoonConfig.sqlDbConfig.port,
+        database: "postgres"
+    });
+
+    await client.connect();
+
+    try {
+        let result = await client.query(`SELECT 'CREATE DATABASE ${raccoonConfig.sqlDbConfig.database}' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '${raccoonConfig.sqlDbConfig.database}')`);
+        if (result.rowCount > 0 ) {
+            await client.query(`CREATE DATABASE ${raccoonConfig.sqlDbConfig.database}`);
+        }
+    } catch(e) {
+        console.error(e);
+        process.exit(1);
+    } finally {
+        await client.end();
+    }
+}
+
 async function init() {
+
+    if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
+        await initDatabasePostgres();
+    }
+
     try {
         await sequelizeInstance.authenticate();
         
