@@ -15,7 +15,7 @@ StudyModel.init({
         allowNull: false
     },
     "x00080005": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00080020": {
         type: vrTypeMapping.DA
@@ -30,7 +30,7 @@ StudyModel.init({
         type: vrTypeMapping.CS
     },
     "x00080061": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00080090": {
         type: vrTypeMapping.PN
@@ -53,7 +53,7 @@ StudyModel.init({
         type: vrTypeMapping.IS
     },
     "json": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     }
 }, {
     sequelize: sequelizeInstance,

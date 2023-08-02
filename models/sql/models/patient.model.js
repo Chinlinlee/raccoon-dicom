@@ -38,7 +38,7 @@ PatientModel.init({
         type: vrTypeMapping.UI
     },
     "json": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     }
 }, {
     sequelize: sequelizeInstance,

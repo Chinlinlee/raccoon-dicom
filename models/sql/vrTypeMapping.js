@@ -1,3 +1,4 @@
+const { raccoonConfig } = require("@root/config-class");
 const { DataTypes } = require("sequelize");
 
 const vrTypeMapping = {
@@ -31,7 +32,8 @@ const vrTypeMapping = {
     "UR": DataTypes.TEXT("long"),
     "US": DataTypes.SMALLINT.UNSIGNED,
     "UT": DataTypes.TEXT("long"),
-    "UV": DataTypes.BIGINT.UNSIGNED
+    "UV": DataTypes.BIGINT.UNSIGNED,
+    "JSON": raccoonConfig.sqlDbConfig.dialect === "postgres" ? DataTypes.JSONB : DataTypes.JSON // For Array or SQ data
 };
 
 

@@ -27,22 +27,22 @@ SeriesModel.init({
         type: vrTypeMapping.LO
     },
     "x0008103F": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00081050": { // 1-n
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00081052": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00081070": { // 1-n
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00081072": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00081250": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00200011": {
         type: vrTypeMapping.IS
@@ -54,13 +54,13 @@ SeriesModel.init({
         type: vrTypeMapping.TM
     },
     "x00400275": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x00080031": {
         type: vrTypeMapping.TM
     },
     "json": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     }
 }, {
     sequelize: sequelizeInstance,

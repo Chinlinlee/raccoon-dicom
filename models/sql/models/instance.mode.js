@@ -34,10 +34,10 @@ InstanceModel.init({
         type: vrTypeMapping.IS
     },
     "x0040A043": { //SQ
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x0040A073": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "x0040A491": {
         type: vrTypeMapping.CS
@@ -46,10 +46,10 @@ InstanceModel.init({
         type: vrTypeMapping.CS
     },
     "x0040A730": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     },
     "json": {
-        type: DataTypes.JSON
+        type: vrTypeMapping.JSON
     }
 }, {
     sequelize: sequelizeInstance,
