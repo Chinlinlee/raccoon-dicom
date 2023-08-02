@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const moment = require("moment");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { Op } = require("sequelize");
+const { Op, Sequelize, cast, col } = require("sequelize");
 const { raccoonConfig } = require("@root/config-class");
 
 class BaseQueryBuilder {
@@ -27,8 +27,23 @@ class BaseQueryBuilder {
         };
     }
 
-    getStringArrayQuery(tag, value) {
-        //TODO
+    getStringArrayJsonQuery(tag, value) {
+        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
+            return {
+                [Op.or]: [
+                    Sequelize.where(
+                        cast(Sequelize.col(`x${tag}`), "jsonb"),
+                        {
+                            [Op.contains]: cast(JSON.stringify([value]), "jsonb")
+                        }
+                    )
+                ]
+            };
+        } else {
+            return {
+                [Op.or]: [Sequelize.where(Sequelize.fn("JSON_CONTAINS", Sequelize.col(`x${tag}`), `[${value}]`))]
+            };
+        }
     }
 
     getNumberQuery(tag, value) {
@@ -170,9 +185,9 @@ class BaseQueryBuilder {
      * @see {@link https://stackoverflow.com/questions/60598225/how-to-merge-javascript-object-containing-symbols "How to merge javascript object containing symbols?"}
      */
     mergeQuery(q) {
-        _.mergeWith(this.query, q, (a ,b) => {
+        _.mergeWith(this.query, q, (a, b) => {
             if (!_.isObject(b)) return b;
-  
+
             return Array.isArray(a) ? [...a, ...b] : { ...a, ...b };
         });
     }
@@ -223,6 +238,14 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     getStudyTime(value) {
         let q = this.getTimeQuery(dictionary.keyword.StudyTime, value);
         this.mergeQuery(q);
+    }
+
+    getModalitiesInStudy(value) {
+        let q = this.getStringArrayJsonQuery(dictionary.keyword.ModalitiesInStudy, value);
+        this.query = {
+            ...this.query,
+            q
+        };
     }
 }
 
