@@ -3,6 +3,8 @@ const moment = require("moment");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { Op, Sequelize, cast, col } = require("sequelize");
 const { raccoonConfig } = require("@root/config-class");
+const { PersonNameModel } = require("@models/sql/models/personName.model");
+const { PatientModel } = require("@models/sql/models/patient.model");
 
 class BaseQueryBuilder {
     constructor(queryOptions) {
@@ -65,28 +67,34 @@ class BaseQueryBuilder {
      * @param {string} value 
      * @returns 
      */
-    getPersonNameQuery(value) {
+    getPersonNameQuery(tag, value) {
         if (value.includes("%") || value.includes("_")) {
             return {
-                [Op.or]: {
-                    [Op.like]: {
-                        alphabetic: value
-                    },
-                    [Op.like]: {
-                        ideographic: value
-                    },
-                    [Op.like]: {
-                        phonetic: value
+                query: {
+                    [Op.or]: {
+                        alphabetic: {
+                            [Op.like]: value
+                        },
+                        ideographic: {
+                            [Op.like]: value
+                        },
+                        phonetic: {
+                            [Op.like]: value
+                        }
                     }
-                }
+                },
+                field: tag
             };
         }
         return {
-            [Op.or]: {
-                alphabetic: value,
-                ideographic: value,
-                phonetic: value
-            }
+            query: {
+                [Op.or]: {
+                    alphabetic: value,
+                    ideographic: value,
+                    phonetic: value
+                }
+            },
+            field: tag
         };
     }
 
@@ -236,32 +244,70 @@ class StudyQueryBuilder extends BaseQueryBuilder {
                 }
             }
         }
-        console.log(this.query);
+
+        let sequelizeQuery = {
+            where: this.query
+        };
+
+        let includesPersonNameQuery = this.getSequelizeIncludePersonNameQuery();
+        if (includesPersonNameQuery.length > 0) {
+            _.set(sequelizeQuery, "include", includesPersonNameQuery);
+        }
+        return sequelizeQuery;
+    }
+
+    getSequelizeIncludePersonNameQuery() {
+        let includes = [];
+
+        for (let personNameQuery of this.personQuery) {
+            includes.push(personNameQuery);
+        }
+        return includes;
     }
 
     getStudyInstanceUID(value) {
         let q = this.getStringQuery(dictionary.keyword.StudyInstanceUID, value);
-        _.merge(this.query, q);
+        this.query = {
+            ...this.query,
+            ...q
+        };
     }
 
     getPatientName(value) {
-        let q = this.getPersonNameQuery(value);
-        this.personQuery.push(q);
+        let q = this.getPersonNameQuery(dictionary.keyword.PatientName, value);
+        this.personQuery.push({
+            model: PatientModel,
+            include: [{
+                model: PersonNameModel,
+                where: q.query,
+                required: true
+            }],
+            required: true
+        });
     }
 
     getPatientID(value) {
         let q = this.getStringQuery(dictionary.keyword.PatientID, value);
-        _.merge(this.query, q);
+        this.query = {
+            ...this.query,
+            ...q
+        };
     }
 
     getStudyDate(value) {
         let q = this.getDateQuery(dictionary.keyword.StudyDate, value);
-        this.mergeQuery(q);
+        this.query = {
+            ...this.query,
+            ...q
+        };
     }
 
     getStudyTime(value) {
         let q = this.getTimeQuery(dictionary.keyword.StudyTime, value);
-        this.mergeQuery(q);
+        this.query = {
+            ...this.query,
+            ...q
+        };
     }
 
     getAccessionNumber(value) {
@@ -277,6 +323,23 @@ class StudyQueryBuilder extends BaseQueryBuilder {
         this.query = {
             ...this.query,
             ...q
+        };
+    }
+
+    getReferringPhysicianName(value) {
+        let q = this.getPersonNameQuery(dictionary.keyword.ReferringPhysicianName, value);
+        this.personQuery.push({
+            model: PersonNameModel,
+            where: q.where,
+            required: true
+        });
+    }
+
+    getStudyID(value) {
+        let q = this.getStringQuery(dictionary.keyword.StudyID, value);
+        this.query = {
+            ...this.query,
+            ...this.q
         };
     }
 }
