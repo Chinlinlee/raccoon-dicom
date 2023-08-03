@@ -231,12 +231,12 @@ router.get("/studies", validateParams(queryValidation, "query", {
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  * 
  */
-// router.get(
-//     "/series", validateParams(queryValidation, "query", {
-//         allowUnknown: true
-//     }),
-//     require("./controller/QIDO-RS/queryAllSeries")
-// );
+router.get(
+    "/series", validateParams(queryValidation, "query", {
+        allowUnknown: true
+    }),
+    require("./controller/QIDO-RS/queryAllSeries")
+);
 
 /**
  *  @openapi

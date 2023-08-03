@@ -9,6 +9,7 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { StudyModel } = require("@models/sql/models/study.model");
+const { SeriesModel } = require("@models/sql/models/series.model");
 
 
 class SqlQidoRsService extends QidoRsService {
@@ -89,7 +90,7 @@ class QidoDicomJsonFactory {
                 return await StudyModel.getDicomJson(queryOptions);
             },
             "series": async () => {
-                // return await getSeriesDicomJson(queryOptions);
+                return await SeriesModel.getDicomJson(queryOptions);
             },
             "instance": async () => {
                 // return await getInstanceDicomJson(queryOptions);
