@@ -26,7 +26,7 @@ class SeriesPersistentObject {
         this.x0008103E = _.get(dicomJson, "0008103E.Value.0", "");
         this.x0008103F = _.get(dicomJson, "0008103F.Value", undefined);
         this.x00081050 = _.get(dicomJson, "00081050.Value", "");
-        this.x00081052 = _.get(dicomJson, "00081052.Value", "");
+        this.x00081052 = _.get(dicomJson, "00081052.Value.0", "");
         this.x00081070 = _.get(dicomJson, "00081070.Value", "");
         this.x00081072 = _.get(dicomJson, "00081072.Value", "");
         this.x00081250 = _.get(dicomJson, "00081250.Value", "");

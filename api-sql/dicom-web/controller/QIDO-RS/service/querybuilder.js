@@ -10,6 +10,45 @@ class BaseQueryBuilder {
     constructor(queryOptions) {
         this.queryOptions = queryOptions;
         this.personQuery = [];
+        this.bind = [];
+    }
+
+    build() {
+        for (let key in this.queryOptions.query) {
+            let commaValue = this.comma(key, this.queryOptions.query[key]);
+
+            for (let i = 0; i < commaValue.length; i++) {
+                let value = this.getWildCardQuery(commaValue[i][key]);
+                try {
+                    this[`get${dictionary.tag[key]}`](value);
+                } catch (e) {
+                    if (e.message.includes("not a function")) break;
+                }
+            }
+        }
+
+        let sequelizeQuery = {
+            where: this.query
+        };
+
+        let includesPersonNameQuery = this.getSequelizeIncludePersonNameQuery();
+        if (includesPersonNameQuery.length > 0) {
+            _.set(sequelizeQuery, "include", includesPersonNameQuery);
+        }
+
+        if (this.bind.length > 0 ) {
+            _.set(sequelizeQuery, "bind", this.bind);
+        }
+        return sequelizeQuery;
+    }
+    
+    getSequelizeIncludePersonNameQuery() {
+        let includes = [];
+
+        for (let personNameQuery of this.personQuery) {
+            includes.push(personNameQuery);
+        }
+        return includes;
     }
 
     comma(key, value) {
@@ -208,6 +247,20 @@ class BaseQueryBuilder {
             value = value.replace(/\?/gm, "_");
         }
 
+        return value;
+    }
+
+    getWildCardRegexString(value) {
+        let wildCardIndex = value.indexOf("%");
+        let questionIndex = value.indexOf("_");
+        
+        if (wildCardIndex >= 0 || questionIndex >= 0) {
+            value = value.replace(/%/gm, ".*");
+            value = value.replace(/_/gm, ".");
+            value = value.replace(/\^/gm, "\\^");
+            value = "^" + value;
+        }
+    
         return value;
     }
 
