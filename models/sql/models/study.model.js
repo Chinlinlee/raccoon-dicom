@@ -115,7 +115,9 @@ StudyModel.getDicomJson = async function (queryOptions) {
     let q = queryBuilder.build();
     let studies = await StudyModel.findAll({
         ...q,
-        attributes: ["json"]
+        attributes: ["json"],
+        limit: queryOptions.limit,
+        offset: queryOptions.skip
     });
 
 
