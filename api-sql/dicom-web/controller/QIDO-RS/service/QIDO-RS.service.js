@@ -86,13 +86,7 @@ class QidoDicomJsonFactory {
                 // return await getPatientDicomJson(queryOptions);
             },
             "study": async () => {
-                // return await getStudyDicomJson(queryOptions);
-                let queryBuilder = new StudyQueryBuilder(queryOptions);
-                let q = queryBuilder.build();
-                let studies = await StudyModel.findAll({
-                    ...q
-                });
-                console.log(studies);
+                return await StudyModel.getDicomJson(queryOptions);
             },
             "series": async () => {
                 // return await getSeriesDicomJson(queryOptions);

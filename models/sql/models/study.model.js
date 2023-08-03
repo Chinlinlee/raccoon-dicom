@@ -3,8 +3,29 @@ const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { SeriesModel } = require("./series.model");
 const _ = require("lodash");
+const { StudyQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/querybuilder");
+const { InstanceModel } = require("./instance.mode");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
-class StudyModel extends Model { };
+class StudyModel extends Model { 
+    async getNumberOfStudyRelatedSeries() {
+        let {count} = await SeriesModel.findAndCountAll({
+            where: {
+                x0020000D: _.get(this.json, "0020000D.Value.0")
+            }
+        });
+        return count;
+    }
+
+    async getNumberOfStudyRelatedInstances() {
+        let {count} = await InstanceModel.findAndCountAll({
+            where: {
+                x0020000D: _.get(this.json, "0020000D.Value.0")
+            }
+        });
+        return count;
+    }
+};
 
 StudyModel.init({
     "studyPath": {
@@ -62,10 +83,10 @@ StudyModel.init({
     freezeTableName: true
 });
 
-StudyModel.updateModalitiesInStudy = async function (studyInstanceUid) {
+StudyModel.updateModalitiesInStudy = async function (study) {
     let seriesArray = await SeriesModel.findAll({
         where: {
-            x0020000D: studyInstanceUid
+            x0020000D: study.x0020000D
         },
         attributes: [
             [Sequelize.fn("DISTINCT", Sequelize.col("x00080060")), "modality"]
@@ -73,19 +94,59 @@ StudyModel.updateModalitiesInStudy = async function (studyInstanceUid) {
     });
 
     let modalities = [];
-    for(let item of seriesArray) {
-        if (_.get(item, "dataValues.modality")) 
+    for (let item of seriesArray) {
+        if (_.get(item, "dataValues.modality"))
             modalities.push(item.dataValues.modality);
     }
 
-    await StudyModel.update({
-        x00080061: modalities
-    }, {
-        where: {
-            x0020000D: studyInstanceUid
-
+    study.json = {
+        ...study.json,
+        "00080061": {
+            vr: "CS",
+            Value: modalities
         }
+    };
+    study.x00080061 = modalities;
+    await study.save();
+};
+
+StudyModel.getDicomJson = async function (queryOptions) {
+    let queryBuilder = new StudyQueryBuilder(queryOptions);
+    let q = queryBuilder.build();
+    let studies = await StudyModel.findAll({
+        ...q,
+        attributes: ["json"]
     });
+
+
+    return await Promise.all(studies.map(async study => {
+        let numberOfStudyRelatedSeries = await study.getNumberOfStudyRelatedSeries();
+        let numberOfStudyRelatedInstances = await study.getNumberOfStudyRelatedInstances();
+        let { json } = study.toJSON();
+        // Set Retrieve URL
+        _.set(json, dictionary.keyword.RetrieveURL, {
+            vr: dictionary.tagVR[dictionary.keyword.RetrieveURL].vr,
+            Value: [`${queryOptions.retrieveBaseUrl}/${_.get(json, "0020000D.Value.0")}`]
+        });
+
+        // Set number of Study related series
+        _.set(json, dictionary.keyword.NumberOfStudyRelatedSeries, {
+            vr: dictionary.tagVR[dictionary.keyword.NumberOfStudyRelatedSeries].vr,
+            Value: [
+                numberOfStudyRelatedSeries.toString()
+            ]
+        });
+
+        // Set number of Study related instances
+        _.set(json, dictionary.keyword.NumberOfStudyRelatedInstances, {
+            vr: dictionary.tagVR[dictionary.keyword.NumberOfStudyRelatedInstances].vr,
+            Value: [
+                numberOfStudyRelatedInstances.toString()
+            ]
+        });
+
+        return json;
+    }));
 };
 
 module.exports.StudyModel = StudyModel;

@@ -41,7 +41,7 @@ class SqlDicomJsonModel extends DicomJsonModel {
             let storedSeries = await this.storeSeriesCollection(dicomJsonClone, storedStudy);
             await this.storeInstanceCollection(dicomJsonClone, storedSeries);
 
-            await StudyModel.updateModalitiesInStudy(storedStudy.x0020000D);
+            await StudyModel.updateModalitiesInStudy(storedStudy);
         } catch(e) {
             throw e;
         }
