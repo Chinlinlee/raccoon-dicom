@@ -9,7 +9,10 @@ class SeriesPersistentObject {
     constructor(dicomJson, study) {
 
         this.json = {};
-        Object.keys(tagsNeedStore.Study).forEach(key => {
+        Object.keys({
+            ...tagsNeedStore.Study,
+            ...tagsNeedStore.Series
+        }).forEach(key => {
             let value = _.get(dicomJson, key);
             value ? _.set(this.json, key, value) : undefined;
         });
