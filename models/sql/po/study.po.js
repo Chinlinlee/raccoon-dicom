@@ -22,7 +22,6 @@ class StudyPersistentObject {
         this.x00080030 = _.get(dicomJson, "00080030.Value.0", "");
         this.x00080050 = _.get(dicomJson, "00080050.Value.0", "");
         this.x00080056 = _.get(dicomJson, "00080056.Value.0", "");
-        this.x00080061 = _.get(dicomJson, "00080061.Value.0", undefined);
         this.x00080090 = _.get(dicomJson, "00080090.Value.0", "");
         this.x00080201 = _.get(dicomJson, "00080201.Value.0", "");
         this.x0020000D = _.get(dicomJson, "0020000D.Value.0", "");
@@ -55,7 +54,6 @@ class StudyPersistentObject {
                 x00080030 : this.x00080030 ? Number(this.x00080030) : undefined,
                 x00080050 : this.x00080050,
                 x00080056 : this.x00080056,
-                x00080061 : this.x00080061,
                 x00080201 : this.x00080201,
                 x0020000D : this.x0020000D,
                 x00200010 : this.x00200010,

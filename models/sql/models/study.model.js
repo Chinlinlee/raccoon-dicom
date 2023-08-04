@@ -50,9 +50,6 @@ StudyModel.init({
     "x00080056": {
         type: vrTypeMapping.CS
     },
-    "x00080061": {
-        type: vrTypeMapping.JSON
-    },
     "x00080090": {
         type: vrTypeMapping.PN
     },
@@ -106,7 +103,6 @@ StudyModel.updateModalitiesInStudy = async function (study) {
             Value: modalities
         }
     };
-    study.x00080061 = modalities;
     await study.save();
 };
 
