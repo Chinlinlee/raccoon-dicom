@@ -5,11 +5,13 @@ const { Op, Sequelize, cast, col } = require("sequelize");
 const { raccoonConfig } = require("@root/config-class");
 const { PersonNameModel } = require("@models/sql/models/personName.model");
 const { PatientModel } = require("@models/sql/models/patient.model");
+const sequelize = require("@models/sql/instance");
 
 class BaseQueryBuilder {
     constructor(queryOptions) {
         this.queryOptions = queryOptions;
-        this.personQuery = [];
+        /** @type {import("sequelize").IncludeOptions} */
+        this.includeQueries = [];
         this.bind = [];
     }
 
@@ -36,17 +38,17 @@ class BaseQueryBuilder {
             _.set(sequelizeQuery, "include", includesPersonNameQuery);
         }
 
-        if (this.bind.length > 0 ) {
+        if (this.bind.length > 0) {
             _.set(sequelizeQuery, "bind", this.bind);
         }
         return sequelizeQuery;
     }
-    
+
     getSequelizeIncludePersonNameQuery() {
         let includes = [];
 
-        for (let personNameQuery of this.personQuery) {
-            includes.push(personNameQuery);
+        for (let includeQuery of this.includeQueries) {
+            includes.push(includeQuery);
         }
         return includes;
     }
@@ -253,14 +255,14 @@ class BaseQueryBuilder {
     getWildCardRegexString(value) {
         let wildCardIndex = value.indexOf("%");
         let questionIndex = value.indexOf("_");
-        
+
         if (wildCardIndex >= 0 || questionIndex >= 0) {
             value = value.replace(/%/gm, ".*");
             value = value.replace(/_/gm, ".");
             value = value.replace(/\^/gm, "\\^");
             value = "^" + value;
         }
-    
+
         return value;
     }
 
@@ -284,39 +286,6 @@ class StudyQueryBuilder extends BaseQueryBuilder {
         this.query = {};
     }
 
-    build() {
-        for (let key in this.queryOptions.query) {
-            let commaValue = this.comma(key, this.queryOptions.query[key]);
-
-            for (let i = 0; i < commaValue.length; i++) {
-                let value = this.getWildCardQuery(commaValue[i][key]);
-                try {
-                    this[`get${dictionary.tag[key]}`](value);
-                } catch (e) {
-                    if (e.message.includes("not a function")) break;
-                }
-            }
-        }
-
-        let sequelizeQuery = {
-            where: this.query
-        };
-
-        let includesPersonNameQuery = this.getSequelizeIncludePersonNameQuery();
-        if (includesPersonNameQuery.length > 0) {
-            _.set(sequelizeQuery, "include", includesPersonNameQuery);
-        }
-        return sequelizeQuery;
-    }
-
-    getSequelizeIncludePersonNameQuery() {
-        let includes = [];
-
-        for (let personNameQuery of this.personQuery) {
-            includes.push(personNameQuery);
-        }
-        return includes;
-    }
 
     getStudyInstanceUID(value) {
         let q = this.getStringQuery(dictionary.keyword.StudyInstanceUID, value);
@@ -328,7 +297,7 @@ class StudyQueryBuilder extends BaseQueryBuilder {
 
     getPatientName(value) {
         let q = this.getPersonNameQuery(dictionary.keyword.PatientName, value);
-        this.personQuery.push({
+        this.includeQueries.push({
             model: PatientModel,
             include: [{
                 model: PersonNameModel,
@@ -372,16 +341,19 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     }
 
     getModalitiesInStudy(value) {
-        let q = this.getStringArrayJsonQuery(dictionary.keyword.ModalitiesInStudy, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+        let q = this.getStringQuery(dictionary.keyword.Modality, value);
+        this.includeQueries.push({
+            model: sequelize.model("Series"),
+            where: {
+                ...q
+            },
+            attributes: []
+        });
     }
 
     getReferringPhysicianName(value) {
         let q = this.getPersonNameQuery(dictionary.keyword.ReferringPhysicianName, value);
-        this.personQuery.push({
+        this.includeQueries.push({
             model: PersonNameModel,
             where: q.where,
             required: true
@@ -392,7 +364,7 @@ class StudyQueryBuilder extends BaseQueryBuilder {
         let q = this.getStringQuery(dictionary.keyword.StudyID, value);
         this.query = {
             ...this.query,
-            ...this.q
+            ...q
         };
     }
 }
