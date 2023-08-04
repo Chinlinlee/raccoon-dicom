@@ -52,6 +52,11 @@ async function init() {
         StudyModel.belongsTo(PersonNameModel, {
             foreignKey: "x00080090"
         });
+
+        StudyModel.hasMany(SeriesModel, {
+            foreignKey: "x0020000D",
+            sourceKey: "x0020000D"
+        });
         SeriesModel.belongsTo(StudyModel, {
             foreignKey: "x0020000D",
             targetKey: "x0020000D"
