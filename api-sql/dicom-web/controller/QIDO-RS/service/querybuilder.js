@@ -22,7 +22,11 @@ class BaseQueryBuilder {
             for (let i = 0; i < commaValue.length; i++) {
                 let value = this.getWildCardQuery(commaValue[i][key]);
                 try {
-                    this[`get${dictionary.tag[key]}`](value);
+                    if (key.includes(".")) {
+                        this[key](value);
+                    } else {
+                        this[`get${dictionary.tag[key]}`](value);
+                    }
                 } catch (e) {
                     if (e.message.includes("not a function")) break;
                 }
