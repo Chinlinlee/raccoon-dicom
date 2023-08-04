@@ -33,7 +33,7 @@ class SeriesPersistentObject {
         this.x00200011 = _.get(dicomJson, "00200011.Value.0", "");
         this.x00400244 = _.get(dicomJson, "00400244.Value.0", undefined);
         this.x00400245 = _.get(dicomJson, "00400245.Value.0", "");
-        this.x00400275 = _.get(dicomJson, "00400275.Value", "");
+        this.x00400275 = _.get(dicomJson, "00400275.Value.0", "");
         this.x00080031 = _.get(dicomJson, "00080031.Value.0", "");
     }
 
@@ -46,6 +46,35 @@ class SeriesPersistentObject {
             });
         }
         return undefined;
+    }
+
+    async createPersonNames(field) {
+        let personNames = [];
+        if (this[field]) {
+            for (let personName of this[field]) {
+                let personNameSequelize = await PersonNameModel.create({
+                    alphabetic: _.get(personName, "Alphabetic", undefined),
+                    ideographic: _.get(personName, "Ideographic", undefined),
+                    phonetic: _.get(personName, "Phonetic", undefined)
+                });
+                personNames.push(personNameSequelize);
+            }
+        }
+        return personNames;
+    }
+
+    async addPerformingPhysicianNames(series) {
+        let performingPhysicianNames = await this.createPersonNames("x00081050");
+        for (let performingPhysicianName of performingPhysicianNames) {
+            await series.addPerformingPhysicianName(performingPhysicianName);
+        }
+    }
+
+    async addOperatorsNames(series) {
+        let operationsNames = await this.createPersonNames("x00081070");
+        for (let operationsName of operationsNames) {
+            await series.addOperatorsName(operationsName);
+        }
     }
 
     async createSeries() {
@@ -76,6 +105,12 @@ class SeriesPersistentObject {
             }
         });
 
+        if (created) {
+            await this.addPerformingPhysicianNames(series);
+            await this.addOperatorsNames(series);
+            await series.save();
+        }
+        
         return series;
     }
 
