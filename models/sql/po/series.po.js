@@ -4,6 +4,7 @@ const { PersonNameModel } = require("../models/personName.model");
 const { SeriesModel } = require("../models/series.model");
 
 const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
+const sequelize = require("../instance");
 
 class SeriesPersistentObject {
     constructor(dicomJson, study) {
@@ -70,6 +71,13 @@ class SeriesPersistentObject {
         }
     }
 
+    async updatePerformingPhysicianNames(series) {
+        for(let personName of series.performingPhysicianName) {
+            await personName.destroy();
+        }
+        await this.addPerformingPhysicianNames(series);
+    }
+
     async addOperatorsNames(series) {
         let operationsNames = await this.createPersonNames("x00081070");
         for (let operationsName of operationsNames) {
@@ -77,38 +85,69 @@ class SeriesPersistentObject {
         }
     }
 
+    async updateOperatorsNames(series) {
+        for(let personName of series.operatorsName) {
+            await personName.destroy();
+        }
+        await this.addOperatorsNames(series);
+    }
+
     async createSeries() {
+        let item = {
+            json: this.json,
+            x0020000D: this.x0020000D,
+            x0020000E: this.x0020000E,
+            x00080021: this.x00080021,
+            x00080060: this.x00080060,
+            x0008103E: this.x0008103E,
+            x0008103F: this.x0008103F,
+            x00081050: this.x00081050,
+            x00081052: this.x00081052,
+            x00081070: this.x00081070,
+            x00081072: this.x00081072,
+            x00081250: this.x00081250,
+            x00200011: this.x00200011,
+            x00400244: this.x00400244,
+            x00400245: this.x00400245 ? Number(this.x00400245) : undefined,
+            x00400275: this.x00400275,
+            x00080031: this.x00080031 ? Number(this.x00080031) : undefined,
+            seriesPath: this.seriesPath
+        };
+
         let [series, created] = await SeriesModel.findOrCreate({
             where: {
                 x0020000D: this.x0020000D,
                 x0020000E: this.x0020000E
             },
-            defaults: {
-                json: this.json,
-                x0020000D: this.x0020000D,
-                x0020000E: this.x0020000E,
-                x00080021: this.x00080021,
-                x00080060: this.x00080060,
-                x0008103E: this.x0008103E,
-                x0008103F: this.x0008103F,
-                x00081050: this.x00081050,
-                x00081052: this.x00081052,
-                x00081070: this.x00081070,
-                x00081072: this.x00081072,
-                x00081250: this.x00081250,
-                x00200011: this.x00200011,
-                x00400244: this.x00400244,
-                x00400245: this.x00400245 ? Number(this.x00400245) : undefined,
-                x00400275: this.x00400275,
-                x00080031: this.x00080031 ? Number(this.x00080031) : undefined,
-                seriesPath: this.seriesPath
-            }
+            defaults: item
         });
 
         if (created) {
             await this.addPerformingPhysicianNames(series);
             await this.addOperatorsNames(series);
             await series.save();
+        } else {
+            await SeriesModel.update(item, {
+                where: {
+                    x0020000E: series.dataValues.x0020000E
+                }
+            });
+            let seriesWithIncludeItem = await SeriesModel.findByPk(series.dataValues.x0020000E, {
+                include: [
+                    {
+                        model: sequelize.model("PersonName"),
+                        as: "performingPhysicianName",
+                        attributes: ["id"]
+                    },
+                    {
+                        model: sequelize.model("PersonName"),
+                        as: "operatorsName",
+                        attributes: ["id"]
+                    }
+                ],
+                attributes: ["x0020000E"]
+            });
+            await this.updatePerformingPhysicianNames(seriesWithIncludeItem);
         }
         
         return series;

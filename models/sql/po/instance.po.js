@@ -69,30 +69,42 @@ class InstancePersistentObject {
 
 
     async createInstance() {
+
+        let item = {
+            json: this.json,
+            x0020000D: this.x0020000D,
+            x0020000E: this.x0020000E,
+            x00080018: this.x00080018,
+            x00080016: this.x00080016,
+            x00080023: this.x00080023,
+            x00080033: this.x00080033 ? Number(this.x00080033) : undefined,
+            x00200013: this.x00200013,
+            x0040A043: this.x0040A043,
+            x0040A073: this.x0040A073,
+            x0040A491: this.x0040A491,
+            x0040A493: this.x0040A493,
+            x0040A730: this.x0040A730,
+            instancePath: this.instancePath
+        };
+
         let [instance, created] = await InstanceModel.findOrCreate({
             where: {
                 x0020000D: this.x0020000D,
                 x0020000E: this.x0020000E,
                 x00080018: this.x00080018
             },
-            defaults: {
-                json: this.json,
-                x0020000D: this.x0020000D,
-                x0020000E: this.x0020000E,
-                x00080018: this.x00080018,
-                x00080016: this.x00080016,
-                x00080023: this.x00080023,
-                x00080033: this.x00080033 ? Number(this.x00080033) : undefined,
-                x00200013: this.x00200013,
-                x0040A043: this.x0040A043,
-                x0040A073: this.x0040A073,
-                x0040A491: this.x0040A491,
-                x0040A493: this.x0040A493,
-                x0040A730: this.x0040A730,
-                instancePath: this.instancePath
-            }
+            defaults: item
         });
 
+        if (created) {
+            // do nothing
+        } else {
+            await InstanceModel.update(item, {
+                where: {
+                    x00080018: instance.dataValues.x00080018
+                }
+            });
+        }
 
         return instance;
     }

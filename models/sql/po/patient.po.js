@@ -12,6 +12,7 @@ class PatientPersistentObject {
             let value = _.get(dicomJson, key);
             value ? _.set(this.json, key, value) : undefined;
         });
+        this.x00100010 = _.get(dicomJson, "00100010.Value.0", undefined);
         this.x00100020 = _.get(dicomJson, "00100020.Value.0", "");
         this.x00100021 = _.get(dicomJson, "00100021.Value.0", "");
         this.x00100030 = _.get(dicomJson, "00100030.Value.0", "");
@@ -34,29 +35,53 @@ class PatientPersistentObject {
         return undefined;
     }
 
+    async updatePersonName(patient) {
+        if (this.x00100010) {
+            await PersonNameModel.update({
+                alphabetic: _.get(this.x00100010, "Alphabetic", undefined),
+                ideographic: _.get(this.x00100010, "Ideographic", undefined),
+                phonetic: _.get(this.x00100010, "Phonetic", undefined)
+            }, {
+                where: {
+                    id: patient.dataValues.x00100010
+                }
+            });
+        }
+    }
+
     async createPatient() {
+
+        let item = {
+            json: this.json,
+            x00100020: this.x00100020,
+            x00100021: this.x00100021,
+            x00100030: this.x00100030 ? this.x00100030 : undefined,
+            x00100032: this.x00100032 ? Number(this.x00100032) : undefined,
+            x00100040: this.x00100040,
+            x00102160: this.x00102160,
+            x00104000: this.x00104000,
+            x00880130: this.x00880130,
+            x00880140: this.x00880140
+        };
+
         let [patient, created] = await PatientModel.findOrCreate({
             where: {
                 x00100020: this.x00100020
             },
-            defaults: {
-                json: this.json,
-                x00100020: this.x00100020,
-                x00100021: this.x00100021,
-                x00100030: this.x00100030 ? this.x00100030 : undefined,
-                x00100032: this.x00100032 ? Number(this.x00100032) : undefined,
-                x00100040: this.x00100040,
-                x00102160: this.x00102160,
-                x00104000: this.x00104000,
-                x00880130: this.x00880130,
-                x00880140: this.x00880140
-            }
+            defaults: item
         });
 
         if (created) {
             let personName = await this.createPersonName();
             patient.x00100010 = personName ? personName.id : undefined;
             await patient.save();
+        } else {
+            await PatientModel.update(item, {
+                where: {
+                    id: patient.dataValues.id
+                }
+            });
+            await this.updatePersonName(patient);
         }
 
         return patient;

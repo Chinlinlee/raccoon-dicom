@@ -41,32 +41,55 @@ class StudyPersistentObject {
         return undefined;
     }
 
+    async updateReferringPhysicianName(study) {
+        if (this.x00080090) {
+            await PersonNameModel.update({
+                alphabetic: _.get(this.x00080090, "Alphabetic", undefined),
+                ideographic: _.get(this.x00080090, "Ideographic", undefined),
+                phonetic: _.get(this.x00080090, "Phonetic", undefined)
+            }, {
+                where: {
+                    id: study.dataValues.x00080090
+                }
+            });
+        }
+    }
+
     async createStudy() {
+        let item = {
+            json: this.json,
+            x00100020: this.patient.x00100020,
+            x00080005 : this.x00080005,
+            x00080020 : this.x00080020,
+            x00080030 : this.x00080030 ? Number(this.x00080030) : undefined,
+            x00080050 : this.x00080050,
+            x00080056 : this.x00080056,
+            x00080201 : this.x00080201,
+            x0020000D : this.x0020000D,
+            x00200010 : this.x00200010,
+            x00201206 : this.x00201206,
+            x00201208 : this.x00201208,
+            studyPath: this.studyPath
+        };
+
         let [study, created] = await StudyModel.findOrCreate({
             where: {
                 x0020000D: this.x0020000D
             },
-            defaults: {
-                json: this.json,
-                x00100020: this.patient.x00100020,
-                x00080005 : this.x00080005,
-                x00080020 : this.x00080020,
-                x00080030 : this.x00080030 ? Number(this.x00080030) : undefined,
-                x00080050 : this.x00080050,
-                x00080056 : this.x00080056,
-                x00080201 : this.x00080201,
-                x0020000D : this.x0020000D,
-                x00200010 : this.x00200010,
-                x00201206 : this.x00201206,
-                x00201208 : this.x00201208,
-                studyPath: this.studyPath
-            }
+            defaults: item
         });
 
         if (created) {
             let referringPhysicianName = await this.createReferringPhysicianName();
             study.x00080090 = referringPhysicianName ? referringPhysicianName.id : undefined;
             await study.save();
+        } else {
+            await StudyModel.update(item, {
+                where: {
+                    x0020000D: study.dataValues.x0020000D
+                }
+            });
+            await this.updateReferringPhysicianName(study);
         }
 
         return study;
