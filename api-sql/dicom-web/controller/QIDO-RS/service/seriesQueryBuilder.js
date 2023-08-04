@@ -1,5 +1,5 @@
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { BaseQueryBuilder } = require("./service/querybuilder");
+const { BaseQueryBuilder } = require("./querybuilder");
 const { Op, Sequelize } = require("sequelize");
 const { raccoonConfig } = require("@root/config-class");
 

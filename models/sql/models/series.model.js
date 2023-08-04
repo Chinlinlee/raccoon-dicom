@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
-const { SeriesQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/seriesQueryBuilder");
+const { SeriesQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/seriesQueryBuilder");
 const _ = require("lodash");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
