@@ -45,10 +45,12 @@ async function init() {
         PatientModel.belongsTo(PersonNameModel, {
             foreignKey: "x00100010"
         });
+
         StudyModel.belongsTo(PatientModel, {
             foreignKey: "x00100020",
             targetKey: "x00100020"
         });
+
         StudyModel.belongsTo(PersonNameModel, {
             foreignKey: "x00080090"
         });
@@ -61,6 +63,29 @@ async function init() {
             foreignKey: "x0020000D",
             targetKey: "x0020000D"
         });
+
+        // Performing Physician Name many to many
+        SeriesModel.belongsToMany(PersonNameModel, {
+            through: "PerformingPhysicianName",
+            as: "performingPhysicianName",
+            sourceKey: "x0020000E",
+            foreignKey: "x0020000E"
+        });
+        PersonNameModel.belongsToMany(SeriesModel, {
+            through: "PerformingPhysicianName"
+        });
+
+        // Operator's Name many to many
+        SeriesModel.belongsToMany(PersonNameModel, {
+            through: "OperatorsName",
+            as: "operatorsName",
+            sourceKey: "x0020000E",
+            foreignKey: "x0020000E"
+        });
+        PersonNameModel.belongsToMany(SeriesModel, {
+            through: "OperatorsName"
+        });
+
         InstanceModel.belongsTo(SeriesModel, {
             foreignKey: "x0020000E",
             targetKey: "x0020000E"
