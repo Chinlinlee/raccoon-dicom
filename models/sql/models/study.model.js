@@ -9,7 +9,7 @@ const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
 class StudyModel extends Model { 
     async getNumberOfStudyRelatedSeries() {
-        let {count} = await SeriesModel.findAndCountAll({
+        let count = await SeriesModel.count({
             where: {
                 x0020000D: _.get(this.json, "0020000D.Value.0")
             }
@@ -18,7 +18,7 @@ class StudyModel extends Model {
     }
 
     async getNumberOfStudyRelatedInstances() {
-        let {count} = await InstanceModel.findAndCountAll({
+        let count = await InstanceModel.count({
             where: {
                 x0020000D: _.get(this.json, "0020000D.Value.0")
             }
