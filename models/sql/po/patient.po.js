@@ -12,7 +12,6 @@ class PatientPersistentObject {
             let value = _.get(dicomJson, key);
             value ? _.set(this.json, key, value) : undefined;
         });
-        this.x00100010 = _.get(dicomJson, "00100010.Value.0", "");
         this.x00100020 = _.get(dicomJson, "00100020.Value.0", "");
         this.x00100021 = _.get(dicomJson, "00100021.Value.0", "");
         this.x00100030 = _.get(dicomJson, "00100030.Value.0", "");
