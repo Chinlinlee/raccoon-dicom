@@ -18,7 +18,8 @@ SeriesModel.init({
     "x0020000E": {
         type: vrTypeMapping.UI,
         allowNull: false,
-        unique: true
+        unique: true,
+        primaryKey: true
     },
     "x00080021": {
         type: vrTypeMapping.DA
@@ -32,13 +33,7 @@ SeriesModel.init({
     "x0008103F": {
         type: vrTypeMapping.JSON
     },
-    "x00081050": { // 1-n
-        type: vrTypeMapping.JSON
-    },
     "x00081052": {
-        type: vrTypeMapping.JSON
-    },
-    "x00081070": { // 1-n
         type: vrTypeMapping.JSON
     },
     "x00081072": {
@@ -77,7 +72,7 @@ SeriesModel.getDicomJson = async function(queryOptions) {
     let q = queryBuilder.build();
     let seriesArray = await SeriesModel.findAll({
         ...q,
-        attributes: ["json"],
+        attributes: ["json", "x0020000E"],
         limit: queryOptions.limit,
         offset: queryOptions.skip
     });

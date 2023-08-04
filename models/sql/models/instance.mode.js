@@ -19,7 +19,8 @@ InstanceModel.init({
     "x00080018": {
         type: vrTypeMapping.UI,
         allowNull: false,
-        unique: true
+        unique: true,
+        primaryKey: true
     },
     "x00080016": {
         type: vrTypeMapping.UI

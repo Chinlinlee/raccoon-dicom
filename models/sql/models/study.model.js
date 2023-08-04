@@ -59,7 +59,8 @@ StudyModel.init({
     "x0020000D": {
         type: vrTypeMapping.UI,
         allowNull: false,
-        unique: true
+        unique: true,
+        primaryKey: true
     },
     "x00200010": {
         type: vrTypeMapping.SH
