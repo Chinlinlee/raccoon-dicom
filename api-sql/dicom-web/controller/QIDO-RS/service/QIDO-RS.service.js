@@ -120,7 +120,7 @@ function convertAllQueryToDicomTag(iParam) {
             if (dictionary.keyword[keyNameSplit[x]]) {
                 newKeyNames.push(dictionary.keyword[keyNameSplit[x]]);
             } else if (dictionary.tag[keyNameSplit[x]]) {
-                newKeyNames.push(keyNameSplit);
+                newKeyNames.push(keyNameSplit[x]);
             }
         }
         if (newKeyNames.length === 0) {
@@ -129,9 +129,8 @@ function convertAllQueryToDicomTag(iParam) {
                 `Invalid request query: ${keyNameSplit}`,
                 400
             );
-        } else if (newKeyNames.length >= 2) {
-            newKeyNames.push("Value");
-        }
+        } 
+        
         let retKeyName = newKeyNames.join(".");
         newQS[retKeyName] = iParam[keyName];
     }
