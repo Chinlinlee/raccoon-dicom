@@ -10,7 +10,7 @@ const sequelize = require("@models/sql/instance");
 class BaseQueryBuilder {
     constructor(queryOptions) {
         this.queryOptions = queryOptions;
-        /** @type {import("sequelize").IncludeOptions} */
+        /** @type {import("sequelize").IncludeOptions[]} */
         this.includeQueries = [];
         this.bind = [];
     }

@@ -51,9 +51,6 @@ SeriesModel.init({
     "x00400245": {
         type: vrTypeMapping.TM
     },
-    "x00400275": {
-        type: vrTypeMapping.JSON
-    },
     "x00080031": {
         type: vrTypeMapping.TM
     },

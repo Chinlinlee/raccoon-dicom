@@ -5,6 +5,7 @@ const { SeriesModel } = require("../models/series.model");
 
 const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
 const sequelize = require("../instance");
+const { SeriesRequestAttributesModel } = require("../models/seriesRequestAttributes.model");
 
 class SeriesPersistentObject {
     constructor(dicomJson, study) {
@@ -72,6 +73,9 @@ class SeriesPersistentObject {
     }
 
     async updatePerformingPhysicianNames(series) {
+        // The value multiplicity of PerformingPhysicianName is 1-n
+        // We cannot sure the length of data is changed
+        // So, destroy all and recreate
         for(let personName of series.performingPhysicianName) {
             await personName.destroy();
         }
@@ -92,6 +96,47 @@ class SeriesPersistentObject {
         await this.addOperatorsNames(series);
     }
 
+    getRequestAttributesInJson() {
+        if (this.x00400275) {
+            return {
+                x0020000E: this.x0020000E,
+                x00080050: _.get(this.x00400275, "00080050.Value.0"),
+                x00080051_x00400031: _.get(this.x00400275, "00080051.Value.0.00400031.Value.0"),
+                x00080051_x00400032: _.get(this.x00400275, "00080051.Value.0.00400032.Value.0"),
+                x00080051_x00400033: _.get(this.x00400275, "00080051.Value.0.00400033.Value.0"),
+                x00321033: _.get(this.x00400275, "00321033.Value.0"),
+                x00401001: _.get(this.x00400275, "00401001.Value.0"),
+                x0020000D: _.get(this.x00400275, "0020000D.Value.0")
+            };
+        }
+        return undefined;
+    }
+
+    /**
+     * 
+     * @param {SeriesModel} series 
+     */
+    async updateRequestAttribute(series) {
+        let requestAttributes = this.getRequestAttributesInJson();
+        if (requestAttributes) {
+            if (await series.getSeriesRequestAttribute()) {
+                await SeriesRequestAttributesModel.update(requestAttributes, {
+                    where: {
+                        x0020000E: series.dataValues.x0020000E
+                    }
+                });
+            } else {
+                await series.createSeriesRequestAttribute(requestAttributes);
+            }
+        } else {
+            await SeriesRequestAttributesModel.destroy({
+                where: {
+                    x0020000E: series.dataValues.x0020000E
+                }
+            });
+        }
+    }
+
     async createSeries() {
         let item = {
             json: this.json,
@@ -109,7 +154,6 @@ class SeriesPersistentObject {
             x00200011: this.x00200011,
             x00400244: this.x00400244,
             x00400245: this.x00400245 ? Number(this.x00400245) : undefined,
-            x00400275: this.x00400275,
             x00080031: this.x00080031 ? Number(this.x00080031) : undefined,
             seriesPath: this.seriesPath
         };
@@ -125,6 +169,11 @@ class SeriesPersistentObject {
         if (created) {
             await this.addPerformingPhysicianNames(series);
             await this.addOperatorsNames(series);
+            let requestAttributes = this.getRequestAttributesInJson();
+            if (requestAttributes) {
+                await series.createSeriesRequestAttribute(requestAttributes);
+            }
+            
             await series.save();
         } else {
             await SeriesModel.update(item, {
@@ -132,6 +181,8 @@ class SeriesPersistentObject {
                     x0020000E: series.dataValues.x0020000E
                 }
             });
+            await this.updateRequestAttribute(series);
+
             let seriesWithIncludeItem = await SeriesModel.findByPk(series.dataValues.x0020000E, {
                 include: [
                     {

@@ -5,6 +5,7 @@ const { raccoonConfig } = require("@root/config-class");
 const _ = require("lodash");
 const { PersonNameModel } = require("@models/sql/models/personName.model");
 const sequelize = require("@models/sql/instance");
+const { SeriesRequestAttributesModel } = require("@models/sql/models/seriesRequestAttributes.model");
 
 class SeriesQueryBuilder extends BaseQueryBuilder {
     constructor(queryOptions) {
@@ -97,121 +98,60 @@ class SeriesRequestAttributeSequence {
         /** @type {SeriesQueryBuilder} */
         this.seriesQueryBuilder = seriesQueryBuilder;
     }
-    getAccessionNumber(value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
-            value = this.seriesQueryBuilder.getWildCardRegexString(value);
-            let q = {
-                [Op.or]: [
-                    Sequelize.literal(`"x00400275" @? '$."00080050".Value[0] ? (@ like_regex "${value}")'`)
-                ]
-            };
-            this.seriesQueryBuilder.query = {
-                ...this.seriesQueryBuilder.query,
-                ...q
-            };
-        }
-        throw new Error("Not implemented");
+    isModelIncluded() {
+        return this.seriesQueryBuilder.includeQueries.find(v=> v.model.getTableName()  === "SeriesRequestAttributes");
+    }
+    getAccessionNumber(value) { 
+        let q = this.seriesQueryBuilder.getStringQuery("00080050", value);
+        this.addQuery(q);
     }
 
     getIssuerLocalNameSpaceEntityID(value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
-            value = this.seriesQueryBuilder.getWildCardRegexString(value);
-            let q = {
-                [Op.or]: [
-                    Sequelize.literal(`"x00400275" @? '$."00080051".Value[0]."00400031".Value[0] ? (@ like_regex "${value}")'`)
-                ]
-            };
-
-            this.seriesQueryBuilder.query = {
-                ...this.seriesQueryBuilder.query,
-                ...q
-            };
-        }
-
-        throw new Error("Not implemented");
+        let q = this.seriesQueryBuilder.getStringQuery("00080051_x00400031", value);
+        this.addQuery(q);
     }
 
     getIssuerUniversalEntityID(value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
-            value = this.seriesQueryBuilder.getWildCardRegexString(value);
-            let q = {
-                [Op.or]: [
-                    Sequelize.literal(`"x00400275" @? '$."00080051".Value[0]."00400032".Value[0] ? (@ like_regex "${value}")'`)
-                ]
-            };
-
-            this.seriesQueryBuilder.query = {
-                ...this.seriesQueryBuilder.query,
-                ...q
-            };
-        }
-        throw new Error("Not implemented");
+        let q = this.seriesQueryBuilder.getStringQuery("00080051_x00400032", value);
+        this.addQuery(q);
     }
 
     getIssuerUniversalEntityIDType(value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
-            value = this.seriesQueryBuilder.getWildCardRegexString(value);
-            let q = {
-                [Op.or]: [
-                    Sequelize.literal(`"x00400275" @? '$."00080051".Value[0]."00400033".Value[0] ? (@ like_regex "${value}")'`)
-                ]
-            };
-
-            this.seriesQueryBuilder.query = {
-                ...this.seriesQueryBuilder.query,
-                ...q
-            };
-        }
-        throw new Error("Not implemented");
+        let q = this.seriesQueryBuilder.getStringQuery("00080051_x00400033", value);
+        this.addQuery(q);
     }
 
     getRequestingService(value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
-            value = this.seriesQueryBuilder.getWildCardRegexString(value);
-            let q = {
-                [Op.or]: [
-                    Sequelize.literal(`"x00400275" @? '$."00321033".Value[0] ? (@ like_regex "${value}")'`)
-                ]
-            };
-
-            this.seriesQueryBuilder.query = {
-                ...this.seriesQueryBuilder.query,
-                ...q
-            };
-        }
-        throw new Error("Not implemented");
+        let q = this.seriesQueryBuilder.getStringQuery("00321033", value);
+        this.addQuery(q);
     }
 
     getRequestedProcedureID(value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
-            value = this.seriesQueryBuilder.getWildCardRegexString(value);
-            let q = {
-                [Op.or]: [
-                    Sequelize.literal(`"x00400275" @? '$."00401001".Value[0] ? (@ like_regex "${value}")'`)
-                ]
-            };
-            this.seriesQueryBuilder.query = {
-                ...this.seriesQueryBuilder.query,
-                ...q
-            };
-        }
-        throw new Error("Not implemented");
+        let q = this.seriesQueryBuilder.getStringQuery("00401001", value);
+        this.addQuery(q);
     }
 
     getStudyInstanceUID(value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
-            value = this.seriesQueryBuilder.getWildCardRegexString(value);
-            let q = {
-                [Op.or]: [
-                    Sequelize.literal(`"x00400275" @? '$."0020000D".Value[0] ? (@ like_regex "${value}")'`)
-                ]
-            };
-            this.seriesQueryBuilder.query = {
-                ...this.seriesQueryBuilder.query,
+        let q = this.seriesQueryBuilder.getStringQuery("0020000D", value);
+        this.addQuery(q);
+    }
+
+    addQuery(q) {
+        let currentModel = this.isModelIncluded();
+        if (currentModel) {
+            currentModel.where = {
+                ...currentModel.where,
                 ...q
             };
+        } else {
+            this.seriesQueryBuilder.includeQueries.push({
+                model: SeriesRequestAttributesModel,
+                where: {
+                    ...q
+                },
+                attributes: []
+            });
         }
-        throw new Error("Not implemented");
     }
 
 }

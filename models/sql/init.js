@@ -7,6 +7,7 @@ const { DicomBulkDataModel } = require("./models/dicomBulkData.model");
 const { raccoonConfig } = require("@root/config-class");
 
 const sequelizeInstance = require("./instance");
+const { SeriesRequestAttributesModel } = require("./models/seriesRequestAttributes.model");
 
 async function initDatabasePostgres() {
     const { Client } = require("pg");
@@ -84,6 +85,11 @@ async function init() {
         });
         PersonNameModel.belongsToMany(SeriesModel, {
             through: "OperatorsName"
+        });
+
+        SeriesModel.hasOne(SeriesRequestAttributesModel, {
+            foreignKey: "x0020000E",
+            targetKey: "x0020000E"
         });
 
         InstanceModel.belongsTo(SeriesModel, {
