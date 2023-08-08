@@ -31,15 +31,27 @@ SeriesModel.init({
         type: vrTypeMapping.LO
     },
     "x0008103F": {
+        // Temp field for future use
+        // vr: SQ
+        // VM: 1
         type: vrTypeMapping.JSON
     },
     "x00081052": {
+        // Temp field for future use
+        // vr: SQ
+        // VM: 1
         type: vrTypeMapping.JSON
     },
     "x00081072": {
+        // Temp field for future use
+        // vr: SQ
+        // VM: 1
         type: vrTypeMapping.JSON
     },
     "x00081250": {
+        // Temp field for future use
+        // vr: SQ
+        // VM: 1
         type: vrTypeMapping.JSON
     },
     "x00200011": {
