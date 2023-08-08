@@ -271,12 +271,12 @@ router.get(
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
-// router.get(
-//     "/instances", validateParams(queryValidation, "query", {
-//         allowUnknown: true
-//     }),
-//     require("./controller/QIDO-RS/queryAllInstances")
-// );
+router.get(
+    "/instances", validateParams(queryValidation, "query", {
+        allowUnknown: true
+    }),
+    require("./controller/QIDO-RS/queryAllInstances")
+);
 
 /**
  *  @openapi
