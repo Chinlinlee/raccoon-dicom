@@ -77,9 +77,41 @@ class InstancePersistentObject {
                 "x00080103": _.get(this.x0040A043, "00080103.Value.0", undefined),
                 "x00080104": _.get(this.x0040A043, "00080104.Value.0", undefined)
             };
-            let dicomCode = await DicomCodeModel.create(nameCodeSq);
-            instance.setDicomCode(dicomCode);
-            await instance.save();
+            await instance.createDicomCode(nameCodeSq);
+        }
+    }
+
+    /**
+     * 
+     * @param {InstanceModel} instance 
+     */
+    async createOrUpdateConceptNameCode(instance) {
+        let instanceConceptNameCode = await instance.getDicomCode();
+        if (this.x0040A043) {
+            let nameCodeSq = {
+                "x00080100": _.get(this.x0040A043, "00080100.Value.0", undefined),
+                "x00080102": _.get(this.x0040A043, "00080102.Value.0", undefined),
+                "x00080103": _.get(this.x0040A043, "00080103.Value.0", undefined),
+                "x00080104": _.get(this.x0040A043, "00080104.Value.0", undefined)
+            };
+            if (!instanceConceptNameCode) {
+                // Create
+                await instance.createDicomCode(nameCodeSq);
+            } else {
+                // Update
+                await DicomCodeModel.update(nameCodeSq, {
+                    where: {
+                        SOPInstanceUID: instance.dataValues.x00080018
+                    }
+                });
+            }
+        } else {
+            // Delete when no concept name code
+            await DicomCodeModel.destroy({
+                where: {
+                    SOPInstanceUID: instance.dataValues.x00080018
+                }
+            });
         }
     }
 
@@ -118,6 +150,13 @@ class InstancePersistentObject {
         }
     }
 
+    async createOrUpdateContentItem(instance) {
+        let contentItemPo = new ContentItemPersistentObject(this.x0040A730, instance);
+        // Create or Update
+        await contentItemPo.createOrUpdateContentItem();
+        
+    }
+
     async createInstance() {
 
         let item = {
@@ -147,7 +186,6 @@ class InstancePersistentObject {
 
         if (created) {
             // do nothing
-            await this.createConceptNameCodeSq(instance);
             await this.createContentItem(instance);
         } else {
             await InstanceModel.update(item, {
@@ -156,10 +194,148 @@ class InstancePersistentObject {
                 }
             });
         }
+        await this.createOrUpdateConceptNameCode(instance);
+        await this.createOrUpdateContentItem(instance);
 
         return instance;
     }
 
+}
+
+class ContentItemPersistentObject {
+    /**
+     * 
+     * @param {any} contentItem 
+     * @param {InstanceModel} instance 
+     */
+    constructor(contentItem, instance) {
+        this.contentSq = {
+            "x0040A040": _.get(contentItem, "0040A040.Value.0", undefined),
+            "x0040A010": _.get(contentItem, "0040A010.Value.0", undefined),
+            "x0040A160": _.get(contentItem, "0040A160.Value.0", undefined)
+        };
+        this.nameCodeSq = {
+            "x00080100": _.get(contentItem, "0040A043.Value.0.00080100.Value.0", undefined),
+            "x00080102": _.get(contentItem, "0040A043.Value.0.00080102.Value.0", undefined),
+            "x00080103": _.get(contentItem, "0040A043.Value.0.00080103.Value.0", undefined),
+            "x00080104": _.get(contentItem, "0040A043.Value.0.00080104.Value.0", undefined)
+        };
+        this.conceptCodeSq = {
+            "x00080100": _.get(contentItem, "0040A168.Value.0.00080100.Value.0", undefined),
+            "x00080102": _.get(contentItem, "0040A168.Value.0.00080102.Value.0", undefined),
+            "x00080103": _.get(contentItem, "0040A168.Value.0.00080103.Value.0", undefined),
+            "x00080104": _.get(contentItem, "0040A168.Value.0.00080104.Value.0", undefined)
+        };
+        this.instance = instance;
+    }
+    
+    async getExistContentItem() {
+        return await this.instance.getDicomContentSQ();
+    }
+
+    async createOrUpdateContentItem () {
+        if (!await this.getExistContentItem()) {
+            // Create
+            await this.createDicomContentSq();
+            await this.createConceptNameCodeInContentItem();
+            await this.createConceptCodeInContentItem();
+        } else {
+            // Update
+            await this.updateConceptNameCodeInContentItem();
+            await this.updateConceptCodeInContentItem();
+            await this.updateDicomContentSq();
+        }
+    }
+
+    async createDicomContentSq() {
+        if (Object.values(this.contentSq).some(v => v)) {
+            await this.instance.createDicomContentSQ(this.contentSq);
+        }
+    }
+
+    async updateDicomContentSq() {
+        if (Object.values(this.contentSq).some(v => v)) {
+            // Update value
+            await DicomContentSqModel.update(this.contentSq, {
+                where: {
+                    SOPInstanceUID: this.instance.dataValues.x00080018
+                }
+            });
+        } else {
+            // Remove item because of given item does not exist
+            await DicomContentSqModel.destroy({
+                where: {
+                    SOPInstanceUID: this.instance.dataValues.x00080018
+                }
+            });
+        }
+    }
+
+    async createConceptNameCodeInContentItem() {
+        if (Object.values(this.nameCodeSq).some(v => v)) {
+            if (this.createdContentSq)
+                await this.createdContentSq.createConceptNameCode(this.nameCodeSq);
+        }
+    }
+
+    async updateConceptNameCodeInContentItem() {
+        let contentItemInInstance = await this.getExistContentItem();
+        if (Object.values(this.nameCodeSq).some(v => v)) {
+            if (contentItemInInstance) {
+                let nameCode = await contentItemInInstance.getConceptNameCode();
+                if (nameCode) {
+                    await DicomCodeModel.update(this.nameCodeSq, {
+                        where: {
+                            ConceptNameCodeId: contentItemInInstance.dataValues.id
+                        }
+                    });
+                } else {
+                    await contentItemInInstance.createConceptNameCode(this.nameCodeSq);
+                }
+            }
+        } else {
+            if (contentItemInInstance) {
+                await DicomCodeModel.destroy({
+                    where: {
+                        ConceptNameCodeId: contentItemInInstance.dataValues.id
+                    }
+                });
+            }
+        }
+    }
+
+    async createConceptCodeInContentItem() {
+        if (Object.values(this.conceptCodeSq).some(v => v)) {
+            if (this.createdContentSq)
+                await this.createdContentSq.createConceptCode(this.conceptCodeSq);
+        }
+    }
+
+    async updateConceptCodeInContentItem() {
+        let contentItemInInstance = await this.getExistContentItem();
+        if (Object.values(this.nameCodeSq).some(v => v)) {
+            if (contentItemInInstance) {
+                let conceptCode = await contentItemInInstance.getConceptCode();
+                if (conceptCode) {
+                    await DicomCodeModel.update(this.conceptCodeSq, {
+                        where: {
+                            ConceptCodeId: contentItemInInstance.dataValues.id
+                        }
+                    });
+                } else {
+                    await contentItemInInstance.createConceptCode(this.nameCodeSq);
+                }
+            }
+        } else {
+            if (contentItemInInstance) {
+                await DicomCodeModel.destroy({
+                    where: {
+                        ConceptCodeId: contentItemInInstance.dataValues.id
+                    }
+                });
+            }
+        }
+    }
 }
 
 module.exports.InstancePersistentObject = InstancePersistentObject;
