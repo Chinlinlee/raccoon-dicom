@@ -34,10 +34,8 @@ InstanceModel.init({
     "x00200013": {
         type: vrTypeMapping.IS
     },
-    "x0040A043": { //SQ
-        type: vrTypeMapping.JSON
-    },
-    "x0040A073": {
+    "x0040A073": { // VM 1, SQ
+        //TODO Extract to single schema
         type: vrTypeMapping.JSON
     },
     "x0040A491": {
@@ -45,9 +43,6 @@ InstanceModel.init({
     },
     "x0040A493": {
         type: vrTypeMapping.CS
-    },
-    "x0040A730": {
-        type: vrTypeMapping.JSON
     },
     "json": {
         type: vrTypeMapping.JSON
@@ -58,5 +53,9 @@ InstanceModel.init({
     tableName: "Instance",
     freezeTableName: true
 });
+
+InstanceModel.getDicomJson = async function(queryOptions) {
+    //TODO
+};
 
 module.exports.InstanceModel = InstanceModel;

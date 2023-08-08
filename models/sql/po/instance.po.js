@@ -4,6 +4,8 @@ const { PersonNameModel } = require("../models/personName.model");
 const { InstanceModel } = require("../models/instance.mode");
 
 const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
+const { DicomCodeModel } = require("../models/dicomCode.model");
+const { DicomContentSqModel } = require("../models/dicomContentSQ.model");
 
 const INSTANCE_STORE_TAGS = {
     "00080016": true,
@@ -60,13 +62,61 @@ class InstancePersistentObject {
         this.x00080023 = _.get(dicomJson, "00080023.Value.0", undefined);
         this.x00080033 = _.get(dicomJson, "00080033.Value.0", undefined);
         this.x00200013 = _.get(dicomJson, "00200013.Value.0", undefined);
-        this.x0040A043 = _.get(dicomJson, "0040A043.Value", undefined);
-        this.x0040A073 = _.get(dicomJson, "0040A073.Value", undefined);
+        this.x0040A043 = _.get(dicomJson, "0040A043.Value.0", undefined);
+        this.x0040A073 = _.get(dicomJson, "0040A073.Value.0", undefined);
         this.x0040A491 = _.get(dicomJson, "0040A491.Value.0", undefined);
         this.x0040A493 = _.get(dicomJson, "0040A493.Value.0", undefined);
-        this.x0040A730 = _.get(dicomJson, "0040A730.Value", undefined);
+        this.x0040A730 = _.get(dicomJson, "0040A730.Value.0", undefined);
     }
 
+    async createConceptNameCodeSq(instance) {
+        if (this.x0040A043) {
+            let nameCodeSq = {
+                "x00080100": _.get(this.x0040A043, "00080100.Value.0", undefined),
+                "x00080102": _.get(this.x0040A043, "00080102.Value.0", undefined),
+                "x00080103": _.get(this.x0040A043, "00080103.Value.0", undefined),
+                "x00080104": _.get(this.x0040A043, "00080104.Value.0", undefined)
+            };
+            let dicomCode = await DicomCodeModel.create(nameCodeSq);
+            instance.setDicomCode(dicomCode);
+            await instance.save();
+        }
+    }
+
+    async createContentItem(instance) {
+        if (this.x0040A730) {
+            let contentItem = {
+                "x0040A040": _.get(this.x0040A730, "0040A040.Value.0", undefined),
+                "x0040A010": _.get(this.x0040A730, "0040A010.Value.0", undefined),
+                "x0040A160": _.get(this.x0040A730, "0040A160.Value.0", undefined)
+            };
+            let nameCodeSq = {
+                "x00080100": _.get(this.x0040A730, "0040A043.Value.0.00080100.Value.0", undefined),
+                "x00080102": _.get(this.x0040A730, "0040A043.Value.0.00080102.Value.0", undefined),
+                "x00080103": _.get(this.x0040A730, "0040A043.Value.0.00080103.Value.0", undefined),
+                "x00080104": _.get(this.x0040A730, "0040A043.Value.0.00080104.Value.0", undefined)
+            };
+            let conceptCodeSq = {
+                "x00080100": _.get(this.x0040A730, "0040A168.Value.0.00080100.Value.0", undefined),
+                "x00080102": _.get(this.x0040A730, "0040A168.Value.0.00080102.Value.0", undefined),
+                "x00080103": _.get(this.x0040A730, "0040A168.Value.0.00080103.Value.0", undefined),
+                "x00080104": _.get(this.x0040A730, "0040A168.Value.0.00080104.Value.0", undefined)
+            };
+
+            if (Object.values(contentItem).some(v => v)) {
+                let createdContentItem = await instance.createDicomContentSQ(contentItem);
+
+                if (Object.values(nameCodeSq).some(v => v)) {
+                    await createdContentItem.createConceptNameCode(nameCodeSq);
+                }
+    
+                if (Object.values(conceptCodeSq).some(v => v)) {
+                    await createdContentItem.createConceptCode(conceptCodeSq);
+                }
+            }
+
+        }
+    }
 
     async createInstance() {
 
@@ -79,7 +129,6 @@ class InstancePersistentObject {
             x00080023: this.x00080023,
             x00080033: this.x00080033 ? Number(this.x00080033) : undefined,
             x00200013: this.x00200013,
-            x0040A043: this.x0040A043,
             x0040A073: this.x0040A073,
             x0040A491: this.x0040A491,
             x0040A493: this.x0040A493,
@@ -98,6 +147,8 @@ class InstancePersistentObject {
 
         if (created) {
             // do nothing
+            await this.createConceptNameCodeSq(instance);
+            await this.createContentItem(instance);
         } else {
             await InstanceModel.update(item, {
                 where: {

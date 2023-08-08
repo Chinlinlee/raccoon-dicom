@@ -8,6 +8,8 @@ const { raccoonConfig } = require("@root/config-class");
 
 const sequelizeInstance = require("./instance");
 const { SeriesRequestAttributesModel } = require("./models/seriesRequestAttributes.model");
+const { DicomCodeModel } = require("./models/dicomCode.model");
+const { DicomContentSqModel } = require("./models/dicomContentSQ.model");
 
 async function initDatabasePostgres() {
     const { Client } = require("pg");
@@ -95,6 +97,21 @@ async function init() {
         InstanceModel.belongsTo(SeriesModel, {
             foreignKey: "x0020000E",
             targetKey: "x0020000E"
+        });
+        InstanceModel.hasOne(DicomCodeModel, {
+            foreignKey: "SOPInstanceUID",
+            sourceKey: "x00080018"
+        });
+
+        InstanceModel.hasOne(DicomContentSqModel, {
+            foreignKey: "SOPInstanceUID",
+            sourceKey: "x00080018"
+        });
+        DicomContentSqModel.hasOne(DicomCodeModel, {
+            as: "ConceptNameCode"
+        });
+        DicomContentSqModel.hasOne(DicomCodeModel, {
+            as: "ConceptCode"
         });
     
         //TODO: 設計完畢後要將 force 刪除
