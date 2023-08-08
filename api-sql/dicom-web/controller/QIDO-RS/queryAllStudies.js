@@ -30,7 +30,7 @@ class QueryAllStudiesController extends Controller {
             });
             this.response.end(JSON.stringify({
                 code: 500,
-                message: errorStr
+                message: "Server error occurred"
             }));
         }
     }
