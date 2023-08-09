@@ -10,6 +10,7 @@ const sequelizeInstance = require("./instance");
 const { SeriesRequestAttributesModel } = require("./models/seriesRequestAttributes.model");
 const { DicomCodeModel } = require("./models/dicomCode.model");
 const { DicomContentSqModel } = require("./models/dicomContentSQ.model");
+const { VerifyIngObserverSqModel } = require("./models/verifyingObserverSQ.model");
 
 async function initDatabasePostgres() {
     const { Client } = require("pg");
@@ -98,9 +99,21 @@ async function init() {
             foreignKey: "x0020000E",
             targetKey: "x0020000E"
         });
+
         InstanceModel.hasOne(DicomCodeModel, {
             foreignKey: "SOPInstanceUID",
             sourceKey: "x00080018"
+        });
+
+        InstanceModel.hasOne(VerifyIngObserverSqModel, {
+            foreignKey: "SOPInstanceUID",
+            sourceKey: "x00080018"
+        });
+        VerifyIngObserverSqModel.hasOne(DicomCodeModel, {
+            foreignKey: "x0040A088"
+        });
+        VerifyIngObserverSqModel.belongsTo(PersonNameModel, {
+            foreignKey: "x0040A075"
         });
 
         InstanceModel.hasOne(DicomContentSqModel, {

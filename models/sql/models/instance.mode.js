@@ -34,10 +34,6 @@ InstanceModel.init({
     "x00200013": {
         type: vrTypeMapping.IS
     },
-    "x0040A073": { // VM 1, SQ
-        //TODO Extract to single schema
-        type: vrTypeMapping.JSON
-    },
     "x0040A491": {
         type: vrTypeMapping.CS
     },
