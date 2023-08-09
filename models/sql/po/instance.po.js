@@ -6,6 +6,7 @@ const { InstanceModel } = require("../models/instance.mode");
 const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
 const { DicomCodeModel } = require("../models/dicomCode.model");
 const { DicomContentSqModel } = require("../models/dicomContentSQ.model");
+const { VerifyIngObserverSqModel } = require("../models/verifyingObserverSQ.model");
 
 const INSTANCE_STORE_TAGS = {
     "00080016": true,
@@ -141,7 +142,7 @@ class InstancePersistentObject {
                 if (Object.values(nameCodeSq).some(v => v)) {
                     await createdContentItem.createConceptNameCode(nameCodeSq);
                 }
-    
+
                 if (Object.values(conceptCodeSq).some(v => v)) {
                     await createdContentItem.createConceptCode(conceptCodeSq);
                 }
@@ -154,8 +155,14 @@ class InstancePersistentObject {
         let contentItemPo = new ContentItemPersistentObject(this.x0040A730, instance);
         // Create or Update
         await contentItemPo.createOrUpdateContentItem();
-        
+
     }
+
+    async createOrUpdateVerifyingObserverSq(instance) {
+        let verifyingObserverSqPo = new VerifyingObserverSqPersistentObject(this.x0040A073, this.x0040A493, instance);
+        await verifyingObserverSqPo.createOrUpdate();
+    }
+
 
     async createInstance() {
 
@@ -196,6 +203,7 @@ class InstancePersistentObject {
         }
         await this.createOrUpdateConceptNameCode(instance);
         await this.createOrUpdateContentItem(instance);
+        await this.createOrUpdateVerifyingObserverSq(instance);
 
         return instance;
     }
@@ -228,12 +236,12 @@ class ContentItemPersistentObject {
         };
         this.instance = instance;
     }
-    
+
     async getExistContentItem() {
         return await this.instance.getDicomContentSQ();
     }
 
-    async createOrUpdateContentItem () {
+    async createOrUpdateContentItem() {
         if (!await this.getExistContentItem()) {
             // Create
             await this.createDicomContentSq();
@@ -334,6 +342,168 @@ class ContentItemPersistentObject {
                     }
                 });
             }
+        }
+    }
+}
+
+class VerifyingObserverSqPersistentObject {
+    constructor(verifyingObserverSq, verificationFlag, instance) {
+        if (verificationFlag === "VERIFIED" && !verifyingObserverSq) {
+            throw new Error("Verifying observer is required when Verification Flag (0040,A493) is VERIFIED");
+        }
+        this.verifyingObserverSq = verifyingObserverSq;
+        this.instance = instance;
+    }
+
+    async getExistItem() {
+        return await this.instance.getVerifyingObserverSQ();
+    }
+
+    async createOrUpdate() {
+        let verifyingObserverSq = {
+            "x0040A027": _.get(this.verifyingObserverSq, "0040A027.Value.0", undefined),
+            "x0040A030": _.get(this.verifyingObserverSq, "0040A030.Value.0", undefined)
+        };
+
+
+        verifyingObserverSq.x0040A030 = verifyingObserverSq.x0040A030 ?
+            moment(verifyingObserverSq.x0040A030, "YYYYMMDDhhmmss.SSSSSSZZ").toISOString() :
+            undefined;
+
+        if (!await this.getExistItem()) {
+            // create
+            let name = await this.createName();
+            let personNameId = name ? name.dataValues.id : undefined;
+
+            let identificationCode = await this.createIdentificationCode();
+            let identificationCodeId = identificationCode ? identificationCode.dataValues.id : undefined;
+
+            await this.instance.createVerifyingObserverSQ({
+                ...verifyingObserverSq,
+                x0040A088: identificationCodeId,
+                x0040A075: personNameId
+            });
+        } else {
+            let name = await this.updateName();
+            let personNameId = name ? name.dataValues.id : undefined;
+
+            let identificationCode = await this.updateIdentificationCode();
+            let identificationCodeId = identificationCode ? identificationCode.dataValues.id : undefined;
+
+            await VerifyIngObserverSqModel.update({
+                ...verifyingObserverSq,
+                x0040A088: identificationCodeId,
+                x0040A075: personNameId
+            }, {
+                where: {
+                    SOPInstanceUID: this.instance.dataValues.x00080018
+                }
+            });
+        }
+
+    }
+
+    /**
+     * create Verifying Observer Name
+     */
+    async createName() {
+        let nameItem = _.get(this.verifyingObserverSq, "0040A075.Value.0");
+        if (nameItem && Object.values(nameItem).some(v => v)) {
+            return await PersonNameModel.create({
+                alphabetic: _.get(nameItem, "Alphabetic", undefined),
+                ideographic: _.get(nameItem, "Ideographic", undefined),
+                phonetic: _.get(nameItem, "Phonetic", undefined)
+            });
+        }
+        return undefined;
+    }
+
+    async updateName() {
+        let verifyingObserverSq = await this.getExistItem();
+        let name = await verifyingObserverSq.getPersonName();
+        let nameItem = _.get(this.verifyingObserverSq, "0040A075.Value.0");
+        
+        if (name) {
+            if (nameItem && Object.values(nameItem).some(v => v)) {
+                await PersonNameModel.update({
+                    alphabetic: _.get(nameItem, "Alphabetic", undefined),
+                    ideographic: _.get(nameItem, "Ideographic", undefined),
+                    phonetic: _.get(nameItem, "Phonetic", undefined)
+                }, {
+                    where: {
+                        id: name.dataValues.id
+                    }
+                });
+                return name;
+            }
+ 
+            await VerifyIngObserverSqModel.update({
+                x0040A075: null
+            }, {
+                where: {
+                    SOPInstanceUID: this.instance.dataValues.x00080018
+                }
+            });
+            await PersonNameModel.destroy({
+                where: {
+                    id: name.dataValues.id
+                }
+            });
+
+        } else {
+            return await this.createName();
+        }
+        return undefined;
+    }
+
+    async createIdentificationCode() {
+        let codeItem = _.get(this.verifyingObserverSq, "0040A088.Value.0");
+        if (codeItem && Object.values(codeItem).some(v => v)) {
+            return await DicomCodeModel.create({
+                "x00080100": _.get(codeItem, "00080100.Value.0", undefined),
+                "x00080102": _.get(codeItem, "00080102.Value.0", undefined),
+                "x00080103": _.get(codeItem, "00080103.Value.0", undefined),
+                "x00080104": _.get(codeItem, "00080104.Value.0", undefined)
+            });
+        }
+        return undefined;
+    }
+
+    async updateIdentificationCode() {
+        let verifyingObserverSq = await this.getExistItem();
+        let code = await verifyingObserverSq.getDicomCode();
+        let newCodeItem = _.get(this.verifyingObserverSq, "0040A088.Value.0");
+
+        if (code) {
+            if (newCodeItem && Object.values(newCodeItem).some(v => v)) {
+                await DicomCodeModel.update({
+                    "x00080100": _.get(newCodeItem, "00080100.Value.0", undefined),
+                    "x00080102": _.get(newCodeItem, "00080102.Value.0", undefined),
+                    "x00080103": _.get(newCodeItem, "00080103.Value.0", undefined),
+                    "x00080104": _.get(newCodeItem, "00080104.Value.0", undefined)
+                }, {
+                    where: {
+                        id: code.dataValues.id
+                    }
+                });
+                return code;
+            }
+
+            // delete when empty code
+            await VerifyIngObserverSqModel.update({
+                x0040A088: null
+            }, {
+                where: {
+                    SOPInstanceUID: this.instance.dataValues.x00080018
+                }
+            });
+            await DicomCodeModel.destroy({
+                where: {
+                    id: code.dataValues.id
+                }
+            });
+        } else {
+            return await this.createIdentificationCode();
         }
     }
 }
