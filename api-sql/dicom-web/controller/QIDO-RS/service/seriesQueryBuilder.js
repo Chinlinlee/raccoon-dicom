@@ -1,5 +1,5 @@
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { BaseQueryBuilder } = require("./querybuilder");
+const { BaseQueryBuilder, StudyQueryBuilder } = require("./querybuilder");
 const { Op, Sequelize } = require("sequelize");
 const { raccoonConfig } = require("@root/config-class");
 const _ = require("lodash");
@@ -19,9 +19,12 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
         this["00400275.00401001"] = SeriesRequestAttributeSequence.prototype.getRequestedProcedureID.bind(seriesRequestAttributeSequence);
         this["00400275.0020000D"] = SeriesRequestAttributeSequence.prototype.getStudyInstanceUID.bind(seriesRequestAttributeSequence);
     
+        let studyQueryBuilder = new StudyQueryBuilder(queryOptions);
+        let studyQuery = studyQueryBuilder.build();
         this.includeQueries.push({
             model: sequelize.model("Study"),
-            attributes: []
+            attributes: ["x0020000D"],
+            ...studyQuery
         });
     }
     getSeriesDate(value) {

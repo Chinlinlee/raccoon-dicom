@@ -1,9 +1,11 @@
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { BaseQueryBuilder } = require("./querybuilder");
+const { BaseQueryBuilder, StudyQueryBuilder } = require("./querybuilder");
 const { DicomCodeModel } = require("@models/sql/models/dicomCode.model");
 const { DicomContentSqModel } = require("@models/sql/models/dicomContentSQ.model");
 const { VerifyIngObserverSqModel } = require("@models/sql/models/verifyingObserverSQ.model");
 const { PersonNameModel } = require("@models/sql/models/personName.model");
+const sequelize = require("@models/sql/instance");
+const { SeriesQueryBuilder } = require("./seriesQueryBuilder");
 
 class InstanceQueryBuilder extends BaseQueryBuilder {
     constructor(queryOptions) {
@@ -32,6 +34,15 @@ class InstanceQueryBuilder extends BaseQueryBuilder {
         this["0040A073.0040A075"] = VerifyingObserverQueryBuilder.prototype.getName.bind(verifyingObserverQueryBuilder);
         this["0040A073.0040A030"] = VerifyingObserverQueryBuilder.prototype.getDateTime.bind(verifyingObserverQueryBuilder);
         this["0040A073.0040A027"] = VerifyingObserverQueryBuilder.prototype.getOrganization.bind(verifyingObserverQueryBuilder);
+        
+
+        let seriesQueryBuilder = new SeriesQueryBuilder(queryOptions);
+        let seriesQuery = seriesQueryBuilder.build();
+        this.includeQueries.push({
+            model: sequelize.model("Series"),
+            attributes: ["x0020000E"],
+            ...seriesQuery
+        });
     }
 
     /**
