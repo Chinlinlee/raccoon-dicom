@@ -15,7 +15,7 @@ DicomCodeModel.init({
         type: vrTypeMapping.SH
     },
     "x00080104": {
-        type: vrTypeMapping.SH
+        type: vrTypeMapping.LO
     }
 }, {
     sequelize: sequelizeInstance,
