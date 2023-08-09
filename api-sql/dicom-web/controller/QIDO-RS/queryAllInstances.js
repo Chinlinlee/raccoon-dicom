@@ -1,5 +1,5 @@
 const {
-    QidoRsService
+    SqlQidoRsService: QidoRsService
 } = require("./service/QIDO-RS.service");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { Controller } = require("@root/api/controller.class");
