@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { BaseQueryBuilder, StudyQueryBuilder } = require("./querybuilder");
 const { DicomCodeModel } = require("@models/sql/models/dicomCode.model");
@@ -43,6 +44,13 @@ class InstanceQueryBuilder extends BaseQueryBuilder {
             attributes: ["x0020000E"],
             ...seriesQuery
         });
+
+        let instanceUidInParams = _.get(this.queryOptions.requestParams, "instanceUID");
+        if (instanceUidInParams) {
+            this.query = {
+                x00080018: instanceUidInParams
+            };
+        }
     }
 
     /**

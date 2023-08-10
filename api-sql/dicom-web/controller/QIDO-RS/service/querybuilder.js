@@ -288,6 +288,13 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     constructor(queryOptions) {
         super(queryOptions);
         this.query = {};
+
+        let studyInstanceUidInParams = _.get(this.queryOptions.requestParams, "studyUID");
+        if (studyInstanceUidInParams) {
+            this.query = {
+                x0020000D: studyInstanceUidInParams
+            };
+        }
     }
 
 

@@ -26,6 +26,13 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
             attributes: ["x0020000D"],
             ...studyQuery
         });
+
+        let seriesInstanceUidInParams = _.get(this.queryOptions.requestParams, "seriesUID");
+        if (seriesInstanceUidInParams) {
+            this.query = {
+                x0020000E: seriesInstanceUidInParams
+            };
+        }
     }
     getSeriesDate(value) {
         let q = this.getDateQuery(dictionary.keyword.SeriesDate, value);
