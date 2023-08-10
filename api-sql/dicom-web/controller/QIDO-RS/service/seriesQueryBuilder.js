@@ -35,6 +35,20 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
             };
         }
     }
+
+    getIncludedPerformingPhysicianNameModel() {
+        if (this.includeQueries.length > 0) {
+            return this.includeQueries.find(v=> _.get(v, "as", "") === "performingPhysicianName");
+        }
+        return undefined;
+    }
+
+    getIncludedOperatorsNameModel() {
+        if (this.includeQueries.length > 0) {
+            return this.includeQueries.find(v=> _.get(v, "as", "") === "operatorsName");
+        }
+        return undefined;
+    }
     getSeriesDate(value) {
         let q = this.getDateQuery(dictionary.keyword.SeriesDate, value);
         this.query = {
@@ -71,14 +85,40 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
 
     getPerformingPhysicianName(value) {
         let { query } = this.getPersonNameQuery(dictionary.keyword.PerformingPhysicianName, value);
-        this.includeQueries.push({
-            model: PersonNameModel,
-            as: "performingPhysicianName",
-            where: {
-                ...query
-            },
-            attributes: []
-        });
+        let includedPerformingPhysicianNameModel = this.getIncludedPerformingPhysicianNameModel();
+        if (!includedPerformingPhysicianNameModel) {
+            this.includeQueries.push({
+                model: PersonNameModel,
+                as: "performingPhysicianName",
+                where: {
+                    [Op.or]: [
+                        {
+                            alphabetic: query[Op.or].alphabetic
+                        },
+                        {
+                            ideographic: query[Op.or].ideographic
+                        },
+                        {
+                            phonetic: query[Op.or].phonetic
+                        }
+                    ]
+                },
+                attributes: []
+            });
+        } else {
+            includedPerformingPhysicianNameModel.where[Op.or].push(...[
+                {
+                    alphabetic: query[Op.or].alphabetic
+                },
+                {
+                    ideographic: query[Op.or].ideographic
+                },
+                {
+                    phonetic: query[Op.or].phonetic
+                }
+            ]);
+        }
+
     }
 
     getOperatorsName(value) {

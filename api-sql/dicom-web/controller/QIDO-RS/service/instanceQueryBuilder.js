@@ -7,6 +7,7 @@ const { VerifyIngObserverSqModel } = require("@models/sql/models/verifyingObserv
 const { PersonNameModel } = require("@models/sql/models/personName.model");
 const sequelize = require("@models/sql/instance");
 const { SeriesQueryBuilder } = require("./seriesQueryBuilder");
+const { Op } = require("sequelize");
 
 class InstanceQueryBuilder extends BaseQueryBuilder {
     constructor(queryOptions) {
@@ -35,7 +36,7 @@ class InstanceQueryBuilder extends BaseQueryBuilder {
         this["0040A073.0040A075"] = VerifyingObserverQueryBuilder.prototype.getName.bind(verifyingObserverQueryBuilder);
         this["0040A073.0040A030"] = VerifyingObserverQueryBuilder.prototype.getDateTime.bind(verifyingObserverQueryBuilder);
         this["0040A073.0040A027"] = VerifyingObserverQueryBuilder.prototype.getOrganization.bind(verifyingObserverQueryBuilder);
-        
+
 
         let seriesQueryBuilder = new SeriesQueryBuilder(queryOptions);
         let seriesQuery = seriesQueryBuilder.build();
@@ -122,7 +123,7 @@ class ConceptNameCodeSqQueryBuilder {
     }
 
     isModelIncluded() {
-        return this.instanceQueryBuilder.includeQueries.find(v=> v.model.getTableName()  === "ConceptNameCodeSQ");
+        return this.instanceQueryBuilder.includeQueries.find(v => v.model.getTableName() === "ConceptNameCodeSQ");
     }
 
     getCodeValue(value) {
@@ -136,7 +137,7 @@ class ConceptNameCodeSqQueryBuilder {
     }
 
     getCodingSchemeVersion(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodingSchemeVersion ,value);
+        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodingSchemeVersion, value);
         this.addQuery(q);
     }
 
@@ -172,13 +173,13 @@ class ContentSqQueryBuilder {
     }
 
     isModelIncluded() {
-        return this.instanceQueryBuilder.includeQueries.find(v=> v.model.getTableName()  === "DicomContentSQ");
+        return this.instanceQueryBuilder.includeQueries.find(v => v.model.getTableName() === "DicomContentSQ");
     }
 
     isConceptNameCodeInclude() {
         let currentModel = this.isModelIncluded();
         if (currentModel && currentModel.include) {
-            return currentModel.include.find( v => v.model.getTableName() === "ConceptNameCode");
+            return currentModel.include.find(v => v.model.getTableName() === "ConceptNameCode");
         }
         return false;
     }
@@ -186,7 +187,7 @@ class ContentSqQueryBuilder {
     isConceptCodeInclude() {
         let currentModel = this.isModelIncluded();
         if (currentModel && currentModel.include) {
-            return currentModel.include.find( v=> v.model.getTableName() === "ConceptCode");
+            return currentModel.include.find(v => v.model.getTableName() === "ConceptCode");
         }
         return false;
     }
@@ -226,7 +227,7 @@ class ContentSqQueryBuilder {
         this.addConceptNameCodeQuery(q);
     }
 
-    getConceptCodeValue (value) {
+    getConceptCodeValue(value) {
         let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodeValue, value);
         this.addConceptCodeQuery(q);
     }
@@ -266,7 +267,7 @@ class ContentSqQueryBuilder {
 
     addConceptNameCodeQuery(q) {
         if (!this.conceptNameCodeInclude) {
-            this.conceptNameCodeInclude  = {
+            this.conceptNameCodeInclude = {
                 model: DicomCodeModel,
                 as: "ConceptNameCode",
                 where: {
@@ -296,7 +297,7 @@ class ContentSqQueryBuilder {
 
     addConceptCodeQuery(q) {
         if (!this.conceptCodeInclude) {
-            this.conceptCodeInclude  = {
+            this.conceptCodeInclude = {
                 model: DicomCodeModel,
                 as: "ConceptCode",
                 where: {
@@ -332,36 +333,53 @@ class VerifyingObserverQueryBuilder {
     }
 
     isModelIncluded() {
-        return this.instanceQueryBuilder.includeQueries.find(v=> v.model.getTableName()  === "VerifyingObserverSQ");
+        return this.instanceQueryBuilder.includeQueries.find(v => v.model.getTableName() === "VerifyingObserverSQ");
     }
 
     isPersonNameIncluded() {
         let currentModel = this.isModelIncluded();
         if (currentModel && currentModel.include) {
-            return currentModel.include.find( v => v.model.getTableName() === "PersonName");
+            return currentModel.include.find(v => v.model.getTableName() === "PersonName");
         }
         return false;
     }
 
     getName(value) {
-        let q = this.instanceQueryBuilder.getPersonNameQuery(dictionary.keyword.VerifyingObserverName, value);
+        let { query } = this.instanceQueryBuilder.getPersonNameQuery(dictionary.keyword.VerifyingObserverName, value);
         this.addQuery({});
         let currentModel = this.isModelIncluded();
         currentModel.include = currentModel.include ? currentModel.include : [];
         let personNameIncluded = this.isPersonNameIncluded();
-        if (personNameIncluded) {
-            personNameIncluded.where = {
-                ...personNameIncluded.where,
-                ...q.query
-            };
-        } else {
+        if (!personNameIncluded) {
             currentModel.include.push({
                 model: PersonNameModel,
                 where: {
-                    ...q.query
+                    [Op.or]: [
+                        {
+                            alphabetic: query[Op.or].alphabetic
+                        },
+                        {
+                            ideographic: query[Op.or].ideographic
+                        },
+                        {
+                            phonetic: query[Op.or].phonetic
+                        }
+                    ]
                 },
                 attributes: []
             });
+        } else {
+            personNameIncluded.where[Op.or].push(...[
+                {
+                    alphabetic: query[Op.or].alphabetic
+                },
+                {
+                    ideographic: query[Op.or].ideographic
+                },
+                {
+                    phonetic: query[Op.or].phonetic
+                }
+            ]);
         }
     }
 

@@ -4,7 +4,6 @@ const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { Op, Sequelize, cast, col } = require("sequelize");
 const { raccoonConfig } = require("@root/config-class");
 const { PersonNameModel } = require("@models/sql/models/personName.model");
-const { PatientModel } = require("@models/sql/models/patient.model");
 const sequelize = require("@models/sql/instance");
 
 class BaseQueryBuilder {
@@ -41,7 +40,7 @@ class BaseQueryBuilder {
      */
     getQueryByParam_(key) {
         let value = this.queryOptions.query[key];
-        let values = Array.isArray(value) ? value: [value];
+        let values = Array.isArray(value) ? value : [value];
 
         for (let i = 0; i < values.length; i++) {
             let paramValue = values[i];
@@ -310,6 +309,28 @@ class StudyQueryBuilder extends BaseQueryBuilder {
         }
     }
 
+    getIncludedPatientModel() {
+        if (this.includeQueries.length > 0) {
+            return this.includeQueries.find(v => v.model.getTableName() === "Patient");
+        }
+        return undefined;
+    }
+
+    getIncludedPersonNameModelInPatient() {
+        let includedPatientModel = this.getIncludedPatientModel();
+        if (includedPatientModel) {
+            return includedPatientModel.include.find(v => v.model.getTableName() === "PersonName");
+        }
+        return undefined;
+    }
+
+    getIncludedPersonNameModel() {
+        if (this.includeQueries.length > 0) {
+            return this.includeQueries.find(v => v.model.getTableName() === "PersonName");
+        }
+        return undefined;
+    }
+
 
     getStudyInstanceUID(value) {
         let q = this.getStringQuery(dictionary.keyword.StudyInstanceUID, value);
@@ -320,16 +341,45 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     }
 
     getPatientName(value) {
-        let q = this.getPersonNameQuery(dictionary.keyword.PatientName, value);
-        this.includeQueries.push({
-            model: PatientModel,
-            include: [{
-                model: PersonNameModel,
-                where: q.query,
+        let { query } = this.getPersonNameQuery(dictionary.keyword.PatientName, value);
+        let includedPatientModel = this.getIncludedPatientModel();
+        if (!includedPatientModel) {
+            this.includeQueries.push({
+                model: sequelize.model("Patient"),
+                include: [{
+                    model: sequelize.model("PersonName"),
+                    where: {
+                        [Op.or]: [
+                            {
+                                alphabetic: query[Op.or].alphabetic
+                            },
+                            {
+                                ideographic: query[Op.or].ideographic
+                            },
+                            {
+                                phonetic: query[Op.or].phonetic
+                            }
+                        ]
+                    },
+                    required: true
+                }],
                 required: true
-            }],
-            required: true
-        });
+            });
+        } else {
+            let personNameModel = this.getIncludedPersonNameModelInPatient();
+            personNameModel.where[Op.or].push(...[
+                {
+                    alphabetic: query[Op.or].alphabetic
+                },
+                {
+                    ideographic: query[Op.or].ideographic
+                },
+                {
+                    phonetic: query[Op.or].phonetic
+                }
+            ]);
+        }
+
     }
 
     getPatientID(value) {
@@ -376,12 +426,39 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     }
 
     getReferringPhysicianName(value) {
-        let q = this.getPersonNameQuery(dictionary.keyword.ReferringPhysicianName, value);
-        this.includeQueries.push({
-            model: PersonNameModel,
-            where: q.where,
-            required: true
-        });
+        let { query } = this.getPersonNameQuery(dictionary.keyword.ReferringPhysicianName, value);
+        let includedPersonNameModel = this.getIncludedPersonNameModel();
+        if (!includedPersonNameModel) {
+            this.includeQueries.push({
+                model: PersonNameModel,
+                where: {
+                    [Op.or]: [
+                        {
+                            alphabetic: query[Op.or].alphabetic
+                        },
+                        {
+                            ideographic: query[Op.or].ideographic
+                        },
+                        {
+                            phonetic: query[Op.or].phonetic
+                        }
+                    ]
+                },
+                required: true
+            });
+        } else {
+            includedPersonNameModel.where[Op.or].push(...[
+                {
+                    alphabetic: query[Op.or].alphabetic
+                },
+                {
+                    ideographic: query[Op.or].ideographic
+                },
+                {
+                    phonetic: query[Op.or].phonetic
+                }
+            ]);
+        }
     }
 
     getStudyID(value) {
