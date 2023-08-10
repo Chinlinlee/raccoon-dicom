@@ -151,12 +151,12 @@ router.get("/studies", validateParams(queryValidation, "query", {
  *                  - $ref: "#/components/schemas/SeriesRequiredMatchingAttributes"
  *                  - $ref: "#/components/schemas/InstanceRequiredMatchingAttributes"
  */
-// router.get(
-//     "/studies/:studyUID/instances", validateParams(queryValidation, "query", {
-//         allowUnknown: true
-//     }),
-//     require("./controller/QIDO-RS/queryStudies-Instances")
-// );
+router.get(
+    "/studies/:studyUID/instances", validateParams(queryValidation, "query", {
+        allowUnknown: true
+    }),
+    require("./controller/QIDO-RS/queryStudies-Instances")
+);
 
 /**
  *  @openapi
