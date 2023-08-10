@@ -301,10 +301,10 @@ router.get(
  *                  allOf:
  *                  - $ref: "#/components/schemas/PatientRequiredMatchingAttributes"
  */
-// router.get(
-//     "/patients",
-//     require("./controller/QIDO-RS/allPatient")
-// );
+router.get(
+    "/patients",
+    require("./controller/QIDO-RS/allPatient")
+);
 
 //#endregion
 

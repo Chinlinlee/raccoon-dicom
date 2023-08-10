@@ -11,6 +11,7 @@ const {
 const { StudyModel } = require("@models/sql/models/study.model");
 const { SeriesModel } = require("@models/sql/models/series.model");
 const { InstanceModel } = require("@models/sql/models/instance.mode");
+const { PatientModel } = require("@models/sql/models/patient.model");
 
 
 class SqlQidoRsService extends QidoRsService {
@@ -85,7 +86,7 @@ class QidoDicomJsonFactory {
 
         this.getDicomJsonByLevel = {
             "patient": async () => {
-                // return await getPatientDicomJson(queryOptions);
+                return await PatientModel.getDicomJson(queryOptions);
             },
             "study": async () => {
                 return await StudyModel.getDicomJson(queryOptions);
@@ -94,7 +95,6 @@ class QidoDicomJsonFactory {
                 return await SeriesModel.getDicomJson(queryOptions);
             },
             "instance": async () => {
-                // return await getInstanceDicomJson(queryOptions);
                 return await InstanceModel.getDicomJson(queryOptions);
             }
         };

@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
+const { PatientQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/patientQueryBuilder");
 
 class PatientModel extends Model {};
 
@@ -46,5 +47,23 @@ PatientModel.init({
     tableName: "Patient",
     freezeTableName: true
 });
+
+PatientModel.getDicomJson = async function (queryOptions) {
+    let queryBuilder = new PatientQueryBuilder(queryOptions);
+    let q = queryBuilder.build();
+    let studies = await PatientModel.findAll({
+        ...q,
+        attributes: ["json"],
+        limit: queryOptions.limit,
+        offset: queryOptions.skip
+    });
+
+
+    return await Promise.all(studies.map(async study => {
+        let { json } = study.toJSON();
+
+        return json;
+    }));
+};
 
 module.exports.PatientModel = PatientModel;
