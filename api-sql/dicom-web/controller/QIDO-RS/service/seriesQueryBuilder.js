@@ -24,7 +24,8 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
         this.includeQueries.push({
             model: sequelize.model("Study"),
             attributes: ["x0020000D"],
-            ...studyQuery
+            ...studyQuery,
+            required: true
         });
 
         let seriesInstanceUidInParams = _.get(this.queryOptions.requestParams, "seriesUID");

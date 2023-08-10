@@ -42,7 +42,8 @@ class InstanceQueryBuilder extends BaseQueryBuilder {
         this.includeQueries.push({
             model: sequelize.model("Series"),
             attributes: ["x0020000E"],
-            ...seriesQuery
+            ...seriesQuery,
+            required: true
         });
 
         let instanceUidInParams = _.get(this.queryOptions.requestParams, "instanceUID");
