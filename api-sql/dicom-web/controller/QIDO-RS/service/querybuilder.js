@@ -17,20 +17,7 @@ class BaseQueryBuilder {
 
     build() {
         for (let key in this.queryOptions.query) {
-            let commaValue = this.comma(key, this.queryOptions.query[key]);
-
-            for (let i = 0; i < commaValue.length; i++) {
-                let value = this.getWildCardQuery(commaValue[i][key]);
-                try {
-                    if (key.includes(".")) {
-                        this[key](value);
-                    } else {
-                        this[`get${dictionary.tag[key]}`](value);
-                    }
-                } catch (e) {
-                    if (e.message.includes("not a function")) break;
-                }
-            }
+            this.getQueryByParam_(key);
         }
 
         let sequelizeQuery = {
@@ -46,6 +33,32 @@ class BaseQueryBuilder {
             _.set(sequelizeQuery, "bind", this.bind);
         }
         return sequelizeQuery;
+    }
+
+    /**
+     * @private
+     * @param {string} key 
+     */
+    getQueryByParam_(key) {
+        let value = this.queryOptions.query[key];
+        let values = Array.isArray(value) ? value: [value];
+
+        for (let i = 0; i < values.length; i++) {
+            let paramValue = values[i];
+            let commaValue = this.comma(key, paramValue);
+            for (let i = 0; i < commaValue.length; i++) {
+                let value = this.getWildCardQuery(commaValue[i][key]);
+                try {
+                    if (key.includes(".")) {
+                        this[key](value);
+                    } else {
+                        this[`get${dictionary.tag[key]}`](value);
+                    }
+                } catch (e) {
+                    if (e.message.includes("not a function")) break;
+                }
+            }
+        }
     }
 
     getSequelizeIncludePersonNameQuery() {
