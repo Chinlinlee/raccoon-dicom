@@ -18,7 +18,7 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
         this["00400275.00321033"] = SeriesRequestAttributeSequence.prototype.getRequestingService.bind(seriesRequestAttributeSequence);
         this["00400275.00401001"] = SeriesRequestAttributeSequence.prototype.getRequestedProcedureID.bind(seriesRequestAttributeSequence);
         this["00400275.0020000D"] = SeriesRequestAttributeSequence.prototype.getStudyInstanceUID.bind(seriesRequestAttributeSequence);
-    
+
         let studyQueryBuilder = new StudyQueryBuilder(queryOptions);
         let studyQuery = studyQueryBuilder.build();
         this.includeQueries.push({
@@ -38,37 +38,25 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
 
     getIncludedPerformingPhysicianNameModel() {
         if (this.includeQueries.length > 0) {
-            return this.includeQueries.find(v=> _.get(v, "as", "") === "performingPhysicianName");
+            return this.includeQueries.find(v => _.get(v, "as", "") === "performingPhysicianName");
         }
         return undefined;
     }
 
     getIncludedOperatorsNameModel() {
         if (this.includeQueries.length > 0) {
-            return this.includeQueries.find(v=> _.get(v, "as", "") === "operatorsName");
+            return this.includeQueries.find(v => _.get(v, "as", "") === "operatorsName");
         }
         return undefined;
     }
-    getSeriesDate(value) {
-        let q = this.getDateQuery(dictionary.keyword.SeriesDate, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getSeriesDate(values) {
+        return this.getOrQuery(dictionary.keyword.SeriesDate, values, BaseQueryBuilder.prototype.getDateQuery.bind(this));
     }
-    getModality(value) {
-        let q = this.getStringQuery(dictionary.keyword.Modality, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getModality(values) {
+        return this.getOrQuery(dictionary.keyword.Modality, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
-    getSeriesDescription(value) {
-        let q = this.getStringQuery(dictionary.keyword.SeriesDescription, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getSeriesDescription(values) {
+        return this.getOrQuery(dictionary.keyword.SeriesDescription, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
     getPersonNameJsonArrayQuery(tag, value) {
@@ -83,62 +71,36 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
         throw new Error("Not implemented");
     }
 
-    getPerformingPhysicianName(value) {
-        let { query } = this.getPersonNameQuery(dictionary.keyword.PerformingPhysicianName, value);
+    getPerformingPhysicianName(values) {
+        let query = this.getOrQuery(dictionary.keyword.PerformingPhysicianName, values, this.getPersonNameQuery.bind(this));
         let includedPerformingPhysicianNameModel = this.getIncludedPerformingPhysicianNameModel();
         if (!includedPerformingPhysicianNameModel) {
             this.includeQueries.push({
                 model: PersonNameModel,
                 as: "performingPhysicianName",
                 where: {
-                    [Op.or]: [
-                        {
-                            alphabetic: query[Op.or].alphabetic
-                        },
-                        {
-                            ideographic: query[Op.or].ideographic
-                        },
-                        {
-                            phonetic: query[Op.or].phonetic
-                        }
-                    ]
+                    [Op.or]: query[Op.or]
                 },
                 attributes: []
             });
-        } else {
-            includedPerformingPhysicianNameModel.where[Op.or].push(...[
-                {
-                    alphabetic: query[Op.or].alphabetic
-                },
-                {
-                    ideographic: query[Op.or].ideographic
-                },
-                {
-                    phonetic: query[Op.or].phonetic
-                }
-            ]);
         }
 
     }
 
-    getOperatorsName(value) {
-        let { query } = this.getPersonNameQuery(dictionary.keyword.OperatorsName, value);
+    getOperatorsName(values) {
+        let query = this.getOrQuery(dictionary.keyword.OperatorsName, values, this.getPersonNameQuery.bind(this));
         this.includeQueries.push({
             model: PersonNameModel,
             as: "operatorsName",
             where: {
-                ...query
+                [Op.or]: query[Op.or]
             },
             attributes: []
         });
     }
 
-    getSeriesNumber(value) {
-        let q = this.getStringQuery(dictionary.keyword.SeriesNumber, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getSeriesNumber(values) {
+        return this.getOrQuery(dictionary.keyword.SeriesNumber, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
 
@@ -150,55 +112,89 @@ class SeriesRequestAttributeSequence {
         this.seriesQueryBuilder = seriesQueryBuilder;
     }
     isModelIncluded() {
-        return this.seriesQueryBuilder.includeQueries.find(v=> v.model.getTableName()  === "SeriesRequestAttributes");
+        return this.seriesQueryBuilder.includeQueries.find(v => v.model.getTableName() === "SeriesRequestAttributes");
     }
-    getAccessionNumber(value) { 
-        let q = this.seriesQueryBuilder.getStringQuery("00080050", value);
+    getAccessionNumber(values) {
+        let q = this.seriesQueryBuilder.getOrQuery(
+            dictionary.keyword.AccessionNumber,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.seriesQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getIssuerLocalNameSpaceEntityID(value) {
-        let q = this.seriesQueryBuilder.getStringQuery("00080051_x00400031", value);
+    getIssuerLocalNameSpaceEntityID(values) {
+        let q = this.seriesQueryBuilder.getOrQuery(
+            "00080051_x00400031",
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.seriesQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getIssuerUniversalEntityID(value) {
-        let q = this.seriesQueryBuilder.getStringQuery("00080051_x00400032", value);
+    getIssuerUniversalEntityID(values) {
+        let q = this.seriesQueryBuilder.getOrQuery(
+            "00080051_x00400032",
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.seriesQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getIssuerUniversalEntityIDType(value) {
-        let q = this.seriesQueryBuilder.getStringQuery("00080051_x00400033", value);
+    getIssuerUniversalEntityIDType(values) {
+        let q = this.seriesQueryBuilder.getOrQuery(
+            "00080051_x00400033",
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.seriesQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getRequestingService(value) {
-        let q = this.seriesQueryBuilder.getStringQuery("00321033", value);
+    /**
+     *
+     * @param {string[]} values - The values to be used in the query generation.
+     */
+    getRequestingService(values) {
+        let q = this.seriesQueryBuilder.getOrQuery(
+            dictionary.keyword.RequestingService,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.seriesQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getRequestedProcedureID(value) {
-        let q = this.seriesQueryBuilder.getStringQuery("00401001", value);
+    getRequestedProcedureID(values) {
+        let q = this.seriesQueryBuilder.getOrQuery(
+            dictionary.keyword.RequestedProcedureID,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.seriesQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getStudyInstanceUID(value) {
-        let q = this.seriesQueryBuilder.getStringQuery("0020000D", value);
+    getStudyInstanceUID(values) {
+        let q = this.seriesQueryBuilder.getOrQuery(
+            dictionary.keyword.StudyInstanceUID,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.seriesQueryBuilder)
+        );
         this.addQuery(q);
     }
 
     addQuery(q) {
         let currentModel = this.isModelIncluded();
         if (currentModel) {
-            currentModel.where = {
-                ...currentModel.where,
-                ...q
-            };
+            currentModel.where[Op.and] = [
+                ...currentModel.where[Op.and],
+                q
+            ];
         } else {
             this.seriesQueryBuilder.includeQueries.push({
                 model: SeriesRequestAttributesModel,
                 where: {
-                    ...q
+                    [Op.and]: [
+                        q
+                    ]
                 },
                 attributes: []
             });

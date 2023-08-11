@@ -5,6 +5,7 @@ const { Op, Sequelize, cast, col } = require("sequelize");
 const { raccoonConfig } = require("@root/config-class");
 const { PersonNameModel } = require("@models/sql/models/personName.model");
 const sequelize = require("@models/sql/instance");
+const { logger } = require("@root/utils/logs/log");
 
 class BaseQueryBuilder {
     constructor(queryOptions) {
@@ -12,6 +13,9 @@ class BaseQueryBuilder {
         /** @type {import("sequelize").IncludeOptions[]} */
         this.includeQueries = [];
         this.bind = [];
+        this.query = {
+            [Op.and]: []
+        };
     }
 
     build() {
@@ -45,18 +49,25 @@ class BaseQueryBuilder {
         for (let i = 0; i < values.length; i++) {
             let paramValue = values[i];
             let commaValue = this.comma(key, paramValue);
-            for (let i = 0; i < commaValue.length; i++) {
-                let value = this.getWildCardQuery(commaValue[i][key]);
-                try {
-                    if (key.includes(".")) {
-                        this[key](value);
-                    } else {
-                        this[`get${dictionary.tag[key]}`](value);
-                    }
-                } catch (e) {
-                    if (e.message.includes("not a function")) break;
+            let wildCardValues = commaValue.map(v => this.getWildCardQuery(v[key]));
+            try {
+                let query;
+                if (key.includes(".")) {
+                    query = this[key](wildCardValues);
+                } else {
+                    query = this[`get${dictionary.tag[key]}`](wildCardValues);
                 }
+
+                this.query[Op.and] = [
+                    ...this.query[Op.and],
+                    query
+                ];
+            } catch (e) {
+                if (e.message.includes("not a function")) break;
+                logger.error(e);
+                throw e;
             }
+
         }
     }
 
@@ -99,6 +110,27 @@ class BaseQueryBuilder {
         };
     }
 
+    /**
+     * 
+     * @param {string} tag 
+     * @param {string[]} values 
+     * @param {(tag: string, values: string[]) => void} queryFn 
+     */
+    getOrQuery(tag, values, queryFn) {
+        if (values.length === 1) {
+            return queryFn(tag, values[0]);
+        }
+
+        let or = {
+            [Op.or]: []
+        };
+        for (let i = 0; i < values.length; i++) {
+            let q = queryFn(tag, values[i]);
+            or[Op.or].push(q);
+        }
+        return or;
+    }
+
     getStringArrayJsonQuery(tag, value) {
         if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
             return {
@@ -121,37 +153,39 @@ class BaseQueryBuilder {
 
     /**
      * 
+     * @param {string} tag
      * @param {string} value 
      * @returns 
      */
     getPersonNameQuery(tag, value) {
         if (value.includes("%") || value.includes("_")) {
             return {
-                query: {
-                    [Op.or]: {
+                [Op.or]: [
+                    {
                         alphabetic: {
                             [Op.like]: value
-                        },
+                        }
+                    },
+                    {
                         ideographic: {
                             [Op.like]: value
-                        },
+                        }
+                    },
+                    {
                         phonetic: {
                             [Op.like]: value
                         }
                     }
-                },
-                field: tag
+                ]
             };
         }
+
         return {
-            query: {
-                [Op.or]: {
-                    alphabetic: value,
-                    ideographic: value,
-                    phonetic: value
-                }
-            },
-            field: tag
+            [Op.or]: [
+                { alphabetic: value },
+                { ideographic: value },
+                { phonetic: value }
+            ]
         };
     }
 
@@ -299,7 +333,6 @@ class BaseQueryBuilder {
 class StudyQueryBuilder extends BaseQueryBuilder {
     constructor(queryOptions) {
         super(queryOptions);
-        this.query = {};
 
         let studyInstanceUidInParams = _.get(this.queryOptions.requestParams, "studyUID");
         if (studyInstanceUidInParams) {
@@ -332,16 +365,13 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     }
 
 
-    getStudyInstanceUID(value) {
-        let q = this.getStringQuery(dictionary.keyword.StudyInstanceUID, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getStudyInstanceUID(values) {
+        return this.getOrQuery(dictionary.keyword.StudyInstanceUID, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
-    getPatientName(value) {
-        let { query } = this.getPersonNameQuery(dictionary.keyword.PatientName, value);
+    getPatientName(values) {
+        let query = this.getOrQuery(dictionary.keyword.PatientName, values, BaseQueryBuilder.prototype.getPersonNameQuery.bind(this));
+
         let includedPatientModel = this.getIncludedPatientModel();
         if (!includedPatientModel) {
             this.includeQueries.push({
@@ -349,124 +379,60 @@ class StudyQueryBuilder extends BaseQueryBuilder {
                 include: [{
                     model: sequelize.model("PersonName"),
                     where: {
-                        [Op.or]: [
-                            {
-                                alphabetic: query[Op.or].alphabetic
-                            },
-                            {
-                                ideographic: query[Op.or].ideographic
-                            },
-                            {
-                                phonetic: query[Op.or].phonetic
-                            }
-                        ]
+                        [Op.or]: query[Op.or]
                     },
                     required: true
                 }],
                 required: true
             });
-        } else {
-            let personNameModel = this.getIncludedPersonNameModelInPatient();
-            personNameModel.where[Op.or].push(...[
-                {
-                    alphabetic: query[Op.or].alphabetic
-                },
-                {
-                    ideographic: query[Op.or].ideographic
-                },
-                {
-                    phonetic: query[Op.or].phonetic
-                }
-            ]);
-        }
-
+        } 
     }
 
-    getPatientID(value) {
-        let q = this.getStringQuery(dictionary.keyword.PatientID, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getPatientID(values) {
+        return this.getOrQuery(dictionary.keyword.PatientID, values, this.getStringQuery);
     }
 
-    getStudyDate(value) {
-        let q = this.getDateQuery(dictionary.keyword.StudyDate, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getStudyDate(values) {
+        return this.getOrQuery(dictionary.keyword.StudyDate, values, BaseQueryBuilder.prototype.getDateQuery.bind(this));
     }
 
-    getStudyTime(value) {
-        let q = this.getTimeQuery(dictionary.keyword.StudyTime, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getStudyTime(values) {
+        return this.getOrQuery(dictionary.keyword.StudyTime, values, BaseQueryBuilder.prototype.getTimeQuery.bind(this));
     }
 
-    getAccessionNumber(value) {
-        let q = this.getStringQuery(dictionary.keyword.AccessionNumber, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getAccessionNumber(values) {
+        return this.getOrQuery(dictionary.keyword.AccessionNumber, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
-    getModalitiesInStudy(value) {
-        let q = this.getStringQuery(dictionary.keyword.Modality, value);
+    getModalitiesInStudy(values) {
+        let stringQuery = this.getOrQuery(dictionary.keyword.Modality, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
         this.includeQueries.push({
             model: sequelize.model("Series"),
             where: {
-                ...q
+                ...stringQuery
             },
             attributes: []
         });
     }
 
-    getReferringPhysicianName(value) {
-        let { query } = this.getPersonNameQuery(dictionary.keyword.ReferringPhysicianName, value);
+    getReferringPhysicianName(values) {
+        let query = this.getOrQuery(dictionary.keyword.ReferringPhysicianName, values, BaseQueryBuilder.prototype.getPersonNameQuery.bind(this));
         let includedPersonNameModel = this.getIncludedPersonNameModel();
         if (!includedPersonNameModel) {
             this.includeQueries.push({
                 model: PersonNameModel,
                 where: {
                     [Op.or]: [
-                        {
-                            alphabetic: query[Op.or].alphabetic
-                        },
-                        {
-                            ideographic: query[Op.or].ideographic
-                        },
-                        {
-                            phonetic: query[Op.or].phonetic
-                        }
+                        ...query[Op.or]
                     ]
                 },
                 required: true
             });
-        } else {
-            includedPersonNameModel.where[Op.or].push(...[
-                {
-                    alphabetic: query[Op.or].alphabetic
-                },
-                {
-                    ideographic: query[Op.or].ideographic
-                },
-                {
-                    phonetic: query[Op.or].phonetic
-                }
-            ]);
-        }
+        } 
     }
 
-    getStudyID(value) {
-        let q = this.getStringQuery(dictionary.keyword.StudyID, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getStudyID(values) {
+        return this.getOrQuery(dictionary.keyword.StudyID, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 }
 

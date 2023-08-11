@@ -22,7 +22,7 @@ class InstanceQueryBuilder extends BaseQueryBuilder {
         let contentQueryBuilder = new ContentSqQueryBuilder(this);
         this["0040A730.0040A040"] = ContentSqQueryBuilder.prototype.getValueType.bind(contentQueryBuilder);
         this["0040A730.0040A010"] = ContentSqQueryBuilder.prototype.getRelationshipType.bind(contentQueryBuilder);
-        this["0040A730.0040A160"] = ContentSqQueryBuilder.prototype.getValueType.bind(contentQueryBuilder);
+        this["0040A730.0040A160"] = ContentSqQueryBuilder.prototype.getTextValue.bind(contentQueryBuilder);
         this["0040A730.0040A043.00080100"] = ContentSqQueryBuilder.prototype.getConceptNameCodeValue.bind(contentQueryBuilder);
         this["0040A730.0040A043.00080102"] = ContentSqQueryBuilder.prototype.getConceptNameCodingSchemeDesignator.bind(contentQueryBuilder);
         this["0040A730.0040A043.00080103"] = ContentSqQueryBuilder.prototype.getConceptNameCodingSchemeVersion.bind(contentQueryBuilder);
@@ -57,62 +57,42 @@ class InstanceQueryBuilder extends BaseQueryBuilder {
 
     /**
      * 
-     * @param {string} value 
+     * @param {string[]} values
      */
-    getSOPClassUID(value) {
-        let q = this.getStringQuery(dictionary.keyword.SOPClassUID, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getSOPClassUID(values) {
+        return this.getOrQuery(dictionary.keyword.SOPClassUID, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
     /**
      * 
-     * @param {string} value 
+     * @param {string[]} values
      */
-    getSOPInstanceUID(value) {
-        let q = this.getStringQuery(dictionary.keyword.SOPInstanceUID, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getSOPInstanceUID(values) {
+        return this.getOrQuery(dictionary.keyword.SOPInstanceUID, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
     /**
      * 
-     * @param {string} value 
+     * @param {string[]} values
      */
-    getContentDate(value) {
-        let q = this.getDateQuery(dictionary.keyword.ContentDate, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getContentDate(values) {
+        return this.getOrQuery(dictionary.keyword.ContentDate, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
     /**
      * 
-     * @param {string} value 
+     * @param {string[]} values
      */
-    getContentTime(value) {
-        let q = this.getTimeQuery(dictionary.keyword.ContentTime, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getContentTime(values) {
+        return this.getOrQuery(dictionary.keyword.ContentTime, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
     /**
      * 
-     * @param {string} value 
+     * @param {string[]} values 
      */
-    getInstanceNumber(value) {
-        let q = this.getStringQuery(dictionary.keyword.InstanceNumber, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getInstanceNumber(values) {
+        return this.getOrQuery(dictionary.keyword.InstanceNumber, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 }
 
@@ -176,92 +156,138 @@ class ContentSqQueryBuilder {
         return this.instanceQueryBuilder.includeQueries.find(v => v.model.getTableName() === "DicomContentSQ");
     }
 
-    isConceptNameCodeInclude() {
+    getConceptNameCodeInclude() {
         let currentModel = this.isModelIncluded();
         if (currentModel && currentModel.include) {
             return currentModel.include.find(v => v.model.getTableName() === "ConceptNameCode");
         }
-        return false;
+        return undefined;
     }
 
-    isConceptCodeInclude() {
+    getConceptCodeInclude() {
         let currentModel = this.isModelIncluded();
         if (currentModel && currentModel.include) {
             return currentModel.include.find(v => v.model.getTableName() === "ConceptCode");
         }
-        return false;
+        return undefined;
     }
 
-    getValueType(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.ValueType, value);
+    getValueType(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.ValueType,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addQuery(q);
     }
 
     getTextValue(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.TextValue, value);
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.TextValue,
+            value,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getRelationshipType(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.RelationshipType, value);
+    getRelationshipType(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.RelationshipType,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getConceptNameCodeValue(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodeValue, value);
+    getConceptNameCodeValue(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.CodeValue,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addConceptNameCodeQuery(q);
     }
 
-    getConceptNameCodingSchemeDesignator(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodingSchemeDesignator, value);
+    getConceptNameCodingSchemeDesignator(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.CodingSchemeDesignator,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addConceptNameCodeQuery(q);
     }
 
-    getConceptNameCodingSchemeVersion(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodingSchemeVersion, value);
+    getConceptNameCodingSchemeVersion(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.CodingSchemeVersion,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addConceptNameCodeQuery(q);
     }
 
-    getConceptNameCodeMeaning(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodeMeaning, value);
+    getConceptNameCodeMeaning(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.CodeMeaning, 
+            values, 
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addConceptNameCodeQuery(q);
     }
 
-    getConceptCodeValue(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodeValue, value);
+    getConceptCodeValue(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.CodeValue, 
+            values, 
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addConceptCodeQuery(q);
     }
 
-    getConceptCodingSchemeDesignator(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodingSchemeDesignator, value);
+    getConceptCodingSchemeDesignator(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.CodingSchemeDesignator,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addConceptCodeQuery(q);
     }
 
-    getConceptCodingSchemeVersion(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodingSchemeVersion, value);
+    getConceptCodingSchemeVersion(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.CodingSchemeVersion,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addConceptCodeQuery(q);
     }
 
-    getConceptCodeMeaning(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.CodeMeaning, value);
+    getConceptCodeMeaning(values) {
+        let q = this.getOrQuery(
+            dictionary.keyword.CodeMeaning,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addConceptCodeQuery(q);
     }
 
     addQuery(q) {
         let currentModel = this.isModelIncluded();
-        if (currentModel) {
-            currentModel.where = {
-                ...currentModel.where,
-                ...q
-            };
-        } else {
+        if (!currentModel) {
             this.instanceQueryBuilder.includeQueries.push({
                 model: DicomContentSqModel,
                 where: {
-                    ...q
+                    [Op.and]: [
+                        q
+                    ]
                 },
                 attributes: []
             });
+        } else {
+            currentModel.where[Op.and] = {
+                ...currentModel.where[Op.and],
+                q
+            };
         }
     }
 
@@ -271,18 +297,20 @@ class ContentSqQueryBuilder {
                 model: DicomCodeModel,
                 as: "ConceptNameCode",
                 where: {
-                    ...q
+                    [Op.and]: [
+                        q
+                    ]
                 },
                 attributes: []
             };
         } else {
-            this.conceptNameCodeInclude.where = {
-                ...this.conceptNameCodeInclude.where,
-                ...q
+            this.conceptNameCodeInclude.where[Op.and] = {
+                ...this.conceptNameCodeInclude.where[Op.and],
+                q
             };
         }
 
-        let conceptNameIncluded = this.isConceptNameCodeInclude();
+        let conceptNameIncluded = this.getConceptNameCodeInclude();
 
         if (conceptNameIncluded) {
             conceptNameIncluded = this.conceptNameCodeInclude;
@@ -290,7 +318,7 @@ class ContentSqQueryBuilder {
             this.addQuery({});
             let currentModel = this.isModelIncluded();
             currentModel.include = currentModel.include ? currentModel.include : [];
-            conceptNameIncluded = this.isConceptNameCodeInclude();
+            conceptNameIncluded = this.getConceptNameCodeInclude();
             currentModel.include.push(this.conceptNameCodeInclude);
         }
     }
@@ -312,7 +340,7 @@ class ContentSqQueryBuilder {
             };
         }
 
-        let conceptCodeIncluded = this.isConceptCodeInclude();
+        let conceptCodeIncluded = this.getConceptCodeInclude();
 
         if (conceptCodeIncluded) {
             conceptCodeIncluded = this.conceptCodeInclude;
@@ -320,7 +348,7 @@ class ContentSqQueryBuilder {
             this.addQuery({});
             let currentModel = this.isModelIncluded();
             currentModel.include = currentModel.include ? currentModel.include : [];
-            conceptCodeIncluded = this.isConceptCodeInclude();
+            conceptCodeIncluded = this.getConceptCodeInclude();
             currentModel.include.push(this.conceptCodeInclude);
         }
     }
@@ -344,8 +372,12 @@ class VerifyingObserverQueryBuilder {
         return false;
     }
 
-    getName(value) {
-        let { query } = this.instanceQueryBuilder.getPersonNameQuery(dictionary.keyword.VerifyingObserverName, value);
+    getName(values) {
+        let query = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.VerifyingObserverName,
+            values,
+            BaseQueryBuilder.prototype.getPersonNameQuery.bind(this.instanceQueryBuilder)
+        );
         this.addQuery({});
         let currentModel = this.isModelIncluded();
         currentModel.include = currentModel.include ? currentModel.include : [];
@@ -354,60 +386,48 @@ class VerifyingObserverQueryBuilder {
             currentModel.include.push({
                 model: PersonNameModel,
                 where: {
-                    [Op.or]: [
-                        {
-                            alphabetic: query[Op.or].alphabetic
-                        },
-                        {
-                            ideographic: query[Op.or].ideographic
-                        },
-                        {
-                            phonetic: query[Op.or].phonetic
-                        }
-                    ]
+                    [Op.or]: query[Op.or]
                 },
                 attributes: []
             });
-        } else {
-            personNameIncluded.where[Op.or].push(...[
-                {
-                    alphabetic: query[Op.or].alphabetic
-                },
-                {
-                    ideographic: query[Op.or].ideographic
-                },
-                {
-                    phonetic: query[Op.or].phonetic
-                }
-            ]);
         }
     }
 
-    getDateTime(value) {
-        let q = this.instanceQueryBuilder.getDateQuery(dictionary.keyword.VerificationDateTime, value);
+    getDateTime(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.VerificationDateTime,
+            values,
+            BaseQueryBuilder.prototype.getDateTimeQuery.bind(this.instanceQueryBuilder)
+        );
         this.addQuery(q);
     }
 
-    getOrganization(value) {
-        let q = this.instanceQueryBuilder.getStringQuery(dictionary.keyword.VerifyingOrganization, value);
+    getOrganization(values) {
+        let q = this.instanceQueryBuilder.getOrQuery(
+            dictionary.keyword.VerifyingOrganization,
+            values,
+            BaseQueryBuilder.prototype.getStringQuery.bind(this.instanceQueryBuilder)
+        );
         this.addQuery(q);
     }
 
     addQuery(q) {
         let currentModel = this.isModelIncluded();
-        if (currentModel) {
-            currentModel.where = {
-                ...currentModel.where,
-                ...q
-            };
-        } else {
+        if (!currentModel) {
             this.instanceQueryBuilder.includeQueries.push({
                 model: VerifyIngObserverSqModel,
                 where: {
-                    ...q
+                    [Op.and]: [
+                        q
+                    ]
                 },
                 attributes: []
             });
+        } else {
+            currentModel.where[Op.and] = [
+                ...currentModel.where[Op.and],
+                q
+            ];
         }
     }
 }

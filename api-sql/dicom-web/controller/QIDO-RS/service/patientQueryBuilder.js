@@ -8,7 +8,6 @@ const { Op } = require("sequelize");
 class PatientQueryBuilder extends BaseQueryBuilder {
     constructor(queryOptions) {
         super(queryOptions);
-        this.query = {};
     }
 
     getIncludedPersonNameModel() {
@@ -18,8 +17,8 @@ class PatientQueryBuilder extends BaseQueryBuilder {
         return undefined;
     }
 
-    getPatientName(value) {
-        let { query } = this.getPersonNameQuery(dictionary.keyword.PatientName, value);
+    getPatientName(values) {
+        let query = this.getOrQuery(dictionary.keyword.PatientName, values, this.getPersonNameQuery.bind(this));
 
         let includedPersonNameModel = this.getIncludedPersonNameModel();
         if (!includedPersonNameModel) {
@@ -27,58 +26,23 @@ class PatientQueryBuilder extends BaseQueryBuilder {
                 model: PersonNameModel,
                 required: true,
                 where: {
-                    [Op.or]: [
-                        {
-                            alphabetic: query[Op.or].alphabetic
-                        },
-                        {
-                            ideographic: query[Op.or].ideographic
-                        },
-                        {
-                            phonetic: query[Op.or].phonetic
-                        }
-                    ]
+                    [Op.or]: query[Op.or]
                 }
             });
-        } else {
-            includedPersonNameModel.where[Op.or] = [
-                ...includedPersonNameModel.where[Op.or],
-                {
-                    alphabetic: query[Op.or].alphabetic
-                },
-                {
-                    ideographic: query[Op.or].ideographic
-                },
-                {
-                    phonetic: query[Op.or].phonetic
-                }
-            ];
-        }
+        } 
 
     }
 
-    getPatientID(value) {
-        let q = this.getStringQuery(dictionary.keyword.PatientID, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+    getPatientID(values) {
+        return this.getOrQuery(dictionary.keyword.PatientID, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
     getPatientBirthDate(value) {
-        let q = this.getDateQuery(dictionary.keyword.PatientBirthDate, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+        return this.getOrQuery(dictionary.keyword.PatientBirthDate, value, BaseQueryBuilder.prototype.getDateQuery.bind(this));
     }
 
     getIssuerOfPatientID(value) {
-        let q = this.getStringQuery(dictionary.keyword.IssuerOfPatientID, value);
-        this.query = {
-            ...this.query,
-            ...q
-        };
+        return this.getOrQuery(dictionary.keyword.IssuerOfPatientID, value, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
 }
