@@ -4,6 +4,7 @@ const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { InstanceQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/instanceQueryBuilder");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { getStoreDicomFullPath } = require("@models/mongodb/service");
 
 class InstanceModel extends Model { };
 
@@ -77,6 +78,35 @@ InstanceModel.getDicomJson = async function(queryOptions) {
         });
         return json;
     }));
+};
+
+InstanceModel.getPathOfInstance = async function(iParam) {
+    let { studyUID, seriesUID, instanceUID } = iParam;
+
+    try {
+        let instance = await sequelizeInstance.model("Instance").findOne({
+            where: {
+                x0020000D: studyUID,
+                x0020000E: seriesUID,
+                x00080018: instanceUID
+            }
+        });
+
+        if (instance) {
+            let instanceJson = await instance.toJSON();
+
+            _.set(instanceJson, "instancePath",  getStoreDicomFullPath(instanceJson));
+            _.set(instanceJson, "studyUID", instanceJson.x0020000D);
+            _.set(instanceJson, "seriesUID", instanceJson.x0020000E);
+            _.set(instanceJson, "instanceUID", instanceJson.x00080018);
+
+            return instanceJson;
+        }
+
+        return undefined;
+    } catch(e) {
+        throw e;
+    }
 };
 
 module.exports.InstanceModel = InstanceModel;

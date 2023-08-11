@@ -6,6 +6,7 @@ const _ = require("lodash");
 const { StudyQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/querybuilder");
 const { InstanceModel } = require("./instance.mode");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
 
 class StudyModel extends Model { 
     async getNumberOfStudyRelatedSeries() {
@@ -146,6 +147,26 @@ StudyModel.getDicomJson = async function (queryOptions) {
 
         return json;
     }));
+};
+
+StudyModel.getPathGroupOfInstances = async function(iParam) {
+    let { studyUID } = iParam;
+
+    try {
+        let instances = await sequelizeInstance.model("Instance").findAll({
+            where: {
+                x0020000D: studyUID
+            },
+            attributes: ["instancePath"]
+        });
+    
+        let fullPathGroup = getStoreDicomFullPathGroup(instances);
+
+        return fullPathGroup;
+
+    } catch (e) {
+        throw e;
+    }
 };
 
 module.exports.StudyModel = StudyModel;

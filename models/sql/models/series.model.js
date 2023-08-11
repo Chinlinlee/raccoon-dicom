@@ -4,6 +4,7 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 const { SeriesQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/seriesQueryBuilder");
 const _ = require("lodash");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
 
 class SeriesModel extends Model { };
 
@@ -99,6 +100,27 @@ SeriesModel.getDicomJson = async function(queryOptions) {
         });
         return json;
     }));
+};
+
+SeriesModel.getPathGroupOfInstances = async function(iParam) {
+    let { studyUID, seriesUID } = iParam;
+
+    try {
+        let instances = await sequelizeInstance.model("Instance").findAll({
+            where: {
+                x0020000D: studyUID,
+                x0020000E: seriesUID
+            },
+            attributes: ["instancePath"]
+        });
+    
+        let fullPathGroup = getStoreDicomFullPathGroup(instances);
+
+        return fullPathGroup;
+
+    } catch (e) {
+        throw e;
+    }
 };
 
 module.exports.SeriesModel = SeriesModel;
