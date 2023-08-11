@@ -259,8 +259,47 @@ class BaseQueryBuilder {
         }
     }
 
+    /**
+     * 
+     * @param {string} tag 
+     * @param {string} value 
+     */
+    getDateTimeQuery(tag, value) {
+        let dashIndex = value.indexOf("-");
+        if (dashIndex === 0) { // -YYYYMMDD
+            return {
+                [`x${tag}`]: {
+                    [Op.lte]: this.dateTimeStringToSqlDateTime(value.substring(1))
+                }
+            };
+        } else if (dashIndex === value.length - 1) { // YYYYMMDD-
+            return {
+                [`x${tag}`]: {
+                    [Op.gte]: this.dateTimeStringToSqlDateTime(value.substring(0, dashIndex))
+                }
+            };
+        } else if (dashIndex > 0) { // YYYYMMDD-YYYYMMDD
+            return {
+                [`x${tag}`]: {
+                    [Op.and]: [
+                        { [Op.gte]: this.dateTimeStringToSqlDateTime(value.substring(0, dashIndex)) },
+                        { [Op.lte]: this.dateTimeStringToSqlDateTime(value.substring(dashIndex + 1)) }
+                    ]
+                }
+            };
+        } else { // YYYYMMDD
+            return {
+                [`x${tag}`]: this.dateTimeStringToSqlDateTime(value)
+            };
+        }
+    }
+    
     dateStringToSqlDateOnly(value) {
         return moment(value, "YYYYMMDD").format("YYYY-MM-DD");
+    }
+
+    dateTimeStringToSqlDateTime(value) {
+        return moment(value, "YYYYMMDDhhmmss.SSSSSSZZ").toISOString();
     }
 
     /**
