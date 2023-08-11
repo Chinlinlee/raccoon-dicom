@@ -11,6 +11,19 @@ const { logger } = require("../../../utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
+let verifyingObserverSchema = new mongoose.Schema(
+    {
+        "0040A027": getVRSchema("LO"),
+        "0040A030": getVRSchema("DT"),
+        "0040A075": getVRSchema("PN")
+    },
+    {
+        strict: false,
+        _id: false,
+        versionKey: false
+    }
+);
+
 let dicomModelSchema = new mongoose.Schema(
     {
         "studyUID": {
@@ -81,6 +94,10 @@ let dicomModelSchema = new mongoose.Schema(
             }
         }),
         "00400275": dicomJsonAttributeSchema,
+        "0040A073": {
+            ...dicomJsonAttributeSchema,
+            Value: [verifyingObserverSchema]
+        },
         "00080016": {
             ...dicomJsonAttributeSchema,
             Value: [mongoose.SchemaTypes.String]
