@@ -449,25 +449,18 @@ dicomModelSchema.statics.getInstanceOfMedianIndex = async function (query) {
 };
 
 /**
- * @typedef {function(s: string, b: boolean): Promise<number>} getDicomJson
- * @param {object} iParam 
- * @param {string} iParam.studyUID
- * @param {string} iParam.seriesUID
- * @param {string} iParam.instanceUID
- * @returns
+ * @typedef {import("mongoose").Model<dicomModelSchema> & { 
+ *     getPathOfInstance: (iParam: {
+ *         studyUID: string,
+ *         seriesUID: string,
+ *         instanceUID: string
+ *     }) => Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
+ *     getDicomJson: (queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions) => Promise<any>;
+ *     getInstanceOfMedianIndex: (studyUID: string, seriesUID: string) => Promise<any>;
+ * }} DicomModelSchema
+ * 
  */
 
-/**
- * @typedef { mongoose.Model<dicomModelSchema> & { 
- * getPathOfInstance: function(iParam: {
- *      studyUID: string,
- *      seriesUID: string,
- *      instanceUID: string
- *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
- * getDicomJson: function(queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<function>;
- * getInstanceOfMedianIndex: function(studyUID: string, seriesUID: string): Promise<any>
- * }} DicomModelSchema
- */
 
 /** @type {DicomModelSchema} */
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
