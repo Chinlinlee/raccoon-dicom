@@ -283,6 +283,9 @@ const vrQueryLookup = {
     DA: async (value, tag) => {
         let q = await mongoDateQuery(value, tag, false);
     },
+    DT: async (value, tag) => {
+        let q = await mongoDateQuery(value, tag, false, "YYYYMMDDhhmmss.SSSSSSZZ");
+    },
     PN: async (value, tag) => {
         let queryValue = _.cloneDeep(value[tag]);
         value[tag] = {
