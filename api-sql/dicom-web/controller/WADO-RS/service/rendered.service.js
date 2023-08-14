@@ -1,7 +1,8 @@
 const { 
     postProcessFrameImage,
     writeRenderedImages,
-    writeSpecificFramesRenderedImages
+    writeSpecificFramesRenderedImages,
+    RenderedImageMultipartWriter
 } = require("@root/api/dicom-web/controller/WADO-RS/service/rendered.service");
 
 const path = require("path");
@@ -195,7 +196,11 @@ async function getInstanceFrameObj(iParam, otherFields = {}) {
 }
 
 
+module.exports.postProcessFrameImage = postProcessFrameImage;
+module.exports.writeRenderedImages = writeRenderedImages;
+module.exports.writeSpecificFramesRenderedImages = writeSpecificFramesRenderedImages;
 module.exports.getInstanceFrameObj = getInstanceFrameObj;
+module.exports.RenderedImageMultipartWriter = RenderedImageMultipartWriter;
 module.exports.StudyFramesWriter = StudyFramesWriter;
 module.exports.SeriesFramesWriter = SeriesFramesWriter;
 module.exports.InstanceFramesWriter = InstanceFramesWriter;

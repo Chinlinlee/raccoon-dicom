@@ -1,8 +1,5 @@
 const _ = require("lodash");
 const renderedService = require("../service/rendered.service");
-const {
-    RenderedImageMultipartWriter
-} = require("@root/api/dicom-web/controller/WADO-RS/service/rendered.service");
 const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
 const errorResponse = require("@root/utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
@@ -36,7 +33,7 @@ class RetrieveRenderedInstanceFramesController extends Controller {
         }
     
         try {
-            let renderedImageMultipartWriter = new RenderedImageMultipartWriter(
+            let renderedImageMultipartWriter = new renderedService.RenderedImageMultipartWriter(
                 this.request,
                 this.response,
                 InstanceImagePathFactory,

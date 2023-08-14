@@ -1,5 +1,4 @@
 const _ = require("lodash");
-const { RenderedImageMultipartWriter } = require("@root/api/dicom-web/controller/WADO-RS/service/rendered.service");
 const renderedService = require("../service/rendered.service");
 const {
     StudyImagePathFactory
@@ -30,7 +29,7 @@ class RetrieveRenderedStudyController extends Controller {
         
         try {
 
-            let renderedImageMultipartWriter = new RenderedImageMultipartWriter(
+            let renderedImageMultipartWriter = new renderedService.RenderedImageMultipartWriter(
                 this.request,
                 this.response,
                 StudyImagePathFactory,
