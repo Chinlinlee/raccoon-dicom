@@ -16,6 +16,8 @@ const { raccoonConfig } = require("@root/config-class");
 const { Op } = require("sequelize");
 const { InstanceModel } = require("@models/sql/models/instance.model.js");
 
+//TODO: Add SQL version of handleImageICCProfile function
+
 class FramesWriter {
     /**
      * 
@@ -195,6 +197,7 @@ async function getInstanceFrameObj(iParam, otherFields = {}) {
     }
 }
 
+//TODO: Add SQL version of postProcessFrameImage function
 
 module.exports.postProcessFrameImage = postProcessFrameImage;
 module.exports.writeRenderedImages = writeRenderedImages;
