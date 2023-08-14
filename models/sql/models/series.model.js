@@ -111,12 +111,17 @@ SeriesModel.getPathGroupOfInstances = async function(iParam) {
                 x0020000D: studyUID,
                 x0020000E: seriesUID
             },
-            attributes: ["instancePath"]
+            attributes: ["instancePath", "x0020000D", "x0020000E", "x00080018"]
         });
     
         let fullPathGroup = getStoreDicomFullPathGroup(instances);
 
-        return fullPathGroup;
+        return fullPathGroup.map(v=> {
+            _.set(v, "studyUID", v.x0020000D);
+            _.set(v, "seriesUID", v.x0020000E);
+            _.set(v, "instanceUID", v.x00080018);
+            return v;
+        });
 
     } catch (e) {
         throw e;

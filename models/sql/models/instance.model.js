@@ -12,6 +12,10 @@ InstanceModel.init({
     "instancePath": {
         type: DataTypes.TEXT("long")
     },
+    "x00020010": {
+        // Transfer Syntax UID
+        type: vrTypeMapping.UI
+    },
     "x0020000D": {
         type: vrTypeMapping.UI,
         allowNull: false
@@ -37,6 +41,24 @@ InstanceModel.init({
     },
     "x00200013": {
         type: vrTypeMapping.IS
+    },
+    "x00280008": {
+        // Number of Frames
+        type: vrTypeMapping.IS
+    },
+    "x00281050": {
+        type: vrTypeMapping.DS,
+        get() {
+            const rawValue = this.getDataValue("x00281050");
+            return rawValue ? rawValue.split("\\") : undefined;
+        }
+    },
+    "x00281051": {
+        type: vrTypeMapping.DS,
+        get() {
+            const rawValue = this.getDataValue("x00281050");
+            return rawValue ? rawValue.split("\\") : undefined;
+        }
     },
     "x0040A491": {
         type: vrTypeMapping.CS

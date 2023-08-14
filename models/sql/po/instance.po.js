@@ -56,6 +56,7 @@ class InstancePersistentObject {
         this.series = series;
         this.instancePath = _.get(dicomJson, "instancePath", "");
 
+        this.x00020010 = _.get(dicomJson, "00020010.Value.0", undefined);
         this.x0020000D = this.series.x0020000D;
         this.x0020000E = this.series.x0020000E;
         this.x00080018 = _.get(dicomJson, "00080018.Value.0", undefined);
@@ -63,6 +64,9 @@ class InstancePersistentObject {
         this.x00080023 = _.get(dicomJson, "00080023.Value.0", undefined);
         this.x00080033 = _.get(dicomJson, "00080033.Value.0", undefined);
         this.x00200013 = _.get(dicomJson, "00200013.Value.0", undefined);
+        this.x00280008 = _.get(dicomJson, "00280008.Value.0", undefined);
+        this.x00281050 = _.get(dicomJson, "00281050.Value", undefined);
+        this.x00281051 = _.get(dicomJson, "00281051.Value", undefined);
         this.x0040A043 = _.get(dicomJson, "0040A043.Value.0", undefined);
         this.x0040A073 = _.get(dicomJson, "0040A073.Value.0", undefined);
         this.x0040A491 = _.get(dicomJson, "0040A491.Value.0", undefined);
@@ -168,6 +172,7 @@ class InstancePersistentObject {
 
         let item = {
             json: this.json,
+            x00020010: this.x00020010,
             x0020000D: this.x0020000D,
             x0020000E: this.x0020000E,
             x00080018: this.x00080018,
@@ -175,6 +180,9 @@ class InstancePersistentObject {
             x00080023: this.x00080023,
             x00080033: this.x00080033 ? Number(this.x00080033) : undefined,
             x00200013: this.x00200013,
+            x00280008: this.x00280008,
+            x00281050: this.x00281050 ? this.x00281050.join("\\"): undefined,
+            x00281051: this.x00281051 ? this.x00281051.join("\\"): undefined,
             x0040A073: this.x0040A073,
             x0040A491: this.x0040A491,
             x0040A493: this.x0040A493,
