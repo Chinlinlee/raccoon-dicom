@@ -10,7 +10,7 @@ const {
 } = require("@error/dicom-web-service");
 const { StudyModel } = require("@models/sql/models/study.model");
 const { SeriesModel } = require("@models/sql/models/series.model");
-const { InstanceModel } = require("@models/sql/models/instance.mode");
+const { InstanceModel } = require("@models/sql/models/instance.model");
 const { PatientModel } = require("@models/sql/models/patient.model");
 
 

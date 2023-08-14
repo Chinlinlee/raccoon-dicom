@@ -1,7 +1,7 @@
 const moment = require("moment");
 const _ = require("lodash");
 const { PersonNameModel } = require("../models/personName.model");
-const { InstanceModel } = require("../models/instance.mode");
+const { InstanceModel } = require("../models/instance.model");
 
 const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
 const { DicomCodeModel } = require("../models/dicomCode.model");

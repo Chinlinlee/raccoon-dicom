@@ -2,7 +2,7 @@ const { PersonNameModel } = require("./models/personName.model");
 const { PatientModel } = require("./models/patient.model");
 const { StudyModel } = require("./models/study.model");
 const { SeriesModel } = require("./models/series.model");
-const { InstanceModel } = require("./models/instance.mode");
+const { InstanceModel } = require("./models/instance.model");
 const { DicomBulkDataModel } = require("./models/dicomBulkData.model");
 const { raccoonConfig } = require("@root/config-class");
 

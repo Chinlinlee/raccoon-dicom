@@ -7,7 +7,7 @@ const { raccoonConfig } = require("@root/config-class");
 const { JSONPath } = require("jsonpath-plus");
 const { DicomWebService } = require("@root/api/dicom-web/service/dicom-web.service");
 const { logger } = require("@root/utils/logs/log");
-const { InstanceModel } = require("@models/sql/models/instance.mode");
+const { InstanceModel } = require("@models/sql/models/instance.model");
 const { StudyModel } = require("@models/sql/models/study.model");
 const { SeriesModel } = require("@models/sql/models/series.model");
 
