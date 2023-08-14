@@ -131,4 +131,33 @@ InstanceModel.getPathOfInstance = async function(iParam) {
     }
 };
 
+InstanceModel.getInstanceOfMedianIndex = async function (query) {
+    let instanceCountOfStudy = await InstanceModel.count({
+        where: {
+            x0020000D: query.studyUID
+        }
+    });
+
+    let instance = await InstanceModel.findOne({
+        where: {
+            x0020000D: query.studyUID
+        },
+        attributes: ["x0020000D", "x0020000E", "x00080018", "instancePath"],
+        offset: instanceCountOfStudy >> 1,
+        limit: 1,
+        order: [
+            ["x0020000D", "ASC"],
+            ["x0020000E", "ASC"]
+        ]
+    });
+
+    if (instance) {
+        _.set(instance, "studyUID", instance.x0020000D);
+        _.set(instance, "seriesUID", instance.x0020000E);
+        _.set(instance, "instanceUID", instance.x00080018);
+    }
+
+    return instance;
+};
+
 module.exports.InstanceModel = InstanceModel;
