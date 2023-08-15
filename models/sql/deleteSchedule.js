@@ -107,6 +107,7 @@ async function deleteExpireInstances() {
         if (diff >= 30) {
             logger.info("delete expired instance: " + instanceUID);
             await deletedInstance.destroy();
+            await deletedInstance.deleteInstance();
         }
     }
 }

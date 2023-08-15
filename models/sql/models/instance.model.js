@@ -1,4 +1,5 @@
 const fsP = require("fs/promises");
+const path = require("path");
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const _ = require("lodash");
 const sequelizeInstance = require("@models/sql/instance");
@@ -7,6 +8,7 @@ const { InstanceQueryBuilder } = require("@root/api-sql/dicom-web/controller/QID
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { getStoreDicomFullPath } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
+const { raccoonConfig } = require("@root/config-class");
 
 class InstanceModel extends Model {
     async incrementDeleteStatus() {
@@ -18,7 +20,7 @@ class InstanceModel extends Model {
     async deleteInstance() {
         let instancePath = this.getDataValue("instancePath");
         logger.warn("Permanently delete instance: " + instancePath);
-        await fsP.rm(instancePath, {
+        await fsP.rm(path.join(raccoonConfig.dicomWebConfig.storeRootPath, instancePath), {
             force: true,
             recursive: true
         });
