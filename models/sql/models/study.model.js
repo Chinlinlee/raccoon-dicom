@@ -1,4 +1,5 @@
 const fsP = require("fs/promises");
+const path = require("path");
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
@@ -9,8 +10,9 @@ const { InstanceModel } = require("./instance.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
+const { raccoonConfig } = require("@root/config-class");
 
-class StudyModel extends Model { 
+class StudyModel extends Model {
     async getNumberOfStudyRelatedSeries() {
         let count = await SeriesModel.count({
             where: {
@@ -38,7 +40,7 @@ class StudyModel extends Model {
     async deleteStudyFolder() {
         let studyPath = this.getDataValue("studyPath");
         logger.warn("Permanently delete study folder: " + studyPath);
-        await fsP.rm(studyPath, {
+        await fsP.rm(path.join(raccoonConfig.dicomWebConfig.storeRootPath, studyPath), {
             force: true,
             recursive: true
         });
@@ -174,7 +176,7 @@ StudyModel.getDicomJson = async function (queryOptions) {
     }));
 };
 
-StudyModel.getPathGroupOfInstances = async function(iParam) {
+StudyModel.getPathGroupOfInstances = async function (iParam) {
     let { studyUID } = iParam;
 
     try {
@@ -185,10 +187,10 @@ StudyModel.getPathGroupOfInstances = async function(iParam) {
             },
             attributes: ["instancePath", "x0020000D", "x0020000E", "x00080018"]
         });
-    
+
         let fullPathGroup = getStoreDicomFullPathGroup(instances);
 
-        return fullPathGroup.map(v=> {
+        return fullPathGroup.map(v => {
             _.set(v, "studyUID", v.x0020000D);
             _.set(v, "seriesUID", v.x0020000E);
             _.set(v, "instanceUID", v.x00080018);

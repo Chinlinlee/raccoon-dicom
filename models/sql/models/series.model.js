@@ -1,4 +1,5 @@
 const fsP = require("fs/promises");
+const path = require("path");
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
@@ -7,6 +8,7 @@ const _ = require("lodash");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
+const { raccoonConfig } = require("@root/config-class");
 
 class SeriesModel extends Model {
     getSeriesPath() {
@@ -22,7 +24,7 @@ class SeriesModel extends Model {
     async deleteSeriesFolder() {
         let seriesPath = this.getDataValue("seriesPath");
         logger.warn("Permanently delete series folder: " + seriesPath);
-        await fsP.rm(seriesPath, {
+        await fsP.rm(path.join(raccoonConfig.dicomWebConfig.storeRootPath, seriesPath), {
             force: true,
             recursive: true
         });
