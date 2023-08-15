@@ -289,6 +289,11 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
                     "00080016.Value": {
                         $nin: notImageSOPClass
                     }
+                },
+                {
+                    deleteStatus: {
+                        $eq: 0
+                    }
                 }
             ]
         };

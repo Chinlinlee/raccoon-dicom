@@ -1,3 +1,5 @@
+const fsP = require("fs/promises");
+const path = require("path");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
@@ -5,6 +7,7 @@ const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { getStoreDicomFullPathGroup, IncludeFieldsFactory } = require("../service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { raccoonConfig } = require("@root/config-class");
+const { logger } = require("@root/utils/logs/log");
 
 let dicomSeriesSchema = new mongoose.Schema(
     {
@@ -23,6 +26,10 @@ let dicomSeriesSchema = new mongoose.Schema(
         seriesPath: {
             type: String,
             default: void 0
+        },
+        deleteStatus: {
+            type: Number,
+            default: 0
         }
     },
     {
@@ -30,7 +37,22 @@ let dicomSeriesSchema = new mongoose.Schema(
         versionKey: false,
         toObject: {
             getters: true
-        }
+        },
+        methods: {
+            async incrementDeleteStatus() {
+                this.deleteStatus = this.deleteStatus + 1;
+                await this.save();
+            },
+            async deleteSeriesFolder() {
+                let seriesPath = this.seriesPath;
+                logger.warn("Permanently delete series folder: " + seriesPath);
+                await fsP.rm(path.join(raccoonConfig.dicomWebConfig.storeRootPath, seriesPath), {
+                    force: true,
+                    recursive: true
+                });
+            }
+        },
+        timestamps: true
     }
 );
 
@@ -69,14 +91,19 @@ dicomSeriesSchema.index({
  * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
  * @returns 
  */
-dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
+dicomSeriesSchema.statics.getDicomJson = async function (queryOptions) {
     let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
     let seriesFields = includeFieldsFactory.getSeriesLevelFields();
 
     try {
         let docs = await mongoose
             .model("dicomSeries")
-            .find(queryOptions.query, {
+            .find({
+                ...queryOptions.query,
+                deleteStatus: {
+                    $eq: 0
+                }
+            }, {
                 ...seriesFields
             })
             .setOptions({
@@ -86,7 +113,7 @@ dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
             .skip(queryOptions.skip)
             .exec();
 
-        
+
         let seriesDicomJson = docs.map((v) => {
             let obj = v.toObject();
             delete obj._id;
@@ -119,7 +146,7 @@ dicomSeriesSchema.statics.getDicomJson = async function(queryOptions) {
  * @param {string} iParam.studyUID
  * @param {string} iParam.seriesUID
  */
-dicomSeriesSchema.statics.getPathGroupOfInstances = async function(iParam) {
+dicomSeriesSchema.statics.getPathGroupOfInstances = async function (iParam) {
     let { studyUID, seriesUID } = iParam;
     try {
         let query = [
