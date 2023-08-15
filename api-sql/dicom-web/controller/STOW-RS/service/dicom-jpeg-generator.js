@@ -40,7 +40,6 @@ class SqlDicomJpegGenerator extends DicomJpegGenerator {
     }
 
     /**
-     * TODO
      * @private
      */
     async insertEndTask_() {
@@ -57,7 +56,6 @@ class SqlDicomJpegGenerator extends DicomJpegGenerator {
     }
 
     /**
-     * TODO
      * @private
      * @param {string} message 
      */
