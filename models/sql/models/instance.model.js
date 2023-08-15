@@ -1,3 +1,4 @@
+const fsP = require("fs/promises");
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const _ = require("lodash");
 const sequelizeInstance = require("@models/sql/instance");
@@ -5,8 +6,24 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 const { InstanceQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/instanceQueryBuilder");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { getStoreDicomFullPath } = require("@models/mongodb/service");
+const { logger } = require("@root/utils/logs/log");
 
-class InstanceModel extends Model { };
+class InstanceModel extends Model {
+    async incrementDeleteStatus() {
+        let deleteStatus = this.getDataValue("deleteStatus");
+        this.setDataValue("deleteStatus", deleteStatus + 1);
+        await this.save();
+    }
+
+    async deleteInstance() {
+        let instancePath = this.getDataValue("instancePath");
+        logger.warn("Permanently delete instance: " + instancePath);
+        await fsP.rm(instancePath, {
+            force: true,
+            recursive: true
+        });
+    }
+};
 
 InstanceModel.init({
     "instancePath": {
@@ -68,6 +85,10 @@ InstanceModel.init({
     },
     "json": {
         type: vrTypeMapping.JSON
+    },
+    "deleteStatus": {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 }, {
     sequelize: sequelizeInstance,
@@ -76,14 +97,17 @@ InstanceModel.init({
     freezeTableName: true
 });
 
-InstanceModel.getDicomJson = async function(queryOptions) {
+InstanceModel.getDicomJson = async function (queryOptions) {
     let queryBuilder = new InstanceQueryBuilder(queryOptions);
     let q = queryBuilder.build();
     let seriesArray = await InstanceModel.findAll({
         ...q,
         attributes: ["json", "x0020000D", "x0020000E", "x00080018"],
         limit: queryOptions.limit,
-        offset: queryOptions.skip
+        offset: queryOptions.skip,
+        where: {
+            deleteStatus: 0
+        }
     });
 
     return await Promise.all(seriesArray.map(async series => {
@@ -102,7 +126,7 @@ InstanceModel.getDicomJson = async function(queryOptions) {
     }));
 };
 
-InstanceModel.getPathOfInstance = async function(iParam) {
+InstanceModel.getPathOfInstance = async function (iParam) {
     let { studyUID, seriesUID, instanceUID } = iParam;
 
     try {
@@ -110,14 +134,15 @@ InstanceModel.getPathOfInstance = async function(iParam) {
             where: {
                 x0020000D: studyUID,
                 x0020000E: seriesUID,
-                x00080018: instanceUID
+                x00080018: instanceUID,
+                deleteStatus: 0
             }
         });
 
         if (instance) {
             let instanceJson = await instance.toJSON();
 
-            _.set(instanceJson, "instancePath",  getStoreDicomFullPath(instanceJson));
+            _.set(instanceJson, "instancePath", getStoreDicomFullPath(instanceJson));
             _.set(instanceJson, "studyUID", instanceJson.x0020000D);
             _.set(instanceJson, "seriesUID", instanceJson.x0020000E);
             _.set(instanceJson, "instanceUID", instanceJson.x00080018);
@@ -126,7 +151,7 @@ InstanceModel.getPathOfInstance = async function(iParam) {
         }
 
         return undefined;
-    } catch(e) {
+    } catch (e) {
         throw e;
     }
 };
@@ -134,13 +159,15 @@ InstanceModel.getPathOfInstance = async function(iParam) {
 InstanceModel.getInstanceOfMedianIndex = async function (query) {
     let instanceCountOfStudy = await InstanceModel.count({
         where: {
-            x0020000D: query.studyUID
+            x0020000D: query.studyUID,
+            deleteStatus: 0
         }
     });
 
     let instance = await InstanceModel.findOne({
         where: {
-            x0020000D: query.studyUID
+            x0020000D: query.studyUID,
+            deleteStatus: 0
         },
         attributes: ["x0020000D", "x0020000E", "x00080018", "instancePath"],
         offset: instanceCountOfStudy >> 1,

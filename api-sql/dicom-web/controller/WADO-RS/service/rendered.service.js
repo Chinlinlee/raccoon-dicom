@@ -162,7 +162,8 @@ async function getInstanceFrameObj(iParam, otherFields = {}) {
                 x00080018: instanceUID,
                 x00080016: {
                     [Op.notIn]: notImageSOPClass
-                }
+                },
+                deleteStatus: 0
             },
             attributes: [
                 "instancePath",

@@ -69,7 +69,8 @@ class StudyPersistentObject {
             x00200010 : this.x00200010,
             x00201206 : this.x00201206,
             x00201208 : this.x00201208,
-            studyPath: this.studyPath
+            studyPath: this.studyPath,
+            deleteStatus: 0
         };
 
         let [study, created] = await StudyModel.findOrCreate({

@@ -187,7 +187,8 @@ class InstancePersistentObject {
             x0040A491: this.x0040A491,
             x0040A493: this.x0040A493,
             x0040A730: this.x0040A730,
-            instancePath: this.instancePath
+            instancePath: this.instancePath,
+            deleteStatus: 0
         };
 
         let [instance, created] = await InstanceModel.findOrCreate({

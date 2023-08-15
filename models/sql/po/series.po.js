@@ -153,7 +153,8 @@ class SeriesPersistentObject {
             x00400244: this.x00400244,
             x00400245: this.x00400245 ? Number(this.x00400245) : undefined,
             x00080031: this.x00080031 ? Number(this.x00080031) : undefined,
-            seriesPath: this.seriesPath
+            seriesPath: this.seriesPath,
+            deleteStatus: 0
         };
 
         let [series, created] = await SeriesModel.findOrCreate({

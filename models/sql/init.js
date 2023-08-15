@@ -38,6 +38,7 @@ async function initDatabasePostgres() {
 }
 
 async function init() {
+    require("./deleteSchedule");
 
     if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
         await initDatabasePostgres();

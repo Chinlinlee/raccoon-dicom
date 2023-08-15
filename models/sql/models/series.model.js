@@ -1,3 +1,4 @@
+const fsP = require("fs/promises");
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
@@ -5,8 +6,28 @@ const { SeriesQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-
 const _ = require("lodash");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
+const { logger } = require("@root/utils/logs/log");
 
-class SeriesModel extends Model { };
+class SeriesModel extends Model {
+    getSeriesPath() {
+        return this.getDataValue("seriesPath");
+    }
+
+    async incrementDeleteStatus() {
+        let deleteStatus = this.getDataValue("deleteStatus");
+        this.setDataValue("deleteStatus", deleteStatus + 1);
+        await this.save();
+    }
+
+    async deleteSeriesFolder() {
+        let seriesPath = this.getDataValue("seriesPath");
+        logger.warn("Permanently delete series folder: " + seriesPath);
+        await fsP.rm(seriesPath, {
+            force: true,
+            recursive: true
+        });
+    }
+};
 
 SeriesModel.init({
     "seriesPath": {
@@ -69,6 +90,10 @@ SeriesModel.init({
     },
     "json": {
         type: vrTypeMapping.JSON
+    },
+    "deleteStatus": {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 }, {
     sequelize: sequelizeInstance,
@@ -84,7 +109,10 @@ SeriesModel.getDicomJson = async function(queryOptions) {
         ...q,
         attributes: ["json", "x0020000E"],
         limit: queryOptions.limit,
-        offset: queryOptions.skip
+        offset: queryOptions.skip,
+        where: {
+            deleteStatus: 0
+        }
     });
 
     return await Promise.all(seriesArray.map(async series => {
@@ -109,7 +137,8 @@ SeriesModel.getPathGroupOfInstances = async function(iParam) {
         let instances = await sequelizeInstance.model("Instance").findAll({
             where: {
                 x0020000D: studyUID,
-                x0020000E: seriesUID
+                x0020000E: seriesUID,
+                deleteStatus: 0
             },
             attributes: ["instancePath", "x0020000D", "x0020000E", "x00080018"]
         });

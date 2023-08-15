@@ -1,3 +1,4 @@
+const fsP = require("fs/promises");
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
@@ -7,6 +8,7 @@ const { StudyQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-R
 const { InstanceModel } = require("./instance.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
+const { logger } = require("@root/utils/logs/log");
 
 class StudyModel extends Model { 
     async getNumberOfStudyRelatedSeries() {
@@ -25,6 +27,21 @@ class StudyModel extends Model {
             }
         });
         return count;
+    }
+
+    async incrementDeleteStatus() {
+        let deleteStatus = this.getDataValue("deleteStatus");
+        this.setDataValue("deleteStatus", deleteStatus + 1);
+        await this.save();
+    }
+
+    async deleteStudyFolder() {
+        let studyPath = this.getDataValue("studyPath");
+        logger.warn("Permanently delete study folder: " + studyPath);
+        await fsP.rm(studyPath, {
+            force: true,
+            recursive: true
+        });
     }
 };
 
@@ -74,6 +91,10 @@ StudyModel.init({
     },
     "json": {
         type: vrTypeMapping.JSON
+    },
+    "deleteStatus": {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 }, {
     sequelize: sequelizeInstance,
@@ -85,7 +106,8 @@ StudyModel.init({
 StudyModel.updateModalitiesInStudy = async function (study) {
     let seriesArray = await SeriesModel.findAll({
         where: {
-            x0020000D: study.x0020000D
+            x0020000D: study.x0020000D,
+            deleteStatus: 0
         },
         attributes: [
             [Sequelize.fn("DISTINCT", Sequelize.col("x00080060")), "modality"]
@@ -115,7 +137,10 @@ StudyModel.getDicomJson = async function (queryOptions) {
         ...q,
         attributes: ["json"],
         limit: queryOptions.limit,
-        offset: queryOptions.skip
+        offset: queryOptions.skip,
+        where: {
+            deleteStatus: 0
+        }
     });
 
 
@@ -155,7 +180,8 @@ StudyModel.getPathGroupOfInstances = async function(iParam) {
     try {
         let instances = await sequelizeInstance.model("Instance").findAll({
             where: {
-                x0020000D: studyUID
+                x0020000D: studyUID,
+                deleteStatus: 0
             },
             attributes: ["instancePath", "x0020000D", "x0020000E", "x00080018"]
         });
