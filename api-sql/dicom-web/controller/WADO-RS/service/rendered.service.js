@@ -1,22 +1,69 @@
 const { 
-    postProcessFrameImage,
+    handleImageQuality,
+    handleViewport,
     writeRenderedImages,
     writeSpecificFramesRenderedImages,
     RenderedImageMultipartWriter
 } = require("@root/api/dicom-web/controller/WADO-RS/service/rendered.service");
-
+const fs = require("fs");
+const sharp = require("sharp");
 const path = require("path");
 const _ = require("lodash");
 const { MultipartWriter } = require("@root/utils/multipartWriter");
 const notImageSOPClass = require("@models/DICOM/dicomWEB/notImageSOPClass");
+const Magick = require("@models/magick");
+
 const errorResponse = require("@root/utils/errorResponse/errorResponseMessage");
 const { logger } = require("@root/utils/logs/log");
 
 const { raccoonConfig } = require("@root/config-class");
 const { Op } = require("sequelize");
 const { InstanceModel } = require("@models/sql/models/instance.model.js");
+const { DicomBulkDataModel } = require("@models/sql/models/dicomBulkData.model");
+const { default: Dcm2JpgExecutor } = require("@java-wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
+const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("@java-wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 
-//TODO: Add SQL version of handleImageICCProfile function
+/**
+ *
+ * @param {*} param The req.query
+ * @param {Magick} magick
+ * @param {string} instanceID
+ */
+async function handleImageICCProfile(param, magick, instanceID) {
+    let iccProfileAction = {
+        "no" : async ()=> {},
+        "yes": async ()=> {
+            let iccProfileBinaryFile = await DicomBulkDataModel.findOne({
+                where: {
+                    binaryValuePath: "00480105.Value.0.00282000.InlineBinary",
+                    instanceUID: instanceID
+                }
+            });
+            if(!iccProfileBinaryFile) throw new Error("The Image dose not have icc profile tag");
+            let iccProfileSrc = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename);
+            let dest = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename + `.icc`);
+            if (!fs.existsSync(dest)) fs.copyFileSync(iccProfileSrc, dest);
+            magick.iccProfile(dest);
+        },
+        "srgb": async ()=> {
+            magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/sRGB.icc"));
+        },
+        "adobergb": async () => {
+            magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/adobeRGB.icc"));
+        },
+        "rommrgb": async ()=> {
+            magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/rommRGB.icc"));
+        }
+    };
+    try {
+        if (param.iccprofile) {
+            await iccProfileAction[param.iccprofile]();
+        }
+    } catch(e) {
+        console.error("set icc profile error:" , e);
+        throw e;
+    }
+}
 
 class FramesWriter {
     /**
@@ -198,7 +245,67 @@ async function getInstanceFrameObj(iParam, otherFields = {}) {
     }
 }
 
-//TODO: Add SQL version of postProcessFrameImage function
+/**
+ * 
+ * @param {import("http").IncomingMessage} req 
+ * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj} instanceFramesObj 
+ * @returns 
+ */
+async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
+    try {
+
+        let dicomFilename = instanceFramesObj.instancePath;
+        let jpegFile = dicomFilename.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
+
+        
+
+        let dcm2jpgOptions = await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync();
+        dcm2jpgOptions.frameNumber = frameNumber;
+        let getFrameImageStatus = await Dcm2JpgExecutor.convertDcmToJpgFromFilename(
+            dicomFilename,
+            jpegFile,
+            dcm2jpgOptions
+        );
+
+        if (getFrameImageStatus.status) {
+            let imageSharp = sharp(jpegFile);
+            let magick = new Magick(jpegFile);
+            handleImageQuality(
+                req.query,
+                magick
+            );
+            await handleImageICCProfile(
+                req.query,
+                magick,
+                instanceFramesObj.instanceUID
+            );
+            await handleViewport(
+                req.query,
+                imageSharp,
+                magick
+            );
+            await magick.execCommand();
+            return {
+                status: true,
+                message: "process successful",
+                magick: magick
+            };
+        }
+        return {
+            status: false,
+            message: "get frame image failed",
+            magick: undefined
+        };
+    } catch(e) {
+        console.error(e);
+        return {
+            status: false,
+            message: e,
+            magick: undefined
+        };
+    }
+}
+
 
 module.exports.postProcessFrameImage = postProcessFrameImage;
 module.exports.writeRenderedImages = writeRenderedImages;
