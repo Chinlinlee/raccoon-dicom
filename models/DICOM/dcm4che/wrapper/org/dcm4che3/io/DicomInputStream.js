@@ -15,4 +15,3 @@ class DicomInputStream extends (0, java_bridge_1.importClass)('org.dcm4che3.io.D
 }
 exports.DicomInputStream = DicomInputStream;
 exports.default = DicomInputStream;
-//# sourceMappingURL=DicomInputStream.js.map

@@ -34,4 +34,3 @@ class LongPredicate extends (0, java_bridge_1.importClass)('java.util.function.L
 }
 exports.LongPredicate = LongPredicate;
 exports.default = LongPredicate;
-//# sourceMappingURL=LongPredicate.js.map

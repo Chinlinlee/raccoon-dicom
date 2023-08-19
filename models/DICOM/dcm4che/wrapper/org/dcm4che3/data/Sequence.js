@@ -15,4 +15,3 @@ class Sequence extends (0, java_bridge_1.importClass)('org.dcm4che3.data.Sequenc
 }
 exports.Sequence = Sequence;
 exports.default = Sequence;
-//# sourceMappingURL=Sequence.js.map

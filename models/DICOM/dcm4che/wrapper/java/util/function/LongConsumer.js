@@ -34,4 +34,3 @@ class LongConsumer extends (0, java_bridge_1.importClass)('java.util.function.Lo
 }
 exports.LongConsumer = LongConsumer;
 exports.default = LongConsumer;
-//# sourceMappingURL=LongConsumer.js.map

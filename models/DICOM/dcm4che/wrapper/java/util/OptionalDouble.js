@@ -15,4 +15,3 @@ class OptionalDouble extends (0, java_bridge_1.importClass)('java.util.OptionalD
 }
 exports.OptionalDouble = OptionalDouble;
 exports.default = OptionalDouble;
-//# sourceMappingURL=OptionalDouble.js.map

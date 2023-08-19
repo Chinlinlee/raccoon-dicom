@@ -15,4 +15,3 @@ class MethodHandles$Lookup extends (0, java_bridge_1.importClass)('java.lang.inv
 }
 exports.MethodHandles$Lookup = MethodHandles$Lookup;
 exports.default = MethodHandles$Lookup;
-//# sourceMappingURL=MethodHandles$Lookup.js.map

@@ -34,4 +34,3 @@ class BinaryOperator extends (0, java_bridge_1.importClass)('java.util.function.
 }
 exports.BinaryOperator = BinaryOperator;
 exports.default = BinaryOperator;
-//# sourceMappingURL=BinaryOperator.js.map

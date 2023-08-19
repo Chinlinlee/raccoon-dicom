@@ -22,4 +22,3 @@ class SelectionKey extends (0, java_bridge_1.importClass)('java.nio.channels.Sel
 }
 exports.SelectionKey = SelectionKey;
 exports.default = SelectionKey;
-//# sourceMappingURL=SelectionKey.js.map

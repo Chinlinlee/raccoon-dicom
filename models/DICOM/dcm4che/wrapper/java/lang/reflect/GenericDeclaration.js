@@ -34,4 +34,3 @@ class GenericDeclaration extends (0, java_bridge_1.importClass)('java.lang.refle
 }
 exports.GenericDeclaration = GenericDeclaration;
 exports.default = GenericDeclaration;
-//# sourceMappingURL=GenericDeclaration.js.map

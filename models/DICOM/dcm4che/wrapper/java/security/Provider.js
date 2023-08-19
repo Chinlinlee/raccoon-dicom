@@ -22,4 +22,3 @@ class Provider extends (0, java_bridge_1.importClass)('java.security.Provider') 
 }
 exports.Provider = Provider;
 exports.default = Provider;
-//# sourceMappingURL=Provider.js.map

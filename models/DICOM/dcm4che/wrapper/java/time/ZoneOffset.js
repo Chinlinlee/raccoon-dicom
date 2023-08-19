@@ -15,4 +15,3 @@ class ZoneOffset extends (0, java_bridge_1.importClass)('java.time.ZoneOffset') 
 }
 exports.ZoneOffset = ZoneOffset;
 exports.default = ZoneOffset;
-//# sourceMappingURL=ZoneOffset.js.map

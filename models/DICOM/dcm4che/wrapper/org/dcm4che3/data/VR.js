@@ -15,4 +15,3 @@ class VR extends (0, java_bridge_1.importClass)('org.dcm4che3.data.VR') {
 }
 exports.VR = VR;
 exports.default = VR;
-//# sourceMappingURL=VR.js.map

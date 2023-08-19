@@ -45,30 +45,6 @@ export declare class CodeClass extends JavaClass {
      */
     keySync(): org_dcm4che3_data_Code$Key | null;
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodingSchemeDesignator(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodingSchemeDesignatorSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodingSchemeVersion(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodingSchemeVersionSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodeValue(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCodeValueSync(): string | null;
-    /**
      * @param var0 original type: 'org.dcm4che3.data.Code'
      * @return original return type: 'boolean'
      */
@@ -81,11 +57,27 @@ export declare class CodeClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
-    getCodeMeaning(): Promise<string | null>;
+    getCodingSchemeVersion(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getCodeMeaningSync(): string | null;
+    getCodingSchemeVersionSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodingSchemeDesignator(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodingSchemeDesignatorSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodeValue(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodeValueSync(): string | null;
     /**
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
@@ -94,6 +86,14 @@ export declare class CodeClass extends JavaClass {
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
     toItemSync(): org_dcm4che3_data_Attributes | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodeMeaning(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCodeMeaningSync(): string | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

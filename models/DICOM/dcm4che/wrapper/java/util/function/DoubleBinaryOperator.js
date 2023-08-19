@@ -34,4 +34,3 @@ class DoubleBinaryOperator extends (0, java_bridge_1.importClass)('java.util.fun
 }
 exports.DoubleBinaryOperator = DoubleBinaryOperator;
 exports.default = DoubleBinaryOperator;
-//# sourceMappingURL=DoubleBinaryOperator.js.map

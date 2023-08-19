@@ -34,4 +34,3 @@ class URLStreamHandlerFactory extends (0, java_bridge_1.importClass)('java.net.U
 }
 exports.URLStreamHandlerFactory = URLStreamHandlerFactory;
 exports.default = URLStreamHandlerFactory;
-//# sourceMappingURL=URLStreamHandlerFactory.js.map

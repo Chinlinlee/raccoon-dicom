@@ -22,4 +22,3 @@ class SelectableChannel extends (0, java_bridge_1.importClass)('java.nio.channel
 }
 exports.SelectableChannel = SelectableChannel;
 exports.default = SelectableChannel;
-//# sourceMappingURL=SelectableChannel.js.map

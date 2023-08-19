@@ -34,4 +34,3 @@ class CompletionHandler extends (0, java_bridge_1.importClass)('java.nio.channel
 }
 exports.CompletionHandler = CompletionHandler;
 exports.default = CompletionHandler;
-//# sourceMappingURL=CompletionHandler.js.map

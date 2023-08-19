@@ -15,4 +15,3 @@ class ValidationResult$Invalid extends (0, java_bridge_1.importClass)('org.dcm4c
 }
 exports.ValidationResult$Invalid = ValidationResult$Invalid;
 exports.default = ValidationResult$Invalid;
-//# sourceMappingURL=ValidationResult$Invalid.js.map

@@ -15,4 +15,3 @@ class Proxy$Type extends (0, java_bridge_1.importClass)('java.net.Proxy$Type') {
 }
 exports.Proxy$Type = Proxy$Type;
 exports.default = Proxy$Type;
-//# sourceMappingURL=Proxy$Type.js.map

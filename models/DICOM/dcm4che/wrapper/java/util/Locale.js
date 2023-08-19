@@ -15,4 +15,3 @@ class Locale extends (0, java_bridge_1.importClass)('java.util.Locale') {
 }
 exports.Locale = Locale;
 exports.default = Locale;
-//# sourceMappingURL=Locale.js.map

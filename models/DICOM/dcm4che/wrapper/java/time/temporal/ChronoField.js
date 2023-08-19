@@ -15,4 +15,3 @@ class ChronoField extends (0, java_bridge_1.importClass)('java.time.temporal.Chr
 }
 exports.ChronoField = ChronoField;
 exports.default = ChronoField;
-//# sourceMappingURL=ChronoField.js.map

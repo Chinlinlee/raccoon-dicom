@@ -34,4 +34,3 @@ class ChronoPeriod extends (0, java_bridge_1.importClass)('java.time.chrono.Chro
 }
 exports.ChronoPeriod = ChronoPeriod;
 exports.default = ChronoPeriod;
-//# sourceMappingURL=ChronoPeriod.js.map

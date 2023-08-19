@@ -15,4 +15,3 @@ class Module extends (0, java_bridge_1.importClass)('java.lang.Module') {
 }
 exports.Module = Module;
 exports.default = Module;
-//# sourceMappingURL=Module.js.map

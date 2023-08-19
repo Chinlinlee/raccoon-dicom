@@ -34,4 +34,3 @@ class LongStream extends (0, java_bridge_1.importClass)('java.util.stream.LongSt
 }
 exports.LongStream = LongStream;
 exports.default = LongStream;
-//# sourceMappingURL=LongStream.js.map

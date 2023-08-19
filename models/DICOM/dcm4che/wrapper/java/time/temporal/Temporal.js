@@ -34,4 +34,3 @@ class Temporal extends (0, java_bridge_1.importClass)('java.time.temporal.Tempor
 }
 exports.Temporal = Temporal;
 exports.default = Temporal;
-//# sourceMappingURL=Temporal.js.map

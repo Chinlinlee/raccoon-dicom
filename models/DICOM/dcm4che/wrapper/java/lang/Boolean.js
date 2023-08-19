@@ -15,4 +15,3 @@ class Boolean extends (0, java_bridge_1.importClass)('java.lang.Boolean') {
 }
 exports.Boolean = Boolean;
 exports.default = Boolean;
-//# sourceMappingURL=Boolean.js.map

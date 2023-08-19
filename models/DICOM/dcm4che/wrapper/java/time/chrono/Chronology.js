@@ -34,4 +34,3 @@ class Chronology extends (0, java_bridge_1.importClass)('java.time.chrono.Chrono
 }
 exports.Chronology = Chronology;
 exports.default = Chronology;
-//# sourceMappingURL=Chronology.js.map

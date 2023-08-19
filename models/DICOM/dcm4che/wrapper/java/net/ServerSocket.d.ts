@@ -3,11 +3,11 @@ import { Socket as java_net_Socket } from "./Socket";
 import { SocketAddress as java_net_SocketAddress } from "./SocketAddress";
 import { Integer as java_lang_Integer } from "./../lang/Integer";
 import { ServerSocketChannel as java_nio_channels_ServerSocketChannel } from "./../nio/channels/ServerSocketChannel";
-import { InetAddress as java_net_InetAddress } from "./InetAddress";
 import { SocketOption as java_net_SocketOption, SocketOptionInterface as java_net_SocketOptionInterface } from "./SocketOption";
 import { Set as java_util_Set } from "./../util/Set";
 import { Boolean as java_lang_Boolean } from "./../lang/Boolean";
 import { SocketImplFactory as java_net_SocketImplFactory, SocketImplFactoryInterface as java_net_SocketImplFactoryInterface } from "./SocketImplFactory";
+import { InetAddress as java_net_InetAddress } from "./InetAddress";
 import { Long as java_lang_Long } from "./../lang/Long";
 import { Class as java_lang_Class } from "./../lang/Class";
 /**
@@ -87,14 +87,6 @@ export declare class ServerSocketClass extends JavaClass {
      */
     isBoundSync(): boolean;
     /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getInetAddress(): Promise<java_net_InetAddress | null>;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getInetAddressSync(): java_net_InetAddress | null;
-    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @return original return type: 'java.lang.Object'
      */
@@ -132,14 +124,6 @@ export declare class ServerSocketClass extends JavaClass {
      * @return original return type: 'java.util.Set'
      */
     supportedOptionsSync(): java_util_Set | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddressSync(): java_net_SocketAddress | null;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'void'
@@ -219,6 +203,22 @@ export declare class ServerSocketClass extends JavaClass {
      */
     static setSocketFactorySync(var0: java_net_SocketImplFactory | JavaInterfaceProxy<java_net_SocketImplFactoryInterface> | null): void;
     /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddress(): Promise<java_net_InetAddress | null>;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddressSync(): java_net_InetAddress | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddressSync(): java_net_SocketAddress | null;
+    /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
      * @return original return type: 'void'
@@ -296,22 +296,22 @@ export declare class ServerSocketClass extends JavaClass {
      * @param var2 original type: 'java.net.InetAddress'
      * @return original return type: 'java.net.ServerSocket'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_net_InetAddress | null): Promise<ServerSocket>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_net_InetAddress | null): Promise<ServerSocket>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'java.net.ServerSocket'
      */
-    static newInstance(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<ServerSocket>;
+    static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<ServerSocket>;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.net.ServerSocket'
      */
-    static newInstance(var0: java_lang_Integer | number): Promise<ServerSocket>;
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<ServerSocket>;
     /**
      * @return original return type: 'java.net.ServerSocket'
      */
-    static newInstance(): Promise<ServerSocket>;
+    static newInstanceAsync(): Promise<ServerSocket>;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'

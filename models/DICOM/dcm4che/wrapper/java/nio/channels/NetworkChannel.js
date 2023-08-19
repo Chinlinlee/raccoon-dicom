@@ -34,4 +34,3 @@ class NetworkChannel extends (0, java_bridge_1.importClass)('java.nio.channels.N
 }
 exports.NetworkChannel = NetworkChannel;
 exports.default = NetworkChannel;
-//# sourceMappingURL=NetworkChannel.js.map

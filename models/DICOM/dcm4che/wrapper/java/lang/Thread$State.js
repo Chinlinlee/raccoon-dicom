@@ -15,4 +15,3 @@ class Thread$State extends (0, java_bridge_1.importClass)('java.lang.Thread$Stat
 }
 exports.Thread$State = Thread$State;
 exports.default = Thread$State;
-//# sourceMappingURL=Thread$State.js.map

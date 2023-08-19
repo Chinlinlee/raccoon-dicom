@@ -15,4 +15,3 @@ class Optional extends (0, java_bridge_1.importClass)('java.util.Optional') {
 }
 exports.Optional = Optional;
 exports.default = Optional;
-//# sourceMappingURL=Optional.js.map

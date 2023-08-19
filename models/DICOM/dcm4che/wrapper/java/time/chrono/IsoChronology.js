@@ -15,4 +15,3 @@ class IsoChronology extends (0, java_bridge_1.importClass)('java.time.chrono.Iso
 }
 exports.IsoChronology = IsoChronology;
 exports.default = IsoChronology;
-//# sourceMappingURL=IsoChronology.js.map

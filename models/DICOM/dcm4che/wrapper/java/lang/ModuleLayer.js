@@ -15,4 +15,3 @@ class ModuleLayer extends (0, java_bridge_1.importClass)('java.lang.ModuleLayer'
 }
 exports.ModuleLayer = ModuleLayer;
 exports.default = ModuleLayer;
-//# sourceMappingURL=ModuleLayer.js.map

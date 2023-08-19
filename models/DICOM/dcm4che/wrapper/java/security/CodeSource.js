@@ -15,4 +15,3 @@ class CodeSource extends (0, java_bridge_1.importClass)('java.security.CodeSourc
 }
 exports.CodeSource = CodeSource;
 exports.default = CodeSource;
-//# sourceMappingURL=CodeSource.js.map

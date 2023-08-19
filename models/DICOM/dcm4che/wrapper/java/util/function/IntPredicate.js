@@ -34,4 +34,3 @@ class IntPredicate extends (0, java_bridge_1.importClass)('java.util.function.In
 }
 exports.IntPredicate = IntPredicate;
 exports.default = IntPredicate;
-//# sourceMappingURL=IntPredicate.js.map

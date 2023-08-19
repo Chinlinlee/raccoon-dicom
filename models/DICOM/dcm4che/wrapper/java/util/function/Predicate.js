@@ -34,4 +34,3 @@ class Predicate extends (0, java_bridge_1.importClass)('java.util.function.Predi
 }
 exports.Predicate = Predicate;
 exports.default = Predicate;
-//# sourceMappingURL=Predicate.js.map

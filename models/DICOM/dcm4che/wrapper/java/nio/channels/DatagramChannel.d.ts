@@ -148,14 +148,6 @@ export declare class DatagramChannelClass extends JavaClass {
      */
     isConnectedSync(): boolean;
     /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddressSync(): java_net_SocketAddress | null;
-    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'java.nio.channels.DatagramChannel'
@@ -213,16 +205,6 @@ export declare class DatagramChannelClass extends JavaClass {
     disconnectSync(): DatagramChannel | null;
     /**
      * @param var0 original type: 'java.nio.ByteBuffer'
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    receive(var0: java_nio_ByteBuffer | null): Promise<java_net_SocketAddress | null>;
-    /**
-     * @param var0 original type: 'java.nio.ByteBuffer'
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    receiveSync(var0: java_nio_ByteBuffer | null): java_net_SocketAddress | null;
-    /**
-     * @param var0 original type: 'java.nio.ByteBuffer'
      * @param var1 original type: 'java.net.SocketAddress'
      * @return original return type: 'int'
      */
@@ -233,6 +215,24 @@ export declare class DatagramChannelClass extends JavaClass {
      * @return original return type: 'int'
      */
     sendSync(var0: java_nio_ByteBuffer | null, var1: java_net_SocketAddress | null): number;
+    /**
+     * @param var0 original type: 'java.nio.ByteBuffer'
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    receive(var0: java_nio_ByteBuffer | null): Promise<java_net_SocketAddress | null>;
+    /**
+     * @param var0 original type: 'java.nio.ByteBuffer'
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    receiveSync(var0: java_nio_ByteBuffer | null): java_net_SocketAddress | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */

@@ -22,4 +22,3 @@ class FileStore extends (0, java_bridge_1.importClass)('java.nio.file.FileStore'
 }
 exports.FileStore = FileStore;
 exports.default = FileStore;
-//# sourceMappingURL=FileStore.js.map

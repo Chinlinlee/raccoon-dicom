@@ -22,4 +22,3 @@ class TimeZone extends (0, java_bridge_1.importClass)('java.util.TimeZone') {
 }
 exports.TimeZone = TimeZone;
 exports.default = TimeZone;
-//# sourceMappingURL=TimeZone.js.map

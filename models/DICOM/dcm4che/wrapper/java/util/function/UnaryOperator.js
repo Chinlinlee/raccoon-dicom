@@ -34,4 +34,3 @@ class UnaryOperator extends (0, java_bridge_1.importClass)('java.util.function.U
 }
 exports.UnaryOperator = UnaryOperator;
 exports.default = UnaryOperator;
-//# sourceMappingURL=UnaryOperator.js.map

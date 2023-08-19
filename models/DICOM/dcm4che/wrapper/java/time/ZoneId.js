@@ -22,4 +22,3 @@ class ZoneId extends (0, java_bridge_1.importClass)('java.time.ZoneId') {
 }
 exports.ZoneId = ZoneId;
 exports.default = ZoneId;
-//# sourceMappingURL=ZoneId.js.map

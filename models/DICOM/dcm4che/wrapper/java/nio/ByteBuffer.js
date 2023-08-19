@@ -22,4 +22,3 @@ class ByteBuffer extends (0, java_bridge_1.importClass)('java.nio.ByteBuffer') {
 }
 exports.ByteBuffer = ByteBuffer;
 exports.default = ByteBuffer;
-//# sourceMappingURL=ByteBuffer.js.map

@@ -15,4 +15,3 @@ class Period extends (0, java_bridge_1.importClass)('java.time.Period') {
 }
 exports.Period = Period;
 exports.default = Period;
-//# sourceMappingURL=Period.js.map

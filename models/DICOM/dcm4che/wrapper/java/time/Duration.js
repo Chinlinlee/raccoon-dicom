@@ -15,4 +15,3 @@ class Duration extends (0, java_bridge_1.importClass)('java.time.Duration') {
 }
 exports.Duration = Duration;
 exports.default = Duration;
-//# sourceMappingURL=Duration.js.map

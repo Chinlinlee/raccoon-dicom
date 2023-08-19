@@ -15,4 +15,3 @@ class ModuleDescriptor$Version extends (0, java_bridge_1.importClass)('java.lang
 }
 exports.ModuleDescriptor$Version = ModuleDescriptor$Version;
 exports.default = ModuleDescriptor$Version;
-//# sourceMappingURL=ModuleDescriptor$Version.js.map

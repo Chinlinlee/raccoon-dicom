@@ -59,7 +59,8 @@
     "@java-wrapper": "./models/DICOM/dcm4che/wrapper",
     "@models": "./models",
     "@error": "./error",
-    "@root": "./"
+    "@root": "./",
+    "@chinlinlee": "./models/DICOM/dcm4che/wrapper/org/github/chinlinlee"
   },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",

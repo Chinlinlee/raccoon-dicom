@@ -15,4 +15,3 @@ class Constructor extends (0, java_bridge_1.importClass)('java.lang.reflect.Cons
 }
 exports.Constructor = Constructor;
 exports.default = Constructor;
-//# sourceMappingURL=Constructor.js.map

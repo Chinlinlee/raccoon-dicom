@@ -34,4 +34,3 @@ class List extends (0, java_bridge_1.importClass)('java.util.List') {
 }
 exports.List = List;
 exports.default = List;
-//# sourceMappingURL=List.js.map

@@ -29,14 +29,6 @@ export declare class NetworkChannelClass extends JavaClass {
      */
     getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
     /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddressSync(): java_net_SocketAddress | null;
-    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'java.nio.channels.NetworkChannel'
@@ -56,6 +48,14 @@ export declare class NetworkChannelClass extends JavaClass {
      * @return original return type: 'java.util.Set'
      */
     supportedOptionsSync(): java_util_Set | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -96,10 +96,6 @@ export interface NetworkChannelInterface {
      */
     getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
     /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): java_net_SocketAddress | null;
-    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'java.nio.channels.NetworkChannel'
@@ -109,6 +105,10 @@ export interface NetworkChannelInterface {
      * @return original return type: 'java.util.Set'
      */
     supportedOptions(): java_util_Set | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */

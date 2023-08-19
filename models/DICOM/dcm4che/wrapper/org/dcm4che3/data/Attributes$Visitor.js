@@ -34,4 +34,3 @@ class Attributes$Visitor extends (0, java_bridge_1.importClass)('org.dcm4che3.da
 }
 exports.Attributes$Visitor = Attributes$Visitor;
 exports.default = Attributes$Visitor;
-//# sourceMappingURL=Attributes$Visitor.js.map

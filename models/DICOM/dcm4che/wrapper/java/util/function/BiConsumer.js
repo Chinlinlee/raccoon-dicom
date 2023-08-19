@@ -34,4 +34,3 @@ class BiConsumer extends (0, java_bridge_1.importClass)('java.util.function.BiCo
 }
 exports.BiConsumer = BiConsumer;
 exports.default = BiConsumer;
-//# sourceMappingURL=BiConsumer.js.map

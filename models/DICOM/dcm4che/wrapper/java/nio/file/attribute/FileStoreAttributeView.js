@@ -34,4 +34,3 @@ class FileStoreAttributeView extends (0, java_bridge_1.importClass)('java.nio.fi
 }
 exports.FileStoreAttributeView = FileStoreAttributeView;
 exports.default = FileStoreAttributeView;
-//# sourceMappingURL=FileStoreAttributeView.js.map

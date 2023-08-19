@@ -22,4 +22,3 @@ class PermissionCollection extends (0, java_bridge_1.importClass)('java.security
 }
 exports.PermissionCollection = PermissionCollection;
 exports.default = PermissionCollection;
-//# sourceMappingURL=PermissionCollection.js.map

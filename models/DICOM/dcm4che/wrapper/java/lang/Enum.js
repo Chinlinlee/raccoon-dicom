@@ -22,4 +22,3 @@ class Enum extends (0, java_bridge_1.importClass)('java.lang.Enum') {
 }
 exports.Enum = Enum;
 exports.default = Enum;
-//# sourceMappingURL=Enum.js.map

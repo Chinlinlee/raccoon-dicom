@@ -15,4 +15,3 @@ class CodingErrorAction extends (0, java_bridge_1.importClass)('java.nio.charset
 }
 exports.CodingErrorAction = CodingErrorAction;
 exports.default = CodingErrorAction;
-//# sourceMappingURL=CodingErrorAction.js.map

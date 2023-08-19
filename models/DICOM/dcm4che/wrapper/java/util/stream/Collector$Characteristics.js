@@ -15,4 +15,3 @@ class Collector$Characteristics extends (0, java_bridge_1.importClass)('java.uti
 }
 exports.Collector$Characteristics = Collector$Characteristics;
 exports.default = Collector$Characteristics;
-//# sourceMappingURL=Collector$Characteristics.js.map

@@ -34,4 +34,3 @@ class Member extends (0, java_bridge_1.importClass)('java.lang.reflect.Member') 
 }
 exports.Member = Member;
 exports.default = Member;
-//# sourceMappingURL=Member.js.map

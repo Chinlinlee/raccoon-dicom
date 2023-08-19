@@ -15,4 +15,3 @@ class RecordComponent extends (0, java_bridge_1.importClass)('java.lang.reflect.
 }
 exports.RecordComponent = RecordComponent;
 exports.default = RecordComponent;
-//# sourceMappingURL=RecordComponent.js.map

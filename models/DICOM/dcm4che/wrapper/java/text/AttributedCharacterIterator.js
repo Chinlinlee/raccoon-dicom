@@ -34,4 +34,3 @@ class AttributedCharacterIterator extends (0, java_bridge_1.importClass)('java.t
 }
 exports.AttributedCharacterIterator = AttributedCharacterIterator;
 exports.default = AttributedCharacterIterator;
-//# sourceMappingURL=AttributedCharacterIterator.js.map

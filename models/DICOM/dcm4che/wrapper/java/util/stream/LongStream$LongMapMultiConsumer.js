@@ -34,4 +34,3 @@ class LongStream$LongMapMultiConsumer extends (0, java_bridge_1.importClass)('ja
 }
 exports.LongStream$LongMapMultiConsumer = LongStream$LongMapMultiConsumer;
 exports.default = LongStream$LongMapMultiConsumer;
-//# sourceMappingURL=LongStream$LongMapMultiConsumer.js.map

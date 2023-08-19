@@ -34,4 +34,3 @@ class BasicFileAttributes extends (0, java_bridge_1.importClass)('java.nio.file.
 }
 exports.BasicFileAttributes = BasicFileAttributes;
 exports.default = BasicFileAttributes;
-//# sourceMappingURL=BasicFileAttributes.js.map

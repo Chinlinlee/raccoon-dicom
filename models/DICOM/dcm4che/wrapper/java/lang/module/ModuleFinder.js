@@ -34,4 +34,3 @@ class ModuleFinder extends (0, java_bridge_1.importClass)('java.lang.module.Modu
 }
 exports.ModuleFinder = ModuleFinder;
 exports.default = ModuleFinder;
-//# sourceMappingURL=ModuleFinder.js.map

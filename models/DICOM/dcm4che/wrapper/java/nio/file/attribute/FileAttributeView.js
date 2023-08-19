@@ -34,4 +34,3 @@ class FileAttributeView extends (0, java_bridge_1.importClass)('java.nio.file.at
 }
 exports.FileAttributeView = FileAttributeView;
 exports.default = FileAttributeView;
-//# sourceMappingURL=FileAttributeView.js.map

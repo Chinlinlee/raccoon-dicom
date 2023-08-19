@@ -34,4 +34,3 @@ class TypeDescriptor$OfField extends (0, java_bridge_1.importClass)('java.lang.i
 }
 exports.TypeDescriptor$OfField = TypeDescriptor$OfField;
 exports.default = TypeDescriptor$OfField;
-//# sourceMappingURL=TypeDescriptor$OfField.js.map

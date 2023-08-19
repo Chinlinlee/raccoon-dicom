@@ -15,4 +15,3 @@ class Format$Field extends (0, java_bridge_1.importClass)('java.text.Format$Fiel
 }
 exports.Format$Field = Format$Field;
 exports.default = Format$Field;
-//# sourceMappingURL=Format$Field.js.map

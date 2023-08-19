@@ -34,4 +34,3 @@ class LongToIntFunction extends (0, java_bridge_1.importClass)('java.util.functi
 }
 exports.LongToIntFunction = LongToIntFunction;
 exports.default = LongToIntFunction;
-//# sourceMappingURL=LongToIntFunction.js.map

@@ -34,4 +34,3 @@ class PublicKey extends (0, java_bridge_1.importClass)('java.security.PublicKey'
 }
 exports.PublicKey = PublicKey;
 exports.default = PublicKey;
-//# sourceMappingURL=PublicKey.js.map

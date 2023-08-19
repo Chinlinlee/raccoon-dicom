@@ -15,4 +15,3 @@ class VR$Holder extends (0, java_bridge_1.importClass)('org.dcm4che3.data.VR$Hol
 }
 exports.VR$Holder = VR$Holder;
 exports.default = VR$Holder;
-//# sourceMappingURL=VR$Holder.js.map

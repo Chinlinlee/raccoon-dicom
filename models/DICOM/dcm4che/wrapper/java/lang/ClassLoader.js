@@ -22,4 +22,3 @@ class ClassLoader extends (0, java_bridge_1.importClass)('java.lang.ClassLoader'
 }
 exports.ClassLoader = ClassLoader;
 exports.default = ClassLoader;
-//# sourceMappingURL=ClassLoader.js.map

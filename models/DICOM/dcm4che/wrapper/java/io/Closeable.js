@@ -34,4 +34,3 @@ class Closeable extends (0, java_bridge_1.importClass)('java.io.Closeable') {
 }
 exports.Closeable = Closeable;
 exports.default = Closeable;
-//# sourceMappingURL=Closeable.js.map

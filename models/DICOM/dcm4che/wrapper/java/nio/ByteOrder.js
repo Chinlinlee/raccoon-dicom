@@ -15,4 +15,3 @@ class ByteOrder extends (0, java_bridge_1.importClass)('java.nio.ByteOrder') {
 }
 exports.ByteOrder = ByteOrder;
 exports.default = ByteOrder;
-//# sourceMappingURL=ByteOrder.js.map

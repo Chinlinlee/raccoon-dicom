@@ -34,4 +34,3 @@ class ObjDoubleConsumer extends (0, java_bridge_1.importClass)('java.util.functi
 }
 exports.ObjDoubleConsumer = ObjDoubleConsumer;
 exports.default = ObjDoubleConsumer;
-//# sourceMappingURL=ObjDoubleConsumer.js.map

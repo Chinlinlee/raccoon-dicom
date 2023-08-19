@@ -15,4 +15,3 @@ class Method extends (0, java_bridge_1.importClass)('java.lang.reflect.Method') 
 }
 exports.Method = Method;
 exports.default = Method;
-//# sourceMappingURL=Method.js.map

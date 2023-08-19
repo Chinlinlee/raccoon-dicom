@@ -34,4 +34,3 @@ class TypeDescriptor$OfMethod extends (0, java_bridge_1.importClass)('java.lang.
 }
 exports.TypeDescriptor$OfMethod = TypeDescriptor$OfMethod;
 exports.default = TypeDescriptor$OfMethod;
-//# sourceMappingURL=TypeDescriptor$OfMethod.js.map

@@ -22,4 +22,3 @@ class Selector extends (0, java_bridge_1.importClass)('java.nio.channels.Selecto
 }
 exports.Selector = Selector;
 exports.default = Selector;
-//# sourceMappingURL=Selector.js.map

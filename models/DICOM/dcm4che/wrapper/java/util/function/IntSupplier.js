@@ -34,4 +34,3 @@ class IntSupplier extends (0, java_bridge_1.importClass)('java.util.function.Int
 }
 exports.IntSupplier = IntSupplier;
 exports.default = IntSupplier;
-//# sourceMappingURL=IntSupplier.js.map

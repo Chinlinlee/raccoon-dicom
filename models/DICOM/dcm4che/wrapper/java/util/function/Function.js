@@ -34,4 +34,3 @@ class Function extends (0, java_bridge_1.importClass)('java.util.function.Functi
 }
 exports.Function = Function;
 exports.default = Function;
-//# sourceMappingURL=Function.js.map

@@ -22,4 +22,3 @@ class Executable extends (0, java_bridge_1.importClass)('java.lang.reflect.Execu
 }
 exports.Executable = Executable;
 exports.default = Executable;
-//# sourceMappingURL=Executable.js.map

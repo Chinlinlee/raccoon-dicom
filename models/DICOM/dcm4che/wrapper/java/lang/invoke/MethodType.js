@@ -15,4 +15,3 @@ class MethodType extends (0, java_bridge_1.importClass)('java.lang.invoke.Method
 }
 exports.MethodType = MethodType;
 exports.default = MethodType;
-//# sourceMappingURL=MethodType.js.map

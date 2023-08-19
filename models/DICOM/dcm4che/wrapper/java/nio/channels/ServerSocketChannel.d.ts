@@ -79,13 +79,17 @@ export declare class ServerSocketChannelClass extends JavaClass {
      */
     bindSync(var0: java_net_SocketAddress | null): ServerSocketChannel | null;
     /**
-     * @return original return type: 'java.net.SocketAddress'
+     * @param var0 original type: 'java.net.SocketOption'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'java.nio.channels.NetworkChannel'
      */
-    getLocalAddress(): Promise<java_net_SocketAddress | null>;
+    setOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null, var1: BasicOrJavaType | null): Promise<java_nio_channels_NetworkChannel | null>;
     /**
-     * @return original return type: 'java.net.SocketAddress'
+     * @param var0 original type: 'java.net.SocketOption'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'java.nio.channels.NetworkChannel'
      */
-    getLocalAddressSync(): java_net_SocketAddress | null;
+    setOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null, var1: BasicOrJavaType | null): java_nio_channels_NetworkChannel | null;
     /**
      * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'
@@ -98,18 +102,6 @@ export declare class ServerSocketChannelClass extends JavaClass {
      * @return original return type: 'java.nio.channels.ServerSocketChannel'
      */
     setOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null, var1: BasicOrJavaType | null): ServerSocketChannel | null;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'java.nio.channels.NetworkChannel'
-     */
-    setOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null, var1: BasicOrJavaType | null): Promise<java_nio_channels_NetworkChannel | null>;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'java.nio.channels.NetworkChannel'
-     */
-    setOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null, var1: BasicOrJavaType | null): java_nio_channels_NetworkChannel | null;
     /**
      * @return original return type: 'int'
      */
@@ -126,6 +118,14 @@ export declare class ServerSocketChannelClass extends JavaClass {
      * @return original return type: 'java.net.ServerSocket'
      */
     socketSync(): java_net_ServerSocket | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */

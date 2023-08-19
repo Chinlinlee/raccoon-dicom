@@ -34,4 +34,3 @@ class Spliterator extends (0, java_bridge_1.importClass)('java.util.Spliterator'
 }
 exports.Spliterator = Spliterator;
 exports.default = Spliterator;
-//# sourceMappingURL=Spliterator.js.map
