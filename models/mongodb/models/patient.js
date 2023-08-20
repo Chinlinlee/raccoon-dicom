@@ -7,7 +7,14 @@ const { getStoreDicomFullPathGroup } = require("../service");
 const {
     tagsOfRequiredMatching
 } = require("../../DICOM/dicom-tags-mapping");
-const { Common } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common");
+const { raccoonConfig } = require("@root/config-class");
+
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
 
 let patientSchema = new mongoose.Schema(
     {

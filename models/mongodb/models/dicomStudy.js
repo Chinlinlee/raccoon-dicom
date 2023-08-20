@@ -14,7 +14,12 @@ const {
 const { raccoonConfig } = require("../../../config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { logger } = require("@root/utils/logs/log");
-const { Common } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common");
+
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
 
 let dicomStudySchema = new mongoose.Schema(
     {
