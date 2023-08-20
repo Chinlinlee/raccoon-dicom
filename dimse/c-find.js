@@ -10,6 +10,7 @@ const { default: BasicModCFindSCP } = require("@java-wrapper/org/github/chinlinl
 const { createCFindSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CFindSCPInject");
 const { JsPatientQueryTask } = require("./patientQueryTask");
 const { JsStudyQueryTask } = require("./studyQueryTask");
+const { JsSeriesQueryTask } = require("./seriesQueryTask");
 
 const PATIENT_ROOT_LEVELS = EnumSet.ofSync(
     QueryRetrieveLevel2.PATIENT,
@@ -104,6 +105,8 @@ class JsCFindScp {
                         return await (new JsPatientQueryTask(as, pc, rq, keys)).get();
                     } else if (await level.compareTo(QueryRetrieveLevel2.STUDY) === 0) {
                         return await (new JsStudyQueryTask(as, pc, rq, keys)).get();
+                    } else if (await level.compareTo(QueryRetrieveLevel2.SERIES) === 0) {
+                        return await (new JsSeriesQueryTask(as, pc, rq, keys)).get();
                     }
                 } catch (e) {
                     console.error(e);

@@ -71,7 +71,7 @@ class JsStudyQueryTask extends JsPatientQueryTask {
         this.studyQueryTaskInjectMethods = {
             wrappedFindNextStudy: async () => {
                 await this.studyQueryTaskInjectMethods.findNextStudy();
-            }, 
+            },
             getStudy: async () => {
                 this.study = await this.studyCursor.next();
                 this.studyAttr = this.study ? await this.study.getAttributes() : null;
@@ -79,7 +79,7 @@ class JsStudyQueryTask extends JsPatientQueryTask {
             findNextStudy: async () => {
                 if (!this.patientAttr)
                     return false;
-                
+
                 if (!this.studyAttr) {
                     await this.getNextStudyCursor();
                     await this.studyQueryTaskInjectMethods.getStudy();
@@ -87,7 +87,7 @@ class JsStudyQueryTask extends JsPatientQueryTask {
                     await this.studyQueryTaskInjectMethods.getStudy();
                 }
 
-                while(!this.studyAttr && await this.patientQueryTaskInjectMethods.findNextPatient()) {
+                while (!this.studyAttr && await this.patientQueryTaskInjectMethods.findNextPatient()) {
                     await this.getNextStudyCursor();
                     await this.studyQueryTaskInjectMethods.getStudy();
                 }

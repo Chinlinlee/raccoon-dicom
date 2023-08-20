@@ -9,6 +9,12 @@ const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { raccoonConfig } = require("@root/config-class");
 const { logger } = require("@root/utils/logs/log");
 
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
 let dicomSeriesSchema = new mongoose.Schema(
     {
         studyUID: {
@@ -50,6 +56,22 @@ let dicomSeriesSchema = new mongoose.Schema(
                     force: true,
                     recursive: true
                 });
+            },
+            getAttributes: async function() {
+                let study = this.toObject();
+                delete study._id;
+                delete study.id;
+
+                let jsonStr = JSON.stringify(study);
+                return await Common.getAttributesFromJsonString(jsonStr);
+            }
+        },
+        statics: {
+            getDimseResultCursor: async function (query, keys) {
+                return mongoose.model("dicomSeries").find(query, keys).setOptions({
+                    strictQuery: false
+                })
+                .cursor();
             }
         },
         timestamps: true
