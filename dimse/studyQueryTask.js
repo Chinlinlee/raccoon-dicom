@@ -7,14 +7,15 @@ const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlin
 const { StudyQueryTaskInjectInterface, createStudyQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/StudyQueryTaskInject");
 const { DimseQueryBuilder } = require("./queryBuilder");
 const dicomStudyModel = require("@models/mongodb/models/dicomStudy");
+const { Attributes } = require("@dcm4che/data/Attributes");
 
 class JsStudyQueryTask extends JsPatientQueryTask {
     constructor(as, pc, rq, keys) {
         super(as, pc, rq, keys);
 
-        this.studyInit = false;
         this.studyCursor = false;
         this.study = null;
+        /** @type { Attributes | null } */
         this.studyAttr = null;
     }
 
@@ -29,6 +30,9 @@ class JsStudyQueryTask extends JsPatientQueryTask {
             this.getStudyQueryTaskInjectProxy()
         );
 
+        await super.get();
+        await this.studyQueryTaskInjectMethods.wrappedFindNextStudy();
+
         return studyQueryTask;
     }
 
@@ -39,9 +43,16 @@ class JsStudyQueryTask extends JsPatientQueryTask {
                 return !_.isNull(this.studyAttr);
             },
             nextMatch: async () => {
-                let tempRecord = this.studyAttr;
+                let returnAttr = await Attributes.newInstanceAsync(
+                    await this.patientAttr.size() + await this.studyAttr.size()
+                );
+                await Attributes.unifyCharacterSets([this.patientAttr, this.studyAttr]);
+                await returnAttr.addAll(this.patientAttr);
+                await returnAttr.addAll(this.studyAttr);
+
                 await this.studyQueryTaskInjectMethods.wrappedFindNextStudy();
-                return tempRecord;
+
+                return returnAttr;
             },
             adjust: async (match) => {
                 return await this.patientAdjust(match);
@@ -62,26 +73,25 @@ class JsStudyQueryTask extends JsPatientQueryTask {
                 await this.studyQueryTaskInjectMethods.findNextStudy();
             }, 
             getStudy: async () => {
-                let queryBuilder = new DimseQueryBuilder(this.keys, "study");
-                let normalQuery = await queryBuilder.toNormalQuery();
-                let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-
-                if (_.isNull(this.studyAttr) && !this.studyInit) {
-                    let returnKeys = this.getReturnKeys(normalQuery);
-
-                    this.studyCursor = await dicomStudyModel.getDimseResultCursor({
-                        ...mongoQuery.$match
-                    }, returnKeys);
-
-                    this.study = await this.studyCursor.next();
-                    this.studyAttr = this.study ? await this.study.getAttributes() : null;
-                } else {
-                    this.study = await this.studyCursor.next();
-                    this.studyAttr = this.study ? await this.study.getAttributes() : null;
-                }
+                this.study = await this.studyCursor.next();
+                this.studyAttr = this.study ? await this.study.getAttributes() : null;
             },
             findNextStudy: async () => {
-                await this.studyQueryTaskInjectMethods.getStudy();
+                if (!this.patientAttr)
+                    return false;
+                
+                if (!this.studyAttr) {
+                    await this.getNextStudyCursor();
+                    await this.studyQueryTaskInjectMethods.getStudy();
+                } else {
+                    await this.studyQueryTaskInjectMethods.getStudy();
+                }
+
+                while(!this.studyAttr && await this.patientQueryTaskInjectMethods.findNextPatient()) {
+                    await this.getNextStudyCursor();
+                    await this.studyQueryTaskInjectMethods.getStudy();
+                }
+
                 return !_.isNull(this.studyAttr);
             }
         };
@@ -91,6 +101,22 @@ class JsStudyQueryTask extends JsPatientQueryTask {
         }
 
         return this.studyQueryTaskInjectProxy;
+    }
+
+    async getNextStudyCursor() {
+        let queryAttr = await Attributes.newInstanceAsync();
+        await queryAttr.addAll(this.keys);
+        await queryAttr.addSelected(this.patientAttr, [Tag.PatientID]);
+
+        let queryBuilder = new DimseQueryBuilder(queryAttr, "study");
+        let normalQuery = await queryBuilder.toNormalQuery();
+        let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+
+        let returnKeys = this.getReturnKeys(normalQuery);
+
+        this.studyCursor = await dicomStudyModel.getDimseResultCursor({
+            ...mongoQuery.$match
+        }, returnKeys);
     }
 }
 

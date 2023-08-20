@@ -17,7 +17,6 @@ class JsPatientQueryTask {
         this.keys = keys;
 
         this.patientAttr = null;
-        this.init = false;
         this.cursor = null;
         this.patient = null;
     }
@@ -31,6 +30,10 @@ class JsPatientQueryTask {
             this.getQueryTaskInjectProxy(),
             this.getPatientQueryTaskInjectProxy()
         );
+
+        await this.initCursor();
+        await this.patientQueryTaskInjectMethods.wrappedFindNextPatient();
+
         return patientQueryTask;
     }
 
@@ -65,24 +68,8 @@ class JsPatientQueryTask {
                 await this.patientQueryTaskInjectMethods.findNextPatient();
             },
             getPatient: async () => {
-                let queryBuilder = new DimseQueryBuilder(this.keys, "patient");
-                let normalQuery = await queryBuilder.toNormalQuery();
-                let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-
-                if (_.isNull(this.patientAttr) && !this.init) {
-                    let returnKeys = this.getReturnKeys(normalQuery);
-
-                    this.cursor = await patientModel.getDimseResultCursor({
-                        ...mongoQuery.$match
-                    }, returnKeys);
-
-                    this.patient = await this.cursor.next();
-                    this.patientAttr = this.patient ? await this.patient.getAttributes() : null;
-                } else {
-                    this.patient = await this.cursor.next();
-                    this.patientAttr = this.patient ? await this.patient.getAttributes() : null;
-                }
-
+                this.patient = await this.cursor.next();
+                this.patientAttr = this.patient ? await this.patient.getAttributes() : null;
             },
             findNextPatient: async () => {
                 await this.patientQueryTaskInjectMethods.getPatient();
@@ -143,6 +130,18 @@ class JsPatientQueryTask {
             returnKeys[queryKeys[i].split(".").shift()] = 1;
         }
         return returnKeys;
+    }
+
+    async initCursor() {
+        let queryBuilder = new DimseQueryBuilder(this.keys, "patient");
+        let normalQuery = await queryBuilder.toNormalQuery();
+        let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+
+        let returnKeys = this.getReturnKeys(normalQuery);
+
+        this.cursor = await patientModel.getDimseResultCursor({
+            ...mongoQuery.$match
+        }, returnKeys);
     }
 }
 
