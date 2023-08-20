@@ -36,7 +36,7 @@ class JsPatientQueryTask {
 
     getQueryTaskInjectProxy() {
         /** @type { QueryTaskInjectInterface } */
-        this.queryTaskInjectMethods = {
+        this.patientBasicQueryTaskInjectMethods = {
             hasMoreMatches: () => {
                 return !_.isNull(this.patientAttr);
             },
@@ -46,25 +46,12 @@ class JsPatientQueryTask {
                 return tempRecord;
             },
             adjust: async (match) => {
-                let basicAd = await this.basicAdjust(match);
-                await basicAd.remove(Tag.DirectoryRecordType);
-
-                if (await this.keys.contains(Tag.SOPClassUID)) {
-                    await basicAd.setString(Tag.SOPClassUID, VR.UI, await match.getString(Tag.ReferencedSOPClassUIDInFile));
-                }
-
-                if (await this.keys.contains(Tag.SOPInstanceUID)) {
-                    await basicAd.setString(Tag.SOPInstanceUID, VR.UI, await match.getString(Tag.ReferencedSOPInstanceUIDInFile));
-                }
-
-                await basicAd.setString(Tag.QueryRetrieveLevel, VR.CS, await this.keys.getString(Tag.QueryRetrieveLevel));
-
-                return basicAd;
+                return this.patientAdjust(match);
             }
         };
 
         if (!this.queryTaskInjectProxy) {
-            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.queryTaskInjectMethods);
+            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.patientBasicQueryTaskInjectMethods);
         }
 
         return this.queryTaskInjectProxy;
@@ -130,6 +117,23 @@ class JsPatientQueryTask {
         await filtered.addSelected(match, this.keys);
         await filtered.supplementEmpty(this.keys);
         return filtered;
+    }
+
+    async patientAdjust(match) {
+        let basicAd = await this.basicAdjust(match);
+        await basicAd.remove(Tag.DirectoryRecordType);
+
+        if (await this.keys.contains(Tag.SOPClassUID)) {
+            await basicAd.setString(Tag.SOPClassUID, VR.UI, await match.getString(Tag.ReferencedSOPClassUIDInFile));
+        }
+
+        if (await this.keys.contains(Tag.SOPInstanceUID)) {
+            await basicAd.setString(Tag.SOPInstanceUID, VR.UI, await match.getString(Tag.ReferencedSOPInstanceUIDInFile));
+        }
+
+        await basicAd.setString(Tag.QueryRetrieveLevel, VR.CS, await this.keys.getString(Tag.QueryRetrieveLevel));
+
+        return basicAd;
     }
 
     getReturnKeys(query) {
