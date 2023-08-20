@@ -19,6 +19,14 @@ export declare class NetworkChannelClass extends JavaClass {
      */
     bindSync(var0: java_net_SocketAddress | null): NetworkChannel | null;
     /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddressSync(): java_net_SocketAddress | null;
+    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @return original return type: 'java.lang.Object'
      */
@@ -48,14 +56,6 @@ export declare class NetworkChannelClass extends JavaClass {
      * @return original return type: 'java.util.Set'
      */
     supportedOptionsSync(): java_util_Set | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -91,6 +91,10 @@ export interface NetworkChannelInterface {
      */
     bind(var0: java_net_SocketAddress | null): NetworkChannel | null;
     /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): java_net_SocketAddress | null;
+    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @return original return type: 'java.lang.Object'
      */
@@ -105,10 +109,6 @@ export interface NetworkChannelInterface {
      * @return original return type: 'java.util.Set'
      */
     supportedOptions(): java_util_Set | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */

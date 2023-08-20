@@ -17,14 +17,6 @@ export declare class QueryTaskInjectClass extends JavaClass {
      */
     adjustSync(var0: org_dcm4che3_data_Attributes | null): org_dcm4che3_data_Attributes | null;
     /**
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
-    nextMatch(): Promise<org_dcm4che3_data_Attributes | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
-    nextMatchSync(): org_dcm4che3_data_Attributes | null;
-    /**
      * @return original return type: 'boolean'
      */
     hasMoreMatches(): Promise<boolean>;
@@ -32,6 +24,14 @@ export declare class QueryTaskInjectClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     hasMoreMatchesSync(): boolean;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Attributes'
+     */
+    nextMatch(): Promise<org_dcm4che3_data_Attributes | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Attributes'
+     */
+    nextMatchSync(): org_dcm4che3_data_Attributes | null;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -51,13 +51,13 @@ export interface QueryTaskInjectInterface {
      */
     adjust(var0: org_dcm4che3_data_Attributes | null): org_dcm4che3_data_Attributes | null;
     /**
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
-    nextMatch(): org_dcm4che3_data_Attributes | null;
-    /**
      * @return original return type: 'boolean'
      */
     hasMoreMatches(): boolean;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Attributes'
+     */
+    nextMatch(): org_dcm4che3_data_Attributes | null;
 }
 /**
  * Create a proxy for the {@link QueryTaskInject} interface.

@@ -82,6 +82,38 @@ export declare class DatagramSocketClass extends JavaClass {
      */
     getBroadcastSync(): boolean;
     /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getLocalAddress(): Promise<java_net_InetAddress | null>;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getLocalAddressSync(): java_net_InetAddress | null;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddress(): Promise<java_net_InetAddress | null>;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddressSync(): java_net_InetAddress | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddressSync(): java_net_SocketAddress | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getRemoteSocketAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getRemoteSocketAddressSync(): java_net_SocketAddress | null;
+    /**
      * @return original return type: 'boolean'
      */
     isClosed(): Promise<boolean>;
@@ -305,38 +337,6 @@ export declare class DatagramSocketClass extends JavaClass {
      * @return original return type: 'void'
      */
     static setDatagramSocketImplFactorySync(var0: java_net_DatagramSocketImplFactory | JavaInterfaceProxy<java_net_DatagramSocketImplFactoryInterface> | null): void;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getLocalAddress(): Promise<java_net_InetAddress | null>;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getLocalAddressSync(): java_net_InetAddress | null;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getInetAddress(): Promise<java_net_InetAddress | null>;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getInetAddressSync(): java_net_InetAddress | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddressSync(): java_net_SocketAddress | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getRemoteSocketAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getRemoteSocketAddressSync(): java_net_SocketAddress | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

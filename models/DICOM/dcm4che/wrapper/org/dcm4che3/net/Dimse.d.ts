@@ -197,6 +197,30 @@ export declare class DimseClass extends JavaClass {
      */
     isRSPSync(): boolean;
     /**
+     * @return original return type: 'int'
+     */
+    commandField(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    commandFieldSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    tagOfSOPClassUID(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    tagOfSOPClassUIDSync(): number;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRetrieveRQ(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRetrieveRQSync(): boolean;
+    /**
      * @return original return type: 'boolean'
      */
     isCService(): Promise<boolean>;
@@ -215,35 +239,11 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRQ(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRetrieveRQSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
     isRetrieveRSP(): Promise<boolean>;
     /**
      * @return original return type: 'boolean'
      */
     isRetrieveRSPSync(): boolean;
-    /**
-     * @return original return type: 'int'
-     */
-    tagOfSOPClassUID(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    tagOfSOPClassUIDSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
-    commandField(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    commandFieldSync(): number;
     /**
      * @return original return type: 'java.lang.String'
      */

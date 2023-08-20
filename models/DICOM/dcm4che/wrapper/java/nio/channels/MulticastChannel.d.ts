@@ -57,6 +57,14 @@ export declare class MulticastChannelClass extends JavaClass {
      */
     bindSync(var0: java_net_SocketAddress | null): java_nio_channels_NetworkChannel | null;
     /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddressSync(): java_net_SocketAddress | null;
+    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @return original return type: 'java.lang.Object'
      */
@@ -86,14 +94,6 @@ export declare class MulticastChannelClass extends JavaClass {
      * @return original return type: 'java.util.Set'
      */
     supportedOptionsSync(): java_util_Set | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -138,6 +138,10 @@ export interface MulticastChannelInterface {
      */
     bind(var0: java_net_SocketAddress | null): java_nio_channels_NetworkChannel | null;
     /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): java_net_SocketAddress | null;
+    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @return original return type: 'java.lang.Object'
      */
@@ -152,10 +156,6 @@ export interface MulticastChannelInterface {
      * @return original return type: 'java.util.Set'
      */
     supportedOptions(): java_util_Set | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */

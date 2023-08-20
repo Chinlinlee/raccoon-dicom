@@ -26,14 +26,6 @@ export declare class RoleSelectionClass extends JavaClass {
      */
     toStringSync(): string;
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSOPClassUID(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSOPClassUIDSync(): string | null;
-    /**
      * @return original return type: 'boolean'
      */
     isSCP(): Promise<boolean>;
@@ -49,6 +41,14 @@ export declare class RoleSelectionClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isSCUSync(): boolean;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSOPClassUID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSOPClassUIDSync(): string | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

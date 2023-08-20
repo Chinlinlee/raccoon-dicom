@@ -8,7 +8,7 @@ const { default: QueryRetrieveLevel2 } = require("@dcm4che/net/service/QueryRetr
 const { default: EnumSet } = require("@java-wrapper/java/util/EnumSet");
 const { default: BasicModCFindSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/BasicModCFindSCP");
 const { createCFindSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CFindSCPInject");
-
+const { JsPatientQueryTask } = require("./patientQueryTask");
 
 
 class JsCFindScp {
@@ -29,16 +29,18 @@ class JsCFindScp {
              */
             onDimseRQ: async (as, pc, dimse, rq, keys) => {
                 if (await dimse.compareTo(Dimse.C_FIND_RQ) !== 0) {
-                    console.log("no reg");
                     throw new Error(Status.UnrecognizedOperation);
                 }
-                await cFindScpInjectProxyMethods.calculateMatches(as, pc, rq, keys);
+                let queryTask = await cFindScpInjectProxyMethods.calculateMatches(as, pc, rq, keys);
+                let applicationEntity = await as.getApplicationEntity();
+                let device = await applicationEntity.getDevice();
+                await device.execute(queryTask);
             },
             calculateMatches: async (as, pc, rq, keys) => {
                 try {
                     let level = await basicModCFindSCP.getQrLevel(as, pc, rq, keys);
                     if (await level.compareTo(QueryRetrieveLevel2.PATIENT) === 0) {
-                        console.log("do patient query");
+                        return await (new JsPatientQueryTask(as, pc, rq, keys)).get();
                     }
                 } catch(e) {
                     console.error(e);

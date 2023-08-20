@@ -140,6 +140,14 @@ export declare class DatagramChannelClass extends JavaClass {
      */
     bindSync(var0: java_net_SocketAddress | null): DatagramChannel | null;
     /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddressSync(): java_net_SocketAddress | null;
+    /**
      * @return original return type: 'boolean'
      */
     isConnected(): Promise<boolean>;
@@ -225,14 +233,6 @@ export declare class DatagramChannelClass extends JavaClass {
      * @return original return type: 'java.net.SocketAddress'
      */
     receiveSync(var0: java_nio_ByteBuffer | null): java_net_SocketAddress | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */

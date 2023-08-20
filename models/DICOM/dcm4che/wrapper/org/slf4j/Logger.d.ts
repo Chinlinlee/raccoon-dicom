@@ -670,42 +670,6 @@ export declare class LoggerClass extends JavaClass {
      */
     warnSync(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null, var1: string | null): void;
     /**
-     * @param var0 original type: 'org.slf4j.Marker'
-     * @return original return type: 'boolean'
-     */
-    isTraceEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'org.slf4j.Marker'
-     * @return original return type: 'boolean'
-     */
-    isTraceEnabledSync(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isTraceEnabled(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isTraceEnabledSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isInfoEnabled(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isInfoEnabledSync(): boolean;
-    /**
-     * @param var0 original type: 'org.slf4j.Marker'
-     * @return original return type: 'boolean'
-     */
-    isInfoEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'org.slf4j.Marker'
-     * @return original return type: 'boolean'
-     */
-    isInfoEnabledSync(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
-    /**
      * @return original return type: 'boolean'
      */
     isDebugEnabled(): Promise<boolean>;
@@ -724,6 +688,24 @@ export declare class LoggerClass extends JavaClass {
      */
     isDebugEnabledSync(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
     /**
+     * @return original return type: 'boolean'
+     */
+    isTraceEnabled(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isTraceEnabledSync(): boolean;
+    /**
+     * @param var0 original type: 'org.slf4j.Marker'
+     * @return original return type: 'boolean'
+     */
+    isTraceEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.slf4j.Marker'
+     * @return original return type: 'boolean'
+     */
+    isTraceEnabledSync(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
+    /**
      * @param var0 original type: 'org.slf4j.Marker'
      * @return original return type: 'boolean'
      */
@@ -741,6 +723,24 @@ export declare class LoggerClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isWarnEnabledSync(): boolean;
+    /**
+     * @param var0 original type: 'org.slf4j.Marker'
+     * @return original return type: 'boolean'
+     */
+    isInfoEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.slf4j.Marker'
+     * @return original return type: 'boolean'
+     */
+    isInfoEnabledSync(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isInfoEnabled(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isInfoEnabledSync(): boolean;
     /**
      * @return original return type: 'boolean'
      */
@@ -1102,24 +1102,6 @@ export interface LoggerInterface {
      */
     warn(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null, var1: string | null): void;
     /**
-     * @param var0 original type: 'org.slf4j.Marker'
-     * @return original return type: 'boolean'
-     */
-    isTraceEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isTraceEnabled(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isInfoEnabled(): boolean;
-    /**
-     * @param var0 original type: 'org.slf4j.Marker'
-     * @return original return type: 'boolean'
-     */
-    isInfoEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
-    /**
      * @return original return type: 'boolean'
      */
     isDebugEnabled(): boolean;
@@ -1129,6 +1111,15 @@ export interface LoggerInterface {
      */
     isDebugEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
     /**
+     * @return original return type: 'boolean'
+     */
+    isTraceEnabled(): boolean;
+    /**
+     * @param var0 original type: 'org.slf4j.Marker'
+     * @return original return type: 'boolean'
+     */
+    isTraceEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
+    /**
      * @param var0 original type: 'org.slf4j.Marker'
      * @return original return type: 'boolean'
      */
@@ -1137,6 +1128,15 @@ export interface LoggerInterface {
      * @return original return type: 'boolean'
      */
     isWarnEnabled(): boolean;
+    /**
+     * @param var0 original type: 'org.slf4j.Marker'
+     * @return original return type: 'boolean'
+     */
+    isInfoEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isInfoEnabled(): boolean;
     /**
      * @return original return type: 'boolean'
      */

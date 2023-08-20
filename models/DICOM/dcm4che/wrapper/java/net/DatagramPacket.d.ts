@@ -54,16 +54,6 @@ export declare class DatagramPacketClass extends JavaClass {
      */
     getOffsetSync(): number;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setPort(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setPortSync(var0: java_lang_Integer | number): void;
-    /**
      * @param var0 original type: 'byte[]'
      * @return original return type: 'void'
      */
@@ -123,6 +113,16 @@ export declare class DatagramPacketClass extends JavaClass {
      * @return original return type: 'java.net.SocketAddress'
      */
     getSocketAddressSync(): java_net_SocketAddress | null;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setPort(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setPortSync(var0: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

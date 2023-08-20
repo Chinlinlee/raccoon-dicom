@@ -2,8 +2,8 @@ import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
 import { Channel as java_nio_channels_Channel } from "./../Channel";
 import { SocketChannel as java_nio_channels_SocketChannel } from "./../SocketChannel";
 import { ProtocolFamily as java_net_ProtocolFamily, ProtocolFamilyInterface as java_net_ProtocolFamilyInterface } from "./../../../net/ProtocolFamily";
-import { DatagramChannel as java_nio_channels_DatagramChannel } from "./../DatagramChannel";
 import { AbstractSelector as java_nio_channels_spi_AbstractSelector } from "./AbstractSelector";
+import { DatagramChannel as java_nio_channels_DatagramChannel } from "./../DatagramChannel";
 import { Pipe as java_nio_channels_Pipe } from "./../Pipe";
 import { ServerSocketChannel as java_nio_channels_ServerSocketChannel } from "./../ServerSocketChannel";
 import { Long as java_lang_Long } from "./../../../lang/Long";
@@ -50,6 +50,14 @@ export declare class SelectorProviderClass extends JavaClass {
      */
     openSocketChannelSync(): java_nio_channels_SocketChannel | null;
     /**
+     * @return original return type: 'java.nio.channels.spi.AbstractSelector'
+     */
+    openSelector(): Promise<java_nio_channels_spi_AbstractSelector | null>;
+    /**
+     * @return original return type: 'java.nio.channels.spi.AbstractSelector'
+     */
+    openSelectorSync(): java_nio_channels_spi_AbstractSelector | null;
+    /**
      * @param var0 original type: 'java.net.ProtocolFamily'
      * @return original return type: 'java.nio.channels.DatagramChannel'
      */
@@ -67,14 +75,6 @@ export declare class SelectorProviderClass extends JavaClass {
      * @return original return type: 'java.nio.channels.DatagramChannel'
      */
     openDatagramChannelSync(): java_nio_channels_DatagramChannel | null;
-    /**
-     * @return original return type: 'java.nio.channels.spi.AbstractSelector'
-     */
-    openSelector(): Promise<java_nio_channels_spi_AbstractSelector | null>;
-    /**
-     * @return original return type: 'java.nio.channels.spi.AbstractSelector'
-     */
-    openSelectorSync(): java_nio_channels_spi_AbstractSelector | null;
     /**
      * @return original return type: 'java.nio.channels.Pipe'
      */

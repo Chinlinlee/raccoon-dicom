@@ -7,6 +7,7 @@ const { getStoreDicomFullPathGroup } = require("../service");
 const {
     tagsOfRequiredMatching
 } = require("../../DICOM/dicom-tags-mapping");
+const { Common } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common");
 
 let patientSchema = new mongoose.Schema(
     {
@@ -26,6 +27,24 @@ let patientSchema = new mongoose.Schema(
         versionKey: false,
         toObject: {
             getters: true
+        },
+        statics: {
+            getDimseResultCursor : async function (query, keys) {
+                return mongoose.model("patient").find(query, keys).setOptions({
+                    strictQuery: false
+                })
+                .cursor();
+            }
+        },
+        methods: {
+            getAttributes: async function() {
+                let patient = this.toObject();
+                delete patient._id;
+                delete patient.id;
+
+                let jsonStr = JSON.stringify(patient);
+                return await Common.getAttributesFromJsonString(jsonStr);
+            }
         }
     }
 );

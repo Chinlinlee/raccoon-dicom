@@ -3,12 +3,12 @@ import { SocketAddress as java_net_SocketAddress } from "./SocketAddress";
 import { Integer as java_lang_Integer } from "./../lang/Integer";
 import { InputStream as java_io_InputStream } from "./../io/InputStream";
 import { SocketChannel as java_nio_channels_SocketChannel } from "./../nio/channels/SocketChannel";
+import { InetAddress as java_net_InetAddress } from "./InetAddress";
 import { OutputStream as java_io_OutputStream } from "./../io/OutputStream";
 import { SocketOption as java_net_SocketOption, SocketOptionInterface as java_net_SocketOptionInterface } from "./SocketOption";
 import { Set as java_util_Set } from "./../util/Set";
 import { Boolean as java_lang_Boolean } from "./../lang/Boolean";
 import { SocketImplFactory as java_net_SocketImplFactory, SocketImplFactoryInterface as java_net_SocketImplFactoryInterface } from "./SocketImplFactory";
-import { InetAddress as java_net_InetAddress } from "./InetAddress";
 import { Long as java_lang_Long } from "./../lang/Long";
 import { Class as java_lang_Class } from "./../lang/Class";
 import { Proxy as java_net_Proxy } from "./Proxy";
@@ -28,6 +28,16 @@ export declare class SocketClass extends JavaClass {
     toStringSync(): string;
     /**
      * @param var0 original type: 'java.net.SocketAddress'
+     * @return original return type: 'void'
+     */
+    connect(var0: java_net_SocketAddress | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.net.SocketAddress'
+     * @return original return type: 'void'
+     */
+    connectSync(var0: java_net_SocketAddress | null): void;
+    /**
+     * @param var0 original type: 'java.net.SocketAddress'
      * @param var1 original type: 'int'
      * @return original return type: 'void'
      */
@@ -38,16 +48,6 @@ export declare class SocketClass extends JavaClass {
      * @return original return type: 'void'
      */
     connectSync(var0: java_net_SocketAddress | null, var1: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'java.net.SocketAddress'
-     * @return original return type: 'void'
-     */
-    connect(var0: java_net_SocketAddress | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.net.SocketAddress'
-     * @return original return type: 'void'
-     */
-    connectSync(var0: java_net_SocketAddress | null): void;
     /**
      * @return original return type: 'void'
      */
@@ -90,6 +90,38 @@ export declare class SocketClass extends JavaClass {
      * @return original return type: 'java.nio.channels.SocketChannel'
      */
     getChannelSync(): java_nio_channels_SocketChannel | null;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getLocalAddress(): Promise<java_net_InetAddress | null>;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getLocalAddressSync(): java_net_InetAddress | null;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddress(): Promise<java_net_InetAddress | null>;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddressSync(): java_net_InetAddress | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddressSync(): java_net_SocketAddress | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getRemoteSocketAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getRemoteSocketAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'java.io.OutputStream'
      */
@@ -390,38 +422,6 @@ export declare class SocketClass extends JavaClass {
      * @return original return type: 'void'
      */
     setPerformancePreferencesSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number): void;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getLocalAddress(): Promise<java_net_InetAddress | null>;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getLocalAddressSync(): java_net_InetAddress | null;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getInetAddress(): Promise<java_net_InetAddress | null>;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getInetAddressSync(): java_net_InetAddress | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddressSync(): java_net_SocketAddress | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getRemoteSocketAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getRemoteSocketAddressSync(): java_net_SocketAddress | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

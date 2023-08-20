@@ -12,22 +12,6 @@ export declare class ConnectionMonitorClass extends JavaClass {
      * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @param var1 original type: 'org.dcm4che3.net.Connection'
      * @param var2 original type: 'java.net.Socket'
-     * @param var3 original type: 'java.lang.Throwable'
-     * @return original return type: 'void'
-     */
-    onConnectionFailed(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null, var3: java_lang_Throwable | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'org.dcm4che3.net.Connection'
-     * @param var2 original type: 'java.net.Socket'
-     * @param var3 original type: 'java.lang.Throwable'
-     * @return original return type: 'void'
-     */
-    onConnectionFailedSync(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null, var3: java_lang_Throwable | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'org.dcm4che3.net.Connection'
-     * @param var2 original type: 'java.net.Socket'
      * @return original return type: 'void'
      */
     onConnectionEstablished(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null): Promise<void>;
@@ -40,16 +24,20 @@ export declare class ConnectionMonitorClass extends JavaClass {
     onConnectionEstablishedSync(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'java.net.Socket'
+     * @param var1 original type: 'org.dcm4che3.net.Connection'
+     * @param var2 original type: 'java.net.Socket'
+     * @param var3 original type: 'java.lang.Throwable'
      * @return original return type: 'void'
      */
-    onConnectionAccepted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): Promise<void>;
+    onConnectionFailed(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null, var3: java_lang_Throwable | null): Promise<void>;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'java.net.Socket'
+     * @param var1 original type: 'org.dcm4che3.net.Connection'
+     * @param var2 original type: 'java.net.Socket'
+     * @param var3 original type: 'java.lang.Throwable'
      * @return original return type: 'void'
      */
-    onConnectionAcceptedSync(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
+    onConnectionFailedSync(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null, var3: java_lang_Throwable | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @param var1 original type: 'java.net.Socket'
@@ -76,6 +64,18 @@ export declare class ConnectionMonitorClass extends JavaClass {
      * @return original return type: 'void'
      */
     onConnectionRejectedSync(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null, var2: java_lang_Throwable | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @param var1 original type: 'java.net.Socket'
+     * @return original return type: 'void'
+     */
+    onConnectionAccepted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @param var1 original type: 'java.net.Socket'
+     * @return original return type: 'void'
+     */
+    onConnectionAcceptedSync(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -93,23 +93,17 @@ export interface ConnectionMonitorInterface {
      * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @param var1 original type: 'org.dcm4che3.net.Connection'
      * @param var2 original type: 'java.net.Socket'
-     * @param var3 original type: 'java.lang.Throwable'
-     * @return original return type: 'void'
-     */
-    onConnectionFailed(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null, var3: java_lang_Throwable | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'org.dcm4che3.net.Connection'
-     * @param var2 original type: 'java.net.Socket'
      * @return original return type: 'void'
      */
     onConnectionEstablished(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'java.net.Socket'
+     * @param var1 original type: 'org.dcm4che3.net.Connection'
+     * @param var2 original type: 'java.net.Socket'
+     * @param var3 original type: 'java.lang.Throwable'
      * @return original return type: 'void'
      */
-    onConnectionAccepted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
+    onConnectionFailed(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: java_net_Socket | null, var3: java_lang_Throwable | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @param var1 original type: 'java.net.Socket'
@@ -123,6 +117,12 @@ export interface ConnectionMonitorInterface {
      * @return original return type: 'void'
      */
     onConnectionRejected(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null, var2: java_lang_Throwable | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @param var1 original type: 'java.net.Socket'
+     * @return original return type: 'void'
+     */
+    onConnectionAccepted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
 }
 /**
  * Create a proxy for the {@link ConnectionMonitor} interface.

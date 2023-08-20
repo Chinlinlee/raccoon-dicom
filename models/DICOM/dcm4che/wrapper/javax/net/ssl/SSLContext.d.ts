@@ -3,12 +3,12 @@ import { Provider as java_security_Provider } from "./../../../java/security/Pro
 import { KeyManager as javax_net_ssl_KeyManager, KeyManagerInterface as javax_net_ssl_KeyManagerInterface } from "./KeyManager";
 import { TrustManager as javax_net_ssl_TrustManager, TrustManagerInterface as javax_net_ssl_TrustManagerInterface } from "./TrustManager";
 import { SecureRandom as java_security_SecureRandom } from "./../../../java/security/SecureRandom";
-import { SSLSocketFactory as javax_net_ssl_SSLSocketFactory } from "./SSLSocketFactory";
 import { SSLServerSocketFactory as javax_net_ssl_SSLServerSocketFactory } from "./SSLServerSocketFactory";
 import { SSLEngine as javax_net_ssl_SSLEngine } from "./SSLEngine";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { SSLSessionContext as javax_net_ssl_SSLSessionContext } from "./SSLSessionContext";
 import { SSLParameters as javax_net_ssl_SSLParameters } from "./SSLParameters";
+import { SSLSocketFactory as javax_net_ssl_SSLSocketFactory } from "./SSLSocketFactory";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
 /**
@@ -100,14 +100,6 @@ export declare class SSLContextClass extends JavaClass {
      */
     getProviderSync(): java_security_Provider | null;
     /**
-     * @return original return type: 'javax.net.ssl.SSLSocketFactory'
-     */
-    getSocketFactory(): Promise<javax_net_ssl_SSLSocketFactory | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLSocketFactory'
-     */
-    getSocketFactorySync(): javax_net_ssl_SSLSocketFactory | null;
-    /**
      * @return original return type: 'javax.net.ssl.SSLServerSocketFactory'
      */
     getServerSocketFactory(): Promise<javax_net_ssl_SSLServerSocketFactory | null>;
@@ -167,6 +159,14 @@ export declare class SSLContextClass extends JavaClass {
      * @return original return type: 'javax.net.ssl.SSLParameters'
      */
     getSupportedSSLParametersSync(): javax_net_ssl_SSLParameters | null;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLSocketFactory'
+     */
+    getSocketFactory(): Promise<javax_net_ssl_SSLSocketFactory | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLSocketFactory'
+     */
+    getSocketFactorySync(): javax_net_ssl_SSLSocketFactory | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

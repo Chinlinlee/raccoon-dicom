@@ -1,7 +1,7 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
+import { Device as org_dcm4che3_net_Device } from "./Device";
 import { KeycloakClient$GrantType as org_dcm4che3_net_KeycloakClient$GrantType } from "./KeycloakClient$GrantType";
 import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
-import { Device as org_dcm4che3_net_Device } from "./Device";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -36,6 +36,22 @@ export declare class KeycloakClientClass extends JavaClass {
      */
     cloneSync(): BasicOrJavaType | null;
     /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDevice(): Promise<org_dcm4che3_net_Device | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDeviceSync(): org_dcm4che3_net_Device | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeycloakClientID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeycloakClientIDSync(): string | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.net.KeycloakClient'
      * @return original return type: 'void'
      */
@@ -48,11 +64,57 @@ export declare class KeycloakClientClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
-    getKeycloakClientID(): Promise<string | null>;
+    getKeycloakRealm(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getKeycloakClientIDSync(): string | null;
+    getKeycloakRealmSync(): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeycloakRealm(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeycloakRealmSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setUserID(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setUserIDSync(var0: string | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getPassword(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getPasswordSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUserID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUserIDSync(): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setPassword(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setPasswordSync(var0: string | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
@@ -73,58 +135,6 @@ export declare class KeycloakClientClass extends JavaClass {
      * @return original return type: 'void'
      */
     setKeycloakGrantTypeSync(var0: org_dcm4che3_net_KeycloakClient$GrantType | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeycloakServerURL(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeycloakServerURLSync(var0: string | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.net.KeycloakClient$GrantType'
-     */
-    getKeycloakGrantType(): Promise<org_dcm4che3_net_KeycloakClient$GrantType | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.KeycloakClient$GrantType'
-     */
-    getKeycloakGrantTypeSync(): org_dcm4che3_net_KeycloakClient$GrantType | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeycloakServerURL(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeycloakServerURLSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeycloakClientSecret(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeycloakClientSecretSync(): string | null;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    setTLSAllowAnyHostname(var0: java_lang_Boolean | boolean): Promise<void>;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    setTLSAllowAnyHostnameSync(var0: java_lang_Boolean | boolean): void;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isTLSDisableTrustManager(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isTLSDisableTrustManagerSync(): boolean;
     /**
      * @param var0 original type: 'boolean'
      * @return original return type: 'void'
@@ -154,67 +164,57 @@ export declare class KeycloakClientClass extends JavaClass {
      */
     isTLSAllowAnyHostnameSync(): boolean;
     /**
-     * @return original return type: 'java.lang.String'
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
      */
-    getKeycloakRealm(): Promise<string | null>;
+    setTLSAllowAnyHostname(var0: java_lang_Boolean | boolean): Promise<void>;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    setTLSAllowAnyHostnameSync(var0: java_lang_Boolean | boolean): void;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isTLSDisableTrustManager(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isTLSDisableTrustManagerSync(): boolean;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getKeycloakRealmSync(): string | null;
+    getKeycloakServerURL(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getPassword(): Promise<string | null>;
+    getKeycloakServerURLSync(): string | null;
+    /**
+     * @return original return type: 'org.dcm4che3.net.KeycloakClient$GrantType'
+     */
+    getKeycloakGrantType(): Promise<org_dcm4che3_net_KeycloakClient$GrantType | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.KeycloakClient$GrantType'
+     */
+    getKeycloakGrantTypeSync(): org_dcm4che3_net_KeycloakClient$GrantType | null;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getPasswordSync(): string | null;
+    getKeycloakClientSecret(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getUserID(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getUserIDSync(): string | null;
+    getKeycloakClientSecretSync(): string | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
-    setUserID(var0: string | null): Promise<void>;
+    setKeycloakServerURL(var0: string | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
-    setUserIDSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setPassword(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setPasswordSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeycloakRealm(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeycloakRealmSync(var0: string | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Device'
-     */
-    getDevice(): Promise<org_dcm4che3_net_Device | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Device'
-     */
-    getDeviceSync(): org_dcm4che3_net_Device | null;
+    setKeycloakServerURLSync(var0: string | null): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

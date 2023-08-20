@@ -53,6 +53,22 @@ export declare class PresentationContextClass extends JavaClass {
      */
     getResultSync(): number;
     /**
+     * @return original return type: 'java.lang.String'
+     */
+    getAbstractSyntax(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getAbstractSyntaxSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getTransferSyntaxes(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getTransferSyntaxesSync(): (string | null)[] | null;
+    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'boolean'
      */
@@ -63,21 +79,13 @@ export declare class PresentationContextClass extends JavaClass {
      */
     containsTransferSyntaxSync(var0: string | null): boolean;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'java.lang.String'
      */
-    getTransferSyntaxes(): Promise<(string | null)[] | null>;
+    getTransferSyntax(): Promise<string | null>;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'java.lang.String'
      */
-    getTransferSyntaxesSync(): (string | null)[] | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAccepted(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAcceptedSync(): boolean;
+    getTransferSyntaxSync(): string | null;
     /**
      * @return original return type: 'int'
      */
@@ -87,21 +95,13 @@ export declare class PresentationContextClass extends JavaClass {
      */
     getPCIDSync(): number;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'boolean'
      */
-    getTransferSyntax(): Promise<string | null>;
+    isAccepted(): Promise<boolean>;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'boolean'
      */
-    getTransferSyntaxSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getAbstractSyntax(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getAbstractSyntaxSync(): string | null;
+    isAcceptedSync(): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

@@ -1,6 +1,6 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
-import { Connection as org_dcm4che3_net_Connection } from "./Connection";
 import { Device as org_dcm4che3_net_Device } from "./Device";
+import { Connection as org_dcm4che3_net_Connection } from "./Connection";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -10,6 +10,14 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  * You should probably not edit this.
  */
 export declare class DeviceExtensionClass extends JavaClass {
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDevice(): Promise<org_dcm4che3_net_Device | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDeviceSync(): org_dcm4che3_net_Device | null;
     /**
      * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
      * @return original return type: 'void'
@@ -30,14 +38,6 @@ export declare class DeviceExtensionClass extends JavaClass {
      * @return original return type: 'void'
      */
     verifyNotUsedSync(var0: org_dcm4che3_net_Connection | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Device'
-     */
-    getDevice(): Promise<org_dcm4che3_net_Device | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Device'
-     */
-    getDeviceSync(): org_dcm4che3_net_Device | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

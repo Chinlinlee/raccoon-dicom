@@ -128,6 +128,16 @@ export declare class SocketChannelClass extends JavaClass {
     static openSync(var0: java_net_SocketAddress | null): SocketChannel | null;
     /**
      * @param var0 original type: 'java.net.SocketAddress'
+     * @return original return type: 'java.nio.channels.NetworkChannel'
+     */
+    bind(var0: java_net_SocketAddress | null): Promise<java_nio_channels_NetworkChannel | null>;
+    /**
+     * @param var0 original type: 'java.net.SocketAddress'
+     * @return original return type: 'java.nio.channels.NetworkChannel'
+     */
+    bindSync(var0: java_net_SocketAddress | null): java_nio_channels_NetworkChannel | null;
+    /**
+     * @param var0 original type: 'java.net.SocketAddress'
      * @return original return type: 'java.nio.channels.SocketChannel'
      */
     bind(var0: java_net_SocketAddress | null): Promise<SocketChannel | null>;
@@ -137,15 +147,13 @@ export declare class SocketChannelClass extends JavaClass {
      */
     bindSync(var0: java_net_SocketAddress | null): SocketChannel | null;
     /**
-     * @param var0 original type: 'java.net.SocketAddress'
-     * @return original return type: 'java.nio.channels.NetworkChannel'
+     * @return original return type: 'java.net.SocketAddress'
      */
-    bind(var0: java_net_SocketAddress | null): Promise<java_nio_channels_NetworkChannel | null>;
+    getLocalAddress(): Promise<java_net_SocketAddress | null>;
     /**
-     * @param var0 original type: 'java.net.SocketAddress'
-     * @return original return type: 'java.nio.channels.NetworkChannel'
+     * @return original return type: 'java.net.SocketAddress'
      */
-    bindSync(var0: java_net_SocketAddress | null): java_nio_channels_NetworkChannel | null;
+    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -234,14 +242,6 @@ export declare class SocketChannelClass extends JavaClass {
      * @return original return type: 'java.net.SocketAddress'
      */
     getRemoteAddressSync(): java_net_SocketAddress | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */

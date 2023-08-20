@@ -90,21 +90,25 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      */
     isUTF8Sync(): boolean;
     /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    toCodes(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    toCodesSync(): (string | null)[] | null;
-    /**
+     * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'boolean'
      */
-    containsASCII(): Promise<boolean>;
+    static trimISO2022(var0: (string | null)[] | null): Promise<boolean>;
     /**
+     * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'boolean'
      */
-    containsASCIISync(): boolean;
+    static trimISO2022Sync(var0: (string | null)[] | null): boolean;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.String'
+     */
+    static checkCharsetName(var0: string | null): Promise<string | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.String'
+     */
+    static checkCharsetNameSync(var0: string | null): string | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.String'
@@ -124,15 +128,21 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      */
     static getDefaultCharacterSetSync(): SpecificCharacterSet | null;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    static setDefaultCharacterSet(var0: string | null): Promise<void>;
+    containsASCII(): Promise<boolean>;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    static setDefaultCharacterSetSync(var0: string | null): void;
+    containsASCIISync(): boolean;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    toCodes(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    toCodesSync(): (string | null)[] | null;
     /**
      * @return original return type: 'void'
      */
@@ -153,6 +163,16 @@ export declare class SpecificCharacterSetClass extends JavaClass {
     static checkSpecificCharacterSetSync(var0: string | null): string | null;
     /**
      * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    static setDefaultCharacterSet(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    static setDefaultCharacterSetSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
@@ -163,26 +183,6 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      * @return original return type: 'void'
      */
     static setCharsetNameMappingSync(var0: string | null, var1: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.String'
-     */
-    static checkCharsetName(var0: string | null): Promise<string | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.String'
-     */
-    static checkCharsetNameSync(var0: string | null): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'boolean'
-     */
-    static trimISO2022(var0: (string | null)[] | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'boolean'
-     */
-    static trimISO2022Sync(var0: (string | null)[] | null): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
