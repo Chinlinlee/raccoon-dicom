@@ -14,6 +14,7 @@ const {
 const { raccoonConfig } = require("../../../config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { logger } = require("@root/utils/logs/log");
+const { Common } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common");
 
 let dicomStudySchema = new mongoose.Schema(
     {
@@ -50,6 +51,22 @@ let dicomStudySchema = new mongoose.Schema(
                     force: true,
                     recursive: true
                 });
+            },
+            getAttributes: async function() {
+                let study = this.toObject();
+                delete study._id;
+                delete study.id;
+
+                let jsonStr = JSON.stringify(study);
+                return await Common.getAttributesFromJsonString(jsonStr);
+            }
+        },
+        statics: {
+            getDimseResultCursor: async function (query, keys) {
+                return mongoose.model("dicomStudy").find(query, keys).setOptions({
+                    strictQuery: false
+                })
+                .cursor();
             }
         },
         timestamps: true

@@ -53,6 +53,7 @@ class DcmQrScp {
         let jsCStoreScp = new JsCStoreScp();
         await dicomServiceRegistry.addDicomService(jsCStoreScp.get());
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientRootLevel());
+        await dicomServiceRegistry.addDicomService(new JsCFindScp().getStudyRootLevel());
         return dicomServiceRegistry;
     }
 

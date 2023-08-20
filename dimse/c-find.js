@@ -9,12 +9,73 @@ const { default: EnumSet } = require("@java-wrapper/java/util/EnumSet");
 const { default: BasicModCFindSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/BasicModCFindSCP");
 const { createCFindSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CFindSCPInject");
 const { JsPatientQueryTask } = require("./patientQueryTask");
+const { JsStudyQueryTask } = require("./studyQueryTask");
 
+const PATIENT_ROOT_LEVELS = EnumSet.ofSync(
+    QueryRetrieveLevel2.PATIENT,
+    QueryRetrieveLevel2.STUDY,
+    QueryRetrieveLevel2.SERIES,
+    QueryRetrieveLevel2.IMAGE
+);
+
+const STUDY_ROOT_LEVELS = EnumSet.ofSync(
+    QueryRetrieveLevel2.STUDY,
+    QueryRetrieveLevel2.SERIES,
+    QueryRetrieveLevel2.IMAGE
+);
+
+const PATIENT_STUDY_ONLY_LEVELS = EnumSet.ofSync(
+    QueryRetrieveLevel2.PATIENT,
+    QueryRetrieveLevel2.STUDY
+);
 
 class JsCFindScp {
     constructor() { }
 
     getPatientRootLevel() {
+        const cFindScpInject = createCFindSCPInjectProxy(this.getCFindScpInjectProxyMethods(), {
+            keepAsDaemon: true
+        });
+        let basicModCFindSCP = new BasicModCFindSCP(
+            cFindScpInject,
+            UID.PatientRootQueryRetrieveInformationModelFind,
+            PATIENT_ROOT_LEVELS
+        );
+
+        this.scpObj = basicModCFindSCP;
+        return basicModCFindSCP;
+    }
+
+    getStudyRootLevel() {
+        const cFindScpInject = createCFindSCPInjectProxy(this.getCFindScpInjectProxyMethods(), {
+            keepAsDaemon: true
+        });
+        let basicModCFindSCP = new BasicModCFindSCP(
+            cFindScpInject,
+            UID.StudyRootQueryRetrieveInformationModelFind,
+            STUDY_ROOT_LEVELS
+        );
+
+        this.scpObj = basicModCFindSCP;
+        return basicModCFindSCP;
+    }
+
+    getPatientStudyOnlyLevel() {
+        const cFindScpInject = createCFindSCPInjectProxy(this.getCFindScpInjectProxyMethods(), {
+            keepAsDaemon: true
+        });
+
+        let basicModCFindSCP = new BasicModCFindSCP(
+            cFindScpInject,
+            UID.PatientStudyOnlyQueryRetrieveInformationModelFind,
+            PATIENT_STUDY_ONLY_LEVELS
+        );
+
+        this.scpObj = basicModCFindSCP;
+        return basicModCFindSCP;
+    }
+
+    getCFindScpInjectProxyMethods() {
         /**
          * @type { import("@java-wrapper/org/github/chinlinlee/dcm777/net/CFindSCPInject").CFindSCPInjectInterface }
          */
@@ -38,31 +99,19 @@ class JsCFindScp {
             },
             calculateMatches: async (as, pc, rq, keys) => {
                 try {
-                    let level = await basicModCFindSCP.getQrLevel(as, pc, rq, keys);
+                    let level = await this.scpObj.getQrLevel(as, pc, rq, keys);
                     if (await level.compareTo(QueryRetrieveLevel2.PATIENT) === 0) {
                         return await (new JsPatientQueryTask(as, pc, rq, keys)).get();
+                    } else if (await level.compareTo(QueryRetrieveLevel2.STUDY) === 0) {
+                        return await (new JsStudyQueryTask(as, pc, rq, keys)).get();
                     }
-                } catch(e) {
+                } catch (e) {
                     console.error(e);
                 }
             }
         };
 
-        const cFindScpInject = createCFindSCPInjectProxy(cFindScpInjectProxyMethods, {
-            keepAsDaemon: true
-        });
-        let basicModCFindSCP = new BasicModCFindSCP(
-            cFindScpInject,
-            UID.PatientRootQueryRetrieveInformationModelFind,
-            EnumSet.ofSync(
-                QueryRetrieveLevel2.PATIENT,
-                QueryRetrieveLevel2.STUDY,
-                QueryRetrieveLevel2.SERIES,
-                QueryRetrieveLevel2.IMAGE
-            )
-        );
-
-        return basicModCFindSCP;
+        return cFindScpInjectProxyMethods;
     }
 }
 
