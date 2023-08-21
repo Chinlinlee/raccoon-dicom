@@ -22,6 +22,7 @@ const { default: AAssociateRQ } = require("@dcm4che/net/pdu/AAssociateRQ");
 const { default: Connection } = require("@dcm4che/net/Connection");
 const { default: RetrieveTaskImpl } = require("@dcm4che/tool/dcmqrscp/RetrieveTaskImpl");
 const { Dimse } = require("@dcm4che/net/Dimse");
+const { getInstancesFromKeysAttr } = require("./utils");
 
 class JsCMoveScp {
     constructor(dcmQrScp) {
@@ -83,7 +84,7 @@ class JsCMoveScp {
                         throw new DicomServiceError(Status.MoveDestinationUnknown, `Move Destination: ${moveDest} unknown`);
                     }
 
-                    let instances = await this.getInstances(keys);
+                    let instances = await getInstancesFromKeysAttr(keys);
                     if (await instances.isEmpty()) {
                         return null;
                     }
@@ -110,52 +111,6 @@ class JsCMoveScp {
         };
 
         return cMoveScpInjectProxyMethods;
-    }
-
-    async getInstances(keys) {
-        let queryBuilder = new DimseQueryBuilder(keys, "instance");
-        let normalQuery = await queryBuilder.toNormalQuery();
-        let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-
-        let returnKeys = {
-            "instancePath": 1,
-            "00020010": 1,
-            "00080016": 1,
-            "00080018": 1,
-            "0020000D": 1,
-            "0020000E": 1
-        };
-
-        let instances = await mongoose.model("dicom").find({
-            ...mongoQuery.$match
-        }, returnKeys).setOptions({
-            strictQuery: false
-        }).exec();
-        const JArrayList = await importClass("java.util.ArrayList");
-        let list = await JArrayList.newInstanceAsync();
-
-        for (let instance of instances) {
-            let instanceFile = await File.newInstanceAsync(
-                path.join(
-                    raccoonConfig.dicomWebConfig.storeRootPath,
-                    instance.instancePath
-                )
-            );
-
-            let fileUri = await instanceFile.toURI();
-            let fileUriString = await fileUri.toString();
-
-            let instanceLocator = await InstanceLocator.newInstanceAsync(
-                _.get(instance, "00080016.Value.0"),
-                _.get(instance, "00080018.Value.0"),
-                _.get(instance, "00020010.Value.0"),
-                fileUriString
-            );
-
-            await list.add(instanceLocator);
-        }
-
-        return list;
     }
 
     /**
