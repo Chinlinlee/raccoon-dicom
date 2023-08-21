@@ -6,12 +6,12 @@ const { JsStudyQueryTask } = require("./studyQueryTask");
 const dicomSeriesModel = require("@models/mongodb/models/dicomSeries");
 const { SeriesQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
+const { createSeriesQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTaskInject");
 
 class JsSeriesQueryTask extends JsStudyQueryTask {
     constructor(as, pc, rq, keys) {
         super(as, pc, rq, keys);
 
-        this.seriesInit = false;
         this.seriesCursor = null;
         this.series = null;
         /** @type { Attributes | null } */
@@ -96,6 +96,12 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
                 return !_.isNull(this.seriesAttr);
             }
         };
+        
+        if (!this.seriesQueryTaskInjectProxy) {
+            this.seriesQueryTaskInjectProxy = createSeriesQueryTaskInjectProxy(this.seriesQueryTaskInjectMethods);
+        }
+
+        return this.seriesQueryTaskInjectProxy;
     }
 
     async getNextSeriesCursor() {
