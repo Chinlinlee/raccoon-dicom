@@ -31,6 +31,14 @@ export declare class DimseRSPHandlerClass extends JavaClass {
      */
     cancelSync(var0: org_dcm4che3_net_Association | null): void;
     /**
+     * @return original return type: 'boolean'
+     */
+    isCanceled(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isCanceledSync(): boolean;
+    /**
      * @param var0 original type: 'org.dcm4che3.net.Association'
      * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @param var2 original type: 'org.dcm4che3.data.Attributes'
@@ -52,14 +60,6 @@ export declare class DimseRSPHandlerClass extends JavaClass {
      * @return original return type: 'int'
      */
     getMessageIDSync(): number;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCanceled(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCanceledSync(): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

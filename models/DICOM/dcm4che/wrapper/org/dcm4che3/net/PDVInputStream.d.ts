@@ -13,6 +13,14 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  */
 export declare class PDVInputStreamClass extends JavaClass {
     /**
+     * @return original return type: 'long'
+     */
+    skipAll(): Promise<number>;
+    /**
+     * @return original return type: 'long'
+     */
+    skipAllSync(): number;
+    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
@@ -44,14 +52,6 @@ export declare class PDVInputStreamClass extends JavaClass {
      * @return original return type: 'void'
      */
     copyToSync(var0: java_io_OutputStream | null, var1: java_lang_Integer | number): void;
-    /**
-     * @return original return type: 'long'
-     */
-    skipAll(): Promise<number>;
-    /**
-     * @return original return type: 'long'
-     */
-    skipAllSync(): number;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'

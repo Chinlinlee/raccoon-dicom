@@ -20,6 +20,14 @@ export declare class IssuerClass extends JavaClass {
      */
     equalsSync(var0: BasicOrJavaType | null): boolean;
     /**
+     * @return original return type: 'java.lang.String'
+     */
+    toString(): Promise<string>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    toStringSync(): string;
+    /**
      * @param var0 original type: 'char'
      * @return original return type: 'java.lang.String'
      */
@@ -29,14 +37,6 @@ export declare class IssuerClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     toStringSync(var0: string | null): string;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    toString(): Promise<string>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    toStringSync(): string;
     /**
      * @return original return type: 'int'
      */
@@ -84,16 +84,6 @@ export declare class IssuerClass extends JavaClass {
      */
     toItemSync(): org_dcm4che3_data_Attributes | null;
     /**
-     * @param var0 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    static fromIssuerOfPatientID(var0: org_dcm4che3_data_Attributes | null): Promise<Issuer | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    static fromIssuerOfPatientIDSync(var0: org_dcm4che3_data_Attributes | null): Issuer | null;
-    /**
      * @param var0 original type: 'org.dcm4che3.data.Issuer'
      * @return original return type: 'boolean'
      */
@@ -124,19 +114,29 @@ export declare class IssuerClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
+    getUniversalEntityID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUniversalEntityIDSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
     getUniversalEntityIDType(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
     getUniversalEntityIDTypeSync(): string | null;
     /**
-     * @return original return type: 'java.lang.String'
+     * @param var0 original type: 'org.dcm4che3.data.Attributes'
+     * @return original return type: 'org.dcm4che3.data.Issuer'
      */
-    getUniversalEntityID(): Promise<string | null>;
+    static fromIssuerOfPatientID(var0: org_dcm4che3_data_Attributes | null): Promise<Issuer | null>;
     /**
-     * @return original return type: 'java.lang.String'
+     * @param var0 original type: 'org.dcm4che3.data.Attributes'
+     * @return original return type: 'org.dcm4che3.data.Issuer'
      */
-    getUniversalEntityIDSync(): string | null;
+    static fromIssuerOfPatientIDSync(var0: org_dcm4che3_data_Attributes | null): Issuer | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

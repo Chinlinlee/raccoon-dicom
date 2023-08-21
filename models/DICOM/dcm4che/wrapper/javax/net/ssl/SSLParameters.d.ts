@@ -13,6 +13,16 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  */
 export declare class SSLParametersClass extends JavaClass {
     /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setEndpointIdentificationAlgorithm(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setEndpointIdentificationAlgorithmSync(var0: string | null): void;
+    /**
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
@@ -218,16 +228,6 @@ export declare class SSLParametersClass extends JavaClass {
      * @return original return type: 'void'
      */
     setApplicationProtocolsSync(var0: (string | null)[] | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setEndpointIdentificationAlgorithm(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setEndpointIdentificationAlgorithmSync(var0: string | null): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

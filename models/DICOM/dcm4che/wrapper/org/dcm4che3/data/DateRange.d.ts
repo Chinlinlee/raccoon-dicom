@@ -48,19 +48,19 @@ export declare class DateRangeClass extends JavaClass {
     /**
      * @return original return type: 'java.util.Date'
      */
-    getEndDate(): Promise<java_util_Date | null>;
-    /**
-     * @return original return type: 'java.util.Date'
-     */
-    getEndDateSync(): java_util_Date | null;
-    /**
-     * @return original return type: 'java.util.Date'
-     */
     getStartDate(): Promise<java_util_Date | null>;
     /**
      * @return original return type: 'java.util.Date'
      */
     getStartDateSync(): java_util_Date | null;
+    /**
+     * @return original return type: 'java.util.Date'
+     */
+    getEndDate(): Promise<java_util_Date | null>;
+    /**
+     * @return original return type: 'java.util.Date'
+     */
+    getEndDateSync(): java_util_Date | null;
     /**
      * @return original return type: 'boolean'
      */

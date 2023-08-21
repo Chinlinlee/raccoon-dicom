@@ -22,4 +22,3 @@ class ResourceBundle extends (0, java_bridge_1.importClass)('java.util.ResourceB
 }
 exports.ResourceBundle = ResourceBundle;
 exports.default = ResourceBundle;
-//# sourceMappingURL=ResourceBundle.js.map

@@ -14,14 +14,6 @@ export declare class SeriesQueryTaskInjectClass extends JavaClass {
      */
     wrappedFindNextSeriesSync(): void;
     /**
-     * @return original return type: 'void'
-     */
-    getSeries(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    getSeriesSync(): void;
-    /**
      * @return original return type: 'boolean'
      */
     findNextSeries(): Promise<boolean>;
@@ -29,6 +21,14 @@ export declare class SeriesQueryTaskInjectClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     findNextSeriesSync(): boolean;
+    /**
+     * @return original return type: 'void'
+     */
+    getSeries(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    getSeriesSync(): void;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -47,13 +47,13 @@ export interface SeriesQueryTaskInjectInterface {
      */
     wrappedFindNextSeries(): void;
     /**
-     * @return original return type: 'void'
-     */
-    getSeries(): void;
-    /**
      * @return original return type: 'boolean'
      */
     findNextSeries(): boolean;
+    /**
+     * @return original return type: 'void'
+     */
+    getSeries(): void;
 }
 /**
  * Create a proxy for the {@link SeriesQueryTaskInject} interface.

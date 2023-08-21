@@ -257,6 +257,26 @@ export declare class FileChannelClass extends JavaClass {
      */
     forceSync(var0: java_lang_Boolean | boolean): void;
     /**
+     * @param var0 original type: 'long'
+     * @return original return type: 'java.nio.channels.SeekableByteChannel'
+     */
+    truncate(var0: java_lang_Long | bigint | number): Promise<java_nio_channels_SeekableByteChannel | null>;
+    /**
+     * @param var0 original type: 'long'
+     * @return original return type: 'java.nio.channels.SeekableByteChannel'
+     */
+    truncateSync(var0: java_lang_Long | bigint | number): java_nio_channels_SeekableByteChannel | null;
+    /**
+     * @param var0 original type: 'long'
+     * @return original return type: 'java.nio.channels.FileChannel'
+     */
+    truncate(var0: java_lang_Long | bigint | number): Promise<FileChannel | null>;
+    /**
+     * @param var0 original type: 'long'
+     * @return original return type: 'java.nio.channels.FileChannel'
+     */
+    truncateSync(var0: java_lang_Long | bigint | number): FileChannel | null;
+    /**
      * @param var0 original type: 'java.nio.channels.ReadableByteChannel'
      * @param var1 original type: 'long'
      * @param var2 original type: 'long'
@@ -270,26 +290,6 @@ export declare class FileChannelClass extends JavaClass {
      * @return original return type: 'long'
      */
     transferFromSync(var0: java_nio_channels_ReadableByteChannel | JavaInterfaceProxy<java_nio_channels_ReadableByteChannelInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number): number;
-    /**
-     * @param var0 original type: 'long'
-     * @return original return type: 'java.nio.channels.FileChannel'
-     */
-    truncate(var0: java_lang_Long | bigint | number): Promise<FileChannel | null>;
-    /**
-     * @param var0 original type: 'long'
-     * @return original return type: 'java.nio.channels.FileChannel'
-     */
-    truncateSync(var0: java_lang_Long | bigint | number): FileChannel | null;
-    /**
-     * @param var0 original type: 'long'
-     * @return original return type: 'java.nio.channels.SeekableByteChannel'
-     */
-    truncate(var0: java_lang_Long | bigint | number): Promise<java_nio_channels_SeekableByteChannel | null>;
-    /**
-     * @param var0 original type: 'long'
-     * @return original return type: 'java.nio.channels.SeekableByteChannel'
-     */
-    truncateSync(var0: java_lang_Long | bigint | number): java_nio_channels_SeekableByteChannel | null;
     /**
      * @return original return type: 'boolean'
      */

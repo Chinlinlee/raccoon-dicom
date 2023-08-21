@@ -183,11 +183,11 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    tagOfSOPInstanceUID(): Promise<number>;
+    commandField(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    tagOfSOPInstanceUIDSync(): number;
+    commandFieldSync(): number;
     /**
      * @return original return type: 'boolean'
      */
@@ -197,13 +197,13 @@ export declare class DimseClass extends JavaClass {
      */
     isRSPSync(): boolean;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'boolean'
      */
-    commandField(): Promise<number>;
+    isRetrieveRQ(): Promise<boolean>;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'boolean'
      */
-    commandFieldSync(): number;
+    isRetrieveRQSync(): boolean;
     /**
      * @return original return type: 'int'
      */
@@ -215,19 +215,11 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRQ(): Promise<boolean>;
+    isRetrieveRSP(): Promise<boolean>;
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRQSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCService(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCServiceSync(): boolean;
+    isRetrieveRSPSync(): boolean;
     /**
      * @return original return type: 'int'
      */
@@ -239,11 +231,19 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRSP(): Promise<boolean>;
+    isCService(): Promise<boolean>;
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRSPSync(): boolean;
+    isCServiceSync(): boolean;
+    /**
+     * @return original return type: 'int'
+     */
+    tagOfSOPInstanceUID(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    tagOfSOPInstanceUIDSync(): number;
     /**
      * @return original return type: 'java.lang.String'
      */
