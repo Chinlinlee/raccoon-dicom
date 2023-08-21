@@ -82,33 +82,37 @@ export declare class DatagramSocketClass extends JavaClass {
      */
     getBroadcastSync(): boolean;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'java.net.InetAddress'
      */
-    getReceiveBufferSize(): Promise<number>;
+    getInetAddress(): Promise<java_net_InetAddress | null>;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'java.net.InetAddress'
      */
-    getReceiveBufferSizeSync(): number;
+    getInetAddressSync(): java_net_InetAddress | null;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
+     * @return original return type: 'java.net.InetAddress'
      */
-    setSendBufferSize(var0: java_lang_Integer | number): Promise<void>;
+    getLocalAddress(): Promise<java_net_InetAddress | null>;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
+     * @return original return type: 'java.net.InetAddress'
      */
-    setSendBufferSizeSync(var0: java_lang_Integer | number): void;
+    getLocalAddressSync(): java_net_InetAddress | null;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
+     * @return original return type: 'java.net.SocketAddress'
      */
-    setReceiveBufferSize(var0: java_lang_Integer | number): Promise<void>;
+    getRemoteSocketAddress(): Promise<java_net_SocketAddress | null>;
     /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
+     * @return original return type: 'java.net.SocketAddress'
      */
-    setReceiveBufferSizeSync(var0: java_lang_Integer | number): void;
+    getRemoteSocketAddressSync(): java_net_SocketAddress | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -134,13 +138,15 @@ export declare class DatagramSocketClass extends JavaClass {
      */
     isBoundSync(): boolean;
     /**
-     * @return original return type: 'java.net.InetAddress'
+     * @param var0 original type: 'java.net.SocketOption'
+     * @return original return type: 'java.lang.Object'
      */
-    getInetAddress(): Promise<java_net_InetAddress | null>;
+    getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): Promise<BasicOrJavaType | null>;
     /**
-     * @return original return type: 'java.net.InetAddress'
+     * @param var0 original type: 'java.net.SocketOption'
+     * @return original return type: 'java.lang.Object'
      */
-    getInetAddressSync(): java_net_InetAddress | null;
+    getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
     /**
      * @return original return type: 'int'
      */
@@ -149,14 +155,6 @@ export declare class DatagramSocketClass extends JavaClass {
      * @return original return type: 'int'
      */
     getLocalPortSync(): number;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getLocalAddress(): Promise<java_net_InetAddress | null>;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getLocalAddressSync(): java_net_InetAddress | null;
     /**
      * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'
@@ -178,21 +176,15 @@ export declare class DatagramSocketClass extends JavaClass {
      */
     supportedOptionsSync(): java_util_Set | null;
     /**
-     * @return original return type: 'java.net.SocketAddress'
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
      */
-    getRemoteSocketAddress(): Promise<java_net_SocketAddress | null>;
+    setSoTimeout(var0: java_lang_Integer | number): Promise<void>;
     /**
-     * @return original return type: 'java.net.SocketAddress'
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
      */
-    getRemoteSocketAddressSync(): java_net_SocketAddress | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddressSync(): java_net_SocketAddress | null;
+    setSoTimeoutSync(var0: java_lang_Integer | number): void;
     /**
      * @return original return type: 'int'
      */
@@ -201,6 +193,42 @@ export declare class DatagramSocketClass extends JavaClass {
      * @return original return type: 'int'
      */
     getSoTimeoutSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setSendBufferSize(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setSendBufferSizeSync(var0: java_lang_Integer | number): void;
+    /**
+     * @return original return type: 'int'
+     */
+    getSendBufferSize(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getSendBufferSizeSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setReceiveBufferSize(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setReceiveBufferSizeSync(var0: java_lang_Integer | number): void;
+    /**
+     * @return original return type: 'int'
+     */
+    getReceiveBufferSize(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getReceiveBufferSizeSync(): number;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'void'
@@ -309,34 +337,6 @@ export declare class DatagramSocketClass extends JavaClass {
      * @return original return type: 'void'
      */
     static setDatagramSocketImplFactorySync(var0: java_net_DatagramSocketImplFactory | JavaInterfaceProxy<java_net_DatagramSocketImplFactoryInterface> | null): void;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getSendBufferSize(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getSendBufferSizeSync(): number;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setSoTimeout(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setSoTimeoutSync(var0: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

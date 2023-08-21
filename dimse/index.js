@@ -19,6 +19,7 @@ const { JsCFindScp } = require("./c-find");
 const { default: CLIUtils } = require("@dcm4che/tool/common/CLIUtils");
 const { JsCMoveScp } = require("./c-move");
 const fileExist = require("@root/utils/file/fileExist");
+const { JsCGetScp } = require("./c-get");
 
 const aeTitle = "FKQRSCP";
 const host = "0.0.0.0";
@@ -44,16 +45,30 @@ class DcmQrScp {
         let dicomServiceRegistry = new DicomServiceRegistry();
 
         await dicomServiceRegistry.addDicomService(new BasicCEchoSCP());
+
+        // #region C-STORE
         let jsCStoreScp = new JsCStoreScp();
         await dicomServiceRegistry.addDicomService(jsCStoreScp.get());
+        // #endregion
 
+        // #region C-FIND
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getStudyRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientStudyOnlyLevel());
+        // #endregion
 
+        // #region C-MOVE
         await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getPatientRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getStudyRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getPatientStudyOnlyLevel());
+        // #endregion
+
+        // #region C-GET
+        await dicomServiceRegistry.addDicomService(new JsCGetScp().getPatientRootLevel());
+        await dicomServiceRegistry.addDicomService(new JsCGetScp().getStudyRootLevel());
+        await dicomServiceRegistry.addDicomService(new JsCGetScp().getPatientStudyOnlyLevel());
+        await dicomServiceRegistry.addDicomService(new JsCGetScp().getCompositeLevel());
+        // #endregion
         
         return dicomServiceRegistry;
     }

@@ -66,6 +66,16 @@ export declare class MulticastChannelClass extends JavaClass {
     getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @param var0 original type: 'java.net.SocketOption'
+     * @return original return type: 'java.lang.Object'
+     */
+    getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'java.net.SocketOption'
+     * @return original return type: 'java.lang.Object'
+     */
+    getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
+    /**
+     * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'java.nio.channels.NetworkChannel'
      */
@@ -84,16 +94,6 @@ export declare class MulticastChannelClass extends JavaClass {
      * @return original return type: 'java.util.Set'
      */
     supportedOptionsSync(): java_util_Set | null;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -143,6 +143,11 @@ export interface MulticastChannelInterface {
     getLocalAddress(): java_net_SocketAddress | null;
     /**
      * @param var0 original type: 'java.net.SocketOption'
+     * @return original return type: 'java.lang.Object'
+     */
+    getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
+    /**
+     * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'java.nio.channels.NetworkChannel'
      */
@@ -151,11 +156,6 @@ export interface MulticastChannelInterface {
      * @return original return type: 'java.util.Set'
      */
     supportedOptions(): java_util_Set | null;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
     /**
      * @return original return type: 'boolean'
      */

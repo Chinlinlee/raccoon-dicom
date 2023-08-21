@@ -52,48 +52,6 @@ export declare class SelectorClass extends JavaClass {
      */
     static openSync(): Selector | null;
     /**
-     * @return original return type: 'java.util.Set'
-     */
-    selectedKeys(): Promise<java_util_Set | null>;
-    /**
-     * @return original return type: 'java.util.Set'
-     */
-    selectedKeysSync(): java_util_Set | null;
-    /**
-     * @return original return type: 'int'
-     */
-    selectNow(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    selectNowSync(): number;
-    /**
-     * @param var0 original type: 'java.util.function.Consumer'
-     * @return original return type: 'int'
-     */
-    selectNow(var0: java_util_function_Consumer | JavaInterfaceProxy<java_util_function_ConsumerInterface> | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.util.function.Consumer'
-     * @return original return type: 'int'
-     */
-    selectNowSync(var0: java_util_function_Consumer | JavaInterfaceProxy<java_util_function_ConsumerInterface> | null): number;
-    /**
-     * @return original return type: 'java.nio.channels.Selector'
-     */
-    wakeup(): Promise<Selector | null>;
-    /**
-     * @return original return type: 'java.nio.channels.Selector'
-     */
-    wakeupSync(): Selector | null;
-    /**
-     * @return original return type: 'int'
-     */
-    select(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    selectSync(): number;
-    /**
      * @param var0 original type: 'java.util.function.Consumer'
      * @return original return type: 'int'
      */
@@ -103,6 +61,14 @@ export declare class SelectorClass extends JavaClass {
      * @return original return type: 'int'
      */
     selectSync(var0: java_util_function_Consumer | JavaInterfaceProxy<java_util_function_ConsumerInterface> | null): number;
+    /**
+     * @return original return type: 'int'
+     */
+    select(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    selectSync(): number;
     /**
      * @param var0 original type: 'java.util.function.Consumer'
      * @param var1 original type: 'long'
@@ -125,6 +91,40 @@ export declare class SelectorClass extends JavaClass {
      * @return original return type: 'int'
      */
     selectSync(var0: java_lang_Long | bigint | number): number;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    selectedKeys(): Promise<java_util_Set | null>;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    selectedKeysSync(): java_util_Set | null;
+    /**
+     * @param var0 original type: 'java.util.function.Consumer'
+     * @return original return type: 'int'
+     */
+    selectNow(var0: java_util_function_Consumer | JavaInterfaceProxy<java_util_function_ConsumerInterface> | null): Promise<number>;
+    /**
+     * @param var0 original type: 'java.util.function.Consumer'
+     * @return original return type: 'int'
+     */
+    selectNowSync(var0: java_util_function_Consumer | JavaInterfaceProxy<java_util_function_ConsumerInterface> | null): number;
+    /**
+     * @return original return type: 'int'
+     */
+    selectNow(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    selectNowSync(): number;
+    /**
+     * @return original return type: 'java.nio.channels.Selector'
+     */
+    wakeup(): Promise<Selector | null>;
+    /**
+     * @return original return type: 'java.nio.channels.Selector'
+     */
+    wakeupSync(): Selector | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

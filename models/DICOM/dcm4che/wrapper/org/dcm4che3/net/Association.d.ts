@@ -9,19 +9,19 @@ import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
 import { IOException as java_io_IOException } from "./../../../java/io/IOException";
 import { State as org_dcm4che3_net_State } from "./State";
-import { CommonExtendedNegotiation as org_dcm4che3_net_pdu_CommonExtendedNegotiation } from "./pdu/CommonExtendedNegotiation";
-import { Device as org_dcm4che3_net_Device } from "./Device";
-import { Connection as org_dcm4che3_net_Connection } from "./Connection";
-import { ApplicationEntity as org_dcm4che3_net_ApplicationEntity } from "./ApplicationEntity";
 import { AssociationListener as org_dcm4che3_net_AssociationListener, AssociationListenerInterface as org_dcm4che3_net_AssociationListenerInterface } from "./AssociationListener";
-import { Set as java_util_Set } from "./../../../java/util/Set";
 import { EnumSet as java_util_EnumSet } from "./../../../java/util/EnumSet";
+import { DimseRSP as org_dcm4che3_net_DimseRSP } from "./DimseRSP";
 import { CancelRQHandler as org_dcm4che3_net_CancelRQHandler, CancelRQHandlerInterface as org_dcm4che3_net_CancelRQHandlerInterface } from "./CancelRQHandler";
+import { Set as java_util_Set } from "./../../../java/util/Set";
+import { CommonExtendedNegotiation as org_dcm4che3_net_pdu_CommonExtendedNegotiation } from "./pdu/CommonExtendedNegotiation";
 import { Dimse as org_dcm4che3_net_Dimse } from "./Dimse";
 import { AAssociateAC as org_dcm4che3_net_pdu_AAssociateAC } from "./pdu/AAssociateAC";
+import { Device as org_dcm4che3_net_Device } from "./Device";
+import { ApplicationEntity as org_dcm4che3_net_ApplicationEntity } from "./ApplicationEntity";
 import { Socket as java_net_Socket } from "./../../../java/net/Socket";
 import { AAssociateRQ as org_dcm4che3_net_pdu_AAssociateRQ } from "./pdu/AAssociateRQ";
-import { DimseRSP as org_dcm4che3_net_DimseRSP } from "./DimseRSP";
+import { Connection as org_dcm4che3_net_Connection } from "./Connection";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 /**
  * This class just defines types, you should import {@link Association} instead of this.
@@ -104,18 +104,6 @@ export declare class AssociationClass extends JavaClass {
      */
     toStringSync(): string;
     /**
-     * @param var0 original type: 'java.lang.Class'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'void'
-     */
-    setProperty(var0: java_lang_Class | null, var1: BasicOrJavaType | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'void'
-     */
-    setPropertySync(var0: java_lang_Class | null, var1: BasicOrJavaType | null): void;
-    /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'java.lang.Object'
@@ -127,6 +115,18 @@ export declare class AssociationClass extends JavaClass {
      * @return original return type: 'java.lang.Object'
      */
     setPropertySync(var0: string | null, var1: BasicOrJavaType | null): BasicOrJavaType | null;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'void'
+     */
+    setProperty(var0: java_lang_Class | null, var1: BasicOrJavaType | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'void'
+     */
+    setPropertySync(var0: java_lang_Class | null, var1: BasicOrJavaType | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Object'
@@ -178,23 +178,51 @@ export declare class AssociationClass extends JavaClass {
      */
     getLocalHostNameSync(): string | null;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.pdu.CommonExtendedNegotiation'
+     * @param var0 original type: 'org.dcm4che3.net.AssociationListener'
+     * @return original return type: 'void'
      */
-    getCommonExtendedNegotiationFor(var0: string | null): Promise<org_dcm4che3_net_pdu_CommonExtendedNegotiation | null>;
+    addAssociationListener(var0: org_dcm4che3_net_AssociationListener | JavaInterfaceProxy<org_dcm4che3_net_AssociationListenerInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.AssociationListener'
+     * @return original return type: 'void'
+     */
+    addAssociationListenerSync(var0: org_dcm4che3_net_AssociationListener | JavaInterfaceProxy<org_dcm4che3_net_AssociationListenerInterface> | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.AssociationListener'
+     * @return original return type: 'void'
+     */
+    removeAssociationListener(var0: org_dcm4che3_net_AssociationListener | JavaInterfaceProxy<org_dcm4che3_net_AssociationListenerInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.AssociationListener'
+     * @return original return type: 'void'
+     */
+    removeAssociationListenerSync(var0: org_dcm4che3_net_AssociationListener | JavaInterfaceProxy<org_dcm4che3_net_AssociationListenerInterface> | null): void;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isReadyForDataTransfer(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isReadyForDataTransferSync(): boolean;
+    /**
+     * @return original return type: 'int'
+     */
+    getPerformingOperationCount(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getPerformingOperationCountSync(): number;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.pdu.CommonExtendedNegotiation'
+     * @return original return type: 'java.util.EnumSet'
      */
-    getCommonExtendedNegotiationForSync(var0: string | null): org_dcm4che3_net_pdu_CommonExtendedNegotiation | null;
+    getRequestedQueryOptionsFor(var0: string | null): Promise<java_util_EnumSet | null>;
     /**
-     * @return original return type: 'org.dcm4che3.net.Device'
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.util.EnumSet'
      */
-    getDevice(): Promise<org_dcm4che3_net_Device | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Device'
-     */
-    getDeviceSync(): org_dcm4che3_net_Device | null;
+    getRequestedQueryOptionsForSync(var0: string | null): java_util_EnumSet | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -210,447 +238,161 @@ export declare class AssociationClass extends JavaClass {
      */
     createFileMetaInformationSync(var0: string | null, var1: string | null, var2: string | null): org_dcm4che3_data_Attributes | null;
     /**
-     * @return original return type: 'org.dcm4che3.net.Connection'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    getConnection(): Promise<org_dcm4che3_net_Connection | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Connection'
-     */
-    getConnectionSync(): org_dcm4che3_net_Connection | null;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.String'
-     */
-    getAbstractSyntax(var0: java_lang_Integer | number): Promise<string | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.String'
-     */
-    getAbstractSyntaxSync(var0: java_lang_Integer | number): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCalledAET(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCalledAETSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCallingAET(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getCallingAETSync(): string | null;
-    /**
-     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
-     */
-    getApplicationEntity(): Promise<org_dcm4che3_net_ApplicationEntity | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
-     */
-    getApplicationEntitySync(): org_dcm4che3_net_ApplicationEntity | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getRemoteImplClassUID(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getRemoteImplClassUIDSync(): string | null;
-    /**
-     * @return original return type: 'long'
-     */
-    getConnectTimeInMillis(): Promise<number>;
-    /**
-     * @return original return type: 'long'
-     */
-    getConnectTimeInMillisSync(): number;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.AssociationListener'
-     * @return original return type: 'void'
-     */
-    addAssociationListener(var0: org_dcm4che3_net_AssociationListener | JavaInterfaceProxy<org_dcm4che3_net_AssociationListenerInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.AssociationListener'
-     * @return original return type: 'void'
-     */
-    addAssociationListenerSync(var0: org_dcm4che3_net_AssociationListener | JavaInterfaceProxy<org_dcm4che3_net_AssociationListenerInterface> | null): void;
+    ndelete(var0: string | null, var1: string | null, var2: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.util.Set'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    getTransferSyntaxesFor(var0: string | null): Promise<java_util_Set | null>;
+    ndeleteSync(var0: string | null, var1: string | null, var2: string | null): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.util.Set'
-     */
-    getTransferSyntaxesForSync(var0: string | null): java_util_Set | null;
-    /**
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    waitForOutstandingRSP(): Promise<void>;
+    ndelete(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
     /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    waitForOutstandingRSPSync(): void;
+    ndeleteSync(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DimseRSPHandler | null): void;
     /**
-     * @return original return type: 'int'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    getPerformingOperationCount(): Promise<number>;
+    ndelete(var0: string | null, var1: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
     /**
-     * @return original return type: 'int'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    getPerformingOperationCountSync(): number;
+    ndeleteSync(var0: string | null, var1: string | null): org_dcm4che3_net_DimseRSP | null;
     /**
-     * @return original return type: 'java.lang.String'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
      */
-    getLocalImplVersionName(): Promise<string | null>;
+    ndelete(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
     /**
-     * @return original return type: 'java.lang.String'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
      */
-    getLocalImplVersionNameSync(): string | null;
+    ndeleteSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    ncreate(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    ncreateSync(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    ncreate(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    ncreateSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    ncreate(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    ncreateSync(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    ncreate(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    ncreateSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.util.EnumSet'
      */
-    getRequestedQueryOptionsFor(var0: string | null): Promise<java_util_EnumSet | null>;
+    getQueryOptionsFor(var0: string | null): Promise<java_util_EnumSet | null>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.util.EnumSet'
      */
-    getRequestedQueryOptionsForSync(var0: string | null): java_util_EnumSet | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.AssociationListener'
-     * @return original return type: 'void'
-     */
-    removeAssociationListener(var0: org_dcm4che3_net_AssociationListener | JavaInterfaceProxy<org_dcm4che3_net_AssociationListenerInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.AssociationListener'
-     * @return original return type: 'void'
-     */
-    removeAssociationListenerSync(var0: org_dcm4che3_net_AssociationListener | JavaInterfaceProxy<org_dcm4che3_net_AssociationListenerInterface> | null): void;
-    /**
-     * @return original return type: 'void'
-     */
-    waitForNonBlockingInvoke(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    waitForNonBlockingInvokeSync(): void;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'org.dcm4che3.net.CancelRQHandler'
-     */
-    removeCancelRQHandler(var0: java_lang_Integer | number): Promise<org_dcm4che3_net_CancelRQHandler | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'org.dcm4che3.net.CancelRQHandler'
-     */
-    removeCancelRQHandlerSync(var0: java_lang_Integer | number): org_dcm4che3_net_CancelRQHandler | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isReadyForDataTransfer(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isReadyForDataTransferSync(): boolean;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Dimse'
-     * @return original return type: 'int'
-     */
-    getNumberOfReceived(var0: org_dcm4che3_net_Dimse | null): Promise<number>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Dimse'
-     * @return original return type: 'int'
-     */
-    getNumberOfReceivedSync(var0: org_dcm4che3_net_Dimse | null): number;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getRemoteImplVersionName(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getRemoteImplVersionNameSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getLocalImplClassUID(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getLocalImplClassUIDSync(): string | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getSerialNo(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getSerialNoSync(): number;
-    /**
-     * @return original return type: 'int'
-     */
-    nextMessageID(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    nextMessageIDSync(): number;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Dimse'
-     * @return original return type: 'int'
-     */
-    getNumberOfSent(var0: org_dcm4che3_net_Dimse | null): Promise<number>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Dimse'
-     * @return original return type: 'int'
-     */
-    getNumberOfSentSync(var0: org_dcm4che3_net_Dimse | null): number;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getRemoteAET(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getRemoteAETSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getLocalAET(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getLocalAETSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    isSCUFor(var0: string | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    isSCUForSync(var0: string | null): boolean;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    containsProperty(var0: string | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    containsPropertySync(var0: string | null): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRequestor(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRequestorSync(): boolean;
-    /**
-     * @return original return type: 'org.dcm4che3.net.pdu.AAssociateAC'
-     */
-    getAAssociateAC(): Promise<org_dcm4che3_net_pdu_AAssociateAC | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.pdu.AAssociateAC'
-     */
-    getAAssociateACSync(): org_dcm4che3_net_pdu_AAssociateAC | null;
-    /**
-     * @return original return type: 'java.util.Set'
-     */
-    getPropertyNames(): Promise<java_util_Set | null>;
-    /**
-     * @return original return type: 'java.util.Set'
-     */
-    getPropertyNamesSync(): java_util_Set | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getRemoteHostName(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getRemoteHostNameSync(): string | null;
-    /**
-     * @return original return type: 'java.net.Socket'
-     */
-    getSocket(): Promise<java_net_Socket | null>;
-    /**
-     * @return original return type: 'java.net.Socket'
-     */
-    getSocketSync(): java_net_Socket | null;
-    /**
-     * @return original return type: 'org.dcm4che3.net.pdu.AAssociateRQ'
-     */
-    getAAssociateRQ(): Promise<org_dcm4che3_net_pdu_AAssociateRQ | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.pdu.AAssociateRQ'
-     */
-    getAAssociateRQSync(): org_dcm4che3_net_pdu_AAssociateRQ | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    isSCPFor(var0: string | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    isSCPForSync(var0: string | null): boolean;
-    /**
-     * @return original return type: 'void'
-     */
-    waitForSocketClose(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    waitForSocketCloseSync(): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'void'
-     */
-    writeDimseRSP(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'void'
-     */
-    writeDimseRSPSync(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'void'
-     */
-    writeDimseRSP(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'void'
-     */
-    writeDimseRSPSync(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'boolean'
-     */
-    tryWriteDimseRSP(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'boolean'
-     */
-    tryWriteDimseRSPSync(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): boolean;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'boolean'
-     */
-    tryWriteDimseRSP(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
-     * @param var1 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'boolean'
-     */
-    tryWriteDimseRSPSync(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null): boolean;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'org.dcm4che3.net.CancelRQHandler'
-     * @return original return type: 'void'
-     */
-    addCancelRQHandler(var0: java_lang_Integer | number, var1: org_dcm4che3_net_CancelRQHandler | JavaInterfaceProxy<org_dcm4che3_net_CancelRQHandlerInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @param var1 original type: 'org.dcm4che3.net.CancelRQHandler'
-     * @return original return type: 'void'
-     */
-    addCancelRQHandlerSync(var0: java_lang_Integer | number, var1: org_dcm4che3_net_CancelRQHandler | JavaInterfaceProxy<org_dcm4che3_net_CancelRQHandlerInterface> | null): void;
+    getQueryOptionsForSync(var0: string | null): java_util_EnumSet | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.pdu.PresentationContext'
-     */
-    pcFor(var0: string | null, var1: string | null): Promise<org_dcm4che3_net_pdu_PresentationContext | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.pdu.PresentationContext'
-     */
-    pcForSync(var0: string | null, var1: string | null): org_dcm4che3_net_pdu_PresentationContext | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int[]'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
      * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    nget(var0: string | null, var1: string | null, var2: string | null, var3: (java_lang_Integer | number)[] | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    nset(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int[]'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
      * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    ngetSync(var0: string | null, var1: string | null, var2: string | null, var3: (java_lang_Integer | number)[] | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int[]'
-     * @param var3 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    nget(var0: string | null, var1: string | null, var2: (java_lang_Integer | number)[] | null, var3: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int[]'
-     * @param var3 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    ngetSync(var0: string | null, var1: string | null, var2: (java_lang_Integer | number)[] | null, var3: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int[]'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    nget(var0: string | null, var1: string | null, var2: (java_lang_Integer | number)[] | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int[]'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    ngetSync(var0: string | null, var1: string | null, var2: (java_lang_Integer | number)[] | null): org_dcm4che3_net_DimseRSP | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int[]'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    nget(var0: string | null, var1: string | null, var2: string | null, var3: (java_lang_Integer | number)[] | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int[]'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    ngetSync(var0: string | null, var1: string | null, var2: string | null, var3: (java_lang_Integer | number)[] | null): org_dcm4che3_net_DimseRSP | null;
+    nsetSync(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -671,6 +413,78 @@ export declare class AssociationClass extends JavaClass {
      * @return original return type: 'void'
      */
     nsetSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    nset(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    nsetSync(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var4 original type: 'java.lang.String'
+     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    nset(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var4 original type: 'java.lang.String'
+     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    nsetSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nset(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nsetSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var3 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nset(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var3 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nsetSync(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -708,149 +522,181 @@ export declare class AssociationClass extends JavaClass {
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    nset(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    nsetSync(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
-     * @param var3 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    nset(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
-     * @param var3 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    nsetSync(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null): org_dcm4che3_net_DimseRSP | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
-     * @param var4 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    nset(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
-     * @param var4 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    nsetSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
      * @param var4 original type: 'java.lang.String'
      * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    nset(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    naction(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    nactionSync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
-     * @param var4 original type: 'java.lang.String'
-     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'org.dcm4che3.data.Attributes'
+     * @param var5 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    nsetSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
+    naction(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'org.dcm4che3.data.Attributes'
+     * @param var5 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    nset(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    nactionSync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'org.dcm4che3.data.Attributes'
+     * @param var5 original type: 'java.lang.String'
+     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    nsetSync(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
+    naction(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'org.dcm4che3.data.Attributes'
+     * @param var5 original type: 'java.lang.String'
+     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    nactionSync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    naction(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nactionSync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'org.dcm4che3.data.Attributes'
+     * @param var5 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    neventReport(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'org.dcm4che3.data.Attributes'
+     * @param var5 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    neventReportSync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    neventReport(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    neventReportSync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'org.dcm4che3.data.Attributes'
+     * @param var5 original type: 'java.lang.String'
+     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    neventReport(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int'
+     * @param var4 original type: 'org.dcm4che3.data.Attributes'
+     * @param var5 original type: 'java.lang.String'
+     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    neventReportSync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
      * @param var4 original type: 'java.lang.String'
      * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    cmove(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    neventReport(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int'
+     * @param var3 original type: 'org.dcm4che3.data.Attributes'
      * @param var4 original type: 'java.lang.String'
      * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    cmoveSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
+    neventReportSync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'java.lang.String'
      * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    cmove(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    cecho(): Promise<org_dcm4che3_net_DimseRSP | null>;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'java.lang.String'
      * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    cmoveSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
+    cechoSync(): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    cget(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    cecho(var0: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    cgetSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
+    cechoSync(var0: string | null): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'int'
@@ -875,6 +721,134 @@ export declare class AssociationClass extends JavaClass {
      * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
+    cget(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    cgetSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int[]'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    nget(var0: string | null, var1: string | null, var2: string | null, var3: (java_lang_Integer | number)[] | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int[]'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    ngetSync(var0: string | null, var1: string | null, var2: string | null, var3: (java_lang_Integer | number)[] | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int[]'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nget(var0: string | null, var1: string | null, var2: (java_lang_Integer | number)[] | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int[]'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    ngetSync(var0: string | null, var1: string | null, var2: (java_lang_Integer | number)[] | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int[]'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nget(var0: string | null, var1: string | null, var2: string | null, var3: (java_lang_Integer | number)[] | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'int[]'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    ngetSync(var0: string | null, var1: string | null, var2: string | null, var3: (java_lang_Integer | number)[] | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int[]'
+     * @param var3 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    nget(var0: string | null, var1: string | null, var2: (java_lang_Integer | number)[] | null, var3: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'int[]'
+     * @param var3 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    ngetSync(var0: string | null, var1: string | null, var2: (java_lang_Integer | number)[] | null, var3: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    cmove(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    cmoveSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'java.lang.String'
+     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    cmove(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'java.lang.String'
+     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
+    cmoveSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
+    /**
+     * @return original return type: 'void'
+     */
+    waitForSocketClose(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    waitForSocketCloseSync(): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @return original return type: 'void'
+     */
     cfind(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String'
@@ -885,24 +859,6 @@ export declare class AssociationClass extends JavaClass {
      * @return original return type: 'void'
      */
     cfindSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'int'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    cfind(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: java_lang_Integer | number): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'int'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    cfindSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: java_lang_Integer | number): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'int'
@@ -925,22 +881,22 @@ export declare class AssociationClass extends JavaClass {
     cfindSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: java_lang_Integer | number, var5: java_lang_Integer | number): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'int'
      * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    cecho(var0: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    cfind(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: java_lang_Integer | number): Promise<org_dcm4che3_net_DimseRSP | null>;
     /**
      * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'int'
      * @return original return type: 'org.dcm4che3.net.DimseRSP'
      */
-    cechoSync(var0: string | null): org_dcm4che3_net_DimseRSP | null;
-    /**
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    cecho(): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    cechoSync(): org_dcm4che3_net_DimseRSP | null;
+    cfindSync(var0: string | null, var1: java_lang_Integer | number, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: java_lang_Integer | number): org_dcm4che3_net_DimseRSP | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -1028,301 +984,345 @@ export declare class AssociationClass extends JavaClass {
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     * @return original return type: 'org.dcm4che3.net.pdu.PresentationContext'
      */
-    neventReport(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    pcFor(var0: string | null, var1: string | null): Promise<org_dcm4che3_net_pdu_PresentationContext | null>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     * @return original return type: 'org.dcm4che3.net.pdu.PresentationContext'
      */
-    neventReportSync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null): org_dcm4che3_net_DimseRSP | null;
+    pcForSync(var0: string | null, var1: string | null): org_dcm4che3_net_pdu_PresentationContext | null;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @return original return type: 'void'
      */
-    neventReport(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    writeDimseRSP(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null): Promise<void>;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @return original return type: 'void'
      */
-    neventReportSync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
+    writeDimseRSPSync(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null): void;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    neventReport(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    neventReportSync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    neventReport(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    neventReportSync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.util.EnumSet'
-     */
-    getQueryOptionsFor(var0: string | null): Promise<java_util_EnumSet | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.util.EnumSet'
-     */
-    getQueryOptionsForSync(var0: string | null): java_util_EnumSet | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    naction(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    nactionSync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    naction(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    nactionSync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null): org_dcm4che3_net_DimseRSP | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    naction(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    nactionSync(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    naction(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'int'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    nactionSync(var0: string | null, var1: string | null, var2: java_lang_Integer | number, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
+     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    ncreate(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    writeDimseRSP(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): Promise<void>;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
+     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
-    ncreateSync(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null, var4: org_dcm4che3_net_DimseRSPHandler | null): void;
+    writeDimseRSPSync(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'org.dcm4che3.net.CancelRQHandler'
+     * @return original return type: 'void'
+     */
+    addCancelRQHandler(var0: java_lang_Integer | number, var1: org_dcm4che3_net_CancelRQHandler | JavaInterfaceProxy<org_dcm4che3_net_CancelRQHandlerInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @param var1 original type: 'org.dcm4che3.net.CancelRQHandler'
+     * @return original return type: 'void'
+     */
+    addCancelRQHandlerSync(var0: java_lang_Integer | number, var1: org_dcm4che3_net_CancelRQHandler | JavaInterfaceProxy<org_dcm4che3_net_CancelRQHandlerInterface> | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'java.util.Set'
+     */
+    getTransferSyntaxesFor(var0: string | null): Promise<java_util_Set | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.util.Set'
+     */
+    getTransferSyntaxesForSync(var0: string | null): java_util_Set | null;
+    /**
+     * @return original return type: 'void'
+     */
+    waitForNonBlockingInvoke(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    waitForNonBlockingInvokeSync(): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.pdu.CommonExtendedNegotiation'
+     */
+    getCommonExtendedNegotiationFor(var0: string | null): Promise<org_dcm4che3_net_pdu_CommonExtendedNegotiation | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.pdu.CommonExtendedNegotiation'
+     */
+    getCommonExtendedNegotiationForSync(var0: string | null): org_dcm4che3_net_pdu_CommonExtendedNegotiation | null;
+    /**
+     * @return original return type: 'void'
+     */
+    waitForOutstandingRSP(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    waitForOutstandingRSPSync(): void;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'org.dcm4che3.net.CancelRQHandler'
+     */
+    removeCancelRQHandler(var0: java_lang_Integer | number): Promise<org_dcm4che3_net_CancelRQHandler | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'org.dcm4che3.net.CancelRQHandler'
+     */
+    removeCancelRQHandlerSync(var0: java_lang_Integer | number): org_dcm4che3_net_CancelRQHandler | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Dimse'
+     * @return original return type: 'int'
+     */
+    getNumberOfReceived(var0: org_dcm4che3_net_Dimse | null): Promise<number>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Dimse'
+     * @return original return type: 'int'
+     */
+    getNumberOfReceivedSync(var0: org_dcm4che3_net_Dimse | null): number;
+    /**
+     * @return original return type: 'long'
+     */
+    getConnectTimeInMillis(): Promise<number>;
+    /**
+     * @return original return type: 'long'
+     */
+    getConnectTimeInMillisSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.String'
+     */
+    getAbstractSyntax(var0: java_lang_Integer | number): Promise<string | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.String'
+     */
+    getAbstractSyntaxSync(var0: java_lang_Integer | number): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCalledAET(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCalledAETSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getLocalAET(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getLocalAETSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getRemoteAET(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getRemoteAETSync(): string | null;
+    /**
+     * @return original return type: 'org.dcm4che3.net.pdu.AAssociateAC'
+     */
+    getAAssociateAC(): Promise<org_dcm4che3_net_pdu_AAssociateAC | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.pdu.AAssociateAC'
+     */
+    getAAssociateACSync(): org_dcm4che3_net_pdu_AAssociateAC | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     * @return original return type: 'boolean'
      */
-    ncreate(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    tryWriteDimseRSP(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): Promise<boolean>;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
+     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
      * @param var2 original type: 'org.dcm4che3.data.Attributes'
-     * @param var3 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     * @return original return type: 'boolean'
      */
-    ncreateSync(var0: string | null, var1: string | null, var2: org_dcm4che3_data_Attributes | null, var3: string | null): org_dcm4che3_net_DimseRSP | null;
+    tryWriteDimseRSPSync(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): boolean;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
+     * @return original return type: 'boolean'
+     */
+    tryWriteDimseRSP(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.pdu.PresentationContext'
+     * @param var1 original type: 'org.dcm4che3.data.Attributes'
+     * @return original return type: 'boolean'
+     */
+    tryWriteDimseRSPSync(var0: org_dcm4che3_net_pdu_PresentationContext | null, var1: org_dcm4che3_data_Attributes | null): boolean;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDevice(): Promise<org_dcm4che3_net_Device | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDeviceSync(): org_dcm4che3_net_Device | null;
+    /**
+     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
+     */
+    getApplicationEntity(): Promise<org_dcm4che3_net_ApplicationEntity | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
+     */
+    getApplicationEntitySync(): org_dcm4che3_net_ApplicationEntity | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getLocalImplClassUID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getLocalImplClassUIDSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getRemoteImplClassUID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getRemoteImplClassUIDSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getLocalImplVersionName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getLocalImplVersionNameSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getRemoteImplVersionName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getRemoteImplVersionNameSync(): string | null;
+    /**
+     * @return original return type: 'java.net.Socket'
+     */
+    getSocket(): Promise<java_net_Socket | null>;
+    /**
+     * @return original return type: 'java.net.Socket'
+     */
+    getSocketSync(): java_net_Socket | null;
+    /**
+     * @return original return type: 'org.dcm4che3.net.pdu.AAssociateRQ'
+     */
+    getAAssociateRQ(): Promise<org_dcm4che3_net_pdu_AAssociateRQ | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.pdu.AAssociateRQ'
+     */
+    getAAssociateRQSync(): org_dcm4che3_net_pdu_AAssociateRQ | null;
+    /**
+     * @return original return type: 'int'
+     */
+    nextMessageID(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    nextMessageIDSync(): number;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     * @return original return type: 'boolean'
      */
-    ncreate(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    isSCPFor(var0: string | null): Promise<boolean>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     * @return original return type: 'boolean'
      */
-    ncreateSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
+    isSCPForSync(var0: string | null): boolean;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    ncreate(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    isSCUFor(var0: string | null): Promise<boolean>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.data.Attributes'
-     * @param var4 original type: 'java.lang.String'
-     * @param var5 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    ncreateSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_data_Attributes | null, var4: string | null, var5: org_dcm4che3_net_DimseRSPHandler | null): void;
+    isSCUForSync(var0: string | null): boolean;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCallingAET(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getCallingAETSync(): string | null;
+    /**
+     * @return original return type: 'int'
+     */
+    getSerialNo(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getSerialNoSync(): number;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Connection'
+     */
+    getConnection(): Promise<org_dcm4che3_net_Connection | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Connection'
+     */
+    getConnectionSync(): org_dcm4che3_net_Connection | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Dimse'
+     * @return original return type: 'int'
+     */
+    getNumberOfSent(var0: org_dcm4che3_net_Dimse | null): Promise<number>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Dimse'
+     * @return original return type: 'int'
+     */
+    getNumberOfSentSync(var0: org_dcm4che3_net_Dimse | null): number;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRequestor(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRequestorSync(): boolean;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getRemoteHostName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getRemoteHostNameSync(): string | null;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    getPropertyNames(): Promise<java_util_Set | null>;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    getPropertyNamesSync(): java_util_Set | null;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    ndelete(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
+    containsProperty(var0: string | null): Promise<boolean>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    ndeleteSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    ndelete(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'org.dcm4che3.net.DimseRSPHandler'
-     * @return original return type: 'void'
-     */
-    ndeleteSync(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DimseRSPHandler | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    ndelete(var0: string | null, var1: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    ndeleteSync(var0: string | null, var1: string | null): org_dcm4che3_net_DimseRSP | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    ndelete(var0: string | null, var1: string | null, var2: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.DimseRSP'
-     */
-    ndeleteSync(var0: string | null, var1: string | null, var2: string | null): org_dcm4che3_net_DimseRSP | null;
+    containsPropertySync(var0: string | null): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

@@ -53,6 +53,22 @@ export declare class PresentationContextClass extends JavaClass {
      */
     getResultSync(): number;
     /**
+     * @return original return type: 'boolean'
+     */
+    isAccepted(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isAcceptedSync(): boolean;
+    /**
+     * @return original return type: 'int'
+     */
+    getPCID(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getPCIDSync(): number;
+    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'boolean'
      */
@@ -73,35 +89,19 @@ export declare class PresentationContextClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
-    getTransferSyntax(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTransferSyntaxSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
     getAbstractSyntax(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
     getAbstractSyntaxSync(): string | null;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'java.lang.String'
      */
-    getPCID(): Promise<number>;
+    getTransferSyntax(): Promise<string | null>;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'java.lang.String'
      */
-    getPCIDSync(): number;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAccepted(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAcceptedSync(): boolean;
+    getTransferSyntaxSync(): string | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

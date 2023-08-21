@@ -12,19 +12,19 @@ export declare class CompatibleConnectionClass extends JavaClass {
     /**
      * @return original return type: 'org.dcm4che3.net.Connection'
      */
-    getRemoteConnection(): Promise<org_dcm4che3_net_Connection | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Connection'
-     */
-    getRemoteConnectionSync(): org_dcm4che3_net_Connection | null;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Connection'
-     */
     getLocalConnection(): Promise<org_dcm4che3_net_Connection | null>;
     /**
      * @return original return type: 'org.dcm4che3.net.Connection'
      */
     getLocalConnectionSync(): org_dcm4che3_net_Connection | null;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Connection'
+     */
+    getRemoteConnection(): Promise<org_dcm4che3_net_Connection | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Connection'
+     */
+    getRemoteConnectionSync(): org_dcm4che3_net_Connection | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

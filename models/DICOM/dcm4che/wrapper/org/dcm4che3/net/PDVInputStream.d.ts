@@ -1,8 +1,8 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType } from "java-bridge";
-import { Attributes as org_dcm4che3_data_Attributes } from "./../data/Attributes";
 import { OutputStream as java_io_OutputStream } from "./../../../java/io/OutputStream";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
+import { Attributes as org_dcm4che3_data_Attributes } from "./../data/Attributes";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { InputStream as java_io_InputStream } from "./../../../java/io/InputStream";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -20,16 +20,6 @@ export declare class PDVInputStreamClass extends JavaClass {
      * @return original return type: 'long'
      */
     skipAllSync(): number;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
-    readDataset(var0: string | null): Promise<org_dcm4che3_data_Attributes | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
-    readDatasetSync(var0: string | null): org_dcm4che3_data_Attributes | null;
     /**
      * @param var0 original type: 'java.io.OutputStream'
      * @return original return type: 'void'
@@ -52,6 +42,16 @@ export declare class PDVInputStreamClass extends JavaClass {
      * @return original return type: 'void'
      */
     copyToSync(var0: java_io_OutputStream | null, var1: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.data.Attributes'
+     */
+    readDataset(var0: string | null): Promise<org_dcm4che3_data_Attributes | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.data.Attributes'
+     */
+    readDatasetSync(var0: string | null): org_dcm4che3_data_Attributes | null;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'

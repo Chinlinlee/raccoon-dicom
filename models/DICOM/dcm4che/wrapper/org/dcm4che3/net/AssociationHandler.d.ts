@@ -10,14 +10,6 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  */
 export declare class AssociationHandlerClass extends JavaClass {
     /**
-     * @return original return type: 'org.dcm4che3.net.UserIdentityNegotiator'
-     */
-    getUserIdNegotiator(): Promise<org_dcm4che3_net_UserIdentityNegotiator | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.UserIdentityNegotiator'
-     */
-    getUserIdNegotiatorSync(): org_dcm4che3_net_UserIdentityNegotiator | null;
-    /**
      * @param var0 original type: 'org.dcm4che3.net.UserIdentityNegotiator'
      * @return original return type: 'void'
      */
@@ -27,6 +19,14 @@ export declare class AssociationHandlerClass extends JavaClass {
      * @return original return type: 'void'
      */
     setUserIdNegotiatorSync(var0: org_dcm4che3_net_UserIdentityNegotiator | JavaInterfaceProxy<org_dcm4che3_net_UserIdentityNegotiatorInterface> | null): void;
+    /**
+     * @return original return type: 'org.dcm4che3.net.UserIdentityNegotiator'
+     */
+    getUserIdNegotiator(): Promise<org_dcm4che3_net_UserIdentityNegotiator | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.UserIdentityNegotiator'
+     */
+    getUserIdNegotiatorSync(): org_dcm4che3_net_UserIdentityNegotiator | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

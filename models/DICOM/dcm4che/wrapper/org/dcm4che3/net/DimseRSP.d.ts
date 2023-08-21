@@ -28,19 +28,19 @@ export declare class DimseRSPClass extends JavaClass {
     /**
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
-    getCommand(): Promise<org_dcm4che3_data_Attributes | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
-    getCommandSync(): org_dcm4che3_data_Attributes | null;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Attributes'
-     */
     getDataset(): Promise<org_dcm4che3_data_Attributes | null>;
     /**
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
     getDatasetSync(): org_dcm4che3_data_Attributes | null;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Attributes'
+     */
+    getCommand(): Promise<org_dcm4che3_data_Attributes | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Attributes'
+     */
+    getCommandSync(): org_dcm4che3_data_Attributes | null;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -66,11 +66,11 @@ export interface DimseRSPInterface {
     /**
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
-    getCommand(): org_dcm4che3_data_Attributes | null;
+    getDataset(): org_dcm4che3_data_Attributes | null;
     /**
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
-    getDataset(): org_dcm4che3_data_Attributes | null;
+    getCommand(): org_dcm4che3_data_Attributes | null;
 }
 /**
  * Create a proxy for the {@link DimseRSP} interface.

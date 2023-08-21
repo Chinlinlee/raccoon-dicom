@@ -10,6 +10,14 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  */
 export declare class AEExtensionClass extends JavaClass {
     /**
+     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
+     */
+    getApplicationEntity(): Promise<org_dcm4che3_net_ApplicationEntity | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
+     */
+    getApplicationEntitySync(): org_dcm4che3_net_ApplicationEntity | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.net.AEExtension'
      * @return original return type: 'void'
      */
@@ -19,14 +27,6 @@ export declare class AEExtensionClass extends JavaClass {
      * @return original return type: 'void'
      */
     reconfigureSync(var0: AEExtensionClass | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
-     */
-    getApplicationEntity(): Promise<org_dcm4che3_net_ApplicationEntity | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
-     */
-    getApplicationEntitySync(): org_dcm4che3_net_ApplicationEntity | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

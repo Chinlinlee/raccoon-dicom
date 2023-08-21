@@ -115,16 +115,6 @@ export declare class SpecificCharacterSetClass extends JavaClass {
     static getDefaultCharacterSetSync(): SpecificCharacterSet | null;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    static setDefaultCharacterSet(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    static setDefaultCharacterSetSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
@@ -136,14 +126,6 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      */
     static setCharsetNameMappingSync(var0: string | null, var1: string | null): void;
     /**
-     * @return original return type: 'void'
-     */
-    static resetCharsetNameMappings(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    static resetCharsetNameMappingsSync(): void;
-    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.String'
      */
@@ -153,6 +135,24 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     static checkSpecificCharacterSetSync(var0: string | null): string | null;
+    /**
+     * @return original return type: 'void'
+     */
+    static resetCharsetNameMappings(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    static resetCharsetNameMappingsSync(): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    static setDefaultCharacterSet(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    static setDefaultCharacterSetSync(var0: string | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.String'

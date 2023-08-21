@@ -183,51 +183,11 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    commandField(): Promise<number>;
+    tagOfSOPInstanceUID(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    commandFieldSync(): number;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRSP(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRSPSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRetrieveRQ(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRetrieveRQSync(): boolean;
-    /**
-     * @return original return type: 'int'
-     */
-    tagOfSOPClassUID(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    tagOfSOPClassUIDSync(): number;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRetrieveRSP(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRetrieveRSPSync(): boolean;
-    /**
-     * @return original return type: 'int'
-     */
-    commandFieldOfRSP(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    commandFieldOfRSPSync(): number;
+    tagOfSOPInstanceUIDSync(): number;
     /**
      * @return original return type: 'boolean'
      */
@@ -239,11 +199,51 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    tagOfSOPInstanceUID(): Promise<number>;
+    tagOfSOPClassUID(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    tagOfSOPInstanceUIDSync(): number;
+    tagOfSOPClassUIDSync(): number;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRetrieveRQ(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRetrieveRQSync(): boolean;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRSP(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRSPSync(): boolean;
+    /**
+     * @return original return type: 'int'
+     */
+    commandFieldOfRSP(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    commandFieldOfRSPSync(): number;
+    /**
+     * @return original return type: 'int'
+     */
+    commandField(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    commandFieldSync(): number;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRetrieveRSP(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRetrieveRSPSync(): boolean;
     /**
      * @return original return type: 'java.lang.String'
      */

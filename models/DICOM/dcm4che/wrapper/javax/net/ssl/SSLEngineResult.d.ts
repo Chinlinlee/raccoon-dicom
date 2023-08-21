@@ -1,6 +1,6 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
-import { SSLEngineResult$HandshakeStatus as javax_net_ssl_SSLEngineResult$HandshakeStatus } from "./SSLEngineResult$HandshakeStatus";
 import { SSLEngineResult$Status as javax_net_ssl_SSLEngineResult$Status } from "./SSLEngineResult$Status";
+import { SSLEngineResult$HandshakeStatus as javax_net_ssl_SSLEngineResult$HandshakeStatus } from "./SSLEngineResult$HandshakeStatus";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -18,6 +18,14 @@ export declare class SSLEngineResultClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     toStringSync(): string;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLEngineResult$Status'
+     */
+    getStatus(): Promise<javax_net_ssl_SSLEngineResult$Status | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLEngineResult$Status'
+     */
+    getStatusSync(): javax_net_ssl_SSLEngineResult$Status | null;
     /**
      * @return original return type: 'javax.net.ssl.SSLEngineResult$HandshakeStatus'
      */
@@ -50,14 +58,6 @@ export declare class SSLEngineResultClass extends JavaClass {
      * @return original return type: 'long'
      */
     sequenceNumberSync(): number;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLEngineResult$Status'
-     */
-    getStatus(): Promise<javax_net_ssl_SSLEngineResult$Status | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLEngineResult$Status'
-     */
-    getStatusSync(): javax_net_ssl_SSLEngineResult$Status | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
