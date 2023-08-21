@@ -104,18 +104,6 @@ export declare class AssociationClass extends JavaClass {
      */
     toStringSync(): string;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'java.lang.Object'
-     */
-    setProperty(var0: string | null, var1: BasicOrJavaType | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'java.lang.Object'
-     */
-    setPropertySync(var0: string | null, var1: BasicOrJavaType | null): BasicOrJavaType | null;
-    /**
      * @param var0 original type: 'java.lang.Class'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'void'
@@ -127,6 +115,18 @@ export declare class AssociationClass extends JavaClass {
      * @return original return type: 'void'
      */
     setPropertySync(var0: java_lang_Class | null, var1: BasicOrJavaType | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'java.lang.Object'
+     */
+    setProperty(var0: string | null, var1: BasicOrJavaType | null): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'java.lang.Object'
+     */
+    setPropertySync(var0: string | null, var1: BasicOrJavaType | null): BasicOrJavaType | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.Object'
@@ -434,6 +434,40 @@ export declare class AssociationClass extends JavaClass {
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var3 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nset(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var3 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nsetSync(var0: string | null, var1: string | null, var2: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var3: string | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nset(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null): Promise<org_dcm4che3_net_DimseRSP | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @param var2 original type: 'java.lang.String'
+     * @param var3 original type: 'org.dcm4che3.net.DataWriter'
+     * @param var4 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.DimseRSP'
+     */
+    nsetSync(var0: string | null, var1: string | null, var2: string | null, var3: org_dcm4che3_net_DataWriter | JavaInterfaceProxy<org_dcm4che3_net_DataWriterInterface> | null, var4: string | null): org_dcm4che3_net_DimseRSP | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'java.lang.String'
      * @param var3 original type: 'org.dcm4che3.net.DataWriter'
      * @param var4 original type: 'java.lang.String'
@@ -562,11 +596,9 @@ export declare class AssociationClass extends JavaClass {
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
-     * @param var2 original type: 'java.lang.String'
-     * @param var3 original type: 'int'
-     * @param var4 original type: 'org.dcm4che3.data.Attributes'
-     * @param var5 original type: 'java.lang.String'
-     * @param var6 original type: 'org.dcm4che3.net.DimseRSPHandler'
+     * @param var2 original type: 'org.dcm4che3.data.Attributes'
+     * @param var3 original type: 'java.lang.String'
+     * @param var4 original type: 'org.dcm4che3.net.DimseRSPHandler'
      * @return original return type: 'void'
      */
     naction(var0: string | null, var1: string | null, var2: string | null, var3: java_lang_Integer | number, var4: org_dcm4che3_data_Attributes | null, var5: string | null, var6: org_dcm4che3_net_DimseRSPHandler | null): Promise<void>;

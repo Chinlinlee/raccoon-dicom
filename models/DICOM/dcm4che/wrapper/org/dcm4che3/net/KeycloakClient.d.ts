@@ -1,7 +1,7 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
-import { Device as org_dcm4che3_net_Device } from "./Device";
 import { KeycloakClient$GrantType as org_dcm4che3_net_KeycloakClient$GrantType } from "./KeycloakClient$GrantType";
 import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
+import { Device as org_dcm4che3_net_Device } from "./Device";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";

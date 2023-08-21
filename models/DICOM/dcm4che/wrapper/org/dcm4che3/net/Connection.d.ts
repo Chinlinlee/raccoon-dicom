@@ -9,6 +9,7 @@ import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
 import { DatagramSocket as java_net_DatagramSocket } from "./../../../java/net/DatagramSocket";
 import { Connection$EndpointIdentificationAlgorithm as org_dcm4che3_net_Connection$EndpointIdentificationAlgorithm } from "./Connection$EndpointIdentificationAlgorithm";
 import { InetAddress as java_net_InetAddress } from "./../../../java/net/InetAddress";
+import { StringBuilder as java_lang_StringBuilder } from "./../../../java/lang/StringBuilder";
 import { Listener as org_dcm4che3_net_Listener } from "./Listener";
 import { InetSocketAddress as java_net_InetSocketAddress } from "./../../../java/net/InetSocketAddress";
 import { UDPProtocolHandler as org_dcm4che3_net_UDPProtocolHandler, UDPProtocolHandlerInterface as org_dcm4che3_net_UDPProtocolHandlerInterface } from "./UDPProtocolHandler";
@@ -865,6 +866,14 @@ export declare class ConnectionClass extends JavaClass {
      * @return original return type: 'org.dcm4che3.net.TCPProtocolHandler'
      */
     static registerTCPProtocolHandlerSync(var0: org_dcm4che3_net_Connection$Protocol | null, var1: org_dcm4che3_net_TCPProtocolHandler | JavaInterfaceProxy<org_dcm4che3_net_TCPProtocolHandlerInterface> | null): org_dcm4che3_net_TCPProtocolHandler | null;
+    /**
+     * @return original return type: 'int'
+     */
+    getSocketCloseDelay(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getSocketCloseDelaySync(): number;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection$Protocol'
      * @return original return type: 'org.dcm4che3.net.UDPProtocolHandler'

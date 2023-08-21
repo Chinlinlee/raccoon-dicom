@@ -159,6 +159,90 @@ export declare class ValidationResultClass extends JavaClass {
      */
     addNotAllowedAttributeSync(var0: org_dcm4che3_data_IOD$DataElement | null): void;
     /**
+     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElement'
+     * @param var1 original type: 'org.dcm4che3.data.ValidationResult$Invalid'
+     * @param var2 original type: 'org.dcm4che3.data.ValidationResult[]'
+     * @param var3 original type: 'org.dcm4che3.data.IOD[]'
+     * @return original return type: 'void'
+     */
+    addInvalidAttributeValue(var0: org_dcm4che3_data_IOD$DataElement | null, var1: org_dcm4che3_data_ValidationResult$Invalid | null, var2: (ValidationResultClass | null)[] | null, var3: (org_dcm4che3_data_IOD | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElement'
+     * @param var1 original type: 'org.dcm4che3.data.ValidationResult$Invalid'
+     * @param var2 original type: 'org.dcm4che3.data.ValidationResult[]'
+     * @param var3 original type: 'org.dcm4che3.data.IOD[]'
+     * @return original return type: 'void'
+     */
+    addInvalidAttributeValueSync(var0: org_dcm4che3_data_IOD$DataElement | null, var1: org_dcm4che3_data_ValidationResult$Invalid | null, var2: (ValidationResultClass | null)[] | null, var3: (org_dcm4che3_data_IOD | null)[] | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElement'
+     * @param var1 original type: 'org.dcm4che3.data.ValidationResult$Invalid'
+     * @return original return type: 'void'
+     */
+    addInvalidAttributeValue(var0: org_dcm4che3_data_IOD$DataElement | null, var1: org_dcm4che3_data_ValidationResult$Invalid | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.IOD$DataElement'
+     * @param var1 original type: 'org.dcm4che3.data.ValidationResult$Invalid'
+     * @return original return type: 'void'
+     */
+    addInvalidAttributeValueSync(var0: org_dcm4che3_data_IOD$DataElement | null, var1: org_dcm4che3_data_ValidationResult$Invalid | null): void;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasInvalidAttributeValues(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasInvalidAttributeValuesSync(): boolean;
+    /**
+     * @return original return type: 'int[]'
+     */
+    tagsOfMissingAttributeValues(): Promise<(number)[] | null>;
+    /**
+     * @return original return type: 'int[]'
+     */
+    tagsOfMissingAttributeValuesSync(): (number)[] | null;
+    /**
+     * @return original return type: 'int[]'
+     */
+    tagsOfNotAllowedAttributes(): Promise<(number)[] | null>;
+    /**
+     * @return original return type: 'int[]'
+     */
+    tagsOfNotAllowedAttributesSync(): (number)[] | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasMissingAttributes(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasMissingAttributesSync(): boolean;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasMissingAttributeValues(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasMissingAttributeValuesSync(): boolean;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasNotAllowedAttributes(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasNotAllowedAttributesSync(): boolean;
+    /**
+     * @return original return type: 'int[]'
+     */
+    tagsOfMissingAttributes(): Promise<(number)[] | null>;
+    /**
+     * @return original return type: 'int[]'
+     */
+    tagsOfMissingAttributesSync(): (number)[] | null;
+    /**
      * @return original return type: 'int[]'
      */
     getOffendingElements(): Promise<(number)[] | null>;

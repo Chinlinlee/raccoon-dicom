@@ -167,10 +167,9 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'boolean'
      */
-    static trimISO2022(var0: (string | null)[] | null): Promise<boolean>;
+    toCodes(): Promise<(string | null)[] | null>;
     /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'boolean'
+     * @return original return type: 'java.lang.String[]'
      */
     static trimISO2022Sync(var0: (string | null)[] | null): boolean;
     /**

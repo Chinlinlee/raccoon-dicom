@@ -75,19 +75,19 @@ export declare class Connection$ProtocolClass extends JavaClass {
     /**
      * @return original return type: 'boolean'
      */
-    isHL7(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isHL7Sync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
     isSyslog(): Promise<boolean>;
     /**
      * @return original return type: 'boolean'
      */
     isSyslogSync(): boolean;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isHL7(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isHL7Sync(): boolean;
     /**
      * @return original return type: 'java.lang.String'
      */

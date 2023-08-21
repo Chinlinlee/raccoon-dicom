@@ -45,6 +45,18 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     connectSync(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: org_dcm4che3_net_pdu_AAssociateRQ | null): org_dcm4che3_net_Association | null;
     /**
+     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
+     * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
+     * @return original return type: 'org.dcm4che3.net.Association'
+     */
+    connect(var0: ApplicationEntityClass | null, var1: org_dcm4che3_net_pdu_AAssociateRQ | null): Promise<org_dcm4che3_net_Association | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
+     * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
+     * @return original return type: 'org.dcm4che3.net.Association'
+     */
+    connectSync(var0: ApplicationEntityClass | null, var1: org_dcm4che3_net_pdu_AAssociateRQ | null): org_dcm4che3_net_Association | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
      * @return original return type: 'org.dcm4che3.net.Association'
@@ -235,14 +247,6 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     setOtherAETitlesSync(var0: (string | null)[] | null): void;
     /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getOtherAETitles(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getOtherAETitlesSync(): (string | null)[] | null;
-    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.String'
      */
@@ -274,12 +278,48 @@ export declare class ApplicationEntityClass extends JavaClass {
      * @param var0 original type: 'org.dcm4che3.net.AEExtension'
      * @return original return type: 'void'
      */
-    addAEExtension(var0: org_dcm4che3_net_AEExtension | null): Promise<void>;
+    isOtherAETitle(var0: string | null): Promise<boolean>;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.AEExtension'
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'boolean'
+     */
+    isOtherAETitleSync(var0: string | null): boolean;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @return original return type: 'void'
      */
-    addAEExtensionSync(var0: org_dcm4che3_net_AEExtension | null): void;
+    addConnection(var0: org_dcm4che3_net_Connection | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'void'
+     */
+    addConnectionSync(var0: org_dcm4che3_net_Connection | null): void;
+    /**
+     * @return original return type: 'java.util.List'
+     */
+    getConnections(): Promise<java_util_List | null>;
+    /**
+     * @return original return type: 'java.util.List'
+     */
+    getConnectionsSync(): java_util_List | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.DimseRQHandler'
+     * @return original return type: 'void'
+     */
+    setDimseRQHandler(var0: org_dcm4che3_net_DimseRQHandler | JavaInterfaceProxy<org_dcm4che3_net_DimseRQHandlerInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.DimseRQHandler'
+     * @return original return type: 'void'
+     */
+    setDimseRQHandlerSync(var0: org_dcm4che3_net_DimseRQHandler | JavaInterfaceProxy<org_dcm4che3_net_DimseRQHandlerInterface> | null): void;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    listAEExtensions(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    listAEExtensionsSync(): java_util_Collection | null;
     /**
      * @param var0 original type: 'org.dcm4che3.net.AEExtension'
      * @return original return type: 'boolean'
@@ -290,14 +330,6 @@ export declare class ApplicationEntityClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     removeAEExtensionSync(var0: org_dcm4che3_net_AEExtension | null): boolean;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    listAEExtensions(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    listAEExtensionsSync(): java_util_Collection | null;
     /**
      * @param var0 original type: 'java.lang.Class'
      * @return original return type: 'org.dcm4che3.net.AEExtension'

@@ -1123,7 +1123,7 @@ export interface LoggerInterface {
      * @param var0 original type: 'org.slf4j.Marker'
      * @return original return type: 'boolean'
      */
-    isDebugEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
+    isTraceEnabled(var0: org_slf4j_Marker | JavaInterfaceProxy<org_slf4j_MarkerInterface> | null): boolean;
     /**
      * @return original return type: 'boolean'
      */

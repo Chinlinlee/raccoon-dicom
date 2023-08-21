@@ -122,7 +122,6 @@ class DcmQrScp {
                 )
             );
         }
-
         let aeConfig = CLIUtils.loadPropertiesSync(aeFile, null);
         let itemsSet = aeConfig.entrySetSync();
         let itemsIter = itemsSet.iteratorSync();

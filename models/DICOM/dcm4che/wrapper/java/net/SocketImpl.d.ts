@@ -150,16 +150,6 @@ export declare class SocketImplClass extends JavaClass {
     notifyAllSync(): void;
     /**
      * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOption(var0: java_lang_Integer | number): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOptionSync(var0: java_lang_Integer | number): BasicOrJavaType | null;
-    /**
-     * @param var0 original type: 'int'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'void'
      */
@@ -170,6 +160,16 @@ export declare class SocketImplClass extends JavaClass {
      * @return original return type: 'void'
      */
     setOptionSync(var0: java_lang_Integer | number, var1: BasicOrJavaType | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.Object'
+     */
+    getOption(var0: java_lang_Integer | number): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.lang.Object'
+     */
+    getOptionSync(var0: java_lang_Integer | number): BasicOrJavaType | null;
 }
 declare const SocketImpl_base: typeof SocketImplClass;
 /**

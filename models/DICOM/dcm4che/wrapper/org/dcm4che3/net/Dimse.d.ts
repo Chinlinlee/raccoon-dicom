@@ -183,11 +183,11 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    tagOfSOPInstanceUID(): Promise<number>;
+    commandField(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    tagOfSOPInstanceUIDSync(): number;
+    commandFieldSync(): number;
     /**
      * @return original return type: 'boolean'
      */
@@ -207,7 +207,7 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRQ(): Promise<boolean>;
+    isRetrieveRSP(): Promise<boolean>;
     /**
      * @return original return type: 'boolean'
      */
@@ -239,11 +239,19 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRSP(): Promise<boolean>;
+    isCService(): Promise<boolean>;
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRSPSync(): boolean;
+    isCServiceSync(): boolean;
+    /**
+     * @return original return type: 'int'
+     */
+    tagOfSOPInstanceUID(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    tagOfSOPInstanceUIDSync(): number;
     /**
      * @return original return type: 'java.lang.String'
      */

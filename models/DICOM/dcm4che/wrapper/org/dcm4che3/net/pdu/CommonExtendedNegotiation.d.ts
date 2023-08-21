@@ -53,9 +53,9 @@ export declare class CommonExtendedNegotiationClass extends JavaClass {
      */
     getServiceClassUID(): Promise<string | null>;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'int'
      */
-    getServiceClassUIDSync(): string | null;
+    getRelatedGeneralSOPClassUIDsLengthSync(): number;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

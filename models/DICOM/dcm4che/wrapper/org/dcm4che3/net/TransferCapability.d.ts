@@ -110,6 +110,14 @@ export declare class TransferCapabilityClass extends JavaClass {
      */
     getPreferredTransferSyntaxesSync(): (string | null)[] | null;
     /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getTransferSyntaxes(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getTransferSyntaxesSync(): (string | null)[] | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
      * @return original return type: 'void'
      */
