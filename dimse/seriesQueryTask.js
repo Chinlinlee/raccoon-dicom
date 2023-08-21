@@ -47,9 +47,9 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
                     await this.patientAttr.size() + await this.studyAttr.size() + await this.seriesAttr.size()
                 );
                 await Attributes.unifyCharacterSets([this.patientAttr, this.studyAttr, this.seriesAttr]);
-                returnAttr.addAll(this.patientAttr);
-                returnAttr.addAll(this.studyAttr, true);
-                returnAttr.addAll(this.seriesAttr, true);
+                await returnAttr.addAll(this.patientAttr);
+                await returnAttr.addAll(this.studyAttr, true);
+                await returnAttr.addAll(this.seriesAttr, true);
 
                 await this.seriesQueryTaskInjectMethods.wrappedFindNextSeries();
 
@@ -88,7 +88,7 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
                     await this.seriesQueryTaskInjectMethods.getSeries();
                 }
 
-                while(!this.seriesAttr && await this.studyQueryTaskInjectMethods.findNextStudy()) {
+                while (!this.seriesAttr && await this.studyQueryTaskInjectMethods.findNextStudy()) {
                     await this.getNextSeriesCursor();
                     await this.seriesQueryTaskInjectMethods.getSeries();
                 }
@@ -96,7 +96,7 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
                 return !_.isNull(this.seriesAttr);
             }
         };
-        
+
         if (!this.seriesQueryTaskInjectProxy) {
             this.seriesQueryTaskInjectProxy = createSeriesQueryTaskInjectProxy(this.seriesQueryTaskInjectMethods);
         }
@@ -111,7 +111,6 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
 
         let returnKeys = this.getReturnKeys(normalQuery);
 
-        console.log(JSON.stringify(mongoQuery, null, 2));
         this.seriesCursor = await dicomSeriesModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);

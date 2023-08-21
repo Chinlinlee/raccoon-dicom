@@ -11,6 +11,7 @@ const { createCFindSCPInjectProxy } = require("@java-wrapper/org/github/chinlinl
 const { JsPatientQueryTask } = require("./patientQueryTask");
 const { JsStudyQueryTask } = require("./studyQueryTask");
 const { JsSeriesQueryTask } = require("./seriesQueryTask");
+const { JsInstanceQueryTask } = require("./instanceQueryTask");
 
 const PATIENT_ROOT_LEVELS = EnumSet.ofSync(
     QueryRetrieveLevel2.PATIENT,
@@ -107,6 +108,8 @@ class JsCFindScp {
                         return await (new JsStudyQueryTask(as, pc, rq, keys)).get();
                     } else if (await level.compareTo(QueryRetrieveLevel2.SERIES) === 0) {
                         return await (new JsSeriesQueryTask(as, pc, rq, keys)).get();
+                    } else if (await level.compareTo(QueryRetrieveLevel2.IMAGE) === 0)  {
+                        return await (new JsInstanceQueryTask(as, pc, rq, keys)).get();
                     }
                 } catch (e) {
                     console.error(e);

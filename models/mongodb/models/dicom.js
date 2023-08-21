@@ -13,6 +13,12 @@ const { logger } = require("../../../utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
 let verifyingObserverSchema = new mongoose.Schema(
     {
         "0040A027": getVRSchema("LO"),
@@ -145,6 +151,22 @@ let dicomModelSchema = new mongoose.Schema(
                 } catch (e) {
                     console.error(e);
                 }
+            },
+            getAttributes: async function() {
+                let study = this.toObject();
+                delete study._id;
+                delete study.id;
+
+                let jsonStr = JSON.stringify(study);
+                return await Common.getAttributesFromJsonString(jsonStr);
+            }
+        },
+        statics: {
+            getDimseResultCursor: async (query, keys) => {
+                return mongoose.model("dicom").find(query, keys).setOptions({
+                    strictQuery: false
+                })
+                .cursor();
             }
         },
         timestamps: true

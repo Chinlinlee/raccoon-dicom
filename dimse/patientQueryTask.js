@@ -7,13 +7,19 @@ const { default: Tag } = require("@dcm4che/data/Tag");
 const { default: VR } = require("@dcm4che/data/VR");
 const { DimseQueryBuilder } = require("./queryBuilder");
 const patientModel = require("@models/mongodb/models/patient");
+const { Association } = require("@dcm4che/net/Association");
+const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
 
 
 class JsPatientQueryTask {
     constructor(as, pc, rq, keys) {
+        /** @type { Association } */
         this.as = as;
+        /** @type { PresentationContext } */
         this.pc = pc;
+        /** @type { Attributes } */
         this.rq = rq;
+        /** @type { Attributes } */
         this.keys = keys;
 
         this.patientAttr = null;
