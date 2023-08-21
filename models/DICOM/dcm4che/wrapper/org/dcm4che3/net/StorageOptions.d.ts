@@ -1,9 +1,9 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { ExtendedNegotiation as org_dcm4che3_net_pdu_ExtendedNegotiation } from "./pdu/ExtendedNegotiation";
-import { StorageOptions$DigitalSignatureSupport as org_dcm4che3_net_StorageOptions$DigitalSignatureSupport } from "./StorageOptions$DigitalSignatureSupport";
 import { StorageOptions$ElementCoercion as org_dcm4che3_net_StorageOptions$ElementCoercion } from "./StorageOptions$ElementCoercion";
 import { StorageOptions$LevelOfSupport as org_dcm4che3_net_StorageOptions$LevelOfSupport } from "./StorageOptions$LevelOfSupport";
+import { StorageOptions$DigitalSignatureSupport as org_dcm4che3_net_StorageOptions$DigitalSignatureSupport } from "./StorageOptions$DigitalSignatureSupport";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -50,6 +50,42 @@ export declare class StorageOptionsClass extends JavaClass {
      */
     static valueOfSync(var0: org_dcm4che3_net_pdu_ExtendedNegotiation | null): StorageOptions | null;
     /**
+     * @param var0 original type: 'org.dcm4che3.net.StorageOptions$ElementCoercion'
+     * @return original return type: 'void'
+     */
+    setElementCoercion(var0: org_dcm4che3_net_StorageOptions$ElementCoercion | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.StorageOptions$ElementCoercion'
+     * @return original return type: 'void'
+     */
+    setElementCoercionSync(var0: org_dcm4che3_net_StorageOptions$ElementCoercion | null): void;
+    /**
+     * @return original return type: 'org.dcm4che3.net.StorageOptions$ElementCoercion'
+     */
+    getElementCoercion(): Promise<org_dcm4che3_net_StorageOptions$ElementCoercion | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.StorageOptions$ElementCoercion'
+     */
+    getElementCoercionSync(): org_dcm4che3_net_StorageOptions$ElementCoercion | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.StorageOptions$LevelOfSupport'
+     * @return original return type: 'void'
+     */
+    setLevelOfSupport(var0: org_dcm4che3_net_StorageOptions$LevelOfSupport | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.StorageOptions$LevelOfSupport'
+     * @return original return type: 'void'
+     */
+    setLevelOfSupportSync(var0: org_dcm4che3_net_StorageOptions$LevelOfSupport | null): void;
+    /**
+     * @return original return type: 'org.dcm4che3.net.StorageOptions$LevelOfSupport'
+     */
+    getLevelOfSupport(): Promise<org_dcm4che3_net_StorageOptions$LevelOfSupport | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.StorageOptions$LevelOfSupport'
+     */
+    getLevelOfSupportSync(): org_dcm4che3_net_StorageOptions$LevelOfSupport | null;
+    /**
      * @return original return type: 'org.dcm4che3.net.StorageOptions$DigitalSignatureSupport'
      */
     getDigitalSignatureSupport(): Promise<org_dcm4che3_net_StorageOptions$DigitalSignatureSupport | null>;
@@ -67,42 +103,6 @@ export declare class StorageOptionsClass extends JavaClass {
      * @return original return type: 'void'
      */
     setDigitalSignatureSupportSync(var0: org_dcm4che3_net_StorageOptions$DigitalSignatureSupport | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.net.StorageOptions$ElementCoercion'
-     */
-    getElementCoercion(): Promise<org_dcm4che3_net_StorageOptions$ElementCoercion | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.StorageOptions$ElementCoercion'
-     */
-    getElementCoercionSync(): org_dcm4che3_net_StorageOptions$ElementCoercion | null;
-    /**
-     * @return original return type: 'org.dcm4che3.net.StorageOptions$LevelOfSupport'
-     */
-    getLevelOfSupport(): Promise<org_dcm4che3_net_StorageOptions$LevelOfSupport | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.StorageOptions$LevelOfSupport'
-     */
-    getLevelOfSupportSync(): org_dcm4che3_net_StorageOptions$LevelOfSupport | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.StorageOptions$ElementCoercion'
-     * @return original return type: 'void'
-     */
-    setElementCoercion(var0: org_dcm4che3_net_StorageOptions$ElementCoercion | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.StorageOptions$ElementCoercion'
-     * @return original return type: 'void'
-     */
-    setElementCoercionSync(var0: org_dcm4che3_net_StorageOptions$ElementCoercion | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.StorageOptions$LevelOfSupport'
-     * @return original return type: 'void'
-     */
-    setLevelOfSupport(var0: org_dcm4che3_net_StorageOptions$LevelOfSupport | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.StorageOptions$LevelOfSupport'
-     * @return original return type: 'void'
-     */
-    setLevelOfSupportSync(var0: org_dcm4che3_net_StorageOptions$LevelOfSupport | null): void;
     /**
      * @return original return type: 'byte[]'
      */

@@ -55,13 +55,29 @@ export declare class UserIdentityRQClass extends JavaClass {
      */
     getTypeSync(): number;
     /**
-     * @return original return type: 'boolean'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'boolean'
+     * @return original return type: 'org.dcm4che3.net.pdu.UserIdentityRQ'
      */
-    isPositiveResponseRequested(): Promise<boolean>;
+    static saml(var0: string | null, var1: java_lang_Boolean | boolean): Promise<UserIdentityRQ | null>;
     /**
-     * @return original return type: 'boolean'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'boolean'
+     * @return original return type: 'org.dcm4che3.net.pdu.UserIdentityRQ'
      */
-    isPositiveResponseRequestedSync(): boolean;
+    static samlSync(var0: string | null, var1: java_lang_Boolean | boolean): UserIdentityRQ | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'boolean'
+     * @return original return type: 'org.dcm4che3.net.pdu.UserIdentityRQ'
+     */
+    static jwt(var0: string | null, var1: java_lang_Boolean | boolean): Promise<UserIdentityRQ | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'boolean'
+     * @return original return type: 'org.dcm4che3.net.pdu.UserIdentityRQ'
+     */
+    static jwtSync(var0: string | null, var1: java_lang_Boolean | boolean): UserIdentityRQ | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'char[]'
@@ -89,17 +105,29 @@ export declare class UserIdentityRQClass extends JavaClass {
      */
     static usernameSync(var0: string | null, var1: java_lang_Boolean | boolean): UserIdentityRQ | null;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'boolean'
-     * @return original return type: 'org.dcm4che3.net.pdu.UserIdentityRQ'
+     * @return original return type: 'boolean'
      */
-    static jwt(var0: string | null, var1: java_lang_Boolean | boolean): Promise<UserIdentityRQ | null>;
+    isPositiveResponseRequested(): Promise<boolean>;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'boolean'
-     * @return original return type: 'org.dcm4che3.net.pdu.UserIdentityRQ'
+     * @return original return type: 'boolean'
      */
-    static jwtSync(var0: string | null, var1: java_lang_Boolean | boolean): UserIdentityRQ | null;
+    isPositiveResponseRequestedSync(): boolean;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getPrimaryField(): Promise<Buffer | null>;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getPrimaryFieldSync(): Buffer | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUsername(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUsernameSync(): string | null;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'boolean'
@@ -113,34 +141,6 @@ export declare class UserIdentityRQClass extends JavaClass {
      */
     static kerberosSync(var0: Buffer | null, var1: java_lang_Boolean | boolean): UserIdentityRQ | null;
     /**
-     * @return original return type: 'char[]'
-     */
-    getPasscode(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'char[]'
-     */
-    getPasscodeSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'boolean'
-     * @return original return type: 'org.dcm4che3.net.pdu.UserIdentityRQ'
-     */
-    static saml(var0: string | null, var1: java_lang_Boolean | boolean): Promise<UserIdentityRQ | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'boolean'
-     * @return original return type: 'org.dcm4che3.net.pdu.UserIdentityRQ'
-     */
-    static samlSync(var0: string | null, var1: java_lang_Boolean | boolean): UserIdentityRQ | null;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getPrimaryField(): Promise<Buffer | null>;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getPrimaryFieldSync(): Buffer | null;
-    /**
      * @return original return type: 'byte[]'
      */
     getSecondaryField(): Promise<Buffer | null>;
@@ -149,13 +149,13 @@ export declare class UserIdentityRQClass extends JavaClass {
      */
     getSecondaryFieldSync(): Buffer | null;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'char[]'
      */
-    getUsername(): Promise<string | null>;
+    getPasscode(): Promise<(string | null)[] | null>;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'char[]'
      */
-    getUsernameSync(): string | null;
+    getPasscodeSync(): (string | null)[] | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

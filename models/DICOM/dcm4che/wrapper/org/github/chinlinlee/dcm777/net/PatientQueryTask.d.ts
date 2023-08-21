@@ -15,14 +15,6 @@ import { PatientQueryTaskInject as org_github_chinlinlee_dcm777_net_PatientQuery
  */
 export declare class PatientQueryTaskClass extends JavaClass {
     /**
-     * @return original return type: 'boolean'
-     */
-    hasMoreMatches(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    hasMoreMatchesSync(): boolean;
-    /**
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
     nextMatch(): Promise<org_dcm4che3_data_Attributes | null>;
@@ -30,6 +22,14 @@ export declare class PatientQueryTaskClass extends JavaClass {
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
     nextMatchSync(): org_dcm4che3_data_Attributes | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasMoreMatches(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    hasMoreMatchesSync(): boolean;
     /**
      * @return original return type: 'void'
      */

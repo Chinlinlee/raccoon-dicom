@@ -59,18 +59,6 @@ export declare class SSLEngineClass extends JavaClass {
     /**
      * @param var0 original type: 'java.nio.ByteBuffer'
      * @param var1 original type: 'java.nio.ByteBuffer[]'
-     * @return original return type: 'javax.net.ssl.SSLEngineResult'
-     */
-    unwrap(var0: java_nio_ByteBuffer | null, var1: (java_nio_ByteBuffer | null)[] | null): Promise<javax_net_ssl_SSLEngineResult | null>;
-    /**
-     * @param var0 original type: 'java.nio.ByteBuffer'
-     * @param var1 original type: 'java.nio.ByteBuffer[]'
-     * @return original return type: 'javax.net.ssl.SSLEngineResult'
-     */
-    unwrapSync(var0: java_nio_ByteBuffer | null, var1: (java_nio_ByteBuffer | null)[] | null): javax_net_ssl_SSLEngineResult | null;
-    /**
-     * @param var0 original type: 'java.nio.ByteBuffer'
-     * @param var1 original type: 'java.nio.ByteBuffer[]'
      * @param var2 original type: 'int'
      * @param var3 original type: 'int'
      * @return original return type: 'javax.net.ssl.SSLEngineResult'
@@ -96,6 +84,38 @@ export declare class SSLEngineClass extends JavaClass {
      * @return original return type: 'javax.net.ssl.SSLEngineResult'
      */
     unwrapSync(var0: java_nio_ByteBuffer | null, var1: java_nio_ByteBuffer | null): javax_net_ssl_SSLEngineResult | null;
+    /**
+     * @param var0 original type: 'java.nio.ByteBuffer'
+     * @param var1 original type: 'java.nio.ByteBuffer[]'
+     * @return original return type: 'javax.net.ssl.SSLEngineResult'
+     */
+    unwrap(var0: java_nio_ByteBuffer | null, var1: (java_nio_ByteBuffer | null)[] | null): Promise<javax_net_ssl_SSLEngineResult | null>;
+    /**
+     * @param var0 original type: 'java.nio.ByteBuffer'
+     * @param var1 original type: 'java.nio.ByteBuffer[]'
+     * @return original return type: 'javax.net.ssl.SSLEngineResult'
+     */
+    unwrapSync(var0: java_nio_ByteBuffer | null, var1: (java_nio_ByteBuffer | null)[] | null): javax_net_ssl_SSLEngineResult | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setEnabledProtocols(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setEnabledProtocolsSync(var0: (string | null)[] | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setEnabledCipherSuites(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setEnabledCipherSuitesSync(var0: (string | null)[] | null): void;
     /**
      * @return original return type: 'java.lang.String[]'
      */
@@ -323,25 +343,13 @@ export declare class SSLEngineClass extends JavaClass {
      */
     getHandshakeStatusSync(): javax_net_ssl_SSLEngineResult$HandshakeStatus | null;
     /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
+     * @return original return type: 'javax.net.ssl.SSLParameters'
      */
-    setEnabledCipherSuites(var0: (string | null)[] | null): Promise<void>;
+    getSSLParameters(): Promise<javax_net_ssl_SSLParameters | null>;
     /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
+     * @return original return type: 'javax.net.ssl.SSLParameters'
      */
-    setEnabledCipherSuitesSync(var0: (string | null)[] | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setEnabledProtocols(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setEnabledProtocolsSync(var0: (string | null)[] | null): void;
+    getSSLParametersSync(): javax_net_ssl_SSLParameters | null;
     /**
      * @param var0 original type: 'javax.net.ssl.SSLParameters'
      * @return original return type: 'void'
@@ -352,14 +360,6 @@ export declare class SSLEngineClass extends JavaClass {
      * @return original return type: 'void'
      */
     setSSLParametersSync(var0: javax_net_ssl_SSLParameters | null): void;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLParameters'
-     */
-    getSSLParameters(): Promise<javax_net_ssl_SSLParameters | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLParameters'
-     */
-    getSSLParametersSync(): javax_net_ssl_SSLParameters | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

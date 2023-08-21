@@ -2,9 +2,9 @@ import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { VR as org_dcm4che3_data_VR } from "./VR";
 import { IOD$DataElementType as org_dcm4che3_data_IOD$DataElementType } from "./IOD$DataElementType";
+import { IOD$Condition as org_dcm4che3_data_IOD$Condition } from "./IOD$Condition";
 import { Code as org_dcm4che3_data_Code } from "./Code";
 import { IOD as org_dcm4che3_data_IOD } from "./IOD";
-import { IOD$Condition as org_dcm4che3_data_IOD$Condition } from "./IOD$Condition";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
 /**
@@ -46,23 +46,21 @@ export declare class IOD$DataElementClass extends JavaClass {
      */
     getLineNumberSync(): number;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
      */
-    getValueNumber(): Promise<number>;
+    getCondition(): Promise<org_dcm4che3_data_IOD$Condition | null>;
     /**
-     * @return original return type: 'int'
+     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
      */
-    getValueNumberSync(): number;
+    getConditionSync(): org_dcm4che3_data_IOD$Condition | null;
     /**
-     * @param var0 original type: 'int[]'
-     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
+     * @return original return type: 'java.lang.Object'
      */
-    setValues(var0: (java_lang_Integer | number)[] | null): Promise<IOD$DataElement | null>;
+    getValues(): Promise<BasicOrJavaType | null>;
     /**
-     * @param var0 original type: 'int[]'
-     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
+     * @return original return type: 'java.lang.Object'
      */
-    setValuesSync(var0: (java_lang_Integer | number)[] | null): IOD$DataElement | null;
+    getValuesSync(): BasicOrJavaType | null;
     /**
      * @param var0 original type: 'org.dcm4che3.data.Code[]'
      * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
@@ -74,6 +72,16 @@ export declare class IOD$DataElementClass extends JavaClass {
      */
     setValuesSync(var0: (org_dcm4che3_data_Code | null)[] | null): IOD$DataElement | null;
     /**
+     * @param var0 original type: 'int[]'
+     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
+     */
+    setValues(var0: (java_lang_Integer | number)[] | null): Promise<IOD$DataElement | null>;
+    /**
+     * @param var0 original type: 'int[]'
+     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
+     */
+    setValuesSync(var0: (java_lang_Integer | number)[] | null): IOD$DataElement | null;
+    /**
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
      */
@@ -83,26 +91,6 @@ export declare class IOD$DataElementClass extends JavaClass {
      * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
      */
     setValuesSync(var0: (string | null)[] | null): IOD$DataElement | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD'
-     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
-     */
-    addItemIOD(var0: org_dcm4che3_data_IOD | null): Promise<IOD$DataElement | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD'
-     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
-     */
-    addItemIODSync(var0: org_dcm4che3_data_IOD | null): IOD$DataElement | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
-     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
-     */
-    setCondition(var0: org_dcm4che3_data_IOD$Condition | null): Promise<IOD$DataElement | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
-     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
-     */
-    setConditionSync(var0: org_dcm4che3_data_IOD$Condition | null): IOD$DataElement | null;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
@@ -114,21 +102,33 @@ export declare class IOD$DataElementClass extends JavaClass {
      */
     setLineNumberSync(var0: java_lang_Integer | number): IOD$DataElement | null;
     /**
-     * @return original return type: 'java.lang.Object'
+     * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
+     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
      */
-    getValues(): Promise<BasicOrJavaType | null>;
+    setCondition(var0: org_dcm4che3_data_IOD$Condition | null): Promise<IOD$DataElement | null>;
     /**
-     * @return original return type: 'java.lang.Object'
+     * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
+     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
      */
-    getValuesSync(): BasicOrJavaType | null;
+    setConditionSync(var0: org_dcm4che3_data_IOD$Condition | null): IOD$DataElement | null;
     /**
-     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
+     * @return original return type: 'int'
      */
-    getCondition(): Promise<org_dcm4che3_data_IOD$Condition | null>;
+    getValueNumber(): Promise<number>;
     /**
-     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
+     * @return original return type: 'int'
      */
-    getConditionSync(): org_dcm4che3_data_IOD$Condition | null;
+    getValueNumberSync(): number;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.IOD'
+     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
+     */
+    addItemIOD(var0: org_dcm4che3_data_IOD | null): Promise<IOD$DataElement | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.IOD'
+     * @return original return type: 'org.dcm4che3.data.IOD$DataElement'
+     */
+    addItemIODSync(var0: org_dcm4che3_data_IOD | null): IOD$DataElement | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

@@ -10,14 +10,6 @@ import { Class as java_lang_Class } from "./../../../../java/lang/Class";
  */
 export declare class FilesetInfoClass extends JavaClass {
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDescriptorFileCharset(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDescriptorFileCharsetSync(): string | null;
-    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
@@ -38,13 +30,15 @@ export declare class FilesetInfoClass extends JavaClass {
      */
     setDescriptorFileSync(var0: java_io_File | null): void;
     /**
-     * @return original return type: 'java.lang.String'
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
      */
-    getFilesetUID(): Promise<string | null>;
+    setFilesetID(var0: string | null): Promise<void>;
     /**
-     * @return original return type: 'java.lang.String'
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
      */
-    getFilesetUIDSync(): string | null;
+    setFilesetIDSync(var0: string | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
@@ -58,21 +52,27 @@ export declare class FilesetInfoClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
+    getDescriptorFileCharset(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDescriptorFileCharsetSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getFilesetUID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getFilesetUIDSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
     getFilesetID(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
     getFilesetIDSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setFilesetID(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setFilesetIDSync(var0: string | null): void;
     /**
      * @return original return type: 'java.io.File'
      */

@@ -1,4 +1,5 @@
 require("module-alias/register");
+const _ = require("lodash");
 const { java } = require("@models/DICOM/dcm4che/java-instance");
 const { importClass, appendClasspath, stdout, newProxy } = require("java-bridge");
 const glob = require("glob");
@@ -15,6 +16,9 @@ const { TransferCapability } = require("@dcm4che/net/TransferCapability");
 const { TransferCapability$Role: TransferCapabilityRole } = require("@dcm4che/net/TransferCapability$Role");
 const { JsCStoreScp } = require("./c-store");
 const { JsCFindScp } = require("./c-find");
+const { default: CLIUtils } = require("@dcm4che/tool/common/CLIUtils");
+const { JsCMoveScp } = require("./c-move");
+const fileExist = require("@root/utils/file/fileExist");
 
 const aeTitle = "FKQRSCP";
 const host = "0.0.0.0";
@@ -24,6 +28,7 @@ class DcmQrScp {
     device = new Device("dcmqrscp");
     applicationEntity = new ApplicationEntity("*");
     connection = new Connection();
+    remoteConnections = {};
 
     constructor() {
         this.device.addConnectionSync(this.connection);
@@ -41,8 +46,12 @@ class DcmQrScp {
         await dicomServiceRegistry.addDicomService(new BasicCEchoSCP());
         let jsCStoreScp = new JsCStoreScp();
         await dicomServiceRegistry.addDicomService(jsCStoreScp.get());
+
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getStudyRootLevel());
+        await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientStudyOnlyLevel());
+
+        await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getPatientRootLevel());
         return dicomServiceRegistry;
     }
 
@@ -50,6 +59,7 @@ class DcmQrScp {
     async start() {
         this.configureBindServer();
         this.configureTransferCapability();
+        this.configureRemoteConnections();
 
 
         const Executors = importClass("java.util.concurrent.Executors");
@@ -79,6 +89,56 @@ class DcmQrScp {
         this.applicationEntity.setAETitleSync(aeTitle);
     }
 
+    configureRemoteConnections() {
+        let aeFile = path.normalize(
+            path.join(
+                __dirname, 
+                "../config/ae-prod.properties"
+            )
+        );
+        if (!fileExist.sync(aeFile)) {
+            aeFile = path.normalize(
+                path.join(
+                    __dirname, 
+                    "../config/ae.properties"
+                )
+            );
+        }
+        
+        let aeConfig = CLIUtils.loadPropertiesSync(aeFile, null);
+        let itemsSet = aeConfig.entrySetSync();
+        let itemsIter = itemsSet.iteratorSync();
+
+        let item;
+        while(itemsIter.hasNextSync()) {
+            item = itemsIter.nextSync();
+            /** @type {string} */
+            let aet = item.getKeySync();
+            /** @type {string} */
+            let value = item.getValueSync();
+            try {
+                let hostPortCiphers = value.split(":");
+                let ciphers = hostPortCiphers.slice(2);
+
+                let remote = new Connection();
+                remote.setHostnameSync(hostPortCiphers[0]);
+                remote.setPortSync(parseInt(hostPortCiphers[1]));
+                remote.setTlsCipherSuitesSync(ciphers);
+                this.remoteConnections[aet] = remote;
+            } catch(e) {
+                console.error(e);
+                throw new (`Invalid entry in ${file}: ${aet}=${value}`);
+            }
+        }
+    }
+
+    /**
+     * @param {string} dest
+     */
+    getRemoteConnection(dest) {
+        return _.get(this.remoteConnections, dest);
+    }
+
 }
 
 
@@ -86,3 +146,6 @@ process.stdin.resume();
 
 let dcmQrScp = new DcmQrScp();
 dcmQrScp.start();
+
+
+module.exports.DcmQrScp = DcmQrScp;

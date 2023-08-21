@@ -15,4 +15,3 @@ class Properties extends (0, java_bridge_1.importClass)('java.util.Properties') 
 }
 exports.Properties = Properties;
 exports.default = Properties;
-//# sourceMappingURL=Properties.js.map

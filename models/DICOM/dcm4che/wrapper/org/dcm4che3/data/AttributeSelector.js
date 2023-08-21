@@ -15,4 +15,3 @@ class AttributeSelector extends (0, java_bridge_1.importClass)('org.dcm4che3.dat
 }
 exports.AttributeSelector = AttributeSelector;
 exports.default = AttributeSelector;
-//# sourceMappingURL=AttributeSelector.js.map
