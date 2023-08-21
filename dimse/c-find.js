@@ -12,24 +12,7 @@ const { JsPatientQueryTask } = require("./patientQueryTask");
 const { JsStudyQueryTask } = require("./studyQueryTask");
 const { JsSeriesQueryTask } = require("./seriesQueryTask");
 const { JsInstanceQueryTask } = require("./instanceQueryTask");
-
-const PATIENT_ROOT_LEVELS = EnumSet.ofSync(
-    QueryRetrieveLevel2.PATIENT,
-    QueryRetrieveLevel2.STUDY,
-    QueryRetrieveLevel2.SERIES,
-    QueryRetrieveLevel2.IMAGE
-);
-
-const STUDY_ROOT_LEVELS = EnumSet.ofSync(
-    QueryRetrieveLevel2.STUDY,
-    QueryRetrieveLevel2.SERIES,
-    QueryRetrieveLevel2.IMAGE
-);
-
-const PATIENT_STUDY_ONLY_LEVELS = EnumSet.ofSync(
-    QueryRetrieveLevel2.PATIENT,
-    QueryRetrieveLevel2.STUDY
-);
+const { PATIENT_ROOT_LEVELS, STUDY_ROOT_LEVELS, PATIENT_STUDY_ONLY_LEVELS } = require("./level");
 
 class JsCFindScp {
     constructor() { }
@@ -108,7 +91,7 @@ class JsCFindScp {
                         return await (new JsStudyQueryTask(as, pc, rq, keys)).get();
                     } else if (await level.compareTo(QueryRetrieveLevel2.SERIES) === 0) {
                         return await (new JsSeriesQueryTask(as, pc, rq, keys)).get();
-                    } else if (await level.compareTo(QueryRetrieveLevel2.IMAGE) === 0)  {
+                    } else if (await level.compareTo(QueryRetrieveLevel2.IMAGE) === 0) {
                         return await (new JsInstanceQueryTask(as, pc, rq, keys)).get();
                     }
                 } catch (e) {
