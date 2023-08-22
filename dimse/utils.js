@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const path = require("path");
 const { Attributes } = require("@dcm4che/data/Attributes");
-const { mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const { importClass } = require("java-bridge");
 const { raccoonConfig } = require("@root/config-class");
 const { InstanceLocator } = require("@dcm4che/net/service/InstanceLocator");
@@ -66,5 +66,35 @@ async function getInstancesFromKeysAttr(keys) {
     return list;
 }
 
+/**
+ * 
+ * @param {Attributes} keys 
+ * @returns 
+ */
+async function findOneInstanceFromKeysAttr(keys) {
+    const { DimseQueryBuilder } = require("./queryBuilder");
+    let queryBuilder = new DimseQueryBuilder(keys, "instance");
+    let normalQuery = await queryBuilder.toNormalQuery();
+    let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+
+    let returnKeys = {
+        "instancePath": 1,
+        "00020010": 1,
+        "00080016": 1,
+        "00080018": 1,
+        "0020000D": 1,
+        "0020000E": 1
+    };
+
+    let instance = await mongoose.model("dicom").findOne({
+        ...mongoQuery.$match
+    }, returnKeys).setOptions({
+        strictQuery: false
+    }).exec();
+
+    return instance;
+}
+
 module.exports.intTagToString = intTagToString;
 module.exports.getInstancesFromKeysAttr = getInstancesFromKeysAttr;
+module.exports.findOneInstanceFromKeysAttr = findOneInstanceFromKeysAttr;

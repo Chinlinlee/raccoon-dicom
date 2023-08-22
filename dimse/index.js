@@ -20,6 +20,7 @@ const { default: CLIUtils } = require("@dcm4che/tool/common/CLIUtils");
 const { JsCMoveScp } = require("./c-move");
 const fileExist = require("@root/utils/file/fileExist");
 const { JsCGetScp } = require("./c-get");
+const { JsStgCmtScp } = require("./stgcmt");
 
 const aeTitle = "FKQRSCP";
 const host = "0.0.0.0";
@@ -45,6 +46,8 @@ class DcmQrScp {
         let dicomServiceRegistry = new DicomServiceRegistry();
 
         await dicomServiceRegistry.addDicomService(new BasicCEchoSCP());
+
+        await dicomServiceRegistry.addDicomService(new JsStgCmtScp(this).get());
 
         // #region C-STORE
         let jsCStoreScp = new JsCStoreScp();
