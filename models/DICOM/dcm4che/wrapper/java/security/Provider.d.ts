@@ -312,6 +312,14 @@ export declare class ProviderClass extends JavaClass {
      */
     getVersionSync(): number;
     /**
+     * @return original return type: 'java.util.Set'
+     */
+    getServices(): Promise<java_util_Set | null>;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    getServicesSync(): java_util_Set | null;
+    /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.security.Provider$Service'
@@ -323,6 +331,16 @@ export declare class ProviderClass extends JavaClass {
      * @return original return type: 'java.security.Provider$Service'
      */
     getServiceSync(var0: string | null, var1: string | null): java_security_Provider$Service | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.Provider'
+     */
+    configure(var0: string | null): Promise<Provider | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.Provider'
+     */
+    configureSync(var0: string | null): Provider | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -347,24 +365,6 @@ export declare class ProviderClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     getInfoSync(): string | null;
-    /**
-     * @return original return type: 'java.util.Set'
-     */
-    getServices(): Promise<java_util_Set | null>;
-    /**
-     * @return original return type: 'java.util.Set'
-     */
-    getServicesSync(): java_util_Set | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.Provider'
-     */
-    configure(var0: string | null): Promise<Provider | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.Provider'
-     */
-    configureSync(var0: string | null): Provider | null;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'

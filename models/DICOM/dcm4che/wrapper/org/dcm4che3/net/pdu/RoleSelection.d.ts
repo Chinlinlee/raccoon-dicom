@@ -28,19 +28,19 @@ export declare class RoleSelectionClass extends JavaClass {
     /**
      * @return original return type: 'boolean'
      */
-    isSCU(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isSCUSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
     isSCP(): Promise<boolean>;
     /**
      * @return original return type: 'boolean'
      */
     isSCPSync(): boolean;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isSCU(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isSCUSync(): boolean;
     /**
      * @return original return type: 'java.lang.String'
      */

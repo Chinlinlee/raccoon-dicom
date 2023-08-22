@@ -181,14 +181,6 @@ export declare class DimseClass extends JavaClass {
      */
     static valueOfSync(var0: java_lang_Class | null, var1: string | null): java_lang_Enum | null;
     /**
-     * @return original return type: 'int'
-     */
-    commandField(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    commandFieldSync(): number;
-    /**
      * @return original return type: 'boolean'
      */
     isCService(): Promise<boolean>;
@@ -199,11 +191,19 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    tagOfSOPClassUID(): Promise<number>;
+    commandFieldOfRSP(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    tagOfSOPClassUIDSync(): number;
+    commandFieldOfRSPSync(): number;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRetrieveRQ(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRetrieveRQSync(): boolean;
     /**
      * @return original return type: 'boolean'
      */
@@ -211,7 +211,7 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'boolean'
      */
-    isRetrieveRQSync(): boolean;
+    isRetrieveRSPSync(): boolean;
     /**
      * @return original return type: 'boolean'
      */
@@ -223,11 +223,11 @@ export declare class DimseClass extends JavaClass {
     /**
      * @return original return type: 'int'
      */
-    commandFieldOfRSP(): Promise<number>;
+    tagOfSOPClassUID(): Promise<number>;
     /**
      * @return original return type: 'int'
      */
-    commandFieldOfRSPSync(): number;
+    tagOfSOPClassUIDSync(): number;
     /**
      * @return original return type: 'int'
      */
@@ -236,14 +236,6 @@ export declare class DimseClass extends JavaClass {
      * @return original return type: 'int'
      */
     commandFieldSync(): number;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCService(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isCServiceSync(): boolean;
     /**
      * @return original return type: 'int'
      */

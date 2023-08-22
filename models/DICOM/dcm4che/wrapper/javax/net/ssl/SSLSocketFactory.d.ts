@@ -1,9 +1,9 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { SocketFactory as javax_net_SocketFactory } from "./../SocketFactory";
 import { Socket as java_net_Socket } from "./../../../java/net/Socket";
-import { InputStream as java_io_InputStream } from "./../../../java/io/InputStream";
-import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
+import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
+import { InputStream as java_io_InputStream } from "./../../../java/io/InputStream";
 import { InetAddress as java_net_InetAddress } from "./../../../java/net/InetAddress";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -22,36 +22,6 @@ export declare class SSLSocketFactoryClass extends JavaClass {
      */
     static getDefaultSync(): javax_net_SocketFactory | null;
     /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getSupportedCipherSuites(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getSupportedCipherSuitesSync(): (string | null)[] | null;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getDefaultCipherSuites(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getDefaultCipherSuitesSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.net.Socket'
-     * @param var1 original type: 'java.io.InputStream'
-     * @param var2 original type: 'boolean'
-     * @return original return type: 'java.net.Socket'
-     */
-    createSocket(var0: java_net_Socket | null, var1: java_io_InputStream | null, var2: java_lang_Boolean | boolean): Promise<java_net_Socket | null>;
-    /**
-     * @param var0 original type: 'java.net.Socket'
-     * @param var1 original type: 'java.io.InputStream'
-     * @param var2 original type: 'boolean'
-     * @return original return type: 'java.net.Socket'
-     */
-    createSocketSync(var0: java_net_Socket | null, var1: java_io_InputStream | null, var2: java_lang_Boolean | boolean): java_net_Socket | null;
-    /**
      * @param var0 original type: 'java.net.Socket'
      * @param var1 original type: 'java.lang.String'
      * @param var2 original type: 'int'
@@ -67,6 +37,20 @@ export declare class SSLSocketFactoryClass extends JavaClass {
      * @return original return type: 'java.net.Socket'
      */
     createSocketSync(var0: java_net_Socket | null, var1: string | null, var2: java_lang_Integer | number, var3: java_lang_Boolean | boolean): java_net_Socket | null;
+    /**
+     * @param var0 original type: 'java.net.Socket'
+     * @param var1 original type: 'java.io.InputStream'
+     * @param var2 original type: 'boolean'
+     * @return original return type: 'java.net.Socket'
+     */
+    createSocket(var0: java_net_Socket | null, var1: java_io_InputStream | null, var2: java_lang_Boolean | boolean): Promise<java_net_Socket | null>;
+    /**
+     * @param var0 original type: 'java.net.Socket'
+     * @param var1 original type: 'java.io.InputStream'
+     * @param var2 original type: 'boolean'
+     * @return original return type: 'java.net.Socket'
+     */
+    createSocketSync(var0: java_net_Socket | null, var1: java_io_InputStream | null, var2: java_lang_Boolean | boolean): java_net_Socket | null;
     /**
      * @param var0 original type: 'java.net.InetAddress'
      * @param var1 original type: 'int'
@@ -131,6 +115,22 @@ export declare class SSLSocketFactoryClass extends JavaClass {
      * @return original return type: 'java.net.Socket'
      */
     createSocketSync(): java_net_Socket | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getSupportedCipherSuites(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getSupportedCipherSuitesSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getDefaultCipherSuites(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getDefaultCipherSuitesSync(): (string | null)[] | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

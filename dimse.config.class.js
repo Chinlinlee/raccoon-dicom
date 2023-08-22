@@ -60,11 +60,23 @@ class DimseConfig {
         this.tlsEiaHttps = env.get("DIMSE_TLS_EIA_HTTPS").default("false").asBool();
         this.tlsEiaLdaps = env.get("DIMSE_TLS_EIA_LDAPS").default("false").asBool();
         this.tlsNoAuth = env.get("DIMSE_TLS_NOAUTH").default("false").asBool();
-        this.keyStore = env.get("DIMSE_KEY_STORE").default("resource:key.p12").asString();
+        this.keyStore = env.get("DIMSE_KEY_STORE").default(
+            path.normalize(
+                path.join(
+                    __dirname,
+                    "./config/certs/key.p12"
+                )
+            )
+        ).asString();
         this.keyStoreType = env.get("DIMSE_KEY_STORE_TYPE").default("PKCS12").asString();
         this.keyStorePass = env.get("DIMSE_KEY_STORE_PASS").default("secret").asString();
         this.keyPass = env.get("DIMSE_KEY_PASS").default(this.keyStorePass).asString();
-        this.trustStore = env.get("DIMSE_TRUST_STORE").default("resource:cacerts.p12").asString();
+        this.trustStore = env.get("DIMSE_TRUST_STORE").default(path.normalize(
+            path.join(
+                __dirname,
+                "./config/certs/cacerts.p12"
+            )
+        )).asString();
         this.trustStoreType = env.get("DIMSE_TRUST_STORE_TYPE").default("PKCS12").asString();
         this.trustStorePass = env.get("DIMSE_TRUST_STORE_PASS").default("secret").asString();
     }

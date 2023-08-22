@@ -71,6 +71,32 @@ export declare class ServerSocketClass extends JavaClass {
      */
     getChannelSync(): java_nio_channels_ServerSocketChannel | null;
     /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddress(): Promise<java_net_InetAddress | null>;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddressSync(): java_net_InetAddress | null;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalSocketAddressSync(): java_net_SocketAddress | null;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setSoTimeout(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setSoTimeoutSync(var0: java_lang_Integer | number): void;
+    /**
      * @return original return type: 'int'
      */
     getReceiveBufferSize(): Promise<number>;
@@ -105,13 +131,15 @@ export declare class ServerSocketClass extends JavaClass {
      */
     isBoundSync(): boolean;
     /**
-     * @return original return type: 'java.net.InetAddress'
+     * @param var0 original type: 'java.net.SocketOption'
+     * @return original return type: 'java.lang.Object'
      */
-    getInetAddress(): Promise<java_net_InetAddress | null>;
+    getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): Promise<BasicOrJavaType | null>;
     /**
-     * @return original return type: 'java.net.InetAddress'
+     * @param var0 original type: 'java.net.SocketOption'
+     * @return original return type: 'java.lang.Object'
      */
-    getInetAddressSync(): java_net_InetAddress | null;
+    getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
     /**
      * @return original return type: 'int'
      */
@@ -140,14 +168,6 @@ export declare class ServerSocketClass extends JavaClass {
      * @return original return type: 'java.util.Set'
      */
     supportedOptionsSync(): java_util_Set | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalSocketAddressSync(): java_net_SocketAddress | null;
     /**
      * @return original return type: 'int'
      */
@@ -198,26 +218,6 @@ export declare class ServerSocketClass extends JavaClass {
      * @return original return type: 'void'
      */
     static setSocketFactorySync(var0: java_net_SocketImplFactory | JavaInterfaceProxy<java_net_SocketImplFactoryInterface> | null): void;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'java.net.SocketOption'
-     * @return original return type: 'java.lang.Object'
-     */
-    getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setSoTimeout(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setSoTimeoutSync(var0: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

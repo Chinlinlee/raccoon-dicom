@@ -77,15 +77,6 @@ export declare class IODClass extends JavaClass {
      */
     getConditionSync(): org_dcm4che3_data_IOD$Condition | null;
     /**
-     * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
-     * @return original return type: 'void'
-     */
-    getCondition(): Promise<org_dcm4che3_data_IOD$Condition | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.IOD$Condition'
-     */
-    getConditionSync(): org_dcm4che3_data_IOD$Condition | null;
-    /**
      * @param var0 original type: 'org.dcm4che3.data.IOD$DataElementType'
      * @return original return type: 'void'
      */
@@ -95,6 +86,16 @@ export declare class IODClass extends JavaClass {
      * @return original return type: 'void'
      */
     setTypeSync(var0: org_dcm4che3_data_IOD$DataElementType | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
+     * @return original return type: 'void'
+     */
+    setCondition(var0: org_dcm4che3_data_IOD$Condition | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.IOD$Condition'
+     * @return original return type: 'void'
+     */
+    setConditionSync(var0: org_dcm4che3_data_IOD$Condition | null): void;
     /**
      * @param var0 original type: 'int'
      * @return original return type: 'void'

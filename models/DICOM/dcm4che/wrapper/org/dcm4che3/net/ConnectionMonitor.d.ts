@@ -43,18 +43,6 @@ export declare class ConnectionMonitorClass extends JavaClass {
      * @param var1 original type: 'java.net.Socket'
      * @return original return type: 'void'
      */
-    onConnectionRejectedBlacklisted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'java.net.Socket'
-     * @return original return type: 'void'
-     */
-    onConnectionRejectedBlacklistedSync(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'java.net.Socket'
-     * @return original return type: 'void'
-     */
     onConnectionAccepted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): Promise<void>;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
@@ -76,6 +64,18 @@ export declare class ConnectionMonitorClass extends JavaClass {
      * @return original return type: 'void'
      */
     onConnectionRejectedSync(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null, var2: java_lang_Throwable | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @param var1 original type: 'java.net.Socket'
+     * @return original return type: 'void'
+     */
+    onConnectionRejectedBlacklisted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @param var1 original type: 'java.net.Socket'
+     * @return original return type: 'void'
+     */
+    onConnectionRejectedBlacklistedSync(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -109,12 +109,6 @@ export interface ConnectionMonitorInterface {
      * @param var1 original type: 'java.net.Socket'
      * @return original return type: 'void'
      */
-    onConnectionRejectedBlacklisted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'java.net.Socket'
-     * @return original return type: 'void'
-     */
     onConnectionAccepted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
@@ -123,6 +117,12 @@ export interface ConnectionMonitorInterface {
      * @return original return type: 'void'
      */
     onConnectionRejected(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null, var2: java_lang_Throwable | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @param var1 original type: 'java.net.Socket'
+     * @return original return type: 'void'
+     */
+    onConnectionRejectedBlacklisted(var0: org_dcm4che3_net_Connection | null, var1: java_net_Socket | null): void;
 }
 /**
  * Create a proxy for the {@link ConnectionMonitor} interface.

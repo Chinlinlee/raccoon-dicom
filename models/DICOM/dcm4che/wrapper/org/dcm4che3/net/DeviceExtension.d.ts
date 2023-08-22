@@ -11,14 +11,6 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  */
 export declare class DeviceExtensionClass extends JavaClass {
     /**
-     * @return original return type: 'org.dcm4che3.net.Device'
-     */
-    getDevice(): Promise<org_dcm4che3_net_Device | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Device'
-     */
-    getDeviceSync(): org_dcm4che3_net_Device | null;
-    /**
      * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
      * @return original return type: 'void'
      */
@@ -28,6 +20,14 @@ export declare class DeviceExtensionClass extends JavaClass {
      * @return original return type: 'void'
      */
     reconfigureSync(var0: DeviceExtensionClass | null): void;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDevice(): Promise<org_dcm4che3_net_Device | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDeviceSync(): org_dcm4che3_net_Device | null;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @return original return type: 'void'

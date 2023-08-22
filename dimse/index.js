@@ -21,6 +21,8 @@ const fileExist = require("@root/utils/file/fileExist");
 const { JsCGetScp } = require("./c-get");
 const { JsStgCmtScp } = require("./stgcmt");
 const { raccoonConfig } = require("@root/config-class");
+const { Connection$EndpointIdentificationAlgorithm } = require("@dcm4che/net/Connection$EndpointIdentificationAlgorithm");
+const { default: SSLManagerFactory } = require("@dcm4che/net/SSLManagerFactory");
 
 class DcmQrScp {
     device = new Device("dcmqrscp");
@@ -68,7 +70,7 @@ class DcmQrScp {
         await dicomServiceRegistry.addDicomService(new JsCGetScp().getPatientStudyOnlyLevel());
         await dicomServiceRegistry.addDicomService(new JsCGetScp().getCompositeLevel());
         // #endregion
-        
+
         return dicomServiceRegistry;
     }
 
@@ -110,14 +112,14 @@ class DcmQrScp {
     configureRemoteConnections() {
         let aeFile = path.normalize(
             path.join(
-                __dirname, 
+                __dirname,
                 "../config/ae-prod.properties"
             )
         );
         if (!fileExist.sync(aeFile)) {
             aeFile = path.normalize(
                 path.join(
-                    __dirname, 
+                    __dirname,
                     "../config/ae.properties"
                 )
             );
@@ -127,7 +129,7 @@ class DcmQrScp {
         let itemsIter = itemsSet.iteratorSync();
 
         let item;
-        while(itemsIter.hasNextSync()) {
+        while (itemsIter.hasNextSync()) {
             item = itemsIter.nextSync();
             /** @type {string} */
             let aet = item.getKeySync();
@@ -142,7 +144,7 @@ class DcmQrScp {
                 remote.setPortSync(parseInt(hostPortCiphers[1]));
                 remote.setTlsCipherSuitesSync(ciphers);
                 this.remoteConnections[aet] = remote;
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
                 throw new (`Invalid entry in ${aeFile}: ${aet}=${value}`);
             }
@@ -159,7 +161,7 @@ class DcmQrScp {
     configureConnection() {
         this.connection.setReceivePDULengthSync(raccoonConfig.dicomDimseConfig.maxPduLenRcv);
         this.connection.setSendPDULengthSync(raccoonConfig.dicomDimseConfig.maxPduLenSnd);
-        
+
         if (raccoonConfig.dicomDimseConfig.notAsync) {
             this.connection.setMaxOpsInvokedSync(1);
             this.connection.setMaxOpsPerformedSync(1);
@@ -190,8 +192,89 @@ class DcmQrScp {
         this.connection.setSendBufferSizeSync(raccoonConfig.dicomDimseConfig.soSndBuffer);
         this.connection.setReceiveBufferSizeSync(raccoonConfig.dicomDimseConfig.soRcvBuffer);
         this.connection.setTcpNoDelaySync(raccoonConfig.dicomDimseConfig.tcpDelay);
+        this.configureTls();
     }
 
+    configureTls() {
+        if (!this.configureTlsCipher())
+            return;
+
+        if (raccoonConfig.dicomDimseConfig.tls13) {
+            this.connection.setTlsProtocolsSync(["TLSv1.3"]);
+        } else if (raccoonConfig.dicomDimseConfig.tls12) {
+            this.connection.setTlsProtocolsSync(["TLSv1.2"]);
+        } else if (raccoonConfig.dicomDimseConfig.tls11) {
+            this.connection.setTlsProtocolsSync(["TLSv1.1"]);
+        } else if (raccoonConfig.dicomDimseConfig.tls1) {
+            this.connection.setTlsProtocolsSync(["TLSv1"]);
+        } else if (raccoonConfig.dicomDimseConfig.ssl3) {
+            this.connection.setTlsProtocolsSync(["SSLv3"]);
+        } else if (raccoonConfig.dicomDimseConfig.ssl2Hello) {
+            this.connection.setTlsProtocolsSync(["SSLv2Hello", "SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]);
+        } else if (raccoonConfig.dicomDimseConfig.tlsProtocol) {
+            this.connection.setTlsProtocolsSync([raccoonConfig.dicomDimseConfig.tlsProtocol]);
+        }
+
+        if (raccoonConfig.dicomDimseConfig.tlsEiaHttps) {
+            this.connection.setTlsEndpointIdentificationAlgorithmSync(Connection$EndpointIdentificationAlgorithm.HTTPS);
+        } else if (raccoonConfig.dicomDimseConfig.tlsEiaLdaps) {
+            this.connection.setTlsEndpointIdentificationAlgorithmSync(Connection$EndpointIdentificationAlgorithm.LDAPS);
+        }
+
+        this.connection.setTlsNeedClientAuthSync(!raccoonConfig.dicomDimseConfig.tlsNoAuth);
+
+        let device = this.connection.getDeviceSync();
+        try {
+            if (!raccoonConfig.dicomDimseConfig.keyStore) {
+                device.setKeyManagerSync(
+                    SSLManagerFactory.createKeyManagerSync(
+                        raccoonConfig.dicomDimseConfig.keyStoreType,
+                        raccoonConfig.dicomDimseConfig.keyStore,
+                        raccoonConfig.dicomDimseConfig.keyStorePass,
+                        raccoonConfig.dicomDimseConfig.keyPass
+                    )
+                );
+            }
+            device.setTrustManagerSync(
+                SSLManagerFactory.createTrustManagerSync(
+                    raccoonConfig.dicomDimseConfig.trustStoreType,
+                    raccoonConfig.dicomDimseConfig.trustStore,
+                    raccoonConfig.dicomDimseConfig.trustStorePass
+                )
+            );
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    configureTlsCipher() {
+        if (raccoonConfig.dicomDimseConfig.tls) {
+            this.connection.setTlsCipherSuitesSync(
+                [
+                    "SSL_RSA_WITH_NULL_SHA",
+                    "TLS_RSA_WITH_AES_128_CBC_SHA",
+                    "SSL_RSA_WITH_3DES_EDE_CBC_SHA"
+                ]
+            );
+        } else if (raccoonConfig.dicomDimseConfig.tlsNull) {
+            this.connection.setTlsCipherSuitesSync(["SSL_RSA_WITH_NULL_SHA"]);
+
+        } else if (raccoonConfig.dicomDimseConfig.tls3Des) {
+            this.connection.setTlsCipherSuitesSync(["SSL_RSA_WITH_3DES_EDE_CBC_SHA"]);
+
+        } else if (raccoonConfig.dicomDimseConfig.tlsAes) {
+            this.connection.setTlsCipherSuitesSync(
+                [
+                    "TLS_RSA_WITH_AES_128_CBC_SHA",
+                    "SSL_RSA_WITH_3DES_EDE_CBC_SHA"
+                ]
+            );
+        } else if (raccoonConfig.dicomDimseConfig.tlsCipher) {
+            this.connection.setTlsCipherSuitesSync([raccoonConfig.dicomDimseConfig.tlsCipher]);
+        }
+
+        return this.connection.isTlsSync();
+    }
 }
 
 module.exports.DcmQrScp = DcmQrScp;

@@ -53,6 +53,22 @@ export declare class PresentationContextClass extends JavaClass {
      */
     getResultSync(): number;
     /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getTransferSyntaxes(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getTransferSyntaxesSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getAbstractSyntax(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getAbstractSyntaxSync(): string | null;
+    /**
      * @return original return type: 'boolean'
      */
     isAccepted(): Promise<boolean>;
@@ -60,6 +76,14 @@ export declare class PresentationContextClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isAcceptedSync(): boolean;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTransferSyntax(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTransferSyntaxSync(): string | null;
     /**
      * @return original return type: 'int'
      */
@@ -78,30 +102,6 @@ export declare class PresentationContextClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     containsTransferSyntaxSync(var0: string | null): boolean;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getTransferSyntaxes(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getTransferSyntaxesSync(): (string | null)[] | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getAbstractSyntax(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getAbstractSyntaxSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTransferSyntax(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTransferSyntaxSync(): string | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

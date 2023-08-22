@@ -1,18 +1,12 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { Map as java_util_Map } from "./../../../java/util/Map";
-import { Device as org_dcm4che3_net_Device } from "./Device";
 import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
+import { Device as org_dcm4che3_net_Device } from "./Device";
 import { Connection as org_dcm4che3_net_Connection } from "./Connection";
-import { KeycloakClient as org_dcm4che3_net_KeycloakClient } from "./KeycloakClient";
 import { List as java_util_List } from "./../../../java/util/List";
+import { KeycloakClient as org_dcm4che3_net_KeycloakClient } from "./KeycloakClient";
 import { WebApplication$ServiceClass as org_dcm4che3_net_WebApplication$ServiceClass } from "./WebApplication$ServiceClass";
 import { StringBuilder as java_lang_StringBuilder } from "./../../../java/lang/StringBuilder";
-import { Connection as org_dcm4che3_net_Connection } from "./Connection";
-import { WebApplication$ServiceClass as org_dcm4che3_net_WebApplication$ServiceClass } from "./WebApplication$ServiceClass";
-import { Device as org_dcm4che3_net_Device } from "./Device";
-import { List as java_util_List } from "./../../../java/util/List";
-import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
-import { KeycloakClient as org_dcm4che3_net_KeycloakClient } from "./KeycloakClient";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -73,60 +67,6 @@ export declare class WebApplicationClass extends JavaClass {
      */
     setPropertiesSync(var0: (string | null)[] | null): void;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setApplicationName(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setApplicationNameSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'java.lang.StringBuilder'
-     */
-    getServiceURL(var0: org_dcm4che3_net_Connection | null): Promise<java_lang_StringBuilder | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'java.lang.StringBuilder'
-     */
-    getServiceURLSync(var0: org_dcm4che3_net_Connection | null): java_lang_StringBuilder | null;
-    /**
-     * @return original return type: 'java.lang.StringBuilder'
-     */
-    getServiceURL(): Promise<java_lang_StringBuilder | null>;
-    /**
-     * @return original return type: 'java.lang.StringBuilder'
-     */
-    getServiceURLSync(): java_lang_StringBuilder | null;
-    /**
-     * @return original return type: 'org.dcm4che3.net.WebApplication$ServiceClass[]'
-     */
-    getServiceClasses(): Promise<(org_dcm4che3_net_WebApplication$ServiceClass | null)[] | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.WebApplication$ServiceClass[]'
-     */
-    getServiceClassesSync(): (org_dcm4che3_net_WebApplication$ServiceClass | null)[] | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDescription(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDescriptionSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDescription(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDescriptionSync(var0: string | null): void;
-    /**
      * @return original return type: 'boolean'
      */
     isInstalled(): Promise<boolean>;
@@ -145,8 +85,69 @@ export declare class WebApplicationClass extends JavaClass {
      */
     setInstalledSync(var0: java_lang_Boolean | boolean | null): void;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'java.lang.Boolean'
+     */
+    getInstalled(): Promise<boolean | null>;
+    /**
+     * @return original return type: 'java.lang.Boolean'
+     */
+    getInstalledSync(): boolean | null;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDevice(): Promise<org_dcm4che3_net_Device | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDeviceSync(): org_dcm4che3_net_Device | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
+     */
+    setApplicationClusters(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setApplicationClustersSync(var0: (string | null)[] | null): void;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getApplicationClusters(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getApplicationClustersSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDescription(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDescriptionSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setAETitle(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setAETitleSync(var0: string | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDescription(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDescriptionSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
      */
     getAETitle(): Promise<string | null>;
     /**
@@ -154,23 +155,33 @@ export declare class WebApplicationClass extends JavaClass {
      */
     getAETitleSync(): string | null;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass'
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @return original return type: 'boolean'
      */
-    containsServiceClass(var0: org_dcm4che3_net_WebApplication$ServiceClass | null): Promise<boolean>;
+    removeConnection(var0: org_dcm4che3_net_Connection | null): Promise<boolean>;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass'
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @return original return type: 'boolean'
      */
-    containsServiceClassSync(var0: org_dcm4che3_net_WebApplication$ServiceClass | null): boolean;
+    removeConnectionSync(var0: org_dcm4che3_net_Connection | null): boolean;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'java.util.List'
      */
-    getKeycloakClientID(): Promise<string | null>;
+    getConnections(): Promise<java_util_List | null>;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'java.util.List'
      */
-    getKeycloakClientIDSync(): string | null;
+    getConnectionsSync(): java_util_List | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'void'
+     */
+    addConnection(var0: org_dcm4che3_net_Connection | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'void'
+     */
+    addConnectionSync(var0: org_dcm4che3_net_Connection | null): void;
     /**
      * @return original return type: 'org.dcm4che3.net.KeycloakClient'
      */
@@ -190,40 +201,6 @@ export declare class WebApplicationClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
-    getAETitle(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getAETitleSync(): string | null;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    getConnections(): Promise<java_util_List | null>;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    getConnectionsSync(): java_util_List | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setAETitle(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setAETitleSync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.Boolean'
-     */
-    getInstalled(): Promise<boolean | null>;
-    /**
-     * @return original return type: 'java.lang.Boolean'
-     */
-    getInstalledSync(): boolean | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
     getKeycloakClientID(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
@@ -240,24 +217,6 @@ export declare class WebApplicationClass extends JavaClass {
      */
     containsServiceClassSync(var0: org_dcm4che3_net_WebApplication$ServiceClass | null): boolean;
     /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getApplicationClusters(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getApplicationClustersSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setApplicationClusters(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setApplicationClustersSync(var0: (string | null)[] | null): void;
-    /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
@@ -267,6 +226,14 @@ export declare class WebApplicationClass extends JavaClass {
      * @return original return type: 'void'
      */
     setKeycloakClientIDSync(var0: string | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getServicePath(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getServicePathSync(): string | null;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @return original return type: 'java.lang.StringBuilder'
@@ -289,34 +256,6 @@ export declare class WebApplicationClass extends JavaClass {
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
      */
-    setApplicationName(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setApplicationNameSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass[]'
-     * @return original return type: 'void'
-     */
-    setServiceClasses(var0: (org_dcm4che3_net_WebApplication$ServiceClass | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass[]'
-     * @return original return type: 'void'
-     */
-    setServiceClassesSync(var0: (org_dcm4che3_net_WebApplication$ServiceClass | null)[] | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getServicePath(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getServicePathSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
     setServicePath(var0: string | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String'
@@ -331,6 +270,26 @@ export declare class WebApplicationClass extends JavaClass {
      * @return original return type: 'org.dcm4che3.net.WebApplication$ServiceClass[]'
      */
     getServiceClassesSync(): (org_dcm4che3_net_WebApplication$ServiceClass | null)[] | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass[]'
+     * @return original return type: 'void'
+     */
+    setServiceClasses(var0: (org_dcm4che3_net_WebApplication$ServiceClass | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass[]'
+     * @return original return type: 'void'
+     */
+    setServiceClassesSync(var0: (org_dcm4che3_net_WebApplication$ServiceClass | null)[] | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setApplicationName(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setApplicationNameSync(var0: string | null): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

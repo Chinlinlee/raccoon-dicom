@@ -301,14 +301,6 @@ export declare class ServerSocketChannelClass extends JavaClass {
      */
     notifyAllSync(): void;
     /**
-     * @return original return type: 'java.util.Set'
-     */
-    supportedOptions(): Promise<java_util_Set | null>;
-    /**
-     * @return original return type: 'java.util.Set'
-     */
-    supportedOptionsSync(): java_util_Set | null;
-    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @return original return type: 'java.lang.Object'
      */
@@ -318,6 +310,14 @@ export declare class ServerSocketChannelClass extends JavaClass {
      * @return original return type: 'java.lang.Object'
      */
     getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    supportedOptions(): Promise<java_util_Set | null>;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    supportedOptionsSync(): java_util_Set | null;
 }
 declare const ServerSocketChannel_base: typeof ServerSocketChannelClass;
 /**
