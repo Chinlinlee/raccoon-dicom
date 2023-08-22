@@ -1,4 +1,3 @@
-require("module-alias/register");
 const _ = require("lodash");
 const { java } = require("@models/DICOM/dcm4che/java-instance");
 const { importClass, appendClasspath, stdout, newProxy } = require("java-bridge");
@@ -21,10 +20,7 @@ const { JsCMoveScp } = require("./c-move");
 const fileExist = require("@root/utils/file/fileExist");
 const { JsCGetScp } = require("./c-get");
 const { JsStgCmtScp } = require("./stgcmt");
-
-const aeTitle = "FKQRSCP";
-const host = "0.0.0.0";
-const port = 11112;
+const { raccoonConfig } = require("@root/config-class");
 
 class DcmQrScp {
     device = new Device("dcmqrscp");
@@ -78,6 +74,7 @@ class DcmQrScp {
 
 
     async start() {
+        this.configureConnection();
         this.configureBindServer();
         this.configureTransferCapability();
         this.configureRemoteConnections();
@@ -105,9 +102,9 @@ class DcmQrScp {
     }
 
     configureBindServer() {
-        this.connection.setPortSync(port);
-        this.connection.setHostnameSync(host);
-        this.applicationEntity.setAETitleSync(aeTitle);
+        this.connection.setPortSync(raccoonConfig.dicomDimseConfig.port);
+        this.connection.setHostnameSync(raccoonConfig.dicomDimseConfig.hostname);
+        this.applicationEntity.setAETitleSync(raccoonConfig.dicomDimseConfig.aeTitle);
     }
 
     configureRemoteConnections() {
@@ -159,13 +156,42 @@ class DcmQrScp {
         return _.get(this.remoteConnections, dest);
     }
 
+    configureConnection() {
+        this.connection.setReceivePDULengthSync(raccoonConfig.dicomDimseConfig.maxPduLenRcv);
+        this.connection.setSendPDULengthSync(raccoonConfig.dicomDimseConfig.maxPduLenSnd);
+        
+        if (raccoonConfig.dicomDimseConfig.notAsync) {
+            this.connection.setMaxOpsInvokedSync(1);
+            this.connection.setMaxOpsPerformedSync(1);
+        } else {
+            this.connection.setMaxOpsInvokedSync(raccoonConfig.dicomDimseConfig.maxOpsInvoked);
+            this.connection.setMaxOpsPerformedSync(raccoonConfig.dicomDimseConfig.maxOpsPerformed);
+        }
+
+        this.connection.setPackPDVSync(raccoonConfig.dicomDimseConfig.notPackPdv);
+        this.connection.setConnectTimeoutSync(raccoonConfig.dicomDimseConfig.connectTimeout);
+        this.connection.setRequestTimeoutSync(raccoonConfig.dicomDimseConfig.requestTimeout);
+        this.connection.setAcceptTimeoutSync(raccoonConfig.dicomDimseConfig.acceptTimeout);
+        this.connection.setReleaseTimeoutSync(raccoonConfig.dicomDimseConfig.releaseTimeout);
+        this.connection.setSendTimeoutSync(raccoonConfig.dicomDimseConfig.sendTimeout);
+        this.connection.setStoreTimeoutSync(raccoonConfig.dicomDimseConfig.storeTimeout);
+        this.connection.setResponseTimeoutSync(raccoonConfig.dicomDimseConfig.responseTimeout);
+
+        if (raccoonConfig.dicomDimseConfig.retrieveTimeout) {
+            this.connection.setRetrieveTimeoutSync(raccoonConfig.dicomDimseConfig.retrieveTimeout);
+            this.connection.setRetrieveTimeoutTotalSync(false);
+        } else if (raccoonConfig.dicomDimseConfig.retrieveTimeoutTotal) {
+            this.connection.setRetrieveTimeoutTotalSync(raccoonConfig.dicomDimseConfig.retrieveTimeoutTotal);
+            this.connection.setRetrieveTimeoutSync(false);
+        }
+
+        this.connection.setIdleTimeoutSync(raccoonConfig.dicomDimseConfig.idleTimeout);
+        this.connection.setSocketCloseDelaySync(raccoonConfig.dicomDimseConfig.soCloseDelay);
+        this.connection.setSendBufferSizeSync(raccoonConfig.dicomDimseConfig.soSndBuffer);
+        this.connection.setReceiveBufferSizeSync(raccoonConfig.dicomDimseConfig.soRcvBuffer);
+        this.connection.setTcpNoDelaySync(raccoonConfig.dicomDimseConfig.tcpDelay);
+    }
+
 }
-
-
-process.stdin.resume();
-
-let dcmQrScp = new DcmQrScp();
-dcmQrScp.start();
-
 
 module.exports.DcmQrScp = DcmQrScp;
