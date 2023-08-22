@@ -21,3 +21,4 @@
 
 /config/raccoon-dimse-app.json
 /pm2log
+config/ae-prod.properties
