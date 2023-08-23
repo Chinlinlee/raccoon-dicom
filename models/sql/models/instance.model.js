@@ -10,6 +10,12 @@ const { getStoreDicomFullPath } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
 class InstanceModel extends Model {
     async incrementDeleteStatus() {
         let deleteStatus = this.getDataValue("deleteStatus");
@@ -187,6 +193,13 @@ InstanceModel.getInstanceOfMedianIndex = async function (query) {
     }
 
     return instance;
+};
+
+InstanceModel.prototype.getAttributes = async function () {
+    let seriesObj = this.toJSON();
+
+    let jsonStr = JSON.stringify(seriesObj.json);
+    return await Common.getAttributesFromJsonString(jsonStr);
 };
 
 module.exports.InstanceModel = InstanceModel;

@@ -13,7 +13,7 @@ const sequelizeInstance = require("./models/sql/instance");
 
 const passport = require("passport");
 const { raccoonConfig } = require("./config-class");
-const { DcmQrScp } = require('./dimse');
+const { DcmQrScp } = require('./dimse-sql');
 require("dotenv");
 require("./websocket");
 

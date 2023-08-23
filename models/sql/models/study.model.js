@@ -12,6 +12,12 @@ const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
 class StudyModel extends Model {
     async getNumberOfStudyRelatedSeries() {
         let count = await SeriesModel.count({
@@ -200,6 +206,13 @@ StudyModel.getPathGroupOfInstances = async function (iParam) {
     } catch (e) {
         throw e;
     }
+};
+
+StudyModel.prototype.getAttributes = async function () {
+    let studyObj = this.toJSON();
+
+    let jsonStr = JSON.stringify(studyObj.json);
+    return await Common.getAttributesFromJsonString(jsonStr);
 };
 
 module.exports.StudyModel = StudyModel;

@@ -10,6 +10,12 @@ const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
 class SeriesModel extends Model {
     getSeriesPath() {
         return this.getDataValue("seriesPath");
@@ -157,6 +163,13 @@ SeriesModel.getPathGroupOfInstances = async function(iParam) {
     } catch (e) {
         throw e;
     }
+};
+
+SeriesModel.prototype.getAttributes = async function () {
+    let seriesObj = this.toJSON();
+
+    let jsonStr = JSON.stringify(seriesObj.json);
+    return await Common.getAttributesFromJsonString(jsonStr);
 };
 
 module.exports.SeriesModel = SeriesModel;

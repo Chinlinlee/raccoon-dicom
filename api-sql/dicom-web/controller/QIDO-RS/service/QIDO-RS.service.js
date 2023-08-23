@@ -140,3 +140,4 @@ function convertAllQueryToDicomTag(iParam) {
 }
 
 module.exports.SqlQidoRsService = SqlQidoRsService;
+module.exports.convertAllQueryToDicomTag = convertAllQueryToDicomTag;

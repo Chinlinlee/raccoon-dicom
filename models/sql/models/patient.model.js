@@ -2,8 +2,15 @@ const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { PatientQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/patientQueryBuilder");
+const { raccoonConfig } = require("@root/config-class");
 
-class PatientModel extends Model {};
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
+class PatientModel extends Model { };
 
 PatientModel.init({
     "x00100010": {
@@ -64,6 +71,13 @@ PatientModel.getDicomJson = async function (queryOptions) {
 
         return json;
     }));
+};
+
+PatientModel.prototype.getAttributes = async function () {
+    let patientObj = this.toJSON();
+
+    let jsonStr = JSON.stringify(patientObj.json);
+    return await Common.getAttributesFromJsonString(jsonStr);
 };
 
 module.exports.PatientModel = PatientModel;
