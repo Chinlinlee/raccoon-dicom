@@ -103,6 +103,9 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
         return this.getOrQuery(dictionary.keyword.SeriesNumber, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
+    getSeriesInstanceUID(values) {
+        return this.getOrQuery(dictionary.keyword.SeriesInstanceUID, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
+    }
 
 }
 
