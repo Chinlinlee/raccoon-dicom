@@ -9,6 +9,7 @@ const { DicomContentSqModel } = require("../models/dicomContentSQ.model");
 const { VerifyIngObserverSqModel } = require("../models/verifyingObserverSQ.model");
 
 const INSTANCE_STORE_TAGS = {
+    "00020010": true,
     "00080016": true,
     "00080018": true,
     "00080023": true,
