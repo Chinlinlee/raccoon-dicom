@@ -59,16 +59,16 @@ class DcmQrScp {
         // #endregion
 
         // #region C-MOVE
-        // await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getPatientRootLevel());
-        // await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getStudyRootLevel());
-        // await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getPatientStudyOnlyLevel());
+        await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getPatientRootLevel());
+        await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getStudyRootLevel());
+        await dicomServiceRegistry.addDicomService(new JsCMoveScp(this).getPatientStudyOnlyLevel());
         // #endregion
 
         // #region C-GET
-        // await dicomServiceRegistry.addDicomService(new JsCGetScp().getPatientRootLevel());
-        // await dicomServiceRegistry.addDicomService(new JsCGetScp().getStudyRootLevel());
-        // await dicomServiceRegistry.addDicomService(new JsCGetScp().getPatientStudyOnlyLevel());
-        // await dicomServiceRegistry.addDicomService(new JsCGetScp().getCompositeLevel());
+        await dicomServiceRegistry.addDicomService(new JsCGetScp().getPatientRootLevel());
+        await dicomServiceRegistry.addDicomService(new JsCGetScp().getStudyRootLevel());
+        await dicomServiceRegistry.addDicomService(new JsCGetScp().getPatientStudyOnlyLevel());
+        await dicomServiceRegistry.addDicomService(new JsCGetScp().getCompositeLevel());
         // #endregion
 
         return dicomServiceRegistry;

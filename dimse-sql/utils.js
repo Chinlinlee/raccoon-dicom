@@ -6,6 +6,8 @@ const { importClass } = require("java-bridge");
 const { raccoonConfig } = require("@root/config-class");
 const { InstanceLocator } = require("@dcm4che/net/service/InstanceLocator");
 const { default: File } = require("@java-wrapper/java/io/File");
+const sequenceInstance = require("@models/sql/instance");
+const { InstanceQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/instanceQueryBuilder");
 /**
  * 
  * @param {number} tag 
@@ -20,25 +22,25 @@ function intTagToString(tag) {
  * @returns 
  */
 async function getInstancesFromKeysAttr(keys) {
-    const { DimseQueryBuilder } = require("./queryBuilder");
+    const { SqlDimseQueryBuilder: DimseQueryBuilder } = require("./queryBuilder");
     let queryBuilder = new DimseQueryBuilder(keys, "instance");
     let normalQuery = await queryBuilder.toNormalQuery();
-    let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-
-    let returnKeys = {
-        "instancePath": 1,
-        "00020010": 1,
-        "00080016": 1,
-        "00080018": 1,
-        "0020000D": 1,
-        "0020000E": 1
+    let sqlQuery = await queryBuilder.getSqlQuery(normalQuery);
+    let instanceQueryBuilder = new InstanceQueryBuilder({
+        query: {
+            ...sqlQuery
+        }
+    });
+    let q = instanceQueryBuilder.build();
+    let instanceQuery = {
+        ...q
     };
 
-    let instances = await mongoose.model("dicom").find({
-        ...mongoQuery.$match
-    }, returnKeys).setOptions({
-        strictQuery: false
-    }).exec();
+    let instances = await sequenceInstance.model("Instance").findAll({
+        ...instanceQuery,
+        attributes: ["json", "instancePath"]
+    });
+
     const JArrayList = await importClass("java.util.ArrayList");
     let list = await JArrayList.newInstanceAsync();
 
@@ -52,11 +54,11 @@ async function getInstancesFromKeysAttr(keys) {
 
         let fileUri = await instanceFile.toURI();
         let fileUriString = await fileUri.toString();
-
+        
         let instanceLocator = await InstanceLocator.newInstanceAsync(
-            _.get(instance, "00080016.Value.0"),
-            _.get(instance, "00080018.Value.0"),
-            _.get(instance, "00020010.Value.0"),
+            _.get(instance.json, "00080016.Value.0"),
+            _.get(instance.json, "00080018.Value.0"),
+            _.get(instance.json, "00020010.Value.0"),
             fileUriString
         );
 
@@ -72,27 +74,26 @@ async function getInstancesFromKeysAttr(keys) {
  * @returns 
  */
 async function findOneInstanceFromKeysAttr(keys) {
-    const { DimseQueryBuilder } = require("./queryBuilder");
+    const { SqlDimseQueryBuilder: DimseQueryBuilder } = require("./queryBuilder");
     let queryBuilder = new DimseQueryBuilder(keys, "instance");
     let normalQuery = await queryBuilder.toNormalQuery();
-    let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-
-    let returnKeys = {
-        "instancePath": 1,
-        "00020010": 1,
-        "00080016": 1,
-        "00080018": 1,
-        "0020000D": 1,
-        "0020000E": 1
+    let sqlQuery = await queryBuilder.getMongoQuery(normalQuery);
+    let instanceQueryBuilder = new InstanceQueryBuilder({
+        query: {
+            ...sqlQuery
+        }
+    });
+    let q = instanceQueryBuilder.build();
+    let instanceQuery = {
+        ...q
     };
 
-    let instance = await mongoose.model("dicom").findOne({
-        ...mongoQuery.$match
-    }, returnKeys).setOptions({
-        strictQuery: false
-    }).exec();
+    let instance = await sequenceInstance.model("Instance").findOne({
+        ...instanceQuery,
+        attributes: ["json"]
+    });
 
-    return instance;
+    return instance.json;
 }
 
 module.exports.intTagToString = intTagToString;

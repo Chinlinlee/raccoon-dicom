@@ -1,6 +1,4 @@
 const _ = require("lodash");
-const path = require("path");
-const { mongoose } = require("mongoose");
 
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { Tag } = require("@dcm4che/data/Tag");
@@ -9,15 +7,10 @@ const { Status } = require("@dcm4che/net/Status");
 const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
 const { DicomServiceError } = require("@error/dicom-service");
 const { createCMoveSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CMoveSCPInject");
-const { DimseQueryBuilder } = require("./queryBuilder");
-const { File } = require("@java-wrapper/java/io/File");
-const { raccoonConfig } = require("@root/config-class");
 const { SimpleCMoveSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SimpleCMoveSCP");
 const { UID } = require("@dcm4che/data/UID");
 
 const { PATIENT_ROOT_LEVELS, STUDY_ROOT_LEVELS, PATIENT_STUDY_ONLY_LEVELS } = require("./level");
-const { importClass } = require("java-bridge");
-const { default: InstanceLocator } = require("@dcm4che/net/service/InstanceLocator");
 const { default: AAssociateRQ } = require("@dcm4che/net/pdu/AAssociateRQ");
 const { default: Connection } = require("@dcm4che/net/Connection");
 const { default: RetrieveTaskImpl } = require("@dcm4che/tool/dcmqrscp/RetrieveTaskImpl");
