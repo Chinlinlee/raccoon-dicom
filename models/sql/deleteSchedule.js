@@ -7,7 +7,7 @@ const { InstanceModel } = require("./models/instance.model");
 const { SeriesModel } = require("./models/series.model");
 
 // Delete dicom with delete status >= 2
-schedule.scheduleJob("*/10 * * * * *", async function () {
+schedule.scheduleJob("0 0 */1 * * *", async function () {
     deleteExpireStudies().catch((e) => {
         logger.error(e);
     });
