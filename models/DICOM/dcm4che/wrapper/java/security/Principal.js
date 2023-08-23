@@ -34,4 +34,3 @@ class Principal extends (0, java_bridge_1.importClass)('java.security.Principal'
 }
 exports.Principal = Principal;
 exports.default = Principal;
-//# sourceMappingURL=Principal.js.map

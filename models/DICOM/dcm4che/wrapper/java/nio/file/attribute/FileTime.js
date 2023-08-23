@@ -15,4 +15,3 @@ class FileTime extends (0, java_bridge_1.importClass)('java.nio.file.attribute.F
 }
 exports.FileTime = FileTime;
 exports.default = FileTime;
-//# sourceMappingURL=FileTime.js.map

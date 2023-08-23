@@ -34,4 +34,3 @@ class Spliterator$OfDouble extends (0, java_bridge_1.importClass)('java.util.Spl
 }
 exports.Spliterator$OfDouble = Spliterator$OfDouble;
 exports.default = Spliterator$OfDouble;
-//# sourceMappingURL=Spliterator$OfDouble.js.map

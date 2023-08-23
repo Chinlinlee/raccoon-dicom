@@ -15,4 +15,3 @@ class ValidationResult extends (0, java_bridge_1.importClass)('org.dcm4che3.data
 }
 exports.ValidationResult = ValidationResult;
 exports.default = ValidationResult;
-//# sourceMappingURL=ValidationResult.js.map

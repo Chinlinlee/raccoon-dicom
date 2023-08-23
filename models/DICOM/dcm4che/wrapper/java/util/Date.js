@@ -15,4 +15,3 @@ class Date extends (0, java_bridge_1.importClass)('java.util.Date') {
 }
 exports.Date = Date;
 exports.default = Date;
-//# sourceMappingURL=Date.js.map

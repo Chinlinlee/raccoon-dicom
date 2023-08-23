@@ -15,4 +15,3 @@ class URI extends (0, java_bridge_1.importClass)('java.net.URI') {
 }
 exports.URI = URI;
 exports.default = URI;
-//# sourceMappingURL=URI.js.map

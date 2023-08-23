@@ -15,4 +15,3 @@ class ModuleDescriptor extends (0, java_bridge_1.importClass)('java.lang.module.
 }
 exports.ModuleDescriptor = ModuleDescriptor;
 exports.default = ModuleDescriptor;
-//# sourceMappingURL=ModuleDescriptor.js.map

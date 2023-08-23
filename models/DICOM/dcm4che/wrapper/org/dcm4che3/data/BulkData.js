@@ -15,4 +15,3 @@ class BulkData extends (0, java_bridge_1.importClass)('org.dcm4che3.data.BulkDat
 }
 exports.BulkData = BulkData;
 exports.default = BulkData;
-//# sourceMappingURL=BulkData.js.map

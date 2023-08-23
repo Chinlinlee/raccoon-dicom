@@ -15,4 +15,3 @@ class AccessibleObject extends (0, java_bridge_1.importClass)('java.lang.reflect
 }
 exports.AccessibleObject = AccessibleObject;
 exports.default = AccessibleObject;
-//# sourceMappingURL=AccessibleObject.js.map

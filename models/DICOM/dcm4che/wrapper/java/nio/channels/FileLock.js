@@ -22,4 +22,3 @@ class FileLock extends (0, java_bridge_1.importClass)('java.nio.channels.FileLoc
 }
 exports.FileLock = FileLock;
 exports.default = FileLock;
-//# sourceMappingURL=FileLock.js.map

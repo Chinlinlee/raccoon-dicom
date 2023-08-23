@@ -34,4 +34,3 @@ class SocketOption extends (0, java_bridge_1.importClass)('java.net.SocketOption
 }
 exports.SocketOption = SocketOption;
 exports.default = SocketOption;
-//# sourceMappingURL=SocketOption.js.map

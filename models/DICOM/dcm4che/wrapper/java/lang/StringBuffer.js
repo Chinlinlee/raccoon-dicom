@@ -15,4 +15,3 @@ class StringBuffer extends (0, java_bridge_1.importClass)('java.lang.StringBuffe
 }
 exports.StringBuffer = StringBuffer;
 exports.default = StringBuffer;
-//# sourceMappingURL=StringBuffer.js.map

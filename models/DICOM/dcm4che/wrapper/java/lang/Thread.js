@@ -15,4 +15,3 @@ class Thread extends (0, java_bridge_1.importClass)('java.lang.Thread') {
 }
 exports.Thread = Thread;
 exports.default = Thread;
-//# sourceMappingURL=Thread.js.map

@@ -22,4 +22,3 @@ class URLConnection extends (0, java_bridge_1.importClass)('java.net.URLConnecti
 }
 exports.URLConnection = URLConnection;
 exports.default = URLConnection;
-//# sourceMappingURL=URLConnection.js.map

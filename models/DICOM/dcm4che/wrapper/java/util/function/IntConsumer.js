@@ -34,4 +34,3 @@ class IntConsumer extends (0, java_bridge_1.importClass)('java.util.function.Int
 }
 exports.IntConsumer = IntConsumer;
 exports.default = IntConsumer;
-//# sourceMappingURL=IntConsumer.js.map

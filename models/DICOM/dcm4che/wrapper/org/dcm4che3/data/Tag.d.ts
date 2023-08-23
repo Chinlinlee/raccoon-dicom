@@ -791,7 +791,7 @@ export declare class TagClass extends JavaClass {
     /**
      * Original type: 'int'
      */
-    static readonly InventoryContentLevel: java_lang_Integer | number;
+    static readonly InventoryLevel: java_lang_Integer | number;
     /**
      * Original type: 'int'
      */
@@ -847,7 +847,7 @@ export declare class TagClass extends JavaClass {
     /**
      * Original type: 'int'
      */
-    static readonly UIDListMatchingSequence: java_lang_Integer | number;
+    static readonly ListOfUIDMatchingSequence: java_lang_Integer | number;
     /**
      * Original type: 'int'
      */
@@ -940,6 +940,10 @@ export declare class TagClass extends JavaClass {
      * Original type: 'int'
      */
     static readonly TotalNumberOfStudyRecords: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly MaximumNumberOfRecords: java_lang_Integer | number;
     /**
      * Original type: 'int'
      */
@@ -1744,6 +1748,10 @@ export declare class TagClass extends JavaClass {
      * Original type: 'int'
      */
     static readonly LongitudinalTemporalEventType: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ClinicalTrialTimePointTypeCodeSequence: java_lang_Integer | number;
     /**
      * Original type: 'int'
      */
@@ -15455,6 +15463,222 @@ export declare class TagClass extends JavaClass {
     /**
      * Original type: 'int'
      */
+    static readonly SelectedFrameNumber: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly SelectedFrameFunctionalGroupsSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly RTImageFrameGeneralContentSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly RTImageFrameContextSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly RTImageScopeSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly BeamModifierCoordinatesPresenceFlag: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly StartCumulativeMeterset: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly StopCumulativeMeterset: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly RTAcquisitionPatientPositionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly RTImageFrameImagingDevicePositionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly RTImageFramekVRadiationAcquisitionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly RTImageFrameMVRadiationAcquisitionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly RTImageFrameRadiationAcquisitionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ImagingSourcePositionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ImageReceptorPositionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly DevicePositionToEquipmentMappingMatrix: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly DevicePositionParameterSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ImagingSourceLocationSpecificationType: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ImagingDeviceLocationMatrixSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ImagingDeviceLocationParameterSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ImagingApertureSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ImagingApertureSpecificationType: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly NumberOfAcquisitionDevices: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionDeviceSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionTaskSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionTaskWorkitemCodeSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionSubtaskSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly SubtaskWorkitemCodeSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionTaskIndex: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionSubtaskIndex: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ReferencedBaselineParametersRTRadiationInstanceSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly PositionAcquisitionTemplateIdentificationSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly PositionAcquisitionTemplateID: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly PositionAcquisitionTemplateName: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly PositionAcquisitionTemplateCodeSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly PositionAcquisitionTemplateDescription: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionTaskApplicabilitySequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ProjectionImagingAcquisitionParameterSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly CTImagingAcquisitionParameterSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly KVImagingGenerationParametersSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly MVImagingGenerationParametersSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionSignalType: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionMethod: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ScanStartPositionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ScanStopPositionSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ImagingSourceToBeamModifierDefinitionPlaneDistance: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ScanArcType: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly DetectorPositioningType: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AdditionalRTAccessoryDeviceSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly DeviceSpecificAcquisitionParameterSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ReferencedPositionReferenceInstanceSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly EnergyDerivationCodeSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly MaximumCumulativeMetersetExposure: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly AcquisitionInitiationSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
     static readonly DVHType: java_lang_Integer | number;
     /**
      * Original type: 'int'
@@ -15984,6 +16208,22 @@ export declare class TagClass extends JavaClass {
      * Original type: 'int'
      */
     static readonly BeamLimitingDeviceLeafPairsSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly EnhancedRTBeamLimitingDeviceSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly EnhancedRTBeamLimitingOpeningSequence: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly EnhancedRTBeamLimitingDeviceDefinitionFlag: java_lang_Integer | number;
+    /**
+     * Original type: 'int'
+     */
+    static readonly ParallelRTBeamDelimiterOpeningExtents: java_lang_Integer | number;
     /**
      * Original type: 'int'
      */
@@ -20495,7 +20735,7 @@ export declare class TagClass extends JavaClass {
     /**
      * @return original return type: 'org.dcm4che3.data.Tag'
      */
-    static newInstance(): Promise<Tag>;
+    static newInstanceAsync(): Promise<Tag>;
     constructor();
 }
 declare const Tag_base: typeof TagClass;

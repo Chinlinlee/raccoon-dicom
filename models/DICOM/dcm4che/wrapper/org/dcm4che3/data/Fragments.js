@@ -15,4 +15,3 @@ class Fragments extends (0, java_bridge_1.importClass)('org.dcm4che3.data.Fragme
 }
 exports.Fragments = Fragments;
 exports.default = Fragments;
-//# sourceMappingURL=Fragments.js.map

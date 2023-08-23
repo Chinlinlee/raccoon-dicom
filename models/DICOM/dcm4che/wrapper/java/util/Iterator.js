@@ -34,4 +34,3 @@ class Iterator extends (0, java_bridge_1.importClass)('java.util.Iterator') {
 }
 exports.Iterator = Iterator;
 exports.default = Iterator;
-//# sourceMappingURL=Iterator.js.map

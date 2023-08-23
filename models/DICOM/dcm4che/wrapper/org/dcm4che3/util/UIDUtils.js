@@ -15,4 +15,3 @@ class UIDUtils extends (0, java_bridge_1.importClass)('org.dcm4che3.util.UIDUtil
 }
 exports.UIDUtils = UIDUtils;
 exports.default = UIDUtils;
-//# sourceMappingURL=UIDUtils.js.map

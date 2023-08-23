@@ -34,4 +34,3 @@ class ToDoubleFunction extends (0, java_bridge_1.importClass)('java.util.functio
 }
 exports.ToDoubleFunction = ToDoubleFunction;
 exports.default = ToDoubleFunction;
-//# sourceMappingURL=ToDoubleFunction.js.map

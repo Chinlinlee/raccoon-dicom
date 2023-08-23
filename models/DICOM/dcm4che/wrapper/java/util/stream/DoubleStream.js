@@ -34,4 +34,3 @@ class DoubleStream extends (0, java_bridge_1.importClass)('java.util.stream.Doub
 }
 exports.DoubleStream = DoubleStream;
 exports.default = DoubleStream;
-//# sourceMappingURL=DoubleStream.js.map

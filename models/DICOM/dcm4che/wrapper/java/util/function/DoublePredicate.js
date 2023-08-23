@@ -34,4 +34,3 @@ class DoublePredicate extends (0, java_bridge_1.importClass)('java.util.function
 }
 exports.DoublePredicate = DoublePredicate;
 exports.default = DoublePredicate;
-//# sourceMappingURL=DoublePredicate.js.map

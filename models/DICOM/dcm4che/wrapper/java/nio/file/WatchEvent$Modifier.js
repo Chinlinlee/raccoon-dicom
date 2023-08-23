@@ -34,4 +34,3 @@ class WatchEvent$Modifier extends (0, java_bridge_1.importClass)('java.nio.file.
 }
 exports.WatchEvent$Modifier = WatchEvent$Modifier;
 exports.default = WatchEvent$Modifier;
-//# sourceMappingURL=WatchEvent$Modifier.js.map

@@ -22,4 +22,3 @@ class DatagramChannel extends (0, java_bridge_1.importClass)('java.nio.channels.
 }
 exports.DatagramChannel = DatagramChannel;
 exports.default = DatagramChannel;
-//# sourceMappingURL=DatagramChannel.js.map

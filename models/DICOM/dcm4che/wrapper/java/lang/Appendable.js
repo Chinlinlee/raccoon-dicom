@@ -34,4 +34,3 @@ class Appendable extends (0, java_bridge_1.importClass)('java.lang.Appendable') 
 }
 exports.Appendable = Appendable;
 exports.default = Appendable;
-//# sourceMappingURL=Appendable.js.map

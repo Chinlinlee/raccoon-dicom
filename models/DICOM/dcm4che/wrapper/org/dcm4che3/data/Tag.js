@@ -15,4 +15,3 @@ class Tag extends (0, java_bridge_1.importClass)('org.dcm4che3.data.Tag') {
 }
 exports.Tag = Tag;
 exports.default = Tag;
-//# sourceMappingURL=Tag.js.map

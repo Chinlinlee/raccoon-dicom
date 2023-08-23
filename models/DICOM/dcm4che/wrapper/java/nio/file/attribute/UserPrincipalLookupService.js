@@ -22,4 +22,3 @@ class UserPrincipalLookupService extends (0, java_bridge_1.importClass)('java.ni
 }
 exports.UserPrincipalLookupService = UserPrincipalLookupService;
 exports.default = UserPrincipalLookupService;
-//# sourceMappingURL=UserPrincipalLookupService.js.map

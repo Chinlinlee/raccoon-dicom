@@ -22,4 +22,3 @@ class AsynchronousFileChannel extends (0, java_bridge_1.importClass)('java.nio.c
 }
 exports.AsynchronousFileChannel = AsynchronousFileChannel;
 exports.default = AsynchronousFileChannel;
-//# sourceMappingURL=AsynchronousFileChannel.js.map

@@ -1,9 +1,10 @@
+const fsP = require("fs/promises");
 const path = require("path");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
-const { 
+const {
     getStoreDicomFullPathGroup,
     IncludeFieldsFactory
 } = require("../service");
@@ -12,6 +13,13 @@ const {
 } = require("../../DICOM/dicom-tags-mapping");
 const { raccoonConfig } = require("../../../config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { logger } = require("@root/utils/logs/log");
+
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
 
 let dicomStudySchema = new mongoose.Schema(
     {
@@ -24,6 +32,10 @@ let dicomStudySchema = new mongoose.Schema(
         studyPath: {
             type: String,
             default: void 0
+        },
+        deleteStatus: {
+            type: Number,
+            default: 0
         }
     },
     {
@@ -31,7 +43,38 @@ let dicomStudySchema = new mongoose.Schema(
         versionKey: false,
         toObject: {
             getters: true
-        }
+        },
+        methods: {
+            async incrementDeleteStatus() {
+                this.deleteStatus = this.deleteStatus + 1;
+                await this.save();
+            },
+            async deleteStudyFolder() {
+                let studyPath = this.studyPath;
+                logger.warn("Permanently delete study folder: " + studyPath);
+                await fsP.rm(path.join(raccoonConfig.dicomWebConfig.storeRootPath, studyPath), {
+                    force: true,
+                    recursive: true
+                });
+            },
+            getAttributes: async function() {
+                let study = this.toObject();
+                delete study._id;
+                delete study.id;
+
+                let jsonStr = JSON.stringify(study);
+                return await Common.getAttributesFromJsonString(jsonStr);
+            }
+        },
+        statics: {
+            getDimseResultCursor: async function (query, keys) {
+                return mongoose.model("dicomStudy").find(query, keys).setOptions({
+                    strictQuery: false
+                })
+                .cursor();
+            }
+        },
+        timestamps: true
     }
 );
 
@@ -60,14 +103,19 @@ dicomStudySchema.statics.getDicomJson = async function (queryOptions) {
     let studyFields = includeFieldsFactory.getStudyLevelFields();
 
     try {
-        let docs = await mongoose.model("dicomStudy").find(queryOptions.query, studyFields)
-        .limit(queryOptions.limit)
-        .skip(queryOptions.skip)
-        .setOptions({
-            strictQuery: false
-        })
-        .exec();
-    
+        let docs = await mongoose.model("dicomStudy").find({
+            ...queryOptions.query,
+            deleteStatus: {
+                $eq: 0
+            }
+        }, studyFields)
+            .limit(queryOptions.limit)
+            .skip(queryOptions.skip)
+            .setOptions({
+                strictQuery: false
+            })
+            .exec();
+
         let studyDicomJson = docs.map((v) => {
             let obj = v.toObject();
             delete obj._id;
@@ -81,13 +129,13 @@ dicomStudySchema.statics.getDicomJson = async function (queryOptions) {
                 ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
                 Value: [raccoonConfig.aeTitle]
             });
-            
+
             return obj;
         });
 
         return studyDicomJson;
 
-    } catch(e) {
+    } catch (e) {
         throw e;
     }
 };
@@ -97,7 +145,7 @@ dicomStudySchema.statics.getDicomJson = async function (queryOptions) {
  * @param {Object} iParam 
  * @param {string} iParam.studyUID
  */
-dicomStudySchema.statics.getPathGroupOfInstances = async function(iParam) {
+dicomStudySchema.statics.getPathGroupOfInstances = async function (iParam) {
     let { studyUID } = iParam;
     try {
         let query = [
@@ -122,7 +170,7 @@ dicomStudySchema.statics.getPathGroupOfInstances = async function(iParam) {
         ];
         let docs = await mongoose.model("dicom").aggregate(query).exec();
         let pathGroup = _.get(docs, "0.pathList", []);
-        
+
         let fullPathGroup = getStoreDicomFullPathGroup(pathGroup);
 
         return fullPathGroup;

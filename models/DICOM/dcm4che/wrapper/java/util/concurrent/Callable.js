@@ -34,4 +34,3 @@ class Callable extends (0, java_bridge_1.importClass)('java.util.concurrent.Call
 }
 exports.Callable = Callable;
 exports.default = Callable;
-//# sourceMappingURL=Callable.js.map

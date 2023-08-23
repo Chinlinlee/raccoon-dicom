@@ -34,4 +34,3 @@ class TemporalAccessor extends (0, java_bridge_1.importClass)('java.time.tempora
 }
 exports.TemporalAccessor = TemporalAccessor;
 exports.default = TemporalAccessor;
-//# sourceMappingURL=TemporalAccessor.js.map

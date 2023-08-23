@@ -22,4 +22,3 @@ class Pipe$SinkChannel extends (0, java_bridge_1.importClass)('java.nio.channels
 }
 exports.Pipe$SinkChannel = Pipe$SinkChannel;
 exports.default = Pipe$SinkChannel;
-//# sourceMappingURL=Pipe$SinkChannel.js.map

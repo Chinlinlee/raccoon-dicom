@@ -22,4 +22,3 @@ class CharsetEncoder extends (0, java_bridge_1.importClass)('java.nio.charset.Ch
 }
 exports.CharsetEncoder = CharsetEncoder;
 exports.default = CharsetEncoder;
-//# sourceMappingURL=CharsetEncoder.js.map

@@ -15,4 +15,3 @@ class OffsetDateTime extends (0, java_bridge_1.importClass)('java.time.OffsetDat
 }
 exports.OffsetDateTime = OffsetDateTime;
 exports.default = OffsetDateTime;
-//# sourceMappingURL=OffsetDateTime.js.map

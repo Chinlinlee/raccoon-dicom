@@ -15,4 +15,3 @@ class DicomInputStream$IncludeBulkData extends (0, java_bridge_1.importClass)('o
 }
 exports.DicomInputStream$IncludeBulkData = DicomInputStream$IncludeBulkData;
 exports.default = DicomInputStream$IncludeBulkData;
-//# sourceMappingURL=DicomInputStream$IncludeBulkData.js.map

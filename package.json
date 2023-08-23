@@ -59,7 +59,8 @@
     "@java-wrapper": "./models/DICOM/dcm4che/wrapper",
     "@models": "./models",
     "@error": "./error",
-    "@root": "./"
+    "@root": "./",
+    "@chinlinlee": "./models/DICOM/dcm4che/wrapper/org/github/chinlinlee"
   },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",
@@ -93,6 +94,7 @@
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "mongoose": "^6.7.2",
+    "node-schedule": "^2.1.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "path-match": "^1.2.4",

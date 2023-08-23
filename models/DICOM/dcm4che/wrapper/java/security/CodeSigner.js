@@ -15,4 +15,3 @@ class CodeSigner extends (0, java_bridge_1.importClass)('java.security.CodeSigne
 }
 exports.CodeSigner = CodeSigner;
 exports.default = CodeSigner;
-//# sourceMappingURL=CodeSigner.js.map

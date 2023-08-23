@@ -15,4 +15,3 @@ class AttributedCharacterIterator$Attribute extends (0, java_bridge_1.importClas
 }
 exports.AttributedCharacterIterator$Attribute = AttributedCharacterIterator$Attribute;
 exports.default = AttributedCharacterIterator$Attribute;
-//# sourceMappingURL=AttributedCharacterIterator$Attribute.js.map

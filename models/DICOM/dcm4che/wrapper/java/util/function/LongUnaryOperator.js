@@ -34,4 +34,3 @@ class LongUnaryOperator extends (0, java_bridge_1.importClass)('java.util.functi
 }
 exports.LongUnaryOperator = LongUnaryOperator;
 exports.default = LongUnaryOperator;
-//# sourceMappingURL=LongUnaryOperator.js.map

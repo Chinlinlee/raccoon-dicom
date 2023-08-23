@@ -34,4 +34,3 @@ class Collector extends (0, java_bridge_1.importClass)('java.util.stream.Collect
 }
 exports.Collector = Collector;
 exports.default = Collector;
-//# sourceMappingURL=Collector.js.map

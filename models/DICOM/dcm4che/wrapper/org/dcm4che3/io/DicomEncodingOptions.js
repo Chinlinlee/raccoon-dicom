@@ -15,4 +15,3 @@ class DicomEncodingOptions extends (0, java_bridge_1.importClass)('org.dcm4che3.
 }
 exports.DicomEncodingOptions = DicomEncodingOptions;
 exports.default = DicomEncodingOptions;
-//# sourceMappingURL=DicomEncodingOptions.js.map

@@ -15,4 +15,3 @@ class Throwable extends (0, java_bridge_1.importClass)('java.lang.Throwable') {
 }
 exports.Throwable = Throwable;
 exports.default = Throwable;
-//# sourceMappingURL=Throwable.js.map

@@ -15,4 +15,3 @@ class Attributes$UpdatePolicy extends (0, java_bridge_1.importClass)('org.dcm4ch
 }
 exports.Attributes$UpdatePolicy = Attributes$UpdatePolicy;
 exports.default = Attributes$UpdatePolicy;
-//# sourceMappingURL=Attributes$UpdatePolicy.js.map

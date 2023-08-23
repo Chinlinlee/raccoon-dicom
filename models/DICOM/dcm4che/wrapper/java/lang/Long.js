@@ -15,4 +15,3 @@ class Long extends (0, java_bridge_1.importClass)('java.lang.Long') {
 }
 exports.Long = Long;
 exports.default = Long;
-//# sourceMappingURL=Long.js.map

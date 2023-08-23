@@ -15,4 +15,3 @@ class DayOfWeek extends (0, java_bridge_1.importClass)('java.time.DayOfWeek') {
 }
 exports.DayOfWeek = DayOfWeek;
 exports.default = DayOfWeek;
-//# sourceMappingURL=DayOfWeek.js.map

@@ -34,4 +34,3 @@ class Iterable extends (0, java_bridge_1.importClass)('java.lang.Iterable') {
 }
 exports.Iterable = Iterable;
 exports.default = Iterable;
-//# sourceMappingURL=Iterable.js.map

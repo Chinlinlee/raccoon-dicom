@@ -34,4 +34,3 @@ class ReadableByteChannel extends (0, java_bridge_1.importClass)('java.nio.chann
 }
 exports.ReadableByteChannel = ReadableByteChannel;
 exports.default = ReadableByteChannel;
-//# sourceMappingURL=ReadableByteChannel.js.map

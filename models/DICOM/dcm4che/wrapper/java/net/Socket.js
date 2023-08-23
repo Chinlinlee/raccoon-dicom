@@ -15,4 +15,3 @@ class Socket extends (0, java_bridge_1.importClass)('java.net.Socket') {
 }
 exports.Socket = Socket;
 exports.default = Socket;
-//# sourceMappingURL=Socket.js.map

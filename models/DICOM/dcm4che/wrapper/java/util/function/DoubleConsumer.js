@@ -34,4 +34,3 @@ class DoubleConsumer extends (0, java_bridge_1.importClass)('java.util.function.
 }
 exports.DoubleConsumer = DoubleConsumer;
 exports.default = DoubleConsumer;
-//# sourceMappingURL=DoubleConsumer.js.map

@@ -15,4 +15,3 @@ class Field extends (0, java_bridge_1.importClass)('java.lang.reflect.Field') {
 }
 exports.Field = Field;
 exports.default = Field;
-//# sourceMappingURL=Field.js.map

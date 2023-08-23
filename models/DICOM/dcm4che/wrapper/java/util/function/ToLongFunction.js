@@ -34,4 +34,3 @@ class ToLongFunction extends (0, java_bridge_1.importClass)('java.util.function.
 }
 exports.ToLongFunction = ToLongFunction;
 exports.default = ToLongFunction;
-//# sourceMappingURL=ToLongFunction.js.map

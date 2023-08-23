@@ -34,4 +34,3 @@ class PrimitiveIterator$OfLong extends (0, java_bridge_1.importClass)('java.util
 }
 exports.PrimitiveIterator$OfLong = PrimitiveIterator$OfLong;
 exports.default = PrimitiveIterator$OfLong;
-//# sourceMappingURL=PrimitiveIterator$OfLong.js.map

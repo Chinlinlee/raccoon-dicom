@@ -15,4 +15,3 @@ class FormatStyle extends (0, java_bridge_1.importClass)('java.time.format.Forma
 }
 exports.FormatStyle = FormatStyle;
 exports.default = FormatStyle;
-//# sourceMappingURL=FormatStyle.js.map

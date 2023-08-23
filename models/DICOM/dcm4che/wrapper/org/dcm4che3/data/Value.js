@@ -34,4 +34,3 @@ class Value extends (0, java_bridge_1.importClass)('org.dcm4che3.data.Value') {
 }
 exports.Value = Value;
 exports.default = Value;
-//# sourceMappingURL=Value.js.map

@@ -15,4 +15,3 @@ class IOD$DataElementType extends (0, java_bridge_1.importClass)('org.dcm4che3.d
 }
 exports.IOD$DataElementType = IOD$DataElementType;
 exports.default = IOD$DataElementType;
-//# sourceMappingURL=IOD$DataElementType.js.map

@@ -22,4 +22,3 @@ class FloatBuffer extends (0, java_bridge_1.importClass)('java.nio.FloatBuffer')
 }
 exports.FloatBuffer = FloatBuffer;
 exports.default = FloatBuffer;
-//# sourceMappingURL=FloatBuffer.js.map

@@ -34,4 +34,3 @@ class Consumer extends (0, java_bridge_1.importClass)('java.util.function.Consum
 }
 exports.Consumer = Consumer;
 exports.default = Consumer;
-//# sourceMappingURL=Consumer.js.map

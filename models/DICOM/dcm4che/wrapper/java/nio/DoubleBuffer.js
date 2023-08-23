@@ -22,4 +22,3 @@ class DoubleBuffer extends (0, java_bridge_1.importClass)('java.nio.DoubleBuffer
 }
 exports.DoubleBuffer = DoubleBuffer;
 exports.default = DoubleBuffer;
-//# sourceMappingURL=DoubleBuffer.js.map

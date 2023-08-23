@@ -15,4 +15,3 @@ class ChronoUnit extends (0, java_bridge_1.importClass)('java.time.temporal.Chro
 }
 exports.ChronoUnit = ChronoUnit;
 exports.default = ChronoUnit;
-//# sourceMappingURL=ChronoUnit.js.map

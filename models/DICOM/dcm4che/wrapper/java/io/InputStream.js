@@ -22,4 +22,3 @@ class InputStream extends (0, java_bridge_1.importClass)('java.io.InputStream') 
 }
 exports.InputStream = InputStream;
 exports.default = InputStream;
-//# sourceMappingURL=InputStream.js.map

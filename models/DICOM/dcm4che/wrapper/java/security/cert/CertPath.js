@@ -22,4 +22,3 @@ class CertPath extends (0, java_bridge_1.importClass)('java.security.cert.CertPa
 }
 exports.CertPath = CertPath;
 exports.default = CertPath;
-//# sourceMappingURL=CertPath.js.map

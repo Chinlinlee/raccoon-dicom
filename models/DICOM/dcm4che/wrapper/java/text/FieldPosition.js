@@ -15,4 +15,3 @@ class FieldPosition extends (0, java_bridge_1.importClass)('java.text.FieldPosit
 }
 exports.FieldPosition = FieldPosition;
 exports.default = FieldPosition;
-//# sourceMappingURL=FieldPosition.js.map

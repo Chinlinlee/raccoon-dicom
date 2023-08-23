@@ -34,4 +34,3 @@ class IntUnaryOperator extends (0, java_bridge_1.importClass)('java.util.functio
 }
 exports.IntUnaryOperator = IntUnaryOperator;
 exports.default = IntUnaryOperator;
-//# sourceMappingURL=IntUnaryOperator.js.map

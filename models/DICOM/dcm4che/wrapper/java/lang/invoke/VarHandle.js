@@ -22,4 +22,3 @@ class VarHandle extends (0, java_bridge_1.importClass)('java.lang.invoke.VarHand
 }
 exports.VarHandle = VarHandle;
 exports.default = VarHandle;
-//# sourceMappingURL=VarHandle.js.map

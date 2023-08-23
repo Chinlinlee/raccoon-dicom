@@ -15,4 +15,3 @@ class TimeUnit extends (0, java_bridge_1.importClass)('java.util.concurrent.Time
 }
 exports.TimeUnit = TimeUnit;
 exports.default = TimeUnit;
-//# sourceMappingURL=TimeUnit.js.map

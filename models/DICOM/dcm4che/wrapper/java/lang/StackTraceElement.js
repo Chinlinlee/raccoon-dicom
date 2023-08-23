@@ -15,4 +15,3 @@ class StackTraceElement extends (0, java_bridge_1.importClass)('java.lang.StackT
 }
 exports.StackTraceElement = StackTraceElement;
 exports.default = StackTraceElement;
-//# sourceMappingURL=StackTraceElement.js.map

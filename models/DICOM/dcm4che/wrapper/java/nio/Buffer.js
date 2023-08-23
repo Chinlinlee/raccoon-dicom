@@ -22,4 +22,3 @@ class Buffer extends (0, java_bridge_1.importClass)('java.nio.Buffer') {
 }
 exports.Buffer = Buffer;
 exports.default = Buffer;
-//# sourceMappingURL=Buffer.js.map

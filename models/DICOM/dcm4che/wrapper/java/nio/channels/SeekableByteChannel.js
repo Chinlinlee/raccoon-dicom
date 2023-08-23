@@ -34,4 +34,3 @@ class SeekableByteChannel extends (0, java_bridge_1.importClass)('java.nio.chann
 }
 exports.SeekableByteChannel = SeekableByteChannel;
 exports.default = SeekableByteChannel;
-//# sourceMappingURL=SeekableByteChannel.js.map

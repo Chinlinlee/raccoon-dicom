@@ -15,4 +15,3 @@ class Random extends (0, java_bridge_1.importClass)('java.util.Random') {
 }
 exports.Random = Random;
 exports.default = Random;
-//# sourceMappingURL=Random.js.map

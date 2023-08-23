@@ -34,4 +34,3 @@ class Watchable extends (0, java_bridge_1.importClass)('java.nio.file.Watchable'
 }
 exports.Watchable = Watchable;
 exports.default = Watchable;
-//# sourceMappingURL=Watchable.js.map

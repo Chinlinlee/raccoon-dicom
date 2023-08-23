@@ -22,4 +22,3 @@ class CharBuffer extends (0, java_bridge_1.importClass)('java.nio.CharBuffer') {
 }
 exports.CharBuffer = CharBuffer;
 exports.default = CharBuffer;
-//# sourceMappingURL=CharBuffer.js.map

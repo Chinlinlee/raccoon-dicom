@@ -34,4 +34,3 @@ class ToIntFunction extends (0, java_bridge_1.importClass)('java.util.function.T
 }
 exports.ToIntFunction = ToIntFunction;
 exports.default = ToIntFunction;
-//# sourceMappingURL=ToIntFunction.js.map

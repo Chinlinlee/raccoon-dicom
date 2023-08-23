@@ -34,4 +34,3 @@ class OpenOption extends (0, java_bridge_1.importClass)('java.nio.file.OpenOptio
 }
 exports.OpenOption = OpenOption;
 exports.default = OpenOption;
-//# sourceMappingURL=OpenOption.js.map

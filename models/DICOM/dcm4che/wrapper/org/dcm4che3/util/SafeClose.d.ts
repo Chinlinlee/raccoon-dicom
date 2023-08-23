@@ -113,7 +113,7 @@ export declare class SafeCloseClass extends JavaClass {
     /**
      * @return original return type: 'org.dcm4che3.util.SafeClose'
      */
-    static newInstance(): Promise<SafeClose>;
+    static newInstanceAsync(): Promise<SafeClose>;
     constructor();
 }
 declare const SafeClose_base: typeof SafeCloseClass;

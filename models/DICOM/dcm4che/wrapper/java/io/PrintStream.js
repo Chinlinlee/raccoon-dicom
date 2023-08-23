@@ -15,4 +15,3 @@ class PrintStream extends (0, java_bridge_1.importClass)('java.io.PrintStream') 
 }
 exports.PrintStream = PrintStream;
 exports.default = PrintStream;
-//# sourceMappingURL=PrintStream.js.map

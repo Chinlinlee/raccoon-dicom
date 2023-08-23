@@ -15,4 +15,3 @@ class OptionalLong extends (0, java_bridge_1.importClass)('java.util.OptionalLon
 }
 exports.OptionalLong = OptionalLong;
 exports.default = OptionalLong;
-//# sourceMappingURL=OptionalLong.js.map

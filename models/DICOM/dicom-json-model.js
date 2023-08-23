@@ -143,6 +143,7 @@ class DicomJsonModel {
                 instancePath: dicomFileSaveInfo.relativePath
             });
             _.merge(dicomJsonClone, mediaStorage);
+            _.set(dicomJsonClone, "deleteStatus", 0);
 
             delete dicomJsonClone.sopClass;
             delete dicomJsonClone.sopInstanceUID;

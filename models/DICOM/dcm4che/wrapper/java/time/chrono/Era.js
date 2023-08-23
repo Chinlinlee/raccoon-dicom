@@ -34,4 +34,3 @@ class Era extends (0, java_bridge_1.importClass)('java.time.chrono.Era') {
 }
 exports.Era = Era;
 exports.default = Era;
-//# sourceMappingURL=Era.js.map

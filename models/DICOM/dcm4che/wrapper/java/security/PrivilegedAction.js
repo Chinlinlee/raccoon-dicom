@@ -34,4 +34,3 @@ class PrivilegedAction extends (0, java_bridge_1.importClass)('java.security.Pri
 }
 exports.PrivilegedAction = PrivilegedAction;
 exports.default = PrivilegedAction;
-//# sourceMappingURL=PrivilegedAction.js.map

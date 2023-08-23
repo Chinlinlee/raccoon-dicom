@@ -34,4 +34,3 @@ class Path extends (0, java_bridge_1.importClass)('java.nio.file.Path') {
 }
 exports.Path = Path;
 exports.default = Path;
-//# sourceMappingURL=Path.js.map
