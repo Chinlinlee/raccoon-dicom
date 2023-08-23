@@ -22,4 +22,3 @@ class Reader extends (0, java_bridge_1.importClass)('java.io.Reader') {
 }
 exports.Reader = Reader;
 exports.default = Reader;
-//# sourceMappingURL=Reader.js.map

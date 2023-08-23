@@ -34,4 +34,3 @@ class TypeVariable extends (0, java_bridge_1.importClass)('java.lang.reflect.Typ
 }
 exports.TypeVariable = TypeVariable;
 exports.default = TypeVariable;
-//# sourceMappingURL=TypeVariable.js.map

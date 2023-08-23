@@ -22,4 +22,3 @@ class Charset extends (0, java_bridge_1.importClass)('java.nio.charset.Charset')
 }
 exports.Charset = Charset;
 exports.default = Charset;
-//# sourceMappingURL=Charset.js.map

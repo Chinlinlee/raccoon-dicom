@@ -22,4 +22,3 @@ class SocketAddress extends (0, java_bridge_1.importClass)('java.net.SocketAddre
 }
 exports.SocketAddress = SocketAddress;
 exports.default = SocketAddress;
-//# sourceMappingURL=SocketAddress.js.map

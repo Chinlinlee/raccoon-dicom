@@ -15,4 +15,3 @@ class Class extends (0, java_bridge_1.importClass)('java.lang.Class') {
 }
 exports.Class = Class;
 exports.default = Class;
-//# sourceMappingURL=Class.js.map

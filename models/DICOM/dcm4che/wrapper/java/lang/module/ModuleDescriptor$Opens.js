@@ -15,4 +15,3 @@ class ModuleDescriptor$Opens extends (0, java_bridge_1.importClass)('java.lang.m
 }
 exports.ModuleDescriptor$Opens = ModuleDescriptor$Opens;
 exports.default = ModuleDescriptor$Opens;
-//# sourceMappingURL=ModuleDescriptor$Opens.js.map

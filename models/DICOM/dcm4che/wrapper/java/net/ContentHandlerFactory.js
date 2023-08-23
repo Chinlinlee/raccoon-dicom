@@ -34,4 +34,3 @@ class ContentHandlerFactory extends (0, java_bridge_1.importClass)('java.net.Con
 }
 exports.ContentHandlerFactory = ContentHandlerFactory;
 exports.default = ContentHandlerFactory;
-//# sourceMappingURL=ContentHandlerFactory.js.map

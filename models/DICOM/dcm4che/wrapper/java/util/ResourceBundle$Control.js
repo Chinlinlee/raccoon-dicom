@@ -15,4 +15,3 @@ class ResourceBundle$Control extends (0, java_bridge_1.importClass)('java.util.R
 }
 exports.ResourceBundle$Control = ResourceBundle$Control;
 exports.default = ResourceBundle$Control;
-//# sourceMappingURL=ResourceBundle$Control.js.map

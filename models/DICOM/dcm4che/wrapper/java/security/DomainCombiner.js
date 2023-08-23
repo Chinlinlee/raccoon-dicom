@@ -34,4 +34,3 @@ class DomainCombiner extends (0, java_bridge_1.importClass)('java.security.Domai
 }
 exports.DomainCombiner = DomainCombiner;
 exports.default = DomainCombiner;
-//# sourceMappingURL=DomainCombiner.js.map

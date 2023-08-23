@@ -15,4 +15,3 @@ class CoderResult extends (0, java_bridge_1.importClass)('java.nio.charset.Coder
 }
 exports.CoderResult = CoderResult;
 exports.default = CoderResult;
-//# sourceMappingURL=CoderResult.js.map

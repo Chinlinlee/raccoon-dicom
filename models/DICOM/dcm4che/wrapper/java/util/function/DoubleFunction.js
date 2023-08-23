@@ -34,4 +34,3 @@ class DoubleFunction extends (0, java_bridge_1.importClass)('java.util.function.
 }
 exports.DoubleFunction = DoubleFunction;
 exports.default = DoubleFunction;
-//# sourceMappingURL=DoubleFunction.js.map

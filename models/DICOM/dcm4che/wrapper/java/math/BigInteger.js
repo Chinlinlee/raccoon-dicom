@@ -15,4 +15,3 @@ class BigInteger extends (0, java_bridge_1.importClass)('java.math.BigInteger') 
 }
 exports.BigInteger = BigInteger;
 exports.default = BigInteger;
-//# sourceMappingURL=BigInteger.js.map

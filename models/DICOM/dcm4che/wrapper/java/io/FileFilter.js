@@ -34,4 +34,3 @@ class FileFilter extends (0, java_bridge_1.importClass)('java.io.FileFilter') {
 }
 exports.FileFilter = FileFilter;
 exports.default = FileFilter;
-//# sourceMappingURL=FileFilter.js.map

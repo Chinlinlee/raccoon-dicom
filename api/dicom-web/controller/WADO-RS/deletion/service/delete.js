@@ -12,7 +12,7 @@ class DeleteService {
      * @param {import("express").Response} res 
      * @param { "study" | "series" | "instance" } level
      */
-    constructor(req, res, level="study") {
+    constructor(req, res, level = "study") {
         this.request = req;
         this.response = res;
         this.level = level;
@@ -20,103 +20,62 @@ class DeleteService {
 
     async delete() {
         let deleteFns = {};
-        deleteFns["study"] = async() => this.deleteStudy();
-        deleteFns["series"] = async() => this.deleteSeries();
-        deleteFns["instance"] = async() => this.deleteInstance();
+        deleteFns["study"] = async () => this.deleteStudy();
+        deleteFns["series"] = async () => this.deleteSeries();
+        deleteFns["instance"] = async () => this.deleteInstance();
 
         await deleteFns[this.level]();
     }
-    
+
     async deleteStudy() {
-        let studyImagesPathObjs = await dicomStudyModel.getPathGroupOfInstances({
+        let study = await dicomStudyModel.findOne({
             ...this.request.params
         });
 
-        if(studyImagesPathObjs.length == 0) {
+        if (!study) {
             throw new NotFoundInstanceError(`Can not found studyUID: ${this.request.params.studyUID} instances' files`);
         }
 
-        for(let imagePathObj of studyImagesPathObjs) {
-            try {
-                await Promise.all([
-                    dicomStudyModel.deleteOne({
-                        studyUID: imagePathObj.studyUID
-                    }),
-                    dicomSeriesModel.deleteMany({
-                        studyUID: imagePathObj.studyUID
-                    }),
-                    dicomModel.deleteMany({
-                        studyUID: imagePathObj.studyUID
-                    })
-                ]);
-                await fsP.unlink(imagePathObj.instancePath);
-            } catch(e) {
-                console.error(e);
-                throw e;
-            }
+        try {
+            await study.incrementDeleteStatus();
+        } catch (e) {
+            console.error(e);
+            throw e;
         }
+
     }
 
     async deleteSeries() {
-        let seriesImagesPathObjs = await dicomSeriesModel.getPathGroupOfInstances({
+        let aSeries = await dicomSeriesModel.findOne({
             ...this.request.params
         });
 
-        if(seriesImagesPathObjs.length == 0) {
+        if (!aSeries) {
             throw new NotFoundInstanceError(`Can not found studyUID: ${this.request.params.studyUID}, seriesUID: ${this.request.params.seriesUID}' files`);
         }
 
-        for(let imagePathObj of seriesImagesPathObjs) {
-            try {
-                await Promise.all([
-                    dicomSeriesModel.deleteMany({
-                        $and: [
-                            {
-                                studyUID: imagePathObj.studyUID
-                            },
-                            {
-                                seriesUID: imagePathObj.seriesUID
-                            }
-                        ]
-                        
-                    }),
-                    dicomModel.deleteMany({
-                        $and: [
-                            {
-                                studyUID: imagePathObj.studyUID
-                            },
-                            {
-                                seriesUID: imagePathObj.seriesUID
-                            }
-                        ]
-                        
-                    })
-                ]);
-                await fsP.unlink(imagePathObj.instancePath);
-            } catch(e) {
-                console.error(e);
-                throw e;
-            }
+        try {
+            await aSeries.incrementDeleteStatus();
+        } catch (e) {
+            console.error(e);
+            throw e;
         }
     }
 
+
     async deleteInstance() {
-        let imagePathObj = await dicomModel.getPathOfInstance({
+        let instance = await dicomModel.findOne({
             ...this.request.params
         });
 
-        if(!imagePathObj) {
+        if (!instance) {
             throw new NotFoundInstanceError(`Can not found studyUID: ${this.request.params.studyUID}, seriesUID: ${this.request.params.seriesUID}, instanceUID: ${this.request.params.instanceUID} instances' files`);
         }
 
         try {
-            await Promise.all([
-                dicomModel.deleteOne({
-                    instanceUID: imagePathObj.instanceUID
-                })
-            ]);
-            await fsP.unlink(imagePathObj.instancePath);
-        } catch(e) {
+            await instance.incrementDeleteStatus();
+
+        } catch (e) {
             console.error(e);
             throw e;
         }

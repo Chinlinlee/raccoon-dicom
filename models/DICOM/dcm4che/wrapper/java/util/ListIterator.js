@@ -34,4 +34,3 @@ class ListIterator extends (0, java_bridge_1.importClass)('java.util.ListIterato
 }
 exports.ListIterator = ListIterator;
 exports.default = ListIterator;
-//# sourceMappingURL=ListIterator.js.map

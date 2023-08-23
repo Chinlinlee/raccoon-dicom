@@ -15,4 +15,3 @@ class TextStyle extends (0, java_bridge_1.importClass)('java.time.format.TextSty
 }
 exports.TextStyle = TextStyle;
 exports.default = TextStyle;
-//# sourceMappingURL=TextStyle.js.map

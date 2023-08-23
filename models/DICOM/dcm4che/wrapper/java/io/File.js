@@ -15,4 +15,3 @@ class File extends (0, java_bridge_1.importClass)('java.io.File') {
 }
 exports.File = File;
 exports.default = File;
-//# sourceMappingURL=File.js.map

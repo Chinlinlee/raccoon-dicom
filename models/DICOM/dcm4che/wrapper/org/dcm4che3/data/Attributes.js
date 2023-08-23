@@ -15,4 +15,3 @@ class Attributes extends (0, java_bridge_1.importClass)('org.dcm4che3.data.Attri
 }
 exports.Attributes = Attributes;
 exports.default = Attributes;
-//# sourceMappingURL=Attributes.js.map

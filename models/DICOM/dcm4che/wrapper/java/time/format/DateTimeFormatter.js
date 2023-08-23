@@ -15,4 +15,3 @@ class DateTimeFormatter extends (0, java_bridge_1.importClass)('java.time.format
 }
 exports.DateTimeFormatter = DateTimeFormatter;
 exports.default = DateTimeFormatter;
-//# sourceMappingURL=DateTimeFormatter.js.map

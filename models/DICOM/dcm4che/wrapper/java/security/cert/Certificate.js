@@ -22,4 +22,3 @@ class Certificate extends (0, java_bridge_1.importClass)('java.security.cert.Cer
 }
 exports.Certificate = Certificate;
 exports.default = Certificate;
-//# sourceMappingURL=Certificate.js.map

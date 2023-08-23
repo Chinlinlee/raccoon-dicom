@@ -34,4 +34,3 @@ class PrivilegedExceptionAction extends (0, java_bridge_1.importClass)('java.sec
 }
 exports.PrivilegedExceptionAction = PrivilegedExceptionAction;
 exports.default = PrivilegedExceptionAction;
-//# sourceMappingURL=PrivilegedExceptionAction.js.map

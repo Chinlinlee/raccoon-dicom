@@ -15,4 +15,3 @@ class FileChannel$MapMode extends (0, java_bridge_1.importClass)('java.nio.chann
 }
 exports.FileChannel$MapMode = FileChannel$MapMode;
 exports.default = FileChannel$MapMode;
-//# sourceMappingURL=FileChannel$MapMode.js.map

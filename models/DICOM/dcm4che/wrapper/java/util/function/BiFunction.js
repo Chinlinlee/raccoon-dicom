@@ -34,4 +34,3 @@ class BiFunction extends (0, java_bridge_1.importClass)('java.util.function.BiFu
 }
 exports.BiFunction = BiFunction;
 exports.default = BiFunction;
-//# sourceMappingURL=BiFunction.js.map

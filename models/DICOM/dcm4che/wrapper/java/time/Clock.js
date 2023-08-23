@@ -22,4 +22,3 @@ class Clock extends (0, java_bridge_1.importClass)('java.time.Clock') {
 }
 exports.Clock = Clock;
 exports.default = Clock;
-//# sourceMappingURL=Clock.js.map

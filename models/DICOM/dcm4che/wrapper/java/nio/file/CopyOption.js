@@ -34,4 +34,3 @@ class CopyOption extends (0, java_bridge_1.importClass)('java.nio.file.CopyOptio
 }
 exports.CopyOption = CopyOption;
 exports.default = CopyOption;
-//# sourceMappingURL=CopyOption.js.map

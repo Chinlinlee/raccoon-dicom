@@ -34,4 +34,3 @@ class TemporalAmount extends (0, java_bridge_1.importClass)('java.time.temporal.
 }
 exports.TemporalAmount = TemporalAmount;
 exports.default = TemporalAmount;
-//# sourceMappingURL=TemporalAmount.js.map

@@ -34,4 +34,3 @@ class DoubleStream$DoubleMapMultiConsumer extends (0, java_bridge_1.importClass)
 }
 exports.DoubleStream$DoubleMapMultiConsumer = DoubleStream$DoubleMapMultiConsumer;
 exports.default = DoubleStream$DoubleMapMultiConsumer;
-//# sourceMappingURL=DoubleStream$DoubleMapMultiConsumer.js.map

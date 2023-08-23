@@ -34,4 +34,3 @@ class Enumeration extends (0, java_bridge_1.importClass)('java.util.Enumeration'
 }
 exports.Enumeration = Enumeration;
 exports.default = Enumeration;
-//# sourceMappingURL=Enumeration.js.map

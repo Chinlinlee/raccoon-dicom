@@ -15,4 +15,3 @@ class LocalDateTime extends (0, java_bridge_1.importClass)('java.time.LocalDateT
 }
 exports.LocalDateTime = LocalDateTime;
 exports.default = LocalDateTime;
-//# sourceMappingURL=LocalDateTime.js.map

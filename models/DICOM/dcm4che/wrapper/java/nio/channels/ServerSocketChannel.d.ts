@@ -111,14 +111,6 @@ export declare class ServerSocketChannelClass extends JavaClass {
      */
     setOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null, var1: BasicOrJavaType | null): java_nio_channels_NetworkChannel | null;
     /**
-     * @return original return type: 'int'
-     */
-    validOps(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    validOpsSync(): number;
-    /**
      * @return original return type: 'java.net.ServerSocket'
      */
     socket(): Promise<java_net_ServerSocket | null>;
@@ -126,6 +118,14 @@ export declare class ServerSocketChannelClass extends JavaClass {
      * @return original return type: 'java.net.ServerSocket'
      */
     socketSync(): java_net_ServerSocket | null;
+    /**
+     * @return original return type: 'int'
+     */
+    validOps(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    validOpsSync(): number;
     /**
      * @return original return type: 'boolean'
      */

@@ -15,4 +15,3 @@ class IntSummaryStatistics extends (0, java_bridge_1.importClass)('java.util.Int
 }
 exports.IntSummaryStatistics = IntSummaryStatistics;
 exports.default = IntSummaryStatistics;
-//# sourceMappingURL=IntSummaryStatistics.js.map

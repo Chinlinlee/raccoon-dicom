@@ -15,4 +15,3 @@ class Short extends (0, java_bridge_1.importClass)('java.lang.Short') {
 }
 exports.Short = Short;
 exports.default = Short;
-//# sourceMappingURL=Short.js.map

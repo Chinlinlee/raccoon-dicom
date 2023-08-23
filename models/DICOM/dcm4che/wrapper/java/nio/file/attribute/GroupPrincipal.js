@@ -34,4 +34,3 @@ class GroupPrincipal extends (0, java_bridge_1.importClass)('java.nio.file.attri
 }
 exports.GroupPrincipal = GroupPrincipal;
 exports.default = GroupPrincipal;
-//# sourceMappingURL=GroupPrincipal.js.map

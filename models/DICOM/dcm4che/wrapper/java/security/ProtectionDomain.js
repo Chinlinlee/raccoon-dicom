@@ -15,4 +15,3 @@ class ProtectionDomain extends (0, java_bridge_1.importClass)('java.security.Pro
 }
 exports.ProtectionDomain = ProtectionDomain;
 exports.default = ProtectionDomain;
-//# sourceMappingURL=ProtectionDomain.js.map

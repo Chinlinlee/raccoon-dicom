@@ -154,18 +154,23 @@ function convertAllQueryToDICOMTag(iParam) {
             if (dictionary.keyword[keyNameSplit[x]]) {
                 newKeyNames.push(dictionary.keyword[keyNameSplit[x]]);
             } else if (dictionary.tag[keyNameSplit[x]]) {
-                newKeyNames.push(keyNameSplit);
+                newKeyNames.push(keyNameSplit[x]);
             }
         }
+        let retKeyName;
         if (newKeyNames.length === 0) {
             throw new DicomWebServiceError(
                 DicomWebStatusCodes.InvalidArgumentValue,
                 `Invalid request query: ${keyNameSplit}`,
                 400
             );
-        };
-        newKeyNames.push("Value");
-        let retKeyName = newKeyNames.join(".");
+        } else if (newKeyNames.length >= 2) {
+            retKeyName = newKeyNames.map(v => v + ".Value").join(".");
+        } else {
+            newKeyNames.push("Value");
+            retKeyName = newKeyNames.join(".");
+        }
+        
         newQS[retKeyName] = iParam[keyName];
     }
     return newQS;
@@ -277,6 +282,9 @@ function sortObjByFieldKey(obj) {
 const vrQueryLookup = {
     DA: async (value, tag) => {
         let q = await mongoDateQuery(value, tag, false);
+    },
+    DT: async (value, tag) => {
+        let q = await mongoDateQuery(value, tag, false, "YYYYMMDDhhmmss.SSSSSSZZ");
     },
     PN: async (value, tag) => {
         let queryValue = _.cloneDeep(value[tag]);

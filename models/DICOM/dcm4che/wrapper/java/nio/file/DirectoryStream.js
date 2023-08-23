@@ -34,4 +34,3 @@ class DirectoryStream extends (0, java_bridge_1.importClass)('java.nio.file.Dire
 }
 exports.DirectoryStream = DirectoryStream;
 exports.default = DirectoryStream;
-//# sourceMappingURL=DirectoryStream.js.map

@@ -15,4 +15,3 @@ class AccessMode extends (0, java_bridge_1.importClass)('java.nio.file.AccessMod
 }
 exports.AccessMode = AccessMode;
 exports.default = AccessMode;
-//# sourceMappingURL=AccessMode.js.map

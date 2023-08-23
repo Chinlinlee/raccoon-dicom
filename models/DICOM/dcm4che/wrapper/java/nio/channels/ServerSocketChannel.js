@@ -22,4 +22,3 @@ class ServerSocketChannel extends (0, java_bridge_1.importClass)('java.nio.chann
 }
 exports.ServerSocketChannel = ServerSocketChannel;
 exports.default = ServerSocketChannel;
-//# sourceMappingURL=ServerSocketChannel.js.map

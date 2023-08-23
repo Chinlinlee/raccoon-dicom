@@ -22,4 +22,3 @@ class MethodHandle extends (0, java_bridge_1.importClass)('java.lang.invoke.Meth
 }
 exports.MethodHandle = MethodHandle;
 exports.default = MethodHandle;
-//# sourceMappingURL=MethodHandle.js.map

@@ -22,4 +22,3 @@ class SocketImpl extends (0, java_bridge_1.importClass)('java.net.SocketImpl') {
 }
 exports.SocketImpl = SocketImpl;
 exports.default = SocketImpl;
-//# sourceMappingURL=SocketImpl.js.map

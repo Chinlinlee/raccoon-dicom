@@ -15,4 +15,3 @@ class ResolverStyle extends (0, java_bridge_1.importClass)('java.time.format.Res
 }
 exports.ResolverStyle = ResolverStyle;
 exports.default = ResolverStyle;
-//# sourceMappingURL=ResolverStyle.js.map

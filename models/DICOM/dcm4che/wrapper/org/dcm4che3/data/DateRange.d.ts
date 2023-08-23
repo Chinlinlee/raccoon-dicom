@@ -46,13 +46,13 @@ export declare class DateRangeClass extends JavaClass {
      */
     containsSync(var0: java_util_Date | null): boolean;
     /**
-     * @return original return type: 'boolean'
+     * @return original return type: 'java.util.Date'
      */
-    isStartDateExeedsEndDate(): Promise<boolean>;
+    getStartDate(): Promise<java_util_Date | null>;
     /**
-     * @return original return type: 'boolean'
+     * @return original return type: 'java.util.Date'
      */
-    isStartDateExeedsEndDateSync(): boolean;
+    getStartDateSync(): java_util_Date | null;
     /**
      * @return original return type: 'java.util.Date'
      */
@@ -62,13 +62,13 @@ export declare class DateRangeClass extends JavaClass {
      */
     getEndDateSync(): java_util_Date | null;
     /**
-     * @return original return type: 'java.util.Date'
+     * @return original return type: 'boolean'
      */
-    getStartDate(): Promise<java_util_Date | null>;
+    isStartDateExeedsEndDate(): Promise<boolean>;
     /**
-     * @return original return type: 'java.util.Date'
+     * @return original return type: 'boolean'
      */
-    getStartDateSync(): java_util_Date | null;
+    isStartDateExeedsEndDateSync(): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

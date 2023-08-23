@@ -22,4 +22,3 @@ class IntBuffer extends (0, java_bridge_1.importClass)('java.nio.IntBuffer') {
 }
 exports.IntBuffer = IntBuffer;
 exports.default = IntBuffer;
-//# sourceMappingURL=IntBuffer.js.map

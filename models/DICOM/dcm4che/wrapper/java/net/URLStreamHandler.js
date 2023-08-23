@@ -22,4 +22,3 @@ class URLStreamHandler extends (0, java_bridge_1.importClass)('java.net.URLStrea
 }
 exports.URLStreamHandler = URLStreamHandler;
 exports.default = URLStreamHandler;
-//# sourceMappingURL=URLStreamHandler.js.map

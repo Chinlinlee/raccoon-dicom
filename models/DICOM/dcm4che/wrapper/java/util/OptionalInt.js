@@ -15,4 +15,3 @@ class OptionalInt extends (0, java_bridge_1.importClass)('java.util.OptionalInt'
 }
 exports.OptionalInt = OptionalInt;
 exports.default = OptionalInt;
-//# sourceMappingURL=OptionalInt.js.map

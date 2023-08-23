@@ -15,4 +15,3 @@ class StringBuilder extends (0, java_bridge_1.importClass)('java.lang.StringBuil
 }
 exports.StringBuilder = StringBuilder;
 exports.default = StringBuilder;
-//# sourceMappingURL=StringBuilder.js.map

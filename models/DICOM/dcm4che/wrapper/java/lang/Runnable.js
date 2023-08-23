@@ -34,4 +34,3 @@ class Runnable extends (0, java_bridge_1.importClass)('java.lang.Runnable') {
 }
 exports.Runnable = Runnable;
 exports.default = Runnable;
-//# sourceMappingURL=Runnable.js.map

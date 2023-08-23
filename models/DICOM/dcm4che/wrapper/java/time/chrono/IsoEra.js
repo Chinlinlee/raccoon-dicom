@@ -15,4 +15,3 @@ class IsoEra extends (0, java_bridge_1.importClass)('java.time.chrono.IsoEra') {
 }
 exports.IsoEra = IsoEra;
 exports.default = IsoEra;
-//# sourceMappingURL=IsoEra.js.map

@@ -22,4 +22,3 @@ class ShortBuffer extends (0, java_bridge_1.importClass)('java.nio.ShortBuffer')
 }
 exports.ShortBuffer = ShortBuffer;
 exports.default = ShortBuffer;
-//# sourceMappingURL=ShortBuffer.js.map

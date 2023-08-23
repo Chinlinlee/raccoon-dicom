@@ -54,6 +54,16 @@ export declare class DatagramPacketClass extends JavaClass {
      */
     getOffsetSync(): number;
     /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setPort(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setPortSync(var0: java_lang_Integer | number): void;
+    /**
      * @param var0 original type: 'byte[]'
      * @return original return type: 'void'
      */
@@ -87,16 +97,6 @@ export declare class DatagramPacketClass extends JavaClass {
      * @return original return type: 'void'
      */
     setAddressSync(var0: java_net_InetAddress | null): void;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setPort(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setPortSync(var0: java_lang_Integer | number): void;
     /**
      * @param var0 original type: 'java.net.SocketAddress'
      * @return original return type: 'void'
@@ -209,7 +209,7 @@ export declare class DatagramPacketClass extends JavaClass {
      * @param var2 original type: 'java.net.SocketAddress'
      * @return original return type: 'java.net.DatagramPacket'
      */
-    static newInstance(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_net_SocketAddress | null): Promise<DatagramPacket>;
+    static newInstanceAsync(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_net_SocketAddress | null): Promise<DatagramPacket>;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'
@@ -217,7 +217,7 @@ export declare class DatagramPacketClass extends JavaClass {
      * @param var3 original type: 'int'
      * @return original return type: 'java.net.DatagramPacket'
      */
-    static newInstance(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_net_InetAddress | null, var3: java_lang_Integer | number): Promise<DatagramPacket>;
+    static newInstanceAsync(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_net_InetAddress | null, var3: java_lang_Integer | number): Promise<DatagramPacket>;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'
@@ -225,20 +225,20 @@ export declare class DatagramPacketClass extends JavaClass {
      * @param var3 original type: 'java.net.SocketAddress'
      * @return original return type: 'java.net.DatagramPacket'
      */
-    static newInstance(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_net_SocketAddress | null): Promise<DatagramPacket>;
+    static newInstanceAsync(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_net_SocketAddress | null): Promise<DatagramPacket>;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
      * @return original return type: 'java.net.DatagramPacket'
      */
-    static newInstance(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<DatagramPacket>;
+    static newInstanceAsync(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number): Promise<DatagramPacket>;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'
      * @return original return type: 'java.net.DatagramPacket'
      */
-    static newInstance(var0: Buffer | null, var1: java_lang_Integer | number): Promise<DatagramPacket>;
+    static newInstanceAsync(var0: Buffer | null, var1: java_lang_Integer | number): Promise<DatagramPacket>;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'
@@ -247,7 +247,7 @@ export declare class DatagramPacketClass extends JavaClass {
      * @param var4 original type: 'int'
      * @return original return type: 'java.net.DatagramPacket'
      */
-    static newInstance(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_net_InetAddress | null, var4: java_lang_Integer | number): Promise<DatagramPacket>;
+    static newInstanceAsync(var0: Buffer | null, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_net_InetAddress | null, var4: java_lang_Integer | number): Promise<DatagramPacket>;
     /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'int'

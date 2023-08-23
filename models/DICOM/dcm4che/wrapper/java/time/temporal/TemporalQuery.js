@@ -34,4 +34,3 @@ class TemporalQuery extends (0, java_bridge_1.importClass)('java.time.temporal.T
 }
 exports.TemporalQuery = TemporalQuery;
 exports.default = TemporalQuery;
-//# sourceMappingURL=TemporalQuery.js.map

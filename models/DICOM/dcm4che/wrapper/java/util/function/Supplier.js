@@ -34,4 +34,3 @@ class Supplier extends (0, java_bridge_1.importClass)('java.util.function.Suppli
 }
 exports.Supplier = Supplier;
 exports.default = Supplier;
-//# sourceMappingURL=Supplier.js.map

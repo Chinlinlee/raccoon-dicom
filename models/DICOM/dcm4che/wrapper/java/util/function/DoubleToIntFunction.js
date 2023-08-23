@@ -34,4 +34,3 @@ class DoubleToIntFunction extends (0, java_bridge_1.importClass)('java.util.func
 }
 exports.DoubleToIntFunction = DoubleToIntFunction;
 exports.default = DoubleToIntFunction;
-//# sourceMappingURL=DoubleToIntFunction.js.map

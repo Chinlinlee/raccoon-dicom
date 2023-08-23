@@ -15,4 +15,3 @@ class SpecificCharacterSet extends (0, java_bridge_1.importClass)('org.dcm4che3.
 }
 exports.SpecificCharacterSet = SpecificCharacterSet;
 exports.default = SpecificCharacterSet;
-//# sourceMappingURL=SpecificCharacterSet.js.map

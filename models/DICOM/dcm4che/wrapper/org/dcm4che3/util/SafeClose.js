@@ -15,4 +15,3 @@ class SafeClose extends (0, java_bridge_1.importClass)('org.dcm4che3.util.SafeCl
 }
 exports.SafeClose = SafeClose;
 exports.default = SafeClose;
-//# sourceMappingURL=SafeClose.js.map

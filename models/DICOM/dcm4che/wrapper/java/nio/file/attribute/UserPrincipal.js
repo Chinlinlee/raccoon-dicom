@@ -34,4 +34,3 @@ class UserPrincipal extends (0, java_bridge_1.importClass)('java.nio.file.attrib
 }
 exports.UserPrincipal = UserPrincipal;
 exports.default = UserPrincipal;
-//# sourceMappingURL=UserPrincipal.js.map

@@ -34,4 +34,3 @@ class CharSequence extends (0, java_bridge_1.importClass)('java.lang.CharSequenc
 }
 exports.CharSequence = CharSequence;
 exports.default = CharSequence;
-//# sourceMappingURL=CharSequence.js.map

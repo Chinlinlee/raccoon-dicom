@@ -22,4 +22,3 @@ class ContentHandler extends (0, java_bridge_1.importClass)('java.net.ContentHan
 }
 exports.ContentHandler = ContentHandler;
 exports.default = ContentHandler;
-//# sourceMappingURL=ContentHandler.js.map

@@ -34,4 +34,3 @@ class Future extends (0, java_bridge_1.importClass)('java.util.concurrent.Future
 }
 exports.Future = Future;
 exports.default = Future;
-//# sourceMappingURL=Future.js.map

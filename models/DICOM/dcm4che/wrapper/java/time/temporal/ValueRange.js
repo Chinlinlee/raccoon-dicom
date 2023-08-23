@@ -15,4 +15,3 @@ class ValueRange extends (0, java_bridge_1.importClass)('java.time.temporal.Valu
 }
 exports.ValueRange = ValueRange;
 exports.default = ValueRange;
-//# sourceMappingURL=ValueRange.js.map

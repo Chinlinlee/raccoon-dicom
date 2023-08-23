@@ -15,4 +15,3 @@ class Configuration extends (0, java_bridge_1.importClass)('java.lang.module.Con
 }
 exports.Configuration = Configuration;
 exports.default = Configuration;
-//# sourceMappingURL=Configuration.js.map

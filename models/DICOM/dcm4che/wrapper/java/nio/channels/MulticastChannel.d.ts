@@ -57,6 +57,14 @@ export declare class MulticastChannelClass extends JavaClass {
      */
     bindSync(var0: java_net_SocketAddress | null): java_nio_channels_NetworkChannel | null;
     /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): Promise<java_net_SocketAddress | null>;
+    /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddressSync(): java_net_SocketAddress | null;
+    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @return original return type: 'java.lang.Object'
      */
@@ -66,14 +74,6 @@ export declare class MulticastChannelClass extends JavaClass {
      * @return original return type: 'java.lang.Object'
      */
     getOptionSync(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): Promise<java_net_SocketAddress | null>;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddressSync(): java_net_SocketAddress | null;
     /**
      * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'
@@ -138,14 +138,14 @@ export interface MulticastChannelInterface {
      */
     bind(var0: java_net_SocketAddress | null): java_nio_channels_NetworkChannel | null;
     /**
+     * @return original return type: 'java.net.SocketAddress'
+     */
+    getLocalAddress(): java_net_SocketAddress | null;
+    /**
      * @param var0 original type: 'java.net.SocketOption'
      * @return original return type: 'java.lang.Object'
      */
     getOption(var0: java_net_SocketOption | JavaInterfaceProxy<java_net_SocketOptionInterface> | null): BasicOrJavaType | null;
-    /**
-     * @return original return type: 'java.net.SocketAddress'
-     */
-    getLocalAddress(): java_net_SocketAddress | null;
     /**
      * @param var0 original type: 'java.net.SocketOption'
      * @param var1 original type: 'java.lang.Object'

@@ -34,4 +34,3 @@ class IntFunction extends (0, java_bridge_1.importClass)('java.util.function.Int
 }
 exports.IntFunction = IntFunction;
 exports.default = IntFunction;
-//# sourceMappingURL=IntFunction.js.map

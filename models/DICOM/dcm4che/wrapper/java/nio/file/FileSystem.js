@@ -22,4 +22,3 @@ class FileSystem extends (0, java_bridge_1.importClass)('java.nio.file.FileSyste
 }
 exports.FileSystem = FileSystem;
 exports.default = FileSystem;
-//# sourceMappingURL=FileSystem.js.map

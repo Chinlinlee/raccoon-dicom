@@ -22,4 +22,3 @@ class FileChannel extends (0, java_bridge_1.importClass)('java.nio.channels.File
 }
 exports.FileChannel = FileChannel;
 exports.default = FileChannel;
-//# sourceMappingURL=FileChannel.js.map

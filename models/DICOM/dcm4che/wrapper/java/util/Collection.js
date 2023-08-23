@@ -34,4 +34,3 @@ class Collection extends (0, java_bridge_1.importClass)('java.util.Collection') 
 }
 exports.Collection = Collection;
 exports.default = Collection;
-//# sourceMappingURL=Collection.js.map

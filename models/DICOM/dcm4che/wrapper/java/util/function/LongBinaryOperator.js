@@ -34,4 +34,3 @@ class LongBinaryOperator extends (0, java_bridge_1.importClass)('java.util.funct
 }
 exports.LongBinaryOperator = LongBinaryOperator;
 exports.default = LongBinaryOperator;
-//# sourceMappingURL=LongBinaryOperator.js.map

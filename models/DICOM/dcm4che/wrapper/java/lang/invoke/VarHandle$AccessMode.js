@@ -15,4 +15,3 @@ class VarHandle$AccessMode extends (0, java_bridge_1.importClass)('java.lang.inv
 }
 exports.VarHandle$AccessMode = VarHandle$AccessMode;
 exports.default = VarHandle$AccessMode;
-//# sourceMappingURL=VarHandle$AccessMode.js.map

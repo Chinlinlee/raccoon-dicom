@@ -15,4 +15,3 @@ class Subject extends (0, java_bridge_1.importClass)('javax.security.auth.Subjec
 }
 exports.Subject = Subject;
 exports.default = Subject;
-//# sourceMappingURL=Subject.js.map

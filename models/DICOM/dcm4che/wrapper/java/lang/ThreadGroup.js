@@ -15,4 +15,3 @@ class ThreadGroup extends (0, java_bridge_1.importClass)('java.lang.ThreadGroup'
 }
 exports.ThreadGroup = ThreadGroup;
 exports.default = ThreadGroup;
-//# sourceMappingURL=ThreadGroup.js.map

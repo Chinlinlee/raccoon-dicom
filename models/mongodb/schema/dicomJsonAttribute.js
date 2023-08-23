@@ -48,6 +48,28 @@ let dicomJsonAttributeDASchema = {
     }
 };
 
+let dicomJsonAttributeDTSchema = {
+    vr: {
+        type: String
+    },
+    Value: {
+        type: [Date],
+        default: void 0,
+        set: function(v) {
+            let length = _.get(v, "length");
+            if (length > 0) {
+                return v.map((date) => moment(date, "YYYYMMDDhhmmss.SSSSSSZZ").toDate());
+            }
+        },
+        get: function (v) {
+            let length = _.get(v, "length");
+            if (length > 0) {
+                return v.map((date) => moment(date).format("YYYYMMDDhhmmss.SSSSSSZZ"));
+            }
+        }
+    }
+};
+
 let dicomJsonAttributeISSchema = {
     vr: {
         type: String
@@ -104,6 +126,13 @@ let tmSchema = {
 
 const vrSchemaMap = {
     "DA": new mongoose.Schema(dicomJsonAttributeDASchema, {
+        _id: false,
+        id: false,
+        toObject: {
+            getters: true
+        }
+    }),
+    "DT": new mongoose.Schema(dicomJsonAttributeDTSchema, {
         _id: false,
         id: false,
         toObject: {

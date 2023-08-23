@@ -34,4 +34,3 @@ class FileNameMap extends (0, java_bridge_1.importClass)('java.net.FileNameMap')
 }
 exports.FileNameMap = FileNameMap;
 exports.default = FileNameMap;
-//# sourceMappingURL=FileNameMap.js.map

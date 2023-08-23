@@ -1,3 +1,5 @@
+const fsP = require("fs/promises");
+const path = require("path");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const {
@@ -11,6 +13,28 @@ const { logger } = require("../../../utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
+let verifyingObserverSchema = new mongoose.Schema(
+    {
+        "0040A027": getVRSchema("LO"),
+        "0040A030": getVRSchema("DT"),
+        "0040A075": getVRSchema("PN")
+    },
+    {
+        strict: false,
+        _id: false,
+        versionKey: false
+    }
+);
+
+/**
+ * @constructs dicomModelSchema
+ */
 let dicomModelSchema = new mongoose.Schema(
     {
         "studyUID": {
@@ -30,6 +54,10 @@ let dicomModelSchema = new mongoose.Schema(
             default: void 0,
             index: true,
             required: true
+        },
+        "deleteStatus": {
+            type: Number,
+            default: 0
         },
         "00080020": new mongoose.Schema(dicomJsonAttributeDASchema, {
             _id: false,
@@ -81,6 +109,10 @@ let dicomModelSchema = new mongoose.Schema(
             }
         }),
         "00400275": dicomJsonAttributeSchema,
+        "0040A073": {
+            ...dicomJsonAttributeSchema,
+            Value: [verifyingObserverSchema]
+        },
         "00080016": {
             ...dicomJsonAttributeSchema,
             Value: [mongoose.SchemaTypes.String]
@@ -99,7 +131,45 @@ let dicomModelSchema = new mongoose.Schema(
         versionKey: false,
         toObject: {
             getters: true
-        }
+        },
+        methods: {
+            async incrementDeleteStatus() {
+                this.deleteStatus = this.deleteStatus + 1;
+                await this.save();
+            },
+            async deleteInstance() {
+                let instancePath = this.instancePath;
+                try {
+                    logger.warn("Permanently delete instance: " + instancePath);
+
+                    await fsP.unlink(
+                        path.join(
+                            raccoonConfig.dicomWebConfig.storeRootPath, 
+                            instancePath
+                        )
+                    );
+                } catch (e) {
+                    console.error(e);
+                }
+            },
+            getAttributes: async function() {
+                let study = this.toObject();
+                delete study._id;
+                delete study.id;
+
+                let jsonStr = JSON.stringify(study);
+                return await Common.getAttributesFromJsonString(jsonStr);
+            }
+        },
+        statics: {
+            getDimseResultCursor: async (query, keys) => {
+                return mongoose.model("dicom").find(query, keys).setOptions({
+                    strictQuery: false
+                })
+                .cursor();
+            }
+        },
+        timestamps: true
     }
 );
 
@@ -323,7 +393,12 @@ dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
 
         let docs = await mongoose
             .model("dicom")
-            .find(queryOptions.query, {
+            .find({
+                ...queryOptions.query,
+                deleteStatus: {
+                    $eq: 0
+                }
+            }, {
                 ...instanceFields
             })
             .setOptions({
@@ -381,6 +456,11 @@ dicomModelSchema.statics.getPathOfInstance = async function (iParam) {
                 },
                 {
                     instanceUID: instanceUID
+                },
+                {
+                    deleteStatus: {
+                        $eq: 0
+                    }
                 }
             ]
         };
@@ -413,7 +493,16 @@ dicomModelSchema.statics.getPathOfInstance = async function (iParam) {
  */
 dicomModelSchema.statics.getInstanceOfMedianIndex = async function (query) {
     let instanceCountOfStudy = await mongoose.model("dicom").countDocuments({
-        studyUID: query.studyUID
+        $and: [
+            {
+                studyUID: query.studyUID
+            },
+            {
+                deleteStatus: {
+                    $eq: 0
+                }
+            }
+        ]
     });
 
     return await mongoose.model("dicom").findOne(query, {
@@ -432,27 +521,18 @@ dicomModelSchema.statics.getInstanceOfMedianIndex = async function (query) {
 };
 
 /**
- * @typedef {function(s: string, b: boolean): Promise<number>} getDicomJson
- * @param {object} iParam 
- * @param {string} iParam.studyUID
- * @param {string} iParam.seriesUID
- * @param {string} iParam.instanceUID
- * @returns
- */
-
-/**
- * @typedef { mongoose.Model<dicomModelSchema> & { 
- * getPathOfInstance: function(iParam: {
- *      studyUID: string,
- *      seriesUID: string,
- *      instanceUID: string
- *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
- * getDicomJson: function(queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<function>;
- * getInstanceOfMedianIndex: function(studyUID: string, seriesUID: string): Promise<any>
+ * @typedef {import("mongoose").Model<dicomModelSchema> & { 
+ *     getPathOfInstance: (iParam: {
+ *         studyUID: string,
+ *         seriesUID: string,
+ *         instanceUID: string
+ *     }) => Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
+ *     getDicomJson: (queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions) => Promise<any>;
+ *     getInstanceOfMedianIndex: (studyUID: string, seriesUID: string) => Promise<any>;
  * }} DicomModelSchema
+ * 
  */
 
-/** @type {DicomModelSchema} */
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
 
 /** @type {DicomModelSchema} */

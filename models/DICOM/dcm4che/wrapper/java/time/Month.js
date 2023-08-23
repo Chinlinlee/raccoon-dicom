@@ -15,4 +15,3 @@ class Month extends (0, java_bridge_1.importClass)('java.time.Month') {
 }
 exports.Month = Month;
 exports.default = Month;
-//# sourceMappingURL=Month.js.map

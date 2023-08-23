@@ -34,4 +34,3 @@ class PathMatcher extends (0, java_bridge_1.importClass)('java.nio.file.PathMatc
 }
 exports.PathMatcher = PathMatcher;
 exports.default = PathMatcher;
-//# sourceMappingURL=PathMatcher.js.map

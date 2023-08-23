@@ -34,4 +34,3 @@ class AnnotatedType extends (0, java_bridge_1.importClass)('java.lang.reflect.An
 }
 exports.AnnotatedType = AnnotatedType;
 exports.default = AnnotatedType;
-//# sourceMappingURL=AnnotatedType.js.map

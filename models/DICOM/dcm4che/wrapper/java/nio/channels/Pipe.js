@@ -22,4 +22,3 @@ class Pipe extends (0, java_bridge_1.importClass)('java.nio.channels.Pipe') {
 }
 exports.Pipe = Pipe;
 exports.default = Pipe;
-//# sourceMappingURL=Pipe.js.map

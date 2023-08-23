@@ -15,4 +15,3 @@ class ParsePosition extends (0, java_bridge_1.importClass)('java.text.ParsePosit
 }
 exports.ParsePosition = ParsePosition;
 exports.default = ParsePosition;
-//# sourceMappingURL=ParsePosition.js.map

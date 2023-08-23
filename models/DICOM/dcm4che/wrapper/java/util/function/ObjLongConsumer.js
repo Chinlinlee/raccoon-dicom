@@ -34,4 +34,3 @@ class ObjLongConsumer extends (0, java_bridge_1.importClass)('java.util.function
 }
 exports.ObjLongConsumer = ObjLongConsumer;
 exports.default = ObjLongConsumer;
-//# sourceMappingURL=ObjLongConsumer.js.map

@@ -22,4 +22,3 @@ class MembershipKey extends (0, java_bridge_1.importClass)('java.nio.channels.Me
 }
 exports.MembershipKey = MembershipKey;
 exports.default = MembershipKey;
-//# sourceMappingURL=MembershipKey.js.map

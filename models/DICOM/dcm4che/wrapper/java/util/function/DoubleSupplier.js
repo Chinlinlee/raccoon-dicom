@@ -34,4 +34,3 @@ class DoubleSupplier extends (0, java_bridge_1.importClass)('java.util.function.
 }
 exports.DoubleSupplier = DoubleSupplier;
 exports.default = DoubleSupplier;
-//# sourceMappingURL=DoubleSupplier.js.map

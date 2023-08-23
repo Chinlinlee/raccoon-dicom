@@ -22,4 +22,3 @@ class Format extends (0, java_bridge_1.importClass)('java.text.Format') {
 }
 exports.Format = Format;
 exports.default = Format;
-//# sourceMappingURL=Format.js.map

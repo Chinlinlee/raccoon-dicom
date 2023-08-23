@@ -15,4 +15,3 @@ class Float extends (0, java_bridge_1.importClass)('java.lang.Float') {
 }
 exports.Float = Float;
 exports.default = Float;
-//# sourceMappingURL=Float.js.map

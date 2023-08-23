@@ -15,4 +15,3 @@ class OffsetTime extends (0, java_bridge_1.importClass)('java.time.OffsetTime') 
 }
 exports.OffsetTime = OffsetTime;
 exports.default = OffsetTime;
-//# sourceMappingURL=OffsetTime.js.map

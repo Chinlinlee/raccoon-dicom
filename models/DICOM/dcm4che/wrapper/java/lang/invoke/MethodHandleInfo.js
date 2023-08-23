@@ -34,4 +34,3 @@ class MethodHandleInfo extends (0, java_bridge_1.importClass)('java.lang.invoke.
 }
 exports.MethodHandleInfo = MethodHandleInfo;
 exports.default = MethodHandleInfo;
-//# sourceMappingURL=MethodHandleInfo.js.map

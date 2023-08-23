@@ -15,4 +15,3 @@ class DecimalStyle extends (0, java_bridge_1.importClass)('java.time.format.Deci
 }
 exports.DecimalStyle = DecimalStyle;
 exports.default = DecimalStyle;
-//# sourceMappingURL=DecimalStyle.js.map

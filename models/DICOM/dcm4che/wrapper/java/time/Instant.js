@@ -15,4 +15,3 @@ class Instant extends (0, java_bridge_1.importClass)('java.time.Instant') {
 }
 exports.Instant = Instant;
 exports.default = Instant;
-//# sourceMappingURL=Instant.js.map

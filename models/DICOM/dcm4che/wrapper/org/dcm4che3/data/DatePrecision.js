@@ -15,4 +15,3 @@ class DatePrecision extends (0, java_bridge_1.importClass)('org.dcm4che3.data.Da
 }
 exports.DatePrecision = DatePrecision;
 exports.default = DatePrecision;
-//# sourceMappingURL=DatePrecision.js.map

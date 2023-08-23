@@ -34,4 +34,3 @@ class WatchEvent$Kind extends (0, java_bridge_1.importClass)('java.nio.file.Watc
 }
 exports.WatchEvent$Kind = WatchEvent$Kind;
 exports.default = WatchEvent$Kind;
-//# sourceMappingURL=WatchEvent$Kind.js.map

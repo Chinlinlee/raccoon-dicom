@@ -22,4 +22,3 @@ class Writer extends (0, java_bridge_1.importClass)('java.io.Writer') {
 }
 exports.Writer = Writer;
 exports.default = Writer;
-//# sourceMappingURL=Writer.js.map

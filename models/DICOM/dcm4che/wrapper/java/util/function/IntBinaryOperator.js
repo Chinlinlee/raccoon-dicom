@@ -34,4 +34,3 @@ class IntBinaryOperator extends (0, java_bridge_1.importClass)('java.util.functi
 }
 exports.IntBinaryOperator = IntBinaryOperator;
 exports.default = IntBinaryOperator;
-//# sourceMappingURL=IntBinaryOperator.js.map

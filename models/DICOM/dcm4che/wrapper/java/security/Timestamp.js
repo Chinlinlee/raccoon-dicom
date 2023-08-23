@@ -15,4 +15,3 @@ class Timestamp extends (0, java_bridge_1.importClass)('java.security.Timestamp'
 }
 exports.Timestamp = Timestamp;
 exports.default = Timestamp;
-//# sourceMappingURL=Timestamp.js.map

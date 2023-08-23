@@ -34,4 +34,3 @@ class WatchKey extends (0, java_bridge_1.importClass)('java.nio.file.WatchKey') 
 }
 exports.WatchKey = WatchKey;
 exports.default = WatchKey;
-//# sourceMappingURL=WatchKey.js.map

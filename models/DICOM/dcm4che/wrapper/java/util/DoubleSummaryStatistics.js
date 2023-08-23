@@ -15,4 +15,3 @@ class DoubleSummaryStatistics extends (0, java_bridge_1.importClass)('java.util.
 }
 exports.DoubleSummaryStatistics = DoubleSummaryStatistics;
 exports.default = DoubleSummaryStatistics;
-//# sourceMappingURL=DoubleSummaryStatistics.js.map

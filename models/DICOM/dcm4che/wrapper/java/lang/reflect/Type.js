@@ -34,4 +34,3 @@ class Type extends (0, java_bridge_1.importClass)('java.lang.reflect.Type') {
 }
 exports.Type = Type;
 exports.default = Type;
-//# sourceMappingURL=Type.js.map

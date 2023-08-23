@@ -15,4 +15,3 @@ class Double extends (0, java_bridge_1.importClass)('java.lang.Double') {
 }
 exports.Double = Double;
 exports.default = Double;
-//# sourceMappingURL=Double.js.map

@@ -15,4 +15,3 @@ class InetAddress extends (0, java_bridge_1.importClass)('java.net.InetAddress')
 }
 exports.InetAddress = InetAddress;
 exports.default = InetAddress;
-//# sourceMappingURL=InetAddress.js.map

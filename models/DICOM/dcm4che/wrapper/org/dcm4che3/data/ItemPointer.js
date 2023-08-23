@@ -15,4 +15,3 @@ class ItemPointer extends (0, java_bridge_1.importClass)('org.dcm4che3.data.Item
 }
 exports.ItemPointer = ItemPointer;
 exports.default = ItemPointer;
-//# sourceMappingURL=ItemPointer.js.map

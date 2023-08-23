@@ -34,4 +34,3 @@ class Thread$UncaughtExceptionHandler extends (0, java_bridge_1.importClass)('ja
 }
 exports.Thread$UncaughtExceptionHandler = Thread$UncaughtExceptionHandler;
 exports.default = Thread$UncaughtExceptionHandler;
-//# sourceMappingURL=Thread$UncaughtExceptionHandler.js.map

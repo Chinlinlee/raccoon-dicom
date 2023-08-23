@@ -22,4 +22,3 @@ class Permission extends (0, java_bridge_1.importClass)('java.security.Permissio
 }
 exports.Permission = Permission;
 exports.default = Permission;
-//# sourceMappingURL=Permission.js.map

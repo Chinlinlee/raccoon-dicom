@@ -22,4 +22,3 @@ class LongBuffer extends (0, java_bridge_1.importClass)('java.nio.LongBuffer') {
 }
 exports.LongBuffer = LongBuffer;
 exports.default = LongBuffer;
-//# sourceMappingURL=LongBuffer.js.map

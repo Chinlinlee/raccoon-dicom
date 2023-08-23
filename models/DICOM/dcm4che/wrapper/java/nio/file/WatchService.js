@@ -34,4 +34,3 @@ class WatchService extends (0, java_bridge_1.importClass)('java.nio.file.WatchSe
 }
 exports.WatchService = WatchService;
 exports.default = WatchService;
-//# sourceMappingURL=WatchService.js.map

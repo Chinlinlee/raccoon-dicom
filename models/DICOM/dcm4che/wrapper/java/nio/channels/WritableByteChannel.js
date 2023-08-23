@@ -34,4 +34,3 @@ class WritableByteChannel extends (0, java_bridge_1.importClass)('java.nio.chann
 }
 exports.WritableByteChannel = WritableByteChannel;
 exports.default = WritableByteChannel;
-//# sourceMappingURL=WritableByteChannel.js.map

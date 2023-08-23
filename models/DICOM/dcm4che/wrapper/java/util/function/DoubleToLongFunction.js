@@ -34,4 +34,3 @@ class DoubleToLongFunction extends (0, java_bridge_1.importClass)('java.util.fun
 }
 exports.DoubleToLongFunction = DoubleToLongFunction;
 exports.default = DoubleToLongFunction;
-//# sourceMappingURL=DoubleToLongFunction.js.map

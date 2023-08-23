@@ -22,4 +22,3 @@ class MappedByteBuffer extends (0, java_bridge_1.importClass)('java.nio.MappedBy
 }
 exports.MappedByteBuffer = MappedByteBuffer;
 exports.default = MappedByteBuffer;
-//# sourceMappingURL=MappedByteBuffer.js.map

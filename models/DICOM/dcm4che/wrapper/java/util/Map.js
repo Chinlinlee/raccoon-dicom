@@ -34,4 +34,3 @@ class Map extends (0, java_bridge_1.importClass)('java.util.Map') {
 }
 exports.Map = Map;
 exports.default = Map;
-//# sourceMappingURL=Map.js.map

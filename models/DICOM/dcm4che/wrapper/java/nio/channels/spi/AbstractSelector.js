@@ -22,4 +22,3 @@ class AbstractSelector extends (0, java_bridge_1.importClass)('java.nio.channels
 }
 exports.AbstractSelector = AbstractSelector;
 exports.default = AbstractSelector;
-//# sourceMappingURL=AbstractSelector.js.map

@@ -34,4 +34,3 @@ class IntStream$IntMapMultiConsumer extends (0, java_bridge_1.importClass)('java
 }
 exports.IntStream$IntMapMultiConsumer = IntStream$IntMapMultiConsumer;
 exports.default = IntStream$IntMapMultiConsumer;
-//# sourceMappingURL=IntStream$IntMapMultiConsumer.js.map

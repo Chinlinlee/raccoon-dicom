@@ -15,4 +15,3 @@ class Parameter extends (0, java_bridge_1.importClass)('java.lang.reflect.Parame
 }
 exports.Parameter = Parameter;
 exports.default = Parameter;
-//# sourceMappingURL=Parameter.js.map

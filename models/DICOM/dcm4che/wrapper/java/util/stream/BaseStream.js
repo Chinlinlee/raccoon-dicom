@@ -34,4 +34,3 @@ class BaseStream extends (0, java_bridge_1.importClass)('java.util.stream.BaseSt
 }
 exports.BaseStream = BaseStream;
 exports.default = BaseStream;
-//# sourceMappingURL=BaseStream.js.map

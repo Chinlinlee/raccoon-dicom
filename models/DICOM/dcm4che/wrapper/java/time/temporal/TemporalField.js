@@ -34,4 +34,3 @@ class TemporalField extends (0, java_bridge_1.importClass)('java.time.temporal.T
 }
 exports.TemporalField = TemporalField;
 exports.default = TemporalField;
-//# sourceMappingURL=TemporalField.js.map

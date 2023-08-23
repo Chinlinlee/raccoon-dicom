@@ -15,4 +15,3 @@ class Byte extends (0, java_bridge_1.importClass)('java.lang.Byte') {
 }
 exports.Byte = Byte;
 exports.default = Byte;
-//# sourceMappingURL=Byte.js.map

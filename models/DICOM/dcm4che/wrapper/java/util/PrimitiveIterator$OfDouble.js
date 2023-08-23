@@ -34,4 +34,3 @@ class PrimitiveIterator$OfDouble extends (0, java_bridge_1.importClass)('java.ut
 }
 exports.PrimitiveIterator$OfDouble = PrimitiveIterator$OfDouble;
 exports.default = PrimitiveIterator$OfDouble;
-//# sourceMappingURL=PrimitiveIterator$OfDouble.js.map

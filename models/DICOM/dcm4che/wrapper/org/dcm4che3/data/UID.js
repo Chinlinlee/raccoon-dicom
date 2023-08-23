@@ -15,4 +15,3 @@ class UID extends (0, java_bridge_1.importClass)('org.dcm4che3.data.UID') {
 }
 exports.UID = UID;
 exports.default = UID;
-//# sourceMappingURL=UID.js.map

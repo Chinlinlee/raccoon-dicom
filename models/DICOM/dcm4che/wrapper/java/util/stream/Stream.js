@@ -34,4 +34,3 @@ class Stream extends (0, java_bridge_1.importClass)('java.util.stream.Stream') {
 }
 exports.Stream = Stream;
 exports.default = Stream;
-//# sourceMappingURL=Stream.js.map

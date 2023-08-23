@@ -22,4 +22,3 @@ class AbstractStringBuilder extends (0, java_bridge_1.importClass)('java.lang.Ab
 }
 exports.AbstractStringBuilder = AbstractStringBuilder;
 exports.default = AbstractStringBuilder;
-//# sourceMappingURL=AbstractStringBuilder.js.map
