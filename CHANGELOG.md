@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Chinlinlee/raccoon-dicom/compare/v1.2.0...v1.3.0) (2023-08-23)
+### Major Changes
+#### DIMSE
+Now, we no longer use [dcm4che-tool-dcmqrscp-raccoon-dicom](https://github.com/Chinlinlee/dcm4che-tool-dcmqrscp-raccoon-dicom) to start raccoon's DIMSE service. Instead, we have made some modifications to the original classes of the DCM4CHE's DIMSE service and implemented it on raccoon using node-java-bridge.
+
+You can find detailed implementation code in the `dimse` folder.
+
+### Features
+
+* [#14](https://github.com/Chinlinlee/raccoon-dicom/issues/14) ([fb151c3](https://github.com/Chinlinlee/raccoon-dicom/commit/fb151c39fed6de3d18d331ff8cae22208110ae70))
+* add 0040A073 schema def in instance schema ([066d21e](https://github.com/Chinlinlee/raccoon-dicom/commit/066d21e12d5a602b80bf091ab40a39807a65a339))
+* add DIMSE study C-Find ([8299656](https://github.com/Chinlinlee/raccoon-dicom/commit/82996568dabfc493f6e304f97b815f8de1ab201b))
+* add DT mongodb schema definition ([9e82bff](https://github.com/Chinlinlee/raccoon-dicom/commit/9e82bff3f449554fb198aaeaae00776e4221fe83))
+* add instance query task ([1c11f1d](https://github.com/Chinlinlee/raccoon-dicom/commit/1c11f1deb1be0f3c28d26cfd3239738dc62577bd))
+* C GET DIMSE Service ([bfa8926](https://github.com/Chinlinlee/raccoon-dicom/commit/bfa8926f21ac81dfe71b2ebeafe2e3174c501524))
+* C-Move DIMSE service ([e6837a7](https://github.com/Chinlinlee/raccoon-dicom/commit/e6837a7075f7916b2092127b92af4feabd79bde4))
+* C-Move DIMSE service ([038d0a2](https://github.com/Chinlinlee/raccoon-dicom/commit/038d0a243942adb1ccf13a81ef06e1b52a7113ad))
+* **dimse:** add config class and conn config ([2c2a919](https://github.com/Chinlinlee/raccoon-dicom/commit/2c2a9190cf676e7d362a9ffca99f52850de65fb9))
+* **dimse:** add configure TLS ([7dd0b1e](https://github.com/Chinlinlee/raccoon-dicom/commit/7dd0b1e86a8977b005df6f84effec0ba71633c11))
+* implement patient query of C-Find ([1a99d45](https://github.com/Chinlinlee/raccoon-dicom/commit/1a99d45dc4a9930e726073d34c01a0215c8bf314))
+* series query of C-Find service ([f23827c](https://github.com/Chinlinlee/raccoon-dicom/commit/f23827c339623e9e3e6425e275b492bcbca2b29d))
+* Storage Commitment SCP ([5415ece](https://github.com/Chinlinlee/raccoon-dicom/commit/5415ece100820404d5bc22ed6f10a60aa5b52527))
+* support date time query ([8810a32](https://github.com/Chinlinlee/raccoon-dicom/commit/8810a3292c9b54642eef2cec738e958a12f41185))
+* use js class to start up dcm qr scp ([b9e4adc](https://github.com/Chinlinlee/raccoon-dicom/commit/b9e4adc42d52c9a15d0b943f9514b4643dc09db3))
+
+
+### Bug Fixes
+
+* can not found java class ([1f2aa25](https://github.com/Chinlinlee/raccoon-dicom/commit/1f2aa256c4493821ae5ff054e351369ba888eecd))
+* incorrect logic for c-find querying ([4e9dc0a](https://github.com/Chinlinlee/raccoon-dicom/commit/4e9dc0ab269c7a07b1e44d66b2b5a194cda6665c))
+* missing create series query task inject proxy ([22f5f86](https://github.com/Chinlinlee/raccoon-dicom/commit/22f5f86f1826f1a400ea3a6e77b86aa2b6bb209d))
+* SQ conversion query object incorrect ([cd1a2ac](https://github.com/Chinlinlee/raccoon-dicom/commit/cd1a2ac31eeb8d67b74434c19a39cde9015eb259))
+* SQ query field incorrect ([25d2ea2](https://github.com/Chinlinlee/raccoon-dicom/commit/25d2ea255f01399035b8de503bfdeb240911e962))
+* tag of dimse query is not correct ([faa7f6e](https://github.com/Chinlinlee/raccoon-dicom/commit/faa7f6effd1994b4b9d802390cc24e42bd1b799d))
+
+
+### Build
+
+* run npm audit fix ([f7414b5](https://github.com/Chinlinlee/raccoon-dicom/commit/f7414b5130e521e91204572f80aea039dbb3b53c))
+
 ## [1.2.0](https://github.com/Chinlinlee/raccoon-dicom/compare/v1.1.0...v1.2.0) (2023-06-17)
 
 
