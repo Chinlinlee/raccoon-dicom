@@ -7,6 +7,8 @@ const dicomSeriesModel = require("@models/mongodb/models/dicomSeries");
 const { SeriesQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { createSeriesQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTaskInject");
+const { Tag } = require("@dcm4che/data/Tag");
+const { logger } = require("@root/utils/logs/log");
 
 class JsSeriesQueryTask extends JsStudyQueryTask {
     constructor(as, pc, rq, keys) {
@@ -105,12 +107,17 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
     }
 
     async getNextSeriesCursor() {
-        let queryBuilder = new DimseQueryBuilder(this.keys, "series");
+        let queryAttr = await Attributes.newInstanceAsync();
+        await queryAttr.addAll(this.keys);
+        await queryAttr.addSelected(this.studyAttr, [Tag.PatientID, Tag.StudyInstanceUID]);
+
+        let queryBuilder = new DimseQueryBuilder(queryAttr, "series");
         let normalQuery = await queryBuilder.toNormalQuery();
         let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
 
         let returnKeys = this.getReturnKeys(normalQuery);
 
+        logger.info(`do DIMSE Series query: ${JSON.stringify(mongoQuery.$match)}`);
         this.seriesCursor = await dicomSeriesModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);
