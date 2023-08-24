@@ -1,8 +1,6 @@
 const myMongoDB = require("@models/mongodb");
 
 const path = require("path");
-const { default: Dimse } = require("@dcm4che/net/Dimse");
-const { default: Status } = require("@dcm4che/net/Status");
 const { createCStoreSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CStoreSCPInject");
 const { default: SimpleCStoreSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SimpleCStoreSCP");
 const { default: File } = require("@java-wrapper/java/io/File");

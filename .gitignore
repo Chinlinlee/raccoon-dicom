@@ -20,5 +20,7 @@
 /local/local-upload-stow-log.json
 
 /config/raccoon-dimse-app.json
-/pm2log
+/config/logback.xml
+/pm2log/**
+!pm2log/.gitkeep
 config/ae-prod.properties

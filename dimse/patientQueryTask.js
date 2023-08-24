@@ -1,14 +1,15 @@
 const _ = require("lodash");
-const { default: PatientQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTask");
+const { PatientQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTask");
 const { PatientQueryTaskInjectInterface, createPatientQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTaskInject");
 const { createQueryTaskInjectProxy, QueryTaskInjectInterface } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
-const { default: Attributes } = require("@dcm4che/data/Attributes");
-const { default: Tag } = require("@dcm4che/data/Tag");
-const { default: VR } = require("@dcm4che/data/VR");
+const { Attributes } = require("@dcm4che/data/Attributes");
+const { Tag } = require("@dcm4che/data/Tag");
+const { VR } = require("@dcm4che/data/VR");
 const { DimseQueryBuilder } = require("./queryBuilder");
 const patientModel = require("@models/mongodb/models/patient");
 const { Association } = require("@dcm4che/net/Association");
 const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
+const { logger } = require("@root/utils/logs/log");
 
 
 class JsPatientQueryTask {
@@ -145,6 +146,7 @@ class JsPatientQueryTask {
 
         let returnKeys = this.getReturnKeys(normalQuery);
 
+        logger.info(`do DIMSE Patient query: ${JSON.stringify(mongoQuery.$match)}`);
         this.cursor = await patientModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);

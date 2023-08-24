@@ -2,12 +2,13 @@ const _ = require("lodash");
 
 const { StudyQueryTask } = require("@chinlinlee/dcm777/net/StudyQueryTask");
 const { JsPatientQueryTask } = require("./patientQueryTask");
-const { default: Tag } = require("@dcm4che/data/Tag");
+const { Tag } = require("@dcm4che/data/Tag");
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
 const { StudyQueryTaskInjectInterface, createStudyQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/StudyQueryTaskInject");
 const { DimseQueryBuilder } = require("./queryBuilder");
 const dicomStudyModel = require("@models/mongodb/models/dicomStudy");
 const { Attributes } = require("@dcm4che/data/Attributes");
+const { logger } = require("@root/utils/logs/log");
 
 class JsStudyQueryTask extends JsPatientQueryTask {
     constructor(as, pc, rq, keys) {
@@ -114,6 +115,7 @@ class JsStudyQueryTask extends JsPatientQueryTask {
 
         let returnKeys = this.getReturnKeys(normalQuery);
 
+        logger.info(`do DIMSE Study query: ${JSON.stringify(mongoQuery.$match)}`);
         this.studyCursor = await dicomStudyModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);
