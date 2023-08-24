@@ -1,7 +1,6 @@
 const _ = require("lodash");
 const { java } = require("@models/DICOM/dcm4che/java-instance");
-const { importClass, appendClasspath, stdout, newProxy } = require("java-bridge");
-const glob = require("glob");
+const { importClass } = require("java-bridge");
 const path = require("path");
 
 const { ApplicationEntity } = require("@dcm4che/net/ApplicationEntity");

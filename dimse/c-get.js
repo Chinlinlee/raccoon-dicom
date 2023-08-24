@@ -1,12 +1,12 @@
 const { UID } = require("@dcm4che/data/UID");
 const { createCGetSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CGetSCPInject");
-const { default: SimpleCGetSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SimpleCGetSCP");
+const { SimpleCGetSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SimpleCGetSCP");
 const { PATIENT_ROOT_LEVELS, STUDY_ROOT_LEVELS, PATIENT_STUDY_ONLY_LEVELS } = require("./level");
 const { getInstancesFromKeysAttr } = require("./utils");
-const { default: RetrieveTaskImpl } = require("@dcm4che/tool/dcmqrscp/RetrieveTaskImpl");
+const { RetrieveTaskImpl } = require("@dcm4che/tool/dcmqrscp/RetrieveTaskImpl");
 const { Dimse } = require("@dcm4che/net/Dimse");
 const { EnumSet } = require("@java-wrapper/java/util/EnumSet");
-const { default: QueryRetrieveLevel2 } = require("@dcm4che/net/service/QueryRetrieveLevel2");
+const { QueryRetrieveLevel2 } = require("@dcm4che/net/service/QueryRetrieveLevel2");
 
 class JsCGetScp {
     constructor() { }

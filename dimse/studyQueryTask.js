@@ -2,7 +2,7 @@ const _ = require("lodash");
 
 const { StudyQueryTask } = require("@chinlinlee/dcm777/net/StudyQueryTask");
 const { JsPatientQueryTask } = require("./patientQueryTask");
-const { default: Tag } = require("@dcm4che/data/Tag");
+const { Tag } = require("@dcm4che/data/Tag");
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
 const { StudyQueryTaskInjectInterface, createStudyQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/StudyQueryTaskInject");
 const { DimseQueryBuilder } = require("./queryBuilder");
