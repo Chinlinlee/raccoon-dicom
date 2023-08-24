@@ -1,5 +1,3 @@
-const myMongoDB = require("@models/mongodb");
-
 const path = require("path");
 const { createCStoreSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CStoreSCPInject");
 const { default: SimpleCStoreSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SimpleCStoreSCP");
