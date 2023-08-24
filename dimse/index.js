@@ -2,6 +2,7 @@ const _ = require("lodash");
 const { java } = require("@models/DICOM/dcm4che/java-instance");
 const { importClass } = require("java-bridge");
 const path = require("path");
+const fs = require("fs");
 
 const { ApplicationEntity } = require("@dcm4che/net/ApplicationEntity");
 const { BasicCEchoSCP } = require("@dcm4che/net/service/BasicCEchoSCP");
@@ -21,7 +22,8 @@ const { JsCGetScp } = require("./c-get");
 const { JsStgCmtScp } = require("./stgcmt");
 const { raccoonConfig } = require("@root/config-class");
 const { Connection$EndpointIdentificationAlgorithm } = require("@dcm4che/net/Connection$EndpointIdentificationAlgorithm");
-const { default: SSLManagerFactory } = require("@dcm4che/net/SSLManagerFactory");
+const { SSLManagerFactory } = require("@dcm4che/net/SSLManagerFactory");
+const { Common } = require("@chinlinlee/dcm777/common/Common");
 
 class DcmQrScp {
     device = new Device("dcmqrscp");
@@ -75,6 +77,7 @@ class DcmQrScp {
 
 
     async start() {
+        this.configureLog();
         this.configureConnection();
         this.configureBindServer();
         this.configureTransferCapability();
@@ -273,6 +276,52 @@ class DcmQrScp {
         }
 
         return this.connection.isTlsSync();
+    }
+
+    configureLog() {
+        this.generateLogFile();
+        Common.LoadLogConfigSync(
+            path.join(
+                __dirname,
+                "../config/logback.xml"
+            )
+        );
+    }
+
+    generateLogFile() {
+        let logBackXml = `<?xml version="1.0" encoding="UTF-8"?>
+        <configuration>
+        
+            <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+            </appender>
+        
+            <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <encoder>
+                    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                    <charset>utf-8</charset>
+                </encoder>
+                <file>${path.normalize(path.join(__dirname, "../pm2log/raccoon.log"))}</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                    <fileNamePattern>${path.normalize(path.join(__dirname, "../pm2log/raccoon.log"))}%i</fileNamePattern>
+                </rollingPolicy>
+                <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                    <MaxFileSize>1MB</MaxFileSize>
+                </triggeringPolicy>
+            </appender>
+        
+            <root level="INFO">
+                <appender-ref ref="CONSOLE" />
+                <appender-ref ref="FILE" />
+            </root>
+        </configuration>`;
+
+        fs.writeFileSync(path.join(
+            __dirname,
+            "../config/logback.xml"
+        ), logBackXml, "utf-8");
     }
 }
 
