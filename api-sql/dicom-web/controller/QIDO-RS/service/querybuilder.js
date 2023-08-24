@@ -428,7 +428,7 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     }
 
     getPatientID(values) {
-        return this.getOrQuery(dictionary.keyword.PatientID, values, this.getStringQuery);
+        return this.getOrQuery(dictionary.keyword.PatientID, values, BaseQueryBuilder.prototype.getStringQuery.bind(this));
     }
 
     getStudyDate(values) {

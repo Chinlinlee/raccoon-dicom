@@ -1,6 +1,6 @@
 const fsP = require("fs/promises");
 const path = require("path");
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { Sequelize, DataTypes, Model, Op } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { SeriesModel } = require("./series.model");
@@ -141,14 +141,24 @@ StudyModel.updateModalitiesInStudy = async function (study) {
 StudyModel.getDicomJson = async function (queryOptions) {
     let queryBuilder = new StudyQueryBuilder(queryOptions);
     let q = queryBuilder.build();
+    if (q[Op.and]) {
+        q[Op.and].push(
+            {
+                deleteStatus: 0
+            }
+        );
+    } else {
+        q[Op.and] = [
+            {
+                deleteStatus: 0
+            }
+        ];
+    }
     let studies = await StudyModel.findAll({
         ...q,
         attributes: ["json"],
         limit: queryOptions.limit,
-        offset: queryOptions.skip,
-        where: {
-            deleteStatus: 0
-        }
+        offset: queryOptions.skip
     });
 
 

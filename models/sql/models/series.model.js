@@ -1,6 +1,6 @@
 const fsP = require("fs/promises");
 const path = require("path");
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { Sequelize, DataTypes, Model, Op } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { SeriesQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/seriesQueryBuilder");
@@ -113,14 +113,24 @@ SeriesModel.init({
 SeriesModel.getDicomJson = async function(queryOptions) {
     let queryBuilder = new SeriesQueryBuilder(queryOptions);
     let q = queryBuilder.build();
+    if (q[Op.and]) {
+        q[Op.and].push(
+            {
+                deleteStatus: 0
+            }
+        );
+    } else {
+        q[Op.and] = [
+            {
+                deleteStatus: 0
+            }
+        ];
+    }
     let seriesArray = await SeriesModel.findAll({
         ...q,
         attributes: ["json", "x0020000E"],
         limit: queryOptions.limit,
-        offset: queryOptions.skip,
-        where: {
-            deleteStatus: 0
-        }
+        offset: queryOptions.skip
     });
 
     return await Promise.all(seriesArray.map(async series => {

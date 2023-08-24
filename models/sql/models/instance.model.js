@@ -1,6 +1,6 @@
 const fsP = require("fs/promises");
 const path = require("path");
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { Sequelize, DataTypes, Model, Op } = require("sequelize");
 const _ = require("lodash");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
@@ -108,14 +108,24 @@ InstanceModel.init({
 InstanceModel.getDicomJson = async function (queryOptions) {
     let queryBuilder = new InstanceQueryBuilder(queryOptions);
     let q = queryBuilder.build();
+    if (q[Op.and]) {
+        q[Op.and].push(
+            {
+                deleteStatus: 0
+            }
+        );
+    } else {
+        q[Op.and] = [
+            {
+                deleteStatus: 0
+            }
+        ];
+    }
     let seriesArray = await InstanceModel.findAll({
         ...q,
         attributes: ["json", "x0020000D", "x0020000E", "x00080018"],
         limit: queryOptions.limit,
-        offset: queryOptions.skip,
-        where: {
-            deleteStatus: 0
-        }
+        offset: queryOptions.skip
     });
 
     return await Promise.all(seriesArray.map(async series => {
