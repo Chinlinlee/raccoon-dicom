@@ -90,13 +90,13 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      */
     isUTF8Sync(): boolean;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'org.dcm4che3.data.SpecificCharacterSet'
      */
-    toCodes(): Promise<(string | null)[] | null>;
+    static getDefaultCharacterSet(): Promise<SpecificCharacterSet | null>;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'org.dcm4che3.data.SpecificCharacterSet'
      */
-    toCodesSync(): (string | null)[] | null;
+    static getDefaultCharacterSetSync(): SpecificCharacterSet | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -106,13 +106,23 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      */
     containsASCIISync(): boolean;
     /**
-     * @return original return type: 'org.dcm4che3.data.SpecificCharacterSet'
+     * @return original return type: 'java.lang.String[]'
      */
-    static getDefaultCharacterSet(): Promise<SpecificCharacterSet | null>;
+    toCodes(): Promise<(string | null)[] | null>;
     /**
-     * @return original return type: 'org.dcm4che3.data.SpecificCharacterSet'
+     * @return original return type: 'java.lang.String[]'
      */
-    static getDefaultCharacterSetSync(): SpecificCharacterSet | null;
+    toCodesSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    static setDefaultCharacterSet(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    static setDefaultCharacterSetSync(var0: string | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.lang.String'
@@ -133,16 +143,6 @@ export declare class SpecificCharacterSetClass extends JavaClass {
      * @return original return type: 'void'
      */
     static resetCharsetNameMappingsSync(): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    static setDefaultCharacterSet(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    static setDefaultCharacterSetSync(var0: string | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.String'

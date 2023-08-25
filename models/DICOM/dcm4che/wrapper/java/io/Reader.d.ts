@@ -107,14 +107,6 @@ export declare class ReaderClass extends JavaClass {
      */
     resetSync(): void;
     /**
-     * @return original return type: 'java.io.Reader'
-     */
-    static nullReader(): Promise<Reader | null>;
-    /**
-     * @return original return type: 'java.io.Reader'
-     */
-    static nullReaderSync(): Reader | null;
-    /**
      * @return original return type: 'boolean'
      */
     ready(): Promise<boolean>;
@@ -122,6 +114,14 @@ export declare class ReaderClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     readySync(): boolean;
+    /**
+     * @return original return type: 'java.io.Reader'
+     */
+    static nullReader(): Promise<Reader | null>;
+    /**
+     * @return original return type: 'java.io.Reader'
+     */
+    static nullReaderSync(): Reader | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

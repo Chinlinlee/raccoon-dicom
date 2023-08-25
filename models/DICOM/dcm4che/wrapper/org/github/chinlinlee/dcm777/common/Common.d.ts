@@ -1,4 +1,5 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
+import { AuditMessage as org_dcm4che3_audit_AuditMessage } from "./../../../../dcm4che3/audit/AuditMessage";
 import { Attributes as org_dcm4che3_data_Attributes } from "./../../../../dcm4che3/data/Attributes";
 import { Long as java_lang_Long } from "./../../../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../../../java/lang/Integer";
@@ -9,6 +10,26 @@ import { Class as java_lang_Class } from "./../../../../../java/lang/Class";
  * You should probably not edit this.
  */
 export declare class CommonClass extends JavaClass {
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    static LoadLogConfig(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    static LoadLogConfigSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.audit.AuditMessage'
+     * @return original return type: 'java.lang.String'
+     */
+    static convertAuditMessageToJsonString(var0: org_dcm4che3_audit_AuditMessage | null): Promise<string | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.audit.AuditMessage'
+     * @return original return type: 'java.lang.String'
+     */
+    static convertAuditMessageToJsonStringSync(var0: org_dcm4che3_audit_AuditMessage | null): string | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'org.dcm4che3.data.Attributes'

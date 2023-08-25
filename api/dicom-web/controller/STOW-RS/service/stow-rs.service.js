@@ -12,6 +12,7 @@ const { logger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
 
 const {
     apiPath: DICOM_WEB_API_PATH
@@ -118,6 +119,18 @@ class StowRsService {
         dicomJsonModel.setMinifyDicomJsonAndTempBigValueTags();
         dicomJsonModel.setUidObj();
 
+        let auditManager = new AuditManager();
+        let remoteAddress = _.get(this.request, "socket.remoteAddress", "127.0.0.1");
+        let onBeginTransferringDicomInstancesMsg = await auditManager.onBeginTransferringDicomInstances(
+            "0",
+            remoteAddress, this.request.headers.host.split(':')[0],
+            `${raccoonConfig.serverConfig.host}:${raccoonConfig.serverConfig.port}`, `${raccoonConfig.serverConfig.host}`,
+            [dicomJsonModel.uidObj.studyUID], [dicomJsonModel.uidObj.sopClass],
+            dicomJsonModel.uidObj.patientID, dicomJsonModel.getPatientDicomJson()['00100010']['Value'][0]['Alphabetic']
+        );
+        logger.info(JSON.stringify(onBeginTransferringDicomInstancesMsg));
+        // TODO: Store Audit Message to DB
+
         let isSameStudyIDStatus = this.isSameStudyID_(this.responseMessage);
         if (!isSameStudyIDStatus) {
             this.responseCode = 409;
@@ -142,6 +155,15 @@ class StowRsService {
         _.set(sopSeq, "00081190.vr", "UT");
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         this.responseMessage["00081199"]["Value"].push(sopSeq);
+
+        let onDicomInstancesTransferredMsg = await auditManager.onDicomInstancesTransferred("C", "0",
+            remoteAddress, this.request.headers.host.split(':')[0],
+            `${raccoonConfig.serverConfig.host}:${raccoonConfig.serverConfig.port}`, `${raccoonConfig.serverConfig.host}`,
+            [dicomJsonModel.uidObj.studyUID], [dicomJsonModel.uidObj.sopClass],
+            dicomJsonModel.uidObj.patientID, dicomJsonModel.getPatientDicomJson()['00100010']['Value'][0]['Alphabetic']
+        );
+        logger.info(JSON.stringify(onDicomInstancesTransferredMsg));
+        // TODO: Store Audit Message to DB
 
         return {
             dicomJsonModel,
