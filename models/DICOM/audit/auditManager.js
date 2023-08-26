@@ -17,6 +17,7 @@ const { ParticipantObjectIdentification } = require("@dcm4che/audit/ParticipantO
 const { SOPClass } = require("@dcm4che/audit/SOPClass");
 const { Calendar } = require("@java-wrapper/java/util/Calendar");
 const { Common } = require("@java-wrapper/org/github/chinlinlee/dcm777/common/Common");
+const { ParticipantObjectDetail } = require("@dcm4che/audit/ParticipantObjectDetail");
 
 /**
  * @typedef AuditMessageModel
@@ -281,25 +282,25 @@ class AuditManager {
         return await AuditManager.toJson(msg);
     }
 
-        /**
-     * A.X.3.6 DICOM Instances Accessed
-     * 
-     * Instances being viewed, utilized, updated, or deleted.
-     * 
-     * 1. 獲取 DICOM Instances Accessed (當有DICOM被存取時) 的訊息
-     * 2. 儲存 message 至 db
-     * 
-     * @param CRUD 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
-     * @param eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
-     * @param clientAETitle 發送者的AETitle
-     * @param clientHostname 發送者的位址
-     * @param serverAETitle 伺服器端的AETitle
-     * @param serverHostname 伺服器端的位址
-     * @param StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
-     * @param SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
-     * @param PatientID 一個此次傳輸關聯的PatientID
-     * @param PatientName 一個此次傳輸關聯的PatientName
-     */
+    /**
+ * A.X.3.6 DICOM Instances Accessed
+ * 
+ * Instances being viewed, utilized, updated, or deleted.
+ * 
+ * 1. 獲取 DICOM Instances Accessed (當有DICOM被存取時) 的訊息
+ * 2. 儲存 message 至 db
+ * 
+ * @param CRUD 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
+ * @param eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
+ * @param clientAETitle 發送者的AETitle
+ * @param clientHostname 發送者的位址
+ * @param serverAETitle 伺服器端的AETitle
+ * @param serverHostname 伺服器端的位址
+ * @param StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
+ * @param SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
+ * @param PatientID 一個此次傳輸關聯的PatientID
+ * @param PatientName 一個此次傳輸關聯的PatientName
+ */
     async onDicomInstancesAccessed(CRUD, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
@@ -412,6 +413,127 @@ class AuditManager {
         let theActiveParticipants = [client, server];
         let ParticipantObjects = [...theStudies, thePatient];
         let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, ParticipantObjects);
+
+        return await AuditManager.toJson(msg);
+    }
+
+    /**
+     * 	A.X.3.10 Query
+     * 
+     * 1. 獲取 Query (當有查詢發生時) 的訊息
+     * 2. 儲存 message 至 db
+     * 
+     * 該事件通常用於 C-FIND或QIDO。
+     * @param {string} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
+     * @param {string} clientAETitle 發送者的AETitle
+     * @param {string} clientHostname 發送者的位址
+     * @param {string} serverAETitle 伺服器端的AETitle
+     * @param {string} serverHostname 伺服器端的位址
+     * @param {string} SOPClassUID SOPClassUID
+     * @param {string} queryData Query的本體資料(暫定為只要是字串即可)
+     * @param {string} TransferSyntax TransferSyntax
+     */
+    async onQuery(eventResult,
+        clientAETitle, clientHostname,
+        serverAETitle, serverHostname,
+        SOPClassUID,
+        queryData, TransferSyntax
+    ) {
+        let msg = await this.getQueryMsg(eventResult,
+            clientAETitle, clientHostname,
+            serverAETitle, serverHostname,
+            SOPClassUID,
+            queryData, TransferSyntax
+        );
+
+        await this.saveToDb_(msg);
+    }
+
+    /**
+     * A.X.3.10 Query
+     * 
+     * 獲取 Query 的訊息
+     * 該事件通常用於 C-FIND或QIDO。
+     * @param {string} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
+     * @param {string} clientAETitle 發送者的AETitle
+     * @param {string} clientHostname 發送者的位址
+     * @param {string} serverAETitle 伺服器端的AETitle
+     * @param {string} serverHostname 伺服器端的位址
+     * @param {string} SOPClassUID SOPClassUID
+     * @param {string} queryData Query的本體資料(暫定為只要是字串即可)
+     * @param {string} TransferSyntax TransferSyntax
+     */
+    async getQueryMsg(eventResult,
+        clientAETitle, clientHostname,
+        serverAETitle, serverHostname,
+        SOPClassUID,
+        queryData, TransferSyntax
+    ) {
+
+        /**
+        Event 
+        */
+        let theEvent = await EventIdentification.newInstanceAsync();
+        await theEvent.setEventID(EventID.Query);
+        await theEvent.setEventActionCode(AuditMessages$EventActionCode.Execute);
+        await theEvent.setEventDateTime(await Calendar.getInstance()); // 日期時間為當前時間自動取得
+        await theEvent.setEventOutcomeIndicator(eventResult);
+
+        /**
+        Active Participant: 
+        Process Issuing the Query (1)
+        發起查詢者。
+        */
+        let client = await ActiveParticipant.newInstanceAsync();
+        await client.setUserID(clientAETitle);
+        await client.setAlternativeUserID(clientAETitle);
+        await client.setUserName("");
+        await client.setUserIsRequestor(false);
+        await (await client.getRoleIDCode()).add(AuditMessages$RoleIDCode.Source);
+        await client.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
+        await client.setNetworkAccessPointID(clientHostname);
+
+        /**
+        Active Participant: 
+        The process that will respond to the query (1) 
+        回覆者
+        */
+        let server = await ActiveParticipant.newInstanceAsync();
+        await server.setUserID(serverAETitle);
+        await server.setAlternativeUserID(serverAETitle);
+        await server.setUserName("");
+        await server.setUserIsRequestor(false);
+        await (await server.getRoleIDCode()).add(AuditMessages$RoleIDCode.Destination);
+        await server.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
+        await server.setNetworkAccessPointID(serverHostname);
+
+        /**
+        https://dicom.nema.org/medical/dicom/current/output/chtml/part15/sect_A.5.3.10.html
+        Participating Object: 
+        SOP Queried and the Query (1)
+        Query本體
+        */
+        let theQuery = await ParticipantObjectIdentification.newInstanceAsync();
+        await theQuery.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.SystemObject);
+        await theQuery.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Report);
+        await theQuery.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.SOPClassUID);
+        await theQuery.setParticipantObjectID(SOPClassUID); //  this field shall hold the UID of the SOP Class being queried
+        await theQuery.setParticipantObjectQuery(
+            Buffer.from(queryData, "utf8")
+        ); // this field shall hold the Dataset of the DICOM query, xs:base64Binary encoded.
+        // 但是他沒有說本體encoded之前的dataset是何種形式，故我們輸入參數字串後直接encode，本體為何種形式我們暫時不管。
+
+
+        let ObjDetail = await ParticipantObjectDetail.newInstanceAsync();
+        await ObjDetail.setType("TransferSyntax");
+        await ObjDetail.setValue(TransferSyntax.getBytes());
+        await (await theQuery.getParticipantObjectDetail()).add(ObjDetail); // A ParticipantObjectDetail element with the XML attribute "TransferSyntax" shall be present. The value of the Transfer Syntax attribute shall be the UID of the transfer syntax of the query. The element contents shall be xs:base64Binary encoding. The Transfer Syntax shall be a DICOM Transfer Syntax.
+
+        /**
+        將上述已經記錄完成的Real World Entities，組合成一個Audit Message。
+        */
+        let theActiveParticipants = [client, server];
+        let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, theQuery);
 
         return await AuditManager.toJson(msg);
     }
