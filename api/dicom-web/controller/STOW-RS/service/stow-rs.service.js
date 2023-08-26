@@ -13,6 +13,7 @@ const { logger } = require("../../../../../utils/logs/log");
 const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const auditMessageModel = require("@models/mongodb/models/auditMessage");
 
 const {
     apiPath: DICOM_WEB_API_PATH
@@ -119,7 +120,7 @@ class StowRsService {
         dicomJsonModel.setMinifyDicomJsonAndTempBigValueTags();
         dicomJsonModel.setUidObj();
 
-        let auditManager = new AuditManager();
+        let auditManager = new AuditManager(auditMessageModel);
         let remoteAddress = _.get(this.request, "socket.remoteAddress", "127.0.0.1");
         let onBeginTransferringDicomInstancesMsg = await auditManager.onBeginTransferringDicomInstances(
             "0",
@@ -129,7 +130,6 @@ class StowRsService {
             dicomJsonModel.uidObj.patientID, dicomJsonModel.getPatientDicomJson()['00100010']['Value'][0]['Alphabetic']
         );
         logger.info(JSON.stringify(onBeginTransferringDicomInstancesMsg));
-        // TODO: Store Audit Message to DB
 
         let isSameStudyIDStatus = this.isSameStudyID_(this.responseMessage);
         if (!isSameStudyIDStatus) {
@@ -163,7 +163,6 @@ class StowRsService {
             dicomJsonModel.uidObj.patientID, dicomJsonModel.getPatientDicomJson()['00100010']['Value'][0]['Alphabetic']
         );
         logger.info(JSON.stringify(onDicomInstancesTransferredMsg));
-        // TODO: Store Audit Message to DB
 
         return {
             dicomJsonModel,

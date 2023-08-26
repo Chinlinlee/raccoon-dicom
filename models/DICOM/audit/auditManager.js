@@ -18,12 +18,23 @@ const { SOPClass } = require("@dcm4che/audit/SOPClass");
 const { Calendar } = require("@java-wrapper/java/util/Calendar");
 const { Common } = require("@java-wrapper/org/github/chinlinlee/dcm777/common/Common");
 
+/**
+ * @typedef AuditMessageModel
+ * @property {(json: JSON) => Promise<void>} createMessage
+ */
+
 class AuditManager {
-    constructor() { }
+    constructor(auditMessageModel) {
+        /** @type { AuditMessageModel } */
+        this.auditMessageModel = auditMessageModel;
+    }
 
     /**
      * A.X.3.3 Begin Transferring DICOM Instances
-     * 當有DICOM檔案開始傳輸。
+     * 當有DICOM檔案"開始"傳輸時，進行以下動作
+     * 1. 獲取該事件的 message
+     * 2. 儲存 message 至 db
+     * 
      * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
      * @param {string} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
      * @param {string} clientAETitle 發送者的AETitle
@@ -36,6 +47,40 @@ class AuditManager {
      * @param {string} PatientName 一個此次傳輸關聯的PatientName
      */
     async onBeginTransferringDicomInstances(
+        eventResult,
+        clientAETitle, clientHostname,
+        serverAETitle, serverHostname,
+        StudyInstanceUIDs, SOPClassUIDs,
+        PatientID, PatientName
+    ) {
+        let msg = await this.getBeginTransferringDicomInstancesMsg(
+            eventResult,
+            clientAETitle, clientHostname,
+            serverAETitle, serverHostname,
+            StudyInstanceUIDs, SOPClassUIDs,
+            PatientID, PatientName
+        );
+
+        await this.saveToDb_(msg);
+    }
+
+    /**
+     * A.X.3.3 Begin Transferring DICOM Instances
+     * 獲取 Begin Transferring DICOM Instances (當有 DICOM 檔案開始傳輸時) 事件的訊息。
+     * 
+     * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
+     * @param {string} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
+     * @param {string} clientAETitle 發送者的AETitle
+     * @param {string} clientHostname 發送者的位址
+     * @param {string} serverAETitle 伺服器端的AETitle
+     * @param {string} serverHostname 伺服器端的位址
+     * @param {string[]} StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
+     * @param {string[]} SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
+     * @param {string} PatientID 一個此次傳輸關聯的PatientID
+     * @param {string} PatientName 一個此次傳輸關聯的PatientName
+     * @return {JSON}
+     */
+    async getBeginTransferringDicomInstancesMsg(
         eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
@@ -111,7 +156,10 @@ class AuditManager {
 
     /**
      * A.X.3.7 DICOM Instances Transferred
-     * 當有DICOM檔案傳輸時。
+     * 當有DICOM檔案傳輸時，進行以下動作
+     * 1. 獲取 Dicom Instances Transferred 的訊息
+     * 2. 儲存 message 至 db
+     * 
      * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
      * @param {"C" | "R" | "U" | "D"} CRUD 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
      * @param {"0" | "4" | "8" | "12"} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
@@ -125,6 +173,40 @@ class AuditManager {
      * @param {string} PatientName 一個此次傳輸關聯的PatientName
      */
     async onDicomInstancesTransferred(CRUD, eventResult,
+        clientAETitle, clientHostname,
+        serverAETitle, serverHostname,
+        StudyInstanceUIDs, SOPClassUIDs,
+        PatientID, PatientName
+    ) {
+
+        let msg = this.getDicomInstancesTransferredMsg(
+            CRUD, eventResult,
+            clientAETitle, clientHostname,
+            serverAETitle, serverHostname,
+            StudyInstanceUIDs, SOPClassUIDs,
+            PatientID, PatientName
+        );
+
+        await this.saveToDb_(msg);
+    }
+
+    /**
+     * A.X.3.7 DICOM Instances Transferred
+     * 獲取 DICOM Instances Transferred (當有 DICOM 檔案已進行傳輸交換時) 的訊息
+     * 
+     * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
+     * @param {"C" | "R" | "U" | "D"} CRUD 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
+     * @param {"0" | "4" | "8" | "12"} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
+     * @param {string} clientAETitle 發送者的AETitle
+     * @param {string} clientHostname 發送者的位址
+     * @param {string} serverAETitle 伺服器端的AETitle
+     * @param {string} serverHostname 伺服器端的位址
+     * @param {string[]} StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
+     * @param {string[]} SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
+     * @param {string} PatientID 一個此次傳輸關聯的PatientID
+     * @param {string} PatientName 一個此次傳輸關聯的PatientName
+     */
+    async getDicomInstancesTransferredMsg(CRUD, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
         StudyInstanceUIDs, SOPClassUIDs,
@@ -168,10 +250,10 @@ class AuditManager {
             let theStudy = await ParticipantObjectIdentification.newInstanceAsync();
             await theStudy.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.SystemObject);
             await theStudy.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Report);
-            
+
             await theStudy.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.StudyInstanceUID);
             await theStudy.setParticipantObjectID(StudyInstanceUIDs[i]);
-            
+
             let theSOPClass = await SOPClass.newInstanceAsync();
             await theSOPClass.setUID(SOPClassUIDs[i]);
             let theParticipantObjectDescription = await ParticipantObjectDescription.newInstanceAsync();
@@ -191,7 +273,7 @@ class AuditManager {
         // #endregion
 
         // #region 將上述已經記錄完成的Real World Entities，組合成一個Audit Message。
-        let theActiveParticipants = [ client, server ];
+        let theActiveParticipants = [client, server];
         let ParticipantObjects = [...theStudies, thePatient];
         let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, ParticipantObjects);
         // #endregion
@@ -202,7 +284,19 @@ class AuditManager {
     static async toJson(msg) {
         let msgJsonString = await Common.convertAuditMessageToJsonString(msg);
         let msgJson = JSON.parse(msgJsonString);
-        return msgJson;
+        return _.get(msgJson, "AuditMessage", msgJson);
+    }
+
+    /**
+     * @private
+     * @param {JSON} msg 
+     */
+    async saveToDb_(msg) {
+        try {
+            await this.auditMessageModel.createMessage(msg);
+        } catch (e) {
+            throw e;
+        }
     }
 }
 
