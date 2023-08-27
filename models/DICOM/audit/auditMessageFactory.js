@@ -23,6 +23,7 @@ const { EventIdentificationBuilder } = require("@dcm4che/audit/EventIdentificati
 const { EventType } = require("./eventType");
 const { default: ActiveParticipantBuilder } = require("@dcm4che/audit/ActiveParticipantBuilder");
 const { AuditMessages$UserIDTypeCode } = require("@dcm4che/audit/AuditMessages$UserIDTypeCode");
+const { ParticipatingObjectFactory } = require("./participatingObjectFactory");
 
 class AuditMessageFactory {
     constructor() { }
@@ -44,78 +45,44 @@ class AuditMessageFactory {
      * @param {string} PatientName 一個此次傳輸關聯的PatientName
      * @return {JSON}
      */
-    static async getBeginTransferringDicomInstancesMsg(
+    async getBeginTransferringDicomInstancesMsg(
         eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
-        StudyInstanceUIDs, SOPClassUIDs,
-        PatientID, PatientName
+        StudyInstanceUIDs
     ) {
 
         // #region Event
-        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
-            eventType.eventID,
-            eventType.eventActionCode,
-            await Calendar.getInstance(), // 日期時間為當前時間自動取得
-            eventResult
-        );
-        let theEvent = await eventIdentificationBuilder.build();
+        let theEvent = this.getGeneralEvent(eventType, eventResult);
         // #endregion
 
-        // #region Active Participant: Application started (1)
-        let clientBuilder = await ActiveParticipantBuilder.newInstanceAsync(
-            clientAETitle,
-            clientHostname
+        // #region Active Participants
+        let theActiveParticipants = await this.getGeneralActiveParticipant(
+            eventType,
+            clientAETitle, clientHostname,
+            serverAETitle, serverHostname
         );
-        await clientBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(clientAETitle));
-        await clientBuilder.altUserID(clientAETitle);
-        await clientBuilder.roleIDCode([eventType.source]);
-        await clientBuilder.isRequester();
-        let client = await clientBuilder.build();
-        // #endregion
-
-        // #region Active Participant: Process receiving the data (1); 正在接收者(Server)
-        let serverBuilder = await ActiveParticipantBuilder.newInstanceAsync(
-            serverAETitle,
-            serverHostname
-        );
-        await serverBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(serverAETitle));
-        await serverBuilder.altUserID(serverAETitle);
-        await serverBuilder.roleIDCode([eventType.destination]);
-        let server = await serverBuilder.build();
         // #endregion
 
         // #region Participating Object: Studies being transferred (1..N) 接收到的DICOM檔案的所有Study。
         let theStudies = [];
-        for (let i = 0; i < SOPClassUIDs.length; i++) {
-            let theStudy = await ParticipantObjectIdentification.newInstanceAsync();
-            await theStudy.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.SystemObject);
-            await theStudy.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Report);
-            await theStudy.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.StudyInstanceUID);
-            await theStudy.setParticipantObjectID(StudyInstanceUIDs[i]);
+        // Participating Object: Patient (1); 接收到的DICOM，其Patient。
+        let patientParticipatingObject;
+        for (let i = 0; i < StudyInstanceUIDs.length; i++) {
+            let participatingObjectFactory = new ParticipatingObjectFactory(
+                this.getInstanceModel(),
+                StudyInstanceUIDs[i]
+            );
 
-            let theSOPClass = await SOPClass.newInstanceAsync();
-            await theSOPClass.setUID(SOPClassUIDs[i]);
-            let theParticipantObjectDescription = await ParticipantObjectDescription.newInstanceAsync();
-            await (await theParticipantObjectDescription.getSOPClass()).add(theSOPClass);
-            await theStudy.setParticipantObjectDescription(theParticipantObjectDescription);
+            let theStudy = await participatingObjectFactory.getStudyParticipatingObject();
             theStudies.push(theStudy);
+            patientParticipatingObject ? null: patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
         }
         // #endregion
 
-        // #region Participating Object: Patient (1); 接收到的DICOM，其Patient。
-        let thePatient = await ParticipantObjectIdentification.newInstanceAsync();
-        await thePatient.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.Person);
-        await thePatient.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Patient);
-        await thePatient.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.PatientNumber);
-        await thePatient.setParticipantObjectID(PatientID);
-        await thePatient.setParticipantObjectName(PatientName);
-        // #endregion
 
         // #region 將上述已經記錄完成的Real World Entities，組合成一個Audit Message。
-        let theActiveParticipants = [client, server];
-
-        let ParticipantObjects = [...theStudies, thePatient];
+        let ParticipantObjects = [...theStudies, patientParticipatingObject];
         let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, ParticipantObjects);
         // #endregion
 
@@ -134,83 +101,46 @@ class AuditMessageFactory {
      * @param {string} serverAETitle 伺服器端的AETitle
      * @param {string} serverHostname 伺服器端的位址
      * @param {string[]} StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
-     * @param {string[]} SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
-     * @param {string} PatientID 一個此次傳輸關聯的PatientID
-     * @param {string} PatientName 一個此次傳輸關聯的PatientName
      */
-    static async getDicomInstancesTransferredMsg(
+    async getDicomInstancesTransferredMsg(
         eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
-        StudyInstanceUIDs, SOPClassUIDs,
-        PatientID, PatientName
+        StudyInstanceUIDs
     ) {
 
         // #region Event
-        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
-            eventType.eventID,
-            eventType.eventActionCode,
-            await Calendar.getInstance(), // 日期時間為當前時間自動取得
-            eventResult
-        );
-        let theEvent = await eventIdentificationBuilder.build();
+        let theEvent = await this.getGeneralEvent(eventType, eventResult);
         // #endregion
 
-        // #region Active Participant: Process that sent the data (1) 發送者(web client 或 STORESCU等...)
-        let clientBuilder = await ActiveParticipantBuilder.newInstanceAsync(
-            clientAETitle,
-            clientHostname
+        // #region Active Participants
+        let theActiveParticipants = await this.getGeneralActiveParticipant(
+            eventType,
+            clientAETitle, clientHostname,
+            serverAETitle, serverHostname,
+            true
         );
-        await clientBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(clientAETitle));
-        await clientBuilder.altUserID(clientAETitle);
-        await clientBuilder.roleIDCode([eventType.source]);
-        await clientBuilder.isRequester();
-        let client = await clientBuilder.build();
-        // #endregion
-
-
-        // #region Active Participant: The process that received the data. (1) 接收者(Server)
-        let serverBuilder = await ActiveParticipantBuilder.newInstanceAsync(
-            serverAETitle,
-            serverHostname
-        );
-        await serverBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(serverAETitle));
-        await serverBuilder.altUserID(serverAETitle);
-        await serverBuilder.roleIDCode([eventType.destination]);
-        let server = await serverBuilder.build();
         // #endregion
 
         // #region Participating Object: Studies being transferred (1..N) 接收到的DICOM檔案的所有Study
         let theStudies = [];
-        for (let i = 0; i < SOPClassUIDs.length; i++) {
-            let theStudy = await ParticipantObjectIdentification.newInstanceAsync();
-            await theStudy.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.SystemObject);
-            await theStudy.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Report);
+        // Participating Object: Patient (1); 接收到的DICOM，其Patient。
+        let patientParticipatingObject;
+        for (let i = 0; i < StudyInstanceUIDs.length; i++) {
+            let participatingObjectFactory = new ParticipatingObjectFactory(
+                this.getInstanceModel(),
+                StudyInstanceUIDs[i]
+            );
 
-            await theStudy.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.StudyInstanceUID);
-            await theStudy.setParticipantObjectID(StudyInstanceUIDs[i]);
-
-            let theSOPClass = await SOPClass.newInstanceAsync();
-            await theSOPClass.setUID(SOPClassUIDs[i]);
-            let theParticipantObjectDescription = await ParticipantObjectDescription.newInstanceAsync();
-            await (await theParticipantObjectDescription.getSOPClass()).add(theSOPClass);
-            await theStudy.setParticipantObjectDescription(theParticipantObjectDescription);
+            let theStudy = await participatingObjectFactory.getStudyParticipatingObject();
             theStudies.push(theStudy);
+            patientParticipatingObject ? null: patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
         }
         // #endregion
 
-        // #region Participating Object: Patient (1); 接收到的DICOM，其Patient。
-        let thePatient = await ParticipantObjectIdentification.newInstanceAsync();
-        await thePatient.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.Person);
-        await thePatient.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Patient);
-        await thePatient.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.PatientNumber);
-        await thePatient.setParticipantObjectID(PatientID);
-        await thePatient.setParticipantObjectName(PatientName);
-        // #endregion
-
         // #region 將上述已經記錄完成的Real World Entities，組合成一個Audit Message。
-        let theActiveParticipants = [client, server];
-        let ParticipantObjects = [...theStudies, thePatient];
+
+        let ParticipantObjects = [...theStudies, patientParticipatingObject];
         let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, ParticipantObjects);
         // #endregion
 
@@ -235,47 +165,28 @@ class AuditMessageFactory {
      * @param PatientName 一個此次傳輸關聯的PatientName
      * @return {Promise<JSON>}
      */
-    static async getDicomInstancesAccessedMsg(
+    async getDicomInstancesAccessedMsg(
         eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
-        StudyInstanceUIDs, SOPClassUIDs,
-        PatientID, PatientName
+        StudyInstanceUIDs
     ) {
         /**
         Event 
         */
-        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
-            eventType.eventID,
-            eventType.eventActionCode,
-            await Calendar.getInstance(), // 日期時間為當前時間自動取得
-            eventResult
-        );
-        let theEvent = await eventIdentificationBuilder.build();
+        let theEvent = this.getGeneralEvent(eventType, eventResult);
 
+        
         /**
         Active Participant: 
         Person and or Process manipulating the data (1..2)
         存取資料的人或程式，這裡假定一定會有請求者(client)與我們本身(server)會去存取資料。
         */
-        let server = await ActiveParticipant.newInstanceAsync();
-        await server.setUserID(serverAETitle);
-        await server.setAlternativeUserID(serverAETitle);
-        await server.setUserName("");
-        await server.setUserIsRequestor(false);
-        await (await server.getRoleIDCode()).add(AuditMessages$RoleIDCode.Destination);
-        await server.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
-        await server.setNetworkAccessPointID(serverHostname);
-
-
-        let client = await ActiveParticipant.newInstanceAsync();
-        await client.setUserID(clientAETitle);
-        await client.setAlternativeUserID(clientAETitle);
-        await client.setUserName("");
-        await client.setUserIsRequestor(false);
-        await (await client.getRoleIDCode()).add(AuditMessages$RoleIDCode.Source);
-        await client.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
-        await client.setNetworkAccessPointID(clientHostname);
+        let theActiveParticipants = await this.getGeneralActiveParticipant(
+            eventType,
+            clientAETitle, clientHostname,
+            serverAETitle, serverHostname
+        );
 
         /**
         Participating Object:
@@ -283,37 +194,24 @@ class AuditMessageFactory {
         存取的DICOM的Study。
         */
         let theStudies = [];
+        // Participating Object: Patient (1); 存取的DICOM，其Patient。
+        let patientParticipatingObject;
         for (let i = 0; i < StudyInstanceUIDs.length; i++) {
-            let theStudy = new ParticipantObjectIdentification();
-            await theStudy.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.SystemObject);
-            await theStudy.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Report);
-            await theStudy.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.StudyInstanceUID);
-            await theStudy.setParticipantObjectID(StudyInstanceUIDs[i]);
-            let theSOPClass = await SOPClass.newInstanceAsync();
-            await theSOPClass.setUID(SOPClassUIDs[i]);
-            let theParticipantObjectDescription = await ParticipantObjectDescription.newInstanceAsync();
-            await (await theParticipantObjectDescription.getSOPClass()).add(theSOPClass);
-            await theStudy.setParticipantObjectDescription(theParticipantObjectDescription);
-            theStudies.push(theStudy);
-        }
+            let participatingObjectFactory = new ParticipatingObjectFactory(
+                this.getInstanceModel(),
+                StudyInstanceUIDs[i]
+            );
 
-        /**
-        Participating Object: 
-        Patient (1)
-        存取的DICOM，其Patient。
-        */
-        let thePatient = new ParticipantObjectIdentification();
-        await thePatient.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.Person);
-        await thePatient.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Patient);
-        await thePatient.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.PatientNumber);
-        await thePatient.setParticipantObjectID(PatientID);
-        await thePatient.setParticipantObjectName(PatientName);
+            let theStudy = await participatingObjectFactory.getStudyParticipatingObject();
+            theStudies.push(theStudy);
+            patientParticipatingObject ? null: patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
+        }
 
         /**
         將上述已經記錄完成的Real World Entities，組合成一個Audit Message。
         */
-        let theActiveParticipants = [client, server];
-        let ParticipantObjects = [...theStudies, thePatient];
+
+        let ParticipantObjects = [...theStudies, patientParticipatingObject];
         let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, ParticipantObjects);
 
         return await AuditUtils.toJson(msg);
@@ -333,8 +231,8 @@ class AuditMessageFactory {
      * @param {string} queryData Query的本體資料(暫定為只要是字串即可)
      * @param {string} TransferSyntax TransferSyntax
      */
-    static async getQueryMsg(
-        eventType ,eventResult,
+    async getQueryMsg(
+        eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
         SOPClassUID,
@@ -344,41 +242,16 @@ class AuditMessageFactory {
         /**
         Event 
         */
-        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
-            eventType.eventID,
-            eventType.eventActionCode,
-            await Calendar.getInstance(), // 日期時間為當前時間自動取得
-            eventResult
+        let theEvent = await this.getGeneralEvent(eventType, eventResult);
+
+        /**
+        Active Participant: 
+        */
+        let theActiveParticipants = await this.getGeneralActiveParticipant(
+            eventType,
+            clientAETitle, clientHostname,
+            serverAETitle, serverHostname
         );
-        let theEvent = await eventIdentificationBuilder.build();
-
-        /**
-        Active Participant: 
-        Process Issuing the Query (1)
-        發起查詢者。
-        */
-        let client = await ActiveParticipant.newInstanceAsync();
-        await client.setUserID(clientAETitle);
-        await client.setAlternativeUserID(clientAETitle);
-        await client.setUserName("");
-        await client.setUserIsRequestor(false);
-        await (await client.getRoleIDCode()).add(AuditMessages$RoleIDCode.Source);
-        await client.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
-        await client.setNetworkAccessPointID(clientHostname);
-
-        /**
-        Active Participant: 
-        The process that will respond to the query (1) 
-        回覆者
-        */
-        let server = await ActiveParticipant.newInstanceAsync();
-        await server.setUserID(serverAETitle);
-        await server.setAlternativeUserID(serverAETitle);
-        await server.setUserName("");
-        await server.setUserIsRequestor(false);
-        await (await server.getRoleIDCode()).add(AuditMessages$RoleIDCode.Destination);
-        await server.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
-        await server.setNetworkAccessPointID(serverHostname);
 
         /**
         https://dicom.nema.org/medical/dicom/current/output/chtml/part15/sect_A.5.3.10.html
@@ -405,7 +278,6 @@ class AuditMessageFactory {
         /**
         將上述已經記錄完成的Real World Entities，組合成一個Audit Message。
         */
-        let theActiveParticipants = [client, server];
         let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, theQuery);
 
         return await AuditUtils.toJson(msg);
@@ -418,10 +290,68 @@ class AuditMessageFactory {
      */
     static userIDTypeCode(userID) {
         return userID.indexOf('/') != -1
-                ? AuditMessages$UserIDTypeCode.URI
-                : userID.indexOf('|') != -1
+            ? AuditMessages$UserIDTypeCode.URI
+            : userID.indexOf('|') != -1
                 ? AuditMessages$UserIDTypeCode.ApplicationFacility
                 : AuditMessages$UserIDTypeCode.StationAETitle;
+    }
+
+
+    async getGeneralEvent(eventType, eventResult) {
+        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
+            eventType.eventID,
+            eventType.eventActionCode,
+            await Calendar.getInstance(), // 日期時間為當前時間自動取得
+            eventResult
+        );
+        return await eventIdentificationBuilder.build();
+    }
+
+    /**
+     * Client and Server
+     * @param { EventType } eventType
+     * @param {string} clientAETitle 
+     * @param {string} clientHostname 
+     * @param {string} serverAETitle 
+     * @param {string} serverHostname
+     * @param {boolean}  sourceDestSwap
+     */
+    async getGeneralActiveParticipant(
+        eventType,
+        clientAETitle, clientHostname,
+        serverAETitle, serverHostname,
+        sourceDestSwap = false
+    ) {
+        // #region Active Participant 1
+        let clientBuilder = await ActiveParticipantBuilder.newInstanceAsync(
+            clientAETitle,
+            clientHostname
+        );
+        await clientBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(clientAETitle));
+        await clientBuilder.altUserID(clientAETitle);
+        await clientBuilder.roleIDCode([sourceDestSwap ? eventType.destination : eventType.source]);
+        await clientBuilder.isRequester();
+        let client = await clientBuilder.build();
+        // #endregion
+
+        // #region Active Participant 2
+        let serverBuilder = await ActiveParticipantBuilder.newInstanceAsync(
+            serverAETitle,
+            serverHostname
+        );
+        await serverBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(serverAETitle));
+        await serverBuilder.altUserID(serverAETitle);
+        await serverBuilder.roleIDCode([sourceDestSwap ? eventType.destination: eventType.source]);
+        let server = await serverBuilder.build();
+        // #endregion
+
+        let activateParticipants = sourceDestSwap ? [server, client] : [client, server];
+        return activateParticipants;
+    }
+
+    getInstanceModel() {
+        const mongoose = require("mongoose");
+        return mongoose.model("dicom");
     }
 }
 

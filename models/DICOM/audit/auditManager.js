@@ -57,22 +57,16 @@ class AuditManager {
      * 2. 儲存 message 至 db
      * 
      * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
-     * @param {string[]} StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
-     * @param {string[]} SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
-     * @param {string} PatientID 一個此次傳輸關聯的PatientID
-     * @param {string} PatientName 一個此次傳輸關聯的PatientName
+     * @param {string[]} studyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
      */
-    async onBeginTransferringDicomInstances(
-        StudyInstanceUIDs, SOPClassUIDs,
-        PatientID, PatientName
-    ) {
+    async onBeginTransferringDicomInstances(studyInstanceUIDs) {
+        let auditMessageFactory = new AuditMessageFactory();
 
-        let msg = await AuditMessageFactory.getBeginTransferringDicomInstancesMsg(
+        let msg = await auditMessageFactory.getBeginTransferringDicomInstancesMsg(
             this.eventType, this.eventResult,
             this.clientAETitle, this.clientHostname,
             this.serverAETitle, this.serverHostname,
-            StudyInstanceUIDs, SOPClassUIDs,
-            PatientID, PatientName
+            studyInstanceUIDs
         );
 
         await this.saveToDb_(msg);
@@ -86,22 +80,16 @@ class AuditManager {
      * 2. 儲存 message 至 db
      * 
      * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
-     * @param {string[]} StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
-     * @param {string[]} SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
-     * @param {string} PatientID 一個此次傳輸關聯的PatientID
-     * @param {string} PatientName 一個此次傳輸關聯的PatientName
+     * @param {string[]} studyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
      */
-    async onDicomInstancesTransferred(
-        StudyInstanceUIDs, SOPClassUIDs,
-        PatientID, PatientName
-    ) {
+    async onDicomInstancesTransferred(studyInstanceUIDs) {
 
-        let msg = await AuditMessageFactory.getDicomInstancesTransferredMsg(
+        let auditMessageFactory = new AuditMessageFactory();
+        let msg = await auditMessageFactory.getDicomInstancesTransferredMsg(
             this.eventType, this.eventResult,
             this.clientAETitle, this.clientHostname,
             this.serverAETitle, this.serverHostname,
-            StudyInstanceUIDs, SOPClassUIDs,
-            PatientID, PatientName
+            studyInstanceUIDs
         );
 
         await this.saveToDb_(msg);
@@ -120,16 +108,14 @@ class AuditManager {
      * @param PatientID 一個此次傳輸關聯的PatientID
      * @param PatientName 一個此次傳輸關聯的PatientName
      */
-    async onDicomInstancesAccessed(
-        StudyInstanceUIDs, SOPClassUIDs,
-        PatientID, PatientName
-    ) {
-        let msg = await AuditMessageFactory.getDicomInstancesAccessedMsg(
+    async onDicomInstancesAccessed(studyInstanceUIDs) {
+        let auditMessageFactory = new AuditMessageFactory();
+
+        let msg = await auditMessageFactory.getDicomInstancesAccessedMsg(
             this.eventType, this.eventResult,
             this.clientAETitle, this.clientHostname,
             this.serverAETitle, this.serverHostname,
-            StudyInstanceUIDs, SOPClassUIDs,
-            PatientID, PatientName
+            studyInstanceUIDs
         );
 
         await this.saveToDb_(msg);
@@ -142,19 +128,21 @@ class AuditManager {
      * 2. 儲存 message 至 db
      * 
      * 該事件通常用於 C-FIND或QIDO。
-     * @param {string} SOPClassUID SOPClassUID
+     * @param {string} sopClassUID SOPClassUID
      * @param {string} queryData Query的本體資料(暫定為只要是字串即可)
      * @param {string} TransferSyntax TransferSyntax
      */
     async onQuery(
-        SOPClassUID,
+        sopClassUID,
         queryData, TransferSyntax
     ) {
-        let msg = await AuditMessageFactory.getQueryMsg(
+        let auditMessageFactory = new AuditMessageFactory();
+
+        let msg = await auditMessageFactory.getQueryMsg(
             this.eventType, this.eventResult,
             this.clientAETitle, this.clientHostname,
             this.serverAETitle, this.serverHostname,
-            SOPClassUID,
+            sopClassUID,
             queryData, TransferSyntax
         );
 

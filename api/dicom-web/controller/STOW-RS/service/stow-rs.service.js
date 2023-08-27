@@ -156,8 +156,7 @@ class StowRsService {
         );
 
         await auditManager.onDicomInstancesTransferred(
-            [dicomJsonModel.uidObj.studyUID], [dicomJsonModel.uidObj.sopClass],
-            dicomJsonModel.uidObj.patientID, dicomJsonModel.getPatientDicomJson()['00100010']['Value'][0]['Alphabetic']
+            [dicomJsonModel.uidObj.studyUID]
         );
 
         return {
