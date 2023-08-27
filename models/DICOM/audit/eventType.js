@@ -22,6 +22,15 @@ class EventType {
         undefined
     );
 
+    /** @constant */
+    static RETRIEVE_END = new EventType(
+        AuditMessages$EventID.DICOMInstancesTransferred,
+        AuditMessages$EventActionCode.Read,
+        AuditMessages$RoleIDCode.Source,
+        AuditMessages$RoleIDCode.Destination,
+        undefined
+    );
+
     static WADO_URI = new EventType(
         AuditMessages$EventID.DICOMInstancesTransferred,
         AuditMessages$EventActionCode.Read,
