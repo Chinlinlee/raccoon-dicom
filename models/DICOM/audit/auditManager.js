@@ -1,23 +1,5 @@
 const _ = require("lodash");
 
-const { ActiveParticipant } = require("@dcm4che/audit/ActiveParticipant");
-const { AuditMessages } = require("@dcm4che/audit/AuditMessages");
-const { AuditMessages$EventActionCode } = require("@dcm4che/audit/AuditMessages$EventActionCode");
-const { AuditMessages$EventID } = require("@dcm4che/audit/AuditMessages$EventID");
-const { AuditMessages$NetworkAccessPointTypeCode } = require("@dcm4che/audit/AuditMessages$NetworkAccessPointTypeCode");
-const { AuditMessages$ParticipantObjectIDTypeCode } = require("@dcm4che/audit/AuditMessages$ParticipantObjectIDTypeCode");
-const { AuditMessages$ParticipantObjectTypeCode } = require("@dcm4che/audit/AuditMessages$ParticipantObjectTypeCode");
-const { AuditMessages$ParticipantObjectTypeCodeRole } = require("@dcm4che/audit/AuditMessages$ParticipantObjectTypeCodeRole");
-const { AuditMessages$RoleIDCode } = require("@dcm4che/audit/AuditMessages$RoleIDCode");
-const { EventID } = require("@dcm4che/audit/EventID");
-const { EventIdentification } = require("@dcm4che/audit/EventIdentification");
-const { ParticipantObjectContainsStudy } = require("@dcm4che/audit/ParticipantObjectContainsStudy");
-const { ParticipantObjectDescription } = require("@dcm4che/audit/ParticipantObjectDescription");
-const { ParticipantObjectIdentification } = require("@dcm4che/audit/ParticipantObjectIdentification");
-const { SOPClass } = require("@dcm4che/audit/SOPClass");
-const { Calendar } = require("@java-wrapper/java/util/Calendar");
-const { Common } = require("@java-wrapper/org/github/chinlinlee/dcm777/common/Common");
-const { ParticipantObjectDetail } = require("@dcm4che/audit/ParticipantObjectDetail");
 const { AuditMessageFactory } = require("./auditMessageFactory");
 
 /**
@@ -169,12 +151,6 @@ class AuditManager {
         );
 
         await this.saveToDb_(msg);
-    }
-
-    static async toJson(msg) {
-        let msgJsonString = await Common.convertAuditMessageToJsonString(msg);
-        let msgJson = JSON.parse(msgJsonString);
-        return _.get(msgJson, "AuditMessage", msgJson);
     }
 
     /**
