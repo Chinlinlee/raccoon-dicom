@@ -53,7 +53,7 @@ class AuditMessageFactory {
     ) {
 
         // #region Event
-        let theEvent = this.getGeneralEvent(eventType, eventResult);
+        let theEvent = await this.getGeneralEvent(eventType, eventResult);
         // #endregion
 
         // #region Active Participants
@@ -174,7 +174,7 @@ class AuditMessageFactory {
         /**
         Event 
         */
-        let theEvent = this.getGeneralEvent(eventType, eventResult);
+        let theEvent = await this.getGeneralEvent(eventType, eventResult);
 
         
         /**
