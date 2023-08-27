@@ -5,11 +5,11 @@ const path = require("path");
 const dicomModel = require("../../../../../models/mongodb/models/dicom");
 
 class WADOZip {
-    constructor(iParam, iRes) {
-        this.requestParams = iParam;
-        this.studyUID = iParam.studyUID;
-        this.seriesUID = iParam.seriesUID;
-        this.instanceUID = iParam.instanceUID;
+    constructor(iReq, iRes) {
+        this.requestParams = iReq.params;
+        this.studyUID = this.requestParams.studyUID;
+        this.seriesUID = this.requestParams.seriesUID;
+        this.instanceUID = this.requestParams.instanceUID;
         this.res = iRes;
     }
 
@@ -61,6 +61,7 @@ class WADOZip {
         let imagePath = await dicomModel.getPathOfInstance(this.requestParams);
         if (imagePath) {
             this.setHeaders(this.instanceUID);
+
 
             return await toZip(this.res, [], imagePath.instancePath);
         }
