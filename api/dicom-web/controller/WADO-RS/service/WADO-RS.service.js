@@ -9,6 +9,8 @@ const { JSONPath } = require("jsonpath-plus");
 const { DicomWebService } = require("../../../service/dicom-web.service");
 const dicomModel = require("../../../../../models/mongodb/models/dicom");
 const { logger } = require("../../../../../utils/logs/log");
+const { RetrieveAuditService } = require("./retrieveAudit.service");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 
 /**
  *
@@ -39,10 +41,15 @@ class ImageMultipartWriter {
     }
 
     async write() {
+        let retrieveAuditService = new RetrieveAuditService(this.request, this.request.params.studyUID, EventOutcomeIndicator.Success);
+
         await this.imagePathFactory.getImagePaths();
         let checkAllImageExistResult = await this.imagePathFactory.checkAllImageExist();
         this.response.statusCode = checkAllImageExistResult.code;
         if (!checkAllImageExistResult.status) {
+            retrieveAuditService.eventResult = EventOutcomeIndicator.MajorFailure;
+            await retrieveAuditService.onBeginRetrieve();
+
             this.response.setHeader("Content-Type", "application/dicom+json");
             return this.response.json(checkAllImageExistResult);
         }
@@ -54,12 +61,18 @@ class ImageMultipartWriter {
             this.request,
             this.response
         );
+
+        await retrieveAuditService.onBeginRetrieve();
         let writeResult = await contentTypeWriter.write();
         if (!writeResult.status) {
+            retrieveAuditService.eventResult = EventOutcomeIndicator.MajorFailure;
+            await retrieveAuditService.completedRetrieve();
+            
             this.response.setHeader("Content-Type", "application/dicom+json");
             return this.response.status(writeResult.code).json(writeResult);
         }
 
+        await retrieveAuditService.completedRetrieve();
         return this.response.end();
     }
 }
