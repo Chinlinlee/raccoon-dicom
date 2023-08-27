@@ -19,6 +19,10 @@ const { Calendar } = require("@java-wrapper/java/util/Calendar");
 const { Common } = require("@java-wrapper/org/github/chinlinlee/dcm777/common/Common");
 const { ParticipantObjectDetail } = require("@dcm4che/audit/ParticipantObjectDetail");
 const { AuditUtils } = require("./auditUtils");
+const { EventIdentificationBuilder } = require("@dcm4che/audit/EventIdentificationBuilder");
+const { EventType } = require("./eventType");
+const { default: ActiveParticipantBuilder } = require("@dcm4che/audit/ActiveParticipantBuilder");
+const { AuditMessages$UserIDTypeCode } = require("@dcm4che/audit/AuditMessages$UserIDTypeCode");
 
 class AuditMessageFactory {
     constructor() { }
@@ -28,6 +32,7 @@ class AuditMessageFactory {
      * 獲取 Begin Transferring DICOM Instances (當有 DICOM 檔案開始傳輸時) 事件的訊息。
      * 
      * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
+     * @param { EventType } eventType
      * @param {string} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
      * @param {string} clientAETitle 發送者的AETitle
      * @param {string} clientHostname 發送者的位址
@@ -40,7 +45,7 @@ class AuditMessageFactory {
      * @return {JSON}
      */
     static async getBeginTransferringDicomInstancesMsg(
-        eventResult,
+        eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
         StudyInstanceUIDs, SOPClassUIDs,
@@ -48,33 +53,36 @@ class AuditMessageFactory {
     ) {
 
         // #region Event
-        let theEvent = await EventIdentification.newInstanceAsync();
-        await theEvent.setEventID(EventID.BeginTransferringDICOMInstances);
-        await theEvent.setEventActionCode(AuditMessages$EventActionCode.Execute);
-        await theEvent.setEventDateTime(await Calendar.getInstance()); // 日期時間為當前時間自動取得
-        await theEvent.setEventOutcomeIndicator(eventResult);
+        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
+            eventType.eventID,
+            eventType.eventActionCode,
+            await Calendar.getInstance(), // 日期時間為當前時間自動取得
+            eventResult
+        );
+        let theEvent = await eventIdentificationBuilder.build();
         // #endregion
 
         // #region Active Participant: Application started (1)
-        let client = await ActiveParticipant.newInstanceAsync();
-        await client.setUserID(clientAETitle);
-        await client.setAlternativeUserID(clientAETitle);
-        await client.setUserName("");
-        await client.setUserIsRequestor(false);
-        await (await client.getRoleIDCode()).add(AuditMessages$RoleIDCode.Source);
-        await client.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
-        await client.setNetworkAccessPointID(clientHostname);
+        let clientBuilder = await ActiveParticipantBuilder.newInstanceAsync(
+            clientAETitle,
+            clientHostname
+        );
+        await clientBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(clientAETitle));
+        await clientBuilder.altUserID(clientAETitle);
+        await clientBuilder.roleIDCode([eventType.source]);
+        await clientBuilder.isRequester();
+        let client = await clientBuilder.build();
         // #endregion
 
         // #region Active Participant: Process receiving the data (1); 正在接收者(Server)
-        let server = await ActiveParticipant.newInstanceAsync();
-        await server.setUserID(serverAETitle);
-        await server.setAlternativeUserID(serverAETitle);
-        await server.setUserName("");
-        await server.setUserIsRequestor(false);
-        await (await server.getRoleIDCode()).add(AuditMessages$RoleIDCode.Destination);
-        await server.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
-        await server.setNetworkAccessPointID(serverHostname);
+        let serverBuilder = await ActiveParticipantBuilder.newInstanceAsync(
+            serverAETitle,
+            serverHostname
+        );
+        await serverBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(serverAETitle));
+        await serverBuilder.altUserID(serverAETitle);
+        await serverBuilder.roleIDCode([eventType.destination]);
+        let server = await serverBuilder.build();
         // #endregion
 
         // #region Participating Object: Studies being transferred (1..N) 接收到的DICOM檔案的所有Study。
@@ -119,7 +127,7 @@ class AuditMessageFactory {
      * 獲取 DICOM Instances Transferred (當有 DICOM 檔案已進行傳輸交換時) 的訊息
      * 
      * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
-     * @param {"C" | "R" | "U" | "D"} CRUD 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
+     * @param {EventType} eventType 
      * @param {"0" | "4" | "8" | "12"} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
      * @param {string} clientAETitle 發送者的AETitle
      * @param {string} clientHostname 發送者的位址
@@ -130,7 +138,8 @@ class AuditMessageFactory {
      * @param {string} PatientID 一個此次傳輸關聯的PatientID
      * @param {string} PatientName 一個此次傳輸關聯的PatientName
      */
-    static async getDicomInstancesTransferredMsg(CRUD, eventResult,
+    static async getDicomInstancesTransferredMsg(
+        eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
         StudyInstanceUIDs, SOPClassUIDs,
@@ -138,34 +147,37 @@ class AuditMessageFactory {
     ) {
 
         // #region Event
-        let theEvent = await EventIdentification.newInstanceAsync();
-        await theEvent.setEventID(EventID.DICOMInstancesTransferred);
-        await theEvent.setEventActionCode(CRUD);
-        await theEvent.setEventDateTime(await Calendar.getInstance()); // 日期時間為當前時間自動取得
-        await theEvent.setEventOutcomeIndicator(eventResult);
+        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
+            eventType.eventID,
+            eventType.eventActionCode,
+            await Calendar.getInstance(), // 日期時間為當前時間自動取得
+            eventResult
+        );
+        let theEvent = await eventIdentificationBuilder.build();
         // #endregion
 
         // #region Active Participant: Process that sent the data (1) 發送者(web client 或 STORESCU等...)
-        let client = await ActiveParticipant.newInstanceAsync();
-        await client.setUserID(clientAETitle);
-        await client.setAlternativeUserID(clientAETitle);
-        await client.setUserName("");
-        await client.setUserIsRequestor(false);
-        await (await client.getRoleIDCode()).add(AuditMessages$RoleIDCode.Source);
-        await client.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
-        await client.setNetworkAccessPointID(clientHostname);
+        let clientBuilder = await ActiveParticipantBuilder.newInstanceAsync(
+            clientAETitle,
+            clientHostname
+        );
+        await clientBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(clientAETitle));
+        await clientBuilder.altUserID(clientAETitle);
+        await clientBuilder.roleIDCode([eventType.source]);
+        await clientBuilder.isRequester();
+        let client = await clientBuilder.build();
         // #endregion
 
 
         // #region Active Participant: The process that received the data. (1) 接收者(Server)
-        let server = await ActiveParticipant.newInstanceAsync();
-        await server.setUserID(serverAETitle);
-        await server.setAlternativeUserID(serverAETitle);
-        await server.setUserName("");
-        await server.setUserIsRequestor(false);
-        await (await server.getRoleIDCode()).add(AuditMessages$RoleIDCode.Destination);
-        await server.setNetworkAccessPointTypeCode(AuditMessages$NetworkAccessPointTypeCode.IPAddress);
-        await server.setNetworkAccessPointID(serverHostname);
+        let serverBuilder = await ActiveParticipantBuilder.newInstanceAsync(
+            serverAETitle,
+            serverHostname
+        );
+        await serverBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(serverAETitle));
+        await serverBuilder.altUserID(serverAETitle);
+        await serverBuilder.roleIDCode([eventType.destination]);
+        let server = await serverBuilder.build();
         // #endregion
 
         // #region Participating Object: Studies being transferred (1..N) 接收到的DICOM檔案的所有Study
@@ -211,7 +223,7 @@ class AuditMessageFactory {
      * 獲取 DICOM Instances Accessed (當有DICOM被存取時) 的訊息
      * Instances being viewed, utilized, updated, or deleted.
      * 
-     * @param CRUD 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
+     * @param {EventType} eventType 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
      * @param eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
      * @param clientAETitle 發送者的AETitle
      * @param clientHostname 發送者的位址
@@ -223,7 +235,8 @@ class AuditMessageFactory {
      * @param PatientName 一個此次傳輸關聯的PatientName
      * @return {Promise<JSON>}
      */
-    static async getDicomInstancesAccessedMsg(CRUD, eventResult,
+    static async getDicomInstancesAccessedMsg(
+        eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
         StudyInstanceUIDs, SOPClassUIDs,
@@ -232,11 +245,13 @@ class AuditMessageFactory {
         /**
         Event 
         */
-        let theEvent = await EventIdentification.newInstanceAsync();
-        await theEvent.setEventID(EventID.DICOMInstancesAccessed);
-        await theEvent.setEventActionCode(CRUD);
-        await theEvent.setEventDateTime(await Calendar.getInstance()); // 日期時間為當前時間自動取得
-        await theEvent.setEventOutcomeIndicator(eventResult);
+        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
+            eventType.eventID,
+            eventType.eventActionCode,
+            await Calendar.getInstance(), // 日期時間為當前時間自動取得
+            eventResult
+        );
+        let theEvent = await eventIdentificationBuilder.build();
 
         /**
         Active Participant: 
@@ -318,7 +333,8 @@ class AuditMessageFactory {
      * @param {string} queryData Query的本體資料(暫定為只要是字串即可)
      * @param {string} TransferSyntax TransferSyntax
      */
-    async getQueryMsg(eventResult,
+    static async getQueryMsg(
+        eventType ,eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
         SOPClassUID,
@@ -328,11 +344,13 @@ class AuditMessageFactory {
         /**
         Event 
         */
-        let theEvent = await EventIdentification.newInstanceAsync();
-        await theEvent.setEventID(EventID.Query);
-        await theEvent.setEventActionCode(AuditMessages$EventActionCode.Execute);
-        await theEvent.setEventDateTime(await Calendar.getInstance()); // 日期時間為當前時間自動取得
-        await theEvent.setEventOutcomeIndicator(eventResult);
+        let eventIdentificationBuilder = await EventIdentificationBuilder.newInstanceAsync(
+            eventType.eventID,
+            eventType.eventActionCode,
+            await Calendar.getInstance(), // 日期時間為當前時間自動取得
+            eventResult
+        );
+        let theEvent = await eventIdentificationBuilder.build();
 
         /**
         Active Participant: 
@@ -391,6 +409,19 @@ class AuditMessageFactory {
         let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, theQuery);
 
         return await AuditUtils.toJson(msg);
+    }
+
+
+    /**
+     * @param {string} userID 
+     * @returns 
+     */
+    static userIDTypeCode(userID) {
+        return userID.indexOf('/') != -1
+                ? AuditMessages$UserIDTypeCode.URI
+                : userID.indexOf('|') != -1
+                ? AuditMessages$UserIDTypeCode.ApplicationFacility
+                : AuditMessages$UserIDTypeCode.StationAETitle;
     }
 }
 

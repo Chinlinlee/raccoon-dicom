@@ -14,6 +14,8 @@ const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const auditMessageModel = require("@models/mongodb/models/auditMessage");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 
 const {
     apiPath: DICOM_WEB_API_PATH
@@ -145,11 +147,15 @@ class StowRsService {
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         this.responseMessage["00081199"]["Value"].push(sopSeq);
 
-        let auditManager = new AuditManager(auditMessageModel);
         let remoteAddress = _.get(this.request, "socket.remoteAddress", "127.0.0.1");
-        await auditManager.onDicomInstancesTransferred("C", "0",
+        let auditManager = new AuditManager(
+            auditMessageModel,
+            EventType.STORE_CREATE, EventOutcomeIndicator.Success,
             remoteAddress, this.request.headers.host.split(':')[0],
-            `${raccoonConfig.serverConfig.host}:${raccoonConfig.serverConfig.port}`, `${raccoonConfig.serverConfig.host}`,
+            `${raccoonConfig.serverConfig.host}:${raccoonConfig.serverConfig.port}`, `${raccoonConfig.serverConfig.host}`
+        );
+
+        await auditManager.onDicomInstancesTransferred(
             [dicomJsonModel.uidObj.studyUID], [dicomJsonModel.uidObj.sopClass],
             dicomJsonModel.uidObj.patientID, dicomJsonModel.getPatientDicomJson()['00100010']['Value'][0]['Alphabetic']
         );

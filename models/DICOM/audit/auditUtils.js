@@ -12,3 +12,10 @@ class AuditUtils {
 
 
 module.exports.AuditUtils = AuditUtils;
+
+module.exports.EventOutcomeIndicator = {
+    Success: "0",
+    MinorFailure: "4",
+    SeriousFailure: "8",
+    MajorFailure: "12"
+};

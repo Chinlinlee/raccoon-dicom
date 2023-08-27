@@ -1,6 +1,7 @@
 const _ = require("lodash");
 
 const { AuditMessageFactory } = require("./auditMessageFactory");
+const { EventType } = require("./eventType");
 
 /**
  * @typedef AuditMessageModel
@@ -8,9 +9,45 @@ const { AuditMessageFactory } = require("./auditMessageFactory");
  */
 
 class AuditManager {
-    constructor(auditMessageModel) {
+    constructor(auditMessageModel,
+        eventType, eventResult,
+        clientAETitle, clientHostname,
+        serverAETitle, serverHostname
+    ) {
         /** @type { AuditMessageModel } */
         this.auditMessageModel = auditMessageModel;
+        /** @type { EventType } */
+        this.eventType = eventType;
+
+        /**
+         * 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
+         * @type { string }
+         */
+        this.eventResult = eventResult;
+
+        /**
+         * 發送者的AETitle
+         * @type { string }
+         */
+        this.clientAETitle = clientAETitle;
+
+        /**
+         * 發送者的位址
+         * @type { string }
+         */
+        this.clientHostname = clientHostname;
+
+        /**
+         * 伺服器端的AETitle
+         * @type { string }
+         */
+        this.serverAETitle = serverAETitle;
+
+        /**
+         * 伺服器端的位址
+         * @type { string }
+         */
+        this.serverHostname = serverHostname;
     }
 
     /**
@@ -20,27 +57,20 @@ class AuditManager {
      * 2. 儲存 message 至 db
      * 
      * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
-     * @param {string} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
-     * @param {string} clientAETitle 發送者的AETitle
-     * @param {string} clientHostname 發送者的位址
-     * @param {string} serverAETitle 伺服器端的AETitle
-     * @param {string} serverHostname 伺服器端的位址
      * @param {string[]} StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
      * @param {string[]} SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
      * @param {string} PatientID 一個此次傳輸關聯的PatientID
      * @param {string} PatientName 一個此次傳輸關聯的PatientName
      */
     async onBeginTransferringDicomInstances(
-        eventResult,
-        clientAETitle, clientHostname,
-        serverAETitle, serverHostname,
         StudyInstanceUIDs, SOPClassUIDs,
         PatientID, PatientName
     ) {
+
         let msg = await AuditMessageFactory.getBeginTransferringDicomInstancesMsg(
-            eventResult,
-            clientAETitle, clientHostname,
-            serverAETitle, serverHostname,
+            this.eventType, this.eventResult,
+            this.clientAETitle, this.clientHostname,
+            this.serverAETitle, this.serverHostname,
             StudyInstanceUIDs, SOPClassUIDs,
             PatientID, PatientName
         );
@@ -56,28 +86,20 @@ class AuditManager {
      * 2. 儲存 message 至 db
      * 
      * 該事件通常用於 C-STORE、STOW-RS 或是 C-MOVE、WADO。
-     * @param {"C" | "R" | "U" | "D"} CRUD 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
-     * @param {"0" | "4" | "8" | "12"} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
-     * @param {string} clientAETitle 發送者的AETitle
-     * @param {string} clientHostname 發送者的位址
-     * @param {string} serverAETitle 伺服器端的AETitle
-     * @param {string} serverHostname 伺服器端的位址
      * @param {string[]} StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
      * @param {string[]} SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
      * @param {string} PatientID 一個此次傳輸關聯的PatientID
      * @param {string} PatientName 一個此次傳輸關聯的PatientName
      */
-    async onDicomInstancesTransferred(CRUD, eventResult,
-        clientAETitle, clientHostname,
-        serverAETitle, serverHostname,
+    async onDicomInstancesTransferred(
         StudyInstanceUIDs, SOPClassUIDs,
         PatientID, PatientName
     ) {
 
         let msg = await AuditMessageFactory.getDicomInstancesTransferredMsg(
-            CRUD, eventResult,
-            clientAETitle, clientHostname,
-            serverAETitle, serverHostname,
+            this.eventType, this.eventResult,
+            this.clientAETitle, this.clientHostname,
+            this.serverAETitle, this.serverHostname,
             StudyInstanceUIDs, SOPClassUIDs,
             PatientID, PatientName
         );
@@ -93,27 +115,19 @@ class AuditManager {
      * 1. 獲取 DICOM Instances Accessed (當有DICOM被存取時) 的訊息
      * 2. 儲存 message 至 db
      * 
-     * @param CRUD 該事件是屬於新增、讀取、更新、刪除哪一個? 必須為"C"、"R"、"U"、"D"其中一個，或是使用EventActionCode類別的CRUD(最終也會取得String)。
-     * @param eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
-     * @param clientAETitle 發送者的AETitle
-     * @param clientHostname 發送者的位址
-     * @param serverAETitle 伺服器端的AETitle
-     * @param serverHostname 伺服器端的位址
      * @param StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
      * @param SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
      * @param PatientID 一個此次傳輸關聯的PatientID
      * @param PatientName 一個此次傳輸關聯的PatientName
      */
-    async onDicomInstancesAccessed(CRUD, eventResult,
-        clientAETitle, clientHostname,
-        serverAETitle, serverHostname,
+    async onDicomInstancesAccessed(
         StudyInstanceUIDs, SOPClassUIDs,
         PatientID, PatientName
     ) {
         let msg = await AuditMessageFactory.getDicomInstancesAccessedMsg(
-            CRUD, eventResult,
-            clientAETitle, clientHostname,
-            serverAETitle, serverHostname,
+            this.eventType, this.eventResult,
+            this.clientAETitle, this.clientHostname,
+            this.serverAETitle, this.serverHostname,
             StudyInstanceUIDs, SOPClassUIDs,
             PatientID, PatientName
         );
@@ -128,24 +142,18 @@ class AuditManager {
      * 2. 儲存 message 至 db
      * 
      * 該事件通常用於 C-FIND或QIDO。
-     * @param {string} eventResult 該事件最終的結果? 必須為"0"、"4"、"8"、"12"其中一個，分別對應到Success、MinorFailure、SeriousFailure、MajorFailure，或是使用EventOutcomeIndicator類別(最終也會取得String)。
-     * @param {string} clientAETitle 發送者的AETitle
-     * @param {string} clientHostname 發送者的位址
-     * @param {string} serverAETitle 伺服器端的AETitle
-     * @param {string} serverHostname 伺服器端的位址
      * @param {string} SOPClassUID SOPClassUID
      * @param {string} queryData Query的本體資料(暫定為只要是字串即可)
      * @param {string} TransferSyntax TransferSyntax
      */
-    async onQuery(eventResult,
-        clientAETitle, clientHostname,
-        serverAETitle, serverHostname,
+    async onQuery(
         SOPClassUID,
         queryData, TransferSyntax
     ) {
-        let msg = await AuditMessageFactory.getQueryMsg(eventResult,
-            clientAETitle, clientHostname,
-            serverAETitle, serverHostname,
+        let msg = await AuditMessageFactory.getQueryMsg(
+            this.eventType, this.eventResult,
+            this.clientAETitle, this.clientHostname,
+            this.serverAETitle, this.serverHostname,
             SOPClassUID,
             queryData, TransferSyntax
         );
