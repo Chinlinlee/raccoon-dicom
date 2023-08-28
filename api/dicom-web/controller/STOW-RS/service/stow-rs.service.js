@@ -85,11 +85,27 @@ class StowRsService {
         for (let i = 0; i < this.uploadFiles.length; i++) {
 
             let currentFile = this.uploadFiles[i];
+            let dicomJsonModel;
+            let dicomFileSaveInfo;
+            try {
+                let storeInstanceResult = await this.storeInstance(currentFile);
+                dicomJsonModel = storeInstanceResult.dicomJsonModel;
+                dicomFileSaveInfo = storeInstanceResult.dicomFileSaveInfo;
+            } catch(e) {
+                // log transferred failure
+                let auditManager = new AuditManager(
+                    auditMessageModel,
+                    EventType.STORE_CREATE, EventOutcomeIndicator.MajorFailure,
+                    DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+                    DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+                );
+        
+                await auditManager.onDicomInstancesTransferred(
+                    dicomJsonModel ? [dicomJsonModel.uidObj.studyUID] : "Unknown"
+                );
 
-            let {
-                dicomJsonModel,
-                dicomFileSaveInfo
-            } = await this.storeInstance(currentFile);
+                throw e;
+            }
 
 
             //sync DICOM to FHIR
