@@ -76,7 +76,7 @@ class AuditMessageFactory {
 
             let theStudy = await participatingObjectFactory.getStudyParticipatingObject();
             theStudies.push(theStudy);
-            patientParticipatingObject ? null: patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
+            patientParticipatingObject ? null : patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
         }
         // #endregion
 
@@ -134,7 +134,7 @@ class AuditMessageFactory {
 
             let theStudy = await participatingObjectFactory.getStudyParticipatingObject();
             theStudies.push(theStudy);
-            patientParticipatingObject ? null: patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
+            patientParticipatingObject ? null : patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
         }
         // #endregion
 
@@ -176,7 +176,7 @@ class AuditMessageFactory {
         */
         let theEvent = await this.getGeneralEvent(eventType, eventResult);
 
-        
+
         /**
         Active Participant: 
         Person and or Process manipulating the data (1..2)
@@ -204,7 +204,7 @@ class AuditMessageFactory {
 
             let theStudy = await participatingObjectFactory.getStudyParticipatingObject();
             theStudies.push(theStudy);
-            patientParticipatingObject ? null: patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
+            patientParticipatingObject ? null : patientParticipatingObject = await participatingObjectFactory.getPatientParticipatingObject();
         }
 
         /**
@@ -330,7 +330,7 @@ class AuditMessageFactory {
         await clientBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(clientAETitle));
         await clientBuilder.altUserID(clientAETitle);
         await clientBuilder.roleIDCode([sourceDestSwap ? eventType.destination : eventType.source]);
-        await clientBuilder.isRequester();
+        sourceDestSwap ? null : await clientBuilder.isRequester();
         let client = await clientBuilder.build();
         // #endregion
 
@@ -341,7 +341,7 @@ class AuditMessageFactory {
         );
         await serverBuilder.userIDTypeCode(AuditMessageFactory.userIDTypeCode(serverAETitle));
         await serverBuilder.altUserID(serverAETitle);
-        await serverBuilder.roleIDCode([sourceDestSwap ? eventType.destination: eventType.source]);
+        await serverBuilder.roleIDCode([sourceDestSwap ? eventType.source : eventType.destination]);
         let server = await serverBuilder.build();
         // #endregion
 
