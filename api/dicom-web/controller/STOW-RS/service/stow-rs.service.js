@@ -144,10 +144,18 @@ class StowRsService {
             DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
             DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
         );
+        let transferredAudit = new AuditManager(
+            auditMessageModel,
+            EventType.STORE_CREATE, EventOutcomeIndicator.Success,
+            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+        );
+
         await beginAudit.onBeginTransferringDicomInstances([dicomJsonModel.uidObj.studyUID]);
 
         let isSameStudyIDStatus = this.isSameStudyID_(this.responseMessage);
         if (!isSameStudyIDStatus) {
+            transferredAudit.eventResult = EventOutcomeIndicator.MinorFailure;
             this.responseCode = 409;
         }
 
@@ -171,15 +179,8 @@ class StowRsService {
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         this.responseMessage["00081199"]["Value"].push(sopSeq);
 
-        let remoteAddress = _.get(this.request, "socket.remoteAddress", "127.0.0.1");
-        let auditManager = new AuditManager(
-            auditMessageModel,
-            EventType.STORE_CREATE, EventOutcomeIndicator.Success,
-            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
-            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
-        );
 
-        await auditManager.onDicomInstancesTransferred(
+        await transferredAudit.onDicomInstancesTransferred(
             [dicomJsonModel.uidObj.studyUID]
         );
 
