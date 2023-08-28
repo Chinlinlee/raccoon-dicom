@@ -118,7 +118,7 @@ class AuditMessageFactory {
             eventType,
             clientAETitle, clientHostname,
             serverAETitle, serverHostname,
-            true
+            eventType.eventName !== "STORE_CREATE"
         );
         // #endregion
 
