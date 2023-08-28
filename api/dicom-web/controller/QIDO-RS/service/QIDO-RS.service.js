@@ -16,6 +16,10 @@ const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const auditMessageModel = require("@models/mongodb/models/auditMessage");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 
 class QidoRsService {
 
@@ -73,7 +77,13 @@ class QidoRsService {
 
     async getAndResponseDicomJson() {
         try {
-
+            let queryAudit = new AuditManager(
+                auditMessageModel,
+                EventType.QUERY,
+                EventOutcomeIndicator.Success,
+                DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+                DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+            );
             let dicomWebService = new DicomWebService(this.request, this.response);
 
             let queryOptions = {
@@ -85,12 +95,18 @@ class QidoRsService {
                 requestParams: this.request.params
             };
     
+            queryAudit.onQuery(
+                `SearchFor${this.level}`,
+                JSON.stringify({...queryOptions.requestParams,...queryOptions.query}),
+                "UTF-8"
+            );
             let qidoDicomJsonFactory = new QidoDicomJsonFactory(queryOptions, this.level);
     
             let dicomJson = await qidoDicomJsonFactory.getDicomJson();
     
             let dicomJsonLength = _.get(dicomJson, "length", 0);
             if (dicomJsonLength > 0) {
+                this.auditInstancesAccessed(dicomJson);
                 this.response.writeHead(200, {
                     "Content-Type": "application/dicom+json"
                 });
@@ -103,6 +119,22 @@ class QidoRsService {
         } catch(e) {
             throw e;
         }
+    }
+
+    async auditInstancesAccessed(dicomJson) {
+        let queryAccessedAudit = new AuditManager(
+            auditMessageModel,
+            EventType.QUERY_ACCESSED_INSTANCE,
+            EventOutcomeIndicator.Success,
+            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+        );
+
+        for(let i = 0 ; i < dicomJson.length ; i++) {
+            let studyUID = _.get(dicomJson[i], "0020000D.Value.0");
+            queryAccessedAudit.onDicomInstancesAccessed([studyUID]);
+        }
+        
     }
 
 }
@@ -353,6 +385,7 @@ async function getStudyDicomJson(queryOptions) {
     try {
         let query = await convertRequestQueryToMongoQuery(queryOptions.query);
         queryOptions.query = {
+            ...queryOptions.requestParams,
             ...query.$match
         };
 

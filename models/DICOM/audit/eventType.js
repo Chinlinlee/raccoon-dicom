@@ -59,6 +59,15 @@ class EventType {
         AuditMessages$RoleIDCode.Destination
     );
 
+    static QUERY_ACCESSED_INSTANCE = new EventType(
+        "QUERY_ACCESSED_INSTANCE",
+        AuditMessages$EventID.DICOMInstancesAccessed,
+        AuditMessages$EventActionCode.Read,
+        AuditMessages$RoleIDCode.Source,
+        AuditMessages$RoleIDCode.Destination,
+        undefined
+    );
+
     constructor(eventName, eventID, eventActionCode, source, destination, eventTypeCode) {
         this.eventName = eventName;
         this.eventID = eventID;

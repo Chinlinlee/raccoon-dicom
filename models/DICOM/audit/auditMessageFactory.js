@@ -235,8 +235,8 @@ class AuditMessageFactory {
         eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
-        SOPClassUID,
-        queryData, TransferSyntax
+        sopClassUID,
+        queryData, transferSyntax
     ) {
 
         /**
@@ -263,7 +263,7 @@ class AuditMessageFactory {
         await theQuery.setParticipantObjectTypeCode(AuditMessages$ParticipantObjectTypeCode.SystemObject);
         await theQuery.setParticipantObjectTypeCodeRole(AuditMessages$ParticipantObjectTypeCodeRole.Report);
         await theQuery.setParticipantObjectIDTypeCode(AuditMessages$ParticipantObjectIDTypeCode.SOPClassUID);
-        await theQuery.setParticipantObjectID(SOPClassUID); //  this field shall hold the UID of the SOP Class being queried
+        await theQuery.setParticipantObjectID(sopClassUID); //  this field shall hold the UID of the SOP Class being queried
         await theQuery.setParticipantObjectQuery(
             Buffer.from(queryData, "utf8")
         ); // this field shall hold the Dataset of the DICOM query, xs:base64Binary encoded.
@@ -271,14 +271,16 @@ class AuditMessageFactory {
 
 
         let ObjDetail = await ParticipantObjectDetail.newInstanceAsync();
-        await ObjDetail.setType("TransferSyntax");
-        await ObjDetail.setValue(TransferSyntax.getBytes());
+        await ObjDetail.setType("QueryEncoding");
+        await ObjDetail.setValue(
+            Buffer.from(transferSyntax, "utf8")
+        );
         await (await theQuery.getParticipantObjectDetail()).add(ObjDetail); // A ParticipantObjectDetail element with the XML attribute "TransferSyntax" shall be present. The value of the Transfer Syntax attribute shall be the UID of the transfer syntax of the query. The element contents shall be xs:base64Binary encoding. The Transfer Syntax shall be a DICOM Transfer Syntax.
 
         /**
         將上述已經記錄完成的Real World Entities，組合成一個Audit Message。
         */
-        let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, theQuery);
+        let msg = await AuditMessages.createMessage(theEvent, theActiveParticipants, [theQuery]);
 
         return await AuditUtils.toJson(msg);
     }
