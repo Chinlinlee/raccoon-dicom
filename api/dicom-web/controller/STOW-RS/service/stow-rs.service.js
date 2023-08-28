@@ -138,6 +138,14 @@ class StowRsService {
         dicomJsonModel.setMinifyDicomJsonAndTempBigValueTags();
         dicomJsonModel.setUidObj();
 
+        let beginAudit = new AuditManager(
+            auditMessageModel,
+            EventType.STORE_BEGIN, EventOutcomeIndicator.Success,
+            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+        );
+        await beginAudit.onBeginTransferringDicomInstances([dicomJsonModel.uidObj.studyUID]);
+
         let isSameStudyIDStatus = this.isSameStudyID_(this.responseMessage);
         if (!isSameStudyIDStatus) {
             this.responseCode = 409;
@@ -167,8 +175,8 @@ class StowRsService {
         let auditManager = new AuditManager(
             auditMessageModel,
             EventType.STORE_CREATE, EventOutcomeIndicator.Success,
-            remoteAddress, this.request.headers.host.split(':')[0],
-            `${raccoonConfig.serverConfig.host}:${raccoonConfig.serverConfig.port}`, `${raccoonConfig.serverConfig.host}`
+            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
         );
 
         await auditManager.onDicomInstancesTransferred(
