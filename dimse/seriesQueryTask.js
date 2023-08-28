@@ -9,6 +9,11 @@ const { Attributes } = require("@dcm4che/data/Attributes");
 const { createSeriesQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTaskInject");
 const { Tag } = require("@dcm4che/data/Tag");
 const { logger } = require("@root/utils/logs/log");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const auditMessageModel = require("@models/mongodb/models/auditMessage");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { UID } = require("@dcm4che/data/UID");
 
 class JsSeriesQueryTask extends JsStudyQueryTask {
     constructor(as, pc, rq, keys) {
@@ -107,6 +112,13 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
     }
 
     async getNextSeriesCursor() {
+        let queryAudit = new AuditManager(
+            auditMessageModel,
+            EventType.QUERY, EventOutcomeIndicator.Success,
+            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
+            await this.as.getLocalAET(), await this.as.getLocalHostName()
+        );
+        
         let queryAttr = await Attributes.newInstanceAsync();
         await queryAttr.addAll(this.keys);
         await queryAttr.addSelected(this.studyAttr, [Tag.PatientID, Tag.StudyInstanceUID]);
@@ -114,6 +126,11 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
         let queryBuilder = new DimseQueryBuilder(queryAttr, "series");
         let normalQuery = await queryBuilder.toNormalQuery();
         let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+        queryAudit.onQuery(
+            UID.StudyRootQueryRetrieveInformationModelFind,
+            JSON.stringify(mongoQuery.$match),
+            "UTF-8"
+        );
 
         let returnKeys = this.getReturnKeys(normalQuery);
 

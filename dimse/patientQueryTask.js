@@ -10,6 +10,11 @@ const patientModel = require("@models/mongodb/models/patient");
 const { Association } = require("@dcm4che/net/Association");
 const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
 const { logger } = require("@root/utils/logs/log");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const auditMessageModel = require("@models/mongodb/models/auditMessage");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { UID } = require("@dcm4che/data/UID");
 
 
 class JsPatientQueryTask {
@@ -140,9 +145,21 @@ class JsPatientQueryTask {
     }
 
     async initCursor() {
+        let queryAudit = new AuditManager(
+            auditMessageModel,
+            EventType.QUERY,
+            EventOutcomeIndicator.Success,
+            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
+            await this.as.getLocalAET(), await this.as.getLocalHostName()
+        );
         let queryBuilder = new DimseQueryBuilder(this.keys, "patient");
         let normalQuery = await queryBuilder.toNormalQuery();
         let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+        queryAudit.onQuery(
+            UID.PatientRootQueryRetrieveInformationModelFind,
+            JSON.stringify(mongoQuery.$match),
+            "UTF-8"
+        );
 
         let returnKeys = this.getReturnKeys(normalQuery);
 

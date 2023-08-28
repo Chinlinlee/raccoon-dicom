@@ -9,6 +9,11 @@ const { DimseQueryBuilder } = require("./queryBuilder");
 const dicomStudyModel = require("@models/mongodb/models/dicomStudy");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { logger } = require("@root/utils/logs/log");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const auditMessageModel = require("@models/mongodb/models/auditMessage");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { UID } = require("@dcm4che/data/UID");
 
 class JsStudyQueryTask extends JsPatientQueryTask {
     constructor(as, pc, rq, keys) {
@@ -105,6 +110,13 @@ class JsStudyQueryTask extends JsPatientQueryTask {
     }
 
     async getNextStudyCursor() {
+        let queryAudit = new AuditManager(
+            auditMessageModel,
+            EventType.QUERY, EventOutcomeIndicator.Success,
+            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
+            await this.as.getLocalAET(), await this.as.getLocalHostName()
+        );
+        
         let queryAttr = await Attributes.newInstanceAsync();
         await queryAttr.addAll(this.keys);
         await queryAttr.addSelected(this.patientAttr, [Tag.PatientID]);
@@ -112,6 +124,11 @@ class JsStudyQueryTask extends JsPatientQueryTask {
         let queryBuilder = new DimseQueryBuilder(queryAttr, "study");
         let normalQuery = await queryBuilder.toNormalQuery();
         let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+        queryAudit.onQuery(
+            UID.StudyRootQueryRetrieveInformationModelFind,
+            JSON.stringify(mongoQuery.$match),
+            "UTF-8"
+        );
 
         let returnKeys = this.getReturnKeys(normalQuery);
 
