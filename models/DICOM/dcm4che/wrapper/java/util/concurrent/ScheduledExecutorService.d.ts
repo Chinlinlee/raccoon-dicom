@@ -16,6 +16,22 @@ export declare class ScheduledExecutorServiceClass extends JavaClass {
     /**
      * @param var0 original type: 'java.lang.Runnable'
      * @param var1 original type: 'long'
+     * @param var2 original type: 'long'
+     * @param var3 original type: 'java.util.concurrent.TimeUnit'
+     * @return original return type: 'java.util.concurrent.ScheduledFuture'
+     */
+    scheduleAtFixedRate(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): Promise<java_util_concurrent_ScheduledFuture | null>;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @param var1 original type: 'long'
+     * @param var2 original type: 'long'
+     * @param var3 original type: 'java.util.concurrent.TimeUnit'
+     * @return original return type: 'java.util.concurrent.ScheduledFuture'
+     */
+    scheduleAtFixedRateSync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @param var1 original type: 'long'
      * @param var2 original type: 'java.util.concurrent.TimeUnit'
      * @return original return type: 'java.util.concurrent.ScheduledFuture'
      */
@@ -41,22 +57,6 @@ export declare class ScheduledExecutorServiceClass extends JavaClass {
      * @return original return type: 'java.util.concurrent.ScheduledFuture'
      */
     scheduleSync(var0: java_util_concurrent_Callable | JavaInterfaceProxy<java_util_concurrent_CallableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
-    /**
-     * @param var0 original type: 'java.lang.Runnable'
-     * @param var1 original type: 'long'
-     * @param var2 original type: 'long'
-     * @param var3 original type: 'java.util.concurrent.TimeUnit'
-     * @return original return type: 'java.util.concurrent.ScheduledFuture'
-     */
-    scheduleAtFixedRate(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): Promise<java_util_concurrent_ScheduledFuture | null>;
-    /**
-     * @param var0 original type: 'java.lang.Runnable'
-     * @param var1 original type: 'long'
-     * @param var2 original type: 'long'
-     * @param var3 original type: 'java.util.concurrent.TimeUnit'
-     * @return original return type: 'java.util.concurrent.ScheduledFuture'
-     */
-    scheduleAtFixedRateSync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
     /**
      * @param var0 original type: 'java.lang.Runnable'
      * @param var1 original type: 'long'
@@ -223,6 +223,14 @@ export interface ScheduledExecutorServiceInterface {
     /**
      * @param var0 original type: 'java.lang.Runnable'
      * @param var1 original type: 'long'
+     * @param var2 original type: 'long'
+     * @param var3 original type: 'java.util.concurrent.TimeUnit'
+     * @return original return type: 'java.util.concurrent.ScheduledFuture'
+     */
+    scheduleAtFixedRate(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @param var1 original type: 'long'
      * @param var2 original type: 'java.util.concurrent.TimeUnit'
      * @return original return type: 'java.util.concurrent.ScheduledFuture'
      */
@@ -234,14 +242,6 @@ export interface ScheduledExecutorServiceInterface {
      * @return original return type: 'java.util.concurrent.ScheduledFuture'
      */
     schedule(var0: java_util_concurrent_Callable | JavaInterfaceProxy<java_util_concurrent_CallableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
-    /**
-     * @param var0 original type: 'java.lang.Runnable'
-     * @param var1 original type: 'long'
-     * @param var2 original type: 'long'
-     * @param var3 original type: 'java.util.concurrent.TimeUnit'
-     * @return original return type: 'java.util.concurrent.ScheduledFuture'
-     */
-    scheduleAtFixedRate(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
     /**
      * @param var0 original type: 'java.lang.Runnable'
      * @param var1 original type: 'long'

@@ -1,6 +1,6 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
-import { SSLEngineResult$HandshakeStatus as javax_net_ssl_SSLEngineResult$HandshakeStatus } from "./SSLEngineResult$HandshakeStatus";
 import { SSLEngineResult$Status as javax_net_ssl_SSLEngineResult$Status } from "./SSLEngineResult$Status";
+import { SSLEngineResult$HandshakeStatus as javax_net_ssl_SSLEngineResult$HandshakeStatus } from "./SSLEngineResult$HandshakeStatus";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
@@ -11,13 +11,13 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  */
 export declare class SSLEngineResultClass extends JavaClass {
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'javax.net.ssl.SSLEngineResult$Status'
      */
-    toString(): Promise<string>;
+    getStatus(): Promise<javax_net_ssl_SSLEngineResult$Status | null>;
     /**
-     * @return original return type: 'java.lang.String'
+     * @return original return type: 'javax.net.ssl.SSLEngineResult$Status'
      */
-    toStringSync(): string;
+    getStatusSync(): javax_net_ssl_SSLEngineResult$Status | null;
     /**
      * @return original return type: 'javax.net.ssl.SSLEngineResult$HandshakeStatus'
      */
@@ -51,13 +51,13 @@ export declare class SSLEngineResultClass extends JavaClass {
      */
     sequenceNumberSync(): number;
     /**
-     * @return original return type: 'javax.net.ssl.SSLEngineResult$Status'
+     * @return original return type: 'java.lang.String'
      */
-    getStatus(): Promise<javax_net_ssl_SSLEngineResult$Status | null>;
+    toString(): Promise<string>;
     /**
-     * @return original return type: 'javax.net.ssl.SSLEngineResult$Status'
+     * @return original return type: 'java.lang.String'
      */
-    getStatusSync(): javax_net_ssl_SSLEngineResult$Status | null;
+    toStringSync(): string;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

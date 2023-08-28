@@ -1,8 +1,8 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
-import { Provider as java_security_Provider } from "./Provider";
 import { AlgorithmParameterSpec as java_security_spec_AlgorithmParameterSpec, AlgorithmParameterSpecInterface as java_security_spec_AlgorithmParameterSpecInterface } from "./spec/AlgorithmParameterSpec";
 import { Class as java_lang_Class } from "./../lang/Class";
+import { Provider as java_security_Provider } from "./Provider";
 import { Long as java_lang_Long } from "./../lang/Long";
 import { Integer as java_lang_Integer } from "./../lang/Integer";
 /**
@@ -12,6 +12,16 @@ import { Integer as java_lang_Integer } from "./../lang/Integer";
  */
 export declare class AlgorithmParametersClass extends JavaClass {
     /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'java.security.spec.AlgorithmParameterSpec'
+     */
+    getParameterSpec(var0: java_lang_Class | null): Promise<java_security_spec_AlgorithmParameterSpec | null>;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'java.security.spec.AlgorithmParameterSpec'
+     */
+    getParameterSpecSync(var0: java_lang_Class | null): java_security_spec_AlgorithmParameterSpec | null;
+    /**
      * @return original return type: 'java.lang.String'
      */
     toString(): Promise<string>;
@@ -19,6 +29,16 @@ export declare class AlgorithmParametersClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     toStringSync(): string;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.AlgorithmParameters'
+     */
+    static getInstance(var0: string | null): Promise<AlgorithmParameters | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.AlgorithmParameters'
+     */
+    static getInstanceSync(var0: string | null): AlgorithmParameters | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'java.security.Provider'
@@ -44,26 +64,6 @@ export declare class AlgorithmParametersClass extends JavaClass {
      */
     static getInstanceSync(var0: string | null, var1: string | null): AlgorithmParameters | null;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.AlgorithmParameters'
-     */
-    static getInstance(var0: string | null): Promise<AlgorithmParameters | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.AlgorithmParameters'
-     */
-    static getInstanceSync(var0: string | null): AlgorithmParameters | null;
-    /**
-     * @param var0 original type: 'byte[]'
-     * @return original return type: 'void'
-     */
-    init(var0: Buffer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'byte[]'
-     * @return original return type: 'void'
-     */
-    initSync(var0: Buffer | null): void;
-    /**
      * @param var0 original type: 'byte[]'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'void'
@@ -86,13 +86,15 @@ export declare class AlgorithmParametersClass extends JavaClass {
      */
     initSync(var0: java_security_spec_AlgorithmParameterSpec | JavaInterfaceProxy<java_security_spec_AlgorithmParameterSpecInterface> | null): void;
     /**
-     * @return original return type: 'byte[]'
+     * @param var0 original type: 'byte[]'
+     * @return original return type: 'void'
      */
-    getEncoded(): Promise<Buffer | null>;
+    init(var0: Buffer | null): Promise<void>;
     /**
-     * @return original return type: 'byte[]'
+     * @param var0 original type: 'byte[]'
+     * @return original return type: 'void'
      */
-    getEncodedSync(): Buffer | null;
+    initSync(var0: Buffer | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'byte[]'
@@ -104,13 +106,13 @@ export declare class AlgorithmParametersClass extends JavaClass {
      */
     getEncodedSync(var0: string | null): Buffer | null;
     /**
-     * @return original return type: 'java.security.Provider'
+     * @return original return type: 'byte[]'
      */
-    getProvider(): Promise<java_security_Provider | null>;
+    getEncoded(): Promise<Buffer | null>;
     /**
-     * @return original return type: 'java.security.Provider'
+     * @return original return type: 'byte[]'
      */
-    getProviderSync(): java_security_Provider | null;
+    getEncodedSync(): Buffer | null;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -120,15 +122,13 @@ export declare class AlgorithmParametersClass extends JavaClass {
      */
     getAlgorithmSync(): string | null;
     /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'java.security.spec.AlgorithmParameterSpec'
+     * @return original return type: 'java.security.Provider'
      */
-    getParameterSpec(var0: java_lang_Class | null): Promise<java_security_spec_AlgorithmParameterSpec | null>;
+    getProvider(): Promise<java_security_Provider | null>;
     /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'java.security.spec.AlgorithmParameterSpec'
+     * @return original return type: 'java.security.Provider'
      */
-    getParameterSpecSync(var0: java_lang_Class | null): java_security_spec_AlgorithmParameterSpec | null;
+    getProviderSync(): java_security_Provider | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

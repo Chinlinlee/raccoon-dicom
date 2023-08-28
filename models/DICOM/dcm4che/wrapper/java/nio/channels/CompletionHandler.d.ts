@@ -7,18 +7,6 @@ import { Throwable as java_lang_Throwable } from "./../../lang/Throwable";
  */
 export declare class CompletionHandlerClass extends JavaClass {
     /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'void'
-     */
-    completed(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'void'
-     */
-    completedSync(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): void;
-    /**
      * @param var0 original type: 'java.lang.Throwable'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'void'
@@ -30,6 +18,18 @@ export declare class CompletionHandlerClass extends JavaClass {
      * @return original return type: 'void'
      */
     failedSync(var0: java_lang_Throwable | null, var1: BasicOrJavaType | null): void;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'void'
+     */
+    completed(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'void'
+     */
+    completedSync(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): void;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -44,17 +44,17 @@ export declare class CompletionHandlerClass extends JavaClass {
  */
 export interface CompletionHandlerInterface {
     /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'void'
-     */
-    completed(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): void;
-    /**
      * @param var0 original type: 'java.lang.Throwable'
      * @param var1 original type: 'java.lang.Object'
      * @return original return type: 'void'
      */
     failed(var0: java_lang_Throwable | null, var1: BasicOrJavaType | null): void;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'void'
+     */
+    completed(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): void;
 }
 /**
  * Create a proxy for the {@link CompletionHandler} interface.

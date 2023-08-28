@@ -1,13 +1,13 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
-import { PublicKey as java_security_PublicKey, PublicKeyInterface as java_security_PublicKeyInterface } from "./../PublicKey";
-import { Provider as java_security_Provider } from "./../Provider";
-import { X500Principal as javax_security_auth_x500_X500Principal } from "./../../../javax/security/auth/x500/X500Principal";
 import { List as java_util_List } from "./../../util/List";
 import { Collection as java_util_Collection } from "./../../util/Collection";
 import { Date as java_util_Date } from "./../../util/Date";
 import { BigInteger as java_math_BigInteger } from "./../../math/BigInteger";
 import { Principal as java_security_Principal } from "./../Principal";
+import { PublicKey as java_security_PublicKey, PublicKeyInterface as java_security_PublicKeyInterface } from "./../PublicKey";
+import { Provider as java_security_Provider } from "./../Provider";
+import { X500Principal as javax_security_auth_x500_X500Principal } from "./../../../javax/security/auth/x500/X500Principal";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { Class as java_lang_Class } from "./../../lang/Class";
@@ -18,6 +18,144 @@ import { Set as java_util_Set } from "./../../util/Set";
  * You should probably not edit this.
  */
 export declare class X509CertificateClass extends JavaClass {
+    /**
+     * @return original return type: 'java.util.List'
+     */
+    getExtendedKeyUsage(): Promise<java_util_List | null>;
+    /**
+     * @return original return type: 'java.util.List'
+     */
+    getExtendedKeyUsageSync(): java_util_List | null;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getSubjectAlternativeNames(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getSubjectAlternativeNamesSync(): java_util_Collection | null;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getIssuerAlternativeNames(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getIssuerAlternativeNamesSync(): java_util_Collection | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSigAlgName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSigAlgNameSync(): string | null;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getSigAlgParams(): Promise<Buffer | null>;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getSigAlgParamsSync(): Buffer | null;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getTBSCertificate(): Promise<Buffer | null>;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getTBSCertificateSync(): Buffer | null;
+    /**
+     * @return original return type: 'void'
+     */
+    checkValidity(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    checkValiditySync(): void;
+    /**
+     * @param var0 original type: 'java.util.Date'
+     * @return original return type: 'void'
+     */
+    checkValidity(var0: java_util_Date | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.util.Date'
+     * @return original return type: 'void'
+     */
+    checkValiditySync(var0: java_util_Date | null): void;
+    /**
+     * @return original return type: 'java.math.BigInteger'
+     */
+    getSerialNumber(): Promise<java_math_BigInteger | null>;
+    /**
+     * @return original return type: 'java.math.BigInteger'
+     */
+    getSerialNumberSync(): java_math_BigInteger | null;
+    /**
+     * @return original return type: 'java.security.Principal'
+     */
+    getIssuerDN(): Promise<java_security_Principal | null>;
+    /**
+     * @return original return type: 'java.security.Principal'
+     */
+    getIssuerDNSync(): java_security_Principal | null;
+    /**
+     * @return original return type: 'java.security.Principal'
+     */
+    getSubjectDN(): Promise<java_security_Principal | null>;
+    /**
+     * @return original return type: 'java.security.Principal'
+     */
+    getSubjectDNSync(): java_security_Principal | null;
+    /**
+     * @return original return type: 'java.util.Date'
+     */
+    getNotBefore(): Promise<java_util_Date | null>;
+    /**
+     * @return original return type: 'java.util.Date'
+     */
+    getNotBeforeSync(): java_util_Date | null;
+    /**
+     * @return original return type: 'java.util.Date'
+     */
+    getNotAfter(): Promise<java_util_Date | null>;
+    /**
+     * @return original return type: 'java.util.Date'
+     */
+    getNotAfterSync(): java_util_Date | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSigAlgOID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getSigAlgOIDSync(): string | null;
+    /**
+     * @return original return type: 'boolean[]'
+     */
+    getIssuerUniqueID(): Promise<(boolean)[] | null>;
+    /**
+     * @return original return type: 'boolean[]'
+     */
+    getIssuerUniqueIDSync(): (boolean)[] | null;
+    /**
+     * @return original return type: 'boolean[]'
+     */
+    getSubjectUniqueID(): Promise<(boolean)[] | null>;
+    /**
+     * @return original return type: 'boolean[]'
+     */
+    getSubjectUniqueIDSync(): (boolean)[] | null;
+    /**
+     * @return original return type: 'boolean[]'
+     */
+    getKeyUsage(): Promise<(boolean)[] | null>;
+    /**
+     * @return original return type: 'boolean[]'
+     */
+    getKeyUsageSync(): (boolean)[] | null;
     /**
      * @return original return type: 'byte[]'
      */
@@ -92,144 +230,6 @@ export declare class X509CertificateClass extends JavaClass {
      * @return original return type: 'javax.security.auth.x500.X500Principal'
      */
     getSubjectX500PrincipalSync(): javax_security_auth_x500_X500Principal | null;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    getExtendedKeyUsage(): Promise<java_util_List | null>;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    getExtendedKeyUsageSync(): java_util_List | null;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getSubjectAlternativeNames(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getSubjectAlternativeNamesSync(): java_util_Collection | null;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getIssuerAlternativeNames(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getIssuerAlternativeNamesSync(): java_util_Collection | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSigAlgName(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSigAlgNameSync(): string | null;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getSigAlgParams(): Promise<Buffer | null>;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getSigAlgParamsSync(): Buffer | null;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getTBSCertificate(): Promise<Buffer | null>;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getTBSCertificateSync(): Buffer | null;
-    /**
-     * @param var0 original type: 'java.util.Date'
-     * @return original return type: 'void'
-     */
-    checkValidity(var0: java_util_Date | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.util.Date'
-     * @return original return type: 'void'
-     */
-    checkValiditySync(var0: java_util_Date | null): void;
-    /**
-     * @return original return type: 'void'
-     */
-    checkValidity(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    checkValiditySync(): void;
-    /**
-     * @return original return type: 'java.math.BigInteger'
-     */
-    getSerialNumber(): Promise<java_math_BigInteger | null>;
-    /**
-     * @return original return type: 'java.math.BigInteger'
-     */
-    getSerialNumberSync(): java_math_BigInteger | null;
-    /**
-     * @return original return type: 'java.security.Principal'
-     */
-    getIssuerDN(): Promise<java_security_Principal | null>;
-    /**
-     * @return original return type: 'java.security.Principal'
-     */
-    getIssuerDNSync(): java_security_Principal | null;
-    /**
-     * @return original return type: 'java.security.Principal'
-     */
-    getSubjectDN(): Promise<java_security_Principal | null>;
-    /**
-     * @return original return type: 'java.security.Principal'
-     */
-    getSubjectDNSync(): java_security_Principal | null;
-    /**
-     * @return original return type: 'java.util.Date'
-     */
-    getNotBefore(): Promise<java_util_Date | null>;
-    /**
-     * @return original return type: 'java.util.Date'
-     */
-    getNotBeforeSync(): java_util_Date | null;
-    /**
-     * @return original return type: 'java.util.Date'
-     */
-    getNotAfter(): Promise<java_util_Date | null>;
-    /**
-     * @return original return type: 'java.util.Date'
-     */
-    getNotAfterSync(): java_util_Date | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSigAlgOID(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getSigAlgOIDSync(): string | null;
-    /**
-     * @return original return type: 'boolean[]'
-     */
-    getIssuerUniqueID(): Promise<(boolean)[] | null>;
-    /**
-     * @return original return type: 'boolean[]'
-     */
-    getIssuerUniqueIDSync(): (boolean)[] | null;
-    /**
-     * @return original return type: 'boolean[]'
-     */
-    getSubjectUniqueID(): Promise<(boolean)[] | null>;
-    /**
-     * @return original return type: 'boolean[]'
-     */
-    getSubjectUniqueIDSync(): (boolean)[] | null;
-    /**
-     * @return original return type: 'boolean[]'
-     */
-    getKeyUsage(): Promise<(boolean)[] | null>;
-    /**
-     * @return original return type: 'boolean[]'
-     */
-    getKeyUsageSync(): (boolean)[] | null;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'
@@ -335,16 +335,6 @@ export declare class X509CertificateClass extends JavaClass {
      */
     notifyAllSync(): void;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'byte[]'
-     */
-    getExtensionValue(var0: string | null): Promise<Buffer | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'byte[]'
-     */
-    getExtensionValueSync(var0: string | null): Buffer | null;
-    /**
      * @return original return type: 'boolean'
      */
     hasUnsupportedCriticalExtension(): Promise<boolean>;
@@ -368,6 +358,16 @@ export declare class X509CertificateClass extends JavaClass {
      * @return original return type: 'java.util.Set'
      */
     getNonCriticalExtensionOIDsSync(): java_util_Set | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'byte[]'
+     */
+    getExtensionValue(var0: string | null): Promise<Buffer | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'byte[]'
+     */
+    getExtensionValueSync(var0: string | null): Buffer | null;
 }
 declare const X509Certificate_base: typeof X509CertificateClass;
 /**

@@ -27,6 +27,68 @@ export declare class SelectionKeyClass extends JavaClass {
      */
     static readonly OP_ACCEPT: java_lang_Integer | number;
     /**
+     * @return original return type: 'int'
+     */
+    interestOps(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    interestOpsSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.nio.channels.SelectionKey'
+     */
+    interestOps(var0: java_lang_Integer | number): Promise<SelectionKey | null>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'java.nio.channels.SelectionKey'
+     */
+    interestOpsSync(var0: java_lang_Integer | number): SelectionKey | null;
+    /**
+     * @return original return type: 'int'
+     */
+    readyOps(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    readyOpsSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'int'
+     */
+    interestOpsOr(var0: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'int'
+     */
+    interestOpsOrSync(var0: java_lang_Integer | number): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'int'
+     */
+    interestOpsAnd(var0: java_lang_Integer | number): Promise<number>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'int'
+     */
+    interestOpsAndSync(var0: java_lang_Integer | number): number;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isConnectable(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isConnectableSync(): boolean;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isAcceptable(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isAcceptableSync(): boolean;
+    /**
      * @return original return type: 'java.lang.Object'
      */
     attachment(): Promise<BasicOrJavaType | null>;
@@ -92,68 +154,6 @@ export declare class SelectionKeyClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isValidSync(): boolean;
-    /**
-     * @return original return type: 'int'
-     */
-    interestOps(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    interestOpsSync(): number;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.nio.channels.SelectionKey'
-     */
-    interestOps(var0: java_lang_Integer | number): Promise<SelectionKey | null>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.nio.channels.SelectionKey'
-     */
-    interestOpsSync(var0: java_lang_Integer | number): SelectionKey | null;
-    /**
-     * @return original return type: 'int'
-     */
-    readyOps(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    readyOpsSync(): number;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'int'
-     */
-    interestOpsOr(var0: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'int'
-     */
-    interestOpsOrSync(var0: java_lang_Integer | number): number;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'int'
-     */
-    interestOpsAnd(var0: java_lang_Integer | number): Promise<number>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'int'
-     */
-    interestOpsAndSync(var0: java_lang_Integer | number): number;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isConnectable(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isConnectableSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAcceptable(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAcceptableSync(): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

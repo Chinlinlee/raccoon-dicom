@@ -1,8 +1,8 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
-import { PrintStream as java_io_PrintStream } from "./PrintStream";
 import { PrintWriter as java_io_PrintWriter } from "./PrintWriter";
-import { Throwable as java_lang_Throwable } from "./../lang/Throwable";
+import { PrintStream as java_io_PrintStream } from "./PrintStream";
 import { StackTraceElement as java_lang_StackTraceElement } from "./../lang/StackTraceElement";
+import { Throwable as java_lang_Throwable } from "./../lang/Throwable";
 import { Long as java_lang_Long } from "./../lang/Long";
 import { Integer as java_lang_Integer } from "./../lang/Integer";
 import { Class as java_lang_Class } from "./../lang/Class";
@@ -21,6 +21,16 @@ export declare class IOExceptionClass extends JavaClass {
      */
     printStackTraceSync(): void;
     /**
+     * @param var0 original type: 'java.io.PrintWriter'
+     * @return original return type: 'void'
+     */
+    printStackTrace(var0: java_io_PrintWriter | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.io.PrintWriter'
+     * @return original return type: 'void'
+     */
+    printStackTraceSync(var0: java_io_PrintWriter | null): void;
+    /**
      * @param var0 original type: 'java.io.PrintStream'
      * @return original return type: 'void'
      */
@@ -31,15 +41,13 @@ export declare class IOExceptionClass extends JavaClass {
      */
     printStackTraceSync(var0: java_io_PrintStream | null): void;
     /**
-     * @param var0 original type: 'java.io.PrintWriter'
-     * @return original return type: 'void'
+     * @return original return type: 'java.lang.StackTraceElement[]'
      */
-    printStackTrace(var0: java_io_PrintWriter | null): Promise<void>;
+    getStackTrace(): Promise<(java_lang_StackTraceElement | null)[] | null>;
     /**
-     * @param var0 original type: 'java.io.PrintWriter'
-     * @return original return type: 'void'
+     * @return original return type: 'java.lang.StackTraceElement[]'
      */
-    printStackTraceSync(var0: java_io_PrintWriter | null): void;
+    getStackTraceSync(): (java_lang_StackTraceElement | null)[] | null;
     /**
      * @return original return type: 'java.lang.Throwable'
      */
@@ -98,14 +106,6 @@ export declare class IOExceptionClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     getLocalizedMessageSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.StackTraceElement[]'
-     */
-    getStackTrace(): Promise<(java_lang_StackTraceElement | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.StackTraceElement[]'
-     */
-    getStackTraceSync(): (java_lang_StackTraceElement | null)[] | null;
     /**
      * @param var0 original type: 'java.lang.StackTraceElement[]'
      * @return original return type: 'void'

@@ -1,9 +1,9 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
-import { InputStream as java_io_InputStream } from "./../../../java/io/InputStream";
 import { Date as java_util_Date } from "./../../../java/util/Date";
 import { BigInteger as java_math_BigInteger } from "./../../../java/math/BigInteger";
 import { Principal as java_security_Principal } from "./../../../java/security/Principal";
+import { InputStream as java_io_InputStream } from "./../../../java/io/InputStream";
 import { PublicKey as java_security_PublicKey, PublicKeyInterface as java_security_PublicKeyInterface } from "./../../../java/security/PublicKey";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
@@ -14,34 +14,6 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  * You should probably not edit this.
  */
 export declare class X509CertificateClass extends JavaClass {
-    /**
-     * @param var0 original type: 'byte[]'
-     * @return original return type: 'javax.security.cert.X509Certificate'
-     */
-    static getInstance(var0: Buffer | null): Promise<X509Certificate | null>;
-    /**
-     * @param var0 original type: 'byte[]'
-     * @return original return type: 'javax.security.cert.X509Certificate'
-     */
-    static getInstanceSync(var0: Buffer | null): X509Certificate | null;
-    /**
-     * @param var0 original type: 'java.io.InputStream'
-     * @return original return type: 'javax.security.cert.X509Certificate'
-     */
-    static getInstance(var0: java_io_InputStream | null): Promise<X509Certificate | null>;
-    /**
-     * @param var0 original type: 'java.io.InputStream'
-     * @return original return type: 'javax.security.cert.X509Certificate'
-     */
-    static getInstanceSync(var0: java_io_InputStream | null): X509Certificate | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getVersion(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getVersionSync(): number;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -124,6 +96,34 @@ export declare class X509CertificateClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     getSigAlgOIDSync(): string | null;
+    /**
+     * @param var0 original type: 'java.io.InputStream'
+     * @return original return type: 'javax.security.cert.X509Certificate'
+     */
+    static getInstance(var0: java_io_InputStream | null): Promise<X509Certificate | null>;
+    /**
+     * @param var0 original type: 'java.io.InputStream'
+     * @return original return type: 'javax.security.cert.X509Certificate'
+     */
+    static getInstanceSync(var0: java_io_InputStream | null): X509Certificate | null;
+    /**
+     * @param var0 original type: 'byte[]'
+     * @return original return type: 'javax.security.cert.X509Certificate'
+     */
+    static getInstance(var0: Buffer | null): Promise<X509Certificate | null>;
+    /**
+     * @param var0 original type: 'byte[]'
+     * @return original return type: 'javax.security.cert.X509Certificate'
+     */
+    static getInstanceSync(var0: Buffer | null): X509Certificate | null;
+    /**
+     * @return original return type: 'int'
+     */
+    getVersion(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getVersionSync(): number;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'

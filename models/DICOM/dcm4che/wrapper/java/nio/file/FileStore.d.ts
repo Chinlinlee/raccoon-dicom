@@ -10,6 +10,52 @@ import { Integer as java_lang_Integer } from "./../../lang/Integer";
  */
 export declare class FileStoreClass extends JavaClass {
     /**
+     * @return original return type: 'long'
+     */
+    getUnallocatedSpace(): Promise<number>;
+    /**
+     * @return original return type: 'long'
+     */
+    getUnallocatedSpaceSync(): number;
+    /**
+     * @return original return type: 'long'
+     */
+    getBlockSize(): Promise<number>;
+    /**
+     * @return original return type: 'long'
+     */
+    getBlockSizeSync(): number;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'boolean'
+     */
+    supportsFileAttributeView(var0: java_lang_Class | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'boolean'
+     */
+    supportsFileAttributeViewSync(var0: java_lang_Class | null): boolean;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'boolean'
+     */
+    supportsFileAttributeView(var0: string | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'boolean'
+     */
+    supportsFileAttributeViewSync(var0: string | null): boolean;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'java.nio.file.attribute.FileStoreAttributeView'
+     */
+    getFileStoreAttributeView(var0: java_lang_Class | null): Promise<java_nio_file_attribute_FileStoreAttributeView | null>;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'java.nio.file.attribute.FileStoreAttributeView'
+     */
+    getFileStoreAttributeViewSync(var0: java_lang_Class | null): java_nio_file_attribute_FileStoreAttributeView | null;
+    /**
      * @return original return type: 'java.lang.String'
      */
     name(): Promise<string | null>;
@@ -59,52 +105,6 @@ export declare class FileStoreClass extends JavaClass {
      * @return original return type: 'java.lang.Object'
      */
     getAttributeSync(var0: string | null): BasicOrJavaType | null;
-    /**
-     * @return original return type: 'long'
-     */
-    getUnallocatedSpace(): Promise<number>;
-    /**
-     * @return original return type: 'long'
-     */
-    getUnallocatedSpaceSync(): number;
-    /**
-     * @return original return type: 'long'
-     */
-    getBlockSize(): Promise<number>;
-    /**
-     * @return original return type: 'long'
-     */
-    getBlockSizeSync(): number;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'boolean'
-     */
-    supportsFileAttributeView(var0: java_lang_Class | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'boolean'
-     */
-    supportsFileAttributeViewSync(var0: java_lang_Class | null): boolean;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    supportsFileAttributeView(var0: string | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    supportsFileAttributeViewSync(var0: string | null): boolean;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'java.nio.file.attribute.FileStoreAttributeView'
-     */
-    getFileStoreAttributeView(var0: java_lang_Class | null): Promise<java_nio_file_attribute_FileStoreAttributeView | null>;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'java.nio.file.attribute.FileStoreAttributeView'
-     */
-    getFileStoreAttributeViewSync(var0: java_lang_Class | null): java_nio_file_attribute_FileStoreAttributeView | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

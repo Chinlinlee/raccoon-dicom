@@ -25,14 +25,6 @@ export declare class CommonExtendedNegotiationClass extends JavaClass {
      */
     toStringSync(): string;
     /**
-     * @return original return type: 'int'
-     */
-    getRelatedGeneralSOPClassUIDsLength(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getRelatedGeneralSOPClassUIDsLengthSync(): number;
-    /**
      * @return original return type: 'java.lang.String[]'
      */
     getRelatedGeneralSOPClassUIDs(): Promise<(string | null)[] | null>;
@@ -40,6 +32,14 @@ export declare class CommonExtendedNegotiationClass extends JavaClass {
      * @return original return type: 'java.lang.String[]'
      */
     getRelatedGeneralSOPClassUIDsSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'int'
+     */
+    getRelatedGeneralSOPClassUIDsLength(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getRelatedGeneralSOPClassUIDsLengthSync(): number;
     /**
      * @return original return type: 'java.lang.String'
      */
