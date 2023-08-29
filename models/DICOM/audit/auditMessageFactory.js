@@ -159,17 +159,14 @@ class AuditMessageFactory {
      * @param clientHostname 發送者的位址
      * @param serverAETitle 伺服器端的AETitle
      * @param serverHostname 伺服器端的位址
-     * @param StudyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
-     * @param SOPClassUIDs 所有此次傳輸有關聯的SOPClassUID
-     * @param PatientID 一個此次傳輸關聯的PatientID
-     * @param PatientName 一個此次傳輸關聯的PatientName
+     * @param studyInstanceUIDs 所有此次傳輸有關聯的StudyInstanceUID
      * @return {Promise<JSON>}
      */
     async getDicomInstancesAccessedMsg(
         eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname,
-        StudyInstanceUIDs
+        studyInstanceUIDs
     ) {
         /**
         Event 
@@ -196,10 +193,10 @@ class AuditMessageFactory {
         let theStudies = [];
         // Participating Object: Patient (1); 存取的DICOM，其Patient。
         let patientParticipatingObject;
-        for (let i = 0; i < StudyInstanceUIDs.length; i++) {
+        for (let i = 0; i < studyInstanceUIDs.length; i++) {
             let participatingObjectFactory = new ParticipatingObjectFactory(
                 this.getInstanceModel(),
-                StudyInstanceUIDs[i]
+                studyInstanceUIDs[i]
             );
 
             let theStudy = await participatingObjectFactory.getStudyParticipatingObject();

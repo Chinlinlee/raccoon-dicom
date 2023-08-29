@@ -80,6 +80,7 @@ class JsStudyQueryTask extends JsPatientQueryTask {
             },
             getStudy: async () => {
                 this.study = await this.studyCursor.next();
+                this.auditDicomInstancesAccessed();
                 this.studyAttr = this.study ? await this.study.getAttributes() : null;
             },
             findNextStudy: async () => {
@@ -136,6 +137,21 @@ class JsStudyQueryTask extends JsPatientQueryTask {
         this.studyCursor = await dicomStudyModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);
+    }
+
+    async auditDicomInstancesAccessed() {
+        if (!this.study)
+            return;
+
+        let auditManager = new AuditManager(
+            auditMessageModel,
+            EventType.QUERY_ACCESSED_INSTANCE, EventOutcomeIndicator.Success,
+            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
+            await this.as.getLocalAET(), await this.as.getLocalHostName()
+        );
+        
+        let studyUID = _.get(this.study, "0020000D.Value.0");
+        auditManager.onDicomInstancesAccessed([studyUID]);
     }
 }
 

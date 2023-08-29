@@ -82,6 +82,7 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
             },
             getSeries: async () => {
                 this.series = await this.seriesCursor.next();
+                if (this.series) this.auditDicomInstancesAccessed();
                 this.seriesAttr = this.series ? await this.series.getAttributes() : null;
             },
             findNextSeries: async () => {

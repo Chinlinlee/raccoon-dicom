@@ -84,6 +84,7 @@ class JsInstanceQueryTask extends JsSeriesQueryTask {
             },
             getInstance: async () => {
                 this.instance = await this.instanceCursor.next();
+                if (this.instance) this.auditDicomInstancesAccessed();
                 this.instanceAttr = this.instance ? await this.instance.getAttributes() : null;
             },
             findNextInstance: async () => {
