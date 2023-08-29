@@ -8,6 +8,11 @@ const sharp = require('sharp');
 const Magick = require("../../../models/magick");
 const { NotFoundInstanceError, InvalidFrameNumberError, InstanceGoneError } = require("../../../error/dicom-instance");
 const dicomModel = require("../../../models/mongodb/models/dicom");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const auditMessageModel = require("@models/mongodb/models/auditMessage");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { DicomWebService } = require("@root/api/dicom-web/service/dicom-web.service");
 
 class WadoUriService {
 
@@ -19,6 +24,7 @@ class WadoUriService {
     constructor(req, res) {
         this.request = req;
         this.response = res;
+        this.auditBeginTransferring();
     }
 
     async getAndResponseDicomInstance() {
@@ -28,8 +34,10 @@ class WadoUriService {
 
             this.response.setHeader("Content-Type", "application/dicom");
             dicomInstanceReadStream.pipe(this.response);
+            this.auditInstanceTransferred();
 
         } catch (e) {
+            this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
 
             if (e instanceof NotFoundInstanceError) {
                 this.response.writeHead(404, {
@@ -60,8 +68,10 @@ class WadoUriService {
             this.response.setHeader("Content-Type", "image/jpeg");
 
             this.response.end(jpegBuffer, "buffer");
+            this.auditInstanceTransferred();
 
         } catch (e) {
+            this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
 
             if (e instanceof NotFoundInstanceError) {
 
@@ -105,7 +115,7 @@ class WadoUriService {
      * @returns {Promise<fs.ReadStream>}
      */
     async getDicomInstanceReadStream() {
-        
+
         let imagePathObj = await this.getDicomInstancePathObj();
 
         return fs.createReadStream(imagePathObj.instancePath);
@@ -128,7 +138,7 @@ class WadoUriService {
 
             try {
                 await fs.promises.access(imagePathObj.instancePath, fs.constants.F_OK);
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
                 throw new InstanceGoneError("The image is deleted permanently, but meta data remain");
             }
@@ -186,7 +196,7 @@ class WadoUriService {
         }
 
         let dicomFilename = instanceFramesObj.instancePath;
-        let jpegFile = dicomFilename.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
+        let jpegFile = dicomFilename.replace(/\.dcm\b/gi, `.${frameNumber - 1}.jpg`);
 
         let getFrameImageStatus = await Dcm2JpgExecutor.convertDcmToJpgFromFilename(
             dicomFilename,
@@ -242,6 +252,29 @@ class WadoUriService {
         await renderedService.handleImageICCProfile(this.request.query, magick, this.request.query.objectUID);
     }
 
+    async auditBeginTransferring() {
+        let auditManager = new AuditManager(
+            auditMessageModel,
+            EventType.RETRIEVE_BEGIN, EventOutcomeIndicator.Success,
+            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+        );
+
+        let { studyUID } = this.request.query;
+        auditManager.onBeginTransferringDicomInstances([studyUID]);
+    }
+
+    async auditInstanceTransferred(eventResult = EventOutcomeIndicator.Success) {
+        let auditManager = new AuditManager(
+            auditMessageModel,
+            EventType.RETRIEVE_END, eventResult,
+            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+        );
+
+        let { studyUID } = this.request.query;
+        auditManager.onDicomInstancesTransferred([studyUID]);
+    }
 }
 
 module.exports.WadoUriService = WadoUriService;
