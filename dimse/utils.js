@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const { importClass } = require("java-bridge");
 const { raccoonConfig } = require("@root/config-class");
 const { InstanceLocator } = require("@dcm4che/net/service/InstanceLocator");
-const { default: File } = require("@java-wrapper/java/io/File");
+const { File } = require("@java-wrapper/java/io/File");
 /**
  * 
  * @param {number} tag 

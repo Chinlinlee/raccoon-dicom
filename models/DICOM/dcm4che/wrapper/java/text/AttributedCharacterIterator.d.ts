@@ -1,7 +1,7 @@
 import { JavaClass, BasicOrJavaType, InterfaceProxyOptions, JavaInterfaceProxy } from "java-bridge";
-import { Map as java_util_Map } from "./../util/Map";
-import { AttributedCharacterIterator$Attribute as java_text_AttributedCharacterIterator$Attribute } from "./AttributedCharacterIterator$Attribute";
 import { Set as java_util_Set, SetInterface as java_util_SetInterface } from "./../util/Set";
+import { AttributedCharacterIterator$Attribute as java_text_AttributedCharacterIterator$Attribute } from "./AttributedCharacterIterator$Attribute";
+import { Map as java_util_Map } from "./../util/Map";
 import { Integer as java_lang_Integer } from "./../lang/Integer";
 /**
  * This class just defines types, you should import {@link AttributedCharacterIterator} instead of this.
@@ -13,32 +13,6 @@ export declare class AttributedCharacterIteratorClass extends JavaClass {
      * Original type: 'char'
      */
     static readonly DONE: string | null;
-    /**
-     * @return original return type: 'java.util.Map'
-     */
-    getAttributes(): Promise<java_util_Map | null>;
-    /**
-     * @return original return type: 'java.util.Map'
-     */
-    getAttributesSync(): java_util_Map | null;
-    /**
-     * @param var0 original type: 'java.text.AttributedCharacterIterator$Attribute'
-     * @return original return type: 'java.lang.Object'
-     */
-    getAttribute(var0: java_text_AttributedCharacterIterator$Attribute | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'java.text.AttributedCharacterIterator$Attribute'
-     * @return original return type: 'java.lang.Object'
-     */
-    getAttributeSync(var0: java_text_AttributedCharacterIterator$Attribute | null): BasicOrJavaType | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getRunStart(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getRunStartSync(): number;
     /**
      * @param var0 original type: 'java.util.Set'
      * @return original return type: 'int'
@@ -59,6 +33,14 @@ export declare class AttributedCharacterIteratorClass extends JavaClass {
      * @return original return type: 'int'
      */
     getRunStartSync(var0: java_text_AttributedCharacterIterator$Attribute | null): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getRunStart(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getRunStartSync(): number;
     /**
      * @param var0 original type: 'java.util.Set'
      * @return original return type: 'int'
@@ -95,6 +77,24 @@ export declare class AttributedCharacterIteratorClass extends JavaClass {
      * @return original return type: 'java.util.Set'
      */
     getAllAttributeKeysSync(): java_util_Set | null;
+    /**
+     * @return original return type: 'java.util.Map'
+     */
+    getAttributes(): Promise<java_util_Map | null>;
+    /**
+     * @return original return type: 'java.util.Map'
+     */
+    getAttributesSync(): java_util_Map | null;
+    /**
+     * @param var0 original type: 'java.text.AttributedCharacterIterator$Attribute'
+     * @return original return type: 'java.lang.Object'
+     */
+    getAttribute(var0: java_text_AttributedCharacterIterator$Attribute | null): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'java.text.AttributedCharacterIterator$Attribute'
+     * @return original return type: 'java.lang.Object'
+     */
+    getAttributeSync(var0: java_text_AttributedCharacterIterator$Attribute | null): BasicOrJavaType | null;
     /**
      * @return original return type: 'java.lang.Object'
      */
@@ -191,19 +191,6 @@ export declare class AttributedCharacterIteratorClass extends JavaClass {
  */
 export interface AttributedCharacterIteratorInterface {
     /**
-     * @return original return type: 'java.util.Map'
-     */
-    getAttributes(): java_util_Map | null;
-    /**
-     * @param var0 original type: 'java.text.AttributedCharacterIterator$Attribute'
-     * @return original return type: 'java.lang.Object'
-     */
-    getAttribute(var0: java_text_AttributedCharacterIterator$Attribute | null): BasicOrJavaType | null;
-    /**
-     * @return original return type: 'int'
-     */
-    getRunStart(): number;
-    /**
      * @param var0 original type: 'java.util.Set'
      * @return original return type: 'int'
      */
@@ -213,6 +200,10 @@ export interface AttributedCharacterIteratorInterface {
      * @return original return type: 'int'
      */
     getRunStart(var0: java_text_AttributedCharacterIterator$Attribute | null): number;
+    /**
+     * @return original return type: 'int'
+     */
+    getRunStart(): number;
     /**
      * @param var0 original type: 'java.util.Set'
      * @return original return type: 'int'
@@ -231,6 +222,15 @@ export interface AttributedCharacterIteratorInterface {
      * @return original return type: 'java.util.Set'
      */
     getAllAttributeKeys(): java_util_Set | null;
+    /**
+     * @return original return type: 'java.util.Map'
+     */
+    getAttributes(): java_util_Map | null;
+    /**
+     * @param var0 original type: 'java.text.AttributedCharacterIterator$Attribute'
+     * @return original return type: 'java.lang.Object'
+     */
+    getAttribute(var0: java_text_AttributedCharacterIterator$Attribute | null): BasicOrJavaType | null;
     /**
      * @return original return type: 'java.lang.Object'
      */

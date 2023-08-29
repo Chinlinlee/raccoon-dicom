@@ -1,13 +1,13 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
 import { Value as org_dcm4che3_data_Value, ValueInterface as org_dcm4che3_data_ValueInterface } from "./Value";
-import { Attributes as org_dcm4che3_data_Attributes } from "./Attributes";
-import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
-import { VR as org_dcm4che3_data_VR } from "./VR";
+import { DicomEncodingOptions as org_dcm4che3_io_DicomEncodingOptions } from "./../io/DicomEncodingOptions";
 import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
+import { VR as org_dcm4che3_data_VR } from "./VR";
+import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
+import { Attributes as org_dcm4che3_data_Attributes } from "./Attributes";
 import { Collection as java_util_Collection, CollectionInterface as java_util_CollectionInterface } from "./../../../java/util/Collection";
 import { DicomOutputStream as org_dcm4che3_io_DicomOutputStream } from "./../io/DicomOutputStream";
-import { DicomEncodingOptions as org_dcm4che3_io_DicomEncodingOptions } from "./../io/DicomEncodingOptions";
 import { UnaryOperator as java_util_function_UnaryOperator, UnaryOperatorInterface as java_util_function_UnaryOperatorInterface } from "./../../../java/util/function/UnaryOperator";
 import { List as java_util_List } from "./../../../java/util/List";
 import { IntFunction as java_util_function_IntFunction, IntFunctionInterface as java_util_function_IntFunctionInterface } from "./../../../java/util/function/IntFunction";
@@ -31,15 +31,19 @@ export declare class SequenceClass extends JavaClass {
      */
     static readonly NULL: org_dcm4che3_data_Value | JavaInterfaceProxy<org_dcm4che3_data_ValueInterface> | null;
     /**
-     * @param var0 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'boolean'
+     * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
+     * @param var1 original type: 'boolean'
+     * @param var2 original type: 'org.dcm4che3.data.VR'
+     * @return original return type: 'int'
      */
-    add(var0: org_dcm4che3_data_Attributes | null): Promise<boolean>;
+    calcLength(var0: org_dcm4che3_io_DicomEncodingOptions | null, var1: java_lang_Boolean | boolean, var2: org_dcm4che3_data_VR | null): Promise<number>;
     /**
-     * @param var0 original type: 'org.dcm4che3.data.Attributes'
-     * @return original return type: 'boolean'
+     * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
+     * @param var1 original type: 'boolean'
+     * @param var2 original type: 'org.dcm4che3.data.VR'
+     * @return original return type: 'int'
      */
-    addSync(var0: org_dcm4che3_data_Attributes | null): boolean;
+    calcLengthSync(var0: org_dcm4che3_io_DicomEncodingOptions | null, var1: java_lang_Boolean | boolean, var2: org_dcm4che3_data_VR | null): number;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'org.dcm4che3.data.Attributes'
@@ -52,6 +56,16 @@ export declare class SequenceClass extends JavaClass {
      * @return original return type: 'void'
      */
     addSync(var0: java_lang_Integer | number, var1: org_dcm4che3_data_Attributes | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Attributes'
+     * @return original return type: 'boolean'
+     */
+    add(var0: org_dcm4che3_data_Attributes | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Attributes'
+     * @return original return type: 'boolean'
+     */
+    addSync(var0: org_dcm4che3_data_Attributes | null): boolean;
     /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'java.lang.Object'
@@ -75,6 +89,16 @@ export declare class SequenceClass extends JavaClass {
      */
     addSync(var0: BasicOrJavaType | null): boolean;
     /**
+     * @param var0 original type: 'java.lang.Object'
+     * @return original return type: 'boolean'
+     */
+    remove(var0: BasicOrJavaType | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @return original return type: 'boolean'
+     */
+    removeSync(var0: BasicOrJavaType | null): boolean;
+    /**
      * @param var0 original type: 'int'
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
@@ -94,16 +118,6 @@ export declare class SequenceClass extends JavaClass {
      * @return original return type: 'java.lang.Object'
      */
     removeSync(var0: java_lang_Integer | number): BasicOrJavaType | null;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @return original return type: 'boolean'
-     */
-    remove(var0: BasicOrJavaType | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @return original return type: 'boolean'
-     */
-    removeSync(var0: BasicOrJavaType | null): boolean;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -242,20 +256,6 @@ export declare class SequenceClass extends JavaClass {
      * @return original return type: 'void'
      */
     writeToSync(var0: org_dcm4che3_io_DicomOutputStream | null, var1: org_dcm4che3_data_VR | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
-     * @param var1 original type: 'boolean'
-     * @param var2 original type: 'org.dcm4che3.data.VR'
-     * @return original return type: 'int'
-     */
-    calcLength(var0: org_dcm4che3_io_DicomEncodingOptions | null, var1: java_lang_Boolean | boolean, var2: org_dcm4che3_data_VR | null): Promise<number>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
-     * @param var1 original type: 'boolean'
-     * @param var2 original type: 'org.dcm4che3.data.VR'
-     * @return original return type: 'int'
-     */
-    calcLengthSync(var0: org_dcm4che3_io_DicomEncodingOptions | null, var1: java_lang_Boolean | boolean, var2: org_dcm4che3_data_VR | null): number;
     /**
      * @param var0 original type: 'org.dcm4che3.io.DicomEncodingOptions'
      * @param var1 original type: 'boolean'

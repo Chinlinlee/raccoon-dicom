@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType } from "java-bridge";
-import { List as java_util_List } from "./../../util/List";
 import { Iterator as java_util_Iterator } from "./../../util/Iterator";
+import { List as java_util_List } from "./../../util/List";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { Class as java_lang_Class } from "./../../lang/Class";
@@ -11,6 +11,14 @@ import { Class as java_lang_Class } from "./../../lang/Class";
  * You should probably not edit this.
  */
 export declare class CertPathClass extends JavaClass {
+    /**
+     * @return original return type: 'java.util.Iterator'
+     */
+    getEncodings(): Promise<java_util_Iterator | null>;
+    /**
+     * @return original return type: 'java.util.Iterator'
+     */
+    getEncodingsSync(): java_util_Iterator | null;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'
@@ -71,14 +79,6 @@ export declare class CertPathClass extends JavaClass {
      * @return original return type: 'byte[]'
      */
     getEncodedSync(): Buffer | null;
-    /**
-     * @return original return type: 'java.util.Iterator'
-     */
-    getEncodings(): Promise<java_util_Iterator | null>;
-    /**
-     * @return original return type: 'java.util.Iterator'
-     */
-    getEncodingsSync(): java_util_Iterator | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

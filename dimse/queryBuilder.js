@@ -1,13 +1,10 @@
 const _ = require("lodash");
 
-const { default: Attributes } = require("@dcm4che/data/Attributes");
+const { Attributes } = require("@dcm4che/data/Attributes");
 const { queryTagsOfEachLevel } = require("./queryTagsOfEachLevel");
-// const { default: ElementDictionary } = require("@dcm4che/data/ElementDictionary");
-const { default: StringUtils } = require("@dcm4che/util/StringUtils");
+const { StringUtils } = require("@dcm4che/util/StringUtils");
 const { intTagToString } = require("./utils");
 const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
-
-// const dict = ElementDictionary.getStandardElementDictionarySync();
 
 class DimseQueryBuilder {
 

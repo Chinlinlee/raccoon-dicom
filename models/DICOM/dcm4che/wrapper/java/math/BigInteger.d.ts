@@ -55,6 +55,14 @@ export declare class BigIntegerClass extends JavaClass {
      */
     equalsSync(var0: BasicOrJavaType | null): boolean;
     /**
+     * @return original return type: 'java.lang.String'
+     */
+    toString(): Promise<string>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    toStringSync(): string;
+    /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.lang.String'
      */
@@ -64,14 +72,6 @@ export declare class BigIntegerClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     toStringSync(var0: java_lang_Integer | number): string;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    toString(): Promise<string>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    toStringSync(): string;
     /**
      * @return original return type: 'int'
      */
@@ -135,16 +135,6 @@ export declare class BigIntegerClass extends JavaClass {
      */
     signumSync(): number;
     /**
-     * @param var0 original type: 'java.math.BigInteger'
-     * @return original return type: 'int'
-     */
-    compareTo(var0: BigIntegerClass | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.math.BigInteger'
-     * @return original return type: 'int'
-     */
-    compareToSync(var0: BigIntegerClass | null): number;
-    /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'int'
      */
@@ -154,6 +144,16 @@ export declare class BigIntegerClass extends JavaClass {
      * @return original return type: 'int'
      */
     compareToSync(var0: BasicOrJavaType | null): number;
+    /**
+     * @param var0 original type: 'java.math.BigInteger'
+     * @return original return type: 'int'
+     */
+    compareTo(var0: BigIntegerClass | null): Promise<number>;
+    /**
+     * @param var0 original type: 'java.math.BigInteger'
+     * @return original return type: 'int'
+     */
+    compareToSync(var0: BigIntegerClass | null): number;
     /**
      * @return original return type: 'int'
      */

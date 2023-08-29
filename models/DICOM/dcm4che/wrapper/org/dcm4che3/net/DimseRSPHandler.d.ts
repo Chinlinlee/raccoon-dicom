@@ -11,25 +11,13 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  */
 export declare class DimseRSPHandlerClass extends JavaClass {
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    onClose(var0: org_dcm4che3_net_Association | null): Promise<void>;
+    isCanceled(): Promise<boolean>;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    onCloseSync(var0: org_dcm4che3_net_Association | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    cancel(var0: org_dcm4che3_net_Association | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    cancelSync(var0: org_dcm4che3_net_Association | null): void;
+    isCanceledSync(): boolean;
     /**
      * @return original return type: 'int'
      */
@@ -53,13 +41,25 @@ export declare class DimseRSPHandlerClass extends JavaClass {
      */
     onDimseRSPSync(var0: org_dcm4che3_net_Association | null, var1: org_dcm4che3_data_Attributes | null, var2: org_dcm4che3_data_Attributes | null): void;
     /**
-     * @return original return type: 'boolean'
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
      */
-    isCanceled(): Promise<boolean>;
+    onClose(var0: org_dcm4che3_net_Association | null): Promise<void>;
     /**
-     * @return original return type: 'boolean'
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
      */
-    isCanceledSync(): boolean;
+    onCloseSync(var0: org_dcm4che3_net_Association | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    cancel(var0: org_dcm4che3_net_Association | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    cancelSync(var0: org_dcm4che3_net_Association | null): void;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

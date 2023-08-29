@@ -33,6 +33,26 @@ class DicomWebService {
         return basicUrlObj.href;
     }
 
+    /**
+     * 
+     * @param {import('http').IncomingMessage} request 
+     * @returns 
+     */
+    static getRemoteAddress(request) {
+        return _.get(request, "socket.remoteAddress", "127.0.0.1");
+    }
+
+    static getRemoteHostname(request) {
+        return request.headers.host.split(':')[0];
+    }
+
+    static getServerAddress() {
+        return `${raccoonConfig.serverConfig.host}:${raccoonConfig.serverConfig.port}`;
+    }
+
+    static getServerHostname() {
+        return `${raccoonConfig.serverConfig.host}`;
+    }
 }
 
 module.exports.DicomWebService = DicomWebService;

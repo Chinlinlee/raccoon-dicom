@@ -167,6 +167,32 @@ let dicomModelSchema = new mongoose.Schema(
                     strictQuery: false
                 })
                 .cursor();
+            },
+            getAuditInstancesInfoFromStudyUID: async (studyUID) => {
+                let instances = await mongoose.model("dicom").find({studyUID}).exec();
+
+                let instanceInfos = {
+                    sopClassUIDs: [],
+                    accessionNumbers: [],
+                    patientID: "",
+                    patientName: ""
+                };
+
+                for (let instance of instances) {
+                    let sopClassUID = _.get(instance, "00080016.Value.0");
+                    let accessionNumber = _.get(instance, "00080050.Value.0");
+                    let patientID = _.get(instance, "00100020.Value.0");
+                    let patientName = _.get(instance, "00100010.Value.0.Alphabetic");
+                    sopClassUID ? instanceInfos.sopClassUIDs.push(sopClassUID) : null;
+                    accessionNumber ? instanceInfos.accessionNumbers.push(accessionNumber) : null;
+                    patientID ? instanceInfos.patientID = patientID : null;
+                    patientName ? instanceInfos.patientName = patientName : null;
+                }
+                
+                instanceInfos.sopClassUIDs = _.uniq(instanceInfos.sopClassUIDs);
+                instanceInfos.accessionNumbers = _.uniq(instanceInfos.accessionNumbers);
+
+                return instanceInfos;
             }
         },
         timestamps: true

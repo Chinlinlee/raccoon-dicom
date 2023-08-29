@@ -2,6 +2,8 @@ const wadoService = require("./service/WADO-RS.service");
 const { WADOZip } = require("./service/WADOZip");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
+const { RetrieveAuditService } = require("./service/retrieveAudit.service");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 class RetrieveInstanceOfSeriesOfStudiesController extends Controller {
     constructor(req, res) {
         super(req, res);
@@ -41,11 +43,18 @@ class RetrieveInstanceOfSeriesOfStudiesController extends Controller {
     }
 
     async responseZip() {
-        let wadoZip = new WADOZip(this.request.params, this.response);
+        let retrieveAuditService = new RetrieveAuditService(this.request, this.request.params.studyUID, EventOutcomeIndicator.Success);
+
+        let wadoZip = new WADOZip(this.request, this.response);
+        await retrieveAuditService.onBeginRetrieve();
+        
         let zipResult = await wadoZip.getZipOfInstanceDICOMFile();
         if (zipResult.status) {
+            await retrieveAuditService.completedRetrieve();
             return this.response.end();
         } else {
+            retrieveAuditService.eventResult = EventOutcomeIndicator.MajorFailure;
+            await retrieveAuditService.completedRetrieve();
             this.response.writeHead(zipResult.code, {
                 "Content-Type": "application/dicom+json"
             });

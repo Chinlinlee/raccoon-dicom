@@ -12,16 +12,6 @@ import { PDVInputStream as org_dcm4che3_net_PDVInputStream } from "./PDVInputStr
 export declare class DimseRQHandlerClass extends JavaClass {
     /**
      * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    onClose(var0: org_dcm4che3_net_Association | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    onCloseSync(var0: org_dcm4che3_net_Association | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
      * @param var1 original type: 'org.dcm4che3.net.pdu.PresentationContext'
      * @param var2 original type: 'org.dcm4che3.net.Dimse'
      * @param var3 original type: 'org.dcm4che3.data.Attributes'
@@ -38,6 +28,16 @@ export declare class DimseRQHandlerClass extends JavaClass {
      * @return original return type: 'void'
      */
     onDimseRQSync(var0: org_dcm4che3_net_Association | null, var1: org_dcm4che3_net_pdu_PresentationContext | null, var2: org_dcm4che3_net_Dimse | null, var3: org_dcm4che3_data_Attributes | null, var4: org_dcm4che3_net_PDVInputStream | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    onClose(var0: org_dcm4che3_net_Association | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    onCloseSync(var0: org_dcm4che3_net_Association | null): void;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -53,11 +53,6 @@ export declare class DimseRQHandlerClass extends JavaClass {
 export interface DimseRQHandlerInterface {
     /**
      * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    onClose(var0: org_dcm4che3_net_Association | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
      * @param var1 original type: 'org.dcm4che3.net.pdu.PresentationContext'
      * @param var2 original type: 'org.dcm4che3.net.Dimse'
      * @param var3 original type: 'org.dcm4che3.data.Attributes'
@@ -65,6 +60,11 @@ export interface DimseRQHandlerInterface {
      * @return original return type: 'void'
      */
     onDimseRQ(var0: org_dcm4che3_net_Association | null, var1: org_dcm4che3_net_pdu_PresentationContext | null, var2: org_dcm4che3_net_Dimse | null, var3: org_dcm4che3_data_Attributes | null, var4: org_dcm4che3_net_PDVInputStream | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    onClose(var0: org_dcm4che3_net_Association | null): void;
 }
 /**
  * Create a proxy for the {@link DimseRQHandler} interface.

@@ -58,11 +58,11 @@ let dicomSeriesSchema = new mongoose.Schema(
                 });
             },
             getAttributes: async function() {
-                let study = this.toObject();
-                delete study._id;
-                delete study.id;
+                let series = this.toObject();
+                delete series._id;
+                delete series.id;
 
-                let jsonStr = JSON.stringify(study);
+                let jsonStr = JSON.stringify(series);
                 return await Common.getAttributesFromJsonString(jsonStr);
             }
         },

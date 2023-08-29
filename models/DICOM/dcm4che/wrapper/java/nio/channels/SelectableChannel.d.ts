@@ -1,9 +1,9 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { SelectionKey as java_nio_channels_SelectionKey } from "./SelectionKey";
 import { Selector as java_nio_channels_Selector } from "./Selector";
+import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { SelectorProvider as java_nio_channels_spi_SelectorProvider } from "./spi/SelectorProvider";
-import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Class as java_lang_Class } from "./../../lang/Class";
 /**
@@ -12,48 +12,6 @@ import { Class as java_lang_Class } from "./../../lang/Class";
  * You should probably not edit this.
  */
 export declare class SelectableChannelClass extends JavaClass {
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRegistered(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRegisteredSync(): boolean;
-    /**
-     * @param var0 original type: 'java.nio.channels.Selector'
-     * @param var1 original type: 'int'
-     * @return original return type: 'java.nio.channels.SelectionKey'
-     */
-    register(var0: java_nio_channels_Selector | null, var1: java_lang_Integer | number): Promise<java_nio_channels_SelectionKey | null>;
-    /**
-     * @param var0 original type: 'java.nio.channels.Selector'
-     * @param var1 original type: 'int'
-     * @return original return type: 'java.nio.channels.SelectionKey'
-     */
-    registerSync(var0: java_nio_channels_Selector | null, var1: java_lang_Integer | number): java_nio_channels_SelectionKey | null;
-    /**
-     * @param var0 original type: 'java.nio.channels.Selector'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.lang.Object'
-     * @return original return type: 'java.nio.channels.SelectionKey'
-     */
-    register(var0: java_nio_channels_Selector | null, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): Promise<java_nio_channels_SelectionKey | null>;
-    /**
-     * @param var0 original type: 'java.nio.channels.Selector'
-     * @param var1 original type: 'int'
-     * @param var2 original type: 'java.lang.Object'
-     * @return original return type: 'java.nio.channels.SelectionKey'
-     */
-    registerSync(var0: java_nio_channels_Selector | null, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): java_nio_channels_SelectionKey | null;
-    /**
-     * @return original return type: 'java.nio.channels.spi.SelectorProvider'
-     */
-    provider(): Promise<java_nio_channels_spi_SelectorProvider | null>;
-    /**
-     * @return original return type: 'java.nio.channels.spi.SelectorProvider'
-     */
-    providerSync(): java_nio_channels_spi_SelectorProvider | null;
     /**
      * @return original return type: 'int'
      */
@@ -98,6 +56,48 @@ export declare class SelectableChannelClass extends JavaClass {
      * @return original return type: 'java.nio.channels.SelectableChannel'
      */
     configureBlockingSync(var0: java_lang_Boolean | boolean): SelectableChannel | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRegistered(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRegisteredSync(): boolean;
+    /**
+     * @param var0 original type: 'java.nio.channels.Selector'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.lang.Object'
+     * @return original return type: 'java.nio.channels.SelectionKey'
+     */
+    register(var0: java_nio_channels_Selector | null, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): Promise<java_nio_channels_SelectionKey | null>;
+    /**
+     * @param var0 original type: 'java.nio.channels.Selector'
+     * @param var1 original type: 'int'
+     * @param var2 original type: 'java.lang.Object'
+     * @return original return type: 'java.nio.channels.SelectionKey'
+     */
+    registerSync(var0: java_nio_channels_Selector | null, var1: java_lang_Integer | number, var2: BasicOrJavaType | null): java_nio_channels_SelectionKey | null;
+    /**
+     * @param var0 original type: 'java.nio.channels.Selector'
+     * @param var1 original type: 'int'
+     * @return original return type: 'java.nio.channels.SelectionKey'
+     */
+    register(var0: java_nio_channels_Selector | null, var1: java_lang_Integer | number): Promise<java_nio_channels_SelectionKey | null>;
+    /**
+     * @param var0 original type: 'java.nio.channels.Selector'
+     * @param var1 original type: 'int'
+     * @return original return type: 'java.nio.channels.SelectionKey'
+     */
+    registerSync(var0: java_nio_channels_Selector | null, var1: java_lang_Integer | number): java_nio_channels_SelectionKey | null;
+    /**
+     * @return original return type: 'java.nio.channels.spi.SelectorProvider'
+     */
+    provider(): Promise<java_nio_channels_spi_SelectorProvider | null>;
+    /**
+     * @return original return type: 'java.nio.channels.spi.SelectorProvider'
+     */
+    providerSync(): java_nio_channels_spi_SelectorProvider | null;
     /**
      * @return original return type: 'boolean'
      */

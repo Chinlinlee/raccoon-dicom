@@ -14,6 +14,22 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  */
 export declare class SSLSocketFactoryClass extends JavaClass {
     /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getSupportedCipherSuites(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getSupportedCipherSuitesSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getDefaultCipherSuites(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getDefaultCipherSuitesSync(): (string | null)[] | null;
+    /**
      * @return original return type: 'javax.net.SocketFactory'
      */
     static getDefault(): Promise<javax_net_SocketFactory | null>;
@@ -115,22 +131,6 @@ export declare class SSLSocketFactoryClass extends JavaClass {
      * @return original return type: 'java.net.Socket'
      */
     createSocketSync(): java_net_Socket | null;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getSupportedCipherSuites(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getSupportedCipherSuitesSync(): (string | null)[] | null;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getDefaultCipherSuites(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getDefaultCipherSuitesSync(): (string | null)[] | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

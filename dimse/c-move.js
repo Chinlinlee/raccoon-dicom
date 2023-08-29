@@ -1,7 +1,3 @@
-const _ = require("lodash");
-const path = require("path");
-const { mongoose } = require("mongoose");
-
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { Tag } = require("@dcm4che/data/Tag");
 const { Association } = require("@dcm4che/net/Association");
@@ -9,25 +5,24 @@ const { Status } = require("@dcm4che/net/Status");
 const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
 const { DicomServiceError } = require("@error/dicom-service");
 const { createCMoveSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CMoveSCPInject");
-const { DimseQueryBuilder } = require("./queryBuilder");
-const { File } = require("@java-wrapper/java/io/File");
-const { raccoonConfig } = require("@root/config-class");
 const { SimpleCMoveSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SimpleCMoveSCP");
 const { UID } = require("@dcm4che/data/UID");
 
 const { PATIENT_ROOT_LEVELS, STUDY_ROOT_LEVELS, PATIENT_STUDY_ONLY_LEVELS } = require("./level");
-const { importClass } = require("java-bridge");
-const { default: InstanceLocator } = require("@dcm4che/net/service/InstanceLocator");
-const { default: AAssociateRQ } = require("@dcm4che/net/pdu/AAssociateRQ");
-const { default: Connection } = require("@dcm4che/net/Connection");
-const { default: RetrieveTaskImpl } = require("@dcm4che/tool/dcmqrscp/RetrieveTaskImpl");
+const { AAssociateRQ } = require("@dcm4che/net/pdu/AAssociateRQ");
+const { Connection } = require("@dcm4che/net/Connection");
+const { RetrieveTaskImpl } = require("@chinlinlee/dcm777/dcmqrscp/RetrieveTaskImpl");
 const { Dimse } = require("@dcm4che/net/Dimse");
 const { getInstancesFromKeysAttr } = require("./utils");
+const { createRetrieveAuditInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/dcmqrscp/RetrieveAuditInject");
+const { DimseRetrieveAuditService } = require("./service/retrieveAudit.service");
 
 class JsCMoveScp {
+
     constructor(dcmQrScp) {
         /** @type { import("./index").DcmQrScp } */
         this.dcmQrScp = dcmQrScp;
+        
     }
 
     getPatientRootLevel() {
@@ -81,6 +76,7 @@ class JsCMoveScp {
                     let moveDest = await rq.getString(Tag.MoveDestination);
                     const remote = this.dcmQrScp.getRemoteConnection(moveDest);
                     if (!remote) {
+                        
                         throw new DicomServiceError(Status.MoveDestinationUnknown, `Move Destination: ${moveDest} unknown`);
                     }
 
@@ -91,6 +87,8 @@ class JsCMoveScp {
 
                     let aAssociateRq = await this.makeAAssociateRQ_(await as.getLocalAET(), moveDest, instances);
                     let storeAssociation = await this.openStoreAssociation_(as, remote, aAssociateRq);
+
+                    let auditInject = await this.getAuditInject(as);
                     let retrieveTask = await RetrieveTaskImpl.newInstanceAsync(
                         Dimse.C_MOVE_RQ,
                         as,
@@ -99,7 +97,8 @@ class JsCMoveScp {
                         instances,
                         storeAssociation,
                         false,
-                        0
+                        0,
+                        auditInject
                     );
                     await retrieveTask.setSendPendingRSPInterval(0);
                     return retrieveTask;
@@ -111,6 +110,37 @@ class JsCMoveScp {
         };
 
         return cMoveScpInjectProxyMethods;
+    }
+
+    getAuditInject(association) {
+        let dimseRetrieveAuditService = new DimseRetrieveAuditService(
+            association,
+            null,
+            null
+        );
+        if (this.auditInject) 
+            return this.auditInject;
+        
+        this.auditInject = createRetrieveAuditInjectProxy(
+            {
+                onBeginTransferringDICOMInstances: async (studyUID) => {
+                    dimseRetrieveAuditService.studyUID = studyUID;
+                    await dimseRetrieveAuditService.onBeginRetrieve();
+                },
+                onDicomInstancesTransferred: async (studyUID) => {
+                    dimseRetrieveAuditService.studyUID = studyUID;
+                    await dimseRetrieveAuditService.completedRetrieve();
+                },
+                setEventResult: (eventResult) => {
+                    dimseRetrieveAuditService.eventResult = eventResult;
+                }
+            },
+            {
+                keepAsDaemon: true
+            }
+        );
+
+        return this.auditInject;
     }
 
     /**

@@ -9,6 +9,14 @@ import { Type as java_lang_reflect_Type } from "./Type";
  */
 export declare class AnnotatedTypeClass extends JavaClass {
     /**
+     * @return original return type: 'java.lang.reflect.AnnotatedType'
+     */
+    getAnnotatedOwnerType(): Promise<AnnotatedType | null>;
+    /**
+     * @return original return type: 'java.lang.reflect.AnnotatedType'
+     */
+    getAnnotatedOwnerTypeSync(): AnnotatedType | null;
+    /**
      * @param var0 original type: 'java.lang.Class'
      * @return original return type: 'java.lang.annotation.Annotation'
      */
@@ -42,14 +50,6 @@ export declare class AnnotatedTypeClass extends JavaClass {
      * @return original return type: 'java.lang.reflect.Type'
      */
     getTypeSync(): java_lang_reflect_Type | null;
-    /**
-     * @return original return type: 'java.lang.reflect.AnnotatedType'
-     */
-    getAnnotatedOwnerType(): Promise<AnnotatedType | null>;
-    /**
-     * @return original return type: 'java.lang.reflect.AnnotatedType'
-     */
-    getAnnotatedOwnerTypeSync(): AnnotatedType | null;
     /**
      * @param var0 original type: 'java.lang.Class'
      * @return original return type: 'boolean'
@@ -104,6 +104,10 @@ export declare class AnnotatedTypeClass extends JavaClass {
  */
 export interface AnnotatedTypeInterface {
     /**
+     * @return original return type: 'java.lang.reflect.AnnotatedType'
+     */
+    getAnnotatedOwnerType?(): AnnotatedType | null;
+    /**
      * @param var0 original type: 'java.lang.Class'
      * @return original return type: 'java.lang.annotation.Annotation'
      */
@@ -120,10 +124,6 @@ export interface AnnotatedTypeInterface {
      * @return original return type: 'java.lang.reflect.Type'
      */
     getType(): java_lang_reflect_Type | null;
-    /**
-     * @return original return type: 'java.lang.reflect.AnnotatedType'
-     */
-    getAnnotatedOwnerType?(): AnnotatedType | null;
     /**
      * @param var0 original type: 'java.lang.Class'
      * @return original return type: 'boolean'

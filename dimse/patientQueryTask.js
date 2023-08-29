@@ -1,14 +1,19 @@
 const _ = require("lodash");
-const { default: PatientQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTask");
+const { PatientQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTask");
 const { PatientQueryTaskInjectInterface, createPatientQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTaskInject");
 const { createQueryTaskInjectProxy, QueryTaskInjectInterface } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
-const { default: Attributes } = require("@dcm4che/data/Attributes");
-const { default: Tag } = require("@dcm4che/data/Tag");
-const { default: VR } = require("@dcm4che/data/VR");
+const { Attributes } = require("@dcm4che/data/Attributes");
+const { Tag } = require("@dcm4che/data/Tag");
+const { VR } = require("@dcm4che/data/VR");
 const { DimseQueryBuilder } = require("./queryBuilder");
 const patientModel = require("@models/mongodb/models/patient");
 const { Association } = require("@dcm4che/net/Association");
 const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
+const { logger } = require("@root/utils/logs/log");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { UID } = require("@dcm4che/data/UID");
 
 
 class JsPatientQueryTask {
@@ -139,12 +144,24 @@ class JsPatientQueryTask {
     }
 
     async initCursor() {
+        let queryAudit = new AuditManager(
+            EventType.QUERY,
+            EventOutcomeIndicator.Success,
+            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
+            await this.as.getLocalAET(), await this.as.getLocalHostName()
+        );
         let queryBuilder = new DimseQueryBuilder(this.keys, "patient");
         let normalQuery = await queryBuilder.toNormalQuery();
         let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+        queryAudit.onQuery(
+            UID.PatientRootQueryRetrieveInformationModelFind,
+            JSON.stringify(mongoQuery.$match),
+            "UTF-8"
+        );
 
         let returnKeys = this.getReturnKeys(normalQuery);
 
+        logger.info(`do DIMSE Patient query: ${JSON.stringify(mongoQuery.$match)}`);
         this.cursor = await patientModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);

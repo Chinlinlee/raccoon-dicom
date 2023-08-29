@@ -12,6 +12,9 @@ const { logger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 
 const {
     apiPath: DICOM_WEB_API_PATH
@@ -81,11 +84,26 @@ class StowRsService {
         for (let i = 0; i < this.uploadFiles.length; i++) {
 
             let currentFile = this.uploadFiles[i];
+            let dicomJsonModel;
+            let dicomFileSaveInfo;
+            try {
+                let storeInstanceResult = await this.storeInstance(currentFile);
+                dicomJsonModel = storeInstanceResult.dicomJsonModel;
+                dicomFileSaveInfo = storeInstanceResult.dicomFileSaveInfo;
+            } catch(e) {
+                // log transferred failure
+                let auditManager = new AuditManager(
+                    EventType.STORE_CREATE, EventOutcomeIndicator.MajorFailure,
+                    DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+                    DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+                );
+        
+                await auditManager.onDicomInstancesTransferred(
+                    dicomJsonModel ? [dicomJsonModel.uidObj.studyUID] : "Unknown"
+                );
 
-            let {
-                dicomJsonModel,
-                dicomFileSaveInfo
-            } = await this.storeInstance(currentFile);
+                throw e;
+            }
 
 
             //sync DICOM to FHIR
@@ -118,8 +136,22 @@ class StowRsService {
         dicomJsonModel.setMinifyDicomJsonAndTempBigValueTags();
         dicomJsonModel.setUidObj();
 
+        let beginAudit = new AuditManager(
+            EventType.STORE_BEGIN, EventOutcomeIndicator.Success,
+            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+        );
+        let transferredAudit = new AuditManager(
+            EventType.STORE_CREATE, EventOutcomeIndicator.Success,
+            DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
+            DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
+        );
+
+        await beginAudit.onBeginTransferringDicomInstances([dicomJsonModel.uidObj.studyUID]);
+
         let isSameStudyIDStatus = this.isSameStudyID_(this.responseMessage);
         if (!isSameStudyIDStatus) {
+            transferredAudit.eventResult = EventOutcomeIndicator.MinorFailure;
             this.responseCode = 409;
         }
 
@@ -142,6 +174,11 @@ class StowRsService {
         _.set(sopSeq, "00081190.vr", "UT");
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         this.responseMessage["00081199"]["Value"].push(sopSeq);
+
+
+        await transferredAudit.onDicomInstancesTransferred(
+            [dicomJsonModel.uidObj.studyUID]
+        );
 
         return {
             dicomJsonModel,

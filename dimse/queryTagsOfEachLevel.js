@@ -1,4 +1,4 @@
-const { default: Tag } = require("@dcm4che/data/Tag");
+const { Tag } = require("@dcm4che/data/Tag");
 
 const queryTagsOfEachLevel = {
     "patient": [

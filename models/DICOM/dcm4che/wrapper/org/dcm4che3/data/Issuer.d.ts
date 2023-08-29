@@ -20,14 +20,6 @@ export declare class IssuerClass extends JavaClass {
      */
     equalsSync(var0: BasicOrJavaType | null): boolean;
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    toString(): Promise<string>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    toStringSync(): string;
-    /**
      * @param var0 original type: 'char'
      * @return original return type: 'java.lang.String'
      */
@@ -37,6 +29,14 @@ export declare class IssuerClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     toStringSync(var0: string | null): string;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    toString(): Promise<string>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    toStringSync(): string;
     /**
      * @return original return type: 'int'
      */
@@ -76,6 +76,22 @@ export declare class IssuerClass extends JavaClass {
      */
     mergeSync(var0: IssuerClass | null): boolean;
     /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUniversalEntityID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUniversalEntityIDSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUniversalEntityIDType(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getUniversalEntityIDTypeSync(): string | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.data.Issuer'
      * @return original return type: 'boolean'
      */
@@ -96,6 +112,14 @@ export declare class IssuerClass extends JavaClass {
      */
     static fromIssuerOfPatientIDSync(var0: org_dcm4che3_data_Attributes | null): Issuer | null;
     /**
+     * @return original return type: 'java.lang.String'
+     */
+    getLocalNamespaceEntityID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getLocalNamespaceEntityIDSync(): string | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.data.Attributes'
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
@@ -105,30 +129,6 @@ export declare class IssuerClass extends JavaClass {
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */
     toIssuerOfPatientIDSync(var0: org_dcm4che3_data_Attributes | null): org_dcm4che3_data_Attributes | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getLocalNamespaceEntityID(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getLocalNamespaceEntityIDSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getUniversalEntityID(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getUniversalEntityIDSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getUniversalEntityIDType(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getUniversalEntityIDTypeSync(): string | null;
     /**
      * @return original return type: 'org.dcm4che3.data.Attributes'
      */

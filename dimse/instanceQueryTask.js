@@ -7,6 +7,12 @@ const dicomModel = require("@models/mongodb/models/dicom");
 const { InstanceQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/InstanceQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { createInstanceQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/InstanceQueryTaskInject");
+const { Tag } = require("@dcm4che/data/Tag");
+const { logger } = require("@root/utils/logs/log");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { UID } = require("@dcm4che/data/UID");
 
 
 class JsInstanceQueryTask extends JsSeriesQueryTask {
@@ -77,9 +83,8 @@ class JsInstanceQueryTask extends JsSeriesQueryTask {
             },
             getInstance: async () => {
                 this.instance = await this.instanceCursor.next();
-                console.time("getAttributes");
+                if (this.instance) this.auditDicomInstancesAccessed();
                 this.instanceAttr = this.instance ? await this.instance.getAttributes() : null;
-                console.timeEnd("getAttributes");
             },
             findNextInstance: async () => {
                 if (!this.seriesAttr)
@@ -109,12 +114,28 @@ class JsInstanceQueryTask extends JsSeriesQueryTask {
     }
 
     async getNextInstanceCursor() {
-        let queryBuilder = new DimseQueryBuilder(this.keys, "instance");
+        let queryAudit = new AuditManager(
+            EventType.QUERY, EventOutcomeIndicator.Success,
+            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
+            await this.as.getLocalAET(), await this.as.getLocalHostName()
+        );
+
+        let queryAttr = await Attributes.newInstanceAsync();
+        await queryAttr.addAll(this.keys);
+        await queryAttr.addSelected(this.seriesAttr, [Tag.PatientID, Tag.StudyInstanceUID, Tag.SeriesInstanceUID]);
+
+        let queryBuilder = new DimseQueryBuilder(queryAttr, "instance");
         let normalQuery = await queryBuilder.toNormalQuery();
         let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+        queryAudit.onQuery(
+            UID.StudyRootQueryRetrieveInformationModelFind,
+            JSON.stringify(mongoQuery.$match),
+            "UTF-8"
+        );
 
         let returnKeys = this.getReturnKeys(normalQuery);
 
+        logger.info(`do DIMSE Instance query: ${JSON.stringify(mongoQuery.$match)}`);
         this.instanceCursor = await dicomModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);

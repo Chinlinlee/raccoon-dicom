@@ -1,7 +1,7 @@
 import { JavaClass, InterfaceProxyOptions, JavaInterfaceProxy } from "java-bridge";
-import { Type as java_lang_reflect_Type } from "./Type";
 import { GenericDeclaration as java_lang_reflect_GenericDeclaration } from "./GenericDeclaration";
 import { AnnotatedType as java_lang_reflect_AnnotatedType } from "./AnnotatedType";
+import { Type as java_lang_reflect_Type } from "./Type";
 import { Class as java_lang_Class } from "./../Class";
 import { Annotation as java_lang_annotation_Annotation } from "./../annotation/Annotation";
 /**
@@ -10,22 +10,6 @@ import { Annotation as java_lang_annotation_Annotation } from "./../annotation/A
  * You should probably not edit this.
  */
 export declare class TypeVariableClass extends JavaClass {
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getName(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getNameSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.reflect.Type[]'
-     */
-    getBounds(): Promise<(java_lang_reflect_Type | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.reflect.Type[]'
-     */
-    getBoundsSync(): (java_lang_reflect_Type | null)[] | null;
     /**
      * @return original return type: 'java.lang.reflect.GenericDeclaration'
      */
@@ -42,6 +26,22 @@ export declare class TypeVariableClass extends JavaClass {
      * @return original return type: 'java.lang.reflect.AnnotatedType[]'
      */
     getAnnotatedBoundsSync(): (java_lang_reflect_AnnotatedType | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getNameSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.reflect.Type[]'
+     */
+    getBounds(): Promise<(java_lang_reflect_Type | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.reflect.Type[]'
+     */
+    getBoundsSync(): (java_lang_reflect_Type | null)[] | null;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -130,14 +130,6 @@ export declare class TypeVariableClass extends JavaClass {
  */
 export interface TypeVariableInterface {
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    getName(): string | null;
-    /**
-     * @return original return type: 'java.lang.reflect.Type[]'
-     */
-    getBounds(): (java_lang_reflect_Type | null)[] | null;
-    /**
      * @return original return type: 'java.lang.reflect.GenericDeclaration'
      */
     getGenericDeclaration(): java_lang_reflect_GenericDeclaration | null;
@@ -145,6 +137,14 @@ export interface TypeVariableInterface {
      * @return original return type: 'java.lang.reflect.AnnotatedType[]'
      */
     getAnnotatedBounds(): (java_lang_reflect_AnnotatedType | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getName(): string | null;
+    /**
+     * @return original return type: 'java.lang.reflect.Type[]'
+     */
+    getBounds(): (java_lang_reflect_Type | null)[] | null;
     /**
      * @return original return type: 'java.lang.String'
      */

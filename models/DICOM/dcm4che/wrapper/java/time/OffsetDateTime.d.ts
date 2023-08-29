@@ -1,28 +1,28 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
+import { ZoneOffset as java_time_ZoneOffset } from "./ZoneOffset";
+import { ZonedDateTime as java_time_ZonedDateTime } from "./ZonedDateTime";
+import { ZoneId as java_time_ZoneId } from "./ZoneId";
+import { OffsetTime as java_time_OffsetTime } from "./OffsetTime";
 import { TemporalField as java_time_temporal_TemporalField, TemporalFieldInterface as java_time_temporal_TemporalFieldInterface } from "./temporal/TemporalField";
 import { DateTimeFormatter as java_time_format_DateTimeFormatter } from "./format/DateTimeFormatter";
 import { LocalDate as java_time_LocalDate } from "./LocalDate";
 import { LocalTime as java_time_LocalTime } from "./LocalTime";
-import { ZoneOffset as java_time_ZoneOffset } from "./ZoneOffset";
-import { LocalDateTime as java_time_LocalDateTime } from "./LocalDateTime";
 import { Integer as java_lang_Integer } from "./../lang/Integer";
+import { LocalDateTime as java_time_LocalDateTime } from "./LocalDateTime";
 import { TemporalAccessor as java_time_temporal_TemporalAccessor, TemporalAccessorInterface as java_time_temporal_TemporalAccessorInterface } from "./temporal/TemporalAccessor";
 import { TemporalQuery as java_time_temporal_TemporalQuery, TemporalQueryInterface as java_time_temporal_TemporalQueryInterface } from "./temporal/TemporalQuery";
 import { ValueRange as java_time_temporal_ValueRange } from "./temporal/ValueRange";
 import { TemporalUnit as java_time_temporal_TemporalUnit, TemporalUnitInterface as java_time_temporal_TemporalUnitInterface } from "./temporal/TemporalUnit";
 import { CharSequence as java_lang_CharSequence, CharSequenceInterface as java_lang_CharSequenceInterface } from "./../lang/CharSequence";
 import { Instant as java_time_Instant } from "./Instant";
-import { ZoneId as java_time_ZoneId } from "./ZoneId";
 import { Clock as java_time_Clock } from "./Clock";
 import { Temporal as java_time_temporal_Temporal, TemporalInterface as java_time_temporal_TemporalInterface } from "./temporal/Temporal";
-import { TemporalAdjuster as java_time_temporal_TemporalAdjuster, TemporalAdjusterInterface as java_time_temporal_TemporalAdjusterInterface } from "./temporal/TemporalAdjuster";
 import { Long as java_lang_Long } from "./../lang/Long";
+import { TemporalAdjuster as java_time_temporal_TemporalAdjuster, TemporalAdjusterInterface as java_time_temporal_TemporalAdjusterInterface } from "./temporal/TemporalAdjuster";
 import { TemporalAmount as java_time_temporal_TemporalAmount, TemporalAmountInterface as java_time_temporal_TemporalAmountInterface } from "./temporal/TemporalAmount";
 import { DayOfWeek as java_time_DayOfWeek } from "./DayOfWeek";
 import { Month as java_time_Month } from "./Month";
 import { Comparator as java_util_Comparator } from "./../util/Comparator";
-import { ZonedDateTime as java_time_ZonedDateTime } from "./ZonedDateTime";
-import { OffsetTime as java_time_OffsetTime } from "./OffsetTime";
 import { Class as java_lang_Class } from "./../lang/Class";
 /**
  * This class just defines types, you should import {@link OffsetDateTime} instead of this.
@@ -38,6 +38,54 @@ export declare class OffsetDateTimeClass extends JavaClass {
      * Original type: 'java.time.OffsetDateTime'
      */
     static readonly MAX: OffsetDateTimeClass | null;
+    /**
+     * @param var0 original type: 'java.time.ZoneOffset'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    withOffsetSameInstant(var0: java_time_ZoneOffset | null): Promise<OffsetDateTime | null>;
+    /**
+     * @param var0 original type: 'java.time.ZoneOffset'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    withOffsetSameInstantSync(var0: java_time_ZoneOffset | null): OffsetDateTime | null;
+    /**
+     * @param var0 original type: 'java.time.ZoneOffset'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    withOffsetSameLocal(var0: java_time_ZoneOffset | null): Promise<OffsetDateTime | null>;
+    /**
+     * @param var0 original type: 'java.time.ZoneOffset'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    withOffsetSameLocalSync(var0: java_time_ZoneOffset | null): OffsetDateTime | null;
+    /**
+     * @param var0 original type: 'java.time.ZoneId'
+     * @return original return type: 'java.time.ZonedDateTime'
+     */
+    atZoneSameInstant(var0: java_time_ZoneId | null): Promise<java_time_ZonedDateTime | null>;
+    /**
+     * @param var0 original type: 'java.time.ZoneId'
+     * @return original return type: 'java.time.ZonedDateTime'
+     */
+    atZoneSameInstantSync(var0: java_time_ZoneId | null): java_time_ZonedDateTime | null;
+    /**
+     * @param var0 original type: 'java.time.ZoneId'
+     * @return original return type: 'java.time.ZonedDateTime'
+     */
+    atZoneSimilarLocal(var0: java_time_ZoneId | null): Promise<java_time_ZonedDateTime | null>;
+    /**
+     * @param var0 original type: 'java.time.ZoneId'
+     * @return original return type: 'java.time.ZonedDateTime'
+     */
+    atZoneSimilarLocalSync(var0: java_time_ZoneId | null): java_time_ZonedDateTime | null;
+    /**
+     * @return original return type: 'java.time.OffsetTime'
+     */
+    toOffsetTime(): Promise<java_time_OffsetTime | null>;
+    /**
+     * @return original return type: 'java.time.OffsetTime'
+     */
+    toOffsetTimeSync(): java_time_OffsetTime | null;
     /**
      * @param var0 original type: 'java.time.temporal.TemporalField'
      * @return original return type: 'int'
@@ -129,18 +177,6 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     static ofSync(var0: java_time_LocalDate | null, var1: java_time_LocalTime | null, var2: java_time_ZoneOffset | null): OffsetDateTime | null;
     /**
-     * @param var0 original type: 'java.time.LocalDateTime'
-     * @param var1 original type: 'java.time.ZoneOffset'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    static of(var0: java_time_LocalDateTime | null, var1: java_time_ZoneOffset | null): Promise<OffsetDateTime | null>;
-    /**
-     * @param var0 original type: 'java.time.LocalDateTime'
-     * @param var1 original type: 'java.time.ZoneOffset'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    static ofSync(var0: java_time_LocalDateTime | null, var1: java_time_ZoneOffset | null): OffsetDateTime | null;
-    /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @param var2 original type: 'int'
@@ -164,6 +200,18 @@ export declare class OffsetDateTimeClass extends JavaClass {
      * @return original return type: 'java.time.OffsetDateTime'
      */
     static ofSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_lang_Integer | number, var3: java_lang_Integer | number, var4: java_lang_Integer | number, var5: java_lang_Integer | number, var6: java_lang_Integer | number, var7: java_time_ZoneOffset | null): OffsetDateTime | null;
+    /**
+     * @param var0 original type: 'java.time.LocalDateTime'
+     * @param var1 original type: 'java.time.ZoneOffset'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    static of(var0: java_time_LocalDateTime | null, var1: java_time_ZoneOffset | null): Promise<OffsetDateTime | null>;
+    /**
+     * @param var0 original type: 'java.time.LocalDateTime'
+     * @param var1 original type: 'java.time.ZoneOffset'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    static ofSync(var0: java_time_LocalDateTime | null, var1: java_time_ZoneOffset | null): OffsetDateTime | null;
     /**
      * @param var0 original type: 'java.time.temporal.TemporalAccessor'
      * @return original return type: 'java.time.OffsetDateTime'
@@ -203,6 +251,16 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     rangeSync(var0: java_time_temporal_TemporalField | JavaInterfaceProxy<java_time_temporal_TemporalFieldInterface> | null): java_time_temporal_ValueRange | null;
     /**
+     * @param var0 original type: 'java.time.temporal.TemporalField'
+     * @return original return type: 'boolean'
+     */
+    isSupported(var0: java_time_temporal_TemporalField | JavaInterfaceProxy<java_time_temporal_TemporalFieldInterface> | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.time.temporal.TemporalField'
+     * @return original return type: 'boolean'
+     */
+    isSupportedSync(var0: java_time_temporal_TemporalField | JavaInterfaceProxy<java_time_temporal_TemporalFieldInterface> | null): boolean;
+    /**
      * @param var0 original type: 'java.time.temporal.TemporalUnit'
      * @return original return type: 'boolean'
      */
@@ -213,15 +271,15 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     isSupportedSync(var0: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): boolean;
     /**
-     * @param var0 original type: 'java.time.temporal.TemporalField'
-     * @return original return type: 'boolean'
+     * @param var0 original type: 'java.lang.CharSequence'
+     * @return original return type: 'java.time.OffsetDateTime'
      */
-    isSupported(var0: java_time_temporal_TemporalField | JavaInterfaceProxy<java_time_temporal_TemporalFieldInterface> | null): Promise<boolean>;
+    static parse(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null): Promise<OffsetDateTime | null>;
     /**
-     * @param var0 original type: 'java.time.temporal.TemporalField'
-     * @return original return type: 'boolean'
+     * @param var0 original type: 'java.lang.CharSequence'
+     * @return original return type: 'java.time.OffsetDateTime'
      */
-    isSupportedSync(var0: java_time_temporal_TemporalField | JavaInterfaceProxy<java_time_temporal_TemporalFieldInterface> | null): boolean;
+    static parseSync(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null): OffsetDateTime | null;
     /**
      * @param var0 original type: 'java.lang.CharSequence'
      * @param var1 original type: 'java.time.format.DateTimeFormatter'
@@ -234,16 +292,6 @@ export declare class OffsetDateTimeClass extends JavaClass {
      * @return original return type: 'java.time.OffsetDateTime'
      */
     static parseSync(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null, var1: java_time_format_DateTimeFormatter | null): OffsetDateTime | null;
-    /**
-     * @param var0 original type: 'java.lang.CharSequence'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    static parse(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null): Promise<OffsetDateTime | null>;
-    /**
-     * @param var0 original type: 'java.lang.CharSequence'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    static parseSync(var0: java_lang_CharSequence | JavaInterfaceProxy<java_lang_CharSequenceInterface> | null): OffsetDateTime | null;
     /**
      * @param var0 original type: 'java.time.OffsetDateTime'
      * @return original return type: 'boolean'
@@ -339,6 +387,14 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     toInstantSync(): java_time_Instant | null;
     /**
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    static now(): Promise<OffsetDateTime | null>;
+    /**
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    static nowSync(): OffsetDateTime | null;
+    /**
      * @param var0 original type: 'java.time.Clock'
      * @return original return type: 'java.time.OffsetDateTime'
      */
@@ -359,14 +415,6 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     static nowSync(var0: java_time_ZoneId | null): OffsetDateTime | null;
     /**
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    static now(): Promise<OffsetDateTime | null>;
-    /**
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    static nowSync(): OffsetDateTime | null;
-    /**
      * @param var0 original type: 'java.time.temporal.Temporal'
      * @return original return type: 'java.time.temporal.Temporal'
      */
@@ -376,26 +424,6 @@ export declare class OffsetDateTimeClass extends JavaClass {
      * @return original return type: 'java.time.temporal.Temporal'
      */
     adjustIntoSync(var0: java_time_temporal_Temporal | JavaInterfaceProxy<java_time_temporal_TemporalInterface> | null): java_time_temporal_Temporal | null;
-    /**
-     * @param var0 original type: 'java.time.temporal.TemporalAdjuster'
-     * @return original return type: 'java.time.temporal.Temporal'
-     */
-    with(var0: java_time_temporal_TemporalAdjuster | JavaInterfaceProxy<java_time_temporal_TemporalAdjusterInterface> | null): Promise<java_time_temporal_Temporal | null>;
-    /**
-     * @param var0 original type: 'java.time.temporal.TemporalAdjuster'
-     * @return original return type: 'java.time.temporal.Temporal'
-     */
-    withSync(var0: java_time_temporal_TemporalAdjuster | JavaInterfaceProxy<java_time_temporal_TemporalAdjusterInterface> | null): java_time_temporal_Temporal | null;
-    /**
-     * @param var0 original type: 'java.time.temporal.TemporalAdjuster'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    with(var0: java_time_temporal_TemporalAdjuster | JavaInterfaceProxy<java_time_temporal_TemporalAdjusterInterface> | null): Promise<OffsetDateTime | null>;
-    /**
-     * @param var0 original type: 'java.time.temporal.TemporalAdjuster'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    withSync(var0: java_time_temporal_TemporalAdjuster | JavaInterfaceProxy<java_time_temporal_TemporalAdjusterInterface> | null): OffsetDateTime | null;
     /**
      * @param var0 original type: 'java.time.temporal.TemporalField'
      * @param var1 original type: 'long'
@@ -421,15 +449,25 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     withSync(var0: java_time_temporal_TemporalField | JavaInterfaceProxy<java_time_temporal_TemporalFieldInterface> | null, var1: java_lang_Long | bigint | number): java_time_temporal_Temporal | null;
     /**
-     * @param var0 original type: 'java.time.temporal.TemporalAmount'
+     * @param var0 original type: 'java.time.temporal.TemporalAdjuster'
      * @return original return type: 'java.time.OffsetDateTime'
      */
-    plus(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): Promise<OffsetDateTime | null>;
+    with(var0: java_time_temporal_TemporalAdjuster | JavaInterfaceProxy<java_time_temporal_TemporalAdjusterInterface> | null): Promise<OffsetDateTime | null>;
     /**
-     * @param var0 original type: 'java.time.temporal.TemporalAmount'
+     * @param var0 original type: 'java.time.temporal.TemporalAdjuster'
      * @return original return type: 'java.time.OffsetDateTime'
      */
-    plusSync(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): OffsetDateTime | null;
+    withSync(var0: java_time_temporal_TemporalAdjuster | JavaInterfaceProxy<java_time_temporal_TemporalAdjusterInterface> | null): OffsetDateTime | null;
+    /**
+     * @param var0 original type: 'java.time.temporal.TemporalAdjuster'
+     * @return original return type: 'java.time.temporal.Temporal'
+     */
+    with(var0: java_time_temporal_TemporalAdjuster | JavaInterfaceProxy<java_time_temporal_TemporalAdjusterInterface> | null): Promise<java_time_temporal_Temporal | null>;
+    /**
+     * @param var0 original type: 'java.time.temporal.TemporalAdjuster'
+     * @return original return type: 'java.time.temporal.Temporal'
+     */
+    withSync(var0: java_time_temporal_TemporalAdjuster | JavaInterfaceProxy<java_time_temporal_TemporalAdjusterInterface> | null): java_time_temporal_Temporal | null;
     /**
      * @param var0 original type: 'java.time.temporal.TemporalAmount'
      * @return original return type: 'java.time.temporal.Temporal'
@@ -441,17 +479,15 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     plusSync(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): java_time_temporal_Temporal | null;
     /**
-     * @param var0 original type: 'long'
-     * @param var1 original type: 'java.time.temporal.TemporalUnit'
+     * @param var0 original type: 'java.time.temporal.TemporalAmount'
      * @return original return type: 'java.time.OffsetDateTime'
      */
-    plus(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): Promise<OffsetDateTime | null>;
+    plus(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): Promise<OffsetDateTime | null>;
     /**
-     * @param var0 original type: 'long'
-     * @param var1 original type: 'java.time.temporal.TemporalUnit'
+     * @param var0 original type: 'java.time.temporal.TemporalAmount'
      * @return original return type: 'java.time.OffsetDateTime'
      */
-    plusSync(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): OffsetDateTime | null;
+    plusSync(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): OffsetDateTime | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'java.time.temporal.TemporalUnit'
@@ -464,6 +500,18 @@ export declare class OffsetDateTimeClass extends JavaClass {
      * @return original return type: 'java.time.temporal.Temporal'
      */
     plusSync(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): java_time_temporal_Temporal | null;
+    /**
+     * @param var0 original type: 'long'
+     * @param var1 original type: 'java.time.temporal.TemporalUnit'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    plus(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): Promise<OffsetDateTime | null>;
+    /**
+     * @param var0 original type: 'long'
+     * @param var1 original type: 'java.time.temporal.TemporalUnit'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    plusSync(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): OffsetDateTime | null;
     /**
      * @param var0 original type: 'java.time.temporal.Temporal'
      * @param var1 original type: 'java.time.temporal.TemporalUnit'
@@ -527,25 +575,17 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     plusMinutesSync(var0: java_lang_Long | bigint | number): OffsetDateTime | null;
     /**
-     * @param var0 original type: 'java.time.temporal.TemporalAmount'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    minus(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): Promise<OffsetDateTime | null>;
-    /**
-     * @param var0 original type: 'java.time.temporal.TemporalAmount'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    minusSync(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): OffsetDateTime | null;
-    /**
-     * @param var0 original type: 'java.time.temporal.TemporalAmount'
+     * @param var0 original type: 'long'
+     * @param var1 original type: 'java.time.temporal.TemporalUnit'
      * @return original return type: 'java.time.temporal.Temporal'
      */
-    minus(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): Promise<java_time_temporal_Temporal | null>;
+    minus(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): Promise<java_time_temporal_Temporal | null>;
     /**
-     * @param var0 original type: 'java.time.temporal.TemporalAmount'
+     * @param var0 original type: 'long'
+     * @param var1 original type: 'java.time.temporal.TemporalUnit'
      * @return original return type: 'java.time.temporal.Temporal'
      */
-    minusSync(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): java_time_temporal_Temporal | null;
+    minusSync(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): java_time_temporal_Temporal | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'java.time.temporal.TemporalUnit'
@@ -559,17 +599,25 @@ export declare class OffsetDateTimeClass extends JavaClass {
      */
     minusSync(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): OffsetDateTime | null;
     /**
-     * @param var0 original type: 'long'
-     * @param var1 original type: 'java.time.temporal.TemporalUnit'
+     * @param var0 original type: 'java.time.temporal.TemporalAmount'
      * @return original return type: 'java.time.temporal.Temporal'
      */
-    minus(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): Promise<java_time_temporal_Temporal | null>;
+    minus(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): Promise<java_time_temporal_Temporal | null>;
     /**
-     * @param var0 original type: 'long'
-     * @param var1 original type: 'java.time.temporal.TemporalUnit'
+     * @param var0 original type: 'java.time.temporal.TemporalAmount'
      * @return original return type: 'java.time.temporal.Temporal'
      */
-    minusSync(var0: java_lang_Long | bigint | number, var1: java_time_temporal_TemporalUnit | JavaInterfaceProxy<java_time_temporal_TemporalUnitInterface> | null): java_time_temporal_Temporal | null;
+    minusSync(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): java_time_temporal_Temporal | null;
+    /**
+     * @param var0 original type: 'java.time.temporal.TemporalAmount'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    minus(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): Promise<OffsetDateTime | null>;
+    /**
+     * @param var0 original type: 'java.time.temporal.TemporalAmount'
+     * @return original return type: 'java.time.OffsetDateTime'
+     */
+    minusSync(var0: java_time_temporal_TemporalAmount | JavaInterfaceProxy<java_time_temporal_TemporalAmountInterface> | null): OffsetDateTime | null;
     /**
      * @param var0 original type: 'long'
      * @return original return type: 'java.time.OffsetDateTime'
@@ -854,54 +902,6 @@ export declare class OffsetDateTimeClass extends JavaClass {
      * @return original return type: 'java.time.ZonedDateTime'
      */
     toZonedDateTimeSync(): java_time_ZonedDateTime | null;
-    /**
-     * @param var0 original type: 'java.time.ZoneOffset'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    withOffsetSameInstant(var0: java_time_ZoneOffset | null): Promise<OffsetDateTime | null>;
-    /**
-     * @param var0 original type: 'java.time.ZoneOffset'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    withOffsetSameInstantSync(var0: java_time_ZoneOffset | null): OffsetDateTime | null;
-    /**
-     * @param var0 original type: 'java.time.ZoneOffset'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    withOffsetSameLocal(var0: java_time_ZoneOffset | null): Promise<OffsetDateTime | null>;
-    /**
-     * @param var0 original type: 'java.time.ZoneOffset'
-     * @return original return type: 'java.time.OffsetDateTime'
-     */
-    withOffsetSameLocalSync(var0: java_time_ZoneOffset | null): OffsetDateTime | null;
-    /**
-     * @param var0 original type: 'java.time.ZoneId'
-     * @return original return type: 'java.time.ZonedDateTime'
-     */
-    atZoneSameInstant(var0: java_time_ZoneId | null): Promise<java_time_ZonedDateTime | null>;
-    /**
-     * @param var0 original type: 'java.time.ZoneId'
-     * @return original return type: 'java.time.ZonedDateTime'
-     */
-    atZoneSameInstantSync(var0: java_time_ZoneId | null): java_time_ZonedDateTime | null;
-    /**
-     * @param var0 original type: 'java.time.ZoneId'
-     * @return original return type: 'java.time.ZonedDateTime'
-     */
-    atZoneSimilarLocal(var0: java_time_ZoneId | null): Promise<java_time_ZonedDateTime | null>;
-    /**
-     * @param var0 original type: 'java.time.ZoneId'
-     * @return original return type: 'java.time.ZonedDateTime'
-     */
-    atZoneSimilarLocalSync(var0: java_time_ZoneId | null): java_time_ZonedDateTime | null;
-    /**
-     * @return original return type: 'java.time.OffsetTime'
-     */
-    toOffsetTime(): Promise<java_time_OffsetTime | null>;
-    /**
-     * @return original return type: 'java.time.OffsetTime'
-     */
-    toOffsetTimeSync(): java_time_OffsetTime | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
