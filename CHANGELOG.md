@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Chinlinlee/raccoon-dicom/compare/v1.3.0...v1.4.0) (2023-08-29)
+
+
+### Features
+
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) add `onQuery` audit message for C-FIND ([7bba8fb](https://github.com/Chinlinlee/raccoon-dicom/commit/7bba8fb1146a463d5cff1131906dd7ed64c403c9))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) add onDicomInstancesAccessed ([1088727](https://github.com/Chinlinlee/raccoon-dicom/commit/1088727a503c2cbb03d86bf00a00d479dd1be507))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) add STORE_BEGIN for storing ([f504bab](https://github.com/Chinlinlee/raccoon-dicom/commit/f504bab96e124350090365335f8d63278e4ea6d2))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) audit message for C-MOVE ([ca4e537](https://github.com/Chinlinlee/raccoon-dicom/commit/ca4e537f0c012919d26c34bf7e1d02600fddbaa4))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) audit message for QIDO-RS ([14c21e0](https://github.com/Chinlinlee/raccoon-dicom/commit/14c21e00119cb7405fa364389681b80720fdec57))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) audit message for WADO-URI ([b728881](https://github.com/Chinlinlee/raccoon-dicom/commit/b728881bd1a6e68779b4aa75d58ad6b0ff3e2cd4))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) dicom instances accessed for C-FIND ([d479fe9](https://github.com/Chinlinlee/raccoon-dicom/commit/d479fe95847144e9b629d31cee190c7e93fb23e8))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) log failure audit when store failure ([cada1a5](https://github.com/Chinlinlee/raccoon-dicom/commit/cada1a534e432d24618b2cc1394bb1ce751c2c91))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) onQuery audit message ([d02d53e](https://github.com/Chinlinlee/raccoon-dicom/commit/d02d53e9c6208361d0ee379659060ec5bedb0c3e))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) set event result to failure when study id inconsistent ([5fe83d0](https://github.com/Chinlinlee/raccoon-dicom/commit/5fe83d087de6b37f398b8df6096f5cf93d773770))
+* [#15](https://github.com/Chinlinlee/raccoon-dicom/issues/15) store audit message for storing ([7be86aa](https://github.com/Chinlinlee/raccoon-dicom/commit/7be86aa34d2471d3365efedc8c331ee699dd96f1))
+* add common fns for audit message ([8e7d171](https://github.com/Chinlinlee/raccoon-dicom/commit/8e7d1718ea9fb12e5be75a8919d769a602a80a3f))
+* add log for DIMSE service ([4b6ba4d](https://github.com/Chinlinlee/raccoon-dicom/commit/4b6ba4d404eda31ff14ae8f7db5cf004c1903404))
+* add retrieve end of event type ([9c1d703](https://github.com/Chinlinlee/raccoon-dicom/commit/9c1d703a0a5a8a394e079b39ae884a08667d0d9f))
+* audit message for WADO-RS ([f2a9f38](https://github.com/Chinlinlee/raccoon-dicom/commit/f2a9f384dcc0ed6445f900b2208e7a31ed8c5725))
+* log DIMSE query and extend parent's queries ([9315729](https://github.com/Chinlinlee/raccoon-dicom/commit/93157293f2083f39a1e42f1df80a38bed170050c))
+* ~~remove `A.X.3.3` message in store ([87396d3](https://github.com/Chinlinlee/raccoon-dicom/commit/87396d3c5298c9aba17dbf4344a7af97d02937aa))~~
+* store audit message ([e9c68cc](https://github.com/Chinlinlee/raccoon-dicom/commit/e9c68cc9f47c440c6f34ef1bca7f377a599dbc73))
+  * first version
+
+
+### Bug Fixes
+
+* incorrect active participant role ID Code ([8323117](https://github.com/Chinlinlee/raccoon-dicom/commit/83231175f9aaf596f7a68fb3acb38bffe42a560b))
+* missing await for `getGeneralEvent` ([8bbe7bd](https://github.com/Chinlinlee/raccoon-dicom/commit/8bbe7bd03308983b4258b939a03c81054d541b39))
+* should be source for client of STORE_CREATE ([4a72666](https://github.com/Chinlinlee/raccoon-dicom/commit/4a726662cffbeea43960096097cfeb7c6aa8941a))
+
 ## [1.3.0](https://github.com/Chinlinlee/raccoon-dicom/compare/v1.2.0...v1.3.0) (2023-08-23)
 ### Major Changes
 #### DIMSE
