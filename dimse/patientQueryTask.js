@@ -11,7 +11,6 @@ const { Association } = require("@dcm4che/net/Association");
 const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
 const { logger } = require("@root/utils/logs/log");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
-const auditMessageModel = require("@models/mongodb/models/auditMessage");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { UID } = require("@dcm4che/data/UID");
@@ -146,7 +145,6 @@ class JsPatientQueryTask {
 
     async initCursor() {
         let queryAudit = new AuditManager(
-            auditMessageModel,
             EventType.QUERY,
             EventOutcomeIndicator.Success,
             await this.as.getRemoteAET(), await this.as.getRemoteHostName(),

@@ -9,13 +9,10 @@ const { EventType } = require("./eventType");
  */
 
 class AuditManager {
-    constructor(auditMessageModel,
-        eventType, eventResult,
+    constructor(eventType, eventResult,
         clientAETitle, clientHostname,
         serverAETitle, serverHostname
     ) {
-        /** @type { AuditMessageModel } */
-        this.auditMessageModel = auditMessageModel;
         /** @type { EventType } */
         this.eventType = eventType;
 
@@ -155,10 +152,15 @@ class AuditManager {
      */
     async saveToDb_(msg) {
         try {
-            await this.auditMessageModel.createMessage(msg);
+            await AuditManager.getAuditMessageModel().createMessage(msg);
         } catch (e) {
             throw e;
         }
+    }
+
+    static getAuditMessageModel() {
+        const mongoose = require("mongoose");
+        return mongoose.model("auditMessage");
     }
 }
 

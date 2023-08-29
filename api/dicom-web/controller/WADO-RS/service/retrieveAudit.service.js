@@ -2,7 +2,6 @@ const _ = require("lodash");
 
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
-const auditMessageModel = require("@models/mongodb/models/auditMessage");
 const { DicomWebService } = require("@root/api/dicom-web/service/dicom-web.service");
 
 class RetrieveAuditService {
@@ -14,7 +13,6 @@ class RetrieveAuditService {
 
     async onBeginRetrieve() {
         let auditManager = new AuditManager(
-            auditMessageModel,
             EventType.RETRIEVE_BEGIN,
             this.eventResult,
             DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
@@ -26,7 +24,6 @@ class RetrieveAuditService {
 
     async completedRetrieve() {
         let auditManager = new AuditManager(
-            auditMessageModel,
             EventType.RETRIEVE_END,
             this.eventResult,
             DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),

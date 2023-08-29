@@ -1,7 +1,6 @@
 const { Association } = require("@dcm4che/net/Association");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
-const auditMessageModel = require("@models/mongodb/models/auditMessage");
 
 class DimseRetrieveAuditService {
     constructor(association, studyUID, eventResult) {
@@ -13,7 +12,6 @@ class DimseRetrieveAuditService {
 
     async onBeginRetrieve() {
         let auditManager = new AuditManager(
-            auditMessageModel,
             EventType.RETRIEVE_BEGIN,
             this.eventResult,
             await this.association.getRemoteAET(), await this.association.getRemoteHostName(),
@@ -25,7 +23,6 @@ class DimseRetrieveAuditService {
 
     async completedRetrieve() {
         let auditManager = new AuditManager(
-            auditMessageModel,
             EventType.RETRIEVE_END,
             this.eventResult,
             await this.association.getRemoteAET(), await this.association.getRemoteHostName(),

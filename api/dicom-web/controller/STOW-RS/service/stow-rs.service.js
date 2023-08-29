@@ -13,7 +13,6 @@ const { logger } = require("../../../../../utils/logs/log");
 const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
-const auditMessageModel = require("@models/mongodb/models/auditMessage");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 
@@ -94,7 +93,6 @@ class StowRsService {
             } catch(e) {
                 // log transferred failure
                 let auditManager = new AuditManager(
-                    auditMessageModel,
                     EventType.STORE_CREATE, EventOutcomeIndicator.MajorFailure,
                     DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
                     DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
@@ -139,13 +137,11 @@ class StowRsService {
         dicomJsonModel.setUidObj();
 
         let beginAudit = new AuditManager(
-            auditMessageModel,
             EventType.STORE_BEGIN, EventOutcomeIndicator.Success,
             DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
             DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
         );
         let transferredAudit = new AuditManager(
-            auditMessageModel,
             EventType.STORE_CREATE, EventOutcomeIndicator.Success,
             DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
             DicomWebService.getServerAddress(), DicomWebService.getServerHostname()

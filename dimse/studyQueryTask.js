@@ -10,7 +10,6 @@ const dicomStudyModel = require("@models/mongodb/models/dicomStudy");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { logger } = require("@root/utils/logs/log");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
-const auditMessageModel = require("@models/mongodb/models/auditMessage");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { UID } = require("@dcm4che/data/UID");
@@ -112,7 +111,6 @@ class JsStudyQueryTask extends JsPatientQueryTask {
 
     async getNextStudyCursor() {
         let queryAudit = new AuditManager(
-            auditMessageModel,
             EventType.QUERY, EventOutcomeIndicator.Success,
             await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
             await this.as.getLocalAET(), await this.as.getLocalHostName()
@@ -144,7 +142,6 @@ class JsStudyQueryTask extends JsPatientQueryTask {
             return;
 
         let auditManager = new AuditManager(
-            auditMessageModel,
             EventType.QUERY_ACCESSED_INSTANCE, EventOutcomeIndicator.Success,
             await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
             await this.as.getLocalAET(), await this.as.getLocalHostName()

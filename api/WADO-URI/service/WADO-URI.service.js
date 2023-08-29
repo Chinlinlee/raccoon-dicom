@@ -9,7 +9,6 @@ const Magick = require("../../../models/magick");
 const { NotFoundInstanceError, InvalidFrameNumberError, InstanceGoneError } = require("../../../error/dicom-instance");
 const dicomModel = require("../../../models/mongodb/models/dicom");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
-const auditMessageModel = require("@models/mongodb/models/auditMessage");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { DicomWebService } = require("@root/api/dicom-web/service/dicom-web.service");
@@ -254,7 +253,6 @@ class WadoUriService {
 
     async auditBeginTransferring() {
         let auditManager = new AuditManager(
-            auditMessageModel,
             EventType.RETRIEVE_BEGIN, EventOutcomeIndicator.Success,
             DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
             DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
@@ -266,7 +264,6 @@ class WadoUriService {
 
     async auditInstanceTransferred(eventResult = EventOutcomeIndicator.Success) {
         let auditManager = new AuditManager(
-            auditMessageModel,
             EventType.RETRIEVE_END, eventResult,
             DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
             DicomWebService.getServerAddress(), DicomWebService.getServerHostname()

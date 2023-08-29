@@ -17,7 +17,6 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
-const auditMessageModel = require("@models/mongodb/models/auditMessage");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 
@@ -78,7 +77,6 @@ class QidoRsService {
     async getAndResponseDicomJson() {
         try {
             let queryAudit = new AuditManager(
-                auditMessageModel,
                 EventType.QUERY,
                 EventOutcomeIndicator.Success,
                 DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
@@ -123,7 +121,6 @@ class QidoRsService {
 
     async auditInstancesAccessed(dicomJson) {
         let queryAccessedAudit = new AuditManager(
-            auditMessageModel,
             EventType.QUERY_ACCESSED_INSTANCE,
             EventOutcomeIndicator.Success,
             DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
