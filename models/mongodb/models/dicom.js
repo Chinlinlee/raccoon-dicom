@@ -144,7 +144,7 @@ let dicomModelSchema = new mongoose.Schema(
 
                     await fsP.unlink(
                         path.join(
-                            raccoonConfig.dicomWebConfig.storeRootPath, 
+                            raccoonConfig.dicomWebConfig.storeRootPath,
                             instancePath
                         )
                     );
@@ -152,7 +152,7 @@ let dicomModelSchema = new mongoose.Schema(
                     console.error(e);
                 }
             },
-            getAttributes: async function() {
+            getAttributes: async function () {
                 let study = this.toObject();
                 delete study._id;
                 delete study.id;
@@ -166,10 +166,10 @@ let dicomModelSchema = new mongoose.Schema(
                 return mongoose.model("dicom").find(query, keys).setOptions({
                     strictQuery: false
                 })
-                .cursor();
+                    .cursor();
             },
             getAuditInstancesInfoFromStudyUID: async (studyUID) => {
-                let instances = await mongoose.model("dicom").find({studyUID}).exec();
+                let instances = await mongoose.model("dicom").find({ studyUID }).exec();
 
                 let instanceInfos = {
                     sopClassUIDs: [],
@@ -188,11 +188,149 @@ let dicomModelSchema = new mongoose.Schema(
                     patientID ? instanceInfos.patientID = patientID : null;
                     patientName ? instanceInfos.patientName = patientName : null;
                 }
-                
+
                 instanceInfos.sopClassUIDs = _.uniq(instanceInfos.sopClassUIDs);
                 instanceInfos.accessionNumbers = _.uniq(instanceInfos.accessionNumbers);
 
                 return instanceInfos;
+            },
+            /**
+             * 
+             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @returns 
+             */
+            getDicomJson: async function (queryOptions) {
+
+                let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
+                let instanceFields = includeFieldsFactory.getInstanceLevelFields();
+
+                try {
+
+                    let docs = await mongoose
+                        .model("dicom")
+                        .find({
+                            ...queryOptions.query,
+                            deleteStatus: {
+                                $eq: 0
+                            }
+                        }, {
+                            ...instanceFields
+                        })
+                        .setOptions({
+                            strictQuery: false
+                        })
+                        .limit(queryOptions.limit)
+                        .skip(queryOptions.skip)
+                        .exec();
+
+                    let instanceDicomJson = docs.map(v => {
+                        let obj = v.toObject();
+                        delete obj._id;
+                        delete obj.id;
+                        obj["00081190"] = {
+                            vr: "UR",
+                            Value: [
+                                `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instances/${obj["00080018"]["Value"][0]}`
+                            ]
+                        };
+
+                        _.set(obj, dictionary.keyword.RetrieveAETitle, {
+                            ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
+                            Value: [raccoonConfig.aeTitle]
+                        });
+
+                        return obj;
+                    });
+
+                    return instanceDicomJson;
+
+                } catch (e) {
+                    throw e;
+                }
+
+            },
+            /**
+             * 
+             * @param {object} iParam 
+             * @param {string} iParam.studyUID
+             * @param {string} iParam.seriesUID
+             * @param {string} iParam.instanceUID
+             */
+            getPathOfInstance: async function (iParam) {
+                let { studyUID, seriesUID, instanceUID } = iParam;
+
+                try {
+                    let query = {
+                        $and: [
+                            {
+                                studyUID: studyUID
+                            },
+                            {
+                                seriesUID: seriesUID
+                            },
+                            {
+                                instanceUID: instanceUID
+                            },
+                            {
+                                deleteStatus: {
+                                    $eq: 0
+                                }
+                            }
+                        ]
+                    };
+
+                    let doc = await mongoose.model("dicom").findOne(query, {
+                        studyUID: 1,
+                        seriesUID: 1,
+                        instanceUID: 1,
+                        instancePath: 1
+                    }).exec();
+
+                    if (doc) {
+                        let docObj = doc.toObject();
+                        docObj.instancePath = getStoreDicomFullPath(docObj);
+
+                        return docObj;
+                    }
+
+                    return undefined;
+
+                } catch (e) {
+                    throw e;
+                }
+            },
+            /**
+             * 
+             * @param {string} studyUID 
+             * @param {string} seriesUID 
+             */
+            getInstanceOfMedianIndex: async function (query) {
+                let instanceCountOfStudy = await mongoose.model("dicom").countDocuments({
+                    $and: [
+                        {
+                            studyUID: query.studyUID
+                        },
+                        {
+                            deleteStatus: {
+                                $eq: 0
+                            }
+                        }
+                    ]
+                });
+            
+                return await mongoose.model("dicom").findOne(query, {
+                    studyUID: 1,
+                    seriesUID: 1,
+                    instanceUID: 1,
+                    instancePath: 1
+                })
+                    .sort({
+                        studyUID: 1,
+                        seriesUID: 1
+                    })
+                    .skip(instanceCountOfStudy >> 1)
+                    .limit(1)
+                    .exec();
             }
         },
         timestamps: true
@@ -405,163 +543,8 @@ async function updateStudyNumberOfStudyRelatedInstance(doc) {
     }
 }
 
-/**
- * 
- * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
- * @returns 
- */
-dicomModelSchema.statics.getDicomJson = async function (queryOptions) {
-
-    let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
-    let instanceFields = includeFieldsFactory.getInstanceLevelFields();
-
-    try {
-
-        let docs = await mongoose
-            .model("dicom")
-            .find({
-                ...queryOptions.query,
-                deleteStatus: {
-                    $eq: 0
-                }
-            }, {
-                ...instanceFields
-            })
-            .setOptions({
-                strictQuery: false
-            })
-            .limit(queryOptions.limit)
-            .skip(queryOptions.skip)
-            .exec();
-
-        let instanceDicomJson = docs.map(v => {
-            let obj = v.toObject();
-            delete obj._id;
-            delete obj.id;
-            obj["00081190"] = {
-                vr: "UR",
-                Value: [
-                    `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instances/${obj["00080018"]["Value"][0]}`
-                ]
-            };
-
-            _.set(obj, dictionary.keyword.RetrieveAETitle, {
-                ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
-                Value: [raccoonConfig.aeTitle]
-            });
-
-            return obj;
-        });
-
-        return instanceDicomJson;
-
-    } catch (e) {
-        throw e;
-    }
-
-};
-
-/**
- * 
- * @param {object} iParam 
- * @param {string} iParam.studyUID
- * @param {string} iParam.seriesUID
- * @param {string} iParam.instanceUID
- */
-dicomModelSchema.statics.getPathOfInstance = async function (iParam) {
-    let { studyUID, seriesUID, instanceUID } = iParam;
-
-    try {
-        let query = {
-            $and: [
-                {
-                    studyUID: studyUID
-                },
-                {
-                    seriesUID: seriesUID
-                },
-                {
-                    instanceUID: instanceUID
-                },
-                {
-                    deleteStatus: {
-                        $eq: 0
-                    }
-                }
-            ]
-        };
-
-        let doc = await mongoose.model("dicom").findOne(query, {
-            studyUID: 1,
-            seriesUID: 1,
-            instanceUID: 1,
-            instancePath: 1
-        }).exec();
-
-        if (doc) {
-            let docObj = doc.toObject();
-            docObj.instancePath = getStoreDicomFullPath(docObj);
-
-            return docObj;
-        }
-
-        return undefined;
-
-    } catch (e) {
-        throw e;
-    }
-};
-
-/**
- * 
- * @param {string} studyUID 
- * @param {string} seriesUID 
- */
-dicomModelSchema.statics.getInstanceOfMedianIndex = async function (query) {
-    let instanceCountOfStudy = await mongoose.model("dicom").countDocuments({
-        $and: [
-            {
-                studyUID: query.studyUID
-            },
-            {
-                deleteStatus: {
-                    $eq: 0
-                }
-            }
-        ]
-    });
-
-    return await mongoose.model("dicom").findOne(query, {
-        studyUID: 1,
-        seriesUID: 1,
-        instanceUID: 1,
-        instancePath: 1
-    })
-        .sort({
-            studyUID: 1,
-            seriesUID: 1
-        })
-        .skip(instanceCountOfStudy >> 1)
-        .limit(1)
-        .exec();
-};
-
-/**
- * @typedef {import("mongoose").Model<dicomModelSchema> & { 
- *     getPathOfInstance: (iParam: {
- *         studyUID: string,
- *         seriesUID: string,
- *         instanceUID: string
- *     }) => Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
- *     getDicomJson: (queryOptions: import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions) => Promise<any>;
- *     getInstanceOfMedianIndex: (studyUID: string, seriesUID: string) => Promise<any>;
- * }} DicomModelSchema
- * 
- */
-
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
 
-/** @type {DicomModelSchema} */
 module.exports = dicomModel;
 
 module.exports.getModalitiesInStudy = getModalitiesInStudy;

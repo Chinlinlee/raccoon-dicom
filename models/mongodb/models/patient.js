@@ -35,22 +35,92 @@ let patientSchema = new mongoose.Schema(
         toObject: {
             getters: true
         },
-        statics: {
-            getDimseResultCursor : async function (query, keys) {
-                return mongoose.model("patient").find(query, keys).setOptions({
-                    strictQuery: false
-                })
-                .cursor();
-            }
-        },
         methods: {
-            getAttributes: async function() {
+            getAttributes: async function () {
                 let patient = this.toObject();
                 delete patient._id;
                 delete patient.id;
 
                 let jsonStr = JSON.stringify(patient);
                 return await Common.getAttributesFromJsonString(jsonStr);
+            }
+        },
+        statics: {
+            getDimseResultCursor: async function (query, keys) {
+                return mongoose.model("patient").find(query, keys).setOptions({
+                    strictQuery: false
+                })
+                    .cursor();
+            },
+            /**
+             * 
+             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @returns 
+             */
+            getDicomJson: async function (queryOptions) {
+                let patientFields = getPatientLevelFields();
+
+                try {
+                    let docs = await mongoose.model("patient").find(queryOptions.query, patientFields)
+                        .limit(queryOptions.limit)
+                        .skip(queryOptions.skip)
+                        .setOptions({
+                            strictQuery: false
+                        })
+                        .exec();
+
+
+                    let patientDicomJson = docs.map((v) => {
+                        let obj = v.toObject();
+                        delete obj._id;
+                        delete obj.id;
+                        return obj;
+                    });
+
+                    return patientDicomJson;
+
+                } catch (e) {
+                    throw e;
+                }
+            },
+            /**
+             * 
+             * @param {Object} iParam 
+             * @param {string} iParam.studyUID
+             */
+            getPathGroupOfInstances: async function (iParam) {
+                let { patientID } = iParam;
+                try {
+                    let query = [
+                        {
+                            $match: {
+                                "00100020.Value": patientID
+                            }
+                        },
+                        {
+                            $group: {
+                                _id: "$studyUID",
+                                pathList: {
+                                    $addToSet: {
+                                        studyUID: "$studyUID",
+                                        seriesUID: "$seriesUID",
+                                        instanceUID: "$instanceUID",
+                                        instancePath: "$instancePath"
+                                    }
+                                }
+                            }
+                        }
+                    ];
+                    let docs = await mongoose.model("dicom").aggregate(query).exec();
+                    let pathGroup = _.get(docs, "0.pathList", []);
+
+                    let fullPathGroup = getStoreDicomFullPathGroup(pathGroup);
+
+                    return fullPathGroup;
+
+                } catch (e) {
+                    throw e;
+                }
             }
         }
     }
@@ -72,37 +142,6 @@ patientSchema.index({
     "00100020": 1
 });
 
-/**
- * 
- * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
- * @returns 
- */
-patientSchema.statics.getDicomJson = async function (queryOptions) {
-    let patientFields = getPatientLevelFields();
-
-    try {
-        let docs = await mongoose.model("patient").find(queryOptions.query, patientFields)
-            .limit(queryOptions.limit)
-            .skip(queryOptions.skip)
-            .setOptions({
-                strictQuery: false
-            })
-            .exec();
-
-        
-        let patientDicomJson = docs.map((v) => {
-            let obj = v.toObject();
-            delete obj._id;
-            delete obj.id;
-            return obj;
-        });
-
-        return patientDicomJson;
-
-    } catch (e) {
-        throw e;
-    }
-};
 
 function getPatientLevelFields() {
     let fields = {};
@@ -112,63 +151,12 @@ function getPatientLevelFields() {
     return fields;
 }
 
-/**
- * 
- * @param {Object} iParam 
- * @param {string} iParam.studyUID
- */
-patientSchema.statics.getPathGroupOfInstances = async function (iParam) {
-    let { patientID } = iParam;
-    try {
-        let query = [
-            {
-                $match: {
-                    "00100020.Value": patientID
-                }
-            },
-            {
-                $group: {
-                    _id: "$studyUID",
-                    pathList: {
-                        $addToSet: {
-                            studyUID: "$studyUID",
-                            seriesUID: "$seriesUID",
-                            instanceUID: "$instanceUID",
-                            instancePath: "$instancePath"
-                        }
-                    }
-                }
-            }
-        ];
-        let docs = await mongoose.model("dicom").aggregate(query).exec();
-        let pathGroup = _.get(docs, "0.pathList", []);
-
-        let fullPathGroup = getStoreDicomFullPathGroup(pathGroup);
-
-        return fullPathGroup;
-
-    } catch (e) {
-        throw e;
-    }
-};
-
-/**
- * @typedef { mongoose.Model<patientSchema> & { 
- * getPathGroupOfInstances: function(iParam: {
- *      patientID: string
- *   }): Promise<import("../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj>;
- * getDicomJson: function(queryOptions: DicomJsonMongoQueryOptions): Promise<function>
- * }} PatientModel
-*/
-
-/** @type {PatientModel} */
 let patientModel = mongoose.model(
     "patient",
     patientSchema,
     "patient"
 );
 
-/** @type {PatientModel} */
 module.exports = patientModel;
 
 module.exports.getPatientLevelFields = getPatientLevelFields;
