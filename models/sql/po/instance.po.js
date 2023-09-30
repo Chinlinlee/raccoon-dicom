@@ -12,7 +12,9 @@ const INSTANCE_STORE_TAGS = {
     "00020010": true,
     "00080016": true,
     "00080018": true,
+    "00080022": true,
     "00080023": true,
+    "0008002A": true,
     "00080033": true,
     "00200013": true,
     "0040A043": true,
@@ -62,7 +64,9 @@ class InstancePersistentObject {
         this.x0020000E = this.series.x0020000E;
         this.x00080018 = _.get(dicomJson, "00080018.Value.0", undefined);
         this.x00080016 = _.get(dicomJson, "00080016.Value.0", undefined);
+        this.x00080022 = _.get(dicomJson, "00080022.Value.0", undefined);
         this.x00080023 = _.get(dicomJson, "00080023.Value.0", undefined);
+        this.x0008002A = _.get(dicomJson, "0008002A.Value.0", undefined);
         this.x00080033 = _.get(dicomJson, "00080033.Value.0", undefined);
         this.x00200013 = _.get(dicomJson, "00200013.Value.0", undefined);
         this.x00280008 = _.get(dicomJson, "00280008.Value.0", undefined);
@@ -178,7 +182,9 @@ class InstancePersistentObject {
             x0020000E: this.x0020000E,
             x00080018: this.x00080018,
             x00080016: this.x00080016,
+            x00080022: this.x00080022 ? this.x00080022 : undefined,
             x00080023: this.x00080023,
+            x0008002A: this.x0008002A ? this.x0008002A : undefined,
             x00080033: this.x00080033 ? Number(this.x00080033) : undefined,
             x00200013: this.x00200013,
             x00280008: this.x00280008,

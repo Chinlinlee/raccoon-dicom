@@ -58,8 +58,14 @@ InstanceModel.init({
     "x00080016": {
         type: vrTypeMapping.UI
     },
+    "x00080022": {
+        type: vrTypeMapping.DA
+    },
     "x00080023": {
         type: vrTypeMapping.DA
+    },
+    "x0008002A": {
+        type: vrTypeMapping.DT
     },
     "x00080033": {
         type: vrTypeMapping.TM
