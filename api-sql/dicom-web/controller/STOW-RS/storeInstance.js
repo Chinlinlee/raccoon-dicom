@@ -41,12 +41,13 @@ class StoreInstanceController extends Controller {
             let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
             apiLogger.logger.error(errorStr);
     
-            let errorMessage =
-                errorResponseMessage.getInternalServerErrorMessage(errorStr);
             this.response.writeHead(500, {
                 "Content-Type": "application/dicom+json"
             });
-            return this.response.end(JSON.stringify(errorMessage));
+            return this.response.end(JSON.stringify({
+                code: 500,
+                message: "Server error occurred"
+            }));
         }
     }
 }
