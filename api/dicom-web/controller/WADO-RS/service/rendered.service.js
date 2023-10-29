@@ -226,7 +226,7 @@ class InstanceFramesListWriter extends FramesWriter {
             return this.writeSingleFrame();
         } else {
             let multipartWriter = new MultipartWriter([], this.request, this.response);
-            await writeSpecificFramesRenderedImages(this.request, frameNumber, this.instanceFramesObj, multipartWriter);
+            await writeRenderedImages(this.request, frameNumber, this.instanceFramesObj, multipartWriter);
             multipartWriter.writeFinalBoundary();
             return true;
         }
@@ -382,38 +382,18 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
 /**
  * 
  * @param {import("express").Request} req 
- * @param {number} dicomNumberOfFrames 
+ * @param {number|number[]} dicomNumberOfFrames 
  * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj} instanceFramesObj 
  * @param {import("../../../../../utils/multipartWriter").MultipartWriter} multipartWriter 
  */
 async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, multipartWriter) {
     try {
-        for (let i = 0 ; i < dicomNumberOfFrames; i++) {
-            let postProcessResult = await postProcessFrameImage(req, i+1, instanceFramesObj);
-            let buffer = postProcessResult.magick.toBuffer();
-            multipartWriter.writeBuffer(buffer, {
-                "Content-Type": "image/jpeg",
-                "Content-Location": `/dicom-web/studies/${instanceFramesObj.studyUID}/series/${instanceFramesObj.seriesUID}/instances/${instanceFramesObj.instanceUID}/frames/${i+1}/rendered`
-            });
-        }
-    } catch(e) {
-        console.error(e);
-        throw e;
-    }
-}
+        // Check if dicomNumberOfFrames is an Array, if it is not an Array then convert it to a 0 to N number Array.
+        let frames = dicomNumberOfFrames;
+        if (!Array.isArray(frames)) frames = [...Array(frames).keys()];
 
-/**
- * 
- * @param {import("express").Request} req 
- * @param {number[]} frames
- * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj} instanceFramesObj 
- * @param {import("../../../../../utils/multipartWriter").MultipartWriter} multipartWriter 
- */
-async function writeSpecificFramesRenderedImages(req, frames, instanceFramesObj, multipartWriter) {
-    try {
         for (let i = 0 ; i < frames.length; i++) {
-            let frameNumber = frames[i];
-            let postProcessResult = await postProcessFrameImage(req, frameNumber, instanceFramesObj);
+            let postProcessResult = await postProcessFrameImage(req, i+1, instanceFramesObj);
             let buffer = postProcessResult.magick.toBuffer();
             multipartWriter.writeBuffer(buffer, {
                 "Content-Type": "image/jpeg",
@@ -432,7 +412,6 @@ module.exports.handleViewport = handleViewport;
 module.exports.getInstanceFrameObj = getInstanceFrameObj;
 module.exports.postProcessFrameImage = postProcessFrameImage;
 module.exports.writeRenderedImages = writeRenderedImages;
-module.exports.writeSpecificFramesRenderedImages = writeSpecificFramesRenderedImages;
 module.exports.RenderedImageMultipartWriter = RenderedImageMultipartWriter;
 module.exports.StudyFramesWriter = StudyFramesWriter;
 module.exports.SeriesFramesWriter = SeriesFramesWriter;
