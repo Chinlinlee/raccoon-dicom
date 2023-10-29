@@ -67,7 +67,7 @@ class ImageMultipartWriter {
         if (!writeResult.status) {
             retrieveAuditService.eventResult = EventOutcomeIndicator.MajorFailure;
             await retrieveAuditService.completedRetrieve();
-            
+
             this.response.setHeader("Content-Type", "application/dicom+json");
             return this.response.status(writeResult.code).json(writeResult);
         }
@@ -98,7 +98,7 @@ class ImagePathFactory {
             return {
                 status: false,
                 code: 404,
-                message: `not found, ${this.getUidsString()}`
+                message: `not found, ${getUidsString(this.uids)}`
             };
         }
 
@@ -139,16 +139,6 @@ class ImagePathFactory {
         return existArr;
     }
 
-    getUidsString() {
-        let uidsKeys = Object.keys(this.uids);
-        let strArr = [];
-        for (let i = 0; i < uidsKeys.length; i++) {
-            let key = uidsKeys[i];
-            strArr.push(`${key}: ${this.uids[key]}`);
-        }
-        return strArr.join(", ");
-    }
-
     getPartialImagesPathString() {
         return JSON.stringify(this.imagePaths.slice(0, 10).map(v => v.instancePath));
     }
@@ -182,7 +172,7 @@ class InstanceImagePathFactory extends ImagePathFactory {
     async getImagePaths() {
         let imagePath = await dicomModel.getPathOfInstance(this.uids);
 
-        if(imagePath)
+        if (imagePath)
             this.imagePaths = [imagePath];
         else
             this.imagePaths = [];
@@ -255,6 +245,21 @@ function addHostnameOfBulkDataUrl(metadata, req) {
     }
 }
 
+/**
+* 
+* @param {import("../../../../../utils/typeDef/dicom").Uids} uids
+* @returns 
+*/
+function getUidsString(uids) {
+    let uidsKeys = Object.keys(uids);
+    let strArr = [];
+    for (let i = 0; i < uidsKeys.length; i++) {
+        let key = uidsKeys[i];
+        strArr.push(`${key}: ${uids[key]}`);
+    }
+    return strArr.join(", ");
+}
+
 module.exports.getAcceptType = getAcceptType;
 module.exports.supportInstanceMultipartType = supportInstanceMultipartType;
 module.exports.sendNotSupportedMediaType = sendNotSupportedMediaType;
@@ -265,3 +270,4 @@ module.exports.SeriesImagePathFactory = SeriesImagePathFactory;
 module.exports.InstanceImagePathFactory = InstanceImagePathFactory;
 module.exports.multipartContentTypeWriter = multipartContentTypeWriter;
 module.exports.ImageMultipartWriter = ImageMultipartWriter;
+module.exports.getUidsString = getUidsString;
