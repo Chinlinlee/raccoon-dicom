@@ -388,12 +388,13 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
  */
 async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, multipartWriter) {
     try {
-        // Check if dicomNumberOfFrames is an Array, if it is not an Array then convert it to a 0 to N number Array.
+        // Check if dicomNumberOfFrames is an Array, if it is not an Array then convert it to a 1 to N number Array.
         let frames = dicomNumberOfFrames;
-        if (!Array.isArray(frames)) frames = [...Array(frames).keys()];
+        if (!Array.isArray(frames)) frames = [...Array(frames).keys()].map(i => i + 1);
 
         for (let i = 0 ; i < frames.length; i++) {
-            let postProcessResult = await postProcessFrameImage(req, i+1, instanceFramesObj);
+            let frameNumber = frames[i];
+            let postProcessResult = await postProcessFrameImage(req, frameNumber, instanceFramesObj);
             let buffer = postProcessResult.magick.toBuffer();
             multipartWriter.writeBuffer(buffer, {
                 "Content-Type": "image/jpeg",
