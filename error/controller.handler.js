@@ -11,11 +11,13 @@ class ControllerErrorHandler {
     static raiseInternalServerError(e, apiLogger, response) {
         apiLogger.logger.error(e);
 
-        response.writeHead(500, {
-            "Content-Type": "application/dicom+json"
-        });
-
-        return response.json(getInternalServerErrorMessage("An exception occurred"));
+        if (!response.headersSent) {
+            response.writeHead(500, {
+                "Content-Type": "application/dicom+json"
+            });
+            return response.json(getInternalServerErrorMessage("An exception occurred"));
+        }
+        return response.end();
     }
 }
 
