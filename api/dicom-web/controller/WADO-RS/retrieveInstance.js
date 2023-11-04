@@ -1,82 +1,14 @@
-const wadoService = require("./service/WADO-RS.service");
-const { WADOZip } = require("./service/WADOZip");
-const { ApiLogger } = require("../../../../utils/logs/api-logger");
-const { Controller } = require("../../../controller.class");
-const { RetrieveAuditService } = require("./service/retrieveAudit.service");
-const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
-class RetrieveInstanceOfSeriesOfStudiesController extends Controller {
+const { BaseRetrieveController, InstanceZipResponseHandler, InstanceMultipartRelatedResponseHandler } = require("./base.controller");
+class RetrieveInstanceOfSeriesOfStudiesController extends BaseRetrieveController {
     constructor(req, res) {
         super(req, res);
+        this.zipResponseHandlerType = InstanceZipResponseHandler;
+        this.multipartResponseHandlerType = InstanceMultipartRelatedResponseHandler;
     }
 
-    async mainProcess() {
-        let apiLogger = new ApiLogger(this.request, "WADO-RS");
-        apiLogger.addTokenValue();
-
-        apiLogger.logger.info(`Get study's series' instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}`);
-        apiLogger.logger.info(`Request Accept: ${this.request.headers.accept}`);
-    
-        try {
-            
-            if (this.request.headers.accept.toLowerCase() === "application/zip") {
-                return await this.responseZip();
-            } else if (this.request.headers.accept.includes("multipart/related")) {
-                return await this.responseMultipartRelated();
-            } else if (this.request.headers.accept.includes("*")){
-                this.request.headers.accept = "multipart/related; type=\"application/dicom\"";
-                return await this.responseMultipartRelated();
-            }
-
-            return wadoService.sendNotSupportedMediaType(this.response, this.request.headers.accept);
-        } catch(e) {
-            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.logger.error(errorStr);
-    
-            this.response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            this.response.end(JSON.stringify({
-                code: 500,
-                message: errorStr
-            }));
-        }
-    }
-
-    async responseZip() {
-        let retrieveAuditService = new RetrieveAuditService(this.request, this.request.params.studyUID, EventOutcomeIndicator.Success);
-
-        let wadoZip = new WADOZip(this.request, this.response);
-        await retrieveAuditService.onBeginRetrieve();
-        
-        let zipResult = await wadoZip.getZipOfInstanceDICOMFile();
-        if (zipResult.status) {
-            await retrieveAuditService.completedRetrieve();
-            return this.response.end();
-        } else {
-            retrieveAuditService.eventResult = EventOutcomeIndicator.MajorFailure;
-            await retrieveAuditService.completedRetrieve();
-            this.response.writeHead(zipResult.code, {
-                "Content-Type": "application/dicom+json"
-            });
-            return this.response.end(JSON.stringify(zipResult));
-        }
-    }
-
-    async responseMultipartRelated() {
-        let type = wadoService.getAcceptType(this.request);
-        let isSupported = wadoService.supportInstanceMultipartType.indexOf(type) > -1;
-        if (!isSupported) {
-            return wadoService.sendNotSupportedMediaType(this.response, type);
-        }
-
-        let imageMultipartWriter = new wadoService.ImageMultipartWriter(
-            this.request,
-            this.response,
-            wadoService.InstanceImagePathFactory,
-            wadoService.multipartContentTypeWriter[type]
-        );
-
-        return await imageMultipartWriter.write();
+    logAction() {
+        this.apiLogger.logger.info(`Get study's series' instances, study UID: ${this.request.params.studyUID}, series UID: ${this.request.params.seriesUID}`);
+        this.apiLogger.logger.info(`Request Accept: ${this.request.headers.accept}`);
     }
 }
 
