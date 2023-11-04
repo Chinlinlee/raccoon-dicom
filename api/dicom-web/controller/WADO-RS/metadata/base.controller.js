@@ -2,6 +2,7 @@ const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { StudyImagePathFactory } = require("../service/WADO-RS.service");
 const { MetadataService } = require("../service/metadata.service");
+const { ControllerErrorHandler } = require("@error/controller.handler");
 
 class BaseRetrieveMetadataController extends Controller {
     constructor(req, res) {
@@ -32,15 +33,7 @@ class BaseRetrieveMetadataController extends Controller {
             return this.response.end();
 
         } catch (e) {
-            this.apiLogger.logger.error(e);
-
-            this.response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            this.response.end({
-                code: 500,
-                message: "An exception occurred"
-            });
+            ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
         }
     }
 }

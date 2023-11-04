@@ -6,6 +6,7 @@ const {
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 const { Controller } = require("../../../../controller.class");
+const { ControllerErrorHandler } = require("@error/controller.handler");
 
 class BaseRetrieveRenderedController extends Controller {
     /**
@@ -60,15 +61,7 @@ class BaseRetrieveRenderedController extends Controller {
     
             return this.response.end();
         } catch(e) {
-            this.apiLogger.logger.error(e);
-
-            this.response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            this.response.end({
-                code: 500,
-                message: "An exception occurred"
-            });
+            ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
         }
     }
 }
