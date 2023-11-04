@@ -4,7 +4,7 @@ const { Attributes } = require("@dcm4che/data/Attributes");
 const { queryTagsOfEachLevel } = require("./queryTagsOfEachLevel");
 const { StringUtils } = require("@dcm4che/util/StringUtils");
 const { intTagToString } = require("./utils");
-const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
+const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 
 class DimseQueryBuilder {
 
