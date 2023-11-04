@@ -3,34 +3,16 @@ const {
 } = require("./service/QIDO-RS.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
+const { BaseQueryController } = require("./base.controller");
 
-class QueryAllInstancesController extends Controller {
+class QueryAllInstancesController extends BaseQueryController {
     constructor(req, res) {
         super(req, res);
+        this.level = "instance";
     }
 
-    async mainProcess() {
-        let apiLogger = new ApiLogger(this.request, "QIDO-RS");
-
-        apiLogger.addTokenValue();
-        apiLogger.logger.info("Query all instances");
-        
-        try {
-            let qidoRsService = new QidoRsService(this.request, this.response, "instance");
-    
-            await qidoRsService.getAndResponseDicomJson();
-        } catch (e) {
-            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.logger.error(errorStr);
-
-            this.response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            this.response.end(JSON.stringify({
-                code: 500,
-                message: errorStr
-            }));
-        }
+    logAction() {
+        this.apiLogger.logger.info("Query all instances");
     }
 }
 
