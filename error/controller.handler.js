@@ -1,3 +1,5 @@
+const { getInternalServerErrorMessage } = require("@root/utils/errorResponse/errorResponseMessage");
+
 class ControllerErrorHandler {
 
     /**
@@ -12,10 +14,8 @@ class ControllerErrorHandler {
         response.writeHead(500, {
             "Content-Type": "application/dicom+json"
         });
-        response.end({
-            code: 500,
-            message: "An exception occurred"
-        });
+
+        return response.json(getInternalServerErrorMessage("An exception occurred"));
     }
 }
 
