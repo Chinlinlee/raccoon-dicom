@@ -1,20 +1,40 @@
-const path = require("path");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
-const { getStoreDicomFullPathGroup } = require("../service");
 const {
     tagsOfRequiredMatching
 } = require("../../DICOM/dicom-tags-mapping");
 const { raccoonConfig } = require("@root/config-class");
+const { DicomSchemaOptionsFactory, PatientDocDicomJsonHandler } = require("../schema/dicom.schema");
 
-let Common;
-if (raccoonConfig.dicomDimseConfig.enableDimse) {
-    require("@models/DICOM/dcm4che/java-instance");
-    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
-}
-
+let patientSchemaOptions = _.merge(
+    DicomSchemaOptionsFactory.get("patient", PatientDocDicomJsonHandler),
+    {
+        statics: {
+            getPathGroupQuery: function (iParam) {
+                let { patientID } = iParam;
+                return {
+                    $match: {
+                        "00100020.Value": patientID
+                    }
+                };
+            },
+            /**
+             * 
+             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @returns 
+             */
+            getDicomJsonProjection: function (queryOptions) {
+                let fields = {};
+                for (let tag in tagsOfRequiredMatching.Patient) {
+                    fields[tag] = 1;
+                }
+                return fields;
+            }
+        }
+    }
+);
 
 let patientSchema = new mongoose.Schema(
     {
@@ -27,103 +47,13 @@ let patientSchema = new mongoose.Schema(
         studyPaths: {
             type: [String],
             default: void 0
+        },
+        deleteStatus: {
+            type: Number,
+            default: 0
         }
     },
-    {
-        strict: true,
-        versionKey: false,
-        toObject: {
-            getters: true
-        },
-        methods: {
-            getAttributes: async function () {
-                let patient = this.toObject();
-                delete patient._id;
-                delete patient.id;
-
-                let jsonStr = JSON.stringify(patient);
-                return await Common.getAttributesFromJsonString(jsonStr);
-            }
-        },
-        statics: {
-            getDimseResultCursor: async function (query, keys) {
-                return mongoose.model("patient").find(query, keys).setOptions({
-                    strictQuery: false
-                })
-                    .cursor();
-            },
-            /**
-             * 
-             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
-             * @returns 
-             */
-            getDicomJson: async function (queryOptions) {
-                let patientFields = getPatientLevelFields();
-
-                try {
-                    let docs = await mongoose.model("patient").find(queryOptions.query, patientFields)
-                        .limit(queryOptions.limit)
-                        .skip(queryOptions.skip)
-                        .setOptions({
-                            strictQuery: false
-                        })
-                        .exec();
-
-
-                    let patientDicomJson = docs.map((v) => {
-                        let obj = v.toObject();
-                        delete obj._id;
-                        delete obj.id;
-                        return obj;
-                    });
-
-                    return patientDicomJson;
-
-                } catch (e) {
-                    throw e;
-                }
-            },
-            /**
-             * 
-             * @param {Object} iParam 
-             * @param {string} iParam.studyUID
-             */
-            getPathGroupOfInstances: async function (iParam) {
-                let { patientID } = iParam;
-                try {
-                    let query = [
-                        {
-                            $match: {
-                                "00100020.Value": patientID
-                            }
-                        },
-                        {
-                            $group: {
-                                _id: "$studyUID",
-                                pathList: {
-                                    $addToSet: {
-                                        studyUID: "$studyUID",
-                                        seriesUID: "$seriesUID",
-                                        instanceUID: "$instanceUID",
-                                        instancePath: "$instancePath"
-                                    }
-                                }
-                            }
-                        }
-                    ];
-                    let docs = await mongoose.model("dicom").aggregate(query).exec();
-                    let pathGroup = _.get(docs, "0.pathList", []);
-
-                    let fullPathGroup = getStoreDicomFullPathGroup(pathGroup);
-
-                    return fullPathGroup;
-
-                } catch (e) {
-                    throw e;
-                }
-            }
-        }
-    }
+    patientSchemaOptions
 );
 
 for (let tag in tagsNeedStore.Patient) {
@@ -142,15 +72,6 @@ patientSchema.index({
     "00100020": 1
 });
 
-
-function getPatientLevelFields() {
-    let fields = {};
-    for (let tag in tagsOfRequiredMatching.Patient) {
-        fields[tag] = 1;
-    }
-    return fields;
-}
-
 let patientModel = mongoose.model(
     "patient",
     patientSchema,
@@ -158,5 +79,3 @@ let patientModel = mongoose.model(
 );
 
 module.exports = patientModel;
-
-module.exports.getPatientLevelFields = getPatientLevelFields;

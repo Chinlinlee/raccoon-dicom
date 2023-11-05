@@ -4,178 +4,72 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
-const { getStoreDicomFullPathGroup, IncludeFieldsFactory } = require("../service");
-const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { IncludeFieldsFactory } = require("../service");
 const { raccoonConfig } = require("@root/config-class");
 const { logger } = require("@root/utils/logs/log");
+const { BaseDicomSchemaDef, DicomSchemaOptionsFactory, SeriesDocDicomJsonHandler } = require("../schema/dicom.schema");
 
-let Common;
-if (raccoonConfig.dicomDimseConfig.enableDimse) {
-    require("@models/DICOM/dcm4che/java-instance");
-    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
-}
-
-let dicomSeriesSchema = new mongoose.Schema(
+let dicomSeriesSchemaOptions = _.merge(
+    DicomSchemaOptionsFactory.get("series", SeriesDocDicomJsonHandler),
     {
-        studyUID: {
-            type: String,
-            default: void 0,
-            index: true,
-            required: true
-        },
-        seriesUID: {
-            type: String,
-            default: void 0,
-            index: true,
-            required: true
-        },
-        seriesPath: {
-            type: String,
-            default: void 0
-        },
-        deleteStatus: {
-            type: Number,
-            default: 0
-        }
-    },
-    {
-        strict: true,
-        versionKey: false,
-        toObject: {
-            getters: true
-        },
         methods: {
-            async incrementDeleteStatus() {
-                this.deleteStatus = this.deleteStatus + 1;
-                await this.save();
-            },
-            async deleteSeriesFolder() {
+            deleteDicomInstances: async function () {
                 let seriesPath = this.seriesPath;
                 logger.warn("Permanently delete series folder: " + seriesPath);
                 await fsP.rm(path.join(raccoonConfig.dicomWebConfig.storeRootPath, seriesPath), {
                     force: true,
                     recursive: true
                 });
-            },
-            getAttributes: async function () {
-                let series = this.toObject();
-                delete series._id;
-                delete series.id;
-
-                let jsonStr = JSON.stringify(series);
-                return await Common.getAttributesFromJsonString(jsonStr);
             }
         },
         statics: {
-            getDimseResultCursor: async function (query, keys) {
-                return mongoose.model("dicomSeries").find(query, keys).setOptions({
-                    strictQuery: false
-                })
-                    .cursor();
-            },
             /**
              * 
-             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @param {import("@root/utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
              * @returns 
              */
-            getDicomJson: async function (queryOptions) {
+            getDicomJsonProjection: function (queryOptions) {
                 let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
-                let seriesFields = includeFieldsFactory.getSeriesLevelFields();
-
-                try {
-                    let docs = await mongoose
-                        .model("dicomSeries")
-                        .find({
-                            ...queryOptions.query,
-                            deleteStatus: {
-                                $eq: 0
-                            }
-                        }, {
-                            ...seriesFields
-                        })
-                        .setOptions({
-                            strictQuery: false
-                        })
-                        .limit(queryOptions.limit)
-                        .skip(queryOptions.skip)
-                        .exec();
-
-
-                    let seriesDicomJson = docs.map((v) => {
-                        let obj = v.toObject();
-                        delete obj._id;
-                        delete obj.id;
-                        obj["00081190"] = {
-                            vr: "UR",
-                            Value: [
-                                `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}`
-                            ]
-                        };
-
-                        _.set(obj, dictionary.keyword.RetrieveAETitle, {
-                            ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
-                            Value: [raccoonConfig.aeTitle]
-                        });
-
-                        return obj;
-                    });
-
-                    return seriesDicomJson;
-
-                } catch (e) {
-                    throw e;
-                }
+                return includeFieldsFactory.getSeriesLevelFields();
             },
-            /**
-             * 
-             * @param {object} iParam 
-             * @param {string} iParam.studyUID
-             * @param {string} iParam.seriesUID
-             */
-            getPathGroupOfInstances: async function (iParam) {
+            getPathGroupQuery: function (iParam) {
                 let { studyUID, seriesUID } = iParam;
-                try {
-                    let query = [
-                        {
-                            $match: {
-                                $and: [
-                                    {
-                                        seriesUID: seriesUID
-                                    },
-                                    {
-                                        studyUID: studyUID
-                                    }
-                                ]
+                return {
+                    $match: {
+                        $and: [
+                            {
+                                seriesUID: seriesUID
+                            },
+                            {
+                                studyUID: studyUID
                             }
-                        },
-                        {
-                            $group: {
-                                _id: "$seriesUID",
-                                pathList: {
-                                    $addToSet: {
-                                        studyUID: "$studyUID",
-                                        seriesUID: "$seriesUID",
-                                        instanceUID: "$instanceUID",
-                                        instancePath: "$instancePath"
-                                    }
-                                }
-                            }
-                        }
-                    ];
-                    let docs = await mongoose.model("dicom").aggregate(query);
-                    let pathGroup = _.get(docs, "0.pathList", []);
-
-                    let fullPathGroup = getStoreDicomFullPathGroup(pathGroup);
-
-                    return fullPathGroup;
-                } catch (e) {
-                    throw e;
-                }
+                        ]
+                    }
+                };
             }
-        },
-        timestamps: true
+        }
     }
 );
+
+let dicomSeriesSchema = new mongoose.Schema(
+    {
+        ...BaseDicomSchemaDef
+    },
+    dicomSeriesSchemaOptions
+);
+
+dicomSeriesSchema.add({
+    seriesUID: {
+        type: String,
+        default: void 0,
+        index: true,
+        required: true
+    },
+    seriesPath: {
+        type: String,
+        default: void 0
+    }
+});
 
 for (let tag in tagsNeedStore.Study) {
     let vr = tagsNeedStore.Study[tag].vr;

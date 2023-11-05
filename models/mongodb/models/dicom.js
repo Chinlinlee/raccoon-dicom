@@ -12,12 +12,8 @@ const { getStoreDicomFullPath, IncludeFieldsFactory } = require("../service");
 const { logger } = require("../../../utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { DicomSchemaOptionsFactory, InstanceDocDicomJsonHandler } = require("../schema/dicom.schema");
 
-let Common;
-if (raccoonConfig.dicomDimseConfig.enableDimse) {
-    require("@models/DICOM/dcm4che/java-instance");
-    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
-}
 
 let verifyingObserverSchema = new mongoose.Schema(
     {
@@ -29,6 +25,146 @@ let verifyingObserverSchema = new mongoose.Schema(
         strict: false,
         _id: false,
         versionKey: false
+    }
+);
+
+let dicomSchemaOptions = _.merge(
+    DicomSchemaOptionsFactory.get("instance", InstanceDocDicomJsonHandler),
+    {
+        strict: false,
+        methods: {
+            deleteDicomInstances: async function () {
+                let instancePath = this.instancePath;
+                try {
+                    logger.warn("Permanently delete instance: " + instancePath);
+
+                    await fsP.unlink(
+                        path.join(
+                            raccoonConfig.dicomWebConfig.storeRootPath,
+                            instancePath
+                        )
+                    );
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        },
+        statics: {
+            getAuditInstancesInfoFromStudyUID: async (studyUID) => {
+                let instances = await mongoose.model("dicom").find({ studyUID }).exec();
+
+                let instanceInfos = {
+                    sopClassUIDs: [],
+                    accessionNumbers: [],
+                    patientID: "",
+                    patientName: ""
+                };
+
+                for (let instance of instances) {
+                    let sopClassUID = _.get(instance, "00080016.Value.0");
+                    let accessionNumber = _.get(instance, "00080050.Value.0");
+                    let patientID = _.get(instance, "00100020.Value.0");
+                    let patientName = _.get(instance, "00100010.Value.0.Alphabetic");
+                    sopClassUID ? instanceInfos.sopClassUIDs.push(sopClassUID) : null;
+                    accessionNumber ? instanceInfos.accessionNumbers.push(accessionNumber) : null;
+                    patientID ? instanceInfos.patientID = patientID : null;
+                    patientName ? instanceInfos.patientName = patientName : null;
+                }
+
+                instanceInfos.sopClassUIDs = _.uniq(instanceInfos.sopClassUIDs);
+                instanceInfos.accessionNumbers = _.uniq(instanceInfos.accessionNumbers);
+
+                return instanceInfos;
+            },
+            getDicomJsonProjection: function (queryOptions) {
+                let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
+                return includeFieldsFactory.getInstanceLevelFields();
+            },
+            /**
+             * 
+             * @param {object} iParam 
+             * @param {string} iParam.studyUID
+             * @param {string} iParam.seriesUID
+             * @param {string} iParam.instanceUID
+             */
+            getPathOfInstance: async function (iParam) {
+                try {
+
+                    let doc = await mongoose.model("dicom").findOne(mongoose.model("dicom").getPathGroupQuery(iParam), {
+                        studyUID: 1,
+                        seriesUID: 1,
+                        instanceUID: 1,
+                        instancePath: 1
+                    }).exec();
+
+                    if (doc) {
+                        let docObj = doc.toObject();
+                        docObj.instancePath = getStoreDicomFullPath(docObj);
+
+                        return docObj;
+                    }
+
+                    return undefined;
+
+                } catch (e) {
+                    throw e;
+                }
+            },
+            getPathGroupQuery: function (iParam) {
+                let { studyUID, seriesUID, instanceUID } = iParam;
+                return {
+                    $and: [
+                        {
+                            studyUID: studyUID
+                        },
+                        {
+                            seriesUID: seriesUID
+                        },
+                        {
+                            instanceUID: instanceUID
+                        },
+                        {
+                            deleteStatus: {
+                                $eq: 0
+                            }
+                        }
+                    ]
+                };
+            },
+            /**
+             * 
+             * @param {string} studyUID 
+             * @param {string} seriesUID 
+             */
+            getInstanceOfMedianIndex: async function (query) {
+                let instanceCountOfStudy = await mongoose.model("dicom").countDocuments({
+                    $and: [
+                        {
+                            studyUID: query.studyUID
+                        },
+                        {
+                            deleteStatus: {
+                                $eq: 0
+                            }
+                        }
+                    ]
+                });
+            
+                return await mongoose.model("dicom").findOne(query, {
+                    studyUID: 1,
+                    seriesUID: 1,
+                    instanceUID: 1,
+                    instancePath: 1
+                })
+                    .sort({
+                        studyUID: 1,
+                        seriesUID: 1
+                    })
+                    .skip(instanceCountOfStudy >> 1)
+                    .limit(1)
+                    .exec();
+            }
+        }
     }
 );
 
@@ -126,215 +262,7 @@ let dicomModelSchema = new mongoose.Schema(
             Value: [mongoose.SchemaTypes.String]
         }
     },
-    {
-        strict: false,
-        versionKey: false,
-        toObject: {
-            getters: true
-        },
-        methods: {
-            async incrementDeleteStatus() {
-                this.deleteStatus = this.deleteStatus + 1;
-                await this.save();
-            },
-            async deleteInstance() {
-                let instancePath = this.instancePath;
-                try {
-                    logger.warn("Permanently delete instance: " + instancePath);
-
-                    await fsP.unlink(
-                        path.join(
-                            raccoonConfig.dicomWebConfig.storeRootPath,
-                            instancePath
-                        )
-                    );
-                } catch (e) {
-                    console.error(e);
-                }
-            },
-            getAttributes: async function () {
-                let study = this.toObject();
-                delete study._id;
-                delete study.id;
-
-                let jsonStr = JSON.stringify(study);
-                return await Common.getAttributesFromJsonString(jsonStr);
-            }
-        },
-        statics: {
-            getDimseResultCursor: async (query, keys) => {
-                return mongoose.model("dicom").find(query, keys).setOptions({
-                    strictQuery: false
-                })
-                    .cursor();
-            },
-            getAuditInstancesInfoFromStudyUID: async (studyUID) => {
-                let instances = await mongoose.model("dicom").find({ studyUID }).exec();
-
-                let instanceInfos = {
-                    sopClassUIDs: [],
-                    accessionNumbers: [],
-                    patientID: "",
-                    patientName: ""
-                };
-
-                for (let instance of instances) {
-                    let sopClassUID = _.get(instance, "00080016.Value.0");
-                    let accessionNumber = _.get(instance, "00080050.Value.0");
-                    let patientID = _.get(instance, "00100020.Value.0");
-                    let patientName = _.get(instance, "00100010.Value.0.Alphabetic");
-                    sopClassUID ? instanceInfos.sopClassUIDs.push(sopClassUID) : null;
-                    accessionNumber ? instanceInfos.accessionNumbers.push(accessionNumber) : null;
-                    patientID ? instanceInfos.patientID = patientID : null;
-                    patientName ? instanceInfos.patientName = patientName : null;
-                }
-
-                instanceInfos.sopClassUIDs = _.uniq(instanceInfos.sopClassUIDs);
-                instanceInfos.accessionNumbers = _.uniq(instanceInfos.accessionNumbers);
-
-                return instanceInfos;
-            },
-            /**
-             * 
-             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
-             * @returns 
-             */
-            getDicomJson: async function (queryOptions) {
-
-                let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
-                let instanceFields = includeFieldsFactory.getInstanceLevelFields();
-
-                try {
-
-                    let docs = await mongoose
-                        .model("dicom")
-                        .find({
-                            ...queryOptions.query,
-                            deleteStatus: {
-                                $eq: 0
-                            }
-                        }, {
-                            ...instanceFields
-                        })
-                        .setOptions({
-                            strictQuery: false
-                        })
-                        .limit(queryOptions.limit)
-                        .skip(queryOptions.skip)
-                        .exec();
-
-                    let instanceDicomJson = docs.map(v => {
-                        let obj = v.toObject();
-                        delete obj._id;
-                        delete obj.id;
-                        obj["00081190"] = {
-                            vr: "UR",
-                            Value: [
-                                `${queryOptions.retrieveBaseUrl}/${obj["0020000D"]["Value"][0]}/series/${obj["0020000E"]["Value"][0]}/instances/${obj["00080018"]["Value"][0]}`
-                            ]
-                        };
-
-                        _.set(obj, dictionary.keyword.RetrieveAETitle, {
-                            ...dictionary.tagVR[dictionary.keyword.RetrieveAETitle],
-                            Value: [raccoonConfig.aeTitle]
-                        });
-
-                        return obj;
-                    });
-
-                    return instanceDicomJson;
-
-                } catch (e) {
-                    throw e;
-                }
-
-            },
-            /**
-             * 
-             * @param {object} iParam 
-             * @param {string} iParam.studyUID
-             * @param {string} iParam.seriesUID
-             * @param {string} iParam.instanceUID
-             */
-            getPathOfInstance: async function (iParam) {
-                let { studyUID, seriesUID, instanceUID } = iParam;
-
-                try {
-                    let query = {
-                        $and: [
-                            {
-                                studyUID: studyUID
-                            },
-                            {
-                                seriesUID: seriesUID
-                            },
-                            {
-                                instanceUID: instanceUID
-                            },
-                            {
-                                deleteStatus: {
-                                    $eq: 0
-                                }
-                            }
-                        ]
-                    };
-
-                    let doc = await mongoose.model("dicom").findOne(query, {
-                        studyUID: 1,
-                        seriesUID: 1,
-                        instanceUID: 1,
-                        instancePath: 1
-                    }).exec();
-
-                    if (doc) {
-                        let docObj = doc.toObject();
-                        docObj.instancePath = getStoreDicomFullPath(docObj);
-
-                        return docObj;
-                    }
-
-                    return undefined;
-
-                } catch (e) {
-                    throw e;
-                }
-            },
-            /**
-             * 
-             * @param {string} studyUID 
-             * @param {string} seriesUID 
-             */
-            getInstanceOfMedianIndex: async function (query) {
-                let instanceCountOfStudy = await mongoose.model("dicom").countDocuments({
-                    $and: [
-                        {
-                            studyUID: query.studyUID
-                        },
-                        {
-                            deleteStatus: {
-                                $eq: 0
-                            }
-                        }
-                    ]
-                });
-            
-                return await mongoose.model("dicom").findOne(query, {
-                    studyUID: 1,
-                    seriesUID: 1,
-                    instanceUID: 1,
-                    instancePath: 1
-                })
-                    .sort({
-                        studyUID: 1,
-                        seriesUID: 1
-                    })
-                    .skip(instanceCountOfStudy >> 1)
-                    .limit(1)
-                    .exec();
-            }
-        },
-        timestamps: true
-    }
+    dicomSchemaOptions
 );
 
 dicomModelSchema.index({

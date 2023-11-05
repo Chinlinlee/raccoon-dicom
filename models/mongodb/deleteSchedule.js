@@ -44,7 +44,7 @@ async function deleteExpireStudies() {
                 deletedStudy.delete()
             ]);
 
-            await deletedStudy.deleteStudyFolder();
+            await deletedStudy.deleteDicomInstances();
         }
     }
 }
@@ -74,7 +74,7 @@ async function deleteExpireSeries() {
                 aDeletedSeries.delete()
             ]);
 
-            await aDeletedSeries.deleteSeriesFolder();
+            await aDeletedSeries.deleteDicomInstances();
         }
     }
 }
@@ -94,8 +94,8 @@ async function deleteExpireInstances() {
         let diff = now.diff(updateAtDate, "days");
         if (diff >= 30) {
             logger.info("delete expired instance: " + instanceUID);
-            await deletedInstance.deleteInstance();
             await deletedInstance.delete();
+            await deletedInstance.deleteDicomInstances();
         }
     }
 }
