@@ -88,6 +88,9 @@ describe("Patient MongoDB and DicomJsonModel", async() => {
         let docObj = findDoc.toObject();
         delete docObj._id;
         delete docObj.id;
+        delete docObj.deleteStatus;
+        delete docObj.createdAt;
+        delete docObj.updatedAt;
 
         expect(docObj).to.deep.equal(fakePatientData);
     });
