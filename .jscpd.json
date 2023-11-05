@@ -8,7 +8,8 @@
         "**/node_modules/**",
         "models/DICOM/dcm4che/wrapper/**/*.ts",
         "models/DICOM/dcm4che/wrapper/**/*.js",
-        "docs/**"
+        "docs/**",
+        "test/**"
     ],
     "absolute": true,
     "gitignore": true
