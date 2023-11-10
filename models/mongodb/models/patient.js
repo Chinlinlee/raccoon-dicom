@@ -79,3 +79,5 @@ let patientModel = mongoose.model(
 );
 
 module.exports = patientModel;
+
+module.exports.PatientModel = patientModel;

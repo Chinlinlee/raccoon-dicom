@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const workItemModel = require("@models/mongodb/models/workItems");
-const patientModel = require("@models/mongodb/models/patient");
+const { PatientModel } = require("@dbModels/patient");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
 const {
     DicomWebServiceError,
@@ -98,14 +98,14 @@ class CreateWorkItemService extends BaseWorkItemService {
         let patientId = this.requestWorkItem.getString("00100020");
         _.set(this.requestWorkItem.dicomJson, "patientID", patientId);
 
-        /** @type {patientModel | null} */
-        let patient = await patientModel.findOne({
+        /** @type {PatientModel | null} */
+        let patient = await PatientModel.findOne({
             "00100020.Value": patientId
         });
 
         if (!patient) {
-            /** @type {patientModel} */
-            let patientObj = new patientModel(this.requestWorkItem.dicomJson);
+            /** @type {PatientModel} */
+            let patientObj = new PatientModel(this.requestWorkItem.dicomJson);
             patient = await patientObj.save();
         }
 

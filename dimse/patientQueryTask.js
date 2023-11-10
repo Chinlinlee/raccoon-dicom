@@ -6,7 +6,7 @@ const { Attributes } = require("@dcm4che/data/Attributes");
 const { Tag } = require("@dcm4che/data/Tag");
 const { VR } = require("@dcm4che/data/VR");
 const { DimseQueryBuilder } = require("./queryBuilder");
-const patientModel = require("@models/mongodb/models/patient");
+const { PatientModel } = require("@dbModels/patient");
 const { Association } = require("@dcm4che/net/Association");
 const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
 const { logger } = require("@root/utils/logs/log");
@@ -162,7 +162,7 @@ class JsPatientQueryTask {
         let returnKeys = this.getReturnKeys(normalQuery);
 
         logger.info(`do DIMSE Patient query: ${JSON.stringify(mongoQuery.$match)}`);
-        this.cursor = await patientModel.getDimseResultCursor({
+        this.cursor = await PatientModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);
     }

@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const patientModel = require("@models/mongodb/models/patient");
+const { PatientModel } = require("@dbModels/patient");
 const dicomStudyModel = require("@models/mongodb/models/dicomStudy");
 const dicomSeriesModel = require("@models/mongodb/models/dicomSeries");
 const dicomModel = require("@models/mongodb/models/dicom");
@@ -39,7 +39,7 @@ function commaValue(iKey, iValue) {
 function getWildCardQuery(value) {
     let wildCardIndex = value.indexOf("*");
     let questionIndex = value.indexOf("?");
-    
+
     if (wildCardIndex >= 0 || questionIndex >= 0) {
         value = value.replace(/\*/gm, ".*");
         value = value.replace(/\?/gm, ".");
@@ -92,8 +92,8 @@ async function convertRequestQueryToMongoQuery(iQuery) {
     }
     return mongoQs.$match.$and.length == 0
         ? {
-              $match: {}
-          }
+            $match: {}
+        }
         : mongoQs;
 }
 
@@ -107,26 +107,27 @@ const vrQueryLookup = {
     PN: async (value, tag) => {
         let queryValue = _.cloneDeep(value[tag]);
         value[tag] = {
-            $or : [
-            {
-                [`${tag}.Alphabetic`] : queryValue
-            }, 
-            {
-                [`${tag}.familyName`] : queryValue
-            },
-            {
-                [`${tag}.givenName`] : queryValue
-            } ,
-            {
-                [`${tag}.middleName`] : queryValue
-            } ,
-            {
-                [`${tag}.prefix`] : queryValue
-            },
-            {
-                [`${tag}.suffix`] : queryValue
-            }
-        ]};
+            $or: [
+                {
+                    [`${tag}.Alphabetic`]: queryValue
+                },
+                {
+                    [`${tag}.familyName`]: queryValue
+                },
+                {
+                    [`${tag}.givenName`]: queryValue
+                },
+                {
+                    [`${tag}.middleName`]: queryValue
+                },
+                {
+                    [`${tag}.prefix`]: queryValue
+                },
+                {
+                    [`${tag}.suffix`]: queryValue
+                }
+            ]
+        };
     },
     TM: async (value, tag) => {
         value[tag] = timeQuery(value, tag);
@@ -150,7 +151,7 @@ function sortObjByFieldKey(obj) {
 class QueryDicomJsonFactory {
     constructor(queryOptions) {
         this.queryOptions = queryOptions;
-        this.model = patientModel;
+        this.model = PatientModel;
     }
 
     async getProcessedQueryOptions() {
@@ -160,7 +161,7 @@ class QueryDicomJsonFactory {
             ...this.queryOptions.requestParams,
             ...mongoQuery.$match
         };
-        
+
         this.queryOptions.query = { ...query };
         return this.queryOptions;
     }
@@ -178,7 +179,7 @@ class QueryDicomJsonFactory {
 class QueryPatientDicomJsonFactory extends QueryDicomJsonFactory {
     constructor(queryOptions) {
         super(queryOptions);
-        this.model = patientModel;
+        this.model = PatientModel;
     }
 }
 
