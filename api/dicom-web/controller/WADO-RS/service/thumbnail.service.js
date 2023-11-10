@@ -1,5 +1,4 @@
 const dicomModel = require("../../../../../models/mongodb/models/dicom");
-const dicomSeriesModel = require("../../../../../models/mongodb/models/dicomSeries");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const renderedService = require("../service/rendered.service");
 const _ = require("lodash");

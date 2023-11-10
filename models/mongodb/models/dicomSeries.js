@@ -107,3 +107,4 @@ let dicomSeriesModel = mongoose.model(
 );
 
 module.exports = dicomSeriesModel;
+module.exports.SeriesModel = dicomSeriesModel;

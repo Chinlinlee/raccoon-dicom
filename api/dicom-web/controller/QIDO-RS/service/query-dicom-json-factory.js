@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const { PatientModel } = require("@dbModels/patient");
 const { StudyModel } = require("@dbModels/dicomStudy");
-const dicomSeriesModel = require("@models/mongodb/models/dicomSeries");
+const { SeriesModel } = require("@dbModels/dicomSeries");
 const dicomModel = require("@models/mongodb/models/dicom");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { mongoDateQuery, timeQuery } = require("@models/mongodb/service");
@@ -193,7 +193,7 @@ class QueryStudyDicomJsonFactory extends QueryDicomJsonFactory {
 class QuerySeriesDicomJsonFactory extends QueryDicomJsonFactory {
     constructor(queryOptions) {
         super(queryOptions);
-        this.model = dicomSeriesModel;
+        this.model = SeriesModel;
     }
 }
 

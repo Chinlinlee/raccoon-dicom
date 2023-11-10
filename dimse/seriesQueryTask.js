@@ -3,7 +3,7 @@ const _ = require("lodash");
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
 const { DimseQueryBuilder } = require("./queryBuilder");
 const { JsStudyQueryTask } = require("./studyQueryTask");
-const dicomSeriesModel = require("@models/mongodb/models/dicomSeries");
+const { SeriesModel } = require("@dbModels/dicomSeries");
 const { SeriesQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { createSeriesQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTaskInject");
@@ -117,7 +117,7 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
             await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
             await this.as.getLocalAET(), await this.as.getLocalHostName()
         );
-        
+
         let queryAttr = await Attributes.newInstanceAsync();
         await queryAttr.addAll(this.keys);
         await queryAttr.addSelected(this.studyAttr, [Tag.PatientID, Tag.StudyInstanceUID]);
@@ -134,7 +134,7 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
         let returnKeys = this.getReturnKeys(normalQuery);
 
         logger.info(`do DIMSE Series query: ${JSON.stringify(mongoQuery.$match)}`);
-        this.seriesCursor = await dicomSeriesModel.getDimseResultCursor({
+        this.seriesCursor = await SeriesModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);
     }

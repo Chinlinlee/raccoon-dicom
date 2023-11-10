@@ -3,7 +3,7 @@ const moment = require("moment");
 const { logger } = require("@root/utils/logs/log");
 const { StudyModel } = require("@dbModels/dicomStudy");
 const dicomModel = require("./models/dicom");
-const dicomSeriesModel = require("./models/dicomSeries");
+const { SeriesModel } = require("@dbModels/dicomSeries");
 
 // Delete dicom with delete status >= 2
 schedule.scheduleJob("*/5 * * * * *", async function () {
@@ -38,7 +38,7 @@ async function deleteExpireStudies() {
                 dicomModel.deleteMany({
                     studyUID
                 }),
-                dicomSeriesModel.deleteMany({
+                SeriesModel.deleteMany({
                     studyUID
                 }),
                 deletedStudy.delete()
@@ -50,7 +50,7 @@ async function deleteExpireStudies() {
 }
 
 async function deleteExpireSeries() {
-    let deletedSeries = await dicomSeriesModel.find({
+    let deletedSeries = await SeriesModel.find({
         deleteStatus: {
             $gte: 2
         }
@@ -61,7 +61,7 @@ async function deleteExpireSeries() {
         let now = moment();
         let diff = now.diff(updateAtDate, "seconds");
         if (diff >= 30) {
-            let {studyUID, seriesUID} = aDeletedSeries;
+            let { studyUID, seriesUID } = aDeletedSeries;
 
             logger.info("delete expired series: " + seriesUID);
             await Promise.all([
@@ -87,7 +87,7 @@ async function deleteExpireInstances() {
     });
 
     for (let deletedInstance of deletedInstances) {
-        let {instanceUID} = deletedInstance;
+        let { instanceUID } = deletedInstance;
 
         let updateAtDate = moment(deletedInstance.updatedAt);
         let now = moment();
