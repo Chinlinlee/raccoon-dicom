@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const patientModel = require("../models/mongodb/models/patient");
+const patientModel = require("../models/mongodb/models/patient.model");
 const { DicomJsonModel } = require("../models/DICOM/dicom-json-model");
 const { expect } = require("chai");
 const _ = require("lodash");
