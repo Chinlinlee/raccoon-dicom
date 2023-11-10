@@ -3,7 +3,7 @@ const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { DeleteService } = require("./service/delete");
 const { NotFoundInstanceError } = require("@error/dicom-instance");
 const { getNotFoundErrorMessage, getInternalServerErrorMessage } = require("@root/utils/errorResponse/errorResponseMessage");
-const { ControllerErrorHandler } = require("@error/controller.handler");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseDeleteController extends Controller {
     constructor(req, res) {
@@ -26,14 +26,8 @@ class BaseDeleteController extends Controller {
                 Method: "DELETE"
             });
         } catch(e) {
-            
-            if (e instanceof NotFoundInstanceError) {
-                return this.response.status(404).json(
-                    getNotFoundErrorMessage(e.message)
-                );
-            }
-
-            return ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 

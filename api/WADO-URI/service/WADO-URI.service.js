@@ -12,6 +12,7 @@ const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { DicomWebService } = require("@root/api/dicom-web/service/dicom-web.service");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class WadoUriService {
 
@@ -20,9 +21,10 @@ class WadoUriService {
      * @param {import("http").IncomingMessage} req 
      * @param {import("http").ServerResponse} res 
      */
-    constructor(req, res) {
+    constructor(req, res, apiLogger) {
         this.request = req;
         this.response = res;
+        this.apiLogger = apiLogger;
         this.auditBeginTransferring();
     }
 
@@ -38,24 +40,8 @@ class WadoUriService {
         } catch (e) {
             this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
 
-            if (e instanceof NotFoundInstanceError) {
-                this.response.writeHead(404, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return this.response.end();
-            } else if (e instanceof InstanceGoneError) {
-                this.response.writeHead(410, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return this.response.end(JSON.stringify({
-                    Details: e.message,
-                    HttpStatus: 410,
-                    Message: "Image Gone",
-                    Method: "GET"
-                }));
-            }
-
-            throw e;
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 
@@ -72,39 +58,8 @@ class WadoUriService {
         } catch (e) {
             this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
 
-            if (e instanceof NotFoundInstanceError) {
-
-                this.response.writeHead(404, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return this.response.end();
-
-            } else if (e instanceof InvalidFrameNumberError) {
-
-                this.response.writeHead(400, {
-                    "Content-Type": "application/dicom+json"
-                });
-
-                return this.response.end(JSON.stringify({
-                    Details: e.message,
-                    HttpStatus: 400,
-                    Message: "Bad request",
-                    Method: "GET"
-                }));
-
-            } else if (e instanceof InstanceGoneError) {
-                this.response.writeHead(410, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return this.response.end(JSON.stringify({
-                    Details: e.message,
-                    HttpStatus: 410,
-                    Message: "Image Gone",
-                    Method: "GET"
-                }));
-            }
-
-            throw e;
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 

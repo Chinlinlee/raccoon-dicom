@@ -2,7 +2,7 @@ const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { StudyImagePathFactory } = require("../service/WADO-RS.service");
 const { MetadataService } = require("../service/metadata.service");
-const { ControllerErrorHandler } = require("@error/controller.handler");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseRetrieveMetadataController extends Controller {
     constructor(req, res) {
@@ -33,7 +33,8 @@ class BaseRetrieveMetadataController extends Controller {
             return this.response.end();
 
         } catch (e) {
-            ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 }

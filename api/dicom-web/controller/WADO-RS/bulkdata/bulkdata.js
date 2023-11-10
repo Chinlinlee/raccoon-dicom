@@ -5,7 +5,7 @@ const { BulkDataService, SpecificBulkDataFactory } = require("./service/bulkdata
 const { getInternalServerErrorMessage } = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { BaseBulkDataController } = require("./base.controller");
 const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
-const { ControllerErrorHandler } = require("@error/controller.handler");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BulkDataController extends BaseBulkDataController {
     constructor(req, res) {
@@ -31,7 +31,8 @@ class BulkDataController extends BaseBulkDataController {
             bulkDataService.multipartWriter.writeFinalBoundary();
             return this.response.end();
         } catch(e) {
-            return ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
         
     }

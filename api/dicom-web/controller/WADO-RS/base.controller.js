@@ -4,7 +4,7 @@ const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { WADOZip } = require("./service/WADOZip");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { sendNotSupportedMediaType, getAcceptType, supportInstanceMultipartType, ImageMultipartWriter, InstanceImagePathFactory, multipartContentTypeWriter, StudyImagePathFactory, SeriesImagePathFactory } = require("./service/WADO-RS.service");
-const { ControllerErrorHandler } = require("@error/controller.handler");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseRetrieveController extends Controller {
     constructor(req, res) {
@@ -32,7 +32,8 @@ class BaseRetrieveController extends Controller {
 
             return sendNotSupportedMediaType(this.response, this.request.headers.accept);
         } catch (e) {
-            return ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 

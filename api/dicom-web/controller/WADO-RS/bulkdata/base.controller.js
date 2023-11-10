@@ -2,7 +2,7 @@ const { Controller } = require("@root/api/controller.class");
 const { StudyBulkDataFactory, BulkDataService } = require("./service/bulkdata");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { StudyImagePathFactory } = require("../service/WADO-RS.service");
-const { ControllerErrorHandler } = require("@error/controller.handler");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseBulkDataController extends Controller {
     constructor(req, res) {
@@ -40,7 +40,8 @@ class BaseBulkDataController extends Controller {
             bulkDataService.multipartWriter.writeFinalBoundary();
             return this.response.end();
         } catch(e) {
-            return ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 }

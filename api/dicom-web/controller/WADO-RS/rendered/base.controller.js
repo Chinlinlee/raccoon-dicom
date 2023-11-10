@@ -6,7 +6,7 @@ const {
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 const { Controller } = require("../../../../controller.class");
-const { ControllerErrorHandler } = require("@error/controller.handler");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseRetrieveRenderedController extends Controller {
     /**
@@ -61,7 +61,8 @@ class BaseRetrieveRenderedController extends Controller {
     
             return this.response.end();
         } catch(e) {
-            ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 }

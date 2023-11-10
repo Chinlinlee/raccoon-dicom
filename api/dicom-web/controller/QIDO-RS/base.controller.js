@@ -1,7 +1,7 @@
-const { ControllerErrorHandler } = require("@error/controller.handler");
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { QidoRsService } = require("./service/QIDO-RS.service");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseQueryController extends Controller {
     constructor(req, res) {
@@ -22,7 +22,8 @@ class BaseQueryController extends Controller {
             let qidoRsService = new QidoRsService(this.request, this.response, this.level);
             await qidoRsService.getAndResponseDicomJson();
         } catch (e) {
-            return ControllerErrorHandler.raiseInternalServerError(e, this.apiLogger, this.response);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 }
