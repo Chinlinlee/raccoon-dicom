@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const { StudyModel } = require("@dbModels/study.model");
-const { SeriesModel } = require("@dbModels/dicomSeries");
+const { SeriesModel } = require("@dbModels/series.model");
 const { InstanceModel } = require("@dbModels/instance.model");
 const fsP = require("fs/promises");
 const { NotFoundInstanceError } = require("../../../../../../error/dicom-instance");
