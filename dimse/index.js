@@ -227,7 +227,7 @@ class DcmQrScp {
 
         let device = this.connection.getDeviceSync();
         try {
-            if (!raccoonConfig.dicomDimseConfig.keyStore) {
+            if (raccoonConfig.dicomDimseConfig.keyStore) {
                 device.setKeyManagerSync(
                     SSLManagerFactory.createKeyManagerSync(
                         raccoonConfig.dicomDimseConfig.keyStoreType,
