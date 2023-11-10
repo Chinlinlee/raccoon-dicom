@@ -3,7 +3,7 @@ const { Dcm2JpgExecutor } = require("@models/DICOM/dcm4che/wrapper/org/github/ch
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("@models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 const notImageSOPClass = require("@models/DICOM/dicomWEB/notImageSOPClass");
 const { logger } = require("@root/utils/logs/log");
-const { DicomToJpegTaskModel } = require("@dbModels/dicomToJpegTask.js");
+const { DicomToJpegTaskModel } = require("@dbModels/dicomToJpegTask.model.js");
 const colorette = require("colorette");
 
 /**
