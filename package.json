@@ -60,7 +60,8 @@
     "@models": "./models",
     "@error": "./error",
     "@root": "./",
-    "@chinlinlee": "./models/DICOM/dcm4che/wrapper/org/github/chinlinlee"
+    "@chinlinlee": "./models/DICOM/dcm4che/wrapper/org/github/chinlinlee",
+    "@dbModels": "./models/mongodb/models"
   },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",

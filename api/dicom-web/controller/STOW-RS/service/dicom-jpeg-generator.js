@@ -1,9 +1,9 @@
 const fs = require("fs");
-const { Dcm2JpgExecutor } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
-const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
-const notImageSOPClass = require("../../../../../models/DICOM/dicomWEB/notImageSOPClass");
-const { logger } = require("../../../../../utils/logs/log");
-const dicomToJpegTask = require("../../../../../models/mongodb/models/dicomToJpegTask");
+const { Dcm2JpgExecutor } = require("@models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
+const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("@models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
+const notImageSOPClass = require("@models/DICOM/dicomWEB/notImageSOPClass");
+const { logger } = require("@root/utils/logs/log");
+const { DicomToJpegTaskModel } = require("@dbModels/dicomToJpegTask.js");
 const colorette = require("colorette");
 
 /**
@@ -106,7 +106,7 @@ class DicomJpegGenerator {
             fileSize: `${(fs.statSync(this.dicomInstanceFilename).size / 1024 / 1024).toFixed(3)}MB`
         };
 
-        await dicomToJpegTask.insertOrUpdate(startTaskObj);
+        await DicomToJpegTaskModel.insertOrUpdate(startTaskObj);
     }
 
     /**
@@ -121,7 +121,7 @@ class DicomJpegGenerator {
             message: "generated",
             finishedTime: new Date()
         };
-        await dicomToJpegTask.insertOrUpdate(endTaskObj);
+        await DicomToJpegTaskModel.insertOrUpdate(endTaskObj);
     }
 
     /**
@@ -137,7 +137,7 @@ class DicomJpegGenerator {
             message: message,
             finishedTime: new Date()
         };
-        await dicomToJpegTask.insertOrUpdate(errorTaskObj);
+        await DicomToJpegTaskModel.insertOrUpdate(errorTaskObj);
     }
 
 }

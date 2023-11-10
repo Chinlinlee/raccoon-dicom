@@ -58,4 +58,5 @@ async function insertOrUpdate(item) {
 }
 
 module.exports = dicomToJpegTask;
+module.exports.DicomToJpegTaskModel = dicomToJpegTask;
 module.exports.insertOrUpdate = insertOrUpdate;
