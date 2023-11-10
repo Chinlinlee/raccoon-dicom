@@ -1,9 +1,9 @@
 const schedule = require("node-schedule");
 const moment = require("moment");
 const { logger } = require("@root/utils/logs/log");
-const { StudyModel } = require("@dbModels/dicomStudy");
-const dicomModel = require("./models/dicom");
-const { SeriesModel } = require("@dbModels/dicomSeries");
+const { StudyModel } = require("@dbModels/study.model");
+const { InstanceModel } = require("@dbModels/instance.model");
+const { SeriesModel } = require("@dbModels/series.model");
 
 // Delete dicom with delete status >= 2
 schedule.scheduleJob("*/5 * * * * *", async function () {
@@ -35,7 +35,7 @@ async function deleteExpireStudies() {
 
             logger.info("delete expired study: " + studyUID);
             await Promise.all([
-                dicomModel.deleteMany({
+                InstanceModel.deleteMany({
                     studyUID
                 }),
                 SeriesModel.deleteMany({
@@ -65,7 +65,7 @@ async function deleteExpireSeries() {
 
             logger.info("delete expired series: " + seriesUID);
             await Promise.all([
-                dicomModel.deleteMany({
+                InstanceModel.deleteMany({
                     $and: [
                         { x0020000D: studyUID },
                         { x0020000E: seriesUID }
@@ -80,7 +80,7 @@ async function deleteExpireSeries() {
 }
 
 async function deleteExpireInstances() {
-    let deletedInstances = await dicomModel.find({
+    let deletedInstances = await InstanceModel.find({
         deleteStatus: {
             $gte: 2
         }

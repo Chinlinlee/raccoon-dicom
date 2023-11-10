@@ -7,7 +7,7 @@ const errorResponse = require("../../../../../utils/errorResponse/errorResponseM
 const { raccoonConfig } = require("../../../../../config-class");
 const { JSONPath } = require("jsonpath-plus");
 const { DicomWebService } = require("../../../service/dicom-web.service");
-const dicomModel = require("../../../../../models/mongodb/models/dicom");
+const { InstanceModel } = require("@dbModels/instance.model");
 const { logger } = require("../../../../../utils/logs/log");
 const { RetrieveAuditService } = require("./retrieveAudit.service");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
@@ -170,7 +170,7 @@ class InstanceImagePathFactory extends ImagePathFactory {
     }
 
     async getImagePaths() {
-        let imagePath = await dicomModel.getPathOfInstance(this.uids);
+        let imagePath = await InstanceModel.getPathOfInstance(this.uids);
 
         if (imagePath)
             this.imagePaths = [imagePath];

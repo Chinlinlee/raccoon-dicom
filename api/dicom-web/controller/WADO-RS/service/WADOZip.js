@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const archiver = require("archiver");
 const wadoService = require("./WADO-RS.service");
 const path = require("path");
-const { InstanceModel } = require("@dbModels/dicom");
+const { InstanceModel } = require("@dbModels/instance.model");
 class WADOZip {
     constructor(iReq, iRes) {
         this.requestParams = iReq.params;

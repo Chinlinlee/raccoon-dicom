@@ -1,4 +1,4 @@
-const { InstanceModel } = require("@dbModels/dicom");
+const { InstanceModel } = require("@dbModels/instance.model");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const renderedService = require("../service/rendered.service");
 const _ = require("lodash");

@@ -2,7 +2,7 @@ const _ = require("lodash");
 const { PatientModel } = require("@dbModels/patient");
 const { StudyModel } = require("@dbModels/dicomStudy");
 const { SeriesModel } = require("@dbModels/dicomSeries");
-const { InstanceModel } = require("@dbModels/dicom");
+const { InstanceModel } = require("@dbModels/instance.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { mongoDateQuery, timeQuery } = require("@models/mongodb/service");
 

@@ -1,7 +1,7 @@
 const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 const { BulkDataService, InstanceBulkDataFactory } = require("./service/bulkdata");
 const { getInternalServerErrorMessage } = require("../../../../../utils/errorResponse/errorResponseMessage");
-const { InstanceModel } = require("@dbModels/dicom");
+const { InstanceModel } = require("@dbModels/instance.model");
 const { BaseBulkDataController } = require("./base.controller");
 const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
 
