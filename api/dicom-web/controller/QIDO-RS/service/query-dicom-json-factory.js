@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const { PatientModel } = require("@dbModels/patient");
-const dicomStudyModel = require("@models/mongodb/models/dicomStudy");
+const { StudyModel } = require("@dbModels/dicomStudy");
 const dicomSeriesModel = require("@models/mongodb/models/dicomSeries");
 const dicomModel = require("@models/mongodb/models/dicom");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
@@ -186,7 +186,7 @@ class QueryPatientDicomJsonFactory extends QueryDicomJsonFactory {
 class QueryStudyDicomJsonFactory extends QueryDicomJsonFactory {
     constructor(queryOptions) {
         super(queryOptions);
-        this.model = dicomStudyModel;
+        this.model = StudyModel;
     }
 }
 

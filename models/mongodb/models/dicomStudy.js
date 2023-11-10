@@ -81,3 +81,4 @@ let dicomStudyModel = mongoose.model(
 );
 
 module.exports = dicomStudyModel;
+module.exports.StudyModel = dicomStudyModel;

@@ -6,7 +6,7 @@ const { Tag } = require("@dcm4che/data/Tag");
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
 const { StudyQueryTaskInjectInterface, createStudyQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/StudyQueryTaskInject");
 const { DimseQueryBuilder } = require("./queryBuilder");
-const dicomStudyModel = require("@models/mongodb/models/dicomStudy");
+const { StudyModel } = require("@dbModels/dicomStudy");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { logger } = require("@root/utils/logs/log");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
@@ -132,7 +132,7 @@ class JsStudyQueryTask extends JsPatientQueryTask {
         let returnKeys = this.getReturnKeys(normalQuery);
 
         logger.info(`do DIMSE Study query: ${JSON.stringify(mongoQuery.$match)}`);
-        this.studyCursor = await dicomStudyModel.getDimseResultCursor({
+        this.studyCursor = await StudyModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);
     }

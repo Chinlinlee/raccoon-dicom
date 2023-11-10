@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const dicomStudyModel = require("../../../../../../models/mongodb/models/dicomStudy");
+const { StudyModel } = require("@dbModels/dicomStudy");
 const dicomSeriesModel = require("../../../../../../models/mongodb/models/dicomSeries");
 const dicomModel = require("../../../../../../models/mongodb/models/dicom");
 const fsP = require("fs/promises");
@@ -28,7 +28,7 @@ class DeleteService {
     }
 
     async deleteStudy() {
-        let study = await dicomStudyModel.findOne({
+        let study = await StudyModel.findOne({
             ...this.request.params
         });
 

@@ -1,7 +1,7 @@
 const schedule = require("node-schedule");
 const moment = require("moment");
 const { logger } = require("@root/utils/logs/log");
-const dicomStudyModel = require("./models/dicomStudy");
+const { StudyModel } = require("@dbModels/dicomStudy");
 const dicomModel = require("./models/dicom");
 const dicomSeriesModel = require("./models/dicomSeries");
 
@@ -20,7 +20,7 @@ schedule.scheduleJob("*/5 * * * * *", async function () {
 
 
 async function deleteExpireStudies() {
-    let deletedStudies = await dicomStudyModel.find({
+    let deletedStudies = await StudyModel.find({
         deleteStatus: {
             $gte: 2
         }
