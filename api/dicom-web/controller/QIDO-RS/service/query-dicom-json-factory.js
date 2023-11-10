@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const { PatientModel } = require("@dbModels/patient.model");
-const { StudyModel } = require("@dbModels/dicomStudy");
+const { StudyModel } = require("@dbModels/study.model");
 const { SeriesModel } = require("@dbModels/dicomSeries");
 const { InstanceModel } = require("@dbModels/instance.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
