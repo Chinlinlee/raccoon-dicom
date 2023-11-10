@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const dicomBulkDataModel = require("../../../../../../models/mongodb/models/dicomBulkData");
-const dicomModel = require("../../../../../../models/mongodb/models/dicom");
+const dicomBulkDataModel = require("@dbModels/dicomBulkData.model");
 const { MultipartWriter } = require("../../../../../../utils/multipartWriter");
 const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
 const { raccoonConfig } = require("../../../../../../config-class");
