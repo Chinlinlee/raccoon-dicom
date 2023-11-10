@@ -1,5 +1,5 @@
 const { default: UID } = require("@dcm4che/data/UID");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { DicomJsonModel } = require("@dicom-json-model");
 
 
 class WorkItemEvent {

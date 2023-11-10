@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const { WorkItemEvent } = require("./workItem-event");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { DicomJsonModel } = require("@dicom-json-model");
 const { findWsArrayByAeTitle } = require("@root/websocket");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
 const { convertRequestQueryToMongoQuery } = require("../../QIDO-RS/service/QIDO-RS.service");

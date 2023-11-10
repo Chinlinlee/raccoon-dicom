@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
 const workItemModel = require("@models/mongodb/models/workItems");
 const subscriptionModel = require("@models/mongodb/models/upsSubscription");

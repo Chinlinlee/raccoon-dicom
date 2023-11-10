@@ -4,7 +4,7 @@ const { DicomJsonParser } = require("../../../../../models/DICOM/dicom-json-pars
 const {
     DicomJsonModel,
     DicomJsonBinaryDataModel
-} = require("../../../../../models/DICOM/dicom-json-model");
+} = require("@dicom-json-model");
 const { DicomFileSaver } = require("./dicom-file-saver");
 const { DicomFhirService } = require("./dicom-fhir.service");
 const { DicomJpegGenerator } = require("./dicom-jpeg-generator");
