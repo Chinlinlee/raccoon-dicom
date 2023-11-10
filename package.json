@@ -61,7 +61,8 @@
     "@error": "./error",
     "@root": "./",
     "@chinlinlee": "./models/DICOM/dcm4che/wrapper/org/github/chinlinlee",
-    "@dbModels": "./models/mongodb/models"
+    "@dbModels": "./models/mongodb/models",
+    "@dbInitializer": "./models/mongodb/index.js"
   },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",
