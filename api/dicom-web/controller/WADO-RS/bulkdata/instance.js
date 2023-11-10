@@ -1,7 +1,7 @@
 const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 const { BulkDataService, InstanceBulkDataFactory } = require("./service/bulkdata");
 const { getInternalServerErrorMessage } = require("../../../../../utils/errorResponse/errorResponseMessage");
-const dicomModel = require("../../../../../models/mongodb/models/dicom");
+const { InstanceModel } = require("@dbModels/dicom");
 const { BaseBulkDataController } = require("./base.controller");
 const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
 
@@ -11,7 +11,7 @@ class InstanceBulkDataController extends BaseBulkDataController {
         this.bulkDataFactoryType = InstanceBulkDataFactory;
         this.imagePathFactoryType = InstanceImagePathFactory;
     }
-    
+
     logAction() {
         this.apiLogger.logger.info(`Get bulk data from StudyInstanceUID: ${this.request.params.studyUID}\
 , SeriesInstanceUID: ${this.request.params.seriesUID}\
@@ -27,7 +27,7 @@ class InstanceBulkDataController extends BaseBulkDataController {
  * @param {import("express").Response}
  * @returns 
  */
-module.exports = async function(req, res) {
+module.exports = async function (req, res) {
     let instanceBulkDataController = new InstanceBulkDataController(req, res);
 
     await instanceBulkDataController.doPipeline();

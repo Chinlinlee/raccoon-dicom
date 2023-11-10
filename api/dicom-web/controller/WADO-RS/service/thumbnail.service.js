@@ -1,4 +1,4 @@
-const dicomModel = require("../../../../../models/mongodb/models/dicom");
+const { InstanceModel } = require("@dbModels/dicom");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const renderedService = require("../service/rendered.service");
 const _ = require("lodash");
@@ -94,7 +94,7 @@ class StudyThumbnailFactory extends ThumbnailFactory {
      * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
      */
     async getThumbnailInstance() {
-        let medianInstance = await dicomModel.getInstanceOfMedianIndex({
+        let medianInstance = await InstanceModel.getInstanceOfMedianIndex({
             studyUID: this.uids.studyUID
         });
         if (!medianInstance) return undefined;
@@ -120,7 +120,7 @@ class SeriesThumbnailFactory extends ThumbnailFactory {
      * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
      */
     async getThumbnailInstance() {
-        let medianInstance = await dicomModel.getInstanceOfMedianIndex({
+        let medianInstance = await InstanceModel.getInstanceOfMedianIndex({
             studyUID: this.uids.studyUID,
             seriesUID: this.uids.seriesUID
         });

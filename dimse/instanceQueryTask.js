@@ -3,7 +3,7 @@ const _ = require("lodash");
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
 const { DimseQueryBuilder } = require("./queryBuilder");
 const { JsSeriesQueryTask } = require("./seriesQueryTask");
-const dicomModel = require("@models/mongodb/models/dicom");
+const { InstanceModel } = require("@dbModels/dicom");
 const { InstanceQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/InstanceQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { createInstanceQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/InstanceQueryTaskInject");
@@ -136,7 +136,7 @@ class JsInstanceQueryTask extends JsSeriesQueryTask {
         let returnKeys = this.getReturnKeys(normalQuery);
 
         logger.info(`do DIMSE Instance query: ${JSON.stringify(mongoQuery.$match)}`);
-        this.instanceCursor = await dicomModel.getDimseResultCursor({
+        this.instanceCursor = await InstanceModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);
     }

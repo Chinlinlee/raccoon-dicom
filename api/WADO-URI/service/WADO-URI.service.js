@@ -7,7 +7,7 @@ const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../models/DICOM/dcm4ch
 const sharp = require('sharp');
 const Magick = require("../../../models/magick");
 const { NotFoundInstanceError, InvalidFrameNumberError, InstanceGoneError } = require("../../../error/dicom-instance");
-const dicomModel = require("../../../models/mongodb/models/dicom");
+const { InstanceModel } = require("@dbModels/dicom");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
@@ -127,7 +127,7 @@ class WadoUriService {
             objectUID: instanceUID
         } = this.request.query;
 
-        let imagePathObj = await dicomModel.getPathOfInstance({
+        let imagePathObj = await InstanceModel.getPathOfInstance({
             studyUID,
             seriesUID,
             instanceUID

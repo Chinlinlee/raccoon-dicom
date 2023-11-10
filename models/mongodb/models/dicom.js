@@ -474,5 +474,6 @@ async function updateStudyNumberOfStudyRelatedInstance(doc) {
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
 
 module.exports = dicomModel;
+module.exports.InstanceModel = dicomModel;
 
 module.exports.getModalitiesInStudy = getModalitiesInStudy;

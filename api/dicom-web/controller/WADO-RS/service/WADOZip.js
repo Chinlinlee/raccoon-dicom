@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const archiver = require("archiver");
 const wadoService = require("./WADO-RS.service");
 const path = require("path");
-const dicomModel = require("../../../../../models/mongodb/models/dicom");
-
+const { InstanceModel } = require("@dbModels/dicom");
 class WADOZip {
     constructor(iReq, iRes) {
         this.requestParams = iReq.params;
@@ -58,7 +57,7 @@ class WADOZip {
     }
 
     async getZipOfInstanceDICOMFile() {
-        let imagePath = await dicomModel.getPathOfInstance(this.requestParams);
+        let imagePath = await InstanceModel.getPathOfInstance(this.requestParams);
         if (imagePath) {
             this.setHeaders(this.instanceUID);
 
