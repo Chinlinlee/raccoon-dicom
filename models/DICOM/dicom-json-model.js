@@ -11,7 +11,7 @@ const flat = require("flat");
 const shortHash = require("shorthash2");
 const dicomBulkDataModel = require("../mongodb/models/dicomBulkData");
 const { logger } = require("../../utils/logs/log");
-const { PatientModel } = require("@dbModels/patient");
+const { PatientModel } = require("@dbModels/patient.model");
 const { tagsNeedStore } = require("./dicom-tags-mapping");
 
 const { raccoonConfig } = require("../../config-class");

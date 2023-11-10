@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const { PatientModel } = require("@dbModels/patient");
+const { PatientModel } = require("@dbModels/patient.model");
 const { StudyModel } = require("@dbModels/dicomStudy");
 const { SeriesModel } = require("@dbModels/dicomSeries");
 const { InstanceModel } = require("@dbModels/instance.model");

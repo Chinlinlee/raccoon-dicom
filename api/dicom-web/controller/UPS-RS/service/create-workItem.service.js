@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const workItemModel = require("@models/mongodb/models/workItems");
-const { PatientModel } = require("@dbModels/patient");
+const { PatientModel } = require("@dbModels/patient.model");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
 const {
     DicomWebServiceError,
