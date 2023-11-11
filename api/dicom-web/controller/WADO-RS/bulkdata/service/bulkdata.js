@@ -51,7 +51,7 @@ class BulkDataService {
     async getBulkData() {
         return await this.bulkDataFactory.getBulkData();
     }
-
+    
 }
 
 class BulkDataFactory {

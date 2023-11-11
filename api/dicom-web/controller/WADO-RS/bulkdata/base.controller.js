@@ -11,6 +11,7 @@ class BaseBulkDataController extends Controller {
         this.apiLogger.addTokenValue();
         this.bulkDataFactoryType = StudyBulkDataFactory;
         this.imagePathFactoryType = StudyImagePathFactory;
+        this.bulkDataService = new BulkDataService(this.request, this.response, this.bulkDataFactoryType);
     }
 
     logAction() {
@@ -20,29 +21,41 @@ class BaseBulkDataController extends Controller {
     async mainProcess() {
         this.logAction();
 
-        let bulkDataService = new BulkDataService(this.request, this.response, this.bulkDataFactoryType);
-
         try {
-            let bulkDataArray = await bulkDataService.getBulkData();
-            for(let bulkData of bulkDataArray) {
-                await bulkDataService.writeBulkData(bulkData);
+            this.logAction();
+
+            let bulkData = await this.bulkDataService.getBulkData();
+            if (Array.isArray(bulkData)) {
+                await this.responseBulkDataArray(bulkData);
+            } else {
+                await this.responseBulkData(bulkData);
             }
 
-            let imagePathFactory = new this.imagePathFactoryType({
-                ...this.request.params
-            });
-            await imagePathFactory.getImagePaths();
-            
-            for(let imagePathObj of imagePathFactory.imagePaths) {
-                await bulkDataService.writeBulkData(imagePathObj);
-            }
-
-            bulkDataService.multipartWriter.writeFinalBoundary();
+            this.bulkDataService.multipartWriter.writeFinalBoundary();
             return this.response.end();
-        } catch(e) {
+        } catch (e) {
             let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
+    }
+
+    async responseBulkDataArray(bulkDataArray) {
+        for (let bulkData of bulkDataArray) {
+            await this.bulkDataService.writeBulkData(bulkData);
+        }
+
+        let imagePathFactory = new this.imagePathFactoryType({
+            ...this.request.params
+        });
+        await imagePathFactory.getImagePaths();
+
+        for (let imagePathObj of imagePathFactory.imagePaths) {
+            await this.bulkDataService.writeBulkData(imagePathObj);
+        }
+    }
+
+    async responseBulkData(bulkData) {
+        await this.bulkDataService.writeBulkData(bulkData);
     }
 }
 

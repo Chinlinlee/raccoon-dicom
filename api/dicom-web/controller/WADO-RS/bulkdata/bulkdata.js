@@ -20,22 +20,6 @@ class BulkDataController extends BaseBulkDataController {
 , SOPInstanceUID: ${this.request.params.instanceUID}`);
     }
 
-    async mainProcess() {
-        this.logAction();
-
-        let bulkDataService = new BulkDataService(this.request, this.response, this.bulkDataFactoryType);
-
-        try {
-            let bulkData = await bulkDataService.getBulkData();
-            await bulkDataService.writeBulkData(bulkData);
-            bulkDataService.multipartWriter.writeFinalBoundary();
-            return this.response.end();
-        } catch(e) {
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
-            return apiErrorArrayHandler.doErrorResponse();
-        }
-        
-    }
 }
 
 
