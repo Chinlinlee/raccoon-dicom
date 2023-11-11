@@ -1,9 +1,9 @@
 const _ = require("lodash");
 const workItemsModel = require("@models/mongodb/models/workItems");
 const { 
-    convertAllQueryToDICOMTag,
     convertRequestQueryToMongoQuery
-} = require("../../QIDO-RS/service/QIDO-RS.service");
+} = require("../../QIDO-RS/service/query-dicom-json-factory");
+const { convertAllQueryToDICOMTag } = require("../../QIDO-RS/service/QIDO-RS.service");
 
 class GetWorkItemService {
     constructor(req, res) {

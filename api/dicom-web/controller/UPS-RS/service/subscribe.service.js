@@ -45,30 +45,6 @@ class SubscribeService extends BaseWorkItemService {
         await this.triggerUpsEvents();
     }
 
-    
-    /**
-     * 
-     * @param {string} upsInstanceUID 
-     * @returns 
-     */
-    async findOneWorkItem(upsInstanceUID) {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: upsInstanceUID
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-        
-        return new DicomJsonModel(workItem);
-        
-    }
-
     //#region Subscription
     async findOneSubscription() {
         

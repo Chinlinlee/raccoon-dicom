@@ -58,29 +58,6 @@ class CancelWorkItemService extends BaseWorkItemService {
 
     }
 
-    /**
-     * 
-     * @param {string} upsInstanceUID 
-     * @returns 
-     */
-    async findOneWorkItem(upsInstanceUID) {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: upsInstanceUID
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-        
-        return new DicomJsonModel(workItem);
-        
-    }
-
     async addCancelEvent() {
         let hitSubscriptions = await this.getHitSubscriptions(this.workItem);
         let aeTitles = hitSubscriptions.map(v => v.aeTitle);

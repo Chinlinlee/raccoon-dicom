@@ -59,29 +59,6 @@ class UnSubscribeService extends BaseWorkItemService {
 
     /**
      * 
-     * @param {string} upsInstanceUID 
-     * @returns {Promise<DicomJsonModel>}
-     */
-    async findOneWorkItem(upsInstanceUID) {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: upsInstanceUID
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-
-        return new DicomJsonModel(workItem);
-
-    }
-
-    /**
-     * 
      * @param {DicomJsonModel} workItem 
      */
     async deleteSubscription(workItem) {

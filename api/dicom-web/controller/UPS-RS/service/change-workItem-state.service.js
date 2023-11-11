@@ -36,8 +36,8 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
         this.workItemTransactionUID = "";
     }
 
-    async changeWorkItemState() {
-        await this.findOneWorkItem();
+    async changeWorkItemState() { 
+        this.workItem = await this.findOneWorkItem(this.request.params.workItem);
         
         this.workItemState = this.workItem.getString("00741000");
         this.workItemTransactionUID = this.workItem.getString("00081195");
@@ -69,24 +69,6 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
         
         this.addUpsEvent(UPS_EVENT_TYPE.StateReport, updatedWorkItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(updatedWorkItemDicomJson), hitSubscriptionAeTitleArray);
         this.triggerUpsEvents();
-    }
-
-    async findOneWorkItem() {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: this.request.params.workItem
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-        
-        this.workItem = new DicomJsonModel(workItem);
-        
     }
 
     inProgressChange() {

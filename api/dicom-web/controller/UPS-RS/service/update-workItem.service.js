@@ -45,7 +45,7 @@ class UpdateWorkItemService extends BaseWorkItemService {
 
     async updateUps() {
         this.transactionUID = this.requestWorkItem.getString("00081195");
-        await this.findOneWorkItem();
+        this.workItem = await this.findOneWorkItem(this.request.params.workItem, true);
         await this.checkRequestUpsIsValid();
         this.adjustRequestWorkItem();
 
@@ -111,23 +111,6 @@ class UpdateWorkItemService extends BaseWorkItemService {
         }
     }
 
-    async findOneWorkItem() {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: this.request.params.workItem
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-
-        this.workItem = new DicomJsonModel(workItem.toObject());
-
-    }
 
     checkRequestUpsIsValid() {
         let procedureState = this.workItem.getString("00741000");
