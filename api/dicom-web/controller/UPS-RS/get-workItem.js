@@ -4,17 +4,18 @@ const {
 } = require("./service/get-workItem.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class GetWorkItemController extends Controller {
     constructor(req, res) {
         super(req, res);
+        this.apiLogger = new ApiLogger(this.request, "UPS-RS");
     }
 
     async mainProcess() {
-        let apiLogger = new ApiLogger(this.request, "UPS-RS");
 
-        apiLogger.addTokenValue();
-        apiLogger.logger.info(`Get workItem, query: ${this.queryToString()}, param: ${this.paramsToString()}`);
+        this.apiLogger.addTokenValue();
+        this.apiLogger.logger.info(`Get workItem, query: ${this.queryToString()}, param: ${this.paramsToString()}`);
         
         try {
             let getWorkItemService = new GetWorkItemService(this.request, this.response);
@@ -28,16 +29,8 @@ class GetWorkItemController extends Controller {
 
             return this.response.set("Content-Type", "application/dicom+json").status(200).json(workItems);
         } catch (e) {
-            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.logger.error(errorStr);
-
-            this.response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            this.response.end(JSON.stringify({
-                code: 500,
-                message: errorStr
-            }));
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 }
