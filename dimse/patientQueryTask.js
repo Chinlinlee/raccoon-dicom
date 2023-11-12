@@ -43,56 +43,26 @@ class JsPatientQueryTask {
         );
 
         await this.initCursor();
-        await this.patientQueryTaskInjectMethods.wrappedFindNextPatient();
+        await this.patientQueryTaskProxy.wrappedFindNextPatient();
 
         return patientQueryTask;
     }
 
     getQueryTaskInjectProxy() {
-        /** @type { QueryTaskInjectInterface } */
-        this.patientBasicQueryTaskInjectMethods = {
-            hasMoreMatches: () => {
-                return !_.isNull(this.patientAttr);
-            },
-            nextMatch: async () => {
-                let tempRecord = this.patientAttr;
-                await this.patientQueryTaskInjectMethods.wrappedFindNextPatient();
-                return tempRecord;
-            },
-            adjust: async (match) => {
-                return this.patientAdjust(match);
-            }
-        };
-
-        if (!this.queryTaskInjectProxy) {
-            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.patientBasicQueryTaskInjectMethods);
+        // for creating one
+        if (!this.matchIteratorProxy) {
+            this.matchIteratorProxy = new PatientMatchIteratorProxy(this);
         }
 
-        return this.queryTaskInjectProxy;
+        return this.matchIteratorProxy.get();
     }
 
     getPatientQueryTaskInjectProxy() {
-
-        /** @type { PatientQueryTaskInjectInterface }*/
-        this.patientQueryTaskInjectMethods = {
-            wrappedFindNextPatient: async () => {
-                await this.patientQueryTaskInjectMethods.findNextPatient();
-            },
-            getPatient: async () => {
-                this.patient = await this.cursor.next();
-                this.patientAttr = this.patient ? await this.patient.getAttributes() : null;
-            },
-            findNextPatient: async () => {
-                await this.patientQueryTaskInjectMethods.getPatient();
-                return !_.isNull(this.patientAttr);
-            }
-        };
-
+        // for creating once
         if (!this.patientQueryTaskProxy) {
-            this.patientQueryTaskProxy = createPatientQueryTaskInjectProxy(this.patientQueryTaskInjectMethods);
+            this.patientQueryTaskProxy =  new PatientQueryTaskInjectProxy(this);
         }
-
-        return this.patientQueryTaskProxy;
+        return this.patientQueryTaskProxy.get();
     }
 
     /**
@@ -165,6 +135,74 @@ class JsPatientQueryTask {
         this.cursor = await PatientModel.getDimseResultCursor({
             ...mongoQuery.$match
         }, returnKeys);
+    }
+}
+
+class PatientQueryTaskInjectProxy {
+    /**
+     * 
+     * @param {JsPatientQueryTask} queryTask 
+     */
+    constructor(patientQueryTask) {
+        /** @type {JsPatientQueryTask} */
+        this.patientQueryTask = patientQueryTask;
+    }
+
+    get() {
+        return createPatientQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            wrappedFindNextPatient: this.wrappedFindNextPatient.bind(this),
+            getPatient: this.getPatient.bind(this),
+            findNextPatient: this.findNextPatient.bind(this)
+        };
+    }
+
+    async wrappedFindNextPatient() {
+        await this.findNextPatient();
+    }
+
+    async findNextPatient() {
+        await this.getPatient();
+        return !_.isNull(this.patientQueryTask.patientAttr);
+    }
+
+    async getPatient() {
+        this.patientQueryTask.patient = await this.patientQueryTask.cursor.next();
+        this.patientQueryTask.patientAttr = this.patientQueryTask.patient ? await this.patientQueryTask.patient.getAttributes() : null;
+    }
+}
+
+class PatientMatchIteratorProxy {
+    constructor(patientQueryTask) {
+        /** @type {JsPatientQueryTask} */
+        this.patientQueryTask = patientQueryTask;
+    }
+
+    get() {
+        return createQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            hasMoreMatches: () => {
+                return !_.isNull(this.patientQueryTask.patientAttr);
+            },
+            nextMatch: async () => {
+                let tempRecord = this.patientQueryTask.patientAttr;
+                await this.patientQueryTask.patientQueryTaskProxy.wrappedFindNextPatient();
+                return tempRecord;
+            },
+            adjust: async (match) => {
+                return this.patientQueryTask.patientAdjust(match);
+            }
+        };
     }
 }
 
