@@ -13,6 +13,7 @@ const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { UID } = require("@dcm4che/data/UID");
+const { QueryTaskUtils } = require("./utils");
 
 class JsStudyQueryTask extends JsPatientQueryTask {
     constructor(as, pc, rq, keys) {
@@ -93,7 +94,7 @@ class JsStudyQueryTask extends JsPatientQueryTask {
                     await this.studyQueryTaskInjectMethods.getStudy();
                 }
 
-                while (!this.studyAttr && await this.patientQueryTaskInjectMethods.findNextPatient()) {
+                while (!this.studyAttr && await this.patientQueryTaskProxy.findNextPatient()) {
                     await this.getNextStudyCursor();
                     await this.studyQueryTaskInjectMethods.getStudy();
                 }
@@ -110,31 +111,20 @@ class JsStudyQueryTask extends JsPatientQueryTask {
     }
 
     async getNextStudyCursor() {
-        let queryAudit = new AuditManager(
-            EventType.QUERY, EventOutcomeIndicator.Success,
-            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
-            await this.as.getLocalAET(), await this.as.getLocalHostName()
-        );
+        let queryAuditManager = await QueryTaskUtils.getAuditManager(this.as);
         
-        let queryAttr = await Attributes.newInstanceAsync();
-        await queryAttr.addAll(this.keys);
-        await queryAttr.addSelected(this.patientAttr, [Tag.PatientID]);
-
-        let queryBuilder = new DimseQueryBuilder(queryAttr, "study");
-        let normalQuery = await queryBuilder.toNormalQuery();
-        let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-        queryAudit.onQuery(
+        let queryAttr = await QueryTaskUtils.getQueryAttribute(this.keys, this.patientAttr);
+        let dbQuery = await QueryTaskUtils.getDbQuery(queryAttr, "study");
+        queryAuditManager.onQuery(
             UID.StudyRootQueryRetrieveInformationModelFind,
-            JSON.stringify(mongoQuery.$match),
+            JSON.stringify(dbQuery),
             "UTF-8"
         );
 
-        let returnKeys = this.getReturnKeys(normalQuery);
-
-        logger.info(`do DIMSE Study query: ${JSON.stringify(mongoQuery.$match)}`);
+        logger.info(`do DIMSE Study query: ${JSON.stringify(dbQuery)}`);
         this.studyCursor = await StudyModel.getDimseResultCursor({
-            ...mongoQuery.$match
-        }, returnKeys);
+            ...dbQuery
+        }, await QueryTaskUtils.getReturnKeys(queryAttr, "study"));
     }
 
     async auditDicomInstancesAccessed() {

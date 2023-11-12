@@ -13,6 +13,7 @@ const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { UID } = require("@dcm4che/data/UID");
+const { QueryTaskUtils } = require("./utils");
 
 
 class JsInstanceQueryTask extends JsSeriesQueryTask {
@@ -114,31 +115,20 @@ class JsInstanceQueryTask extends JsSeriesQueryTask {
     }
 
     async getNextInstanceCursor() {
-        let queryAudit = new AuditManager(
-            EventType.QUERY, EventOutcomeIndicator.Success,
-            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
-            await this.as.getLocalAET(), await this.as.getLocalHostName()
-        );
-
-        let queryAttr = await Attributes.newInstanceAsync();
-        await queryAttr.addAll(this.keys);
-        await queryAttr.addSelected(this.seriesAttr, [Tag.PatientID, Tag.StudyInstanceUID, Tag.SeriesInstanceUID]);
-
-        let queryBuilder = new DimseQueryBuilder(queryAttr, "instance");
-        let normalQuery = await queryBuilder.toNormalQuery();
-        let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-        queryAudit.onQuery(
+        let queryAuditManager = await QueryTaskUtils.getAuditManager(this.as);
+        
+        let queryAttr = await QueryTaskUtils.getQueryAttribute(this.keys, this.seriesAttr);
+        let dbQuery = await QueryTaskUtils.getDbQuery(queryAttr, "instance");
+        queryAuditManager.onQuery(
             UID.StudyRootQueryRetrieveInformationModelFind,
-            JSON.stringify(mongoQuery.$match),
+            JSON.stringify(dbQuery),
             "UTF-8"
         );
 
-        let returnKeys = this.getReturnKeys(normalQuery);
-
-        logger.info(`do DIMSE Instance query: ${JSON.stringify(mongoQuery.$match)}`);
+        logger.info(`do DIMSE Instance query: ${JSON.stringify(dbQuery)}`);
         this.instanceCursor = await InstanceModel.getDimseResultCursor({
-            ...mongoQuery.$match
-        }, returnKeys);
+            ...dbQuery
+        }, await QueryTaskUtils.getReturnKeys(queryAttr, "instance"));
     }
 
 }

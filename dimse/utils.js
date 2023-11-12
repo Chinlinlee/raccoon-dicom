@@ -6,6 +6,10 @@ const { importClass } = require("java-bridge");
 const { raccoonConfig } = require("@root/config-class");
 const { InstanceLocator } = require("@dcm4che/net/service/InstanceLocator");
 const { File } = require("@java-wrapper/java/io/File");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { Tag } = require("@dcm4che/data/Tag");
 /**
  * 
  * @param {number} tag 
@@ -95,6 +99,59 @@ async function findOneInstanceFromKeysAttr(keys) {
     return instance;
 }
 
+const QUERY_ATTR_SELECTED_TAGS = {
+    "patient": [Tag.PatientID],
+    "study": [Tag.PatientID],
+    "series": [Tag.PatientID, Tag.StudyInstanceUID],
+    "instance": [Tag.PatientID, Tag.StudyInstanceUID, Tag.SeriesInstanceUID]
+};
+class QueryTaskUtils {
+    /**
+     * 
+     * @param {import("@dcm4che/net/Association").Association} association 
+     * @returns 
+     */
+    static async getAuditManager(association) {
+        return new AuditManager(
+            EventType.QUERY, EventOutcomeIndicator.Success,
+            await association.getRemoteAET(), await association.getRemoteHostName(),
+            await association.getLocalAET(), await association.getLocalHostName()
+        );
+    }
+
+    static async getQueryAttribute(keys, parentAttr, level = "patient") {
+        let queryAttr = await Attributes.newInstanceAsync();
+        await queryAttr.addAll(keys);
+        await queryAttr.addSelected(parentAttr, QUERY_ATTR_SELECTED_TAGS[level]);
+        return queryAttr;
+    }
+
+    static async getQueryBuilder(queryAttr, level = "patient") {
+        const { DimseQueryBuilder } = require("./queryBuilder");
+        return new DimseQueryBuilder(queryAttr, level);
+    }
+
+    static async getReturnKeys(queryAttr, level = "patient") {
+        let queryBuilder = await QueryTaskUtils.getQueryBuilder(queryAttr, level);
+        let query = await queryBuilder.toNormalQuery();
+        let returnKeys = {};
+        let queryKeys = Object.keys(query);
+        for (let i = 0; i < queryKeys.length; i++) {
+            returnKeys[queryKeys[i].split(".").shift()] = 1;
+        }
+        return returnKeys;
+    }
+
+    static async getDbQuery(queryAttr, level="patient") {
+        let queryBuilder = await QueryTaskUtils.getQueryBuilder(queryAttr, level);
+        let normalQuery = await queryBuilder.toNormalQuery();
+        let dbQuery = await queryBuilder.getMongoQuery(normalQuery);
+
+        return dbQuery.$match;
+    }
+}
+
 module.exports.intTagToString = intTagToString;
 module.exports.getInstancesFromKeysAttr = getInstancesFromKeysAttr;
 module.exports.findOneInstanceFromKeysAttr = findOneInstanceFromKeysAttr;
+module.exports.QueryTaskUtils = QueryTaskUtils;
