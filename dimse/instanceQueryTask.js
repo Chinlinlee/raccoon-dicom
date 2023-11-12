@@ -98,7 +98,7 @@ class JsInstanceQueryTask extends JsSeriesQueryTask {
                     await this.instanceQueryTaskInjectMethods.getInstance();
                 }
 
-                while (!this.instanceAttr && await this.seriesQueryTaskInjectMethods.findNextSeries()) {
+                while (!this.instanceAttr && await this.seriesQueryTaskInjectProxy.findNextSeries()) {
                     await this.getNextInstanceCursor();
                     await this.instanceQueryTaskInjectMethods.getInstance();
                 }
