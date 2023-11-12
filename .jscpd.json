@@ -11,6 +11,9 @@
         "docs/**",
         "test/**"
     ],
+    "ignorePattern": [
+        "const .* require.*"
+    ],
     "absolute": true,
     "gitignore": true
 }
