@@ -18,29 +18,26 @@ function intTagToString(tag) {
     return tag.toString(16).padStart(8, "0").toUpperCase();
 }
 
+const INSTANCE_RETURN_KEYS = {
+    "instancePath": 1,
+    "00020010": 1,
+    "00080016": 1,
+    "00080018": 1,
+    "0020000D": 1,
+    "0020000E": 1
+};
+
 /**
  * 
  * @param {Attributes} keys 
  * @returns 
  */
 async function getInstancesFromKeysAttr(keys) {
-    const { DimseQueryBuilder } = require("./queryBuilder");
-    let queryBuilder = new DimseQueryBuilder(keys, "instance");
-    let normalQuery = await queryBuilder.toNormalQuery();
-    let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-
-    let returnKeys = {
-        "instancePath": 1,
-        "00020010": 1,
-        "00080016": 1,
-        "00080018": 1,
-        "0020000D": 1,
-        "0020000E": 1
-    };
+    let dbQuery = await QueryTaskUtils.getDbQuery(keys, "instance");
 
     let instances = await mongoose.model("dicom").find({
-        ...mongoQuery.$match
-    }, returnKeys).setOptions({
+        ...dbQuery
+    }, INSTANCE_RETURN_KEYS).setOptions({
         strictQuery: false
     }).exec();
     const JArrayList = await importClass("java.util.ArrayList");
@@ -76,23 +73,11 @@ async function getInstancesFromKeysAttr(keys) {
  * @returns 
  */
 async function findOneInstanceFromKeysAttr(keys) {
-    const { DimseQueryBuilder } = require("./queryBuilder");
-    let queryBuilder = new DimseQueryBuilder(keys, "instance");
-    let normalQuery = await queryBuilder.toNormalQuery();
-    let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-
-    let returnKeys = {
-        "instancePath": 1,
-        "00020010": 1,
-        "00080016": 1,
-        "00080018": 1,
-        "0020000D": 1,
-        "0020000E": 1
-    };
+    let dbQuery = await QueryTaskUtils.getDbQuery(keys, "instance");
 
     let instance = await mongoose.model("dicom").findOne({
-        ...mongoQuery.$match
-    }, returnKeys).setOptions({
+        ...dbQuery
+    }, INSTANCE_RETURN_KEYS).setOptions({
         strictQuery: false
     }).exec();
 
