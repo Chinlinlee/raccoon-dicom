@@ -96,7 +96,7 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
                     await this.seriesQueryTaskInjectMethods.getSeries();
                 }
 
-                while (!this.seriesAttr && await this.studyQueryTaskInjectMethods.findNextStudy()) {
+                while (!this.seriesAttr && await this.studyQueryTaskInjectProxy.findNextStudy()) {
                     await this.getNextSeriesCursor();
                     await this.seriesQueryTaskInjectMethods.getSeries();
                 }
