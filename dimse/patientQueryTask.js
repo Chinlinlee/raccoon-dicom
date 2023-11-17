@@ -105,15 +105,6 @@ class JsPatientQueryTask {
         return basicAd;
     }
 
-    getReturnKeys(query) {
-        let returnKeys = {};
-        let queryKeys = Object.keys(query);
-        for (let i = 0; i < queryKeys.length; i++) {
-            returnKeys[queryKeys[i].split(".").shift()] = 1;
-        }
-        return returnKeys;
-    }
-
     async initCursor() {
         let queryAuditManager = await QueryTaskUtils.getAuditManager(this.as);
         let dbQuery = await QueryTaskUtils.getDbQuery(this.keys, "patient");
