@@ -133,7 +133,9 @@ class SeriesMatchIteratorProxy {
     }
 
     get() {
-        return createQueryTaskInjectProxy(this.getProxyMethods());
+        return createQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
     }
 
     getProxyMethods() {
@@ -158,12 +160,12 @@ class SeriesMatchIteratorProxy {
                 await returnAttr.addAll(this.seriesQueryTask.studyAttr, true);
                 await returnAttr.addAll(this.seriesQueryTask.seriesAttr, true);
     
-                await this.seriesQueryTask.seriesQueryTaskProxy.wrappedFindNextSeries();
+                await this.seriesQueryTask.seriesQueryTaskInjectProxy.wrappedFindNextSeries();
     
                 return returnAttr;
             },
             adjust: async (match) => {
-                return this.patientAdjust(match);
+                return this.seriesQueryTask.patientAdjust(match);
             }
         };
     }
