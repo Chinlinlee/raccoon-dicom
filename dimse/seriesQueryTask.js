@@ -45,10 +45,10 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
 
     getQueryTaskInjectProxy() {
         if (!this.matchIteratorProxy) {
-            this.matchIteratorProxy = createQueryTaskInjectProxy(this.seriesBasicQueryTaskInjectMethods);
+            this.matchIteratorProxy = new SeriesMatchIteratorProxy(this);
         }
 
-        return this.matchIteratorProxy;
+        return this.matchIteratorProxy.get();
     }
 
     getSeriesQueryTaskInjectProxy() {
