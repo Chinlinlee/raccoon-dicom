@@ -60,8 +60,12 @@ class BaseDicomJson {
         return _.get(this.dicomJson, tag, undefined);
     }
 
-    getValue(tag) {
+    getValues(tag) {
         return _.get(this.dicomJson, `${tag}.Value`, undefined);
+    }
+
+    getValue(tag) {
+        return _.get(this.dicomJson, `${tag}.Value.0`, undefined);
     }
 
     getSequenceItem(tag) {
