@@ -40,83 +40,29 @@ class JsInstanceQueryTask extends JsSeriesQueryTask {
         );
 
         await super.get();
-        await this.instanceQueryTaskInjectMethods.wrappedFindNextInstance();
+        await this.instanceQueryTaskInjectProxy.getProxyMethods().wrappedFindNextInstance();
 
         return instanceQueryTask;
     }
 
     getQueryTaskInjectProxy() {
-        this.instanceBasicQueryTaskInjectMethods = {
-            hasMoreMatches: () => {
-                return !_.isNull(this.instanceAttr);
-            },
-            nextMatch: async () => {
-                let returnAttr = await Attributes.newInstanceAsync(
-                    await this.patientAttr.size() + await this.studyAttr.size() + await this.seriesAttr.size() + await this.instanceAttr.size()
-                );
-                await Attributes.unifyCharacterSets([this.patientAttr, this.studyAttr, this.seriesAttr, this.instanceAttr]);
-                await returnAttr.addAll(this.patientAttr);
-                await returnAttr.addAll(this.studyAttr, true);
-                await returnAttr.addAll(this.seriesAttr, true);
-                await returnAttr.addAll(this.instanceAttr, true);
-
-                await this.instanceQueryTaskInjectMethods.wrappedFindNextInstance();
-
-                return returnAttr;
-            },
-            adjust: async (match) => {
-                return await this.patientAdjust(match);
-            }
-        };
-
-        if (!this.queryTaskInjectProxy) {
-            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.instanceBasicQueryTaskInjectMethods);
+        if (!this.matchIteratorProxy) {
+            this.matchIteratorProxy = new InstanceMatchIteratorProxy(this);
         }
-
-        return this.queryTaskInjectProxy;
+        return this.matchIteratorProxy.get();
     }
 
     getInstanceQueryTaskInjectProxy() {
-        /** @type { import("@java-wrapper/org/github/chinlinlee/dcm777/net/InstanceQueryTaskInject").InstanceQueryTaskInjectInterface } */
-        this.instanceQueryTaskInjectMethods = {
-            wrappedFindNextInstance: async () => {
-                await this.instanceQueryTaskInjectMethods.findNextInstance();
-            },
-            getInstance: async () => {
-                this.instance = await this.instanceCursor.next();
-                if (this.instance) this.auditDicomInstancesAccessed();
-                this.instanceAttr = this.instance ? await this.instance.getAttributes() : null;
-            },
-            findNextInstance: async () => {
-                if (!this.seriesAttr)
-                    return false;
-
-                if (!this.instanceAttr) {
-                    await this.getNextInstanceCursor();
-                    await this.instanceQueryTaskInjectMethods.getInstance();
-                } else {
-                    await this.instanceQueryTaskInjectMethods.getInstance();
-                }
-
-                while (!this.instanceAttr && await this.seriesQueryTaskInjectProxy.findNextSeries()) {
-                    await this.getNextInstanceCursor();
-                    await this.instanceQueryTaskInjectMethods.getInstance();
-                }
-
-                return _.isNull(this.instanceAttr);
-            }
-        };
-
         if (!this.instanceQueryTaskInjectProxy) {
-            this.instanceQueryTaskInjectProxy = createInstanceQueryTaskInjectProxy(this.instanceQueryTaskInjectMethods);
+            this.instanceQueryTaskInjectProxy = new InstanceQueryTaskInjectProxy(this);
         }
 
-        return this.instanceQueryTaskInjectProxy;
+        return this.instanceQueryTaskInjectProxy.get();
     }
 
     async getNextInstanceCursor() {
         let queryAuditManager = await QueryTaskUtils.getAuditManager(this.as);
-        
+
         let queryAttr = await QueryTaskUtils.getQueryAttribute(this.keys, this.seriesAttr);
         let dbQuery = await QueryTaskUtils.getDbQuery(queryAttr, "instance");
         queryAuditManager.onQuery(
@@ -131,6 +77,104 @@ class JsInstanceQueryTask extends JsSeriesQueryTask {
         }, await QueryTaskUtils.getReturnKeys(queryAttr, "instance"));
     }
 
+}
+
+class InstanceQueryTaskInjectProxy {
+    constructor(instanceQueryTask) {
+        /** @type { JsInstanceQueryTask } */
+        this.instanceQueryTask = instanceQueryTask;
+    }
+
+    get() {
+        return new createInstanceQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            wrappedFindNextInstance: this.wrappedFindNextInstance.bind(this),
+            getInstance: this.getInstance.bind(this),
+            findNextInstance: this.findNextInstance.bind(this)
+        };
+    }
+
+    async wrappedFindNextInstance() {
+        await this.findNextInstance();
+    }
+
+    async findNextInstance() {
+        if (!this.instanceQueryTask.seriesAttr)
+            return false;
+
+        if (!this.instanceQueryTask.instanceAttr) {
+            await this.instanceQueryTask.getNextInstanceCursor();
+            await this.getInstance();
+        } else {
+            await this.getInstance();
+        }
+
+        while (!this.instanceQueryTask.instanceAttr && await this.instanceQueryTask.seriesQueryTaskInjectProxy.findNextSeries()) {
+            await this.getNextInstanceCursor();
+            await this.getInstance();
+        }
+
+        return !_.isNull(this.instanceQueryTask.instanceAttr);
+    }
+
+    async getInstance() {
+        this.instanceQueryTask.instance = await this.instanceQueryTask.instanceCursor.next();
+        if (this.instanceQueryTask.instance) this.instanceQueryTask.auditDicomInstancesAccessed();
+        this.instanceQueryTask.instanceAttr = this.instanceQueryTask.instance ? await this.instanceQueryTask.instance.getAttributes() : null;
+    }
+
+}
+
+class InstanceMatchIteratorProxy {
+    constructor(instanceQueryTask) {
+        /** @type {JsInstanceQueryTask} */
+        this.instanceQueryTask = instanceQueryTask;
+    }
+
+    get() {
+        return createQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            hasMoreMatches: async () => {
+                return !_.isNull(this.instanceQueryTask.instanceAttr);
+            },
+            nextMatch: async () => {
+                let returnAttr = await Attributes.newInstanceAsync(
+                    await this.instanceQueryTask.patientAttr.size() +
+                    await this.instanceQueryTask.studyAttr.size() +
+                    await this.instanceQueryTask.seriesAttr.size() +
+                    await this.instanceQueryTask.instanceAttr.size()
+                );
+
+                await Attributes.unifyCharacterSets([
+                    this.instanceQueryTask.patientAttr,
+                    this.instanceQueryTask.studyAttr,
+                    this.instanceQueryTask.seriesAttr,
+                    this.instanceQueryTask.instanceAttr
+                ]);
+                await returnAttr.addAll(this.instanceQueryTask.patientAttr);
+                await returnAttr.addAll(this.instanceQueryTask.studyAttr, true);
+                await returnAttr.addAll(this.instanceQueryTask.seriesAttr, true);
+                await returnAttr.addAll(this.instanceQueryTask.instanceAttr, true);
+
+                await this.instanceQueryTask.instanceQueryTaskInjectProxy.wrappedFindNextInstance();
+
+                return returnAttr;
+            },
+            adjust: async (match) => {
+                return await this.instanceQueryTask.patientAdjust(match);
+            }
+        };
+    }
 }
 
 module.exports.JsInstanceQueryTask = JsInstanceQueryTask;
