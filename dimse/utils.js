@@ -130,7 +130,7 @@ class QueryTaskUtils {
     static async getDbQuery(queryAttr, level="patient") {
         let queryBuilder = await QueryTaskUtils.getQueryBuilder(queryAttr, level);
         let normalQuery = await queryBuilder.toNormalQuery();
-        let dbQuery = await queryBuilder.getMongoQuery(normalQuery);
+        let dbQuery = await queryBuilder.build(normalQuery);
 
         return dbQuery.$match;
     }

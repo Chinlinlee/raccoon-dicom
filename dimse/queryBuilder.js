@@ -39,7 +39,7 @@ class DimseQueryBuilder {
         return clonedQuery;
     }
 
-    async getMongoQuery(query) {
+    async build(query) {
         return await convertRequestQueryToMongoQuery(
             this.cleanEmptyQuery(query)
         );
