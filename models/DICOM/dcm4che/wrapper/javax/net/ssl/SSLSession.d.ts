@@ -11,60 +11,6 @@ import { Principal as java_security_Principal } from "./../../../java/security/P
  */
 export declare class SSLSessionClass extends JavaClass {
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.Object'
-     */
-    getValue(var0: string | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.Object'
-     */
-    getValueSync(var0: string | null): BasicOrJavaType | null;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getId(): Promise<Buffer | null>;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getIdSync(): Buffer | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getProtocol(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getProtocolSync(): string | null;
-    /**
-     * @return original return type: 'long'
-     */
-    getCreationTime(): Promise<number>;
-    /**
-     * @return original return type: 'long'
-     */
-    getCreationTimeSync(): number;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'void'
-     */
-    putValue(var0: string | null, var1: BasicOrJavaType | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'void'
-     */
-    putValueSync(var0: string | null, var1: BasicOrJavaType | null): void;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isValid(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isValidSync(): boolean;
-    /**
      * @return original return type: 'void'
      */
     invalidate(): Promise<void>;
@@ -186,6 +132,60 @@ export declare class SSLSessionClass extends JavaClass {
      * @return original return type: 'int'
      */
     getApplicationBufferSizeSync(): number;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.Object'
+     */
+    getValue(var0: string | null): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.Object'
+     */
+    getValueSync(var0: string | null): BasicOrJavaType | null;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getId(): Promise<Buffer | null>;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getIdSync(): Buffer | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getProtocol(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getProtocolSync(): string | null;
+    /**
+     * @return original return type: 'long'
+     */
+    getCreationTime(): Promise<number>;
+    /**
+     * @return original return type: 'long'
+     */
+    getCreationTimeSync(): number;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'void'
+     */
+    putValue(var0: string | null, var1: BasicOrJavaType | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'void'
+     */
+    putValueSync(var0: string | null, var1: BasicOrJavaType | null): void;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isValid(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isValidSync(): boolean;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -199,33 +199,6 @@ export declare class SSLSessionClass extends JavaClass {
  * You should probably not edit this.
  */
 export interface SSLSessionInterface {
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.Object'
-     */
-    getValue(var0: string | null): BasicOrJavaType | null;
-    /**
-     * @return original return type: 'byte[]'
-     */
-    getId(): Buffer | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getProtocol(): string | null;
-    /**
-     * @return original return type: 'long'
-     */
-    getCreationTime(): number;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'void'
-     */
-    putValue(var0: string | null, var1: BasicOrJavaType | null): void;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isValid(): boolean;
     /**
      * @return original return type: 'void'
      */
@@ -287,6 +260,33 @@ export interface SSLSessionInterface {
      * @return original return type: 'int'
      */
     getApplicationBufferSize(): number;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.Object'
+     */
+    getValue(var0: string | null): BasicOrJavaType | null;
+    /**
+     * @return original return type: 'byte[]'
+     */
+    getId(): Buffer | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getProtocol(): string | null;
+    /**
+     * @return original return type: 'long'
+     */
+    getCreationTime(): number;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'void'
+     */
+    putValue(var0: string | null, var1: BasicOrJavaType | null): void;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isValid(): boolean;
 }
 /**
  * Create a proxy for the {@link SSLSession} interface.

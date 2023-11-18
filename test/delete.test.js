@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { expect } = require("chai");
-const { QidoDicomJsonFactory } = require("../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 const { DeleteService } = require("../api/dicom-web/controller/WADO-RS/deletion/service/delete");
+const { QueryInstanceDicomJsonFactory, QuerySeriesDicomJsonFactory, QueryStudyDicomJsonFactory } = require("../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 
 
 const studyInstanceUid = "1.3.6.1.4.1.14519.5.2.1.7085.2626.192997540292073877946622133586";
@@ -46,7 +46,7 @@ describe("Delete DICOM Instances by SOPInstanceUID", async () => {
     it("Should delete instance and expect 4 instances in series", async function () {
         await deleteBySopInstanceUid();
 
-        let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+        let dicomJsonFactory = new QueryInstanceDicomJsonFactory({
             query: {},
             requestParams: {
                 studyUID: studyInstanceUid,
@@ -54,9 +54,9 @@ describe("Delete DICOM Instances by SOPInstanceUID", async () => {
             },
             limit: 100,
             skip: 0
-        }, "instance");
+        });
 
-        let dicomJson = await qidoDicomJsonFactory.getDicomJson();
+        let dicomJson = await dicomJsonFactory.getDicomJson();
         expect(dicomJson).have.lengthOf(4);
     });
 
@@ -67,16 +67,16 @@ describe("Delete DICOM Instances by SeriesInstanceUID", async () => {
     it("Should delete series and expect 2 series in study", async function (){
         await deleteBySeriesInstanceUid(); 
 
-        let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+        let dicomJsonFactory = new QuerySeriesDicomJsonFactory({
             query: {},
             requestParams: {
                 studyUID: studyInstanceUid
             },
             limit: 100,
             skip: 0
-        }, "series");
+        });
 
-        let dicomJson = await qidoDicomJsonFactory.getDicomJson();
+        let dicomJson = await dicomJsonFactory.getDicomJson();
         expect(dicomJson).have.lengthOf(2);
     });
 
@@ -87,14 +87,14 @@ describe("Delete DICOM Instances by StudyInstanceUID", async () => {
     it("Should delete study and expect 3 studies", async () => {
         await deleteByStudyInstanceUid();
 
-        let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+        let dicomJsonFactory = new QueryStudyDicomJsonFactory({
             query: {},
             requestParams: {},
             limit: 100,
             skip: 0
-        }, "study");
+        });
 
-        let dicomJson = await qidoDicomJsonFactory.getDicomJson();
+        let dicomJson = await dicomJsonFactory.getDicomJson();
         expect(dicomJson).have.lengthOf(3);
     });
 

@@ -1,7 +1,7 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
+import { Association as org_dcm4che3_net_Association } from "./Association";
 import { Enum as java_lang_Enum } from "./../../../java/lang/Enum";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
-import { Association as org_dcm4che3_net_Association } from "./Association";
 import { Optional as java_util_Optional } from "./../../../java/util/Optional";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
@@ -64,6 +64,16 @@ export declare class StateClass extends JavaClass {
      */
     static readonly Sta13: StateClass | null;
     /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    writePDataTF(var0: org_dcm4che3_net_Association | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    writePDataTFSync(var0: org_dcm4che3_net_Association | null): void;
+    /**
      * @return original return type: 'java.lang.String'
      */
     toString(): Promise<string>;
@@ -101,16 +111,6 @@ export declare class StateClass extends JavaClass {
      * @return original return type: 'java.lang.Enum'
      */
     static valueOfSync(var0: java_lang_Class | null, var1: string | null): java_lang_Enum | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    writePDataTF(var0: org_dcm4che3_net_Association | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    writePDataTFSync(var0: org_dcm4che3_net_Association | null): void;
     /**
      * @return original return type: 'java.lang.String'
      */

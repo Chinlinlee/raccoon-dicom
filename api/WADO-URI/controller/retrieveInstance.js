@@ -1,12 +1,13 @@
 const { WadoUriService, NotFoundInstanceError } = require("../service/WADO-URI.service");
 const { Controller } = require("../../controller.class");
 const { ApiLogger } = require("../../../utils/logs/api-logger");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class RetrieveSingleInstanceController extends Controller {
     constructor(req, res) {
         super(req, res);
-        this.service = new WadoUriService(req, res);
         this.logger = new ApiLogger(this.request, "WADO-URI");
+        this.service = new WadoUriService(req, res, this.logger);
     }
 
     async mainProcess() {
@@ -27,16 +28,8 @@ class RetrieveSingleInstanceController extends Controller {
             }
 
         } catch(e) {
-            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            this.logger.error(errorStr);
-
-            this.response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            this.response.end(JSON.stringify({
-                code: 500,
-                message: errorStr
-            }));
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.logger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
         
     }

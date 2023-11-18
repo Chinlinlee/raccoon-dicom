@@ -1,17 +1,17 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
+import { Device as org_dcm4che3_net_Device } from "./Device";
+import { StringBuilder as java_lang_StringBuilder } from "./../../../java/lang/StringBuilder";
 import { Association as org_dcm4che3_net_Association } from "./Association";
 import { AAssociateRQ as org_dcm4che3_net_pdu_AAssociateRQ } from "./pdu/AAssociateRQ";
 import { Connection as org_dcm4che3_net_Connection } from "./Connection";
-import { TransferCapability as org_dcm4che3_net_TransferCapability } from "./TransferCapability";
-import { TransferCapability$Role as org_dcm4che3_net_TransferCapability$Role } from "./TransferCapability$Role";
-import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
-import { StringBuilder as java_lang_StringBuilder } from "./../../../java/lang/StringBuilder";
-import { Device as org_dcm4che3_net_Device } from "./Device";
-import { Collection as java_util_Collection } from "./../../../java/util/Collection";
-import { CompatibleConnection as org_dcm4che3_net_CompatibleConnection } from "./CompatibleConnection";
 import { AEExtension as org_dcm4che3_net_AEExtension } from "./AEExtension";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
+import { TransferCapability as org_dcm4che3_net_TransferCapability } from "./TransferCapability";
+import { TransferCapability$Role as org_dcm4che3_net_TransferCapability$Role } from "./TransferCapability$Role";
+import { Collection as java_util_Collection } from "./../../../java/util/Collection";
+import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
+import { CompatibleConnection as org_dcm4che3_net_CompatibleConnection } from "./CompatibleConnection";
 import { List as java_util_List } from "./../../../java/util/List";
 import { DimseRQHandler as org_dcm4che3_net_DimseRQHandler, DimseRQHandlerInterface as org_dcm4che3_net_DimseRQHandlerInterface } from "./DimseRQHandler";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
@@ -22,6 +22,34 @@ import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
  * You should probably not edit this.
  */
 export declare class ApplicationEntityClass extends JavaClass {
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDevice(): Promise<org_dcm4che3_net_Device | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    getDeviceSync(): org_dcm4che3_net_Device | null;
+    /**
+     * @param var0 original type: 'java.lang.StringBuilder'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.StringBuilder'
+     */
+    promptTo(var0: java_lang_StringBuilder | null, var1: string | null): Promise<java_lang_StringBuilder | null>;
+    /**
+     * @param var0 original type: 'java.lang.StringBuilder'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.StringBuilder'
+     */
+    promptToSync(var0: java_lang_StringBuilder | null, var1: string | null): java_lang_StringBuilder | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRoleSelectionNegotiationLenient(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isRoleSelectionNegotiationLenientSync(): boolean;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -44,6 +72,18 @@ export declare class ApplicationEntityClass extends JavaClass {
     connectSync(var0: ApplicationEntityClass | null, var1: org_dcm4che3_net_pdu_AAssociateRQ | null): org_dcm4che3_net_Association | null;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
+     * @return original return type: 'org.dcm4che3.net.Association'
+     */
+    connect(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_pdu_AAssociateRQ | null): Promise<org_dcm4che3_net_Association | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
+     * @return original return type: 'org.dcm4che3.net.Association'
+     */
+    connectSync(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_pdu_AAssociateRQ | null): org_dcm4che3_net_Association | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @param var1 original type: 'org.dcm4che3.net.Connection'
      * @param var2 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
      * @return original return type: 'org.dcm4che3.net.Association'
@@ -57,17 +97,153 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     connectSync(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_Connection | null, var2: org_dcm4che3_net_pdu_AAssociateRQ | null): org_dcm4che3_net_Association | null;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
-     * @return original return type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'java.lang.String[]'
      */
-    connect(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_pdu_AAssociateRQ | null): Promise<org_dcm4che3_net_Association | null>;
+    getApplicationClusters(): Promise<(string | null)[] | null>;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
-     * @return original return type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'java.lang.String[]'
      */
-    connectSync(var0: org_dcm4che3_net_Connection | null, var1: org_dcm4che3_net_pdu_AAssociateRQ | null): org_dcm4che3_net_Association | null;
+    getApplicationClustersSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPreferredCallingAETitles(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPreferredCallingAETitlesSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getAcceptedCallingAETitles(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getAcceptedCallingAETitlesSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setApplicationClusters(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setApplicationClustersSync(var0: (string | null)[] | null): void;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPreferredCalledAETitles(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPreferredCalledAETitlesSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'boolean'
+     */
+    isAcceptedCallingAETitle(var0: string | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'boolean'
+     */
+    isAcceptedCallingAETitleSync(var0: string | null): boolean;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setPreferredCalledAETitles(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setPreferredCalledAETitlesSync(var0: (string | null)[] | null): void;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPreferredTransferSyntaxes(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPreferredTransferSyntaxesSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getNoAsyncModeCalledAETitles(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getNoAsyncModeCalledAETitlesSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setPreferredTransferSyntaxes(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setPreferredTransferSyntaxesSync(var0: (string | null)[] | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setPreferredCallingAETitles(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setPreferredCallingAETitlesSync(var0: (string | null)[] | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setAcceptedCallingAETitles(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setAcceptedCallingAETitlesSync(var0: (string | null)[] | null): void;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'org.dcm4che3.net.AEExtension'
+     */
+    getAEExtensionNotNull(var0: java_lang_Class | null): Promise<org_dcm4che3_net_AEExtension | null>;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'org.dcm4che3.net.AEExtension'
+     */
+    getAEExtensionNotNullSync(var0: java_lang_Class | null): org_dcm4che3_net_AEExtension | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
+     * @return original return type: 'org.dcm4che3.net.TransferCapability'
+     */
+    removeTransferCapabilityFor(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): Promise<org_dcm4che3_net_TransferCapability | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
+     * @return original return type: 'org.dcm4che3.net.TransferCapability'
+     */
+    removeTransferCapabilityForSync(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): org_dcm4che3_net_TransferCapability | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.TransferCapability'
+     * @return original return type: 'org.dcm4che3.net.TransferCapability'
+     */
+    addTransferCapability(var0: org_dcm4che3_net_TransferCapability | null): Promise<org_dcm4che3_net_TransferCapability | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.TransferCapability'
+     * @return original return type: 'org.dcm4che3.net.TransferCapability'
+     */
+    addTransferCapabilitySync(var0: org_dcm4che3_net_TransferCapability | null): org_dcm4che3_net_TransferCapability | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getHl7ApplicationName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getHl7ApplicationNameSync(): string | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
@@ -81,95 +257,79 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     getTransferCapabilityForSync(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): org_dcm4che3_net_TransferCapability | null;
     /**
-     * @return original return type: 'boolean'
+     * @return original return type: 'java.lang.Boolean'
      */
-    isRoleSelectionNegotiationLenient(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRoleSelectionNegotiationLenientSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isInstalled(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isInstalledSync(): boolean;
-    /**
-     * @param var0 original type: 'java.lang.Boolean'
-     * @return original return type: 'void'
-     */
-    setInstalled(var0: java_lang_Boolean | boolean | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.Boolean'
-     * @return original return type: 'void'
-     */
-    setInstalledSync(var0: java_lang_Boolean | boolean | null): void;
+    getRoleSelectionNegotiationLenient(): Promise<boolean | null>;
     /**
      * @return original return type: 'java.lang.Boolean'
      */
-    getInstalled(): Promise<boolean | null>;
+    getRoleSelectionNegotiationLenientSync(): boolean | null;
     /**
-     * @return original return type: 'java.lang.Boolean'
+     * @param var0 original type: 'org.dcm4che3.net.TransferCapability$Role'
+     * @return original return type: 'java.util.Collection'
      */
-    getInstalledSync(): boolean | null;
+    getTransferCapabilitiesWithRole(var0: org_dcm4che3_net_TransferCapability$Role | null): Promise<java_util_Collection | null>;
     /**
-     * @param var0 original type: 'java.lang.StringBuilder'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.StringBuilder'
+     * @param var0 original type: 'org.dcm4che3.net.TransferCapability$Role'
+     * @return original return type: 'java.util.Collection'
      */
-    promptTo(var0: java_lang_StringBuilder | null, var1: string | null): Promise<java_lang_StringBuilder | null>;
+    getTransferCapabilitiesWithRoleSync(var0: org_dcm4che3_net_TransferCapability$Role | null): java_util_Collection | null;
     /**
-     * @param var0 original type: 'java.lang.StringBuilder'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'java.lang.StringBuilder'
+     * @return original return type: 'boolean'
      */
-    promptToSync(var0: java_lang_StringBuilder | null, var1: string | null): java_lang_StringBuilder | null;
+    isAssociationInitiator(): Promise<boolean>;
     /**
-     * @return original return type: 'org.dcm4che3.net.Device'
+     * @return original return type: 'boolean'
      */
-    getDevice(): Promise<org_dcm4che3_net_Device | null>;
+    isAssociationInitiatorSync(): boolean;
     /**
-     * @return original return type: 'org.dcm4che3.net.Device'
+     * @return original return type: 'boolean'
      */
-    getDeviceSync(): org_dcm4che3_net_Device | null;
+    isAssociationAcceptor(): Promise<boolean>;
     /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
+     * @return original return type: 'boolean'
      */
-    setSupportedCharacterSets(var0: (string | null)[] | null): Promise<void>;
+    isAssociationAcceptorSync(): boolean;
     /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
+     * @return original return type: 'boolean'
      */
-    setSupportedCharacterSetsSync(var0: (string | null)[] | null): void;
+    hasTransferCapabilityFor(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): Promise<boolean>;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
+     * @return original return type: 'boolean'
      */
-    getPreferredCalledAETitles(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getPreferredCalledAETitlesSync(): (string | null)[] | null;
+    hasTransferCapabilityForSync(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): boolean;
     /**
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
-    setAcceptedCallingAETitles(var0: (string | null)[] | null): Promise<void>;
+    setNoAsyncModeCalledAETitles(var0: (string | null)[] | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
-    setAcceptedCallingAETitlesSync(var0: (string | null)[] | null): void;
+    setNoAsyncModeCalledAETitlesSync(var0: (string | null)[] | null): void;
     /**
      * @return original return type: 'java.lang.String[]'
      */
-    getSupportedCharacterSets(): Promise<(string | null)[] | null>;
+    getMasqueradeCallingAETitles(): Promise<(string | null)[] | null>;
     /**
      * @return original return type: 'java.lang.String[]'
      */
-    getSupportedCharacterSetsSync(): (string | null)[] | null;
+    getMasqueradeCallingAETitlesSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'boolean'
+     */
+    isNoAsyncModeCalledAETitle(var0: string | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'boolean'
+     */
+    isNoAsyncModeCalledAETitleSync(var0: string | null): boolean;
     /**
      * @param var0 original type: 'boolean'
      * @return original return type: 'void'
@@ -181,23 +341,35 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     setAssociationAcceptorSync(var0: java_lang_Boolean | boolean): void;
     /**
-     * @param var0 original type: 'java.lang.String[]'
+     * @param var0 original type: 'boolean'
      * @return original return type: 'void'
      */
-    setApplicationClusters(var0: (string | null)[] | null): Promise<void>;
+    setAssociationInitiator(var0: java_lang_Boolean | boolean): Promise<void>;
     /**
-     * @param var0 original type: 'java.lang.String[]'
+     * @param var0 original type: 'boolean'
      * @return original return type: 'void'
      */
-    setApplicationClustersSync(var0: (string | null)[] | null): void;
+    setAssociationInitiatorSync(var0: java_lang_Boolean | boolean): void;
     /**
-     * @return original return type: 'java.lang.Boolean'
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'org.dcm4che3.net.Connection'
      */
-    getRoleSelectionNegotiationLenient(): Promise<boolean | null>;
+    findCompatibleConnection(var0: org_dcm4che3_net_Connection | null): Promise<org_dcm4che3_net_Connection | null>;
     /**
-     * @return original return type: 'java.lang.Boolean'
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'org.dcm4che3.net.Connection'
      */
-    getRoleSelectionNegotiationLenientSync(): boolean | null;
+    findCompatibleConnectionSync(var0: org_dcm4che3_net_Connection | null): org_dcm4che3_net_Connection | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
+     * @return original return type: 'org.dcm4che3.net.CompatibleConnection'
+     */
+    findCompatibleConnection(var0: ApplicationEntityClass | null): Promise<org_dcm4che3_net_CompatibleConnection | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
+     * @return original return type: 'org.dcm4che3.net.CompatibleConnection'
+     */
+    findCompatibleConnectionSync(var0: ApplicationEntityClass | null): org_dcm4che3_net_CompatibleConnection | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
@@ -212,98 +384,12 @@ export declare class ApplicationEntityClass extends JavaClass {
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
-    setPreferredTransferSyntaxes(var0: (string | null)[] | null): Promise<void>;
+    setMasqueradeCallingAETitles(var0: (string | null)[] | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
-    setPreferredTransferSyntaxesSync(var0: (string | null)[] | null): void;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getTransferCapabilities(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getTransferCapabilitiesSync(): java_util_Collection | null;
-    /**
-     * @param var0 original type: 'java.lang.Boolean'
-     * @return original return type: 'void'
-     */
-    setRoleSelectionNegotiationLenient(var0: java_lang_Boolean | boolean | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.Boolean'
-     * @return original return type: 'void'
-     */
-    setRoleSelectionNegotiationLenientSync(var0: java_lang_Boolean | boolean | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.TransferCapability$Role'
-     * @return original return type: 'java.util.Collection'
-     */
-    getTransferCapabilitiesWithRole(var0: org_dcm4che3_net_TransferCapability$Role | null): Promise<java_util_Collection | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.TransferCapability$Role'
-     * @return original return type: 'java.util.Collection'
-     */
-    getTransferCapabilitiesWithRoleSync(var0: org_dcm4che3_net_TransferCapability$Role | null): java_util_Collection | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
-     * @return original return type: 'boolean'
-     */
-    hasTransferCapabilityFor(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
-     * @return original return type: 'boolean'
-     */
-    hasTransferCapabilityForSync(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): boolean;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.TransferCapability'
-     * @return original return type: 'org.dcm4che3.net.TransferCapability'
-     */
-    addTransferCapability(var0: org_dcm4che3_net_TransferCapability | null): Promise<org_dcm4che3_net_TransferCapability | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.TransferCapability'
-     * @return original return type: 'org.dcm4che3.net.TransferCapability'
-     */
-    addTransferCapabilitySync(var0: org_dcm4che3_net_TransferCapability | null): org_dcm4che3_net_TransferCapability | null;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getMasqueradeCallingAETitles(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getMasqueradeCallingAETitlesSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    setAssociationInitiator(var0: java_lang_Boolean | boolean): Promise<void>;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    setAssociationInitiatorSync(var0: java_lang_Boolean | boolean): void;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setPreferredCalledAETitles(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setPreferredCalledAETitlesSync(var0: (string | null)[] | null): void;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getNoAsyncModeCalledAETitles(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getNoAsyncModeCalledAETitlesSync(): (string | null)[] | null;
+    setMasqueradeCallingAETitlesSync(var0: (string | null)[] | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'boolean'
@@ -315,153 +401,41 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     isMasqueradeCallingAETitleSync(var0: string | null): boolean;
     /**
-     * @return original return type: 'boolean'
+     * @return original return type: 'java.lang.String[]'
      */
-    isAssociationAcceptor(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAssociationAcceptorSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAssociationInitiator(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isAssociationInitiatorSync(): boolean;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
-     * @return original return type: 'org.dcm4che3.net.TransferCapability'
-     */
-    removeTransferCapabilityFor(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): Promise<org_dcm4che3_net_TransferCapability | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'org.dcm4che3.net.TransferCapability$Role'
-     * @return original return type: 'org.dcm4che3.net.TransferCapability'
-     */
-    removeTransferCapabilityForSync(var0: string | null, var1: org_dcm4che3_net_TransferCapability$Role | null): org_dcm4che3_net_TransferCapability | null;
+    getSupportedCharacterSets(): Promise<(string | null)[] | null>;
     /**
      * @return original return type: 'java.lang.String[]'
      */
-    getPreferredTransferSyntaxes(): Promise<(string | null)[] | null>;
+    getSupportedCharacterSetsSync(): (string | null)[] | null;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @param var0 original type: 'java.lang.Boolean'
+     * @return original return type: 'void'
      */
-    getPreferredTransferSyntaxesSync(): (string | null)[] | null;
+    setRoleSelectionNegotiationLenient(var0: java_lang_Boolean | boolean | null): Promise<void>;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @param var0 original type: 'java.lang.Boolean'
+     * @return original return type: 'void'
      */
-    getAcceptedCallingAETitles(): Promise<(string | null)[] | null>;
+    setRoleSelectionNegotiationLenientSync(var0: java_lang_Boolean | boolean | null): void;
     /**
-     * @return original return type: 'java.lang.String[]'
+     * @return original return type: 'java.util.Collection'
      */
-    getAcceptedCallingAETitlesSync(): (string | null)[] | null;
+    getTransferCapabilities(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getTransferCapabilitiesSync(): java_util_Collection | null;
     /**
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
-    setPreferredCallingAETitles(var0: (string | null)[] | null): Promise<void>;
+    setSupportedCharacterSets(var0: (string | null)[] | null): Promise<void>;
     /**
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
-    setPreferredCallingAETitlesSync(var0: (string | null)[] | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    isNoAsyncModeCalledAETitle(var0: string | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    isNoAsyncModeCalledAETitleSync(var0: string | null): boolean;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getApplicationClusters(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getApplicationClustersSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
-     * @return original return type: 'org.dcm4che3.net.CompatibleConnection'
-     */
-    findCompatibleConnection(var0: ApplicationEntityClass | null): Promise<org_dcm4che3_net_CompatibleConnection | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
-     * @return original return type: 'org.dcm4che3.net.CompatibleConnection'
-     */
-    findCompatibleConnectionSync(var0: ApplicationEntityClass | null): org_dcm4che3_net_CompatibleConnection | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'org.dcm4che3.net.Connection'
-     */
-    findCompatibleConnection(var0: org_dcm4che3_net_Connection | null): Promise<org_dcm4che3_net_Connection | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'org.dcm4che3.net.Connection'
-     */
-    findCompatibleConnectionSync(var0: org_dcm4che3_net_Connection | null): org_dcm4che3_net_Connection | null;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setNoAsyncModeCalledAETitles(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setNoAsyncModeCalledAETitlesSync(var0: (string | null)[] | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getHl7ApplicationName(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getHl7ApplicationNameSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    isAcceptedCallingAETitle(var0: string | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'boolean'
-     */
-    isAcceptedCallingAETitleSync(var0: string | null): boolean;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'org.dcm4che3.net.AEExtension'
-     */
-    getAEExtensionNotNull(var0: java_lang_Class | null): Promise<org_dcm4che3_net_AEExtension | null>;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'org.dcm4che3.net.AEExtension'
-     */
-    getAEExtensionNotNullSync(var0: java_lang_Class | null): org_dcm4che3_net_AEExtension | null;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getPreferredCallingAETitles(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getPreferredCallingAETitlesSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setMasqueradeCallingAETitles(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setMasqueradeCallingAETitlesSync(var0: (string | null)[] | null): void;
+    setSupportedCharacterSetsSync(var0: (string | null)[] | null): void;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
@@ -473,41 +447,23 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     setDescriptionSync(var0: string | null): void;
     /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getOtherAETitles(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getOtherAETitlesSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
+     * @param var0 original type: 'byte[][]'
      * @return original return type: 'void'
      */
-    setOtherAETitles(var0: (string | null)[] | null): Promise<void>;
+    setVendorData(var0: (Buffer | null)[] | null): Promise<void>;
     /**
-     * @param var0 original type: 'java.lang.String[]'
+     * @param var0 original type: 'byte[][]'
      * @return original return type: 'void'
      */
-    setOtherAETitlesSync(var0: (string | null)[] | null): void;
+    setVendorDataSync(var0: (Buffer | null)[] | null): void;
     /**
-     * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.String'
      */
-    getCallingAETitle(var0: string | null): Promise<string | null>;
+    getAETitle(): Promise<string | null>;
     /**
-     * @param var0 original type: 'java.lang.String'
      * @return original return type: 'java.lang.String'
      */
-    getCallingAETitleSync(var0: string | null): string | null;
-    /**
-     * @return original return type: 'byte[][]'
-     */
-    getVendorData(): Promise<(Buffer | null)[] | null>;
-    /**
-     * @return original return type: 'byte[][]'
-     */
-    getVendorDataSync(): (Buffer | null)[] | null;
+    getAETitleSync(): string | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'void'
@@ -519,6 +475,14 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     setAETitleSync(var0: string | null): void;
     /**
+     * @return original return type: 'byte[][]'
+     */
+    getVendorData(): Promise<(Buffer | null)[] | null>;
+    /**
+     * @return original return type: 'byte[][]'
+     */
+    getVendorDataSync(): (Buffer | null)[] | null;
+    /**
      * @return original return type: 'java.lang.String'
      */
     getDescription(): Promise<string | null>;
@@ -527,23 +491,25 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     getDescriptionSync(): string | null;
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    getAETitle(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getAETitleSync(): string | null;
-    /**
-     * @param var0 original type: 'byte[][]'
+     * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
-    setVendorData(var0: (Buffer | null)[] | null): Promise<void>;
+    setOtherAETitles(var0: (string | null)[] | null): Promise<void>;
     /**
-     * @param var0 original type: 'byte[][]'
+     * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
      */
-    setVendorDataSync(var0: (Buffer | null)[] | null): void;
+    setOtherAETitlesSync(var0: (string | null)[] | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'boolean'
+     */
+    removeConnection(var0: org_dcm4che3_net_Connection | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'boolean'
+     */
+    removeConnectionSync(var0: org_dcm4che3_net_Connection | null): boolean;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'boolean'
@@ -556,14 +522,14 @@ export declare class ApplicationEntityClass extends JavaClass {
     isOtherAETitleSync(var0: string | null): boolean;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'boolean'
+     * @return original return type: 'void'
      */
-    removeConnection(var0: org_dcm4che3_net_Connection | null): Promise<boolean>;
+    addConnection(var0: org_dcm4che3_net_Connection | null): Promise<void>;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'boolean'
+     * @return original return type: 'void'
      */
-    removeConnectionSync(var0: org_dcm4che3_net_Connection | null): boolean;
+    addConnectionSync(var0: org_dcm4che3_net_Connection | null): void;
     /**
      * @return original return type: 'java.util.List'
      */
@@ -573,6 +539,16 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     getConnectionsSync(): java_util_List | null;
     /**
+     * @param var0 original type: 'java.lang.Boolean'
+     * @return original return type: 'void'
+     */
+    setInstalled(var0: java_lang_Boolean | boolean | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.Boolean'
+     * @return original return type: 'void'
+     */
+    setInstalledSync(var0: java_lang_Boolean | boolean | null): void;
+    /**
      * @return original return type: 'org.dcm4che3.net.DimseRQHandler'
      */
     getDimseRQHandler(): Promise<org_dcm4che3_net_DimseRQHandler | null>;
@@ -581,15 +557,15 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     getDimseRQHandlerSync(): org_dcm4che3_net_DimseRQHandler | null;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'void'
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.String'
      */
-    addConnection(var0: org_dcm4che3_net_Connection | null): Promise<void>;
+    getCallingAETitle(var0: string | null): Promise<string | null>;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'void'
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.lang.String'
      */
-    addConnectionSync(var0: org_dcm4che3_net_Connection | null): void;
+    getCallingAETitleSync(var0: string | null): string | null;
     /**
      * @param var0 original type: 'org.dcm4che3.net.DimseRQHandler'
      * @return original return type: 'void'
@@ -601,6 +577,30 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     setDimseRQHandlerSync(var0: org_dcm4che3_net_DimseRQHandler | JavaInterfaceProxy<org_dcm4che3_net_DimseRQHandlerInterface> | null): void;
     /**
+     * @return original return type: 'boolean'
+     */
+    isInstalled(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isInstalledSync(): boolean;
+    /**
+     * @return original return type: 'java.lang.Boolean'
+     */
+    getInstalled(): Promise<boolean | null>;
+    /**
+     * @return original return type: 'java.lang.Boolean'
+     */
+    getInstalledSync(): boolean | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getOtherAETitles(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getOtherAETitlesSync(): (string | null)[] | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.net.AEExtension'
      * @return original return type: 'void'
      */
@@ -611,6 +611,14 @@ export declare class ApplicationEntityClass extends JavaClass {
      */
     addAEExtensionSync(var0: org_dcm4che3_net_AEExtension | null): void;
     /**
+     * @return original return type: 'java.util.Collection'
+     */
+    listAEExtensions(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    listAEExtensionsSync(): java_util_Collection | null;
+    /**
      * @param var0 original type: 'org.dcm4che3.net.AEExtension'
      * @return original return type: 'boolean'
      */
@@ -620,14 +628,6 @@ export declare class ApplicationEntityClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     removeAEExtensionSync(var0: org_dcm4che3_net_AEExtension | null): boolean;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    listAEExtensions(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    listAEExtensionsSync(): java_util_Collection | null;
     /**
      * @param var0 original type: 'java.lang.Class'
      * @return original return type: 'org.dcm4che3.net.AEExtension'

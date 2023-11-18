@@ -1,43 +1,13 @@
-const mongoose = require("mongoose");
-const { Controller } = require("../../../../controller.class");
-const { ApiLogger } = require("../../../../../utils/logs/api-logger");
-const { DeleteService } = require("./service/delete");
-const { getInternalServerErrorMessage, getNotFoundErrorMessage } = require("../../../../../utils/errorResponse/errorResponseMessage");
-const { NotFoundInstanceError } = require("../../../../../error/dicom-instance");
+const { BaseDeleteController } = require("./base.controller");
 
-class DeleteInstanceController extends Controller {
+class DeleteInstanceController extends BaseDeleteController {
     constructor(req, res) {
         super(req, res);
+        this.level = "instance";
     }
 
-    async mainProcess() {
-        let apiLogger = new ApiLogger(this.request, "WADO-RS");
-        apiLogger.addTokenValue();
-
-        let deleteService = new DeleteService(this.request, this.response, "instance");
-
-        try {
-            await deleteService.delete();
-
-            return this.response.status(200).json({
-                Details: `Delete Study permanently, StudyInstanceUID: ${this.request.params.studyUID}, SeriesInstanceUID: ${this.request.params.seriesUID}, SOPInstanceUID: ${this.request.params.instanceUID}`,
-                HttpStatus: 200,
-                Message: "Delete Successful",
-                Method: "DELETE"
-            });
-        } catch(e) {
-
-            if (e instanceof NotFoundInstanceError) {
-                return this.response.status(404).json(
-                    getNotFoundErrorMessage(e.message)
-                );
-            }
-
-            return this.response.status(500).json(
-                getInternalServerErrorMessage("An exception occur")
-            );
-        }
-        
+    getDeleteSuccessfulMessage() {
+        `Delete Study permanently, StudyInstanceUID: ${this.request.params.studyUID}, SeriesInstanceUID: ${this.request.params.seriesUID}, SOPInstanceUID: ${this.request.params.instanceUID}`;
     }
 }
 

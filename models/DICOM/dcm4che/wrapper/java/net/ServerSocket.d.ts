@@ -1,13 +1,13 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
-import { Socket as java_net_Socket } from "./Socket";
 import { SocketAddress as java_net_SocketAddress } from "./SocketAddress";
-import { Integer as java_lang_Integer } from "./../lang/Integer";
-import { ServerSocketChannel as java_nio_channels_ServerSocketChannel } from "./../nio/channels/ServerSocketChannel";
-import { InetAddress as java_net_InetAddress } from "./InetAddress";
 import { SocketOption as java_net_SocketOption, SocketOptionInterface as java_net_SocketOptionInterface } from "./SocketOption";
 import { Set as java_util_Set } from "./../util/Set";
 import { Boolean as java_lang_Boolean } from "./../lang/Boolean";
+import { Integer as java_lang_Integer } from "./../lang/Integer";
 import { SocketImplFactory as java_net_SocketImplFactory, SocketImplFactoryInterface as java_net_SocketImplFactoryInterface } from "./SocketImplFactory";
+import { InetAddress as java_net_InetAddress } from "./InetAddress";
+import { Socket as java_net_Socket } from "./Socket";
+import { ServerSocketChannel as java_nio_channels_ServerSocketChannel } from "./../nio/channels/ServerSocketChannel";
 import { Long as java_lang_Long } from "./../lang/Long";
 import { Class as java_lang_Class } from "./../lang/Class";
 /**
@@ -17,68 +17,6 @@ import { Class as java_lang_Class } from "./../lang/Class";
  */
 export declare class ServerSocketClass extends JavaClass {
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    toString(): Promise<string>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    toStringSync(): string;
-    /**
-     * @return original return type: 'java.net.Socket'
-     */
-    accept(): Promise<java_net_Socket | null>;
-    /**
-     * @return original return type: 'java.net.Socket'
-     */
-    acceptSync(): java_net_Socket | null;
-    /**
-     * @return original return type: 'void'
-     */
-    close(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    closeSync(): void;
-    /**
-     * @param var0 original type: 'java.net.SocketAddress'
-     * @param var1 original type: 'int'
-     * @return original return type: 'void'
-     */
-    bind(var0: java_net_SocketAddress | null, var1: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'java.net.SocketAddress'
-     * @param var1 original type: 'int'
-     * @return original return type: 'void'
-     */
-    bindSync(var0: java_net_SocketAddress | null, var1: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'java.net.SocketAddress'
-     * @return original return type: 'void'
-     */
-    bind(var0: java_net_SocketAddress | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.net.SocketAddress'
-     * @return original return type: 'void'
-     */
-    bindSync(var0: java_net_SocketAddress | null): void;
-    /**
-     * @return original return type: 'java.nio.channels.ServerSocketChannel'
-     */
-    getChannel(): Promise<java_nio_channels_ServerSocketChannel | null>;
-    /**
-     * @return original return type: 'java.nio.channels.ServerSocketChannel'
-     */
-    getChannelSync(): java_nio_channels_ServerSocketChannel | null;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getInetAddress(): Promise<java_net_InetAddress | null>;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    getInetAddressSync(): java_net_InetAddress | null;
-    /**
      * @return original return type: 'java.net.SocketAddress'
      */
     getLocalSocketAddress(): Promise<java_net_SocketAddress | null>;
@@ -86,34 +24,6 @@ export declare class ServerSocketClass extends JavaClass {
      * @return original return type: 'java.net.SocketAddress'
      */
     getLocalSocketAddressSync(): java_net_SocketAddress | null;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setSoTimeout(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setSoTimeoutSync(var0: java_lang_Integer | number): void;
-    /**
-     * @return original return type: 'int'
-     */
-    getReceiveBufferSize(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getReceiveBufferSizeSync(): number;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setReceiveBufferSize(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setReceiveBufferSizeSync(var0: java_lang_Integer | number): void;
     /**
      * @return original return type: 'boolean'
      */
@@ -219,6 +129,96 @@ export declare class ServerSocketClass extends JavaClass {
      */
     static setSocketFactorySync(var0: java_net_SocketImplFactory | JavaInterfaceProxy<java_net_SocketImplFactoryInterface> | null): void;
     /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddress(): Promise<java_net_InetAddress | null>;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    getInetAddressSync(): java_net_InetAddress | null;
+    /**
+     * @return original return type: 'int'
+     */
+    getReceiveBufferSize(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getReceiveBufferSizeSync(): number;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setReceiveBufferSize(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setReceiveBufferSizeSync(var0: java_lang_Integer | number): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    toString(): Promise<string>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    toStringSync(): string;
+    /**
+     * @return original return type: 'java.net.Socket'
+     */
+    accept(): Promise<java_net_Socket | null>;
+    /**
+     * @return original return type: 'java.net.Socket'
+     */
+    acceptSync(): java_net_Socket | null;
+    /**
+     * @return original return type: 'void'
+     */
+    close(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    closeSync(): void;
+    /**
+     * @param var0 original type: 'java.net.SocketAddress'
+     * @param var1 original type: 'int'
+     * @return original return type: 'void'
+     */
+    bind(var0: java_net_SocketAddress | null, var1: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'java.net.SocketAddress'
+     * @param var1 original type: 'int'
+     * @return original return type: 'void'
+     */
+    bindSync(var0: java_net_SocketAddress | null, var1: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'java.net.SocketAddress'
+     * @return original return type: 'void'
+     */
+    bind(var0: java_net_SocketAddress | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.net.SocketAddress'
+     * @return original return type: 'void'
+     */
+    bindSync(var0: java_net_SocketAddress | null): void;
+    /**
+     * @return original return type: 'java.nio.channels.ServerSocketChannel'
+     */
+    getChannel(): Promise<java_nio_channels_ServerSocketChannel | null>;
+    /**
+     * @return original return type: 'java.nio.channels.ServerSocketChannel'
+     */
+    getChannelSync(): java_nio_channels_ServerSocketChannel | null;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setSoTimeout(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setSoTimeoutSync(var0: java_lang_Integer | number): void;
+    /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
      * @return original return type: 'void'
@@ -299,15 +299,15 @@ export declare class ServerSocketClass extends JavaClass {
     static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_net_InetAddress | null): Promise<ServerSocket>;
     /**
      * @param var0 original type: 'int'
+     * @return original return type: 'java.net.ServerSocket'
+     */
+    static newInstanceAsync(var0: java_lang_Integer | number): Promise<ServerSocket>;
+    /**
+     * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'java.net.ServerSocket'
      */
     static newInstanceAsync(var0: java_lang_Integer | number, var1: java_lang_Integer | number): Promise<ServerSocket>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'java.net.ServerSocket'
-     */
-    static newInstanceAsync(var0: java_lang_Integer | number): Promise<ServerSocket>;
     /**
      * @return original return type: 'java.net.ServerSocket'
      */
@@ -320,13 +320,13 @@ export declare class ServerSocketClass extends JavaClass {
     constructor(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_net_InetAddress | null);
     /**
      * @param var0 original type: 'int'
+     */
+    constructor(var0: java_lang_Integer | number);
+    /**
+     * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      */
     constructor(var0: java_lang_Integer | number, var1: java_lang_Integer | number);
-    /**
-     * @param var0 original type: 'int'
-     */
-    constructor(var0: java_lang_Integer | number);
     constructor();
 }
 declare const ServerSocket_base: typeof ServerSocketClass;

@@ -1,7 +1,7 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { InetAddress as java_net_InetAddress } from "./../../net/InetAddress";
-import { MulticastChannel as java_nio_channels_MulticastChannel } from "./MulticastChannel";
 import { NetworkInterface as java_net_NetworkInterface } from "./../../net/NetworkInterface";
+import { MulticastChannel as java_nio_channels_MulticastChannel } from "./MulticastChannel";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { Class as java_lang_Class } from "./../../lang/Class";
@@ -11,6 +11,32 @@ import { Class as java_lang_Class } from "./../../lang/Class";
  * You should probably not edit this.
  */
 export declare class MembershipKeyClass extends JavaClass {
+    /**
+     * @param var0 original type: 'java.net.InetAddress'
+     * @return original return type: 'java.nio.channels.MembershipKey'
+     */
+    unblock(var0: java_net_InetAddress | null): Promise<MembershipKey | null>;
+    /**
+     * @param var0 original type: 'java.net.InetAddress'
+     * @return original return type: 'java.nio.channels.MembershipKey'
+     */
+    unblockSync(var0: java_net_InetAddress | null): MembershipKey | null;
+    /**
+     * @return original return type: 'java.net.NetworkInterface'
+     */
+    networkInterface(): Promise<java_net_NetworkInterface | null>;
+    /**
+     * @return original return type: 'java.net.NetworkInterface'
+     */
+    networkInterfaceSync(): java_net_NetworkInterface | null;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    sourceAddress(): Promise<java_net_InetAddress | null>;
+    /**
+     * @return original return type: 'java.net.InetAddress'
+     */
+    sourceAddressSync(): java_net_InetAddress | null;
     /**
      * @return original return type: 'java.net.InetAddress'
      */
@@ -53,32 +79,6 @@ export declare class MembershipKeyClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isValidSync(): boolean;
-    /**
-     * @param var0 original type: 'java.net.InetAddress'
-     * @return original return type: 'java.nio.channels.MembershipKey'
-     */
-    unblock(var0: java_net_InetAddress | null): Promise<MembershipKey | null>;
-    /**
-     * @param var0 original type: 'java.net.InetAddress'
-     * @return original return type: 'java.nio.channels.MembershipKey'
-     */
-    unblockSync(var0: java_net_InetAddress | null): MembershipKey | null;
-    /**
-     * @return original return type: 'java.net.NetworkInterface'
-     */
-    networkInterface(): Promise<java_net_NetworkInterface | null>;
-    /**
-     * @return original return type: 'java.net.NetworkInterface'
-     */
-    networkInterfaceSync(): java_net_NetworkInterface | null;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    sourceAddress(): Promise<java_net_InetAddress | null>;
-    /**
-     * @return original return type: 'java.net.InetAddress'
-     */
-    sourceAddressSync(): java_net_InetAddress | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

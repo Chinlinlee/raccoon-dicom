@@ -1,36 +1,36 @@
 /// <reference types="node" />
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
-import { Runnable as java_lang_Runnable, RunnableInterface as java_lang_RunnableInterface } from "./../../../java/lang/Runnable";
 import { Executor as java_util_concurrent_Executor, ExecutorInterface as java_util_concurrent_ExecutorInterface } from "./../../../java/util/concurrent/Executor";
-import { ApplicationEntity as org_dcm4che3_net_ApplicationEntity } from "./ApplicationEntity";
-import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
 import { ScheduledFuture as java_util_concurrent_ScheduledFuture } from "./../../../java/util/concurrent/ScheduledFuture";
+import { Runnable as java_lang_Runnable, RunnableInterface as java_lang_RunnableInterface } from "./../../../java/lang/Runnable";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { TimeUnit as java_util_concurrent_TimeUnit } from "./../../../java/util/concurrent/TimeUnit";
+import { ApplicationEntity as org_dcm4che3_net_ApplicationEntity } from "./ApplicationEntity";
+import { Boolean as java_lang_Boolean } from "./../../../java/lang/Boolean";
+import { StringBuilder as java_lang_StringBuilder } from "./../../../java/lang/StringBuilder";
 import { AssociationMonitor as org_dcm4che3_net_AssociationMonitor, AssociationMonitorInterface as org_dcm4che3_net_AssociationMonitorInterface } from "./AssociationMonitor";
 import { AssociationHandler as org_dcm4che3_net_AssociationHandler } from "./AssociationHandler";
-import { StringBuilder as java_lang_StringBuilder } from "./../../../java/lang/StringBuilder";
-import { SSLContext as javax_net_ssl_SSLContext } from "./../../../javax/net/ssl/SSLContext";
-import { ConnectionMonitor as org_dcm4che3_net_ConnectionMonitor, ConnectionMonitorInterface as org_dcm4che3_net_ConnectionMonitorInterface } from "./ConnectionMonitor";
-import { Connection as org_dcm4che3_net_Connection } from "./Connection";
-import { DimseRQHandler as org_dcm4che3_net_DimseRQHandler, DimseRQHandlerInterface as org_dcm4che3_net_DimseRQHandlerInterface } from "./DimseRQHandler";
-import { Collection as java_util_Collection } from "./../../../java/util/Collection";
-import { List as java_util_List, ListInterface as java_util_ListInterface } from "./../../../java/util/List";
-import { KeycloakClient as org_dcm4che3_net_KeycloakClient } from "./KeycloakClient";
-import { WebApplication as org_dcm4che3_net_WebApplication } from "./WebApplication";
-import { TrustManager as javax_net_ssl_TrustManager, TrustManagerInterface as javax_net_ssl_TrustManagerInterface } from "./../../../javax/net/ssl/TrustManager";
-import { KeyManager as javax_net_ssl_KeyManager, KeyManagerInterface as javax_net_ssl_KeyManagerInterface } from "./../../../javax/net/ssl/KeyManager";
-import { DeviceExtension as org_dcm4che3_net_DeviceExtension } from "./DeviceExtension";
-import { Class as java_lang_Class } from "./../../../java/lang/Class";
 import { Issuer as org_dcm4che3_data_Issuer } from "./../data/Issuer";
-import { Code as org_dcm4che3_data_Code } from "./../data/Code";
-import { X509Certificate as java_security_cert_X509Certificate } from "./../../../java/security/cert/X509Certificate";
-import { TimeZone as java_util_TimeZone } from "./../../../java/util/TimeZone";
-import { ScheduledExecutorService as java_util_concurrent_ScheduledExecutorService, ScheduledExecutorServiceInterface as java_util_concurrent_ScheduledExecutorServiceInterface } from "./../../../java/util/concurrent/ScheduledExecutorService";
-import { Association as org_dcm4che3_net_Association } from "./Association";
-import { WebApplication$ServiceClass as org_dcm4che3_net_WebApplication$ServiceClass } from "./WebApplication$ServiceClass";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
+import { TimeZone as java_util_TimeZone } from "./../../../java/util/TimeZone";
+import { X509Certificate as java_security_cert_X509Certificate } from "./../../../java/security/cert/X509Certificate";
+import { Association as org_dcm4che3_net_Association } from "./Association";
+import { ScheduledExecutorService as java_util_concurrent_ScheduledExecutorService, ScheduledExecutorServiceInterface as java_util_concurrent_ScheduledExecutorServiceInterface } from "./../../../java/util/concurrent/ScheduledExecutorService";
+import { Collection as java_util_Collection } from "./../../../java/util/Collection";
+import { WebApplication$ServiceClass as org_dcm4che3_net_WebApplication$ServiceClass } from "./WebApplication$ServiceClass";
+import { Connection as org_dcm4che3_net_Connection } from "./Connection";
+import { ConnectionMonitor as org_dcm4che3_net_ConnectionMonitor, ConnectionMonitorInterface as org_dcm4che3_net_ConnectionMonitorInterface } from "./ConnectionMonitor";
+import { WebApplication as org_dcm4che3_net_WebApplication } from "./WebApplication";
+import { KeycloakClient as org_dcm4che3_net_KeycloakClient } from "./KeycloakClient";
+import { DeviceExtension as org_dcm4che3_net_DeviceExtension } from "./DeviceExtension";
 import { AAssociateRQ as org_dcm4che3_net_pdu_AAssociateRQ } from "./pdu/AAssociateRQ";
+import { Class as java_lang_Class } from "./../../../java/lang/Class";
+import { List as java_util_List, ListInterface as java_util_ListInterface } from "./../../../java/util/List";
+import { KeyManager as javax_net_ssl_KeyManager, KeyManagerInterface as javax_net_ssl_KeyManagerInterface } from "./../../../javax/net/ssl/KeyManager";
+import { TrustManager as javax_net_ssl_TrustManager, TrustManagerInterface as javax_net_ssl_TrustManagerInterface } from "./../../../javax/net/ssl/TrustManager";
+import { Code as org_dcm4che3_data_Code } from "./../data/Code";
+import { DimseRQHandler as org_dcm4che3_net_DimseRQHandler, DimseRQHandlerInterface as org_dcm4che3_net_DimseRQHandlerInterface } from "./DimseRQHandler";
+import { SSLContext as javax_net_ssl_SSLContext } from "./../../../javax/net/ssl/SSLContext";
 /**
  * This class just defines types, you should import {@link Device} instead of this.
  * This was generated by java-bridge.
@@ -38,31 +38,39 @@ import { AAssociateRQ as org_dcm4che3_net_pdu_AAssociateRQ } from "./pdu/AAssoci
  */
 export declare class DeviceClass extends JavaClass {
     /**
-     * @return original return type: 'java.lang.String'
-     */
-    toString(): Promise<string>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    toStringSync(): string;
-    /**
-     * @param var0 original type: 'java.lang.Runnable'
+     * @param var0 original type: 'java.util.concurrent.Executor'
      * @return original return type: 'void'
      */
-    execute(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null): Promise<void>;
+    setExecutor(var0: java_util_concurrent_Executor | JavaInterfaceProxy<java_util_concurrent_ExecutorInterface> | null): Promise<void>;
     /**
-     * @param var0 original type: 'java.lang.Runnable'
+     * @param var0 original type: 'java.util.concurrent.Executor'
      * @return original return type: 'void'
      */
-    executeSync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null): void;
+    setExecutorSync(var0: java_util_concurrent_Executor | JavaInterfaceProxy<java_util_concurrent_ExecutorInterface> | null): void;
     /**
-     * @return original return type: 'java.util.concurrent.Executor'
+     * @return original return type: 'void'
      */
-    getExecutor(): Promise<java_util_concurrent_Executor | null>;
+    unbindConnections(): Promise<void>;
     /**
-     * @return original return type: 'java.util.concurrent.Executor'
+     * @return original return type: 'void'
      */
-    getExecutorSync(): java_util_concurrent_Executor | null;
+    unbindConnectionsSync(): void;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @param var1 original type: 'long'
+     * @param var2 original type: 'long'
+     * @param var3 original type: 'java.util.concurrent.TimeUnit'
+     * @return original return type: 'java.util.concurrent.ScheduledFuture'
+     */
+    scheduleAtFixedRate(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): Promise<java_util_concurrent_ScheduledFuture | null>;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @param var1 original type: 'long'
+     * @param var2 original type: 'long'
+     * @param var3 original type: 'java.util.concurrent.TimeUnit'
+     * @return original return type: 'java.util.concurrent.ScheduledFuture'
+     */
+    scheduleAtFixedRateSync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
@@ -100,48 +108,6 @@ export declare class DeviceClass extends JavaClass {
      */
     scheduleSync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
     /**
-     * @return original return type: 'org.dcm4che3.net.AssociationMonitor'
-     */
-    getAssociationMonitor(): Promise<org_dcm4che3_net_AssociationMonitor | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.AssociationMonitor'
-     */
-    getAssociationMonitorSync(): org_dcm4che3_net_AssociationMonitor | null;
-    /**
-     * @return original return type: 'org.dcm4che3.net.AssociationHandler'
-     */
-    getAssociationHandler(): Promise<org_dcm4che3_net_AssociationHandler | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.AssociationHandler'
-     */
-    getAssociationHandlerSync(): org_dcm4che3_net_AssociationHandler | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRoleSelectionNegotiationLenient(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isRoleSelectionNegotiationLenientSync(): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isInstalled(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isInstalledSync(): boolean;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    setInstalled(var0: java_lang_Boolean | boolean): Promise<void>;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    setInstalledSync(var0: java_lang_Boolean | boolean): void;
-    /**
      * @param var0 original type: 'java.lang.StringBuilder'
      * @param var1 original type: 'java.lang.String'
      * @return original return type: 'java.lang.StringBuilder'
@@ -154,559 +120,29 @@ export declare class DeviceClass extends JavaClass {
      */
     promptToSync(var0: java_lang_StringBuilder | null, var1: string | null): java_lang_StringBuilder | null;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Device'
-     * @return original return type: 'void'
+     * @return original return type: 'org.dcm4che3.net.AssociationMonitor'
      */
-    reconfigure(var0: DeviceClass | null): Promise<void>;
+    getAssociationMonitor(): Promise<org_dcm4che3_net_AssociationMonitor | null>;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Device'
-     * @return original return type: 'void'
+     * @return original return type: 'org.dcm4che3.net.AssociationMonitor'
      */
-    reconfigureSync(var0: DeviceClass | null): void;
+    getAssociationMonitorSync(): org_dcm4che3_net_AssociationMonitor | null;
     /**
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    sslContext(): Promise<javax_net_ssl_SSLContext | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    sslContextSync(): javax_net_ssl_SSLContext | null;
-    /**
-     * @return original return type: 'org.dcm4che3.net.ConnectionMonitor'
-     */
-    getConnectionMonitor(): Promise<org_dcm4che3_net_ConnectionMonitor | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.ConnectionMonitor'
-     */
-    getConnectionMonitorSync(): org_dcm4che3_net_ConnectionMonitor | null;
-    /**
-     * @return original return type: 'void'
-     */
-    removeAllAuthorizedNodeCertificates(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    removeAllAuthorizedNodeCertificatesSync(): void;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    setRoleSelectionNegotiationLenient(var0: java_lang_Boolean | boolean): Promise<void>;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'void'
-     */
-    setRoleSelectionNegotiationLenientSync(var0: java_lang_Boolean | boolean): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
-     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
-     */
-    removeApplicationEntity(var0: org_dcm4che3_net_ApplicationEntity | null): Promise<org_dcm4che3_net_ApplicationEntity | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
-     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
-     */
-    removeApplicationEntitySync(var0: org_dcm4che3_net_ApplicationEntity | null): org_dcm4che3_net_ApplicationEntity | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
-     */
-    removeApplicationEntity(var0: string | null): Promise<org_dcm4che3_net_ApplicationEntity | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
-     */
-    removeApplicationEntitySync(var0: string | null): org_dcm4che3_net_ApplicationEntity | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
-     * @return original return type: 'void'
-     */
-    addApplicationEntity(var0: org_dcm4che3_net_ApplicationEntity | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
-     * @return original return type: 'void'
-     */
-    addApplicationEntitySync(var0: org_dcm4che3_net_ApplicationEntity | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDescription(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDescriptionSync(var0: string | null): void;
-    /**
-     * @return original return type: 'byte[][]'
-     */
-    getVendorData(): Promise<(Buffer | null)[] | null>;
-    /**
-     * @return original return type: 'byte[][]'
-     */
-    getVendorDataSync(): (Buffer | null)[] | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDescription(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDescriptionSync(): string | null;
-    /**
-     * @param var0 original type: 'byte[][]'
-     * @return original return type: 'void'
-     */
-    setVendorData(var0: (Buffer | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'byte[][]'
-     * @return original return type: 'void'
-     */
-    setVendorDataSync(var0: (Buffer | null)[] | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @return original return type: 'boolean'
      */
-    removeConnection(var0: org_dcm4che3_net_Connection | null): Promise<boolean>;
+    isRoleSelectionNegotiationLenient(): Promise<boolean>;
     /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
      * @return original return type: 'boolean'
      */
-    removeConnectionSync(var0: org_dcm4che3_net_Connection | null): boolean;
+    isRoleSelectionNegotiationLenientSync(): boolean;
     /**
-     * @return original return type: 'org.dcm4che3.net.DimseRQHandler'
+     * @return original return type: 'org.dcm4che3.net.AssociationHandler'
      */
-    getDimseRQHandler(): Promise<org_dcm4che3_net_DimseRQHandler | null>;
+    getAssociationHandler(): Promise<org_dcm4che3_net_AssociationHandler | null>;
     /**
-     * @return original return type: 'org.dcm4che3.net.DimseRQHandler'
+     * @return original return type: 'org.dcm4che3.net.AssociationHandler'
      */
-    getDimseRQHandlerSync(): org_dcm4che3_net_DimseRQHandler | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'void'
-     */
-    addConnection(var0: org_dcm4che3_net_Connection | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'void'
-     */
-    addConnectionSync(var0: org_dcm4che3_net_Connection | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.DimseRQHandler'
-     * @return original return type: 'void'
-     */
-    setDimseRQHandler(var0: org_dcm4che3_net_DimseRQHandler | JavaInterfaceProxy<org_dcm4che3_net_DimseRQHandlerInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.DimseRQHandler'
-     * @return original return type: 'void'
-     */
-    setDimseRQHandlerSync(var0: org_dcm4che3_net_DimseRQHandler | JavaInterfaceProxy<org_dcm4che3_net_DimseRQHandlerInterface> | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDeviceName(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDeviceNameSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setManufacturer(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setManufacturerSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDeviceUID(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDeviceUIDSync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getManufacturer(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getManufacturerSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDeviceName(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDeviceNameSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setStationName(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setStationNameSync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDeviceUID(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDeviceUIDSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getStationName(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getStationNameSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setTrustStorePin(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setTrustStorePinSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setTrustStoreType(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setTrustStoreTypeSync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTrustStoreType(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTrustStoreTypeSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStoreType(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStoreTypeSync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStorePin(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStorePinSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStoreKeyPin(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStoreKeyPinSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setTrustStoreURL(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setTrustStoreURLSync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTrustStorePin(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTrustStorePinSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTrustStoreURL(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTrustStoreURLSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStoreURL(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStoreURLSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStoreURL(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStoreURLSync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStoreType(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStoreTypeSync(): string | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStorePin(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStorePinSync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStoreKeyPin(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStoreKeyPinSync(): string | null;
-    /**
-     * @return original return type: 'void'
-     */
-    bindConnections(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    bindConnectionsSync(): void;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getWebApplications(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getWebApplicationsSync(): java_util_Collection | null;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    listConnections(): Promise<java_util_List | null>;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    listConnectionsSync(): java_util_List | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.KeycloakClient'
-     * @return original return type: 'void'
-     */
-    addKeycloakClient(var0: org_dcm4che3_net_KeycloakClient | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.KeycloakClient'
-     * @return original return type: 'void'
-     */
-    addKeycloakClientSync(var0: org_dcm4che3_net_KeycloakClient | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.WebApplication'
-     */
-    getWebApplication(var0: string | null): Promise<org_dcm4che3_net_WebApplication | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.WebApplication'
-     */
-    getWebApplicationSync(var0: string | null): org_dcm4che3_net_WebApplication | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.WebApplication'
-     * @return original return type: 'void'
-     */
-    addWebApplication(var0: org_dcm4che3_net_WebApplication | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.WebApplication'
-     * @return original return type: 'void'
-     */
-    addWebApplicationSync(var0: org_dcm4che3_net_WebApplication | null): void;
-    /**
-     * @return original return type: 'void'
-     */
-    rebindConnections(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    rebindConnectionsSync(): void;
-    /**
-     * @return original return type: 'void'
-     */
-    unbindConnections(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    unbindConnectionsSync(): void;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getKeycloakClients(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getKeycloakClientsSync(): java_util_Collection | null;
-    /**
-     * @param var0 original type: 'java.util.concurrent.Executor'
-     * @return original return type: 'void'
-     */
-    setExecutor(var0: java_util_concurrent_Executor | JavaInterfaceProxy<java_util_concurrent_ExecutorInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.util.concurrent.Executor'
-     * @return original return type: 'void'
-     */
-    setExecutorSync(var0: java_util_concurrent_Executor | JavaInterfaceProxy<java_util_concurrent_ExecutorInterface> | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.KeycloakClient'
-     */
-    getKeycloakClient(var0: string | null): Promise<org_dcm4che3_net_KeycloakClient | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.KeycloakClient'
-     */
-    getKeycloakClientSync(var0: string | null): org_dcm4che3_net_KeycloakClient | null;
-    /**
-     * @return original return type: 'javax.net.ssl.TrustManager[]'
-     */
-    trustManagers(): Promise<(javax_net_ssl_TrustManager | null)[] | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.TrustManager[]'
-     */
-    trustManagersSync(): (javax_net_ssl_TrustManager | null)[] | null;
-    /**
-     * @return original return type: 'javax.net.ssl.TrustManager'
-     */
-    getTrustManager(): Promise<javax_net_ssl_TrustManager | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.TrustManager'
-     */
-    getTrustManagerSync(): javax_net_ssl_TrustManager | null;
-    /**
-     * @param var0 original type: 'javax.net.ssl.TrustManager'
-     * @return original return type: 'void'
-     */
-    setTrustManager(var0: javax_net_ssl_TrustManager | JavaInterfaceProxy<javax_net_ssl_TrustManagerInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'javax.net.ssl.TrustManager'
-     * @return original return type: 'void'
-     */
-    setTrustManagerSync(var0: javax_net_ssl_TrustManager | JavaInterfaceProxy<javax_net_ssl_TrustManagerInterface> | null): void;
-    /**
-     * @param var0 original type: 'javax.net.ssl.KeyManager'
-     * @return original return type: 'void'
-     */
-    setKeyManager(var0: javax_net_ssl_KeyManager | JavaInterfaceProxy<javax_net_ssl_KeyManagerInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'javax.net.ssl.KeyManager'
-     * @return original return type: 'void'
-     */
-    setKeyManagerSync(var0: javax_net_ssl_KeyManager | JavaInterfaceProxy<javax_net_ssl_KeyManagerInterface> | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
-     * @return original return type: 'void'
-     */
-    addDeviceExtension(var0: org_dcm4che3_net_DeviceExtension | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
-     * @return original return type: 'void'
-     */
-    addDeviceExtensionSync(var0: org_dcm4che3_net_DeviceExtension | null): void;
-    /**
-     * @return original return type: 'javax.net.ssl.KeyManager'
-     */
-    getKeyManager(): Promise<javax_net_ssl_KeyManager | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.KeyManager'
-     */
-    getKeyManagerSync(): javax_net_ssl_KeyManager | null;
-    /**
-     * @return original return type: 'javax.net.ssl.KeyManager[]'
-     */
-    keyManagers(): Promise<(javax_net_ssl_KeyManager | null)[] | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.KeyManager[]'
-     */
-    keyManagersSync(): (javax_net_ssl_KeyManager | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'org.dcm4che3.net.DeviceExtension'
-     */
-    getDeviceExtension(var0: java_lang_Class | null): Promise<org_dcm4che3_net_DeviceExtension | null>;
-    /**
-     * @param var0 original type: 'java.lang.Class'
-     * @return original return type: 'org.dcm4che3.net.DeviceExtension'
-     */
-    getDeviceExtensionSync(var0: java_lang_Class | null): org_dcm4che3_net_DeviceExtension | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDeviceSerialNumber(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setDeviceSerialNumberSync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setInstitutionalDepartmentNames(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setInstitutionalDepartmentNamesSync(var0: (string | null)[] | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setSoftwareVersions(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setSoftwareVersionsSync(var0: (string | null)[] | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getManufacturerModelName(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getManufacturerModelNameSync(): string | null;
+    getAssociationHandlerSync(): org_dcm4che3_net_AssociationHandler | null;
     /**
      * @param var0 original type: 'org.dcm4che3.data.Issuer'
      * @return original return type: 'void'
@@ -718,539 +154,23 @@ export declare class DeviceClass extends JavaClass {
      */
     setIssuerOfPatientIDSync(var0: org_dcm4che3_data_Issuer | null): void;
     /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfPatientID(): Promise<org_dcm4che3_data_Issuer | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfPatientIDSync(): org_dcm4che3_data_Issuer | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfAccessionNumber(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfAccessionNumberSync(var0: org_dcm4che3_data_Issuer | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setInstitutionAddresses(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setInstitutionAddressesSync(var0: (string | null)[] | null): void;
-    /**
      * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setManufacturerModelName(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setManufacturerModelNameSync(var0: string | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getOrderPlacerIdentifier(): Promise<org_dcm4che3_data_Issuer | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getOrderPlacerIdentifierSync(): org_dcm4che3_data_Issuer | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setOrderPlacerIdentifier(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setOrderPlacerIdentifierSync(var0: org_dcm4che3_data_Issuer | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getOrderFillerIdentifier(): Promise<org_dcm4che3_data_Issuer | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getOrderFillerIdentifierSync(): org_dcm4che3_data_Issuer | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setOrderFillerIdentifier(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setOrderFillerIdentifierSync(var0: org_dcm4che3_data_Issuer | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfAdmissionID(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfAdmissionIDSync(var0: org_dcm4che3_data_Issuer | null): void;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getInstitutionalDepartmentNames(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getInstitutionalDepartmentNamesSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setPrimaryDeviceTypes(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setPrimaryDeviceTypesSync(var0: (string | null)[] | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfServiceEpisodeID(): Promise<org_dcm4che3_data_Issuer | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfServiceEpisodeIDSync(): org_dcm4che3_data_Issuer | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDeviceSerialNumber(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getDeviceSerialNumberSync(): string | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Code[]'
-     * @return original return type: 'void'
-     */
-    setInstitutionCodes(var0: (org_dcm4che3_data_Code | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Code[]'
-     * @return original return type: 'void'
-     */
-    setInstitutionCodesSync(var0: (org_dcm4che3_data_Code | null)[] | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfAccessionNumber(): Promise<org_dcm4che3_data_Issuer | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfAccessionNumberSync(): org_dcm4che3_data_Issuer | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfServiceEpisodeID(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfServiceEpisodeIDSync(var0: org_dcm4che3_data_Issuer | null): void;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getInstitutionAddresses(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getInstitutionAddressesSync(): (string | null)[] | null;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfAdmissionID(): Promise<org_dcm4che3_data_Issuer | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfAdmissionIDSync(): org_dcm4che3_data_Issuer | null;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfContainerIdentifier(): Promise<org_dcm4che3_data_Issuer | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfContainerIdentifierSync(): org_dcm4che3_data_Issuer | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfContainerIdentifier(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfContainerIdentifierSync(var0: org_dcm4che3_data_Issuer | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfSpecimenIdentifier(): Promise<org_dcm4che3_data_Issuer | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Issuer'
-     */
-    getIssuerOfSpecimenIdentifierSync(): org_dcm4che3_data_Issuer | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfSpecimenIdentifier(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.data.Issuer'
-     * @return original return type: 'void'
-     */
-    setIssuerOfSpecimenIdentifierSync(var0: org_dcm4che3_data_Issuer | null): void;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getPrimaryDeviceTypes(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getPrimaryDeviceTypesSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setInstitutionNames(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setInstitutionNamesSync(var0: (string | null)[] | null): void;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getInstitutionNames(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getInstitutionNamesSync(): (string | null)[] | null;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Code[]'
-     */
-    getInstitutionCodes(): Promise<(org_dcm4che3_data_Code | null)[] | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.data.Code[]'
-     */
-    getInstitutionCodesSync(): (org_dcm4che3_data_Code | null)[] | null;
-    /**
-     * @param var0 original type: 'java.util.List'
-     * @param var1 original type: 'java.util.List'
-     * @return original return type: 'void'
-     */
-    reconfigureConnections(var0: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null, var1: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.util.List'
-     * @param var1 original type: 'java.util.List'
-     * @return original return type: 'void'
-     */
-    reconfigureConnectionsSync(var0: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null, var1: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null): void;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getSoftwareVersions(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getSoftwareVersionsSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStorePinProperty(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStorePinPropertySync(var0: string | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    getThisNodeCertificates(var0: string | null): Promise<(java_security_cert_X509Certificate | null)[] | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    getThisNodeCertificatesSync(var0: string | null): (java_security_cert_X509Certificate | null)[] | null;
-    /**
-     * @param var0 original type: 'java.util.TimeZone'
-     * @return original return type: 'void'
-     */
-    setTimeZoneOfDevice(var0: java_util_TimeZone | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.util.TimeZone'
-     * @return original return type: 'void'
-     */
-    setTimeZoneOfDeviceSync(var0: java_util_TimeZone | null): void;
-    /**
-     * @return original return type: 'java.util.TimeZone'
-     */
-    getTimeZoneOfDevice(): Promise<java_util_TimeZone | null>;
-    /**
-     * @return original return type: 'java.util.TimeZone'
-     */
-    getTimeZoneOfDeviceSync(): java_util_TimeZone | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.AssociationHandler'
-     * @return original return type: 'void'
-     */
-    setAssociationHandler(var0: org_dcm4che3_net_AssociationHandler | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.AssociationHandler'
-     * @return original return type: 'void'
-     */
-    setAssociationHandlerSync(var0: org_dcm4che3_net_AssociationHandler | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStorePinProperty(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getKeyStorePinPropertySync(): string | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.ConnectionMonitor'
-     * @return original return type: 'void'
-     */
-    setConnectionMonitor(var0: org_dcm4che3_net_ConnectionMonitor | JavaInterfaceProxy<org_dcm4che3_net_ConnectionMonitorInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.ConnectionMonitor'
-     * @return original return type: 'void'
-     */
-    setConnectionMonitorSync(var0: org_dcm4che3_net_ConnectionMonitor | JavaInterfaceProxy<org_dcm4che3_net_ConnectionMonitorInterface> | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.AssociationMonitor'
-     * @return original return type: 'void'
-     */
-    setAssociationMonitor(var0: org_dcm4che3_net_AssociationMonitor | JavaInterfaceProxy<org_dcm4che3_net_AssociationMonitorInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.AssociationMonitor'
-     * @return original return type: 'void'
-     */
-    setAssociationMonitorSync(var0: org_dcm4che3_net_AssociationMonitor | JavaInterfaceProxy<org_dcm4che3_net_AssociationMonitorInterface> | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
-     * @return original return type: 'boolean'
-     */
-    removeDeviceExtension(var0: org_dcm4che3_net_DeviceExtension | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
-     * @return original return type: 'boolean'
-     */
-    removeDeviceExtensionSync(var0: org_dcm4che3_net_DeviceExtension | null): boolean;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    getAuthorizedNodeCertificates(var0: string | null): Promise<(java_security_cert_X509Certificate | null)[] | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    getAuthorizedNodeCertificatesSync(var0: string | null): (java_security_cert_X509Certificate | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setTrustStorePinProperty(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setTrustStorePinPropertySync(var0: string | null): void;
-    /**
-     * @return original return type: 'java.util.concurrent.ScheduledExecutorService'
-     */
-    getScheduledExecutor(): Promise<java_util_concurrent_ScheduledExecutorService | null>;
-    /**
-     * @return original return type: 'java.util.concurrent.ScheduledExecutorService'
-     */
-    getScheduledExecutorSync(): java_util_concurrent_ScheduledExecutorService | null;
-    /**
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    getAllThisNodeCertificates(): Promise<(java_security_cert_X509Certificate | null)[] | null>;
-    /**
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    getAllThisNodeCertificatesSync(): (java_security_cert_X509Certificate | null)[] | null;
-    /**
-     * @param var0 original type: 'java.util.concurrent.ScheduledExecutorService'
-     * @return original return type: 'void'
-     */
-    setScheduledExecutor(var0: java_util_concurrent_ScheduledExecutorService | JavaInterfaceProxy<java_util_concurrent_ScheduledExecutorServiceInterface> | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.util.concurrent.ScheduledExecutorService'
-     * @return original return type: 'void'
-     */
-    setScheduledExecutorSync(var0: java_util_concurrent_ScheduledExecutorService | JavaInterfaceProxy<java_util_concurrent_ScheduledExecutorServiceInterface> | null): void;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Association[]'
-     */
-    listOpenAssociations(): Promise<(org_dcm4che3_net_Association | null)[] | null>;
-    /**
-     * @return original return type: 'org.dcm4che3.net.Association[]'
-     */
-    listOpenAssociationsSync(): (org_dcm4che3_net_Association | null)[] | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'org.dcm4che3.net.Connection'
-     */
-    connectionWithEqualsRDN(var0: org_dcm4che3_net_Connection | null): Promise<org_dcm4che3_net_Connection | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Connection'
-     * @return original return type: 'org.dcm4che3.net.Connection'
-     */
-    connectionWithEqualsRDNSync(var0: org_dcm4che3_net_Connection | null): org_dcm4che3_net_Connection | null;
-    /**
      * @return original return type: 'int'
      */
-    getNumberOfOpenAssociations(): Promise<number>;
-    /**
-     * @return original return type: 'int'
-     */
-    getNumberOfOpenAssociationsSync(): number;
+    getLimitAssociationsInitiatedBy(var0: string | null): Promise<number>;
     /**
      * @param var0 original type: 'java.lang.String'
      * @return original return type: 'int'
      */
-    getNumberOfAssociationsInitiatedBy(var0: string | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'int'
-     */
-    getNumberOfAssociationsInitiatedBySync(var0: string | null): number;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getApplicationEntities(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getApplicationEntitiesSync(): java_util_Collection | null;
+    getLimitAssociationsInitiatedBySync(var0: string | null): number;
     /**
      * @return original return type: 'java.lang.String[]'
      */
-    getThisNodeCertificateRefs(): Promise<(string | null)[] | null>;
+    getLimitAssociationsInitiatedBy(): Promise<(string | null)[] | null>;
     /**
      * @return original return type: 'java.lang.String[]'
      */
-    getThisNodeCertificateRefsSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStoreKeyPinProperty(var0: string | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'void'
-     */
-    setKeyStoreKeyPinPropertySync(var0: string | null): void;
-    /**
-     * @return original return type: 'void'
-     */
-    removeAllThisNodeCertificates(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    removeAllThisNodeCertificatesSync(): void;
-    /**
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    getAllAuthorizedNodeCertificates(): Promise<(java_security_cert_X509Certificate | null)[] | null>;
-    /**
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    getAllAuthorizedNodeCertificatesSync(): (java_security_cert_X509Certificate | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    removeAuthorizedNodeCertificates(var0: string | null): Promise<(java_security_cert_X509Certificate | null)[] | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    removeAuthorizedNodeCertificatesSync(var0: string | null): (java_security_cert_X509Certificate | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    removeThisNodeCertificates(var0: string | null): Promise<(java_security_cert_X509Certificate | null)[] | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.cert.X509Certificate[]'
-     */
-    removeThisNodeCertificatesSync(var0: string | null): (java_security_cert_X509Certificate | null)[] | null;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass'
-     * @return original return type: 'java.util.Collection'
-     */
-    getWebApplicationsWithServiceClass(var0: org_dcm4che3_net_WebApplication$ServiceClass | null): Promise<java_util_Collection | null>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass'
-     * @return original return type: 'java.util.Collection'
-     */
-    getWebApplicationsWithServiceClassSync(var0: org_dcm4che3_net_WebApplication$ServiceClass | null): java_util_Collection | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'int'
-     */
-    getNumberOfAssociationsInitiatedTo(var0: string | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'int'
-     */
-    getNumberOfAssociationsInitiatedToSync(var0: string | null): number;
-    /**
-     * @param var0 original type: 'java.lang.Runnable'
-     * @param var1 original type: 'long'
-     * @param var2 original type: 'long'
-     * @param var3 original type: 'java.util.concurrent.TimeUnit'
-     * @return original return type: 'java.util.concurrent.ScheduledFuture'
-     */
-    scheduleAtFixedRate(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): Promise<java_util_concurrent_ScheduledFuture | null>;
-    /**
-     * @param var0 original type: 'java.lang.Runnable'
-     * @param var1 original type: 'long'
-     * @param var2 original type: 'long'
-     * @param var3 original type: 'java.util.concurrent.TimeUnit'
-     * @return original return type: 'java.util.concurrent.ScheduledFuture'
-     */
-    scheduleAtFixedRateSync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
-    /**
-     * @param var0 original type: 'java.lang.Runnable'
-     * @param var1 original type: 'long'
-     * @param var2 original type: 'long'
-     * @param var3 original type: 'java.util.concurrent.TimeUnit'
-     * @return original return type: 'java.util.concurrent.ScheduledFuture'
-     */
-    scheduleWithFixedDelay(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): Promise<java_util_concurrent_ScheduledFuture | null>;
-    /**
-     * @param var0 original type: 'java.lang.Runnable'
-     * @param var1 original type: 'long'
-     * @param var2 original type: 'long'
-     * @param var3 original type: 'java.util.concurrent.TimeUnit'
-     * @return original return type: 'java.util.concurrent.ScheduledFuture'
-     */
-    scheduleWithFixedDelaySync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
+    getLimitAssociationsInitiatedBySync(): (string | null)[] | null;
     /**
      * @param var0 original type: 'java.lang.String[]'
      * @return original return type: 'void'
@@ -1274,6 +194,350 @@ export declare class DeviceClass extends JavaClass {
      */
     setLimitAssociationsInitiatedBySync(var0: string | null, var1: java_lang_Integer | number): void;
     /**
+     * @return original return type: 'int'
+     */
+    getNumberOfOpenAssociations(): Promise<number>;
+    /**
+     * @return original return type: 'int'
+     */
+    getNumberOfOpenAssociationsSync(): number;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'int'
+     */
+    getNumberOfAssociationsInitiatedBy(var0: string | null): Promise<number>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'int'
+     */
+    getNumberOfAssociationsInitiatedBySync(var0: string | null): number;
+    /**
+     * @return original return type: 'java.util.TimeZone'
+     */
+    getTimeZoneOfDevice(): Promise<java_util_TimeZone | null>;
+    /**
+     * @return original return type: 'java.util.TimeZone'
+     */
+    getTimeZoneOfDeviceSync(): java_util_TimeZone | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfServiceEpisodeID(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfServiceEpisodeIDSync(var0: org_dcm4che3_data_Issuer | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.AssociationMonitor'
+     * @return original return type: 'void'
+     */
+    setAssociationMonitor(var0: org_dcm4che3_net_AssociationMonitor | JavaInterfaceProxy<org_dcm4che3_net_AssociationMonitorInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.AssociationMonitor'
+     * @return original return type: 'void'
+     */
+    setAssociationMonitorSync(var0: org_dcm4che3_net_AssociationMonitor | JavaInterfaceProxy<org_dcm4che3_net_AssociationMonitorInterface> | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfContainerIdentifier(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfContainerIdentifierSync(var0: org_dcm4che3_data_Issuer | null): void;
+    /**
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    getAllAuthorizedNodeCertificates(): Promise<(java_security_cert_X509Certificate | null)[] | null>;
+    /**
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    getAllAuthorizedNodeCertificatesSync(): (java_security_cert_X509Certificate | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTrustStorePinProperty(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTrustStorePinPropertySync(): string | null;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Association[]'
+     */
+    listOpenAssociations(): Promise<(org_dcm4che3_net_Association | null)[] | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.Association[]'
+     */
+    listOpenAssociationsSync(): (org_dcm4che3_net_Association | null)[] | null;
+    /**
+     * @return original return type: 'java.util.concurrent.ScheduledExecutorService'
+     */
+    getScheduledExecutor(): Promise<java_util_concurrent_ScheduledExecutorService | null>;
+    /**
+     * @return original return type: 'java.util.concurrent.ScheduledExecutorService'
+     */
+    getScheduledExecutorSync(): java_util_concurrent_ScheduledExecutorService | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getThisNodeCertificateRefs(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getThisNodeCertificateRefsSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setOrderPlacerIdentifier(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setOrderPlacerIdentifierSync(var0: org_dcm4che3_data_Issuer | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    getAuthorizedNodeCertificates(var0: string | null): Promise<(java_security_cert_X509Certificate | null)[] | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    getAuthorizedNodeCertificatesSync(var0: string | null): (java_security_cert_X509Certificate | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    removeThisNodeCertificates(var0: string | null): Promise<(java_security_cert_X509Certificate | null)[] | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    removeThisNodeCertificatesSync(var0: string | null): (java_security_cert_X509Certificate | null)[] | null;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getWebApplicationNames(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getWebApplicationNamesSync(): java_util_Collection | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setTrustStorePinProperty(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setTrustStorePinPropertySync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'int'
+     */
+    getNumberOfAssociationsInitiatedTo(var0: string | null): Promise<number>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'int'
+     */
+    getNumberOfAssociationsInitiatedToSync(var0: string | null): number;
+    /**
+     * @return original return type: 'void'
+     */
+    waitForNoOpenConnections(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    waitForNoOpenConnectionsSync(): void;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfContainerIdentifier(): Promise<org_dcm4che3_data_Issuer | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfContainerIdentifierSync(): org_dcm4che3_data_Issuer | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getRelatedDeviceRefs(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getRelatedDeviceRefsSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfAdmissionID(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfAdmissionIDSync(var0: org_dcm4che3_data_Issuer | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setOrderFillerIdentifier(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setOrderFillerIdentifierSync(var0: org_dcm4che3_data_Issuer | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfSpecimenIdentifier(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfSpecimenIdentifierSync(var0: org_dcm4che3_data_Issuer | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass'
+     * @return original return type: 'java.util.Collection'
+     */
+    getWebApplicationsWithServiceClass(var0: org_dcm4che3_net_WebApplication$ServiceClass | null): Promise<java_util_Collection | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.WebApplication$ServiceClass'
+     * @return original return type: 'java.util.Collection'
+     */
+    getWebApplicationsWithServiceClassSync(var0: org_dcm4che3_net_WebApplication$ServiceClass | null): java_util_Collection | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'org.dcm4che3.net.Connection'
+     */
+    connectionWithEqualsRDN(var0: org_dcm4che3_net_Connection | null): Promise<org_dcm4che3_net_Connection | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'org.dcm4che3.net.Connection'
+     */
+    connectionWithEqualsRDNSync(var0: org_dcm4che3_net_Connection | null): org_dcm4che3_net_Connection | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ConnectionMonitor'
+     * @return original return type: 'void'
+     */
+    setConnectionMonitor(var0: org_dcm4che3_net_ConnectionMonitor | JavaInterfaceProxy<org_dcm4che3_net_ConnectionMonitorInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ConnectionMonitor'
+     * @return original return type: 'void'
+     */
+    setConnectionMonitorSync(var0: org_dcm4che3_net_ConnectionMonitor | JavaInterfaceProxy<org_dcm4che3_net_ConnectionMonitorInterface> | null): void;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfAdmissionID(): Promise<org_dcm4che3_data_Issuer | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfAdmissionIDSync(): org_dcm4che3_data_Issuer | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.security.cert.X509Certificate[]'
+     * @return original return type: 'void'
+     */
+    setAuthorizedNodeCertificates(var0: string | null, var1: (java_security_cert_X509Certificate | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.security.cert.X509Certificate[]'
+     * @return original return type: 'void'
+     */
+    setAuthorizedNodeCertificatesSync(var0: string | null, var1: (java_security_cert_X509Certificate | null)[] | null): void;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getOrderPlacerIdentifier(): Promise<org_dcm4che3_data_Issuer | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getOrderPlacerIdentifierSync(): org_dcm4che3_data_Issuer | null;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfSpecimenIdentifier(): Promise<org_dcm4che3_data_Issuer | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfSpecimenIdentifierSync(): org_dcm4che3_data_Issuer | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStorePinProperty(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStorePinPropertySync(): string | null;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfAccessionNumber(): Promise<org_dcm4che3_data_Issuer | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfAccessionNumberSync(): org_dcm4che3_data_Issuer | null;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getOrderFillerIdentifier(): Promise<org_dcm4che3_data_Issuer | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getOrderFillerIdentifierSync(): org_dcm4che3_data_Issuer | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStorePinProperty(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStorePinPropertySync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStoreKeyPinProperty(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStoreKeyPinPropertySync(var0: string | null): void;
+    /**
+     * @return original return type: 'void'
+     */
+    removeAllThisNodeCertificates(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    removeAllThisNodeCertificatesSync(): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfAccessionNumber(var0: org_dcm4che3_data_Issuer | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Issuer'
+     * @return original return type: 'void'
+     */
+    setIssuerOfAccessionNumberSync(var0: org_dcm4che3_data_Issuer | null): void;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfServiceEpisodeID(): Promise<org_dcm4che3_data_Issuer | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfServiceEpisodeIDSync(): org_dcm4che3_data_Issuer | null;
+    /**
      * @return original return type: 'java.lang.String'
      */
     getKeyStoreKeyPinProperty(): Promise<string | null>;
@@ -1281,6 +545,92 @@ export declare class DeviceClass extends JavaClass {
      * @return original return type: 'java.lang.String'
      */
     getKeyStoreKeyPinPropertySync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getAuthorizedNodeCertificateRefs(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getAuthorizedNodeCertificateRefsSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setRelatedDeviceRefs(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setRelatedDeviceRefsSync(var0: (string | null)[] | null): void;
+    /**
+     * @param var0 original type: 'java.util.TimeZone'
+     * @return original return type: 'void'
+     */
+    setTimeZoneOfDevice(var0: java_util_TimeZone | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.util.TimeZone'
+     * @return original return type: 'void'
+     */
+    setTimeZoneOfDeviceSync(var0: java_util_TimeZone | null): void;
+    /**
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    getAllThisNodeCertificates(): Promise<(java_security_cert_X509Certificate | null)[] | null>;
+    /**
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    getAllThisNodeCertificatesSync(): (java_security_cert_X509Certificate | null)[] | null;
+    /**
+     * @return original return type: 'org.dcm4che3.net.ConnectionMonitor'
+     */
+    getConnectionMonitor(): Promise<org_dcm4che3_net_ConnectionMonitor | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.ConnectionMonitor'
+     */
+    getConnectionMonitorSync(): org_dcm4che3_net_ConnectionMonitor | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    getThisNodeCertificates(var0: string | null): Promise<(java_security_cert_X509Certificate | null)[] | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    getThisNodeCertificatesSync(var0: string | null): (java_security_cert_X509Certificate | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.security.cert.X509Certificate[]'
+     * @return original return type: 'void'
+     */
+    setThisNodeCertificates(var0: string | null, var1: (java_security_cert_X509Certificate | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.security.cert.X509Certificate[]'
+     * @return original return type: 'void'
+     */
+    setThisNodeCertificatesSync(var0: string | null, var1: (java_security_cert_X509Certificate | null)[] | null): void;
+    /**
+     * @param var0 original type: 'java.util.concurrent.ScheduledExecutorService'
+     * @return original return type: 'void'
+     */
+    setScheduledExecutor(var0: java_util_concurrent_ScheduledExecutorService | JavaInterfaceProxy<java_util_concurrent_ScheduledExecutorServiceInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.util.concurrent.ScheduledExecutorService'
+     * @return original return type: 'void'
+     */
+    setScheduledExecutorSync(var0: java_util_concurrent_ScheduledExecutorService | JavaInterfaceProxy<java_util_concurrent_ScheduledExecutorServiceInterface> | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    removeAuthorizedNodeCertificates(var0: string | null): Promise<(java_security_cert_X509Certificate | null)[] | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.cert.X509Certificate[]'
+     */
+    removeAuthorizedNodeCertificatesSync(var0: string | null): (java_security_cert_X509Certificate | null)[] | null;
     /**
      * @param var0 original type: 'org.dcm4che3.net.WebApplication'
      * @return original return type: 'org.dcm4che3.net.WebApplication'
@@ -1302,54 +652,6 @@ export declare class DeviceClass extends JavaClass {
      */
     removeWebApplicationSync(var0: string | null): org_dcm4che3_net_WebApplication | null;
     /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.security.cert.X509Certificate[]'
-     * @return original return type: 'void'
-     */
-    setAuthorizedNodeCertificates(var0: string | null, var1: (java_security_cert_X509Certificate | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.security.cert.X509Certificate[]'
-     * @return original return type: 'void'
-     */
-    setAuthorizedNodeCertificatesSync(var0: string | null, var1: (java_security_cert_X509Certificate | null)[] | null): void;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getLimitAssociationsInitiatedBy(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getLimitAssociationsInitiatedBySync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'int'
-     */
-    getLimitAssociationsInitiatedBy(var0: string | null): Promise<number>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'int'
-     */
-    getLimitAssociationsInitiatedBySync(var0: string | null): number;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
-     * @return original return type: 'boolean'
-     */
-    isLimitOfAssociationsExceeded(var0: org_dcm4che3_net_pdu_AAssociateRQ | null): Promise<boolean>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
-     * @return original return type: 'boolean'
-     */
-    isLimitOfAssociationsExceededSync(var0: org_dcm4che3_net_pdu_AAssociateRQ | null): boolean;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getRelatedDeviceRefs(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getRelatedDeviceRefsSync(): (string | null)[] | null;
-    /**
      * @return original return type: 'java.util.Collection'
      */
     getKeycloakClientIDs(): Promise<java_util_Collection | null>;
@@ -1357,76 +659,6 @@ export declare class DeviceClass extends JavaClass {
      * @return original return type: 'java.util.Collection'
      */
     getKeycloakClientIDsSync(): java_util_Collection | null;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getWebApplicationNames(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getWebApplicationNamesSync(): java_util_Collection | null;
-    /**
-     * @return original return type: 'void'
-     */
-    waitForNoOpenConnections(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    waitForNoOpenConnectionsSync(): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTrustStorePinProperty(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getTrustStorePinPropertySync(): string | null;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getApplicationAETitles(): Promise<java_util_Collection | null>;
-    /**
-     * @return original return type: 'java.util.Collection'
-     */
-    getApplicationAETitlesSync(): java_util_Collection | null;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getAuthorizedNodeCertificateRefs(): Promise<(string | null)[] | null>;
-    /**
-     * @return original return type: 'java.lang.String[]'
-     */
-    getAuthorizedNodeCertificateRefsSync(): (string | null)[] | null;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setLimitOpenAssociations(var0: java_lang_Integer | number): Promise<void>;
-    /**
-     * @param var0 original type: 'int'
-     * @return original return type: 'void'
-     */
-    setLimitOpenAssociationsSync(var0: java_lang_Integer | number): void;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setRelatedDeviceRefs(var0: (string | null)[] | null): Promise<void>;
-    /**
-     * @param var0 original type: 'java.lang.String[]'
-     * @return original return type: 'void'
-     */
-    setRelatedDeviceRefsSync(var0: (string | null)[] | null): void;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.KeycloakClient'
-     */
-    removeKeycloakClient(var0: string | null): Promise<org_dcm4che3_net_KeycloakClient | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.KeycloakClient'
-     */
-    removeKeycloakClientSync(var0: string | null): org_dcm4che3_net_KeycloakClient | null;
     /**
      * @param var0 original type: 'org.dcm4che3.net.KeycloakClient'
      * @return original return type: 'org.dcm4che3.net.KeycloakClient'
@@ -1439,16 +671,24 @@ export declare class DeviceClass extends JavaClass {
     removeKeycloakClientSync(var0: org_dcm4che3_net_KeycloakClient | null): org_dcm4che3_net_KeycloakClient | null;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.security.cert.X509Certificate[]'
-     * @return original return type: 'void'
+     * @return original return type: 'org.dcm4che3.net.KeycloakClient'
      */
-    setThisNodeCertificates(var0: string | null, var1: (java_security_cert_X509Certificate | null)[] | null): Promise<void>;
+    removeKeycloakClient(var0: string | null): Promise<org_dcm4che3_net_KeycloakClient | null>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.security.cert.X509Certificate[]'
-     * @return original return type: 'void'
+     * @return original return type: 'org.dcm4che3.net.KeycloakClient'
      */
-    setThisNodeCertificatesSync(var0: string | null, var1: (java_security_cert_X509Certificate | null)[] | null): void;
+    removeKeycloakClientSync(var0: string | null): org_dcm4che3_net_KeycloakClient | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
+     * @return original return type: 'boolean'
+     */
+    removeDeviceExtension(var0: org_dcm4che3_net_DeviceExtension | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
+     * @return original return type: 'boolean'
+     */
+    removeDeviceExtensionSync(var0: org_dcm4che3_net_DeviceExtension | null): boolean;
     /**
      * @return original return type: 'int'
      */
@@ -1457,6 +697,76 @@ export declare class DeviceClass extends JavaClass {
      * @return original return type: 'int'
      */
     getLimitOpenAssociationsSync(): number;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.AssociationHandler'
+     * @return original return type: 'void'
+     */
+    setAssociationHandler(var0: org_dcm4che3_net_AssociationHandler | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.AssociationHandler'
+     * @return original return type: 'void'
+     */
+    setAssociationHandlerSync(var0: org_dcm4che3_net_AssociationHandler | null): void;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setLimitOpenAssociations(var0: java_lang_Integer | number): Promise<void>;
+    /**
+     * @param var0 original type: 'int'
+     * @return original return type: 'void'
+     */
+    setLimitOpenAssociationsSync(var0: java_lang_Integer | number): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
+     * @return original return type: 'boolean'
+     */
+    isLimitOfAssociationsExceeded(var0: org_dcm4che3_net_pdu_AAssociateRQ | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.pdu.AAssociateRQ'
+     * @return original return type: 'boolean'
+     */
+    isLimitOfAssociationsExceededSync(var0: org_dcm4che3_net_pdu_AAssociateRQ | null): boolean;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    listDeviceExtensions(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    listDeviceExtensionsSync(): java_util_Collection | null;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getApplicationEntities(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getApplicationEntitiesSync(): java_util_Collection | null;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getApplicationAETitles(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getApplicationAETitlesSync(): java_util_Collection | null;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @param var1 original type: 'long'
+     * @param var2 original type: 'long'
+     * @param var3 original type: 'java.util.concurrent.TimeUnit'
+     * @return original return type: 'java.util.concurrent.ScheduledFuture'
+     */
+    scheduleWithFixedDelay(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): Promise<java_util_concurrent_ScheduledFuture | null>;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @param var1 original type: 'long'
+     * @param var2 original type: 'long'
+     * @param var3 original type: 'java.util.concurrent.TimeUnit'
+     * @return original return type: 'java.util.concurrent.ScheduledFuture'
+     */
+    scheduleWithFixedDelaySync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null, var1: java_lang_Long | bigint | number, var2: java_lang_Long | bigint | number, var3: java_util_concurrent_TimeUnit | null): java_util_concurrent_ScheduledFuture | null;
     /**
      * @param var0 original type: 'java.lang.Class'
      * @return original return type: 'org.dcm4che3.net.DeviceExtension'
@@ -1468,13 +778,703 @@ export declare class DeviceClass extends JavaClass {
      */
     getDeviceExtensionNotNullSync(var0: java_lang_Class | null): org_dcm4che3_net_DeviceExtension | null;
     /**
-     * @return original return type: 'java.util.Collection'
+     * @return original return type: 'java.lang.String'
      */
-    listDeviceExtensions(): Promise<java_util_Collection | null>;
+    toString(): Promise<string>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    toStringSync(): string;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @return original return type: 'void'
+     */
+    execute(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.Runnable'
+     * @return original return type: 'void'
+     */
+    executeSync(var0: java_lang_Runnable | JavaInterfaceProxy<java_lang_RunnableInterface> | null): void;
+    /**
+     * @return original return type: 'java.util.concurrent.Executor'
+     */
+    getExecutor(): Promise<java_util_concurrent_Executor | null>;
+    /**
+     * @return original return type: 'java.util.concurrent.Executor'
+     */
+    getExecutorSync(): java_util_concurrent_Executor | null;
+    /**
+     * @return original return type: 'java.util.List'
+     */
+    listConnections(): Promise<java_util_List | null>;
+    /**
+     * @return original return type: 'java.util.List'
+     */
+    listConnectionsSync(): java_util_List | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.WebApplication'
+     * @return original return type: 'void'
+     */
+    addWebApplication(var0: org_dcm4che3_net_WebApplication | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.WebApplication'
+     * @return original return type: 'void'
+     */
+    addWebApplicationSync(var0: org_dcm4che3_net_WebApplication | null): void;
     /**
      * @return original return type: 'java.util.Collection'
      */
-    listDeviceExtensionsSync(): java_util_Collection | null;
+    getWebApplications(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getWebApplicationsSync(): java_util_Collection | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
+     * @return original return type: 'void'
+     */
+    addDeviceExtension(var0: org_dcm4che3_net_DeviceExtension | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.DeviceExtension'
+     * @return original return type: 'void'
+     */
+    addDeviceExtensionSync(var0: org_dcm4che3_net_DeviceExtension | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.KeycloakClient'
+     */
+    getKeycloakClient(var0: string | null): Promise<org_dcm4che3_net_KeycloakClient | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.KeycloakClient'
+     */
+    getKeycloakClientSync(var0: string | null): org_dcm4che3_net_KeycloakClient | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.KeycloakClient'
+     * @return original return type: 'void'
+     */
+    addKeycloakClient(var0: org_dcm4che3_net_KeycloakClient | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.KeycloakClient'
+     * @return original return type: 'void'
+     */
+    addKeycloakClientSync(var0: org_dcm4che3_net_KeycloakClient | null): void;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getKeycloakClients(): Promise<java_util_Collection | null>;
+    /**
+     * @return original return type: 'java.util.Collection'
+     */
+    getKeycloakClientsSync(): java_util_Collection | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.WebApplication'
+     */
+    getWebApplication(var0: string | null): Promise<org_dcm4che3_net_WebApplication | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.WebApplication'
+     */
+    getWebApplicationSync(var0: string | null): org_dcm4che3_net_WebApplication | null;
+    /**
+     * @param var0 original type: 'javax.net.ssl.KeyManager'
+     * @return original return type: 'void'
+     */
+    setKeyManager(var0: javax_net_ssl_KeyManager | JavaInterfaceProxy<javax_net_ssl_KeyManagerInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'javax.net.ssl.KeyManager'
+     * @return original return type: 'void'
+     */
+    setKeyManagerSync(var0: javax_net_ssl_KeyManager | JavaInterfaceProxy<javax_net_ssl_KeyManagerInterface> | null): void;
+    /**
+     * @param var0 original type: 'javax.net.ssl.TrustManager'
+     * @return original return type: 'void'
+     */
+    setTrustManager(var0: javax_net_ssl_TrustManager | JavaInterfaceProxy<javax_net_ssl_TrustManagerInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'javax.net.ssl.TrustManager'
+     * @return original return type: 'void'
+     */
+    setTrustManagerSync(var0: javax_net_ssl_TrustManager | JavaInterfaceProxy<javax_net_ssl_TrustManagerInterface> | null): void;
+    /**
+     * @return original return type: 'javax.net.ssl.TrustManager'
+     */
+    getTrustManager(): Promise<javax_net_ssl_TrustManager | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.TrustManager'
+     */
+    getTrustManagerSync(): javax_net_ssl_TrustManager | null;
+    /**
+     * @return original return type: 'javax.net.ssl.KeyManager'
+     */
+    getKeyManager(): Promise<javax_net_ssl_KeyManager | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.KeyManager'
+     */
+    getKeyManagerSync(): javax_net_ssl_KeyManager | null;
+    /**
+     * @return original return type: 'javax.net.ssl.KeyManager[]'
+     */
+    keyManagers(): Promise<(javax_net_ssl_KeyManager | null)[] | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.KeyManager[]'
+     */
+    keyManagersSync(): (javax_net_ssl_KeyManager | null)[] | null;
+    /**
+     * @return original return type: 'javax.net.ssl.TrustManager[]'
+     */
+    trustManagers(): Promise<(javax_net_ssl_TrustManager | null)[] | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.TrustManager[]'
+     */
+    trustManagersSync(): (javax_net_ssl_TrustManager | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'org.dcm4che3.net.DeviceExtension'
+     */
+    getDeviceExtension(var0: java_lang_Class | null): Promise<org_dcm4che3_net_DeviceExtension | null>;
+    /**
+     * @param var0 original type: 'java.lang.Class'
+     * @return original return type: 'org.dcm4che3.net.DeviceExtension'
+     */
+    getDeviceExtensionSync(var0: java_lang_Class | null): org_dcm4che3_net_DeviceExtension | null;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfPatientID(): Promise<org_dcm4che3_data_Issuer | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Issuer'
+     */
+    getIssuerOfPatientIDSync(): org_dcm4che3_data_Issuer | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
+     */
+    removeApplicationEntity(var0: string | null): Promise<org_dcm4che3_net_ApplicationEntity | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
+     */
+    removeApplicationEntitySync(var0: string | null): org_dcm4che3_net_ApplicationEntity | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
+     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
+     */
+    removeApplicationEntity(var0: org_dcm4che3_net_ApplicationEntity | null): Promise<org_dcm4che3_net_ApplicationEntity | null>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
+     * @return original return type: 'org.dcm4che3.net.ApplicationEntity'
+     */
+    removeApplicationEntitySync(var0: org_dcm4che3_net_ApplicationEntity | null): org_dcm4che3_net_ApplicationEntity | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setSoftwareVersions(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setSoftwareVersionsSync(var0: (string | null)[] | null): void;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getInstitutionNames(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getInstitutionNamesSync(): (string | null)[] | null;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Code[]'
+     */
+    getInstitutionCodes(): Promise<(org_dcm4che3_data_Code | null)[] | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.data.Code[]'
+     */
+    getInstitutionCodesSync(): (org_dcm4che3_data_Code | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setInstitutionNames(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setInstitutionNamesSync(var0: (string | null)[] | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Code[]'
+     * @return original return type: 'void'
+     */
+    setInstitutionCodes(var0: (org_dcm4che3_data_Code | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.data.Code[]'
+     * @return original return type: 'void'
+     */
+    setInstitutionCodesSync(var0: (org_dcm4che3_data_Code | null)[] | null): void;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getInstitutionalDepartmentNames(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getInstitutionalDepartmentNamesSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setInstitutionalDepartmentNames(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setInstitutionalDepartmentNamesSync(var0: (string | null)[] | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setManufacturerModelName(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setManufacturerModelNameSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDeviceSerialNumber(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDeviceSerialNumberSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.util.List'
+     * @param var1 original type: 'java.util.List'
+     * @return original return type: 'void'
+     */
+    reconfigureConnections(var0: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null, var1: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.util.List'
+     * @param var1 original type: 'java.util.List'
+     * @return original return type: 'void'
+     */
+    reconfigureConnectionsSync(var0: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null, var1: java_util_List | JavaInterfaceProxy<java_util_ListInterface> | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
+     * @return original return type: 'void'
+     */
+    addApplicationEntity(var0: org_dcm4che3_net_ApplicationEntity | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.ApplicationEntity'
+     * @return original return type: 'void'
+     */
+    addApplicationEntitySync(var0: org_dcm4che3_net_ApplicationEntity | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDeviceSerialNumber(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDeviceSerialNumberSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPrimaryDeviceTypes(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getPrimaryDeviceTypesSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setPrimaryDeviceTypes(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setPrimaryDeviceTypesSync(var0: (string | null)[] | null): void;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getSoftwareVersions(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getSoftwareVersionsSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setInstitutionAddresses(var0: (string | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String[]'
+     * @return original return type: 'void'
+     */
+    setInstitutionAddressesSync(var0: (string | null)[] | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getManufacturerModelName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getManufacturerModelNameSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getInstitutionAddresses(): Promise<(string | null)[] | null>;
+    /**
+     * @return original return type: 'java.lang.String[]'
+     */
+    getInstitutionAddressesSync(): (string | null)[] | null;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    setRoleSelectionNegotiationLenient(var0: java_lang_Boolean | boolean): Promise<void>;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    setRoleSelectionNegotiationLenientSync(var0: java_lang_Boolean | boolean): void;
+    /**
+     * @return original return type: 'void'
+     */
+    removeAllAuthorizedNodeCertificates(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    removeAllAuthorizedNodeCertificatesSync(): void;
+    /**
+     * @return original return type: 'void'
+     */
+    rebindConnections(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    rebindConnectionsSync(): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStorePin(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStorePinSync(): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStoreType(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStoreTypeSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setTrustStorePin(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setTrustStorePinSync(var0: string | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStoreKeyPin(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStoreKeyPinSync(): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setTrustStoreURL(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setTrustStoreURLSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setTrustStoreType(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setTrustStoreTypeSync(var0: string | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStoreURL(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStoreURLSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTrustStorePin(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTrustStorePinSync(): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStoreKeyPin(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStoreKeyPinSync(var0: string | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTrustStoreURL(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTrustStoreURLSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStoreType(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getKeyStoreTypeSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTrustStoreType(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getTrustStoreTypeSync(): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStoreURL(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStoreURLSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStorePin(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setKeyStorePinSync(var0: string | null): void;
+    /**
+     * @return original return type: 'void'
+     */
+    bindConnections(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    bindConnectionsSync(): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDescription(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDescriptionSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'byte[][]'
+     * @return original return type: 'void'
+     */
+    setVendorData(var0: (Buffer | null)[] | null): Promise<void>;
+    /**
+     * @param var0 original type: 'byte[][]'
+     * @return original return type: 'void'
+     */
+    setVendorDataSync(var0: (Buffer | null)[] | null): void;
+    /**
+     * @return original return type: 'byte[][]'
+     */
+    getVendorData(): Promise<(Buffer | null)[] | null>;
+    /**
+     * @return original return type: 'byte[][]'
+     */
+    getVendorDataSync(): (Buffer | null)[] | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDescription(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDescriptionSync(): string | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'boolean'
+     */
+    removeConnection(var0: org_dcm4che3_net_Connection | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'boolean'
+     */
+    removeConnectionSync(var0: org_dcm4che3_net_Connection | null): boolean;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'void'
+     */
+    addConnection(var0: org_dcm4che3_net_Connection | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Connection'
+     * @return original return type: 'void'
+     */
+    addConnectionSync(var0: org_dcm4che3_net_Connection | null): void;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    setInstalled(var0: java_lang_Boolean | boolean): Promise<void>;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'void'
+     */
+    setInstalledSync(var0: java_lang_Boolean | boolean): void;
+    /**
+     * @return original return type: 'org.dcm4che3.net.DimseRQHandler'
+     */
+    getDimseRQHandler(): Promise<org_dcm4che3_net_DimseRQHandler | null>;
+    /**
+     * @return original return type: 'org.dcm4che3.net.DimseRQHandler'
+     */
+    getDimseRQHandlerSync(): org_dcm4che3_net_DimseRQHandler | null;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.DimseRQHandler'
+     * @return original return type: 'void'
+     */
+    setDimseRQHandler(var0: org_dcm4che3_net_DimseRQHandler | JavaInterfaceProxy<org_dcm4che3_net_DimseRQHandlerInterface> | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.DimseRQHandler'
+     * @return original return type: 'void'
+     */
+    setDimseRQHandlerSync(var0: org_dcm4che3_net_DimseRQHandler | JavaInterfaceProxy<org_dcm4che3_net_DimseRQHandlerInterface> | null): void;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isInstalled(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isInstalledSync(): boolean;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Device'
+     * @return original return type: 'void'
+     */
+    reconfigure(var0: DeviceClass | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Device'
+     * @return original return type: 'void'
+     */
+    reconfigureSync(var0: DeviceClass | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDeviceName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDeviceNameSync(): string | null;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    sslContext(): Promise<javax_net_ssl_SSLContext | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    sslContextSync(): javax_net_ssl_SSLContext | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setStationName(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setStationNameSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDeviceUID(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDeviceUIDSync(var0: string | null): void;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDeviceName(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setDeviceNameSync(var0: string | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDeviceUID(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getDeviceUIDSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getManufacturer(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getManufacturerSync(): string | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setManufacturer(var0: string | null): Promise<void>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'void'
+     */
+    setManufacturerSync(var0: string | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getStationName(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getStationNameSync(): string | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
@@ -1548,19 +1548,19 @@ export declare class DeviceClass extends JavaClass {
      */
     notifyAllSync(): void;
     /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'org.dcm4che3.net.Device'
+     */
+    static newInstanceAsync(var0: string | null): Promise<Device>;
+    /**
      * @return original return type: 'org.dcm4che3.net.Device'
      */
     static newInstanceAsync(): Promise<Device>;
     /**
      * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'org.dcm4che3.net.Device'
-     */
-    static newInstanceAsync(var0: string | null): Promise<Device>;
-    constructor();
-    /**
-     * @param var0 original type: 'java.lang.String'
      */
     constructor(var0: string | null);
+    constructor();
 }
 declare const Device_base: typeof DeviceClass;
 /**

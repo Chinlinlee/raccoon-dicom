@@ -11,14 +11,6 @@ import { Class as java_lang_Class } from "./../../java/lang/Class";
  */
 export declare class ServerSocketFactoryClass extends JavaClass {
     /**
-     * @return original return type: 'javax.net.ServerSocketFactory'
-     */
-    static getDefault(): Promise<ServerSocketFactory | null>;
-    /**
-     * @return original return type: 'javax.net.ServerSocketFactory'
-     */
-    static getDefaultSync(): ServerSocketFactory | null;
-    /**
      * @param var0 original type: 'int'
      * @param var1 original type: 'int'
      * @return original return type: 'java.net.ServerSocket'
@@ -45,6 +37,14 @@ export declare class ServerSocketFactoryClass extends JavaClass {
      */
     createServerSocketSync(var0: java_lang_Integer | number, var1: java_lang_Integer | number, var2: java_net_InetAddress | null): java_net_ServerSocket | null;
     /**
+     * @return original return type: 'java.net.ServerSocket'
+     */
+    createServerSocket(): Promise<java_net_ServerSocket | null>;
+    /**
+     * @return original return type: 'java.net.ServerSocket'
+     */
+    createServerSocketSync(): java_net_ServerSocket | null;
+    /**
      * @param var0 original type: 'int'
      * @return original return type: 'java.net.ServerSocket'
      */
@@ -55,13 +55,13 @@ export declare class ServerSocketFactoryClass extends JavaClass {
      */
     createServerSocketSync(var0: java_lang_Integer | number): java_net_ServerSocket | null;
     /**
-     * @return original return type: 'java.net.ServerSocket'
+     * @return original return type: 'javax.net.ServerSocketFactory'
      */
-    createServerSocket(): Promise<java_net_ServerSocket | null>;
+    static getDefault(): Promise<ServerSocketFactory | null>;
     /**
-     * @return original return type: 'java.net.ServerSocket'
+     * @return original return type: 'javax.net.ServerSocketFactory'
      */
-    createServerSocketSync(): java_net_ServerSocket | null;
+    static getDefaultSync(): ServerSocketFactory | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

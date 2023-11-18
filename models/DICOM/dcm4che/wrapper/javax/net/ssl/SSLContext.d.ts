@@ -1,14 +1,14 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
-import { Provider as java_security_Provider } from "./../../../java/security/Provider";
-import { KeyManager as javax_net_ssl_KeyManager, KeyManagerInterface as javax_net_ssl_KeyManagerInterface } from "./KeyManager";
-import { TrustManager as javax_net_ssl_TrustManager, TrustManagerInterface as javax_net_ssl_TrustManagerInterface } from "./TrustManager";
-import { SecureRandom as java_security_SecureRandom } from "./../../../java/security/SecureRandom";
-import { SSLSocketFactory as javax_net_ssl_SSLSocketFactory } from "./SSLSocketFactory";
 import { SSLServerSocketFactory as javax_net_ssl_SSLServerSocketFactory } from "./SSLServerSocketFactory";
 import { SSLEngine as javax_net_ssl_SSLEngine } from "./SSLEngine";
 import { Integer as java_lang_Integer } from "./../../../java/lang/Integer";
 import { SSLSessionContext as javax_net_ssl_SSLSessionContext } from "./SSLSessionContext";
 import { SSLParameters as javax_net_ssl_SSLParameters } from "./SSLParameters";
+import { Provider as java_security_Provider } from "./../../../java/security/Provider";
+import { KeyManager as javax_net_ssl_KeyManager, KeyManagerInterface as javax_net_ssl_KeyManagerInterface } from "./KeyManager";
+import { TrustManager as javax_net_ssl_TrustManager, TrustManagerInterface as javax_net_ssl_TrustManagerInterface } from "./TrustManager";
+import { SecureRandom as java_security_SecureRandom } from "./../../../java/security/SecureRandom";
+import { SSLSocketFactory as javax_net_ssl_SSLSocketFactory } from "./SSLSocketFactory";
 import { Long as java_lang_Long } from "./../../../java/lang/Long";
 import { Class as java_lang_Class } from "./../../../java/lang/Class";
 /**
@@ -17,96 +17,6 @@ import { Class as java_lang_Class } from "./../../../java/lang/Class";
  * You should probably not edit this.
  */
 export declare class SSLContextClass extends JavaClass {
-    /**
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    static getDefault(): Promise<SSLContext | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    static getDefaultSync(): SSLContext | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.security.Provider'
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    static getInstance(var0: string | null, var1: java_security_Provider | null): Promise<SSLContext | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.security.Provider'
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    static getInstanceSync(var0: string | null, var1: java_security_Provider | null): SSLContext | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    static getInstance(var0: string | null, var1: string | null): Promise<SSLContext | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    static getInstanceSync(var0: string | null, var1: string | null): SSLContext | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    static getInstance(var0: string | null): Promise<SSLContext | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'javax.net.ssl.SSLContext'
-     */
-    static getInstanceSync(var0: string | null): SSLContext | null;
-    /**
-     * @param var0 original type: 'javax.net.ssl.KeyManager[]'
-     * @param var1 original type: 'javax.net.ssl.TrustManager[]'
-     * @param var2 original type: 'java.security.SecureRandom'
-     * @return original return type: 'void'
-     */
-    init(var0: (javax_net_ssl_KeyManager | JavaInterfaceProxy<javax_net_ssl_KeyManagerInterface> | null)[] | null, var1: (javax_net_ssl_TrustManager | JavaInterfaceProxy<javax_net_ssl_TrustManagerInterface> | null)[] | null, var2: java_security_SecureRandom | null): Promise<void>;
-    /**
-     * @param var0 original type: 'javax.net.ssl.KeyManager[]'
-     * @param var1 original type: 'javax.net.ssl.TrustManager[]'
-     * @param var2 original type: 'java.security.SecureRandom'
-     * @return original return type: 'void'
-     */
-    initSync(var0: (javax_net_ssl_KeyManager | JavaInterfaceProxy<javax_net_ssl_KeyManagerInterface> | null)[] | null, var1: (javax_net_ssl_TrustManager | JavaInterfaceProxy<javax_net_ssl_TrustManagerInterface> | null)[] | null, var2: java_security_SecureRandom | null): void;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getProtocol(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getProtocolSync(): string | null;
-    /**
-     * @param var0 original type: 'javax.net.ssl.SSLContext'
-     * @return original return type: 'void'
-     */
-    static setDefault(var0: SSLContextClass | null): Promise<void>;
-    /**
-     * @param var0 original type: 'javax.net.ssl.SSLContext'
-     * @return original return type: 'void'
-     */
-    static setDefaultSync(var0: SSLContextClass | null): void;
-    /**
-     * @return original return type: 'java.security.Provider'
-     */
-    getProvider(): Promise<java_security_Provider | null>;
-    /**
-     * @return original return type: 'java.security.Provider'
-     */
-    getProviderSync(): java_security_Provider | null;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLSocketFactory'
-     */
-    getSocketFactory(): Promise<javax_net_ssl_SSLSocketFactory | null>;
-    /**
-     * @return original return type: 'javax.net.ssl.SSLSocketFactory'
-     */
-    getSocketFactorySync(): javax_net_ssl_SSLSocketFactory | null;
     /**
      * @return original return type: 'javax.net.ssl.SSLServerSocketFactory'
      */
@@ -167,6 +77,96 @@ export declare class SSLContextClass extends JavaClass {
      * @return original return type: 'javax.net.ssl.SSLParameters'
      */
     getSupportedSSLParametersSync(): javax_net_ssl_SSLParameters | null;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    static getDefault(): Promise<SSLContext | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    static getDefaultSync(): SSLContext | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.security.Provider'
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    static getInstance(var0: string | null, var1: java_security_Provider | null): Promise<SSLContext | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.security.Provider'
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    static getInstanceSync(var0: string | null, var1: java_security_Provider | null): SSLContext | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    static getInstance(var0: string | null): Promise<SSLContext | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    static getInstanceSync(var0: string | null): SSLContext | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    static getInstance(var0: string | null, var1: string | null): Promise<SSLContext | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'javax.net.ssl.SSLContext'
+     */
+    static getInstanceSync(var0: string | null, var1: string | null): SSLContext | null;
+    /**
+     * @param var0 original type: 'javax.net.ssl.KeyManager[]'
+     * @param var1 original type: 'javax.net.ssl.TrustManager[]'
+     * @param var2 original type: 'java.security.SecureRandom'
+     * @return original return type: 'void'
+     */
+    init(var0: (javax_net_ssl_KeyManager | JavaInterfaceProxy<javax_net_ssl_KeyManagerInterface> | null)[] | null, var1: (javax_net_ssl_TrustManager | JavaInterfaceProxy<javax_net_ssl_TrustManagerInterface> | null)[] | null, var2: java_security_SecureRandom | null): Promise<void>;
+    /**
+     * @param var0 original type: 'javax.net.ssl.KeyManager[]'
+     * @param var1 original type: 'javax.net.ssl.TrustManager[]'
+     * @param var2 original type: 'java.security.SecureRandom'
+     * @return original return type: 'void'
+     */
+    initSync(var0: (javax_net_ssl_KeyManager | JavaInterfaceProxy<javax_net_ssl_KeyManagerInterface> | null)[] | null, var1: (javax_net_ssl_TrustManager | JavaInterfaceProxy<javax_net_ssl_TrustManagerInterface> | null)[] | null, var2: java_security_SecureRandom | null): void;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getProtocol(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getProtocolSync(): string | null;
+    /**
+     * @param var0 original type: 'javax.net.ssl.SSLContext'
+     * @return original return type: 'void'
+     */
+    static setDefault(var0: SSLContextClass | null): Promise<void>;
+    /**
+     * @param var0 original type: 'javax.net.ssl.SSLContext'
+     * @return original return type: 'void'
+     */
+    static setDefaultSync(var0: SSLContextClass | null): void;
+    /**
+     * @return original return type: 'java.security.Provider'
+     */
+    getProvider(): Promise<java_security_Provider | null>;
+    /**
+     * @return original return type: 'java.security.Provider'
+     */
+    getProviderSync(): java_security_Provider | null;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLSocketFactory'
+     */
+    getSocketFactory(): Promise<javax_net_ssl_SSLSocketFactory | null>;
+    /**
+     * @return original return type: 'javax.net.ssl.SSLSocketFactory'
+     */
+    getSocketFactorySync(): javax_net_ssl_SSLSocketFactory | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

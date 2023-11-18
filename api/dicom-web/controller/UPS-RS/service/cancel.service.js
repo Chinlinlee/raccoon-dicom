@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const workItemModel = require("@models/mongodb/models/workItems");
-const { DicomJsonModel, BaseDicomJson } = require("@models/DICOM/dicom-json-model");
+const { DicomJsonModel, BaseDicomJson } = require("@dicom-json-model");
 const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
 const {
     DicomWebServiceError,
@@ -56,29 +56,6 @@ class CancelWorkItemService extends BaseWorkItemService {
             );
         }
 
-    }
-
-    /**
-     * 
-     * @param {string} upsInstanceUID 
-     * @returns 
-     */
-    async findOneWorkItem(upsInstanceUID) {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: upsInstanceUID
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-        
-        return new DicomJsonModel(workItem);
-        
     }
 
     async addCancelEvent() {

@@ -34,6 +34,14 @@ export declare class VarHandleClass extends JavaClass {
     /**
      * @return original return type: 'void'
      */
+    static storeStoreFence(): Promise<void>;
+    /**
+     * @return original return type: 'void'
+     */
+    static storeStoreFenceSync(): void;
+    /**
+     * @return original return type: 'void'
+     */
     static fullFence(): Promise<void>;
     /**
      * @return original return type: 'void'
@@ -101,14 +109,6 @@ export declare class VarHandleClass extends JavaClass {
      * @return original return type: 'void'
      */
     static loadLoadFenceSync(): void;
-    /**
-     * @return original return type: 'void'
-     */
-    static storeStoreFence(): Promise<void>;
-    /**
-     * @return original return type: 'void'
-     */
-    static storeStoreFenceSync(): void;
     /**
      * @return original return type: 'boolean'
      */

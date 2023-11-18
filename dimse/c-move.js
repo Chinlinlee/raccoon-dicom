@@ -11,14 +11,18 @@ const { UID } = require("@dcm4che/data/UID");
 const { PATIENT_ROOT_LEVELS, STUDY_ROOT_LEVELS, PATIENT_STUDY_ONLY_LEVELS } = require("./level");
 const { AAssociateRQ } = require("@dcm4che/net/pdu/AAssociateRQ");
 const { Connection } = require("@dcm4che/net/Connection");
-const { RetrieveTaskImpl } = require("@dcm4che/tool/dcmqrscp/RetrieveTaskImpl");
+const { RetrieveTaskImpl } = require("@chinlinlee/dcm777/dcmqrscp/RetrieveTaskImpl");
 const { Dimse } = require("@dcm4che/net/Dimse");
 const { getInstancesFromKeysAttr } = require("./utils");
+const { createRetrieveAuditInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/dcmqrscp/RetrieveAuditInject");
+const { DimseRetrieveAuditService } = require("./service/retrieveAudit.service");
 
 class JsCMoveScp {
+
     constructor(dcmQrScp) {
         /** @type { import("./index").DcmQrScp } */
         this.dcmQrScp = dcmQrScp;
+        
     }
 
     getPatientRootLevel() {
@@ -72,6 +76,7 @@ class JsCMoveScp {
                     let moveDest = await rq.getString(Tag.MoveDestination);
                     const remote = this.dcmQrScp.getRemoteConnection(moveDest);
                     if (!remote) {
+                        
                         throw new DicomServiceError(Status.MoveDestinationUnknown, `Move Destination: ${moveDest} unknown`);
                     }
 
@@ -82,6 +87,8 @@ class JsCMoveScp {
 
                     let aAssociateRq = await this.makeAAssociateRQ_(await as.getLocalAET(), moveDest, instances);
                     let storeAssociation = await this.openStoreAssociation_(as, remote, aAssociateRq);
+
+                    let auditInject = await this.getAuditInject(as);
                     let retrieveTask = await RetrieveTaskImpl.newInstanceAsync(
                         Dimse.C_MOVE_RQ,
                         as,
@@ -90,7 +97,8 @@ class JsCMoveScp {
                         instances,
                         storeAssociation,
                         false,
-                        0
+                        0,
+                        auditInject
                     );
                     await retrieveTask.setSendPendingRSPInterval(0);
                     return retrieveTask;
@@ -102,6 +110,37 @@ class JsCMoveScp {
         };
 
         return cMoveScpInjectProxyMethods;
+    }
+
+    getAuditInject(association) {
+        let dimseRetrieveAuditService = new DimseRetrieveAuditService(
+            association,
+            null,
+            null
+        );
+        if (this.auditInject) 
+            return this.auditInject;
+        
+        this.auditInject = createRetrieveAuditInjectProxy(
+            {
+                onBeginTransferringDICOMInstances: async (studyUID) => {
+                    dimseRetrieveAuditService.studyUID = studyUID;
+                    await dimseRetrieveAuditService.onBeginRetrieve();
+                },
+                onDicomInstancesTransferred: async (studyUID) => {
+                    dimseRetrieveAuditService.studyUID = studyUID;
+                    await dimseRetrieveAuditService.completedRetrieve();
+                },
+                setEventResult: (eventResult) => {
+                    dimseRetrieveAuditService.eventResult = eventResult;
+                }
+            },
+            {
+                keepAsDaemon: true
+            }
+        );
+
+        return this.auditInject;
     }
 
     /**

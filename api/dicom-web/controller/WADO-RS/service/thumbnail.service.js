@@ -1,8 +1,8 @@
-const dicomModel = require("../../../../../models/mongodb/models/dicom");
-const dicomSeriesModel = require("../../../../../models/mongodb/models/dicomSeries");
+const { InstanceModel } = require("@dbModels/instance.model");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const renderedService = require("../service/rendered.service");
 const _ = require("lodash");
+const { getUidsString } = require("./WADO-RS.service");
 class ThumbnailService {
 
     /**
@@ -60,7 +60,7 @@ class ThumbnailService {
             this.response.writeHead(404, {
                 "Content-Type": "application/dicom+json"
             });
-            let notFoundMessage = errorResponse.getNotFoundErrorMessage(`Not Found, ${this.thumbnailFactory.getUidsString()}`);
+            let notFoundMessage = errorResponse.getNotFoundErrorMessage(`Not Found, ${getUidsString(this.thumbnailFactory.uids)}`);
 
             let notFoundMessageStr = JSON.stringify(notFoundMessage);
 
@@ -82,16 +82,6 @@ class ThumbnailFactory {
     }
 
     async getThumbnailInstance() { }
-
-    getUidsString() {
-        let uidsKeys = Object.keys(this.uids);
-        let strArr = [];
-        for (let i = 0; i < uidsKeys.length; i++) {
-            let key = uidsKeys[i];
-            strArr.push(`${key}: ${this.uids[key]}`);
-        }
-        return strArr.join(", ");
-    }
 }
 
 class StudyThumbnailFactory extends ThumbnailFactory {
@@ -104,7 +94,7 @@ class StudyThumbnailFactory extends ThumbnailFactory {
      * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
      */
     async getThumbnailInstance() {
-        let medianInstance = await dicomModel.getInstanceOfMedianIndex({
+        let medianInstance = await InstanceModel.getInstanceOfMedianIndex({
             studyUID: this.uids.studyUID
         });
         if (!medianInstance) return undefined;
@@ -130,7 +120,7 @@ class SeriesThumbnailFactory extends ThumbnailFactory {
      * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
      */
     async getThumbnailInstance() {
-        let medianInstance = await dicomModel.getInstanceOfMedianIndex({
+        let medianInstance = await InstanceModel.getInstanceOfMedianIndex({
             studyUID: this.uids.studyUID,
             seriesUID: this.uids.seriesUID
         });

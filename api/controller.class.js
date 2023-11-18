@@ -1,8 +1,9 @@
 const { pipe } = require("../utils/pipe.js");
 const { pluginGroup, LocalPlugin } = require("../plugins/plugin.class");
+const { ApiLogger } = require("@root/utils/logs/api-logger.js");
 
 class Controller {
-    
+
     /**
      *
      * @param {import('express').Request} req
@@ -15,32 +16,32 @@ class Controller {
 
     async preProcess() {
         let currentRouterPlugin = pluginGroup.findLocalPlugin(this.request.originalUrl, this.request.method) || new LocalPlugin();
-        
+
         try {
 
-            for(let preFn of currentRouterPlugin.preFns) {
+            for (let preFn of currentRouterPlugin.preFns) {
                 if (this.response.headersSent) break;
                 await preFn(this.request, this.response);
             }
-            
-        } catch(e) {
+
+        } catch (e) {
             throw new Error(`pre process error in path "${this.request.originalUrl}", ${e.message}`);
         }
-        
+
     }
 
-    async mainProcess() {}
+    async mainProcess() { }
 
     async postProcess() {
         let currentRouterPlugin = pluginGroup.findLocalPlugin(this.request.url, this.request.method) || new LocalPlugin();
 
         try {
 
-            for(let postFn of currentRouterPlugin.postFns) {
+            for (let postFn of currentRouterPlugin.postFns) {
                 await postFn(this.request, this.response);
             }
 
-        } catch(e) {
+        } catch (e) {
             throw new Error(`post process error in path "${this.request.originalUrl}", ${e.message}`);
         }
     }
@@ -50,7 +51,7 @@ class Controller {
 
         if (this.response.headersSent) return;
         await this.mainProcess();
-    
+
         this.postProcess();
     }
 
@@ -60,7 +61,7 @@ class Controller {
     paramsToString() {
         let strArr = [];
         let keys = Object.keys(this.request.params);
-        for(let i = 0 ; i < keys.length; i++) {
+        for (let i = 0; i < keys.length; i++) {
             let key = keys[i];
             strArr.push(`${key}: ${this.request.params[key]}`);
         }
@@ -70,7 +71,7 @@ class Controller {
     queryToString() {
         let strArr = [];
         let keys = Object.keys(this.request.query);
-        for(let i = 0 ; i < keys.length; i++) {
+        for (let i = 0; i < keys.length; i++) {
             let key = keys[i];
             strArr.push(`${key}: ${this.request.query[key]}`);
         }

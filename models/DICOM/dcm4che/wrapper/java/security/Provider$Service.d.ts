@@ -12,6 +12,16 @@ import { Map as java_util_Map, MapInterface as java_util_MapInterface } from "./
  */
 export declare class Provider$ServiceClass extends JavaClass {
     /**
+     * @param var0 original type: 'java.lang.Object'
+     * @return original return type: 'boolean'
+     */
+    supportsParameter(var0: BasicOrJavaType | null): Promise<boolean>;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @return original return type: 'boolean'
+     */
+    supportsParameterSync(var0: BasicOrJavaType | null): boolean;
+    /**
      * @return original return type: 'java.lang.String'
      */
     toString(): Promise<string>;
@@ -56,14 +66,6 @@ export declare class Provider$ServiceClass extends JavaClass {
      */
     getAttributeSync(var0: string | null): string | null;
     /**
-     * @return original return type: 'java.security.Provider'
-     */
-    getProvider(): Promise<java_security_Provider | null>;
-    /**
-     * @return original return type: 'java.security.Provider'
-     */
-    getProviderSync(): java_security_Provider | null;
-    /**
      * @return original return type: 'java.lang.String'
      */
     getAlgorithm(): Promise<string | null>;
@@ -72,15 +74,13 @@ export declare class Provider$ServiceClass extends JavaClass {
      */
     getAlgorithmSync(): string | null;
     /**
-     * @param var0 original type: 'java.lang.Object'
-     * @return original return type: 'boolean'
+     * @return original return type: 'java.security.Provider'
      */
-    supportsParameter(var0: BasicOrJavaType | null): Promise<boolean>;
+    getProvider(): Promise<java_security_Provider | null>;
     /**
-     * @param var0 original type: 'java.lang.Object'
-     * @return original return type: 'boolean'
+     * @return original return type: 'java.security.Provider'
      */
-    supportsParameterSync(var0: BasicOrJavaType | null): boolean;
+    getProviderSync(): java_security_Provider | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

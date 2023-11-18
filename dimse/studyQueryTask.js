@@ -4,11 +4,16 @@ const { StudyQueryTask } = require("@chinlinlee/dcm777/net/StudyQueryTask");
 const { JsPatientQueryTask } = require("./patientQueryTask");
 const { Tag } = require("@dcm4che/data/Tag");
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
-const { StudyQueryTaskInjectInterface, createStudyQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/StudyQueryTaskInject");
+const { createStudyQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/StudyQueryTaskInject");
 const { DimseQueryBuilder } = require("./queryBuilder");
-const dicomStudyModel = require("@models/mongodb/models/dicomStudy");
+const { StudyModel } = require("@dbModels/study.model");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { logger } = require("@root/utils/logs/log");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { UID } = require("@dcm4che/data/UID");
+const { QueryTaskUtils } = require("./utils");
 
 class JsStudyQueryTask extends JsPatientQueryTask {
     constructor(as, pc, rq, keys) {
@@ -32,93 +37,144 @@ class JsStudyQueryTask extends JsPatientQueryTask {
         );
 
         await super.get();
-        await this.studyQueryTaskInjectMethods.wrappedFindNextStudy();
+        await this.studyQueryTaskInjectProxy.wrappedFindNextStudy();
 
         return studyQueryTask;
     }
 
     getQueryTaskInjectProxy() {
-        /** @type { QueryTaskInjectInterface } */
-        this.studyBasicQueryTaskInjectMethods = {
+        if (!this.queryTaskInjectProxy) {
+            this.queryTaskInjectProxy = new StudyMatchIteratorProxy(this);
+        }
+
+        return this.queryTaskInjectProxy.get();
+    }
+
+    getStudyQueryTaskInjectProxy() {
+        if (!this.studyQueryTaskInjectProxy) {
+            this.studyQueryTaskInjectProxy = new StudyQueryTaskInjectProxy(this);
+        }
+
+        return this.studyQueryTaskInjectProxy.get();
+    }
+
+    async getNextStudyCursor() {
+        let queryAuditManager = await QueryTaskUtils.getAuditManager(this.as);
+
+        let queryAttr = await QueryTaskUtils.getQueryAttribute(this.keys, this.patientAttr);
+        let dbQuery = await QueryTaskUtils.getDbQuery(queryAttr, "study");
+        queryAuditManager.onQuery(
+            UID.StudyRootQueryRetrieveInformationModelFind,
+            JSON.stringify(dbQuery),
+            "UTF-8"
+        );
+
+        logger.info(`do DIMSE Study query: ${JSON.stringify(dbQuery)}`);
+        this.studyCursor = await StudyModel.getDimseResultCursor({
+            ...dbQuery
+        }, await QueryTaskUtils.getReturnKeys(queryAttr, "study"));
+    }
+
+    async auditDicomInstancesAccessed() {
+        if (!this.study)
+            return;
+
+        let auditManager = new AuditManager(
+            EventType.QUERY_ACCESSED_INSTANCE, EventOutcomeIndicator.Success,
+            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
+            await this.as.getLocalAET(), await this.as.getLocalHostName()
+        );
+        let studyUID = _.get(this.study, "0020000D.Value.0");
+        auditManager.onDicomInstancesAccessed([studyUID]);
+    }
+}
+
+class StudyQueryTaskInjectProxy {
+    constructor(studyQueryTask) {
+        /** @type { JsStudyQueryTask } */
+        this.studyQueryTask = studyQueryTask;
+    }
+
+    get() {
+        return createStudyQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            wrappedFindNextStudy: this.wrappedFindNextStudy.bind(this),
+            getStudy: this.getStudy.bind(this),
+            findNextStudy: this.findNextStudy.bind(this)
+        };
+    }
+
+    async wrappedFindNextStudy() {
+        await this.findNextStudy();
+    }
+
+    async getStudy() {
+        this.studyQueryTask.study = await this.studyQueryTask.studyCursor.next();
+        this.studyQueryTask.auditDicomInstancesAccessed();
+        this.studyQueryTask.studyAttr = this.studyQueryTask.study ? await this.studyQueryTask.study.getAttributes() : null;
+    }
+
+    async findNextStudy() {
+        if (!this.studyQueryTask.patientAttr)
+            return false;
+
+        if (!this.studyQueryTask.studyAttr) {
+            await this.studyQueryTask.getNextStudyCursor();
+            await this.getStudy();
+        } else {
+            await this.getStudy();
+        }
+
+        while (!this.studyQueryTask.studyAttr && await this.studyQueryTask.patientQueryTaskProxy.findNextPatient()) {
+            await this.studyQueryTask.getNextStudyCursor();
+            await this.getStudy();
+        }
+
+        return !_.isNull(this.studyQueryTask.studyAttr);
+    }
+}
+
+class StudyMatchIteratorProxy {
+    constructor(studyQueryTask) {
+        /** @type { JsStudyQueryTask } */
+        this.studyQueryTask = studyQueryTask;
+    }
+
+    get() {
+        return createQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
             hasMoreMatches: () => {
-                return !_.isNull(this.studyAttr);
+                return !_.isNull(this.studyQueryTask.studyAttr);
             },
             nextMatch: async () => {
                 let returnAttr = await Attributes.newInstanceAsync(
-                    await this.patientAttr.size() + await this.studyAttr.size()
+                    await this.studyQueryTask.patientAttr.size() + await this.studyQueryTask.studyAttr.size()
                 );
-                await Attributes.unifyCharacterSets([this.patientAttr, this.studyAttr]);
-                await returnAttr.addAll(this.patientAttr);
-                await returnAttr.addAll(this.studyAttr);
+                await Attributes.unifyCharacterSets([
+                    this.studyQueryTask.patientAttr,
+                    this.studyQueryTask.studyAttr
+                ]);
+                await returnAttr.addAll(this.studyQueryTask.patientAttr);
+                await returnAttr.addAll(this.studyQueryTask.studyAttr);
 
-                await this.studyQueryTaskInjectMethods.wrappedFindNextStudy();
+                await this.studyQueryTask.studyQueryTaskInjectProxy.wrappedFindNextStudy();
 
                 return returnAttr;
             },
             adjust: async (match) => {
-                return await this.patientAdjust(match);
+                return this.studyQueryTask.patientAdjust(match);
             }
         };
-
-        if (!this.queryTaskInjectProxy) {
-            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.studyBasicQueryTaskInjectMethods);
-        }
-
-        return this.queryTaskInjectProxy;
-    }
-
-    getStudyQueryTaskInjectProxy() {
-        /** @type { StudyQueryTaskInjectInterface } */
-        this.studyQueryTaskInjectMethods = {
-            wrappedFindNextStudy: async () => {
-                await this.studyQueryTaskInjectMethods.findNextStudy();
-            },
-            getStudy: async () => {
-                this.study = await this.studyCursor.next();
-                this.studyAttr = this.study ? await this.study.getAttributes() : null;
-            },
-            findNextStudy: async () => {
-                if (!this.patientAttr)
-                    return false;
-
-                if (!this.studyAttr) {
-                    await this.getNextStudyCursor();
-                    await this.studyQueryTaskInjectMethods.getStudy();
-                } else {
-                    await this.studyQueryTaskInjectMethods.getStudy();
-                }
-
-                while (!this.studyAttr && await this.patientQueryTaskInjectMethods.findNextPatient()) {
-                    await this.getNextStudyCursor();
-                    await this.studyQueryTaskInjectMethods.getStudy();
-                }
-
-                return !_.isNull(this.studyAttr);
-            }
-        };
-
-        if (!this.studyQueryTaskInjectProxy) {
-            this.studyQueryTaskInjectProxy = createStudyQueryTaskInjectProxy(this.studyQueryTaskInjectMethods);
-        }
-
-        return this.studyQueryTaskInjectProxy;
-    }
-
-    async getNextStudyCursor() {
-        let queryAttr = await Attributes.newInstanceAsync();
-        await queryAttr.addAll(this.keys);
-        await queryAttr.addSelected(this.patientAttr, [Tag.PatientID]);
-
-        let queryBuilder = new DimseQueryBuilder(queryAttr, "study");
-        let normalQuery = await queryBuilder.toNormalQuery();
-        let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-
-        let returnKeys = this.getReturnKeys(normalQuery);
-
-        logger.info(`do DIMSE Study query: ${JSON.stringify(mongoQuery.$match)}`);
-        this.studyCursor = await dicomStudyModel.getDimseResultCursor({
-            ...mongoQuery.$match
-        }, returnKeys);
     }
 }
 

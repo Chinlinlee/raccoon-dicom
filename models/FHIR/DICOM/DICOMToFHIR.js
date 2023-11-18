@@ -6,7 +6,7 @@ const { fhirLogger } = require("../../../utils/logs/log");
 const { dicomJsonToFHIRImagingStudy } = require("./DICOMToFHIRImagingStudy");
 const { dicomJsonToFHIRPatient } = require("./DICOMToFHIRPatient");
 const { dicomJsonToFHIREndpoint } = require("./DICOMToFHIREndpoint");
-const { getModalitiesInStudy } = require("../../../models/mongodb/models/dicom");
+const { getModalitiesInStudy } = require("@dbModels/instance.model");
 
 class DICOMFHIRConverter {
     constructor() {

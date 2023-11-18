@@ -4,37 +4,19 @@ const {
     ThumbnailService,
     SeriesThumbnailFactory
 } = require("../service/thumbnail.service");
+const { BaseThumbnailController } = require("./base.controller");
 
 
 
-class RetrieveSeriesThumbnailController extends Controller {
+class RetrieveSeriesThumbnailController extends BaseThumbnailController {
     constructor(req, res) {
         super(req, res);
+        this.factory = SeriesThumbnailFactory;
     }
 
-    async mainProcess() {
-
-        let apiLogger = new ApiLogger(this.request, "WADO-RS");
-        apiLogger.addTokenValue();
-
-        apiLogger.logger.info(`Get Study's Series' Thumbnail [study UID: ${this.request.params.studyUID},\
- series UID: ${this.request.params.seriesUID}]`);
-
-        try {
-            let thumbnailService = new ThumbnailService(this.request, this.response, apiLogger, SeriesThumbnailFactory);
-            return thumbnailService.getThumbnailAndResponse();
-        } catch (e) {
-            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.logger.error(errorStr);
-
-            this.response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            return this.response.end({
-                code: 500,
-                message: "An exception occurred"
-            });
-        }
+    logAction() {
+        this.apiLogger.logger.info(`Get Study's Series' Thumbnail [study UID: ${this.request.params.studyUID},\
+series UID: ${this.request.params.seriesUID}]`);
     }
 }
 

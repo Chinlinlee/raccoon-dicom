@@ -3,12 +3,17 @@ const _ = require("lodash");
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
 const { DimseQueryBuilder } = require("./queryBuilder");
 const { JsStudyQueryTask } = require("./studyQueryTask");
-const dicomSeriesModel = require("@models/mongodb/models/dicomSeries");
+const { SeriesModel } = require("@dbModels/series.model");
 const { SeriesQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { createSeriesQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTaskInject");
 const { Tag } = require("@dcm4che/data/Tag");
 const { logger } = require("@root/utils/logs/log");
+const { AuditManager } = require("@models/DICOM/audit/auditManager");
+const { EventType } = require("@models/DICOM/audit/eventType");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
+const { UID } = require("@dcm4che/data/UID");
+const { QueryTaskUtils } = require("./utils");
 
 class JsSeriesQueryTask extends JsStudyQueryTask {
     constructor(as, pc, rq, keys) {
@@ -33,94 +38,136 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
         );
 
         await super.get();
-        await this.seriesQueryTaskInjectMethods.wrappedFindNextSeries();
+        await this.seriesQueryTaskInjectProxy.wrappedFindNextSeries();
 
         return seriesQueryTask;
     }
 
     getQueryTaskInjectProxy() {
-        /** @type { QueryTaskInjectInterface } */
-        this.seriesBasicQueryTaskInjectMethods = {
-            hasMoreMatches: () => {
-                return !_.isNull(this.seriesAttr);
-            },
-            nextMatch: async () => {
-                let returnAttr = await Attributes.newInstanceAsync(
-                    await this.patientAttr.size() + await this.studyAttr.size() + await this.seriesAttr.size()
-                );
-                await Attributes.unifyCharacterSets([this.patientAttr, this.studyAttr, this.seriesAttr]);
-                await returnAttr.addAll(this.patientAttr);
-                await returnAttr.addAll(this.studyAttr, true);
-                await returnAttr.addAll(this.seriesAttr, true);
-
-                await this.seriesQueryTaskInjectMethods.wrappedFindNextSeries();
-
-                return returnAttr;
-            },
-            adjust: async (match) => {
-                return await this.patientAdjust(match);
-            }
-        };
-
-        if (!this.queryTaskInjectProxy) {
-            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.seriesBasicQueryTaskInjectMethods);
+        if (!this.matchIteratorProxy) {
+            this.matchIteratorProxy = new SeriesMatchIteratorProxy(this);
         }
 
-        return this.queryTaskInjectProxy;
+        return this.matchIteratorProxy.get();
     }
 
     getSeriesQueryTaskInjectProxy() {
-        /** @type {import("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTaskInject").SeriesQueryTaskInjectInterface} */
-        this.seriesQueryTaskInjectMethods = {
-            wrappedFindNextSeries: async () => {
-                await this.seriesQueryTaskInjectMethods.findNextSeries();
-            },
-            getSeries: async () => {
-                this.series = await this.seriesCursor.next();
-                this.seriesAttr = this.series ? await this.series.getAttributes() : null;
-            },
-            findNextSeries: async () => {
-                if (!this.studyAttr)
-                    return false;
-
-                if (!this.seriesAttr) {
-                    await this.getNextSeriesCursor();
-                    await this.seriesQueryTaskInjectMethods.getSeries();
-                } else {
-                    await this.seriesQueryTaskInjectMethods.getSeries();
-                }
-
-                while (!this.seriesAttr && await this.studyQueryTaskInjectMethods.findNextStudy()) {
-                    await this.getNextSeriesCursor();
-                    await this.seriesQueryTaskInjectMethods.getSeries();
-                }
-
-                return !_.isNull(this.seriesAttr);
-            }
-        };
-
         if (!this.seriesQueryTaskInjectProxy) {
-            this.seriesQueryTaskInjectProxy = createSeriesQueryTaskInjectProxy(this.seriesQueryTaskInjectMethods);
+            this.seriesQueryTaskInjectProxy = new SeriesQueryTaskInjectProxy(this);
         }
 
-        return this.seriesQueryTaskInjectProxy;
+        return this.seriesQueryTaskInjectProxy.get();
     }
 
     async getNextSeriesCursor() {
-        let queryAttr = await Attributes.newInstanceAsync();
-        await queryAttr.addAll(this.keys);
-        await queryAttr.addSelected(this.studyAttr, [Tag.PatientID, Tag.StudyInstanceUID]);
+        let queryAuditManager = await QueryTaskUtils.getAuditManager(this.as);
+        
+        let queryAttr = await QueryTaskUtils.getQueryAttribute(this.keys, this.studyAttr);
+        let dbQuery = await QueryTaskUtils.getDbQuery(queryAttr, "series");
+        queryAuditManager.onQuery(
+            UID.StudyRootQueryRetrieveInformationModelFind,
+            JSON.stringify(dbQuery),
+            "UTF-8"
+        );
 
-        let queryBuilder = new DimseQueryBuilder(queryAttr, "series");
-        let normalQuery = await queryBuilder.toNormalQuery();
-        let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
+        logger.info(`do DIMSE Series query: ${JSON.stringify(dbQuery)}`);
+        this.seriesCursor = await SeriesModel.getDimseResultCursor({
+            ...dbQuery
+        }, await QueryTaskUtils.getReturnKeys(queryAttr, "series"));
+    }
+}
+class SeriesQueryTaskInjectProxy {
+    constructor(seriesQueryTask) {
+        /** @type { JsSeriesQueryTask } */
+        this.seriesQueryTask = seriesQueryTask;
+    }
 
-        let returnKeys = this.getReturnKeys(normalQuery);
+    get() {
+        return new createSeriesQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
 
-        logger.info(`do DIMSE Series query: ${JSON.stringify(mongoQuery.$match)}`);
-        this.seriesCursor = await dicomSeriesModel.getDimseResultCursor({
-            ...mongoQuery.$match
-        }, returnKeys);
+    getProxyMethods() {
+        return {
+            wrappedFindNextSeries: this.wrappedFindNextSeries.bind(this),
+            getSeries: this.getSeries.bind(this),
+            findNextSeries: this.findNextSeries.bind(this)
+        };
+    }
+
+    async wrappedFindNextSeries() {
+        await this.findNextSeries();
+    }
+
+    async getSeries() {
+        this.seriesQueryTask.series = await this.seriesQueryTask.seriesCursor.next();
+        if (this.seriesQueryTask.series) this.seriesQueryTask.auditDicomInstancesAccessed();
+        this.seriesQueryTask.seriesAttr = this.seriesQueryTask.series ? await this.seriesQueryTask.series.getAttributes() : null;
+    }
+
+    async findNextSeries() {
+        if (!this.seriesQueryTask.studyAttr)
+            return false;
+
+        if (!this.seriesQueryTask.seriesAttr) {
+            await this.seriesQueryTask.getNextSeriesCursor();
+            await this.getSeries();
+        } else {
+            await this.getSeries();
+        }
+
+        while (!this.seriesQueryTask.seriesAttr && await this.seriesQueryTask.studyQueryTaskInjectProxy.findNextStudy()) {
+            await this.seriesQueryTask.getNextSeriesCursor();
+            await this.getSeries();
+        }
+
+        return !_.isNull(this.seriesQueryTask.seriesAttr);
+    }
+}
+
+class SeriesMatchIteratorProxy {
+    constructor(seriesQueryTask) {
+        /** @type {JsSeriesQueryTask} */
+        this.seriesQueryTask = seriesQueryTask;
+    }
+
+    get() {
+        return createQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            hasMoreMatches: () => {
+                return !_.isNull(this.seriesQueryTask.seriesAttr);
+            },
+            nextMatch: async () => {
+                let returnAttr = await Attributes.newInstanceAsync(
+                    await this.seriesQueryTask.patientAttr.size() +
+                    await this.seriesQueryTask.studyAttr.size() +
+                    await this.seriesQueryTask.seriesAttr.size()
+                );
+    
+                await Attributes.unifyCharacterSets([
+                    this.seriesQueryTask.patientAttr,
+                    this.seriesQueryTask.studyAttr,
+                    this.seriesQueryTask.seriesAttr
+                ]);
+    
+                await returnAttr.addAll(this.seriesQueryTask.patientAttr);
+                await returnAttr.addAll(this.seriesQueryTask.studyAttr, true);
+                await returnAttr.addAll(this.seriesQueryTask.seriesAttr, true);
+    
+                await this.seriesQueryTask.seriesQueryTaskInjectProxy.wrappedFindNextSeries();
+    
+                return returnAttr;
+            },
+            adjust: async (match) => {
+                return this.seriesQueryTask.patientAdjust(match);
+            }
+        };
     }
 }
 

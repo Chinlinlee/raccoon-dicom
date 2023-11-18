@@ -1,9 +1,9 @@
 const schedule = require("node-schedule");
 const moment = require("moment");
 const { logger } = require("@root/utils/logs/log");
-const dicomStudyModel = require("./models/dicomStudy");
-const dicomModel = require("./models/dicom");
-const dicomSeriesModel = require("./models/dicomSeries");
+const { StudyModel } = require("@dbModels/study.model");
+const { InstanceModel } = require("@dbModels/instance.model");
+const { SeriesModel } = require("@dbModels/series.model");
 
 // Delete dicom with delete status >= 2
 schedule.scheduleJob("*/5 * * * * *", async function () {
@@ -20,7 +20,7 @@ schedule.scheduleJob("*/5 * * * * *", async function () {
 
 
 async function deleteExpireStudies() {
-    let deletedStudies = await dicomStudyModel.find({
+    let deletedStudies = await StudyModel.find({
         deleteStatus: {
             $gte: 2
         }
@@ -35,22 +35,22 @@ async function deleteExpireStudies() {
 
             logger.info("delete expired study: " + studyUID);
             await Promise.all([
-                dicomModel.deleteMany({
+                InstanceModel.deleteMany({
                     studyUID
                 }),
-                dicomSeriesModel.deleteMany({
+                SeriesModel.deleteMany({
                     studyUID
                 }),
                 deletedStudy.delete()
             ]);
 
-            await deletedStudy.deleteStudyFolder();
+            await deletedStudy.deleteDicomInstances();
         }
     }
 }
 
 async function deleteExpireSeries() {
-    let deletedSeries = await dicomSeriesModel.find({
+    let deletedSeries = await SeriesModel.find({
         deleteStatus: {
             $gte: 2
         }
@@ -61,11 +61,11 @@ async function deleteExpireSeries() {
         let now = moment();
         let diff = now.diff(updateAtDate, "seconds");
         if (diff >= 30) {
-            let {studyUID, seriesUID} = aDeletedSeries;
+            let { studyUID, seriesUID } = aDeletedSeries;
 
             logger.info("delete expired series: " + seriesUID);
             await Promise.all([
-                dicomModel.deleteMany({
+                InstanceModel.deleteMany({
                     $and: [
                         { x0020000D: studyUID },
                         { x0020000E: seriesUID }
@@ -74,28 +74,28 @@ async function deleteExpireSeries() {
                 aDeletedSeries.delete()
             ]);
 
-            await aDeletedSeries.deleteSeriesFolder();
+            await aDeletedSeries.deleteDicomInstances();
         }
     }
 }
 
 async function deleteExpireInstances() {
-    let deletedInstances = await dicomModel.find({
+    let deletedInstances = await InstanceModel.find({
         deleteStatus: {
             $gte: 2
         }
     });
 
     for (let deletedInstance of deletedInstances) {
-        let {instanceUID} = deletedInstance;
+        let { instanceUID } = deletedInstance;
 
         let updateAtDate = moment(deletedInstance.updatedAt);
         let now = moment();
         let diff = now.diff(updateAtDate, "days");
         if (diff >= 30) {
             logger.info("delete expired instance: " + instanceUID);
-            await deletedInstance.deleteInstance();
             await deletedInstance.delete();
+            await deletedInstance.deleteDicomInstances();
         }
     }
 }

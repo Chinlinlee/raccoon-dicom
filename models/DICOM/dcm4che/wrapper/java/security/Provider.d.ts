@@ -1,14 +1,14 @@
 import { JavaClass, BasicOrJavaType, JavaInterfaceProxy } from "java-bridge";
+import { Provider$Service as java_security_Provider$Service } from "./Provider$Service";
+import { Set as java_util_Set } from "./../util/Set";
 import { Collection as java_util_Collection } from "./../util/Collection";
 import { InputStream as java_io_InputStream } from "./../io/InputStream";
 import { Reader as java_io_Reader } from "./../io/Reader";
 import { BiFunction as java_util_function_BiFunction, BiFunctionInterface as java_util_function_BiFunctionInterface } from "./../util/function/BiFunction";
 import { Enumeration as java_util_Enumeration } from "./../util/Enumeration";
-import { Set as java_util_Set } from "./../util/Set";
 import { Map as java_util_Map, MapInterface as java_util_MapInterface } from "./../util/Map";
 import { BiConsumer as java_util_function_BiConsumer, BiConsumerInterface as java_util_function_BiConsumerInterface } from "./../util/function/BiConsumer";
 import { Function as java_util_function_Function, FunctionInterface as java_util_function_FunctionInterface } from "./../util/function/Function";
-import { Provider$Service as java_security_Provider$Service } from "./Provider$Service";
 import { OutputStream as java_io_OutputStream } from "./../io/OutputStream";
 import { Writer as java_io_Writer } from "./../io/Writer";
 import { PrintStream as java_io_PrintStream } from "./../io/PrintStream";
@@ -23,6 +23,60 @@ import { Class as java_lang_Class } from "./../lang/Class";
  * You should probably not edit this.
  */
 export declare class ProviderClass extends JavaClass {
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'java.security.Provider$Service'
+     */
+    getService(var0: string | null, var1: string | null): Promise<java_security_Provider$Service | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @param var1 original type: 'java.lang.String'
+     * @return original return type: 'java.security.Provider$Service'
+     */
+    getServiceSync(var0: string | null, var1: string | null): java_security_Provider$Service | null;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.Provider'
+     */
+    configure(var0: string | null): Promise<Provider | null>;
+    /**
+     * @param var0 original type: 'java.lang.String'
+     * @return original return type: 'java.security.Provider'
+     */
+    configureSync(var0: string | null): Provider | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isConfigured(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isConfiguredSync(): boolean;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getVersionStr(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getVersionStrSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getInfo(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getInfoSync(): string | null;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    getServices(): Promise<java_util_Set | null>;
+    /**
+     * @return original return type: 'java.util.Set'
+     */
+    getServicesSync(): java_util_Set | null;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -144,18 +198,6 @@ export declare class ProviderClass extends JavaClass {
     /**
      * @param var0 original type: 'java.lang.Object'
      * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'java.lang.Object'
-     */
-    replace(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): Promise<BasicOrJavaType | null>;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'java.lang.Object'
-     * @return original return type: 'java.lang.Object'
-     */
-    replaceSync(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): BasicOrJavaType | null;
-    /**
-     * @param var0 original type: 'java.lang.Object'
-     * @param var1 original type: 'java.lang.Object'
      * @param var2 original type: 'java.lang.Object'
      * @return original return type: 'boolean'
      */
@@ -167,6 +209,18 @@ export declare class ProviderClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     replaceSync(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null, var2: BasicOrJavaType | null): boolean;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'java.lang.Object'
+     */
+    replace(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): Promise<BasicOrJavaType | null>;
+    /**
+     * @param var0 original type: 'java.lang.Object'
+     * @param var1 original type: 'java.lang.Object'
+     * @return original return type: 'java.lang.Object'
+     */
+    replaceSync(var0: BasicOrJavaType | null, var1: BasicOrJavaType | null): BasicOrJavaType | null;
     /**
      * @param var0 original type: 'java.util.function.BiFunction'
      * @return original return type: 'void'
@@ -311,60 +365,6 @@ export declare class ProviderClass extends JavaClass {
      * @return original return type: 'double'
      */
     getVersionSync(): number;
-    /**
-     * @return original return type: 'java.util.Set'
-     */
-    getServices(): Promise<java_util_Set | null>;
-    /**
-     * @return original return type: 'java.util.Set'
-     */
-    getServicesSync(): java_util_Set | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'java.security.Provider$Service'
-     */
-    getService(var0: string | null, var1: string | null): Promise<java_security_Provider$Service | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @param var1 original type: 'java.lang.String'
-     * @return original return type: 'java.security.Provider$Service'
-     */
-    getServiceSync(var0: string | null, var1: string | null): java_security_Provider$Service | null;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.Provider'
-     */
-    configure(var0: string | null): Promise<Provider | null>;
-    /**
-     * @param var0 original type: 'java.lang.String'
-     * @return original return type: 'java.security.Provider'
-     */
-    configureSync(var0: string | null): Provider | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isConfigured(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isConfiguredSync(): boolean;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getVersionStr(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getVersionStrSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getInfo(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getInfoSync(): string | null;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'

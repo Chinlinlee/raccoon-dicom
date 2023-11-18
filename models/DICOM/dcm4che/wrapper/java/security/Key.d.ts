@@ -22,19 +22,19 @@ export declare class KeyClass extends JavaClass {
     /**
      * @return original return type: 'java.lang.String'
      */
-    getFormat(): Promise<string | null>;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
-    getFormatSync(): string | null;
-    /**
-     * @return original return type: 'java.lang.String'
-     */
     getAlgorithm(): Promise<string | null>;
     /**
      * @return original return type: 'java.lang.String'
      */
     getAlgorithmSync(): string | null;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getFormat(): Promise<string | null>;
+    /**
+     * @return original return type: 'java.lang.String'
+     */
+    getFormatSync(): string | null;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -55,11 +55,11 @@ export interface KeyInterface {
     /**
      * @return original return type: 'java.lang.String'
      */
-    getFormat(): string | null;
+    getAlgorithm(): string | null;
     /**
      * @return original return type: 'java.lang.String'
      */
-    getAlgorithm(): string | null;
+    getFormat(): string | null;
 }
 /**
  * Create a proxy for the {@link Key} interface.

@@ -9,9 +9,9 @@ const {
 } = require("./dcmtk");
 const flat = require("flat");
 const shortHash = require("shorthash2");
-const dicomBulkDataModel = require("../mongodb/models/dicomBulkData");
+const dicomBulkDataModel = require("@dbModels/dicomBulkData.model");
 const { logger } = require("../../utils/logs/log");
-const patientModel = require("../mongodb/models/patient");
+const { PatientModel } = require("@dbModels/patient.model");
 const { tagsNeedStore } = require("./dicom-tags-mapping");
 
 const { raccoonConfig } = require("../../config-class");
@@ -60,8 +60,12 @@ class BaseDicomJson {
         return _.get(this.dicomJson, tag, undefined);
     }
 
-    getValue(tag) {
+    getValues(tag) {
         return _.get(this.dicomJson, `${tag}.Value`, undefined);
+    }
+
+    getValue(tag) {
+        return _.get(this.dicomJson, `${tag}.Value.0`, undefined);
     }
 
     getSequenceItem(tag) {
@@ -214,7 +218,7 @@ class DicomJsonModel {
     }
 
     async storePatientCollection(dicomJson) {
-        await patientModel.findOneAndUpdate(
+        await PatientModel.findOneAndUpdate(
             {
                 patientID: this.uidObj.patientID
             },

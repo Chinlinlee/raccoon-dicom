@@ -1,7 +1,7 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
-import { FileChannel as java_nio_channels_FileChannel } from "./FileChannel";
 import { Channel as java_nio_channels_Channel } from "./Channel";
 import { Long as java_lang_Long } from "./../../lang/Long";
+import { FileChannel as java_nio_channels_FileChannel } from "./FileChannel";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { Class as java_lang_Class } from "./../../lang/Class";
 /**
@@ -10,6 +10,34 @@ import { Class as java_lang_Class } from "./../../lang/Class";
  * You should probably not edit this.
  */
 export declare class FileLockClass extends JavaClass {
+    /**
+     * @return original return type: 'java.nio.channels.Channel'
+     */
+    acquiredBy(): Promise<java_nio_channels_Channel | null>;
+    /**
+     * @return original return type: 'java.nio.channels.Channel'
+     */
+    acquiredBySync(): java_nio_channels_Channel | null;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isShared(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isSharedSync(): boolean;
+    /**
+     * @param var0 original type: 'long'
+     * @param var1 original type: 'long'
+     * @return original return type: 'boolean'
+     */
+    overlaps(var0: java_lang_Long | bigint | number, var1: java_lang_Long | bigint | number): Promise<boolean>;
+    /**
+     * @param var0 original type: 'long'
+     * @param var1 original type: 'long'
+     * @return original return type: 'boolean'
+     */
+    overlapsSync(var0: java_lang_Long | bigint | number, var1: java_lang_Long | bigint | number): boolean;
     /**
      * @return original return type: 'java.lang.String'
      */
@@ -66,34 +94,6 @@ export declare class FileLockClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isValidSync(): boolean;
-    /**
-     * @return original return type: 'java.nio.channels.Channel'
-     */
-    acquiredBy(): Promise<java_nio_channels_Channel | null>;
-    /**
-     * @return original return type: 'java.nio.channels.Channel'
-     */
-    acquiredBySync(): java_nio_channels_Channel | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isShared(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isSharedSync(): boolean;
-    /**
-     * @param var0 original type: 'long'
-     * @param var1 original type: 'long'
-     * @return original return type: 'boolean'
-     */
-    overlaps(var0: java_lang_Long | bigint | number, var1: java_lang_Long | bigint | number): Promise<boolean>;
-    /**
-     * @param var0 original type: 'long'
-     * @param var1 original type: 'long'
-     * @return original return type: 'boolean'
-     */
-    overlapsSync(var0: java_lang_Long | bigint | number, var1: java_lang_Long | bigint | number): boolean;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'

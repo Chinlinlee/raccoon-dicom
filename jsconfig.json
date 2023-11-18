@@ -7,7 +7,9 @@
             "@models/*": ["./models/*"],
             "@error/*" : ["./error/*"],
             "@root/*": ["./*"],
-            "@chinlinlee/*": ["./models/DICOM/dcm4che/wrapper/org/github/chinlinlee/*"]
+            "@chinlinlee/*": ["./models/DICOM/dcm4che/wrapper/org/github/chinlinlee/*"],
+            "@dbModels/*": ["./models/mongodb/models/*"],
+            "@dicom-json-model": ["./models/DICOM/dicom-json-model.js"]
         }
     },
     "exclude": [

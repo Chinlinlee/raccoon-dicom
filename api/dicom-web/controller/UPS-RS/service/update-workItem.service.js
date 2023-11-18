@@ -1,12 +1,12 @@
 const _ = require("lodash");
 const workItemModel = require("@models/mongodb/models/workItems");
-const patientModel = require("@models/mongodb/models/patient");
+const { PatientModel } = require("@dbModels/patient.model");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { DicomJsonModel } = require("@dicom-json-model");
 const { BaseWorkItemService } = require("./base-workItem.service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
@@ -45,7 +45,7 @@ class UpdateWorkItemService extends BaseWorkItemService {
 
     async updateUps() {
         this.transactionUID = this.requestWorkItem.getString("00081195");
-        await this.findOneWorkItem();
+        this.workItem = await this.findOneWorkItem(this.request.params.workItem, true);
         await this.checkRequestUpsIsValid();
         this.adjustRequestWorkItem();
 
@@ -111,23 +111,6 @@ class UpdateWorkItemService extends BaseWorkItemService {
         }
     }
 
-    async findOneWorkItem() {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: this.request.params.workItem
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-
-        this.workItem = new DicomJsonModel(workItem.toObject());
-
-    }
 
     checkRequestUpsIsValid() {
         let procedureState = this.workItem.getString("00741000");

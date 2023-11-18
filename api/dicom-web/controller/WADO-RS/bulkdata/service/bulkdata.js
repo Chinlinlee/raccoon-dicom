@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const dicomBulkDataModel = require("../../../../../../models/mongodb/models/dicomBulkData");
-const dicomModel = require("../../../../../../models/mongodb/models/dicom");
+const dicomBulkDataModel = require("@dbModels/dicomBulkData.model");
 const { MultipartWriter } = require("../../../../../../utils/multipartWriter");
 const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
 const { raccoonConfig } = require("../../../../../../config-class");
@@ -11,10 +10,12 @@ class BulkDataService {
      * 
      * @param {import("express").Request} req 
      * @param {import("express").Response} res 
+     * @param {typeof StudyBulkDataFactory | typeof SeriesBulkDataFactory | typeof InstanceBulkDataFactory | typeof SpecificBulkDataFactory } bulkDataFactory
      */
-    constructor(req, res) {
+    constructor(req, res, bulkDataFactory) {
         this.request = req;
         this.response = res;
+        this.bulkDataFactory = new bulkDataFactory({...this.request.params});
         this.multipartWriter = new MultipartWriter([], req, res);
         this.multipartWriter.setHeaderMultipartRelatedContentType("application/octet-stream");
     }
@@ -47,42 +48,36 @@ class BulkDataService {
         this.multipartWriter.writeBufferData(fileBuffer);
     }
 
-    async getSpecificBulkData() {
+    async getBulkData() {
+        return await this.bulkDataFactory.getBulkData();
+    }
+    
+}
 
-        let {
-            studyUID,
-            seriesUID,
-            instanceUID,
-            binaryValuePath
-        } = this.request.params;
-
-        let bulkData = await dicomBulkDataModel.findOne({
-            $and: [
-                {
-                    studyUID
-                },
-                {
-                    seriesUID
-                },
-                {
-                    instanceUID
-                },
-                {
-                    binaryValuePath: {
-                        $regex: `^${binaryValuePath}`,
-                        $options: "gm"
-                    }
-                }
-            ]
-        }).exec();
-
-        return bulkData;
+class BulkDataFactory {
+    /**
+     * 
+     * @param {import("@root/utils/typeDef/dicom").Uids} uids 
+     */
+    constructor(uids) {
+        /** @type {import("@root/utils/typeDef/dicom").Uids} */
+        this.uids = uids;
     }
 
-    async getStudyBulkData() {
+    getBulkData() {
+        throw new Error("Abstract method, not implement");
+    }
+}
+
+class StudyBulkDataFactory extends BulkDataFactory {
+    constructor(uids) {
+        super(uids);
+    }
+
+    async getBulkData() {
         let {
             studyUID
-        } = this.request.params;
+        } = this.uids;
 
         let studyBulkDataArray = await dicomBulkDataModel.find({
             $and: [
@@ -94,12 +89,18 @@ class BulkDataService {
 
         return studyBulkDataArray;
     }
+}
 
-    async getSeriesBulkData() {
+class SeriesBulkDataFactory extends BulkDataFactory {
+    constructor(uids) {
+        super(uids);
+    }
+
+    async getBulkData() {
         let {
             studyUID,
             seriesUID
-        } = this.request.params;
+        } = this.uids;
 
         let seriesBulkDataArray = await dicomBulkDataModel.find({
             $and: [
@@ -114,13 +115,20 @@ class BulkDataService {
 
         return seriesBulkDataArray;
     }
+}
 
-    async getInstanceBulkData() {
+
+class InstanceBulkDataFactory extends BulkDataFactory {
+    constructor(uids) {
+        super(uids);
+    }
+
+    async getBulkData() {
         let {
             studyUID,
             seriesUID,
             instanceUID
-        } = this.request.params;
+        } = this.uids;
 
         let instanceBulkDataArray = await dicomBulkDataModel.find({
             $and: [
@@ -140,5 +148,46 @@ class BulkDataService {
     }
 }
 
+class SpecificBulkDataFactory extends BulkDataFactory {
+    constructor(uids) {
+        super(uids);
+    }
+
+    async getBulkData() {
+
+        let {
+            studyUID,
+            seriesUID,
+            instanceUID,
+            binaryValuePath
+        } = this.uids;
+
+        let bulkData = await dicomBulkDataModel.findOne({
+            $and: [
+                {
+                    studyUID
+                },
+                {
+                    seriesUID
+                },
+                {
+                    instanceUID
+                },
+                {
+                    binaryValuePath: {
+                        $regex: `^${binaryValuePath}`,
+                        $options: "m"
+                    }
+                }
+            ]
+        }).exec();
+
+        return bulkData;
+    }
+}
 
 module.exports.BulkDataService = BulkDataService;
+module.exports.StudyBulkDataFactory = StudyBulkDataFactory;
+module.exports.SeriesBulkDataFactory = SeriesBulkDataFactory;
+module.exports.InstanceBulkDataFactory = InstanceBulkDataFactory;
+module.exports.SpecificBulkDataFactory = SpecificBulkDataFactory;

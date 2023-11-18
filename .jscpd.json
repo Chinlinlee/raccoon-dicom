@@ -1,0 +1,19 @@
+{
+    "threshold": 0.1,
+    "reporters": [
+        "html",
+        "console"
+    ],
+    "ignore": [
+        "**/node_modules/**",
+        "models/DICOM/dcm4che/wrapper/**/*.ts",
+        "models/DICOM/dcm4che/wrapper/**/*.js",
+        "docs/**",
+        "test/**"
+    ],
+    "ignorePattern": [
+        "const .* require.*"
+    ],
+    "absolute": true,
+    "gitignore": true
+}

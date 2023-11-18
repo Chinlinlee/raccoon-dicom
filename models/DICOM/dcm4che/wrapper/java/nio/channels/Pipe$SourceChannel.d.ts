@@ -1,10 +1,10 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
 import { SelectionKey as java_nio_channels_SelectionKey } from "./SelectionKey";
 import { Selector as java_nio_channels_Selector } from "./Selector";
-import { Integer as java_lang_Integer } from "./../../lang/Integer";
-import { SelectorProvider as java_nio_channels_spi_SelectorProvider } from "./spi/SelectorProvider";
 import { SelectableChannel as java_nio_channels_SelectableChannel } from "./SelectableChannel";
 import { Boolean as java_lang_Boolean } from "./../../lang/Boolean";
+import { Integer as java_lang_Integer } from "./../../lang/Integer";
+import { SelectorProvider as java_nio_channels_spi_SelectorProvider } from "./spi/SelectorProvider";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Class as java_lang_Class } from "./../../lang/Class";
 import { ByteBuffer as java_nio_ByteBuffer } from "./../ByteBuffer";
@@ -22,6 +22,42 @@ export declare class Pipe$SourceChannelClass extends JavaClass {
      * @return original return type: 'int'
      */
     validOpsSync(): number;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isBlocking(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isBlockingSync(): boolean;
+    /**
+     * @param var0 original type: 'java.nio.channels.Selector'
+     * @return original return type: 'java.nio.channels.SelectionKey'
+     */
+    keyFor(var0: java_nio_channels_Selector | null): Promise<java_nio_channels_SelectionKey | null>;
+    /**
+     * @param var0 original type: 'java.nio.channels.Selector'
+     * @return original return type: 'java.nio.channels.SelectionKey'
+     */
+    keyForSync(var0: java_nio_channels_Selector | null): java_nio_channels_SelectionKey | null;
+    /**
+     * @return original return type: 'java.lang.Object'
+     */
+    blockingLock(): Promise<BasicOrJavaType | null>;
+    /**
+     * @return original return type: 'java.lang.Object'
+     */
+    blockingLockSync(): BasicOrJavaType | null;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'java.nio.channels.SelectableChannel'
+     */
+    configureBlocking(var0: java_lang_Boolean | boolean): Promise<java_nio_channels_SelectableChannel | null>;
+    /**
+     * @param var0 original type: 'boolean'
+     * @return original return type: 'java.nio.channels.SelectableChannel'
+     */
+    configureBlockingSync(var0: java_lang_Boolean | boolean): java_nio_channels_SelectableChannel | null;
     /**
      * @return original return type: 'boolean'
      */
@@ -64,42 +100,6 @@ export declare class Pipe$SourceChannelClass extends JavaClass {
      * @return original return type: 'java.nio.channels.spi.SelectorProvider'
      */
     providerSync(): java_nio_channels_spi_SelectorProvider | null;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isBlocking(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isBlockingSync(): boolean;
-    /**
-     * @param var0 original type: 'java.nio.channels.Selector'
-     * @return original return type: 'java.nio.channels.SelectionKey'
-     */
-    keyFor(var0: java_nio_channels_Selector | null): Promise<java_nio_channels_SelectionKey | null>;
-    /**
-     * @param var0 original type: 'java.nio.channels.Selector'
-     * @return original return type: 'java.nio.channels.SelectionKey'
-     */
-    keyForSync(var0: java_nio_channels_Selector | null): java_nio_channels_SelectionKey | null;
-    /**
-     * @return original return type: 'java.lang.Object'
-     */
-    blockingLock(): Promise<BasicOrJavaType | null>;
-    /**
-     * @return original return type: 'java.lang.Object'
-     */
-    blockingLockSync(): BasicOrJavaType | null;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'java.nio.channels.SelectableChannel'
-     */
-    configureBlocking(var0: java_lang_Boolean | boolean): Promise<java_nio_channels_SelectableChannel | null>;
-    /**
-     * @param var0 original type: 'boolean'
-     * @return original return type: 'java.nio.channels.SelectableChannel'
-     */
-    configureBlockingSync(var0: java_lang_Boolean | boolean): java_nio_channels_SelectableChannel | null;
     /**
      * @return original return type: 'boolean'
      */

@@ -1,7 +1,7 @@
 const _ = require("lodash");
-const dicomStudyModel = require("../../../../../../models/mongodb/models/dicomStudy");
-const dicomSeriesModel = require("../../../../../../models/mongodb/models/dicomSeries");
-const dicomModel = require("../../../../../../models/mongodb/models/dicom");
+const { StudyModel } = require("@dbModels/study.model");
+const { SeriesModel } = require("@dbModels/series.model");
+const { InstanceModel } = require("@dbModels/instance.model");
 const fsP = require("fs/promises");
 const { NotFoundInstanceError } = require("../../../../../../error/dicom-instance");
 
@@ -28,7 +28,7 @@ class DeleteService {
     }
 
     async deleteStudy() {
-        let study = await dicomStudyModel.findOne({
+        let study = await StudyModel.findOne({
             ...this.request.params
         });
 
@@ -46,7 +46,7 @@ class DeleteService {
     }
 
     async deleteSeries() {
-        let aSeries = await dicomSeriesModel.findOne({
+        let aSeries = await SeriesModel.findOne({
             ...this.request.params
         });
 
@@ -64,7 +64,7 @@ class DeleteService {
 
 
     async deleteInstance() {
-        let instance = await dicomModel.findOne({
+        let instance = await InstanceModel.findOne({
             ...this.request.params
         });
 

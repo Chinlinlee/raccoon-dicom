@@ -1,22 +1,19 @@
 const mongoose = require("mongoose");
-const patientModel = require("../../models/mongodb/models/patient");
+const patientModel = require("../../models/mongodb/models/patient.model");
 const { DicomJsonModel } = require("../../models/DICOM/dicom-json-model");
 const { expect } = require("chai");
 const _ = require("lodash");
-const { 
-    QidoDicomJsonFactory,
-    convertAllQueryToDICOMTag,
-    convertRequestQueryToMongoQuery
-} = require("../../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
+const { convertAllQueryToDICOMTag } = require("../../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
+const { QueryPatientDicomJsonFactory } = require("../../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 
-describe("Patient QIDO-RS Service", async() => {
+describe("Patient QIDO-RS Service", async () => {
     let fakePatientData = {
         "patientID": "foobar123456",
         "00100010": {
             "vr": "PN",
             "Value": [
                 {
-                    "Alphabetic" : "John^Doe"
+                    "Alphabetic": "John^Doe"
                 }
             ]
         },
@@ -85,7 +82,7 @@ describe("Patient QIDO-RS Service", async() => {
         }
     };
 
-    before(async() => {
+    before(async () => {
         let cloneFakePatientData = _.cloneDeep(fakePatientData);
         _.set(cloneFakePatientData, "studyPath", "/foo/bar");
         let dicomJsonModel = new DicomJsonModel(cloneFakePatientData);
@@ -95,21 +92,21 @@ describe("Patient QIDO-RS Service", async() => {
         await dicomJsonModel.storePatientCollection(cloneFakePatientData);
     });
 
-    describe("Query `PatientID (0010, 0020)` using `QidoDicomJsonFactory`", () => {
+    describe("Query `PatientID (0010, 0020)` using `QueryPatientDicomJsonFactory`", () => {
         it("Should search PatientID=`foobar123456` patient and return 1", async () => {
             let q = {
                 "00100020": "foobar123456"
             };
             q = convertAllQueryToDICOMTag(q);
 
-            let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+            let dicomJsonFactory = new QueryPatientDicomJsonFactory({
                 query: {
                     ...q
                 },
                 limit: 10,
                 skip: 0
-            }, "patient");
-            let patientJson = await qidoDicomJsonFactory.getDicomJson();
+            });
+            let patientJson = await dicomJsonFactory.getDicomJson();
             expect(patientJson).is.an("array").length(1);
         });
 
@@ -119,34 +116,34 @@ describe("Patient QIDO-RS Service", async() => {
             };
             q = convertAllQueryToDICOMTag(q);
 
-            let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+            let dicomJsonFactory = new QueryPatientDicomJsonFactory({
                 query: {
                     ...q
                 },
                 limit: 10,
                 skip: 0
-            }, "patient");
-            let patientJson = await qidoDicomJsonFactory.getDicomJson();
+            });
+            let patientJson = await dicomJsonFactory.getDicomJson();
             expect(patientJson).is.an("array").length(0);
         });
 
     });
 
-    describe("Query `PatientName (0010,0010)` using `QidoDicomJsonFactory`", () => {
+    describe("Query `PatientName (0010,0010)` using `QueryPatientDicomJsonFactory`", () => {
         it("Should search PatientName=`John*` patient and return 1", async () => {
             let q = {
                 "00100010": "John*"
             };
             q = convertAllQueryToDICOMTag(q);
 
-            let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+            let dicomJsonFactory = new QueryPatientDicomJsonFactory({
                 query: {
                     ...q
                 },
                 limit: 10,
                 skip: 0
-            }, "patient");
-            let patientJson = await qidoDicomJsonFactory.getDicomJson();
+            });
+            let patientJson = await dicomJsonFactory.getDicomJson();
             expect(patientJson).is.an("array").length(2);
         });
 
@@ -156,21 +153,21 @@ describe("Patient QIDO-RS Service", async() => {
             };
             q = convertAllQueryToDICOMTag(q);
 
-            let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+            let dicomJsonFactory = new QueryPatientDicomJsonFactory({
                 query: {
                     ...q
                 },
                 limit: 10,
                 skip: 0
-            }, "patient");
-            let patientJson = await qidoDicomJsonFactory.getDicomJson();
+            });
+            let patientJson = await dicomJsonFactory.getDicomJson();
             expect(patientJson).is.an("array").length(0);
         });
 
     });
-    
 
-    after(async()=> {
+
+    after(async () => {
         await patientModel.deleteOne({
             patientID: "foobar123456"
         });

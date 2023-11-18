@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
 const workItemModel = require("@models/mongodb/models/workItems");
 const subscriptionModel = require("@models/mongodb/models/upsSubscription");
@@ -54,29 +54,6 @@ class UnSubscribeService extends BaseWorkItemService {
 
             await this.deleteSubscription(workItem);
         }
-
-    }
-
-    /**
-     * 
-     * @param {string} upsInstanceUID 
-     * @returns {Promise<DicomJsonModel>}
-     */
-    async findOneWorkItem(upsInstanceUID) {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: upsInstanceUID
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-
-        return new DicomJsonModel(workItem);
 
     }
 

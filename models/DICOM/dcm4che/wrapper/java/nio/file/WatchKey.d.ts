@@ -8,6 +8,22 @@ import { Watchable as java_nio_file_Watchable } from "./Watchable";
  */
 export declare class WatchKeyClass extends JavaClass {
     /**
+     * @return original return type: 'java.util.List'
+     */
+    pollEvents(): Promise<java_util_List | null>;
+    /**
+     * @return original return type: 'java.util.List'
+     */
+    pollEventsSync(): java_util_List | null;
+    /**
+     * @return original return type: 'java.nio.file.Watchable'
+     */
+    watchable(): Promise<java_nio_file_Watchable | null>;
+    /**
+     * @return original return type: 'java.nio.file.Watchable'
+     */
+    watchableSync(): java_nio_file_Watchable | null;
+    /**
      * @return original return type: 'boolean'
      */
     reset(): Promise<boolean>;
@@ -31,22 +47,6 @@ export declare class WatchKeyClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isValidSync(): boolean;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    pollEvents(): Promise<java_util_List | null>;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    pollEventsSync(): java_util_List | null;
-    /**
-     * @return original return type: 'java.nio.file.Watchable'
-     */
-    watchable(): Promise<java_nio_file_Watchable | null>;
-    /**
-     * @return original return type: 'java.nio.file.Watchable'
-     */
-    watchableSync(): java_nio_file_Watchable | null;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -61,6 +61,14 @@ export declare class WatchKeyClass extends JavaClass {
  */
 export interface WatchKeyInterface {
     /**
+     * @return original return type: 'java.util.List'
+     */
+    pollEvents(): java_util_List | null;
+    /**
+     * @return original return type: 'java.nio.file.Watchable'
+     */
+    watchable(): java_nio_file_Watchable | null;
+    /**
      * @return original return type: 'boolean'
      */
     reset(): boolean;
@@ -72,14 +80,6 @@ export interface WatchKeyInterface {
      * @return original return type: 'boolean'
      */
     isValid(): boolean;
-    /**
-     * @return original return type: 'java.util.List'
-     */
-    pollEvents(): java_util_List | null;
-    /**
-     * @return original return type: 'java.nio.file.Watchable'
-     */
-    watchable(): java_nio_file_Watchable | null;
 }
 /**
  * Create a proxy for the {@link WatchKey} interface.

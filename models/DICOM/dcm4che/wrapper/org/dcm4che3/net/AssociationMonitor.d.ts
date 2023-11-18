@@ -10,16 +10,6 @@ import { Throwable as java_lang_Throwable } from "./../../../java/lang/Throwable
 export declare class AssociationMonitorClass extends JavaClass {
     /**
      * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    onAssociationAccepted(var0: org_dcm4che3_net_Association | null): Promise<void>;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    onAssociationAcceptedSync(var0: org_dcm4che3_net_Association | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
      * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRJ'
      * @return original return type: 'void'
      */
@@ -34,12 +24,12 @@ export declare class AssociationMonitorClass extends JavaClass {
      * @param var0 original type: 'org.dcm4che3.net.Association'
      * @return original return type: 'void'
      */
-    onAssociationEstablished(var0: org_dcm4che3_net_Association | null): Promise<void>;
+    onAssociationAccepted(var0: org_dcm4che3_net_Association | null): Promise<void>;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Association'
      * @return original return type: 'void'
      */
-    onAssociationEstablishedSync(var0: org_dcm4che3_net_Association | null): void;
+    onAssociationAcceptedSync(var0: org_dcm4che3_net_Association | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Association'
      * @param var1 original type: 'java.lang.Throwable'
@@ -52,6 +42,16 @@ export declare class AssociationMonitorClass extends JavaClass {
      * @return original return type: 'void'
      */
     onAssociationFailedSync(var0: org_dcm4che3_net_Association | null, var1: java_lang_Throwable | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    onAssociationEstablished(var0: org_dcm4che3_net_Association | null): Promise<void>;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    onAssociationEstablishedSync(var0: org_dcm4che3_net_Association | null): void;
 }
 /**
  * This interface just defines types for creating proxies,
@@ -67,11 +67,6 @@ export declare class AssociationMonitorClass extends JavaClass {
 export interface AssociationMonitorInterface {
     /**
      * @param var0 original type: 'org.dcm4che3.net.Association'
-     * @return original return type: 'void'
-     */
-    onAssociationAccepted(var0: org_dcm4che3_net_Association | null): void;
-    /**
-     * @param var0 original type: 'org.dcm4che3.net.Association'
      * @param var1 original type: 'org.dcm4che3.net.pdu.AAssociateRJ'
      * @return original return type: 'void'
      */
@@ -80,13 +75,18 @@ export interface AssociationMonitorInterface {
      * @param var0 original type: 'org.dcm4che3.net.Association'
      * @return original return type: 'void'
      */
-    onAssociationEstablished(var0: org_dcm4che3_net_Association | null): void;
+    onAssociationAccepted(var0: org_dcm4che3_net_Association | null): void;
     /**
      * @param var0 original type: 'org.dcm4che3.net.Association'
      * @param var1 original type: 'java.lang.Throwable'
      * @return original return type: 'void'
      */
     onAssociationFailed(var0: org_dcm4che3_net_Association | null, var1: java_lang_Throwable | null): void;
+    /**
+     * @param var0 original type: 'org.dcm4che3.net.Association'
+     * @return original return type: 'void'
+     */
+    onAssociationEstablished(var0: org_dcm4che3_net_Association | null): void;
 }
 /**
  * Create a proxy for the {@link AssociationMonitor} interface.

@@ -1,8 +1,8 @@
 import { JavaClass, BasicOrJavaType } from "java-bridge";
+import { Instant as java_time_Instant } from "./../Instant";
 import { LocalDateTime as java_time_LocalDateTime } from "./../LocalDateTime";
 import { ZoneOffset as java_time_ZoneOffset } from "./../ZoneOffset";
 import { Duration as java_time_Duration } from "./../Duration";
-import { Instant as java_time_Instant } from "./../Instant";
 import { Long as java_lang_Long } from "./../../lang/Long";
 import { Integer as java_lang_Integer } from "./../../lang/Integer";
 import { Class as java_lang_Class } from "./../../lang/Class";
@@ -12,6 +12,22 @@ import { Class as java_lang_Class } from "./../../lang/Class";
  * You should probably not edit this.
  */
 export declare class ZoneOffsetTransitionClass extends JavaClass {
+    /**
+     * @return original return type: 'boolean'
+     */
+    isOverlap(): Promise<boolean>;
+    /**
+     * @return original return type: 'boolean'
+     */
+    isOverlapSync(): boolean;
+    /**
+     * @return original return type: 'java.time.Instant'
+     */
+    getInstant(): Promise<java_time_Instant | null>;
+    /**
+     * @return original return type: 'java.time.Instant'
+     */
+    getInstantSync(): java_time_Instant | null;
     /**
      * @param var0 original type: 'java.lang.Object'
      * @return original return type: 'boolean'
@@ -138,22 +154,6 @@ export declare class ZoneOffsetTransitionClass extends JavaClass {
      * @return original return type: 'boolean'
      */
     isValidOffsetSync(var0: java_time_ZoneOffset | null): boolean;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isOverlap(): Promise<boolean>;
-    /**
-     * @return original return type: 'boolean'
-     */
-    isOverlapSync(): boolean;
-    /**
-     * @return original return type: 'java.time.Instant'
-     */
-    getInstant(): Promise<java_time_Instant | null>;
-    /**
-     * @return original return type: 'java.time.Instant'
-     */
-    getInstantSync(): java_time_Instant | null;
     /**
      * @param var0 original type: 'long'
      * @param var1 original type: 'int'
