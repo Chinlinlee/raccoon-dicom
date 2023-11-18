@@ -2,6 +2,8 @@ const _ = require("lodash");
 
 const { AuditMessageFactory } = require("./auditMessageFactory");
 const { EventType } = require("./eventType");
+const { AuditMessageModel } = require("@models/db/auditMessage.model");
+const { AuditMessageModelLoggerDbImpl } = require("@models/db/auditMessage.loggerImpl");
 
 /**
  * @typedef AuditMessageModel
@@ -159,8 +161,7 @@ class AuditManager {
     }
 
     static getAuditMessageModel() {
-        const mongoose = require("mongoose");
-        return mongoose.model("auditMessage");
+        return new AuditMessageModel(new AuditMessageModelLoggerDbImpl());
     }
 }
 

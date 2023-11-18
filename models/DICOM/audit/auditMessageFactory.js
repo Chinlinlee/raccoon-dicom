@@ -349,8 +349,8 @@ class AuditMessageFactory {
     }
 
     getInstanceModel() {
-        const mongoose = require("mongoose");
-        return mongoose.model("dicom");
+        const sequelizeInstance = require("@models/sql/instance");
+        return sequelizeInstance.model("Instance");
     }
 }
 

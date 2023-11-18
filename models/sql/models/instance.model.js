@@ -31,6 +31,41 @@ class InstanceModel extends Model {
             recursive: true
         });
     }
+
+    /**
+     * 
+     * @param {string} studyUID 
+     */
+    static async getAuditInstancesInfoFromStudyUID(studyUID) {
+        let instances = await sequelizeInstance.model("Instance").findAll({
+            where: {
+                x0020000D: studyUID
+            }
+        });
+
+        let instanceInfos = {
+            sopClassUIDs: [],
+            accessionNumbers: [],
+            patientID: "",
+            patientName: ""
+        };
+
+        for (let instance of instances) {
+            let sopClassUID = instance.x00080016;
+            let accessionNumber = instance.x00080050;
+            let patientID = instance.x00100020;
+            let patientName = _.get(instance.json, "00100010.Value.0.Alphabetic");
+            sopClassUID ? instanceInfos.sopClassUIDs.push(sopClassUID) : null;
+            accessionNumber ? instanceInfos.accessionNumbers.push(accessionNumber) : null;
+            patientID ? instanceInfos.patientID = patientID : null;
+            patientName ? instanceInfos.patientName = patientName : null;
+        }
+
+        instanceInfos.sopClassUIDs = _.uniq(instanceInfos.sopClassUIDs);
+        instanceInfos.accessionNumbers = _.uniq(instanceInfos.accessionNumbers);
+
+        return instanceInfos;
+    }
 };
 
 InstanceModel.init({
