@@ -16,24 +16,13 @@ const { raccoonConfig } = require("@root/config-class");
 const { logger } = require("@root/utils/logs/log");
 
 DicomJsonModel.prototype.storeToDb = async function (dicomFileSaveInfo) {
-    let dicomJsonClone = _.cloneDeep(this.dicomJson);
+    let dbJson = this.getCleanDataBeforeStoringToDb(dicomFileSaveInfo);
+
     try {
-        let mediaStorage = this.getMediaStorageInfo();
-        _.merge(dicomJsonClone, this.uidObj);
-        _.merge(dicomJsonClone, {
-            studyPath: dicomFileSaveInfo.studyPath,
-            seriesPath: dicomFileSaveInfo.seriesPath,
-            instancePath: dicomFileSaveInfo.relativePath
-        });
-        _.merge(dicomJsonClone, mediaStorage);
-
-        delete dicomJsonClone.sopClass;
-        delete dicomJsonClone.sopInstanceUID;
-
-        let storedPatient = await this.storePatientCollection(dicomJsonClone);
-        let storedStudy = await this.storeStudyCollection(dicomJsonClone, storedPatient);
-        let storedSeries = await this.storeSeriesCollection(dicomJsonClone, storedStudy);
-        await this.storeInstanceCollection(dicomJsonClone, storedSeries);
+        let storedPatient = await this.storePatientCollection(dbJson);
+        let storedStudy = await this.storeStudyCollection(dbJson, storedPatient);
+        let storedSeries = await this.storeSeriesCollection(dbJson, storedStudy);
+        await this.storeInstanceCollection(dbJson, storedSeries);
 
         await StudyModel.updateModalitiesInStudy(storedStudy);
     } catch (e) {
