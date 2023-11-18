@@ -19,7 +19,8 @@ async function initDatabasePostgres() {
         password: raccoonConfig.sqlDbConfig.password,
         host: raccoonConfig.sqlDbConfig.host,
         port: raccoonConfig.sqlDbConfig.port,
-        database: "postgres"
+        database: "postgres",
+        logging: raccoonConfig.sqlDbConfig.logging
     });
 
     await client.connect();

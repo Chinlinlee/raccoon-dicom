@@ -33,7 +33,8 @@ const SqlDbConfig = {
     database: env.get("SQL_DB").default("raccoon").asString(),
     dialect: env.get("SQL_TYPE").default("postgres").asString(),
     username: env.get("SQL_USERNAME").default("postgres").asString(),
-    password: env.get("SQL_PASSWORD").default("postgres").asString()
+    password: env.get("SQL_PASSWORD").default("postgres").asString(),
+    logging: env.get("SQL_LOGGING").default("false").asBool()
 };
 
 
