@@ -37,18 +37,19 @@ class InstanceModel extends Model {
      * @param {string} studyUID 
      */
     static async getAuditInstancesInfoFromStudyUID(studyUID) {
-        let instances = await sequelizeInstance.model("Instance").findAll({
-            where: {
-                x0020000D: studyUID
-            }
-        });
-
         let instanceInfos = {
             sopClassUIDs: [],
             accessionNumbers: [],
             patientID: "",
             patientName: ""
         };
+        if (!studyUID) return instanceInfos;
+
+        let instances = await sequelizeInstance.model("Instance").findAll({
+            where: {
+                x0020000D: studyUID
+            }
+        });
 
         for (let instance of instances) {
             let sopClassUID = instance.x00080016;
