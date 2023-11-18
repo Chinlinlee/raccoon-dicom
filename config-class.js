@@ -24,25 +24,37 @@ function generateUidFromGuid(iGuid) {
     return `2.25.${bigInteger.toString()}`;       //Output the previus parsed integer as string by adding `2.25.` as prefix
 }
 
-/**
- *  @type {import("sequelize").Options}
- */
-const SqlDbConfig = {
-    host: env.get("SQL_HOST").default("127.0.0.1").asString(),
-    port: env.get("SQL_PORT").default("5432").asString(),
-    database: env.get("SQL_DB").default("raccoon").asString(),
-    dialect: env.get("SQL_TYPE").default("postgres").asString(),
-    username: env.get("SQL_USERNAME").default("postgres").asString(),
-    password: env.get("SQL_PASSWORD").default("postgres").asString(),
-    logging: env.get("SQL_LOGGING").default("false").asBool()
-};
+class SqlDbConfig {
+    constructor() {
+        this.host = env.get("SQL_HOST").default("127.0.0.1").asString();
+        this.port = env.get("SQL_PORT").default("5432").asString();
+        this.database = env.get("SQL_DB").default("raccoon").asString();
+        this.dialect = env.get("SQL_TYPE").default("postgres").asString();
+        this.username = env.get("SQL_USERNAME").default("postgres").asString();
+        this.password = env.get("SQL_PASSWORD").default("postgres").asString();
+        this.logging = env.get("SQL_LOGGING").default("false").asBool();
+    }
+}
 
+class MongoDbConfig {
+    constructor() {
+        this.dbName = env.get("MONGODB_NAME").default("raccoon").asString();
+        this.hosts = env.get("MONGODB_HOSTS").required().asJsonArray();
+        this.ports = env.get("MONGODB_PORTS").required().asJsonArray();
+        this.user = env.get("MONGODB_USER").default("").asString();
+        this.password = env.get("MONGODB_PASSWORD").default("").asString();
+        this.authSource = env.get("MONGODB_AUTH_SOURCE").default("admin").asString();
+        this.urlOptions = env.get("MONGODB_OPTIONS").default("").asString();
+        this.isShardingMode = env.get("MONGODB_IS_SHARDING_MODE").default("false").asBool();
+    }
+}
 
 class ServerConfig {
     constructor() {
         this.host = env.get("SERVER_HOST").default("127.0.0.1").asString();
         this.port = env.get("SERVER_PORT").default("8081").asInt();
         this.secretKey = env.get("SERVER_SESSION_SECRET_KEY").asString();
+        this.dbType = env.get("SERVER_DB_TYPE").default("mongodb").asEnum(["mongodb", "sql"]);
     }
 }
 
@@ -66,19 +78,25 @@ class FhirConfig {
 
 class RaccoonConfig {
     constructor() {
-        this.sqlDbConfig = SqlDbConfig;
         this.serverConfig = new ServerConfig();
+
+        if (this.serverConfig.dbType === "mongodb") {
+            this.dbConfig = new MongoDbConfig();
+        } else if (this.serverConfig.dbType === "sql") {
+            this.dbConfig = new SqlDbConfig();
+        }
+
         this.dicomWebConfig = new DicomWebConfig();
         this.dicomDimseConfig = new DimseConfig();
         this.fhirConfig = new FhirConfig();
         
         /** @type {string} */
         this.mediaStorageUID = generateUidFromGuid(
-            uuid.v5(this.sqlDbConfig.database, NAME_SPACE)
+            uuid.v5(this.dbConfig.database, NAME_SPACE)
         );
         
         /** @type {string} */
-        this.mediaStorageID = this.sqlDbConfig.database;
+        this.mediaStorageID = this.dbConfig.database;
 
         this.aeTitle = this.dicomWebConfig.aeTitle;
         // this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.getAeTitle() : this.dicomWebConfig.aeTitle;

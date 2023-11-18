@@ -15,20 +15,20 @@ const { VerifyIngObserverSqModel } = require("./models/verifyingObserverSQ.model
 async function initDatabasePostgres() {
     const { Client } = require("pg");
     const client = new Client({
-        user: raccoonConfig.sqlDbConfig.username,
-        password: raccoonConfig.sqlDbConfig.password,
-        host: raccoonConfig.sqlDbConfig.host,
-        port: raccoonConfig.sqlDbConfig.port,
+        user: raccoonConfig.dbConfig.username,
+        password: raccoonConfig.dbConfig.password,
+        host: raccoonConfig.dbConfig.host,
+        port: raccoonConfig.dbConfig.port,
         database: "postgres",
-        logging: raccoonConfig.sqlDbConfig.logging
+        logging: raccoonConfig.dbConfig.logging
     });
 
     await client.connect();
 
     try {
-        let result = await client.query(`SELECT 'CREATE DATABASE ${raccoonConfig.sqlDbConfig.database}' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '${raccoonConfig.sqlDbConfig.database}')`);
+        let result = await client.query(`SELECT 'CREATE DATABASE ${raccoonConfig.dbConfig.database}' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '${raccoonConfig.dbConfig.database}')`);
         if (result.rowCount > 0 ) {
-            await client.query(`CREATE DATABASE ${raccoonConfig.sqlDbConfig.database}`);
+            await client.query(`CREATE DATABASE ${raccoonConfig.dbConfig.database}`);
         }
     } catch(e) {
         console.error(e);
@@ -41,7 +41,7 @@ async function initDatabasePostgres() {
 async function init() {
     require("./deleteSchedule");
 
-    if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
+    if (raccoonConfig.dbConfig.dialect === "postgres") {
         await initDatabasePostgres();
     }
 
@@ -130,7 +130,7 @@ async function init() {
         });
     
         //TODO: 設計完畢後要將 force 刪除
-        await sequelizeInstance.sync();
+        await sequelizeInstance.sync({force: true});
     } catch (e) {
         console.error('Unable to connect to the database:', e);
         process.exit(1);

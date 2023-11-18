@@ -132,7 +132,7 @@ class BaseQueryBuilder {
     }
 
     getStringArrayJsonQuery(tag, value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
+        if (raccoonConfig.dbConfig.dialect === "postgres") {
             return {
                 [`x${tag}`]: {
                     [Op.contains]: cast(JSON.stringify([value]), "jsonb")

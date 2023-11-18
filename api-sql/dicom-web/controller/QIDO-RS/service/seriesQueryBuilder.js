@@ -60,7 +60,7 @@ class SeriesQueryBuilder extends BaseQueryBuilder {
     }
 
     getPersonNameJsonArrayQuery(tag, value) {
-        if (raccoonConfig.sqlDbConfig.dialect === "postgres") {
+        if (raccoonConfig.dbConfig.dialect === "postgres") {
             value = this.getWildCardRegexString(value);
             return {
                 [Op.or]: [
