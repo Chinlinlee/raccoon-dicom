@@ -1,14 +1,10 @@
 const _ = require("lodash");
 
-const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
-const { SqlDimseQueryBuilder: DimseQueryBuilder } = require("./queryBuilder");
 const { JsSeriesQueryTask } = require("./seriesQueryTask");
 const { InstanceQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/InstanceQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
-const { createInstanceQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/InstanceQueryTaskInject");
 const { InstanceModel } = require("@models/sql/models/instance.model");
 const { InstanceQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/instanceQueryBuilder");
-const { Tag } = require("@dcm4che/data/Tag");
 const { InstanceQueryTaskInjectProxy, InstanceMatchIteratorProxy } = require("@root/dimse/instanceQueryTask");
 const { QueryTaskUtils } = require("@root/dimse/utils");
 

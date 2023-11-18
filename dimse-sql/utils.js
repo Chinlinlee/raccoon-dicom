@@ -107,3 +107,4 @@ QueryTaskUtils.getDbQuery = async function (queryAttr, level = "patient") {
 module.exports.intTagToString = intTagToString;
 module.exports.getInstancesFromKeysAttr = getInstancesFromKeysAttr;
 module.exports.findOneInstanceFromKeysAttr = findOneInstanceFromKeysAttr;
+module.exports.QueryTaskUtils = QueryTaskUtils;

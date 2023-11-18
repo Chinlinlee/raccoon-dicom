@@ -2,10 +2,10 @@ const { java } = require("@models/DICOM/dcm4che/java-instance");
 
 const { BasicCEchoSCP } = require("@dcm4che/net/service/BasicCEchoSCP");
 const { DicomServiceRegistry } = require("@dcm4che/net/service/DicomServiceRegistry");
-const { JsCStoreScp } = require("./c-store");
-const { SqlJsCFindScp: JsCFindScp } = require("./c-find");
-const { JsCMoveScp } = require("./c-move");
-const { JsCGetScp } = require("./c-get");
+const { JsCStoreScp } = require("../dimse/c-store");
+const { JsCFindScp } = require("../dimse/c-find");
+const { JsCMoveScp } = require("../dimse/c-move");
+const { JsCGetScp } = require("../dimse/c-get");
 const { DcmQrScp } = require("@root/dimse");
 
 class SqlDcmQrScp extends DcmQrScp {

@@ -13,7 +13,7 @@ const { AAssociateRQ } = require("@dcm4che/net/pdu/AAssociateRQ");
 const { Connection } = require("@dcm4che/net/Connection");
 const { RetrieveTaskImpl } = require("@chinlinlee/dcm777/dcmqrscp/RetrieveTaskImpl");
 const { Dimse } = require("@dcm4che/net/Dimse");
-const { getInstancesFromKeysAttr } = require("./utils");
+const { getInstancesFromKeysAttr } = require("@dimse-utils");
 const { createRetrieveAuditInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/dcmqrscp/RetrieveAuditInject");
 const { DimseRetrieveAuditService } = require("./service/retrieveAudit.service");
 

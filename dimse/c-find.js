@@ -7,10 +7,10 @@ const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
 const { QueryRetrieveLevel2 } = require("@dcm4che/net/service/QueryRetrieveLevel2");
 const { BasicModCFindSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/BasicModCFindSCP");
 const { createCFindSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CFindSCPInject");
-const { JsPatientQueryTask } = require("./patientQueryTask");
-const { JsStudyQueryTask } = require("./studyQueryTask");
-const { JsSeriesQueryTask } = require("./seriesQueryTask");
-const { JsInstanceQueryTask } = require("./instanceQueryTask");
+const { JsPatientQueryTask } = require("@dimse-patient-query-task");
+const { JsStudyQueryTask } = require("@dimse-study-query-task");
+const { JsSeriesQueryTask } = require("@dimse-series-query-task");
+const { JsInstanceQueryTask } = require("@dimse-instance-query-task");
 const { PATIENT_ROOT_LEVELS, STUDY_ROOT_LEVELS, PATIENT_STUDY_ONLY_LEVELS } = require("./level");
 
 class JsCFindScp {
