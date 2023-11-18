@@ -13,7 +13,7 @@ const { UID } = require("@dcm4che/data/UID");
 const { PATIENT_ROOT_LEVELS, STUDY_ROOT_LEVELS, PATIENT_STUDY_ONLY_LEVELS } = require("./level");
 const { default: AAssociateRQ } = require("@dcm4che/net/pdu/AAssociateRQ");
 const { default: Connection } = require("@dcm4che/net/Connection");
-const { default: RetrieveTaskImpl } = require("@dcm4che/tool/dcmqrscp/RetrieveTaskImpl");
+const { RetrieveTaskImpl } = require("@chinlinlee/dcm777/dcmqrscp/RetrieveTaskImpl");
 const { Dimse } = require("@dcm4che/net/Dimse");
 const { getInstancesFromKeysAttr } = require("./utils");
 
