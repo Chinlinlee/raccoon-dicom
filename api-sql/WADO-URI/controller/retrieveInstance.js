@@ -5,8 +5,8 @@ const { ApiLogger } = require("@root/utils/logs/api-logger");
 class RetrieveSingleInstanceController extends Controller {
     constructor(req, res) {
         super(req, res);
-        this.service = new WadoUriService(req, res);
         this.logger = new ApiLogger(this.request, "WADO-URI");
+        this.service = new WadoUriService(req, res, this.logger);
     }
 
     async mainProcess() {

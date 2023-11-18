@@ -8,6 +8,7 @@ const Magick = require("@models/magick");
 const { NotFoundInstanceError, InvalidFrameNumberError, InstanceGoneError } = require("@error/dicom-instance");
 const { WadoUriService } = require("@root/api/WADO-URI/service/WADO-URI.service");
 const { InstanceModel } = require("@models/sql/models/instance.model");
+const { ApiLogger } = require("@root/utils/logs/api-logger");
 class SqlWadoUriService extends WadoUriService{
 
     /**
@@ -15,8 +16,9 @@ class SqlWadoUriService extends WadoUriService{
      * @param {import("http").IncomingMessage} req 
      * @param {import("http").ServerResponse} res 
      */
-    constructor(req, res) {
+    constructor(req, res, apiLogger) {
         super(req, res);
+        this.apiLogger = apiLogger;
     }
 
     async getDicomInstancePathObj() {
