@@ -31,28 +31,11 @@ class StudyPersistentObject {
     }
 
     async createReferringPhysicianName() {
-        if (this.x00080090) {
-            return await PersonNameModel.create({
-                alphabetic: _.get(this.x00080090, "Alphabetic", undefined),
-                ideographic: _.get(this.x00080090, "Ideographic", undefined),
-                phonetic: _.get(this.x00080090, "Phonetic", undefined)
-            });
-        }
-        return undefined;
+        return await PersonNameModel.createPersonName(this.x00080090);
     }
 
     async updateReferringPhysicianName(study) {
-        if (this.x00080090) {
-            await PersonNameModel.update({
-                alphabetic: _.get(this.x00080090, "Alphabetic", undefined),
-                ideographic: _.get(this.x00080090, "Ideographic", undefined),
-                phonetic: _.get(this.x00080090, "Phonetic", undefined)
-            }, {
-                where: {
-                    id: study.dataValues.x00080090
-                }
-            });
-        }
+        return await PersonNameModel.updatePersonNameById(this.x00080090, study.getDataValue("x00080090"));
     }
 
     async createStudy() {

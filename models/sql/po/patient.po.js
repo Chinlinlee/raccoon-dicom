@@ -25,28 +25,16 @@ class PatientPersistentObject {
     }
 
     async createPersonName() {
-        if (this.x00100010) {
-            return await PersonNameModel.create({
-                alphabetic: _.get(this.x00100010, "Alphabetic", undefined),
-                ideographic: _.get(this.x00100010, "Ideographic", undefined),
-                phonetic: _.get(this.x00100010, "Phonetic", undefined)
-            });
-        }
-        return undefined;
+        return await PersonNameModel.createPersonName(this.x00100010);
     }
 
+    /**
+     * 
+     * @param {PatientModel} patient 
+     * @returns 
+     */
     async updatePersonName(patient) {
-        if (this.x00100010) {
-            await PersonNameModel.update({
-                alphabetic: _.get(this.x00100010, "Alphabetic", undefined),
-                ideographic: _.get(this.x00100010, "Ideographic", undefined),
-                phonetic: _.get(this.x00100010, "Phonetic", undefined)
-            }, {
-                where: {
-                    id: patient.dataValues.x00100010
-                }
-            });
-        }
+        return await PersonNameModel.updatePersonNameById(this.x00100010, patient.getDataValue("x00100010"));
     }
 
     async createPatient() {

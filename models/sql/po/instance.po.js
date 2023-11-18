@@ -424,48 +424,33 @@ class VerifyingObserverSqPersistentObject {
      */
     async createName() {
         let nameItem = _.get(this.verifyingObserverSq, "0040A075.Value.0");
-        if (nameItem && Object.values(nameItem).some(v => v)) {
-            return await PersonNameModel.create({
-                alphabetic: _.get(nameItem, "Alphabetic", undefined),
-                ideographic: _.get(nameItem, "Ideographic", undefined),
-                phonetic: _.get(nameItem, "Phonetic", undefined)
-            });
-        }
-        return undefined;
+        return await PersonNameModel.createPersonName(nameItem);
     }
 
     async updateName() {
         let verifyingObserverSq = await this.getExistItem();
+        /** @type { PersonNameModel | undefined }  */
         let name = await verifyingObserverSq.getPersonName();
         let nameItem = _.get(this.verifyingObserverSq, "0040A075.Value.0");
         
         if (name) {
-            if (nameItem && Object.values(nameItem).some(v => v)) {
-                await PersonNameModel.update({
-                    alphabetic: _.get(nameItem, "Alphabetic", undefined),
-                    ideographic: _.get(nameItem, "Ideographic", undefined),
-                    phonetic: _.get(nameItem, "Phonetic", undefined)
+            let updatedName = await PersonNameModel.updatePersonNameById(nameItem, name.getDataValue("id"));
+            if (!updatedName) {
+                await VerifyIngObserverSqModel.update({
+                    x0040A075: null
                 }, {
+                    where: {
+                        SOPInstanceUID: this.instance.dataValues.x00080018
+                    }
+                });
+                await PersonNameModel.destroy({
                     where: {
                         id: name.dataValues.id
                     }
                 });
+            } else {
                 return name;
             }
- 
-            await VerifyIngObserverSqModel.update({
-                x0040A075: null
-            }, {
-                where: {
-                    SOPInstanceUID: this.instance.dataValues.x00080018
-                }
-            });
-            await PersonNameModel.destroy({
-                where: {
-                    id: name.dataValues.id
-                }
-            });
-
         } else {
             return await this.createName();
         }

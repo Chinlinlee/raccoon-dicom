@@ -40,33 +40,11 @@ class SeriesPersistentObject {
     }
 
     async createReferringPhysicianName() {
-        if (this.x00080090) {
-            return await PersonNameModel.create({
-                alphabetic: _.get(this.x00080090, "Alphabetic", undefined),
-                ideographic: _.get(this.x00080090, "Ideographic", undefined),
-                phonetic: _.get(this.x00080090, "Phonetic", undefined)
-            });
-        }
-        return undefined;
-    }
-
-    async createPersonNames(field) {
-        let personNames = [];
-        if (this[field]) {
-            for (let personName of this[field]) {
-                let personNameSequelize = await PersonNameModel.create({
-                    alphabetic: _.get(personName, "Alphabetic", undefined),
-                    ideographic: _.get(personName, "Ideographic", undefined),
-                    phonetic: _.get(personName, "Phonetic", undefined)
-                });
-                personNames.push(personNameSequelize);
-            }
-        }
-        return personNames;
+        return await PersonNameModel.createPersonName(this.x00080090);
     }
 
     async addPerformingPhysicianNames(series) {
-        let performingPhysicianNames = await this.createPersonNames("x00081050");
+        let performingPhysicianNames = await PersonNameModel.createPersonNames(series, "x00081050");
         for (let performingPhysicianName of performingPhysicianNames) {
             await series.addPerformingPhysicianName(performingPhysicianName);
         }
@@ -83,7 +61,7 @@ class SeriesPersistentObject {
     }
 
     async addOperatorsNames(series) {
-        let operationsNames = await this.createPersonNames("x00081070");
+        let operationsNames = await PersonNameModel.createPersonNames(series, "x00081070");
         for (let operationsName of operationsNames) {
             await series.addOperatorsName(operationsName);
         }
