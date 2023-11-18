@@ -1,8 +1,7 @@
 const { performance } = require("node:perf_hooks");
-const errorResponseMessage = require("@root/utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { Controller } = require("@root/api/controller.class");
-const { StowRsRequestMultipartParser } = require("./service/request-multipart-parser");
+const { StowRsRequestMultipartParser } = require("@root/api/dicom-web/controller/STOW-RS/service/request-multipart-parser");
 const { SqlStowRsService: StowRsService } = require("./service/stow-rs.service");
 
 class StoreInstanceController extends Controller {
