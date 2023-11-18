@@ -184,7 +184,7 @@ class InstancePersistentObject {
             x00080016: this.x00080016,
             x00080022: this.x00080022 ? this.x00080022 : undefined,
             x00080023: this.x00080023,
-            x0008002A: this.x0008002A ? this.x0008002A : undefined,
+            x0008002A: this.x0008002A ? moment(this.x0008002A, "YYYYMMDDhhmmss.SSSSSSZZ").toISOString(): undefined,
             x00080033: this.x00080033 ? Number(this.x00080033) : undefined,
             x00200013: this.x00200013,
             x00280008: this.x00280008,
