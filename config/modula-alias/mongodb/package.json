@@ -1,0 +1,13 @@
+{
+    "_moduleAliases": {
+        "@dcm4che": "../../../models/DICOM/dcm4che/wrapper/org/dcm4che3",
+        "@java-wrapper": "../../../models/DICOM/dcm4che/wrapper",
+        "@models": "../../../models",
+        "@error": "../../../error",
+        "@root": "../../../",
+        "@chinlinlee": "../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee",
+        "@dbModels": "../../../models/mongodb/models",
+        "@dbInitializer": "../../../models/mongodb/index.js",
+        "@dicom-json-model": "../../../models/DICOM/dicom-json-model.js"
+    }
+}

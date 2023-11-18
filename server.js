@@ -1,5 +1,12 @@
 RegExp.prototype.toJSON = RegExp.prototype.toString;
-require('module-alias')(__dirname);
+const { raccoonConfig } = require("./config-class");
+
+if (raccoonConfig.serverConfig.dbType === "mongodb") {
+    require('module-alias')(__dirname + "/config/modula-alias/mongodb");
+} else if (raccoonConfig.serverConfig.dbType === "sql") {
+    require('module-alias')(__dirname + "/config/modula-alias/sql");
+}
+
 
 const { app, server } = require("./app");
 const bodyParser = require("body-parser");
@@ -12,7 +19,6 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sequelizeInstance = require("./models/sql/instance");
 
 const passport = require("passport");
-const { raccoonConfig } = require("./config-class");
 const { DcmQrScp } = require('./dimse-sql');
 require("dotenv");
 require("./websocket");

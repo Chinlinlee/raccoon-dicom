@@ -54,18 +54,6 @@
   "keywords": [],
   "author": "chinlinlee",
   "license": "MIT",
-  "_moduleAliases": {
-    "@dcm4che": "./models/DICOM/dcm4che/wrapper/org/dcm4che3",
-    "@java-wrapper": "./models/DICOM/dcm4che/wrapper",
-    "@models": "./models",
-    "@error": "./error",
-    "@root": "./",
-    "@chinlinlee": "./models/DICOM/dcm4che/wrapper/org/github/chinlinlee",
-    "@dbModels": "./models/sql/models",
-    "@dbInitializer": "./models/sql/initializer.js",
-    "@dicom-json-model": "./models/sql/dicom-json-model.js",
-    "@query-json-factory": "./api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory.js"
-  },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",
     "archiver": "^5.3.1",
