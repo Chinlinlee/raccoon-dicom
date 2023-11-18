@@ -1,11 +1,5 @@
-const mongoose = require("mongoose");
-const { Controller } = require("../../../../controller.class");
-const { ApiLogger } = require("../../../../../utils/logs/api-logger");
-const { BulkDataService, SpecificBulkDataFactory } = require("./service/bulkdata");
-const { getInternalServerErrorMessage } = require("../../../../../utils/errorResponse/errorResponseMessage");
+const { SpecificBulkDataFactory } = require("@bulkdata-service");
 const { BaseBulkDataController } = require("./base.controller");
-const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
-const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BulkDataController extends BaseBulkDataController {
     constructor(req, res) {

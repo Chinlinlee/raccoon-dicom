@@ -1,6 +1,6 @@
-const { SeriesBulkDataFactory } = require("./service/bulkdata");
+const { SeriesBulkDataFactory } = require("@bulkdata-service");
 const { BaseBulkDataController } = require("./base.controller");
-const { SeriesImagePathFactory } = require("../service/WADO-RS.service");
+const { SeriesImagePathFactory } = require("@wado-rs-service");
 
 class SeriesBulkDataController extends BaseBulkDataController {
     constructor(req, res) {

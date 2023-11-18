@@ -1,7 +1,7 @@
 const { Controller } = require("@root/api/controller.class");
-const { StudyBulkDataFactory, BulkDataService } = require("./service/bulkdata");
+const { StudyBulkDataFactory, BulkDataService } = require("@bulkdata-service");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { StudyImagePathFactory } = require("../service/WADO-RS.service");
+const { StudyImagePathFactory } = require("@wado-rs-service");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseBulkDataController extends Controller {
@@ -22,7 +22,6 @@ class BaseBulkDataController extends Controller {
         this.logAction();
 
         try {
-            this.logAction();
 
             let bulkData = await this.bulkDataService.getBulkData();
             if (Array.isArray(bulkData)) {
