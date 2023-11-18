@@ -1,7 +1,6 @@
 const _ = require("lodash");
 
-const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
-const { convertAllQueryToDicomTag } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 const { DimseQueryBuilder } = require("@root/dimse/queryBuilder");
 
 

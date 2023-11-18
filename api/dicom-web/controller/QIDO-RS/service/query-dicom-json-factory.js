@@ -204,6 +204,7 @@ class QueryInstanceDicomJsonFactory extends QueryDicomJsonFactory {
     }
 }
 
+module.exports.QueryDicomJsonFactory = QueryDicomJsonFactory;
 module.exports.QueryPatientDicomJsonFactory = QueryPatientDicomJsonFactory;
 module.exports.QueryStudyDicomJsonFactory = QueryStudyDicomJsonFactory;
 module.exports.QuerySeriesDicomJsonFactory = QuerySeriesDicomJsonFactory;

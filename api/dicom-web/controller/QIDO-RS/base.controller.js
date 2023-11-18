@@ -1,6 +1,6 @@
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { QidoRsService } = require("./service/QIDO-RS.service");
+const { QidoRsService } = require("@qido-rs-service");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseQueryController extends Controller {

@@ -139,7 +139,7 @@ class QidoRsService {
  * @param {Object} iParam The request query.
  * @returns
  */
-function convertAllQueryToDICOMTag(iParam) {
+function convertAllQueryToDICOMTag(iParam, pushSuffixValue=true) {
     let keys = Object.keys(iParam);
     let newQS = {};
     for (let i = 0; i < keys.length; i++) {
@@ -160,10 +160,16 @@ function convertAllQueryToDICOMTag(iParam) {
                 `Invalid request query: ${keyNameSplit}`,
                 400
             );
-        } else if (newKeyNames.length >= 2) {
-            retKeyName = newKeyNames.map(v => v + ".Value").join(".");
+        } 
+        
+        if (pushSuffixValue) {
+            if (newKeyNames.length >= 2) {
+                retKeyName = newKeyNames.map(v => v + ".Value").join(".");
+            } else {
+                newKeyNames.push("Value");
+                retKeyName = newKeyNames.join(".");
+            }
         } else {
-            newKeyNames.push("Value");
             retKeyName = newKeyNames.join(".");
         }
         
