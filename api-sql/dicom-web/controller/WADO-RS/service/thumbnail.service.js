@@ -8,6 +8,7 @@ const {
     InstanceThumbnailFactory 
 } = require("@root/api/dicom-web/controller/WADO-RS/service/thumbnail.service");
 const { InstanceModel } = require("@models/sql/models/instance.model");
+const { getUidsString } = require("@root/api/dicom-web/controller/WADO-RS/service/WADO-RS.service");
 class SqlThumbnailService extends ThumbnailService {
 
     /**
@@ -62,7 +63,7 @@ class SqlThumbnailService extends ThumbnailService {
             this.response.writeHead(404, {
                 "Content-Type": "application/dicom+json"
             });
-            let notFoundMessage = errorResponse.getNotFoundErrorMessage(`Not Found, ${this.thumbnailFactory.getUidsString()}`);
+            let notFoundMessage = errorResponse.getNotFoundErrorMessage(`Not Found, ${getUidsString(this.thumbnailFactory.uids)}`);
 
             let notFoundMessageStr = JSON.stringify(notFoundMessage);
 
