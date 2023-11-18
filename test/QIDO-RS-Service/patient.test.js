@@ -3,7 +3,7 @@ const patientModel = require("../../models/mongodb/models/patient.model");
 const { DicomJsonModel } = require("../../models/DICOM/dicom-json-model");
 const { expect } = require("chai");
 const _ = require("lodash");
-const { convertAllQueryToDICOMTag } = require("../../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
+const { convertAllQueryToDicomTag } = require("../../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 const { QueryPatientDicomJsonFactory } = require("../../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 
 describe("Patient QIDO-RS Service", async () => {
@@ -97,7 +97,7 @@ describe("Patient QIDO-RS Service", async () => {
             let q = {
                 "00100020": "foobar123456"
             };
-            q = convertAllQueryToDICOMTag(q);
+            q = convertAllQueryToDicomTag(q);
 
             let dicomJsonFactory = new QueryPatientDicomJsonFactory({
                 query: {
@@ -114,7 +114,7 @@ describe("Patient QIDO-RS Service", async () => {
             let q = {
                 "00100020": "foobar123"
             };
-            q = convertAllQueryToDICOMTag(q);
+            q = convertAllQueryToDicomTag(q);
 
             let dicomJsonFactory = new QueryPatientDicomJsonFactory({
                 query: {
@@ -134,7 +134,7 @@ describe("Patient QIDO-RS Service", async () => {
             let q = {
                 "00100010": "John*"
             };
-            q = convertAllQueryToDICOMTag(q);
+            q = convertAllQueryToDicomTag(q);
 
             let dicomJsonFactory = new QueryPatientDicomJsonFactory({
                 query: {
@@ -151,7 +151,7 @@ describe("Patient QIDO-RS Service", async () => {
             let q = {
                 "00100010": "John Doe"
             };
-            q = convertAllQueryToDICOMTag(q);
+            q = convertAllQueryToDicomTag(q);
 
             let dicomJsonFactory = new QueryPatientDicomJsonFactory({
                 query: {

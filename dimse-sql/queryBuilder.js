@@ -17,7 +17,8 @@ class SqlDimseQueryBuilder extends DimseQueryBuilder {
 
     async getSqlQuery(query) {
         return convertAllQueryToDicomTag(
-            this.cleanEmptyQuery(query)
+            this.cleanEmptyQuery(query),
+            false
         );
     }
 }

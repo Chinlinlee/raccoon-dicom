@@ -1,6 +1,6 @@
 const _ = require("lodash");
 
-const { QidoRsService, convertAllQueryToDICOMTag } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
+const { QidoRsService, convertAllQueryToDicomTag } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 
 QidoRsService.prototype.initQuery_ = function () {
     let query = _.cloneDeep(this.request.query);
@@ -10,7 +10,7 @@ QidoRsService.prototype.initQuery_ = function () {
         if (!query[queryKey]) delete query[queryKey];
     }
 
-    this.query = convertAllQueryToDICOMTag(query, false);
+    this.query = convertAllQueryToDicomTag(query, false);
 };
 
 module.exports.QidoRsService = QidoRsService;

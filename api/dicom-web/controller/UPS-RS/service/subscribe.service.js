@@ -11,7 +11,7 @@ const {
 const { SUBSCRIPTION_STATE, SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/ups");
 const { BaseWorkItemService } = require("./base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
-const { convertAllQueryToDICOMTag } = require("../../QIDO-RS/service/QIDO-RS.service");
+const { convertAllQueryToDicomTag } = require("../../QIDO-RS/service/QIDO-RS.service");
 
 class SubscribeService extends BaseWorkItemService {
 
@@ -34,7 +34,7 @@ class SubscribeService extends BaseWorkItemService {
         if (this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.GlobalUID || 
             this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.FilteredGlobalUID) {
 
-            this.query = convertAllQueryToDICOMTag(this.request.query);
+            this.query = convertAllQueryToDicomTag(this.request.query);
             await this.createOrUpdateGlobalSubscription();
         } else {
             let workItem = await this.findOneWorkItem(this.upsInstanceUID);

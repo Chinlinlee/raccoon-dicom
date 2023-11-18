@@ -4,7 +4,7 @@ const { DicomJsonModel } = require("../../models/DICOM/dicom-json-model");
 const { expect } = require("chai");
 const _ = require("lodash");
 const { 
-    convertAllQueryToDICOMTag
+    convertAllQueryToDicomTag
 } = require("../../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 const { convertRequestQueryToMongoQuery } = require("../../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 const moment = require("moment");
@@ -42,7 +42,7 @@ describe("QIDO-RS Service Common Function", () => {
      */
 
     it("Should convert `00100010=foobar1234`, VR: `PN` to Mongo query", async ()=> {
-        let query = convertAllQueryToDICOMTag({
+        let query = convertAllQueryToDicomTag({
             "00100010": "foobar1234"
         });
 
@@ -82,7 +82,7 @@ describe("QIDO-RS Service Common Function", () => {
 
     describe("Convert `Date` VR: `DA` query", ()=> {
         it("Should convert `00100030=19991111` to Mongo query", async ()=> {
-            let query = convertAllQueryToDICOMTag({
+            let query = convertAllQueryToDicomTag({
                 "00100030": "19991111"
             });
     
@@ -109,7 +109,7 @@ describe("QIDO-RS Service Common Function", () => {
         });
     
         it("Should convert `00100030=19991111-` to Mongo query", async ()=> {
-            let query = convertAllQueryToDICOMTag({
+            let query = convertAllQueryToDicomTag({
                 "00100030": "19991111-"
             });
     
@@ -135,7 +135,7 @@ describe("QIDO-RS Service Common Function", () => {
         });
     
         it("Should convert `00100030=-19991111` to Mongo query", async ()=> {
-            let query = convertAllQueryToDICOMTag({
+            let query = convertAllQueryToDicomTag({
                 "00100030": "-19991111"
             });
     
@@ -161,7 +161,7 @@ describe("QIDO-RS Service Common Function", () => {
         });
     
         it("Should convert `00100030=19900101-19991111` to Mongo query", async ()=> {
-            let query = convertAllQueryToDICOMTag({
+            let query = convertAllQueryToDicomTag({
                 "00100030": "19900101-19991111"
             });
     
@@ -191,7 +191,7 @@ describe("QIDO-RS Service Common Function", () => {
 
     describe("Convert string `00100020=foobar` VR: `LO`", () => {
         it("Should convert string completely", async ()=> {
-            let query = convertAllQueryToDICOMTag({
+            let query = convertAllQueryToDicomTag({
                 "00100020": "foobar"
             });
     

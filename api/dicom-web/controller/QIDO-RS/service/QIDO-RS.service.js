@@ -69,7 +69,7 @@ class QidoRsService {
             if (!query[queryKey]) delete query[queryKey];
         }
 
-        this.query = convertAllQueryToDICOMTag(query);
+        this.query = convertAllQueryToDicomTag(query);
     }
 
     async getAndResponseDicomJson() {
@@ -139,7 +139,7 @@ class QidoRsService {
  * @param {Object} iParam The request query.
  * @returns
  */
-function convertAllQueryToDICOMTag(iParam, pushSuffixValue=true) {
+function convertAllQueryToDicomTag(iParam, pushSuffixValue=true) {
     let keys = Object.keys(iParam);
     let newQS = {};
     for (let i = 0; i < keys.length; i++) {
@@ -180,4 +180,4 @@ function convertAllQueryToDICOMTag(iParam, pushSuffixValue=true) {
 //#endregion
 
 module.exports.QidoRsService = QidoRsService;
-module.exports.convertAllQueryToDICOMTag = convertAllQueryToDICOMTag;
+module.exports.convertAllQueryToDicomTag = convertAllQueryToDicomTag;
