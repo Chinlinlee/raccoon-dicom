@@ -15,6 +15,7 @@
         "@bulkdata-service": "../../../api-sql/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata.js",
         "@delete-service": "../../../api-sql/dicom-web/controller/WADO-RS/deletion/service/delete.js",
         "@rendered-service": "../../../api-sql/dicom-web/controller/WADO-RS/service/rendered.service.js",
-        "@thumbnail-service": "../../../api-sql/dicom-web/controller/WADO-RS/service/thumbnail.service.js"
+        "@thumbnail-service": "../../../api-sql/dicom-web/controller/WADO-RS/service/thumbnail.service.js",
+        "@dimse-query-builder": "../../../dimse-sql/queryBuilder.js"
     }
 }

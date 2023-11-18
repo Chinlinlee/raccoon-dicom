@@ -1,13 +1,13 @@
 const _ = require("lodash");
 const path = require("path");
 const { Attributes } = require("@dcm4che/data/Attributes");
-const mongoose = require("mongoose");
 const { importClass } = require("java-bridge");
 const { raccoonConfig } = require("@root/config-class");
 const { InstanceLocator } = require("@dcm4che/net/service/InstanceLocator");
 const { default: File } = require("@java-wrapper/java/io/File");
 const sequenceInstance = require("@models/sql/instance");
 const { InstanceQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/instanceQueryBuilder");
+const { QueryTaskUtils } = require("@root/dimse/utils");
 /**
  * 
  * @param {number} tag 
@@ -25,7 +25,7 @@ async function getInstancesFromKeysAttr(keys) {
     const { SqlDimseQueryBuilder: DimseQueryBuilder } = require("./queryBuilder");
     let queryBuilder = new DimseQueryBuilder(keys, "instance");
     let normalQuery = await queryBuilder.toNormalQuery();
-    let sqlQuery = await queryBuilder.getSqlQuery(normalQuery);
+    let sqlQuery = await queryBuilder.build(normalQuery);
     let instanceQueryBuilder = new InstanceQueryBuilder({
         query: {
             ...sqlQuery
@@ -54,7 +54,7 @@ async function getInstancesFromKeysAttr(keys) {
 
         let fileUri = await instanceFile.toURI();
         let fileUriString = await fileUri.toString();
-        
+
         let instanceLocator = await InstanceLocator.newInstanceAsync(
             _.get(instance.json, "00080016.Value.0"),
             _.get(instance.json, "00080018.Value.0"),
@@ -95,6 +95,14 @@ async function findOneInstanceFromKeysAttr(keys) {
 
     return instance.json;
 }
+
+QueryTaskUtils.getDbQuery = async function (queryAttr, level = "patient") {
+    let queryBuilder = await QueryTaskUtils.getQueryBuilder(queryAttr, level);
+    let normalQuery = await queryBuilder.toNormalQuery();
+    let dbQuery = await queryBuilder.build(normalQuery);
+
+    return dbQuery;
+};
 
 module.exports.intTagToString = intTagToString;
 module.exports.getInstancesFromKeysAttr = getInstancesFromKeysAttr;

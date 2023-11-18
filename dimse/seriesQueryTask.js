@@ -172,3 +172,5 @@ class SeriesMatchIteratorProxy {
 }
 
 module.exports.JsSeriesQueryTask = JsSeriesQueryTask;
+module.exports.SeriesQueryTaskInjectProxy = SeriesQueryTaskInjectProxy;
+module.exports.SeriesMatchIteratorProxy = SeriesMatchIteratorProxy;

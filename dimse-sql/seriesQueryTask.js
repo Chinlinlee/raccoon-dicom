@@ -1,14 +1,16 @@
 const _ = require("lodash");
 
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
-const { SqlDimseQueryBuilder: DimseQueryBuilder } = require("./queryBuilder");
+const { DimseQueryBuilder } = require("@dimse-query-builder");
 const { JsStudyQueryTask } = require("./studyQueryTask");
 const { SeriesQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
-const { createSeriesQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTaskInject");
 const { SeriesQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/seriesQueryBuilder");
 const { SeriesModel } = require("@models/sql/models/series.model");
 const { Tag } = require("@dcm4che/data/Tag");
+const { SeriesQueryTaskInjectProxy, SeriesMatchIteratorProxy } = require("@root/dimse/seriesQueryTask");
+const { QueryTaskUtils } = require("@root/dimse/utils");
+
 
 class JsSeriesQueryTask extends JsStudyQueryTask {
     constructor(as, pc, rq, keys) {
@@ -33,89 +35,31 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
         );
 
         await super.get();
-        await this.seriesQueryTaskInjectMethods.wrappedFindNextSeries();
+        await this.seriesQueryTaskInjectProxy.wrappedFindNextSeries();
 
         return seriesQueryTask;
     }
 
     getQueryTaskInjectProxy() {
-        /** @type { QueryTaskInjectInterface } */
-        this.seriesBasicQueryTaskInjectMethods = {
-            hasMoreMatches: () => {
-                return !_.isNull(this.seriesAttr);
-            },
-            nextMatch: async () => {
-                let returnAttr = await Attributes.newInstanceAsync(
-                    await this.patientAttr.size() + await this.studyAttr.size() + await this.seriesAttr.size()
-                );
-                await Attributes.unifyCharacterSets([this.patientAttr, this.studyAttr, this.seriesAttr]);
-                await returnAttr.addAll(this.patientAttr);
-                await returnAttr.addAll(this.studyAttr, true);
-                await returnAttr.addAll(this.seriesAttr, true);
-
-                await this.seriesQueryTaskInjectMethods.wrappedFindNextSeries();
-
-                return returnAttr;
-            },
-            adjust: async (match) => {
-                return await this.patientAdjust(match);
-            }
-        };
-
-        if (!this.queryTaskInjectProxy) {
-            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.seriesBasicQueryTaskInjectMethods);
+        if (!this.matchIteratorProxy) {
+            this.matchIteratorProxy = new SeriesMatchIteratorProxy(this);
         }
 
-        return this.queryTaskInjectProxy;
+        return this.matchIteratorProxy.get();
     }
 
     getSeriesQueryTaskInjectProxy() {
-        /** @type {import("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTaskInject").SeriesQueryTaskInjectInterface} */
-        this.seriesQueryTaskInjectMethods = {
-            wrappedFindNextSeries: async () => {
-                await this.seriesQueryTaskInjectMethods.findNextSeries();
-            },
-            getSeries: async () => {
-                await this.getNextSeries();
-            },
-            findNextSeries: async () => {
-                if (!this.studyAttr)
-                    return false;
-
-                if (!this.seriesAttr) {
-                    await this.getNextSeriesCursor();
-                    await this.seriesQueryTaskInjectMethods.getSeries();
-                } else {
-                    await this.seriesQueryTaskInjectMethods.getSeries();
-                }
-
-                while (!this.seriesAttr && await this.studyQueryTaskInjectMethods.findNextStudy()) {
-                    await this.getNextSeriesCursor();
-                    await this.seriesQueryTaskInjectMethods.getSeries();
-                }
-
-                return !_.isNull(this.seriesAttr);
-            }
-        };
-
         if (!this.seriesQueryTaskInjectProxy) {
-            this.seriesQueryTaskInjectProxy = createSeriesQueryTaskInjectProxy(this.seriesQueryTaskInjectMethods);
+            this.seriesQueryTaskInjectProxy = new SqlSeriesQueryTaskInjectProxy(this);
         }
 
-        return this.seriesQueryTaskInjectProxy;
+        return this.seriesQueryTaskInjectProxy.get();
     }
 
     async getNextSeriesCursor() {
         this.seriesOffset = 0;
-        let queryAttr = await Attributes.newInstanceAsync();
-        await Attributes.unifyCharacterSets([this.keys, this.patientAttr, this.studyAttr]);
-        await queryAttr.addAll(this.keys, true);
-        await queryAttr.addSelected(this.studyAttr, [Tag.PatientID]);
-        await queryAttr.addSelected(this.studyAttr, [Tag.StudyInstanceUID]);
-
-        let queryBuilder = new DimseQueryBuilder(queryAttr, "series");
-        let normalQuery = await queryBuilder.toNormalQuery();
-        let sqlQuery = await queryBuilder.getSqlQuery(normalQuery);
+        let queryAttr = await QueryTaskUtils.getQueryAttribute(this.keys, this.studyAttr, "series");
+        let sqlQuery = await QueryTaskUtils.getDbQuery(queryAttr, "series");
 
         let seriesQueryBuilder = new SeriesQueryBuilder({
             query: {
@@ -128,16 +72,21 @@ class JsSeriesQueryTask extends JsStudyQueryTask {
         };
     }
 
-    async getNextSeries() {
-        let series = await SeriesModel.findOne({
-            ...this.seriesQuery,
+}
+
+class SqlSeriesQueryTaskInjectProxy extends SeriesQueryTaskInjectProxy {
+    constructor(seriesQueryTask) {
+        super(seriesQueryTask);
+    }
+    async getSeries() {
+        this.seriesQueryTask.series = await SeriesModel.findOne({
+            ...this.seriesQueryTask.seriesQuery,
             attributes: ["json"],
             limit: 1,
-            offset: this.seriesOffset++
+            offset: this.seriesQueryTask.seriesOffset++
         });
 
-        this.series = series;
-        this.seriesAttr = this.series ? await this.series.getAttributes() : null;
+        this.seriesQueryTask.seriesAttr = this.seriesQueryTask.series ? await this.seriesQueryTask.series.getAttributes() : null;
     }
 }
 

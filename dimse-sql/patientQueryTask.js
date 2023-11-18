@@ -1,150 +1,30 @@
 const _ = require("lodash");
-const { default: PatientQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTask");
-const { PatientQueryTaskInjectInterface, createPatientQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTaskInject");
-const { createQueryTaskInjectProxy, QueryTaskInjectInterface } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
-const { default: Attributes } = require("@dcm4che/data/Attributes");
-const { default: Tag } = require("@dcm4che/data/Tag");
-const { default: VR } = require("@dcm4che/data/VR");
-const { SqlDimseQueryBuilder: DimseQueryBuilder } = require("./queryBuilder");
-const { Association } = require("@dcm4che/net/Association");
-const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
+const { createPatientQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTaskInject");
+const { DimseQueryBuilder } = require("@dimse-query-builder");
 const { PatientQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/patientQueryBuilder");
 const { PatientModel } = require("@models/sql/models/patient.model");
+const { JsPatientQueryTask } = require("../dimse/patientQueryTask");
+const { QueryTaskUtils } = require("@root/dimse/utils");
 
 
-class JsPatientQueryTask {
+class SqlJsPatientQueryTask extends JsPatientQueryTask {
     constructor(as, pc, rq, keys) {
-        /** @type { Association } */
-        this.as = as;
-        /** @type { PresentationContext } */
-        this.pc = pc;
-        /** @type { Attributes } */
-        this.rq = rq;
-        /** @type { Attributes } */
-        this.keys = keys;
+        super(as, pc, rq, keys);
 
-        this.patientAttr = null;
         this.offset = 0;
         this.query = null;
-        this.patient = null;
-    }
-
-    async get() {
-        let patientQueryTask = await PatientQueryTask.newInstanceAsync(
-            this.as,
-            this.pc,
-            this.rq,
-            this.keys,
-            this.getQueryTaskInjectProxy(),
-            this.getPatientQueryTaskInjectProxy()
-        );
-
-        await this.initQuery();
-        await this.patientQueryTaskInjectMethods.wrappedFindNextPatient();
-
-        return patientQueryTask;
-    }
-
-    getQueryTaskInjectProxy() {
-        /** @type { QueryTaskInjectInterface } */
-        this.patientBasicQueryTaskInjectMethods = {
-            hasMoreMatches: () => {
-                return !_.isNull(this.patientAttr);
-            },
-            nextMatch: async () => {
-                let tempRecord = this.patientAttr;
-                await this.patientQueryTaskInjectMethods.wrappedFindNextPatient();
-                return tempRecord;
-            },
-            adjust: async (match) => {
-                return this.patientAdjust(match);
-            }
-        };
-
-        if (!this.queryTaskInjectProxy) {
-            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.patientBasicQueryTaskInjectMethods);
-        }
-
-        return this.queryTaskInjectProxy;
     }
 
     getPatientQueryTaskInjectProxy() {
-
-        /** @type { PatientQueryTaskInjectInterface }*/
-        this.patientQueryTaskInjectMethods = {
-            wrappedFindNextPatient: async () => {
-                await this.patientQueryTaskInjectMethods.findNextPatient();
-            },
-            getPatient: async () => {
-                await this.nextPatient();
-            },
-            findNextPatient: async () => {
-                await this.patientQueryTaskInjectMethods.getPatient();
-                return !_.isNull(this.patientAttr);
-            }
-        };
-
         if (!this.patientQueryTaskProxy) {
-            this.patientQueryTaskProxy = createPatientQueryTaskInjectProxy(this.patientQueryTaskInjectMethods);
+            this.patientQueryTaskProxy =  new SqlPatientQueryTaskInjectProxy(this);
         }
-
-        return this.patientQueryTaskProxy;
+        return this.patientQueryTaskProxy.get();
     }
 
-    /**
-     * 
-     * @param {Attributes} match 
-     * @returns 
-     */
-    async basicAdjust(match) {
-        if (match == null) {
-            return null;
-        }
-
-        let filtered = new Attributes(await match.size());
-
-        if (!await this.keys.contains(Tag.SpecificCharacterSet)) {
-            let ss = await match.getStrings(Tag.SpecificCharacterSet);
-            if (!ss)
-                await filtered.setString(Tag.SpecificCharacterSet, VR.CS, ss);
-        }
-        await filtered.addSelected(match, this.keys);
-        await filtered.supplementEmpty(this.keys);
-        return filtered;
-    }
-
-    async patientAdjust(match) {
-        let basicAd = await this.basicAdjust(match);
-        await basicAd.remove(Tag.DirectoryRecordType);
-
-        if (await this.keys.contains(Tag.SOPClassUID)) {
-            await basicAd.setString(Tag.SOPClassUID, VR.UI, await match.getString(Tag.ReferencedSOPClassUIDInFile));
-        }
-
-        if (await this.keys.contains(Tag.SOPInstanceUID)) {
-            await basicAd.setString(Tag.SOPInstanceUID, VR.UI, await match.getString(Tag.ReferencedSOPInstanceUIDInFile));
-        }
-
-        await basicAd.setString(Tag.QueryRetrieveLevel, VR.CS, await this.keys.getString(Tag.QueryRetrieveLevel));
-
-        return basicAd;
-    }
-
-    getReturnKeys(query) {
-        let returnKeys = {};
-        let queryKeys = Object.keys(query);
-        for (let i = 0; i < queryKeys.length; i++) {
-            returnKeys[queryKeys[i].split(".").shift()] = 1;
-        }
-        return returnKeys;
-    }
-
-    async initQuery() {
+    async initCursor() {
         this.offset = 0;
-        let queryBuilder = new DimseQueryBuilder(this.keys, "patient");
-        let normalQuery = await queryBuilder.toNormalQuery();
-        let sqlQuery = await queryBuilder.getSqlQuery(normalQuery);
-
+        let sqlQuery = await QueryTaskUtils.getDbQuery(this.keys, "patient");
         let patientQueryBuilder = new PatientQueryBuilder({
             query: {
                 ...sqlQuery
@@ -156,17 +36,48 @@ class JsPatientQueryTask {
         };
     }
 
-    async nextPatient() {
+}
+
+class SqlPatientQueryTaskInjectProxy {
+    constructor(patientQueryTask) {
+        /** @type {SqlJsPatientQueryTask} */
+        this.patientQueryTask = patientQueryTask;
+    }
+
+    get() {
+        return createPatientQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            wrappedFindNextPatient: this.wrappedFindNextPatient.bind(this),
+            getPatient: this.getPatient.bind(this),
+            findNextPatient: this.findNextPatient.bind(this)
+        };
+    }
+
+    async wrappedFindNextPatient() {
+        await this.findNextPatient();
+    }
+
+    async findNextPatient() {
+        await this.getPatient();
+        return !_.isNull(this.patientQueryTask.patientAttr);
+    }
+
+    async getPatient() {
         let patient = await PatientModel.findOne({
-            ...this.query,
+            ...this.patientQueryTask.query,
             attributes: ["json"],
             limit: 1,
-            offset: this.offset++
+            offset: this.patientQueryTask.offset++
         });
 
-        this.patient = patient;
-        this.patientAttr = this.patient ? await this.patient.getAttributes() : null;
+        this.patientQueryTask.patient = patient;
+        this.patientQueryTask.patientAttr = this.patientQueryTask.patient ? await this.patientQueryTask.patient.getAttributes() : null;
     }
 }
 
-module.exports.JsPatientQueryTask = JsPatientQueryTask;
+module.exports.JsPatientQueryTask = SqlJsPatientQueryTask;

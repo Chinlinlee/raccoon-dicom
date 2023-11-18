@@ -15,7 +15,7 @@ class SqlDimseQueryBuilder extends DimseQueryBuilder {
         super(queryKeys, level);
     }
 
-    async getSqlQuery(query) {
+    async build(query) {
         return convertAllQueryToDicomTag(
             this.cleanEmptyQuery(query),
             false
@@ -24,3 +24,4 @@ class SqlDimseQueryBuilder extends DimseQueryBuilder {
 }
 
 module.exports.SqlDimseQueryBuilder = SqlDimseQueryBuilder;
+module.exports.DimseQueryBuilder = SqlDimseQueryBuilder;
