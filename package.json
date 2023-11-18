@@ -61,9 +61,9 @@
     "@error": "./error",
     "@root": "./",
     "@chinlinlee": "./models/DICOM/dcm4che/wrapper/org/github/chinlinlee",
-    "@dbModels": "./models/mongodb/models",
-    "@dbInitializer": "./models/mongodb/index.js",
-    "@dicom-json-model": "./models/DICOM/dicom-json-model.js"
+    "@dbModels": "./models/sql/models",
+    "@dbInitializer": "./models/sql/initializer.js",
+    "@dicom-json-model": "./models/sql/dicom-json-model.js"
   },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",
