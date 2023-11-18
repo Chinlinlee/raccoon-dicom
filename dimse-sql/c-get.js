@@ -7,6 +7,8 @@ const { RetrieveTaskImpl } = require("@chinlinlee/dcm777/dcmqrscp/RetrieveTaskIm
 const { Dimse } = require("@dcm4che/net/Dimse");
 const { EnumSet } = require("@java-wrapper/java/util/EnumSet");
 const { default: QueryRetrieveLevel2 } = require("@dcm4che/net/service/QueryRetrieveLevel2");
+const { DimseRetrieveAuditService } = require("@root/dimse/service/retrieveAudit.service");
+const { createRetrieveAuditInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/dcmqrscp/RetrieveAuditInject");
 
 class JsCGetScp {
     constructor() { }
@@ -99,6 +101,7 @@ class JsCGetScp {
                     instances,
                     as,
                     withoutBulkData,
+                    await this.getAuditInject(as),
                     0
                 );
                 await retrieveTask.setSendPendingRSP(false);
@@ -109,6 +112,30 @@ class JsCGetScp {
 
         return cGetScpInjectProxyMethods;
     };
+
+    getAuditInject(association) {
+        let dimseRetrieveAuditService = new DimseRetrieveAuditService(
+            association,
+            null,
+            null
+        );
+
+        return createRetrieveAuditInjectProxy(
+            {
+                onBeginTransferringDICOMInstances: async (studyUIDs) => {
+                    dimseRetrieveAuditService.studyUID = studyUIDs[0];
+                    await dimseRetrieveAuditService.onBeginRetrieve();
+                },
+                onDicomInstancesTransferred: async (studyUIDs) => {
+                    dimseRetrieveAuditService.studyUID = studyUIDs[0];
+                    await dimseRetrieveAuditService.completedRetrieve();
+                },
+                setEventResult: (eventResult) => {
+                    dimseRetrieveAuditService.eventResult = eventResult;
+                }
+            }
+        );
+    }
 }
 
 module.exports.JsCGetScp = JsCGetScp;
