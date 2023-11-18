@@ -10,6 +10,8 @@
         "@dbInitializer": "../../../models/sql/initializer.js",
         "@dicom-json-model": "../../../models/sql/dicom-json-model.js",
         "@query-dicom-json-factory": "../../../api-sql/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory.js",
-        "@qido-rs-service": "../../../api-sql/dicom-web/controller/QIDO-RS/service/QIDO-RS.service.js"
+        "@qido-rs-service": "../../../api-sql/dicom-web/controller/QIDO-RS/service/QIDO-RS.service.js",
+        "@wado-rs-service": "../../../api-sql/dicom-web/controller/WADO-RS/service/WADO-RS.service.js",
+        "@bulkdata-service": "../../../api-sql/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata.js"
     }
 }
