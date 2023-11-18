@@ -80,6 +80,18 @@ class BaseDicomJson {
         _.set(this.dicomJson, `${tag}.vr`, vrOfTag);
         _.set(this.dicomJson, `${tag}.Value`, [value]);
     }
+
+    static getKeywordOfTag(tag) {
+        return _.get(dictionary.tag, `${tag}`);
+    }
+
+    static getTagOfKeyword(keyword)  {
+        return _.get(dictionary.keyword, `${keyword}`);
+    }
+
+    static getTagVrOfTag(tag) {
+        return _.get(dictionary.tagVR, `${tag}.vr`);
+    }
 }
 
 class DicomJsonModel {
