@@ -4,7 +4,7 @@ const { DicomJsonParser } = require("@models/DICOM/dicom-json-parser");
 const { StowRsService } = require("@root/api/dicom-web/controller/STOW-RS/service/stow-rs.service");
 const { DicomFileSaver } = require("@root/api/dicom-web/controller/STOW-RS/service/dicom-file-saver");
 const { SqlDicomJsonModel: DicomJsonModel, SqlDicomJsonBinaryDataModel: DicomJsonBinaryDataModel } = require("@models/sql/dicom-json-model");
-const { SqlDicomJpegGenerator: DicomJpegGenerator } = require("./dicom-jpeg-generator");
+const { DicomJpegGenerator } = require("@root/api/dicom-web/controller//STOW-RS/service/dicom-jpeg-generator");
 
 class SqlStowRsService extends StowRsService {
     /**
