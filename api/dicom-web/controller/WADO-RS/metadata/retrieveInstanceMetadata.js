@@ -1,5 +1,5 @@
 const { BaseRetrieveMetadataController } = require("./base.controller");
-const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
+const { InstanceImagePathFactory } = require("@wado-rs-service");
 
 class RetrieveInstanceMetadataController extends BaseRetrieveMetadataController {
     constructor(req, res) {
