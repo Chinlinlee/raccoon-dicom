@@ -27,7 +27,7 @@ module.exports = function (app) {
     app.use("/dicom-web", require("./api-sql/dicom-web/wado-rs-bulkdata.route"));
     app.use("/dicom-web", require("./api-sql/dicom-web/wado-rs-thumbnail.route"));
     app.use("/dicom-web", require("./api-sql/dicom-web/delete.route"));
-    app.use("/dicom-web", require("./api/dicom-web/ups-rs.route"));
+    // app.use("/dicom-web", require("./api/dicom-web/ups-rs.route"));
 
     app.use("/wado", require("./api-sql/WADO-URI"));
 };

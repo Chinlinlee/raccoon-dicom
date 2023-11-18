@@ -1,7 +1,3 @@
-const _ = require("lodash");
-const dicomSeriesModel = require("../../../../../../models/mongodb/models/dicomSeries");
-const dicomModel = require("../../../../../../models/mongodb/models/dicom");
-const fsP = require("fs/promises");
 const { NotFoundInstanceError } = require("../../../../../../error/dicom-instance");
 const { StudyModel } = require("@models/sql/models/study.model");
 const { SeriesModel } = require("@models/sql/models/series.model");
