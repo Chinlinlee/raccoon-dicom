@@ -2,7 +2,7 @@ const path = require("path");
 const { createCStoreSCPInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/CStoreSCPInject");
 const { default: SimpleCStoreSCP } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SimpleCStoreSCP");
 const { default: File } = require("@java-wrapper/java/io/File");
-const { SqlStowRsService: StowRsService } = require("@root/api-sql/dicom-web/controller/STOW-RS/service/stow-rs.service");
+const { StowRsService } = require("@root/api/dicom-web/controller/STOW-RS/service/stow-rs.service");
 
 const cStoreScpInjectProxy = createCStoreSCPInjectProxy({
     postDimseRQ: async (association, presentationContext, dimse, requestAttr, data, responseAttr) => {

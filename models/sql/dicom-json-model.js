@@ -15,105 +15,59 @@ const { DicomBulkDataModel } = require("./models/dicomBulkData.model");
 const { raccoonConfig } = require("@root/config-class");
 const { logger } = require("@root/utils/logs/log");
 
+DicomJsonModel.prototype.storeToDb = async function (dicomFileSaveInfo) {
+    let dicomJsonClone = _.cloneDeep(this.dicomJson);
+    try {
+        let mediaStorage = this.getMediaStorageInfo();
+        _.merge(dicomJsonClone, this.uidObj);
+        _.merge(dicomJsonClone, {
+            studyPath: dicomFileSaveInfo.studyPath,
+            seriesPath: dicomFileSaveInfo.seriesPath,
+            instancePath: dicomFileSaveInfo.relativePath
+        });
+        _.merge(dicomJsonClone, mediaStorage);
 
-class SqlDicomJsonModel extends DicomJsonModel {
-    constructor(dicomJson) {
-        super(dicomJson);
+        delete dicomJsonClone.sopClass;
+        delete dicomJsonClone.sopInstanceUID;
+
+        let storedPatient = await this.storePatientCollection(dicomJsonClone);
+        let storedStudy = await this.storeStudyCollection(dicomJsonClone, storedPatient);
+        let storedSeries = await this.storeSeriesCollection(dicomJsonClone, storedStudy);
+        await this.storeInstanceCollection(dicomJsonClone, storedSeries);
+
+        await StudyModel.updateModalitiesInStudy(storedStudy);
+    } catch (e) {
+        throw e;
     }
+};
+DicomJsonModel.prototype.storePatientCollection = async function (dicomJson) {
+    let patientPo = new PatientPersistentObject(dicomJson);
+    let patient = await patientPo.createPatient();
+    return patient;
+};
 
-    async storeToDb(dicomFileSaveInfo) {
-        let dicomJsonClone = _.cloneDeep(this.dicomJson);
-        try {
-            let mediaStorage = this.getMediaStorageInfo();
-            _.merge(dicomJsonClone, this.uidObj);
-            _.merge(dicomJsonClone, {
-                studyPath: dicomFileSaveInfo.studyPath,
-                seriesPath: dicomFileSaveInfo.seriesPath,
-                instancePath: dicomFileSaveInfo.relativePath
-            });
-            _.merge(dicomJsonClone, mediaStorage);
+DicomJsonModel.prototype.storeStudyCollection = async function(dicomJson, patient) {
+    let studyPo = new StudyPersistentObject(dicomJson, patient);
+    let study = await studyPo.createStudy();
+    return study;
+};
 
-            delete dicomJsonClone.sopClass;
-            delete dicomJsonClone.sopInstanceUID;
+DicomJsonModel.prototype.storeSeriesCollection = async function (dicomJson, study) {
+    let seriesPo = new SeriesPersistentObject(dicomJson, study);
+    let series = await seriesPo.createSeries();
+    return series;
+};
 
-            let storedPatient = await this.storePatientCollection(dicomJsonClone);
-            let storedStudy = await this.storeStudyCollection(dicomJsonClone, storedPatient);
-            let storedSeries = await this.storeSeriesCollection(dicomJsonClone, storedStudy);
-            await this.storeInstanceCollection(dicomJsonClone, storedSeries);
+DicomJsonModel.prototype.storeInstanceCollection = async function(dicomJson, series) {
+    let instancePo = new InstancePersistentObject(dicomJson, series);
+    return await instancePo.createInstance();
+};
 
-            await StudyModel.updateModalitiesInStudy(storedStudy);
-        } catch(e) {
-            throw e;
-        }
-    }
-
-    async storePatientCollection(dicomJson) {
-        let patientPo = new PatientPersistentObject(dicomJson);
-        let patient = await patientPo.createPatient();
-        return patient;
-    }
-
-    async storeStudyCollection(dicomJson, patient) {
-        let studyPo = new StudyPersistentObject(dicomJson, patient);
-        let study = await studyPo.createStudy();
-        return study;
-    }
-
-    async storeSeriesCollection(dicomJson, study) {
-        let seriesPo = new SeriesPersistentObject(dicomJson, study);
-        let series = await seriesPo.createSeries();
-        return series;
-    }
-
-    async storeInstanceCollection(dicomJson, series) {
-        let instancePo = new InstancePersistentObject(dicomJson, series);
-        return await instancePo.createInstance();
-    }
-}
-
-class SqlDicomJsonBinaryDataModel extends DicomJsonBinaryDataModel {
+class SqlDicomJsonBinaryDataModel extends DicomJsonBinaryDataModel{
     constructor(dicomJsonModel) {
         super(dicomJsonModel);
+        this.bulkDataModelClass = BulkData;
     }
-
-    async storeAllBinaryDataToFileAndDb() {
-        let {
-            sopInstanceUID
-        } = this.dicomJsonModel.uidObj;
-
-        let shortInstanceUID = shortHash(sopInstanceUID);
-
-        
-        for(let i = 0; i < this.pathGroupOfBinaryProperties.length ; i++) {
-            let relativeFilename = `files/bulkData/${shortInstanceUID}/`;
-            let pathOfBinaryProperty = this.pathGroupOfBinaryProperties[i];
-
-            let binaryData = _.get(this.dicomJsonModel.dicomJson, pathOfBinaryProperty);
-
-            if(binaryData) {
-                relativeFilename += `${pathOfBinaryProperty}.raw`;
-                let filename = path.join(
-                    raccoonConfig.dicomWebConfig.storeRootPath,
-                    relativeFilename
-                );
-
-                mkdirp.sync(
-                    path.join(
-                        raccoonConfig.dicomWebConfig.storeRootPath,
-                        `files/bulkData/${shortInstanceUID}`
-                    )
-                );
-
-                await fsP.writeFile(filename, Buffer.from(binaryData, "base64"));
-                logger.info(`[STOW-RS] [Store binary data to ${filename}]`);
-
-                let bulkData = new BulkData(this.dicomJsonModel.uidObj, relativeFilename, pathOfBinaryProperty);
-                await bulkData.storeToDb();
-            }
-
-        }
-    }
-
 }
 
 class BulkData {
@@ -146,5 +100,5 @@ class BulkData {
     }
 }
 
-module.exports.SqlDicomJsonModel = SqlDicomJsonModel;
-module.exports.SqlDicomJsonBinaryDataModel = SqlDicomJsonBinaryDataModel;
+module.exports.DicomJsonModel = DicomJsonModel;
+module.exports.DicomJsonBinaryDataModel = SqlDicomJsonBinaryDataModel;
