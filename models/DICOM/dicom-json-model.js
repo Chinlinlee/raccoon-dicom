@@ -149,30 +149,33 @@ class DicomJsonModel {
     }
 
     async storeToDb(dicomFileSaveInfo) {
-        let dicomJsonClone = _.cloneDeep(this.dicomJson);
+        let dbJson = this.getCleanDataBeforeStoringToDb(dicomFileSaveInfo);
         try {
-            let mediaStorage = this.getMediaStorageInfo();
-            _.merge(dicomJsonClone, this.uidObj);
-            _.merge(dicomJsonClone, {
-                studyPath: dicomFileSaveInfo.studyPath,
-                seriesPath: dicomFileSaveInfo.seriesPath,
-                instancePath: dicomFileSaveInfo.relativePath
-            });
-            _.merge(dicomJsonClone, mediaStorage);
-            _.set(dicomJsonClone, "deleteStatus", 0);
-
-            delete dicomJsonClone.sopClass;
-            delete dicomJsonClone.sopInstanceUID;
-
             await Promise.all([
-                this.storeInstanceCollection(dicomJsonClone),
-                this.storeStudyCollection(dicomJsonClone),
-                this.storeSeriesCollection(dicomJsonClone),
-                this.storePatientCollection(dicomJsonClone)
+                this.storeInstanceCollection(dbJson),
+                this.storeStudyCollection(dbJson),
+                this.storeSeriesCollection(dbJson),
+                this.storePatientCollection(dbJson)
             ]);
         } catch(e) {
             throw e;
         }
+    }
+
+    getCleanDataBeforeStoringToDb(dicomFileSaveInfo) {
+        let dicomJsonClone = _.cloneDeep(this.dicomJson);
+        let mediaStorage = this.getMediaStorageInfo();
+        _.merge(dicomJsonClone, this.uidObj);
+        _.merge(dicomJsonClone, {
+            studyPath: dicomFileSaveInfo.studyPath,
+            seriesPath: dicomFileSaveInfo.seriesPath,
+            instancePath: dicomFileSaveInfo.relativePath
+        });
+        _.merge(dicomJsonClone, mediaStorage);
+
+        delete dicomJsonClone.sopClass;
+        delete dicomJsonClone.sopInstanceUID;
+        return dicomJsonClone;
     }
 
     async storeInstanceCollection(dicomJson) {
