@@ -1,6 +1,6 @@
 const { InstanceModel } = require("@dbModels/instance.model");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
-const renderedService = require("../service/rendered.service");
+const renderedService = require("@rendered-service");
 const _ = require("lodash");
 const { getUidsString } = require("./WADO-RS.service");
 class ThumbnailService {

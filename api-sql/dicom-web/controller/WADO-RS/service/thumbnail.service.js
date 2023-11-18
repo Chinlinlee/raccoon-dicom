@@ -1,5 +1,5 @@
 const errorResponse = require("@root/utils/errorResponse/errorResponseMessage");
-const renderedService = require("../service/rendered.service");
+const renderedService = require("@rendered-service");
 const _ = require("lodash");
 const { 
     ThumbnailService, 
