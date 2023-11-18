@@ -3,7 +3,15 @@ const { RetrieveAuditService } = require("./service/retrieveAudit.service");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { WADOZip } = require("./service/WADOZip");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { sendNotSupportedMediaType, getAcceptType, supportInstanceMultipartType, ImageMultipartWriter, InstanceImagePathFactory, multipartContentTypeWriter, StudyImagePathFactory, SeriesImagePathFactory } = require("./service/WADO-RS.service");
+const { 
+    sendNotSupportedMediaType, 
+    getAcceptType, 
+    supportInstanceMultipartType, 
+    ImageMultipartWriter, 
+    InstanceImagePathFactory, 
+    multipartContentTypeWriter, 
+    StudyImagePathFactory, 
+    SeriesImagePathFactory } = require("@wado-rs-service");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseRetrieveController extends Controller {
@@ -115,7 +123,7 @@ class BaseMultipartRelatedResponseHandler {
         let imageMultipartWriter = new ImageMultipartWriter(
             this.request,
             this.response,
-            this.imagePathFactoryType ,
+            this.imagePathFactoryType,
             multipartContentTypeWriter[type]
         );
 
