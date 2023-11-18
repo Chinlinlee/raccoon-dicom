@@ -422,7 +422,7 @@ class DicomJsonModel {
 
 
 class DicomJsonBinaryDataModel {
-    constructor(dicomJsonModel) {
+    constructor(dicomJsonModel, bulkDataModelClass=BulkData) {
 
         /** @type {DicomJsonModel} */
         this.dicomJsonModel = dicomJsonModel;
@@ -432,6 +432,8 @@ class DicomJsonBinaryDataModel {
 
         /** @type {string[]} */
         this.pathGroupOfBinaryProperties = this.getPathGroupOfBinaryProperties_();
+
+        this.bulkDataModelClass = bulkDataModelClass;
     }
 
     getBinaryKeys_() {
@@ -528,7 +530,7 @@ class DicomJsonBinaryDataModel {
                 await fsP.writeFile(filename, Buffer.from(binaryData, "base64"));
                 logger.info(`[STOW-RS] [Store binary data to ${filename}]`);
 
-                let bulkData = new BulkData(this.dicomJsonModel.uidObj, relativeFilename, pathOfBinaryProperty);
+                let bulkData = new this.bulkDataModelClass(this.dicomJsonModel.uidObj, relativeFilename, pathOfBinaryProperty);
                 await bulkData.storeToDb();
             }
 
