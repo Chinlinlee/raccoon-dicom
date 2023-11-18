@@ -9,7 +9,8 @@
             "@root/*": ["./*"],
             "@chinlinlee/*": ["./models/DICOM/dcm4che/wrapper/org/github/chinlinlee/*"],
             "@dbModels/*": ["./models/sql/models/*"],
-            "@dicom-json-model": ["./models/sql/dicom-json-model.js"]
+            "@dicom-json-model": ["./models/sql/dicom-json-model.js"],
+            "@query-dicom-json-factory": ["./api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory.js"]
         }
     },
     "exclude": [

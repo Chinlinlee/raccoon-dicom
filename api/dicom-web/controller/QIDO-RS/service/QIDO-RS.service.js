@@ -8,7 +8,7 @@ const {
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
-const { QueryPatientDicomJsonFactory, QueryStudyDicomJsonFactory, QuerySeriesDicomJsonFactory, QueryInstanceDicomJsonFactory } = require("./query-dicom-json-factory");
+const { QueryPatientDicomJsonFactory, QueryStudyDicomJsonFactory, QuerySeriesDicomJsonFactory, QueryInstanceDicomJsonFactory } = require("@query-dicom-json-factory");
 
 const HierarchyQueryDicomJsonFactory = Object.freeze({
     patient: QueryPatientDicomJsonFactory,
