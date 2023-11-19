@@ -2,7 +2,7 @@ const _ = require("lodash");
 const moment = require("moment");
 const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
-const workItemModel = require("@models/mongodb/models/workItems");
+const { WorkItemModel } = require("@models/mongodb/models/workItems.model");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
@@ -51,7 +51,7 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
             this.completeChange();
         }
 
-        let updatedWorkItem = await workItemModel.findOneAndUpdate({
+        let updatedWorkItem = await WorkItemModel.findOneAndUpdate({
             upsInstanceUID: this.request.params.workItem
         }, {
             ...this.requestState.dicomJson

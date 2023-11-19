@@ -119,3 +119,4 @@ let workItemModel = mongoose.model(
 
 /** @type { WorkItemsModel } */
 module.exports = workItemModel;
+module.exports.WorkItemModel = workItemModel;
