@@ -24,9 +24,9 @@ class CreateWorkItemService extends BaseWorkItemService {
         let uid = _.get(this.request, "query.workitem",
             await UIDUtils.createUID()
         );
-        this.dataAdjustBeforeCreatingUps(uid);
-        this.validateWorkItem(uid);
-        
+        await this.dataAdjustBeforeCreatingUps(uid);
+        await this.validateWorkItem(uid);
+
         let patient = await this.findOneOrCreatePatient();
         let workItem = new workItemModel(this.requestWorkItem.dicomJson);
         let savedWorkItem = await workItem.save();
