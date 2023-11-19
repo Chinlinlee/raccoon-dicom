@@ -8,6 +8,20 @@
         "@chinlinlee": "../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee",
         "@dbModels": "../../../models/mongodb/models",
         "@dbInitializer": "../../../models/mongodb/index.js",
-        "@dicom-json-model": "../../../models/DICOM/dicom-json-model.js"
+        "@dicom-json-model": "../../../models/DICOM/dicom-json-model.js",
+        "@query-dicom-json-factory": "../../../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory.js",
+        "@stow-rs-service": "../../../api/dicom-web/controller/STOW-RS/service/stow-rs.service.js",
+        "@qido-rs-service": "../../../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service.js",
+        "@wado-rs-service": "../../../api/dicom-web/controller/WADO-RS/service/WADO-RS.service.js",
+        "@bulkdata-service": "../../../api/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata.js",
+        "@delete-service": "../../../api/dicom-web/controller/WADO-RS/deletion/service/delete.js",
+        "@rendered-service": "../../../api/dicom-web/controller/WADO-RS/service/rendered.service.js",
+        "@thumbnail-service": "../../../api/dicom-web/controller/WADO-RS/service/thumbnail.service.js",
+        "@dimse-query-builder": "../../../dimse/queryBuilder.js",
+        "@dimse-patient-query-task": "../../../dimse/patientQueryTask.js",
+        "@dimse-study-query-task": "../../../dimse/studyQueryTask.js",
+        "@dimse-series-query-task": "../../../dimse/seriesQueryTask.js",
+        "@dimse-instance-query-task": "../../../dimse/instanceQueryTask.js",
+        "@dimse-utils": "../../../dimse/utils.js"
     }
 }
