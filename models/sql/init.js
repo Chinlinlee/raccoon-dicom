@@ -11,6 +11,7 @@ const { SeriesRequestAttributesModel } = require("./models/seriesRequestAttribut
 const { DicomCodeModel } = require("./models/dicomCode.model");
 const { DicomContentSqModel } = require("./models/dicomContentSQ.model");
 const { VerifyIngObserverSqModel } = require("./models/verifyingObserverSQ.model");
+const { WorkItemModel } = require("./models/workItems.model");
 
 async function initDatabasePostgres() {
     const { Client } = require("pg");
@@ -127,6 +128,11 @@ async function init() {
         });
         DicomContentSqModel.hasOne(DicomCodeModel, {
             as: "ConceptCode"
+        });
+
+        WorkItemModel.belongsTo(PatientModel, {
+            foreignKey: "x00100020",
+            targetKey: "x00100020"
         });
     
         //TODO: 設計完畢後要將 force 刪除

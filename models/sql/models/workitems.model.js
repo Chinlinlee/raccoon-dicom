@@ -20,7 +20,8 @@ class WorkItemModel extends Model {
     }
 };
 
-WorkItemModel.init({
+/** @type { import("sequelize").ModelAttributes } */
+const WorkItemSchema = {
     upsInstanceUID: {
         type: DataTypes.STRING,
         allowNull: false
@@ -33,21 +34,13 @@ WorkItemModel.init({
         type: DataTypes.STRING
     },
     subscribed: {
-        type: DataTypes.INTEGER,
-        default: SUBSCRIPTION_STATE.NOT_SUBSCRIBED
+        type: DataTypes.INTEGER, 
+        defaultValue: SUBSCRIPTION_STATE.NOT_SUBSCRIBED
     },
     //#region patient level
-    "x00100010": {
-        type: DataTypes.INTEGER
-    },
     "x00100020": {
-        type: vrTypeMapping.LO
-    },
-    "x00100021": {
-        type: vrTypeMapping.LO
-    },
-    "x00100040": {
-        type: vrTypeMapping.CS
+        type: vrTypeMapping.LO,
+        allowNull: false
     },
     //#endregion
     "x00080018": {
@@ -99,7 +92,9 @@ WorkItemModel.init({
     "json": {
         type: vrTypeMapping.JSON
     }
-}, {
+};
+
+WorkItemModel.init(WorkItemSchema, {
     sequelize: sequelizeInstance,
     modelName: "UPSWorkItem",
     tableName: "UPSWorkItem",
@@ -107,3 +102,4 @@ WorkItemModel.init({
 });
 
 module.exports.WorkItemModel = WorkItemModel;
+module.exports.WorkItemSchema = WorkItemSchema;
