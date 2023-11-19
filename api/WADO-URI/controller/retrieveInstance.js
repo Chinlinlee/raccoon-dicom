@@ -1,4 +1,4 @@
-const { WadoUriService, NotFoundInstanceError } = require("../service/WADO-URI.service");
+const { WadoUriService, NotFoundInstanceError } = require("@wado-uri-service");
 const { Controller } = require("../../controller.class");
 const { ApiLogger } = require("../../../utils/logs/api-logger");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");

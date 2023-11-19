@@ -14,6 +14,7 @@
             "@stow-rs-service": ["./api/dicom-web/controller/STOW-RS/service/stow-rs.service.js"],
             "@qido-rs-service": ["./api-sql/dicom-web/controller/QIDO-RS/service/QIDO-RS.service.js"],
             "@wado-rs-service": ["./api-sql/dicom-web/controller/WADO-RS/service/WADO-RS.service.js"],
+            "@wado-uri-service": ["./api-sql/WADO-URI/service/WADO-URI.service.js"],
             "@bulkdata-service": ["./api-sql/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata.js"],
             "@delete-service": ["./api-sql/dicom-web/controller/WADO-RS/deletion/service/delete.js"],
             "@rendered-service": ["./api-sql/dicom-web/controller/WADO-RS/service/rendered.service.js"],
