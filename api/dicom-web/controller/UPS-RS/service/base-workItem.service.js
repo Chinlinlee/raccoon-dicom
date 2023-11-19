@@ -6,7 +6,7 @@ const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
 const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
 const subscriptionModel = require("@models/mongodb/models/upsSubscription");
-const workItemModel = require("@dbModels/workItems");
+const { WorkItemModel } = require("@dbModels/workItems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
 class BaseWorkItemService {
@@ -115,7 +115,7 @@ class BaseWorkItemService {
                 $match.$and.push({
                     upsInstanceUID: workItem.dicomJson.upsInstanceUID
                 });
-                let count = await workItemModel.countDocuments({
+                let count = await WorkItemModel.countDocuments({
                     ...$match
                 });
                 if (count > 0)
@@ -167,7 +167,7 @@ class BaseWorkItemService {
      * @returns 
      */
     async findOneWorkItem(upsInstanceUID, toObject=false) {
-        let workItem = await workItemModel.findOne({
+        let workItem = await WorkItemModel.findOne({
             upsInstanceUID: upsInstanceUID
         });
 
