@@ -7,7 +7,6 @@ if (raccoonConfig.serverConfig.dbType === "mongodb") {
     require('module-alias')(__dirname + "/config/modula-alias/sql");
 }
 
-
 const { app, server } = require("./app");
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -15,11 +14,30 @@ const cookieParser = require("cookie-parser");
 const compress = require("compression");
 const cors = require("cors");
 const os = require("os");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
-const sequelizeInstance = require("./models/sql/instance");
+
+let sessionStore;
+let dbInstance;
+let sessionStoreOption;
+if (raccoonConfig.serverConfig.dbType === "mongodb") {
+    sessionStore = require("connect-mongo");
+    dbInstance = require("mongoose");
+
+    sessionStoreOption = sessionStore.create({
+        client: dbInstance.connection.getClient(),
+        dbName: raccoonConfig.dbConfig.dbName
+    });
+
+} else if (raccoonConfig.serverConfig.dbType === "sql") {
+    sessionStore = require("connect-session-sequelize")(session.Store);
+    dbInstance = require("./models/sql/instance");
+
+    sessionStoreOption =  new sessionStore({
+        db: dbInstance
+    });
+}
 
 const passport = require("passport");
-const { DcmQrScp } = require('./dimse-sql');
+const { DcmQrScp } = require('@dimse');
 require("dotenv");
 require("./websocket");
 
@@ -48,6 +66,7 @@ app.use(
 
 //#region session
 
+
 app.use(
     session({
         secret: raccoonConfig.serverConfig.secretKey || "secretKey",
@@ -57,9 +76,7 @@ app.use(
             httpOnly: true,
             maxAge: 60 * 60 * 1000
         },
-        store: new SequelizeStore({
-            db: sequelizeInstance
-        })
+        store: sessionStoreOption
     })
 );
 

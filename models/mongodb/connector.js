@@ -14,7 +14,7 @@ const {
     authSource,
     isShardingMode,
     urlOptions
-} = raccoonConfig.mongoDbConfig;
+} = raccoonConfig.dbConfig;
 module.exports = exports = function () {
 
     const collection = {};

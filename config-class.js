@@ -33,6 +33,7 @@ class SqlDbConfig {
         this.username = env.get("SQL_USERNAME").default("postgres").asString();
         this.password = env.get("SQL_PASSWORD").default("postgres").asString();
         this.logging = env.get("SQL_LOGGING").default("false").asBool();
+        this.dbName = this.database;
     }
 }
 
@@ -92,11 +93,11 @@ class RaccoonConfig {
         
         /** @type {string} */
         this.mediaStorageUID = generateUidFromGuid(
-            uuid.v5(this.dbConfig.database, NAME_SPACE)
+            uuid.v5(this.dbConfig.dbName, NAME_SPACE)
         );
         
         /** @type {string} */
-        this.mediaStorageID = this.dbConfig.database;
+        this.mediaStorageID = this.dbConfig.dbName;
 
         this.aeTitle = this.dicomWebConfig.aeTitle;
         // this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.getAeTitle() : this.dicomWebConfig.aeTitle;
