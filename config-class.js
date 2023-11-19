@@ -33,6 +33,7 @@ class SqlDbConfig {
         this.username = env.get("SQL_USERNAME").default("postgres").asString();
         this.password = env.get("SQL_PASSWORD").default("postgres").asString();
         this.logging = env.get("SQL_LOGGING").default("false").asBool();
+        this.forceSync = env.get("SQL_FORCE_SYNC").default("false").asBool();
         this.dbName = this.database;
     }
 }
