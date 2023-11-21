@@ -64,7 +64,7 @@
     "@dbModels": "./models/mongodb/models",
     "@dbInitializer": "./models/mongodb/index.js",
     "@dicom-json-model": "./models/DICOM/dicom-json-model.js",
-    "@query-json-factory": "./api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory.js"
+    "@query-dicom-json-factory": "./api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory.js"
   },
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",
