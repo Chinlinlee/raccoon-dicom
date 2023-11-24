@@ -12,6 +12,7 @@ const { DicomCodeModel } = require("./models/dicomCode.model");
 const { DicomContentSqModel } = require("./models/dicomContentSQ.model");
 const { VerifyIngObserverSqModel } = require("./models/verifyingObserverSQ.model");
 const { WorkItemModel } = require("./models/workItems.model");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
 async function initDatabasePostgres() {
     const { Client } = require("pg");
@@ -133,6 +134,36 @@ async function init() {
         WorkItemModel.belongsTo(PatientModel, {
             foreignKey: "x00100020",
             targetKey: "x00100020"
+        });
+        WorkItemModel.belongsToMany(DicomCodeModel, {
+            through: `rel_${dictionary.tag["00404025"]}`,
+            sourceKey: "upsInstanceUID",
+            foreignKey: "upsInstanceUID",
+            as: dictionary.tag["00404025"]
+        });
+        WorkItemModel.belongsToMany(DicomCodeModel, {
+            through: `rel_${dictionary.tag["00404026"]}`,
+            sourceKey: "upsInstanceUID",
+            foreignKey: "upsInstanceUID",
+            as: dictionary.tag["00404026"]
+        });
+        WorkItemModel.belongsToMany(DicomCodeModel, {
+            through: `rel_${dictionary.tag["00404027"]}`,
+            sourceKey: "upsInstanceUID",
+            foreignKey: "upsInstanceUID",
+            as: dictionary.tag["00404027"]
+        });
+        WorkItemModel.belongsToMany(DicomCodeModel, {
+            through: `rel_${dictionary.tag["00404009"]}`,
+            sourceKey: "upsInstanceUID",
+            foreignKey: "upsInstanceUID",
+            as: dictionary.tag["00404009"]
+        });
+        WorkItemModel.belongsToMany(DicomCodeModel, {
+            through: `rel_${dictionary.tag["00404018"]}`,
+            sourceKey: "id",
+            foreignKey: "upsInstanceUID",
+            as: dictionary.tag["00404018"]
         });
     
         //TODO: 設計完畢後要將 force 刪除

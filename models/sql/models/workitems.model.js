@@ -43,9 +43,6 @@ const WorkItemSchema = {
         allowNull: false
     },
     //#endregion
-    "x00080018": {
-        type: vrTypeMapping.UI
-    },
     "x00741200": {
         type: vrTypeMapping.CS
     },
@@ -59,19 +56,19 @@ const WorkItemSchema = {
         type: vrTypeMapping.LO
     },
     "x00404025": {
-        // TODO: DICOM Code Model, and do reference
+        // DICOM Code
         type: DataTypes.INTEGER
     },
     "x00404026": {
-        // TODO: DICOM Code Model, and do reference
+        // DICOM Code
         type: DataTypes.INTEGER
     },
     "x00404027": {
-        // TODO: DICOM Code Model, and do reference
+        // DICOM Code
         type: DataTypes.INTEGER
     },
     "x00404034": {
-        // TODO: DICOM Code Model, and do reference
+        // DICOM Code
         type: DataTypes.INTEGER
     },
     "x00404005": {
@@ -79,6 +76,10 @@ const WorkItemSchema = {
     },
     "x00404011": {
         type: vrTypeMapping.DT
+    },
+    "x00404018": {
+        // DICOM Code
+        type: DataTypes.INTEGER
     },
     "x00380010": {
         type: vrTypeMapping.LO
@@ -89,6 +90,19 @@ const WorkItemSchema = {
     "x00080082": {
         type: DataTypes.INTEGER
     },
+    // #region Scheduled Human Performers Sequence
+    "x00404009": {
+        // DICOM Code
+        type: DataTypes.INTEGER
+    },
+    "x00404037": {
+        // Person Name
+        type: DataTypes.INTEGER
+    },
+    "x00404036": {
+        type: vrTypeMapping.LO
+    },
+    // #endregion
     "json": {
         type: vrTypeMapping.JSON
     }
