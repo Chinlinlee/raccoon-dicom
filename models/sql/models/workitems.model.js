@@ -24,7 +24,8 @@ class WorkItemModel extends Model {
 const WorkItemSchema = {
     upsInstanceUID: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     patientID: {
         type: DataTypes.STRING,
@@ -93,10 +94,6 @@ const WorkItemSchema = {
     // #region Scheduled Human Performers Sequence
     "x00404009": {
         // DICOM Code
-        type: DataTypes.INTEGER
-    },
-    "x00404037": {
-        // Person Name
         type: DataTypes.INTEGER
     },
     "x00404036": {

@@ -161,9 +161,14 @@ async function init() {
         });
         WorkItemModel.belongsToMany(DicomCodeModel, {
             through: `rel_${dictionary.tag["00404018"]}`,
-            sourceKey: "id",
+            sourceKey: "upsInstanceUID",
             foreignKey: "upsInstanceUID",
             as: dictionary.tag["00404018"]
+        });
+        WorkItemModel.belongsToMany(PersonNameModel, {
+            through: "rel_human_performer_s_name",
+            sourceKey: "upsInstanceUID",
+            as: dictionary.tag["00404037"]
         });
     
         //TODO: 設計完畢後要將 force 刪除

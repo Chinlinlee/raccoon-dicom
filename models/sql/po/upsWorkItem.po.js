@@ -31,9 +31,10 @@ class UpsWorkItemPersistentObject {
         this.x00404026 = dicomJsonObj.getValue("00404026");
         this.x00404027 = dicomJsonObj.getValue("00404027");
         this.x00404005 = dicomJsonObj.getValue("00404005");
-        this.x00404009 = dicomJsonObj.getValue("00404009");
-        this.x00404037 = dicomJsonObj.getValue("00404037");
-        this.x00404036 = dicomJsonObj.getValue("00404036");
+        let scheduledHumanPerformerSequence = new BaseDicomJson(dicomJsonObj.getValue("00404034"));
+        this.x00404009 = scheduledHumanPerformerSequence.getValue("00404009");
+        this.x00404037 = scheduledHumanPerformerSequence.getValue("00404037");
+        this.x00404036 = scheduledHumanPerformerSequence.getValue("00404036");
         this.x00404011 = dicomJsonObj.getValue("00404011");
         this.x00400418 = dicomJsonObj.getValue("00400418");
         this.x00380010 = dicomJsonObj.getValue("00380010");
@@ -62,7 +63,7 @@ class UpsWorkItemPersistentObject {
             x00404010: vrValueTransform.DT(this.x00404010),
             x00741204: this.x00741204,
             x00741202: this.x00741202,
-            x00404009: this.x00404009,
+            x00404036: this.x00404036,
             x00404005: vrValueTransform.DT(this.x00404005),
             x00404011: vrValueTransform.DT(this.x00404011),
             x00380010: this.x00380010,
@@ -83,6 +84,7 @@ class UpsWorkItemPersistentObject {
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.HumanPerformerCodeSequence);
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.ScheduledWorkitemCodeSequence);
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.InstitutionCodeSequence);
+        await this.setHumanPerformerName(upsWorkItem);
 
 
         if (created) {
@@ -98,7 +100,6 @@ class UpsWorkItemPersistentObject {
         return upsWorkItem;
     }
 
-
     async setGeneralCode(item, tag) {
         if (this[`x${tag}`]) {
             let code = await DicomCodeModel.create({
@@ -109,6 +110,13 @@ class UpsWorkItemPersistentObject {
             });
             let keyword = dictionary.tag[tag];
             await item[`set${keyword}`](code);
+        }
+    }
+
+    async setHumanPerformerName(upsWorkItem) {
+        if (this.x00404037) {
+            let nameOfHumanPerformer = await PersonNameModel.createPersonName(this.x00404037);
+            await upsWorkItem[`set${dictionary.tag["00404037"]}`](nameOfHumanPerformer);
         }
     }
 }
