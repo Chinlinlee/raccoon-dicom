@@ -135,39 +135,30 @@ async function init() {
             foreignKey: "x00100020",
             targetKey: "x00100020"
         });
-        WorkItemModel.belongsToMany(DicomCodeModel, {
-            through: `rel_${dictionary.tag["00404025"]}`,
-            sourceKey: "upsInstanceUID",
-            foreignKey: "upsInstanceUID",
-            as: dictionary.tag["00404025"]
+
+        WorkItemModel.belongsTo(DicomCodeModel, {
+            as: dictionary.tag["00404025"],
+            foreignKey: "x00404025"
         });
-        WorkItemModel.belongsToMany(DicomCodeModel, {
-            through: `rel_${dictionary.tag["00404026"]}`,
-            sourceKey: "upsInstanceUID",
-            foreignKey: "upsInstanceUID",
+        WorkItemModel.belongsTo(DicomCodeModel, {
+            foreignKey: "x00404026",
             as: dictionary.tag["00404026"]
         });
-        WorkItemModel.belongsToMany(DicomCodeModel, {
-            through: `rel_${dictionary.tag["00404027"]}`,
-            sourceKey: "upsInstanceUID",
-            foreignKey: "upsInstanceUID",
+        WorkItemModel.belongsTo(DicomCodeModel, {
+            foreignKey: "x00404027",
             as: dictionary.tag["00404027"]
         });
-        WorkItemModel.belongsToMany(DicomCodeModel, {
-            through: `rel_${dictionary.tag["00404009"]}`,
-            sourceKey: "upsInstanceUID",
-            foreignKey: "upsInstanceUID",
+        WorkItemModel.belongsTo(DicomCodeModel, {
+            foreignKey: "x00404009",
             as: dictionary.tag["00404009"]
         });
-        WorkItemModel.belongsToMany(DicomCodeModel, {
-            through: `rel_${dictionary.tag["00404018"]}`,
-            sourceKey: "upsInstanceUID",
-            foreignKey: "upsInstanceUID",
+        WorkItemModel.belongsTo(DicomCodeModel, {
+            foreignKey: "x00404018",
             as: dictionary.tag["00404018"]
         });
-        WorkItemModel.belongsToMany(PersonNameModel, {
-            through: "rel_human_performer_s_name",
-            sourceKey: "upsInstanceUID",
+        
+        WorkItemModel.belongsTo(PersonNameModel, {
+            foreignKey: "x00404037",
             as: dictionary.tag["00404037"]
         });
     
