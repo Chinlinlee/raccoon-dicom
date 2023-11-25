@@ -1,4 +1,4 @@
-const { get, set } = require("lodash");
+const { get, set, cloneDeep } = require("lodash");
 const { PersonNameModel } = require("../models/personName.model");
 const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
 const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
@@ -59,33 +59,16 @@ class UpsWorkItemPersistentObject {
     }
 
     async save() {
-        let item = {
-            json: this.json,
-            upsInstanceUID : this.upsInstanceUID,
-            patientID : this.patientID,
-            transactionUID : this.transactionUID,
-            x00100020: this.x00100020,
-            x00741200: this.x00741200,
-            x00404010: vrValueTransform.DT(this.x00404010),
-            x00741204: this.x00741204,
-            x00741202: this.x00741202,
-            x00404036: this.x00404036,
-            x00404005: vrValueTransform.DT(this.x00404005),
-            x00404011: vrValueTransform.DT(this.x00404011),
-            x00380010: this.x00380010,
-            x00741000: this.x00741000,
-            x00380014_x00400031: this.admissionLocalEntityId,
-            x00380014_x00400032: this.admissionUniversalEntityId,
-            x00380014_x00400033: this.admissionUniversalEntityIdType
-        };
-
-        let upsWorkItemObj = WorkItemModel.build(item);
+        let upsWorkItemObj = WorkItemModel.build(this.getPersistentObject());
         let [upsWorkItem, created] = await WorkItemModel.findOrCreate({
             where: {
                 upsInstanceUID: this.upsInstanceUID
             },
             defaults: upsWorkItemObj.toJSON()
         });
+        let tempUpsWorkItem = cloneDeep(upsWorkItem);
+
+        
         await upsWorkItem.setPatient(this.patient);
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.ScheduledStationNameCodeSequence);
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.ScheduledStationClassCodeSequence);
@@ -94,17 +77,11 @@ class UpsWorkItemPersistentObject {
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.ScheduledWorkitemCodeSequence);
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.InstitutionCodeSequence);
         await this.setHumanPerformerName(upsWorkItem);
+        await upsWorkItem.save();
 
-
-        if (created) {
-            await upsWorkItem.save();
-        } else {
-            await WorkItemModel.update(item, {
-                where: {
-                    upsInstanceUID: upsWorkItem.dataValues.upsInstanceUID
-                }
-            });
-        }
+        if (!created) {
+            await this.removeAllAssociationItems(tempUpsWorkItem);
+        } 
 
         return upsWorkItem;
     }
@@ -127,6 +104,48 @@ class UpsWorkItemPersistentObject {
             let nameOfHumanPerformer = await PersonNameModel.createPersonName(this.x00404037);
             await upsWorkItem[`set${dictionary.tag["00404037"]}`](nameOfHumanPerformer);
         }
+    }
+
+    async removeAllAssociationItems(upsWorkItem) {
+        const associationItemsNames = [
+            "ScheduledStationNameCodeSequence",
+            "ScheduledStationClassCodeSequence",
+            "ScheduledStationGeographicLocationCodeSequence",
+            "HumanPerformerCodeSequence",
+            "ScheduledWorkitemCodeSequence",
+            "InstitutionCodeSequence",
+            "HumanPerformerName"
+        ];
+
+        for (let i = 0 ; i < associationItemsNames.length ; i++) {
+            let associationItemName = associationItemsNames[i];
+            let associationItem = await upsWorkItem[`get${associationItemName}`]();
+            if (associationItem) {
+                await associationItem.destroy();
+            }
+        }
+    }
+
+    getPersistentObject() {
+        return {
+            json: this.json,
+            upsInstanceUID : this.upsInstanceUID,
+            patientID : this.patientID,
+            transactionUID : this.transactionUID,
+            x00100020: this.x00100020,
+            x00741200: this.x00741200,
+            x00404010: vrValueTransform.DT(this.x00404010),
+            x00741204: this.x00741204,
+            x00741202: this.x00741202,
+            x00404036: this.x00404036,
+            x00404005: vrValueTransform.DT(this.x00404005),
+            x00404011: vrValueTransform.DT(this.x00404011),
+            x00380010: this.x00380010,
+            x00741000: this.x00741000,
+            x00380014_x00400031: this.admissionLocalEntityId,
+            x00380014_x00400032: this.admissionUniversalEntityId,
+            x00380014_x00400033: this.admissionUniversalEntityIdType
+        };
     }
 }
 
