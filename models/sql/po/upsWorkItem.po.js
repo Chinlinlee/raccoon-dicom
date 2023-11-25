@@ -40,6 +40,12 @@ class UpsWorkItemPersistentObject {
         this.x00380010 = dicomJsonObj.getValue("00380010");
         this.x00741000 = dicomJsonObj.getValue("00741000");
         this.x00080082 = dicomJsonObj.getValue("00080082");
+
+        // issuer of Admission ID
+        let issuerOfAdmissionIdSequence = new BaseDicomJson(dicomJsonObj.getValue("00380014"));
+        this.admissionLocalEntityId = issuerOfAdmissionIdSequence.getValue("00400031");
+        this.admissionUniversalEntityId = issuerOfAdmissionIdSequence.getValue("00400032");
+        this.admissionUniversalEntityIdType = issuerOfAdmissionIdSequence.getValue("00400033");
     }
 
     initJsonProperties(dicomJson) {
@@ -67,7 +73,10 @@ class UpsWorkItemPersistentObject {
             x00404005: vrValueTransform.DT(this.x00404005),
             x00404011: vrValueTransform.DT(this.x00404011),
             x00380010: this.x00380010,
-            x00741000: this.x00741000
+            x00741000: this.x00741000,
+            x00380014_x00400031: this.admissionLocalEntityId,
+            x00380014_x00400032: this.admissionUniversalEntityId,
+            x00380014_x00400033: this.admissionUniversalEntityIdType
         };
 
         let upsWorkItemObj = WorkItemModel.build(item);

@@ -85,6 +85,15 @@ const WorkItemSchema = {
     "x00380010": {
         type: vrTypeMapping.LO
     },
+    "x00380014_x00400031": {
+        type: vrTypeMapping.UT
+    },
+    "x00380014_x00400032": {
+        type: vrTypeMapping.UT
+    },
+    "x00380014_x00400033": {
+        type: vrTypeMapping.CS
+    },
     "x00741000": {
         type: vrTypeMapping.CS
     },
@@ -103,6 +112,9 @@ const WorkItemSchema = {
     "json": {
         type: vrTypeMapping.JSON
     }
+    //TODO: Referenced Request Sequence
+    // You should create new Model for Referenced Request Sequence (0040,A370)
+    // model name should be called UPSRequest
 };
 
 WorkItemModel.init(WorkItemSchema, {
