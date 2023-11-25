@@ -12,23 +12,24 @@ const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 
 
-const notAllowedAttributes = [
-    "00080016",
-    "00080018",
-    "00100010",
-    "00100020",
-    "00100030",
-    "00100040",
-    "00380010",
-    "00380014",
-    "00081080",
-    "00081084",
-    "0040A370",
-    "00741224",
-    "00741000"
-];
+
 
 class UpdateWorkItemService extends BaseWorkItemService {
+    static notAllowedAttributes = Object.freeze([
+        "00080016",
+        "00080018",
+        "00100010",
+        "00100020",
+        "00100030",
+        "00100040",
+        "00380010",
+        "00380014",
+        "00081080",
+        "00081084",
+        "0040A370",
+        "00741224",
+        "00741000"
+    ]);
     /**
      * 
      * @param {import('express').Request} req 
@@ -162,8 +163,8 @@ class UpdateWorkItemService extends BaseWorkItemService {
      * remove not allowed updating attribute in request work item
      */
     adjustRequestWorkItem() {
-        for (let i = 0; i < notAllowedAttributes.length; i++) {
-            let notAllowedAttr = notAllowedAttributes[i];
+        for (let i = 0; i < UpdateWorkItemService.notAllowedAttributes.length; i++) {
+            let notAllowedAttr = UpdateWorkItemService.notAllowedAttributes[i];
             _.unset(this.requestWorkItem.dicomJson, notAllowedAttr);
         }
     }
