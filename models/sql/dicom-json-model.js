@@ -4,7 +4,7 @@ const fsP = require("fs/promises");
 const path = require("path");
 const mkdirp = require("mkdirp");
 
-const { DicomJsonModel, DicomJsonBinaryDataModel } = require("@models/DICOM/dicom-json-model");
+const { BaseDicomJson, DicomJsonModel, DicomJsonBinaryDataModel } = require("@models/DICOM/dicom-json-model");
 const { PatientPersistentObject } = require("./po/patient.po");
 const { StudyPersistentObject } = require("./po/study.po");
 const { SeriesPersistentObject } = require("./po/series.po");
@@ -90,4 +90,5 @@ class BulkData {
 }
 
 module.exports.DicomJsonModel = DicomJsonModel;
+module.exports.BaseDicomJson = BaseDicomJson;
 module.exports.DicomJsonBinaryDataModel = SqlDicomJsonBinaryDataModel;

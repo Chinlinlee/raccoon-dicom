@@ -3,6 +3,7 @@ const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { raccoonConfig } = require("@root/config-class");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
+const { UpsQueryBuilder } = require("@root/api-sql/dicom-web/controller/UPS-RS/service/query/upsQueryBuilder");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -17,6 +18,23 @@ class WorkItemModel extends Model {
         let obj = this.toJSON();
         let jsonStr = JSON.stringify(obj.json);
         return await Common.getAttributesFromJsonString(jsonStr);
+    }
+
+    static async getDicomJson (queryOptions) {
+        let queryBuilder = new UpsQueryBuilder(queryOptions);
+        let q = queryBuilder.build();
+
+        let upsArray = await WorkItemModel.findAll({
+            ...q,
+            attributes: ["json"],
+            limit: queryOptions.limit,
+            offset: queryOptions.skip
+        });
+
+        return await Promise.all(upsArray.map(async ups => {
+            let { json } = ups.toJSON();
+            return json;
+        }));
     }
 };
 

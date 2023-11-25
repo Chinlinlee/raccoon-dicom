@@ -19,6 +19,7 @@
             "@delete-service": ["./api-sql/dicom-web/controller/WADO-RS/deletion/service/delete.js"],
             "@rendered-service": ["./api-sql/dicom-web/controller/WADO-RS/service/rendered.service.js"],
             "@thumbnail-service": ["./api-sql/dicom-web/controller/WADO-RS/service/thumbnail.service.js"],
+            "@ups-service/*": ["./api-sql/dicom-web/controller/UPS-RS/service/*"],
             "@dimse-query-builder": ["./dimse-sql/queryBuilder.js"],
             "@dimse-patient-query-task": ["./dimse-sql/patientQueryTask.js"],
             "@dimse-study-query-task": ["./dimse-sql/studyQueryTask.js"],
