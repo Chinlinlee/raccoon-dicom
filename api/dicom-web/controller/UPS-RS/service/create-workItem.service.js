@@ -28,7 +28,7 @@ class CreateWorkItemService extends BaseWorkItemService {
         await this.validateWorkItem(uid);
 
         let patientId = this.requestWorkItem.getString("00100020");
-        let patient = await this.findOneOrCreatePatient(patientId);
+        let patient = await PatientModel.findOneOrCreatePatient(patientId, this.requestWorkItem.dicomJson);
         let workItem = new workItemModel(this.requestWorkItem.dicomJson);
         let savedWorkItem = await workItem.save();
 
@@ -105,21 +105,6 @@ class CreateWorkItemService extends BaseWorkItemService {
         }
 
         this.triggerUpsEvents();
-    }
-
-    async findOneOrCreatePatient(patientId) {
-        /** @type {PatientModel | null} */
-        let patient = await PatientModel.findOne({
-            "00100020.Value": patientId
-        });
-
-        if (!patient) {
-            /** @type {PatientModel} */
-            let patientObj = new PatientModel(this.requestWorkItem.dicomJson);
-            patient = await patientObj.save();
-        }
-
-        return patient;
     }
 
     async isUpsExist(uid) {
