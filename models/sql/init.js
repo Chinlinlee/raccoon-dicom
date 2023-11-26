@@ -137,8 +137,8 @@ async function init() {
         });
 
         WorkItemModel.belongsTo(DicomCodeModel, {
-            as: dictionary.tag["00404025"],
-            foreignKey: "x00404025"
+            foreignKey: "x00404025",
+            as: dictionary.tag["00404025"]
         });
         WorkItemModel.belongsTo(DicomCodeModel, {
             foreignKey: "x00404026",
@@ -155,6 +155,10 @@ async function init() {
         WorkItemModel.belongsTo(DicomCodeModel, {
             foreignKey: "x00404018",
             as: dictionary.tag["00404018"]
+        });
+        WorkItemModel.belongsTo(DicomCodeModel, {
+            foreignKey: "x00080082",
+            as: dictionary.tag["00080082"]
         });
         
         WorkItemModel.belongsTo(PersonNameModel, {
