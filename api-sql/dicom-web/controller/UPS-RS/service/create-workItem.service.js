@@ -18,7 +18,7 @@ class SqlCreateWorkItemService extends CreateWorkItemService {
         await this.dataAdjustBeforeCreatingUps(uid);
         await this.validateWorkItem(uid);
 
-        let patient = await this.findOneOrCreatePatient();
+        let patient = await PatientModel.updateOrCreatePatient(this.requestWorkItem.dicomJson);
         let workItem = new UpsWorkItemPersistentObject(this.requestWorkItem.dicomJson, patient);
         let savedWorkItem = await workItem.save();
 
@@ -26,14 +26,6 @@ class SqlCreateWorkItemService extends CreateWorkItemService {
         //this.triggerCreateEvent(savedWorkItem);
 
         return workItem;
-    }
-
-    async findOneOrCreatePatient() {
-        /** @type {PatientModel | null} */
-        let patientPersistent = new PatientPersistentObject(this.requestWorkItem.dicomJson);
-        let patient = await patientPersistent.createPatient();
-
-        return patient;
     }
 
     async isUpsExist(uid) {

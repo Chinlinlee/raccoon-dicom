@@ -10,7 +10,16 @@ if (raccoonConfig.dicomDimseConfig.enableDimse) {
     Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
 }
 
-class PatientModel extends Model { };
+class PatientModel extends Model { 
+    static async updateOrCreatePatient(patient) {
+        /** @type {PatientModel | null} */
+        const { PatientPersistentObject } = require("../po/patient.po");
+        let patientPersistent = new PatientPersistentObject(patient);
+        let bringPatient = await patientPersistent.createPatient();
+
+        return bringPatient;
+    }
+};
 
 PatientModel.init({
     "x00100010": {
