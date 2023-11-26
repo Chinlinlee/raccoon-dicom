@@ -4,6 +4,8 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 const { raccoonConfig } = require("@root/config-class");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
 const { UpsQueryBuilder } = require("@root/api-sql/dicom-web/controller/UPS-RS/service/query/upsQueryBuilder");
+const { DicomJsonModel } = require("../dicom-json-model");
+const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -35,6 +37,24 @@ class WorkItemModel extends Model {
             let { json } = ups.toJSON();
             return json;
         }));
+    }
+
+    static async findOneWorkItemDicomJsonModel(upsInstanceUID) {
+        let workItemObj = await WorkItemModel.findOne({
+            where: {
+                upsInstanceUID: upsInstanceUID
+            }
+        });
+        if (workItemObj) {
+            let {json} = workItemObj.toJSON();
+            return new DicomJsonModel(json);
+        } else {
+            throw new DicomWebServiceError(
+                DicomWebStatusCodes.UPSDoesNotExist,
+                "The UPS instance not exist",
+                404
+            );
+        }
     }
 };
 
