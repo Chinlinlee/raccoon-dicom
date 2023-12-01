@@ -6,6 +6,7 @@ const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
 const { UpsQueryBuilder } = require("@root/api-sql/dicom-web/controller/UPS-RS/service/query/upsQueryBuilder");
 const { DicomJsonModel } = require("../dicom-json-model");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
+const { merge } = require("lodash");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -20,6 +21,27 @@ class WorkItemModel extends Model {
         let obj = this.toJSON();
         let jsonStr = JSON.stringify(obj.json);
         return await Common.getAttributesFromJsonString(jsonStr);
+    }
+
+    toDicomJsonModel() {
+        return new DicomJsonModel(this.json);
+    }
+
+    /**
+     * 
+     * @param {DicomJsonModel} changedStateWorkItemDicomJsonModel 
+     */
+    async changeWorkItemState(changedStateWorkItemDicomJsonModel) {
+        let changedWorkItemJson = merge(this.json, changedStateWorkItemDicomJsonModel.dicomJson);
+        this.transactionUID = changedStateWorkItemDicomJsonModel.getString("00081195");
+        this.x00741000 = changedStateWorkItemDicomJsonModel.getString("00741000");
+        this.json = {
+            ...this.json,
+            ...changedWorkItemJson
+        };
+        // Let sequelize know json is changed
+        this.changed("json", true);
+        await this.save();
     }
 
     static async getDicomJson (queryOptions) {
@@ -55,6 +77,22 @@ class WorkItemModel extends Model {
                 404
             );
         }
+    }
+
+    static async findOneWorkItemByUpsInstanceUID(upsInstanceUID) {
+        let workItemObj = await WorkItemModel.findOne({
+            where: {
+                upsInstanceUID: upsInstanceUID
+            }
+        });
+        if (!workItemObj) {
+            throw new DicomWebServiceError(
+                DicomWebStatusCodes.UPSDoesNotExist,
+                "The UPS instance not exist",
+                404
+            );
+        }
+        return workItemObj;
     }
 };
 
