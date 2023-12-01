@@ -23,9 +23,12 @@ class CancelWorkItemService extends BaseWorkItemService {
         this.requestWorkItem = /**  @type {Object[]} */(this.request.body).pop();
     }
 
-    async cancel() {
-
+    async initWorkItem() {
         this.workItem = await this.findOneWorkItem(this.upsInstanceUID);
+    }
+
+    async cancel() {
+        await this.initWorkItem();
         let procedureStepState = this.workItem.getString(dictionary.keyword.ProcedureStepState);
 
         if (procedureStepState === "IN PROGRESS") {
