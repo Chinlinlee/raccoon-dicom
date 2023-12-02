@@ -4,7 +4,7 @@ const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
 const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { vrValueTransform } = require("./utils");
-const { WorkItemModel } = require("../models/workItems.model");
+const { WorkItemModel } = require("../models/workitems.model");
 const { DicomCodeModel } = require("../models/dicomCode.model");
 
 
