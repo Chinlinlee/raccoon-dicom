@@ -7,7 +7,7 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { DicomJsonModel } = require("@dicom-json-model");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
 const { SubscribeService } = require("./subscribe.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
