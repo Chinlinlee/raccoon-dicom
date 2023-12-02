@@ -13,6 +13,7 @@ const { DicomContentSqModel } = require("./models/dicomContentSQ.model");
 const { VerifyIngObserverSqModel } = require("./models/verifyingObserverSQ.model");
 const { WorkItemModel } = require("./models/workItems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { UpsSubscriptionModel } = require("./models/upsSubscription.model");
 
 async function initDatabasePostgres() {
     const { Client } = require("pg");
@@ -165,6 +166,8 @@ async function init() {
             foreignKey: "x00404037",
             as: dictionary.tag["00404037"]
         });
+
+        UpsSubscriptionModel.hasMany(WorkItemModel);
     
         //TODO: 設計完畢後要將 force 刪除
         await sequelizeInstance.sync({
