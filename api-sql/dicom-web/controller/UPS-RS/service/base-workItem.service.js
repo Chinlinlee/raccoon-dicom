@@ -42,12 +42,10 @@ class SqlBaseWorkItemService extends BaseWorkItemService {
             if (!globalSubscription.queryKeys) {
                 hitGlobalSubscriptions.push(globalSubscription);
             } else {
-                //TODO: ups global query builder
-                let query = convertAllQueryToDicomTag(globalSubscription.queryKeys);
+                let query = convertAllQueryToDicomTag(globalSubscription.queryKeys, false);
                 _.set(query, "upsInstanceUID", workItem.dicomJson.upsInstanceUID);
                 let queryOptions = {
-                    query: this.query,
-                    requestParams: this.request.params
+                    query: query
                 };
                 let upsQueryBuilder = new UpsQueryBuilder(queryOptions);
                 let dbQuery = upsQueryBuilder.build();
