@@ -11,7 +11,7 @@ const { SeriesRequestAttributesModel } = require("./models/seriesRequestAttribut
 const { DicomCodeModel } = require("./models/dicomCode.model");
 const { DicomContentSqModel } = require("./models/dicomContentSQ.model");
 const { VerifyIngObserverSqModel } = require("./models/verifyingObserverSQ.model");
-const { WorkItemModel } = require("./models/workItems.model");
+const { WorkItemModel } = require("./models/workitems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UpsSubscriptionModel } = require("./models/upsSubscription.model");
 

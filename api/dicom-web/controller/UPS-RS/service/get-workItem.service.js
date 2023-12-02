@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const workItemsModel = require("@models/mongodb/models/workItems.model");
+const workItemsModel = require("@models/mongodb/models/workitems.model");
 const { 
     convertRequestQueryToMongoQuery
 } = require("../../QIDO-RS/service/query-dicom-json-factory");

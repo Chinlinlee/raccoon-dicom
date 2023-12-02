@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const workItemModel = require("@models/mongodb/models/workItems.model");
+const workItemModel = require("@models/mongodb/models/workitems.model");
 const { PatientModel } = require("@dbModels/patient.model");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
 const {
