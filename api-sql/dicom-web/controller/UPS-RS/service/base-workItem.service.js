@@ -66,7 +66,7 @@ class SqlBaseWorkItemService extends BaseWorkItemService {
                 {
                     model: WorkItemModel,
                     where: {
-                        upsInstanceUID: workItem.dicomJson.upsInstanceUID
+                        upsInstanceUID: workItem.getString("00080018")
                     },
                     required: true
                 }
