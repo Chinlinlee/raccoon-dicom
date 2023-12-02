@@ -1,6 +1,6 @@
 const { PatientModel } = require("@dbModels/patient.model");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
-const { WorkItemModel } = require("@models/sql/models/workItems.model");
+const { WorkItemModel } = require("@dbModels/workItems.model");
 const { CreateWorkItemService } = require("@root/api/dicom-web/controller/UPS-RS/service/create-workItem.service");
 const { get, set } = require("lodash");
 const { UpsWorkItemPersistentObject } = require("@models/sql/po/upsWorkItem.po");
@@ -22,8 +22,7 @@ class SqlCreateWorkItemService extends CreateWorkItemService {
         let workItem = new UpsWorkItemPersistentObject(this.requestWorkItem.dicomJson, patient);
         let savedWorkItem = await workItem.save();
 
-        //TODO: subscription
-        //this.triggerCreateEvent(savedWorkItem);
+        this.triggerCreateEvent(savedWorkItem);
 
         return workItem;
     }
