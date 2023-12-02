@@ -1,4 +1,4 @@
-const { WorkItemModel } = require("@dbModels/workItems.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const { ChangeWorkItemStateService } = require("@root/api/dicom-web/controller/UPS-RS/service/change-workItem-state.service");
 
 class SqlChangeWorkItemStateService extends ChangeWorkItemStateService {

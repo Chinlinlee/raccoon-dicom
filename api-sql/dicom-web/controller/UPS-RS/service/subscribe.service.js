@@ -9,7 +9,7 @@ const {
 const { SUBSCRIPTION_STATE, SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/ups");
 const { SubscribeService } = require("@root/api/dicom-web/controller/UPS-RS/service/subscribe.service");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
-const { WorkItemModel } = require("@models/sql/models/workItems.model");
+const { WorkItemModel } = require("@models/sql/models/workitems.model");
 const { UPS_EVENT_TYPE } = require("@root/api/dicom-web/controller/UPS-RS/service/workItem-event");
 
 class SqlSubscribeService extends SubscribeService {

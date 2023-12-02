@@ -1,6 +1,6 @@
 const { PatientModel } = require("@dbModels/patient.model");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
-const { WorkItemModel } = require("@dbModels/workItems.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const { CreateWorkItemService } = require("@root/api/dicom-web/controller/UPS-RS/service/create-workItem.service");
 const { get, set } = require("lodash");
 const { UpsWorkItemPersistentObject } = require("@models/sql/po/upsWorkItem.po");

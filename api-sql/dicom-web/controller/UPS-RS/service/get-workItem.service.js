@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const { GetWorkItemService } = require("@root/api/dicom-web/controller/UPS-RS/service/get-workItem.service");
 const { QidoRsService } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
-const { WorkItemModel } = require("@models/sql/models/workItems.model");
+const { WorkItemModel } = require("@models/sql/models/workitems.model");
 
 class SqlGetWorkItemService extends GetWorkItemService {
     constructor(req, res) {

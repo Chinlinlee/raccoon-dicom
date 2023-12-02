@@ -1,4 +1,4 @@
-const { WorkItemModel } = require("@dbModels/workItems.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
 const { DicomJsonModel } = require("@dicom-json-model");
 const { UpdateWorkItemService } = require("@root/api/dicom-web/controller/UPS-RS/service/update-workItem.service");
