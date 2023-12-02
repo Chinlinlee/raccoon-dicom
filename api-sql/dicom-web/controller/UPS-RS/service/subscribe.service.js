@@ -120,10 +120,9 @@ class SqlSubscribeService extends SubscribeService {
 
         let notSubscribedWorkItems = await this.findNotSubscribedWorkItems();
         for(let notSubscribedWorkItem of notSubscribedWorkItems) {
-            let workItemDicomJson = new DicomJsonModel(notSubscribedWorkItem);
-            await this.createOrUpdateSubscription(workItemDicomJson);
+            await this.createOrUpdateSubscription(notSubscribedWorkItem);
             
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItemDicomJson), [this.subscriberAeTitle]);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, notSubscribedWorkItem.upsInstanceUID, this.stateReportOf(notSubscribedWorkItem.toDicomJsonModel()), [this.subscriberAeTitle]);
         }
     }
 
