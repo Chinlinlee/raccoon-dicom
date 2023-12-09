@@ -752,6 +752,9 @@ module.exports.tagsNeedStore = {
         "00400020": {
             "vr": "CS"
         },
+        "00400100": {
+            "vr": "SQ"
+        },
         "00401001": {
             "vr": "SH"
         },
