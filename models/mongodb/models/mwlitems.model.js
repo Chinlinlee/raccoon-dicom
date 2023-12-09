@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
+const { IncludeFieldsFactory } = require("../service");
 
 let mwlItemSchema = new mongoose.Schema(
     {},
@@ -19,17 +20,9 @@ let mwlItemSchema = new mongoose.Schema(
              * @returns 
              */
             getDicomJson: async function (queryOptions) {
-                // TODO: Not Yet Test
-                let {
-                    mwlItem
-                } = queryOptions.requestParams;
-
-                let query = mwlItem ? {
-                    mwlInstanceUID: mwlItem
-                } : queryOptions.query;
-
+                let projection = mongoose.model("mwlItems").getDicomJsonProjection(queryOptions.includeFields);
                 try {
-                    let docs = await mongoose.model("mwlItems").find(query)
+                    let docs = await mongoose.model("mwlItems").find(queryOptions.query, projection)
                         .limit(queryOptions.limit)
                         .skip(queryOptions.skip)
                         .setOptions({
@@ -37,7 +30,7 @@ let mwlItemSchema = new mongoose.Schema(
                         })
                         .exec();
 
-
+                        
                     let mwlDicomJson = docs.map((v) => {
                         let obj = v.toObject();
                         delete obj._id;
@@ -50,6 +43,10 @@ let mwlItemSchema = new mongoose.Schema(
                 } catch (e) {
                     throw e;
                 }
+            },
+            getDicomJsonProjection: function (includeFields) {
+                let includeFieldsFactory = new IncludeFieldsFactory(includeFields);
+                return includeFieldsFactory.getMwlLevelFields();
             }
         },
         methods: {

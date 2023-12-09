@@ -36,4 +36,24 @@ router.post("/mwlitems",
     require("./controller/MWL-RS/create-mwlItem")
 );
 
+/**
+ *  @openapi
+ *  /dicom-web/mwlitems:
+ *    get:
+ *      tags:
+ *        - MWL-RS
+ *      description: >
+ *          This transaction search Modality WorkList items.
+ *      parameters:
+ *        - $ref: "#/components/parameters/filter"
+ *      responses:
+ *        "200":
+ *           description: Query successfully
+ *           content:
+ *             "application/dicom+json":
+ *               schema:
+ *                 type: array
+ */
+router.get("/mwlitems",require("./controller/MWL-RS/get-mwlItem"));
+
 module.exports = router;

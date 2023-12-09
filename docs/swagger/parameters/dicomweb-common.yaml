@@ -29,3 +29,10 @@ components:
           schema:
             type: string
             format: byte
+    parameters:
+      "filter":
+        description: "{attributeID}={value}; {attributeID} = {dicomTag} | {dicomKeyword} | {dicomTag}.{attributeID} | {dicomKeyword}.{attributeID}"
+        schema:
+          type: array
+          items:
+            type: string

@@ -96,4 +96,5 @@ function convertAllQueryToDicomTag(iParam, pushSuffixValue=true) {
 }
 //#endregion
 
+module.exports.BaseQueryService = BaseQueryService;
 module.exports.convertAllQueryToDicomTag = convertAllQueryToDicomTag;

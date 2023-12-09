@@ -320,6 +320,19 @@ class IncludeFieldsFactory {
         };
     }
 
+    getMwlLevelFields() {
+        if (this.all) {
+            return {};
+        }
+
+        let fields = {};
+        for (let tag in tagsOfRequiredMatching.Mwl) {
+            fields[tag] = 1;
+        }
+
+        return fields;
+    }
+
     /**
      * @private
      */
