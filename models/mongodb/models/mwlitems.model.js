@@ -47,6 +47,9 @@ let mwlItemSchema = new mongoose.Schema(
             getDicomJsonProjection: function (includeFields) {
                 let includeFieldsFactory = new IncludeFieldsFactory(includeFields);
                 return includeFieldsFactory.getMwlLevelFields();
+            },
+            getCount: async function (query) {
+                return await mongoose.model("mwlItems").countDocuments(query);
             }
         },
         methods: {

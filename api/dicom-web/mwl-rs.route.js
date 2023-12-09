@@ -56,4 +56,26 @@ router.post("/mwlitems",
  */
 router.get("/mwlitems",require("./controller/MWL-RS/get-mwlItem"));
 
+/**
+ *  @openapi
+ *  /dicom-web/mwlitems/count:
+ *    get:
+ *      tags:
+ *        - MWL-RS
+ *      description: >
+ *          This transaction get Modality WorkList items count.
+ *      parameters:
+ *        - $ref: "#/components/parameters/filter"
+ *      responses:
+ *        "200":
+ *           description: Query successfully
+ *           content:
+ *             "application/dicom+json":
+ *                 schema:
+ *                     properties:
+ *                         count:
+ *                             type: number
+ */
+router.get("/mwlitems/count",require("./controller/MWL-RS/count-mwlItem"));
+
 module.exports = router;
