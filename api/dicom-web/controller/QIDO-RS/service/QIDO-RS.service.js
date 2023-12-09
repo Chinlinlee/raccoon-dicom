@@ -9,6 +9,7 @@ const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { QueryPatientDicomJsonFactory, QueryStudyDicomJsonFactory, QuerySeriesDicomJsonFactory, QueryInstanceDicomJsonFactory } = require("@query-dicom-json-factory");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 const HierarchyQueryDicomJsonFactory = Object.freeze({
     patient: QueryPatientDicomJsonFactory,
@@ -134,50 +135,4 @@ class QidoRsService {
 
 }
 
-/**
- * Convert All of name(tags, keyword) of queries to tags number
- * @param {Object} iParam The request query.
- * @returns
- */
-function convertAllQueryToDicomTag(iParam, pushSuffixValue=true) {
-    let keys = Object.keys(iParam);
-    let newQS = {};
-    for (let i = 0; i < keys.length; i++) {
-        let keyName = keys[i];
-        let keyNameSplit = keyName.split(".");
-        let newKeyNames = [];
-        for (let x = 0; x < keyNameSplit.length; x++) {
-            if (dictionary.keyword[keyNameSplit[x]]) {
-                newKeyNames.push(dictionary.keyword[keyNameSplit[x]]);
-            } else if (dictionary.tag[keyNameSplit[x]]) {
-                newKeyNames.push(keyNameSplit[x]);
-            }
-        }
-        let retKeyName;
-        if (newKeyNames.length === 0) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.InvalidArgumentValue,
-                `Invalid request query: ${keyNameSplit}`,
-                400
-            );
-        } 
-        
-        if (pushSuffixValue) {
-            if (newKeyNames.length >= 2) {
-                retKeyName = newKeyNames.map(v => v + ".Value").join(".");
-            } else {
-                newKeyNames.push("Value");
-                retKeyName = newKeyNames.join(".");
-            }
-        } else {
-            retKeyName = newKeyNames.join(".");
-        }
-        
-        newQS[retKeyName] = iParam[keyName];
-    }
-    return newQS;
-}
-//#endregion
-
 module.exports.QidoRsService = QidoRsService;
-module.exports.convertAllQueryToDicomTag = convertAllQueryToDicomTag;

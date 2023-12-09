@@ -3,7 +3,7 @@ const workItemsModel = require("@models/mongodb/models/workitems.model");
 const { 
     convertRequestQueryToMongoQuery
 } = require("../../QIDO-RS/service/query-dicom-json-factory");
-const { convertAllQueryToDicomTag } = require("../../QIDO-RS/service/QIDO-RS.service");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 class GetWorkItemService {
     constructor(req, res) {

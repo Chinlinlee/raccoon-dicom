@@ -3,11 +3,9 @@ const patientModel = require("../../models/mongodb/models/patient.model");
 const { DicomJsonModel } = require("../../models/DICOM/dicom-json-model");
 const { expect } = require("chai");
 const _ = require("lodash");
-const { 
-    convertAllQueryToDicomTag
-} = require("../../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 const { convertRequestQueryToMongoQuery } = require("../../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 const moment = require("moment");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 
 describe("QIDO-RS Service Common Function", () => {

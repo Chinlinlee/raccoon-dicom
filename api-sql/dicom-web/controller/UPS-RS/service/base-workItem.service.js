@@ -5,8 +5,8 @@ const { UpsGlobalSubscriptionModel } = require("@dbModels/upsGlobalSubscription.
 const { UpsSubscriptionModel } = require("@dbModels/upsSubscription.model");
 const { WorkItemModel } = require("@dbModels/workitems.model");
 const { BaseWorkItemService } = require("@root/api/dicom-web/controller/UPS-RS/service/base-workItem.service");
-const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 const { UpsQueryBuilder } = require("./query/upsQueryBuilder");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 class SqlBaseWorkItemService extends BaseWorkItemService {
 
     constructor(req, res) {

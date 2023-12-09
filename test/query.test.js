@@ -9,8 +9,8 @@ const dicomStudyModel = require("../models/mongodb/models/study.model");
 const dicomSeriesModel = require("../models/mongodb/models/series.model");
 const dicomModel = require("../models/mongodb/models/instance.model");
 const { expect } = require("chai");
-const { convertAllQueryToDicomTag } = require("../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 const { QueryStudyDicomJsonFactory, QuerySeriesDicomJsonFactory, QueryInstanceDicomJsonFactory } = require("../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 
 describe("Query DICOM of study, series, and instance level", async () => {
