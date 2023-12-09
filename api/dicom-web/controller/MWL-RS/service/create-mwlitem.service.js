@@ -33,25 +33,26 @@ class CreateMwlItemService {
         let mwlItem = this.requestMwlItem[0];
         let mwlDicomJson = new BaseDicomJson(mwlItem);
 
-        let spsItem = new BaseDicomJson(this.requestMwlItem[dictionary.keyword.ScheduledProcedureStepSequence]);
-        if (!spsItem.getValue(dictionary.keyword.ScheduledProcedureStepStatus)) {
-            _.set(mwlItem, dictionary.keyword.ScheduledProcedureStepStatus, {
-                vr: BaseDicomJson.getTagVrOfTag(dictionary.keyword.ScheduledProcedureStepStatus),
-                Value: [
-                    "SCHEDULED"
-                ]
-            });
+        let spsItem = new BaseDicomJson({
+            [dictionary.keyword.ScheduledProcedureStepSequence]: {
+                ...mwlItem[dictionary.keyword.ScheduledProcedureStepSequence]
+            }
+        });
+
+        let spsStatusPath = `${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}`;
+        if (!spsItem.getValue(spsStatusPath)) {
+            spsItem.setValue(spsStatusPath, "SCHEDULED");
         }
 
-        if (!spsItem.getValue(dictionary.keyword.ScheduledProcedureStepID)) {
+        let spsIDPath = `${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepID}`;
+        if (!spsItem.getValue(spsIDPath)) {
             let spsID = shortHash(uuidV4());
-            _.set(mwlItem, dictionary.keyword.ScheduledProcedureStepID, {
-                vr: BaseDicomJson.getTagVrOfTag(dictionary.keyword.ScheduledProcedureStepID),
-                Value: [
-                    `SPS-${spsID}`
-                ]
-            });
+            spsItem.setValue(spsIDPath, `SPS-${spsID}`);
         }
+        mwlItem[dictionary.keyword.ScheduledProcedureStepSequence] = {
+            ...mwlItem[dictionary.keyword.ScheduledProcedureStepSequence],
+            ...spsItem.dicomJson
+        };
         
         if (!mwlDicomJson.getValue(dictionary.keyword.RequestedProcedureID)) {
             let rpID = shortHash(uuidV4());
