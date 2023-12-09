@@ -108,8 +108,17 @@ class CreateMwlItemService {
      */
     async createOrUpdateMwl(mwlDicomJson) {
         let studyInstanceUID = mwlDicomJson.getValue(dictionary.keyword.StudyInstanceUID);
+        let spsItem = new BaseDicomJson(mwlDicomJson.getValue(dictionary.keyword.ScheduledProcedureStepSequence));
+        let spsID = spsItem.getValue(dictionary.keyword.ScheduledProcedureStepID);
         let foundMwl = await MwlItemModel.findOne({
-            "0020000D.Value.0": studyInstanceUID
+            $and: [
+                {
+                    "0020000D.Value.0": studyInstanceUID
+                },
+                {
+                    "00400100.Value.0.00400009.Value.0": spsID
+                }
+            ]
         });
 
         if (!foundMwl) {
