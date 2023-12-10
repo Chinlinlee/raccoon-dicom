@@ -32,6 +32,7 @@ components:
     parameters:
       "filter":
         description: "{attributeID}={value}; {attributeID} = {dicomTag} | {dicomKeyword} | {dicomTag}.{attributeID} | {dicomKeyword}.{attributeID}"
+        in: query
         schema:
           type: array
           items:

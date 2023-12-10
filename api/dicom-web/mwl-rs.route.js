@@ -78,4 +78,27 @@ router.get("/mwlitems",require("./controller/MWL-RS/get-mwlItem"));
  */
 router.get("/mwlitems/count",require("./controller/MWL-RS/count-mwlItem"));
 
+/**
+ *  @openapi
+ *  /dicom-web/mwlitems/{studyUID}/{spsID}:
+ *    delete:
+ *      tags:
+ *        - MWL-RS
+ *      description: >
+ *          This transaction deletes a Modality WorkList item.
+ *      requestBody:
+ *        content:
+ *          application/dicom+json:
+ *      parameters:
+ *        - $ref: "#/components/parameters/studyUID"
+ *        - $ref: "#/components/parameters/spsID"
+ *      responses:
+ *        "204":
+ *           description: Delete successfully
+ */
+router.delete("/mwlitems/:studyUID/:spsID", validateParams({
+    studyUID: Joi.string().required(),
+    spsID: Joi.string().required()
+}, "params", undefined), require("./controller/MWL-RS/delete-mwlItem"));
+
 module.exports = router;

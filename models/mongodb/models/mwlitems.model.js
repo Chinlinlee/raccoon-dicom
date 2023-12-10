@@ -4,6 +4,7 @@ const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { IncludeFieldsFactory } = require("../service");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
 let mwlItemSchema = new mongoose.Schema(
     {},
@@ -50,6 +51,18 @@ let mwlItemSchema = new mongoose.Schema(
             },
             getCount: async function (query) {
                 return await mongoose.model("mwlItems").countDocuments(query);
+            },
+            deleteByStudyInstanceUIDAndSpsID: async function(studyUID, spsID) {
+                return await mongoose.model("mwlItems").deleteMany({ 
+                    $and: [
+                        {
+                            [`${dictionary.keyword.StudyInstanceUID}.Value.0`]: studyUID
+                        },
+                        {
+                            [`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepID}.Value.0`]: spsID
+                        }
+                    ]
+                 });
             }
         },
         methods: {
