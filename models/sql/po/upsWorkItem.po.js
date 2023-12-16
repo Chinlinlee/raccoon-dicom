@@ -1,4 +1,4 @@
-const { get, set, cloneDeep } = require("lodash");
+const { get, set, cloneDeep, unset } = require("lodash");
 const { PersonNameModel } = require("../models/personName.model");
 const { tagsNeedStore } = require("@models/DICOM/dicom-tags-mapping");
 const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
@@ -7,6 +7,7 @@ const { vrValueTransform } = require("./utils");
 const { WorkItemModel } = require("../models/workitems.model");
 const { DicomCodeModel } = require("../models/dicomCode.model");
 const { UpsRequestAttributesModel } = require("../models/upsRequestAttributes.model");
+const { UpdateWorkItemService } = require("@root/api/dicom-web/controller/UPS-RS/service/update-workItem.service");
 
 
 class UpsWorkItemPersistentObject {
@@ -84,6 +85,7 @@ class UpsWorkItemPersistentObject {
 
         if (!created) {
             await this.removeAllAssociationItems(tempUpsWorkItem);
+            this.adjustUpdateWorkItem();
             upsWorkItem.json = {
                 ...upsWorkItem.json,
                 ...this.json
@@ -155,6 +157,13 @@ class UpsWorkItemPersistentObject {
             x00380014_x00400032: this.admissionUniversalEntityId,
             x00380014_x00400033: this.admissionUniversalEntityIdType
         };
+    }
+
+    adjustUpdateWorkItem() {
+        for (let i = 0; i < UpdateWorkItemService.notAllowedAttributes.length; i++) {
+            let notAllowedAttr = UpdateWorkItemService.notAllowedAttributes[i];
+            unset(this.json, notAllowedAttr);
+        }
     }
 }
 
