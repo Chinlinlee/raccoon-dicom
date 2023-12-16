@@ -114,10 +114,6 @@ const WorkItemSchema = {
         type: DataTypes.INTEGER, 
         defaultValue: SUBSCRIPTION_STATE.NOT_SUBSCRIBED
     },
-    UpsSubscriptionId: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-    },
     //#region patient level
     "x00100020": {
         type: vrTypeMapping.LO,

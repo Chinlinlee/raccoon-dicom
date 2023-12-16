@@ -60,21 +60,20 @@ class SqlSubscribeService extends SubscribeService {
         await this.updateWorkItemSubscription(workItem, subscribed);
         if (!subscription) {
             // Create
-            let subscriptionObj = UpsSubscriptionModel.build({
+            let subscriptionObj = await UpsSubscriptionModel.create({
                 aeTitle: this.subscriberAeTitle,
                 isDeletionLock: this.deletionLock,
                 subscribed: subscribed
             });
 
-            await subscriptionObj.addUPSWorkItem(workItem);
-            let createdSubscription = await subscriptionObj.save();
-            return createdSubscription;
+            await workItem.addUpsSubscription(subscriptionObj);
+            return subscriptionObj;
         } else {
             // Update
             subscription.isDeletionLock = this.deletionLock;
             subscription.subscribed = subscribed;
-            if (!await subscription.hasUPSWorkItem(workItem)) {
-                subscription.addUPSWorkItem(workItem);
+            if (!await workItem.hasUpsSubscription(subscription)) {
+                workItem.addUpsSubscription(subscription);
             }
             let updatedSubscription = await subscription.save();
             return updatedSubscription;

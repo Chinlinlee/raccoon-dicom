@@ -60,18 +60,13 @@ class SqlBaseWorkItemService extends BaseWorkItemService {
         return hitGlobalSubscriptions;
     }
 
+    /**
+     * 
+     * @param {DicomJsonModel} workItem 
+     * @returns 
+     */
     async getHitSubscriptions(workItem) {
-        let hitSubscriptions = await UpsSubscriptionModel.findAll({
-            include: [
-                {
-                    model: WorkItemModel,
-                    where: {
-                        upsInstanceUID: workItem.getString("00080018")
-                    },
-                    required: true
-                }
-            ]
-        });
+        let hitSubscriptions = await workItem.dicomJson.getUpsSubscriptions();
 
         return hitSubscriptions;
     }

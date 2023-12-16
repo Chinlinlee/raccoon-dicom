@@ -167,7 +167,7 @@ async function init() {
             as: dictionary.tag["00404037"]
         });
 
-        UpsSubscriptionModel.hasMany(WorkItemModel);
+        WorkItemModel.hasMany(UpsSubscriptionModel);
     
         //TODO: 設計完畢後要將 force 刪除
         await sequelizeInstance.sync({
