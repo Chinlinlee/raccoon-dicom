@@ -6,3 +6,18 @@ components:
       required: true
       schema:
         type: string
+    spsStatus:
+      in: path
+      name: spsStatus
+      required: true
+      enum:
+        - SCHEDULED
+        - ARRIVED
+        - READY
+        - STARTED
+        - DEPARTED
+        - CANCELED
+        - DISCONTINUED
+        - COMPLETED
+      schema:
+        type: string
