@@ -58,10 +58,14 @@ class UpdateWorkItemService extends BaseWorkItemService {
             new: true
         });
 
-        let updateWorkItemDicomJson = new DicomJsonModel(updatedWorkItem);
+       this.triggerUpdateWorkItemEvent(updatedWorkItem);
+    }
+
+    async triggerUpdateWorkItemEvent(workItem) {
+        let updateWorkItemDicomJson = new DicomJsonModel(workItem);
         let hitSubscriptions = await this.getHitSubscriptions(updateWorkItemDicomJson);
         if (hitSubscriptions.length === 0) {
-            return updatedWorkItem;
+            return workItem;
         }
         let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
 
