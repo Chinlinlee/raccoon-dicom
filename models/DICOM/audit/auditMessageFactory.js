@@ -351,7 +351,7 @@ class AuditMessageFactory {
 
     getInstanceModel() {
         if (raccoonConfig.serverConfig.dbType === "sql") {
-            const sequelizeInstance = require("@models/mysql/instance");
+            const sequelizeInstance = require("@models/sql/instance");
             return sequelizeInstance.model("Instance");
         } else {
             const mongoose = require("mongoose");
