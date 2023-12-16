@@ -14,6 +14,7 @@ const { VerifyIngObserverSqModel } = require("./models/verifyingObserverSQ.model
 const { WorkItemModel } = require("./models/workitems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UpsSubscriptionModel } = require("./models/upsSubscription.model");
+const { UpsRequestAttributesModel } = require("./models/upsRequestAttributes.model");
 
 async function initDatabasePostgres() {
     const { Client } = require("pg");
@@ -168,6 +169,10 @@ async function init() {
         });
 
         WorkItemModel.hasMany(UpsSubscriptionModel);
+        WorkItemModel.hasOne(UpsRequestAttributesModel, {
+            foreignKey: "upsInstanceUID",
+            sourceKey: "upsInstanceUID"
+        });
     
         //TODO: 設計完畢後要將 force 刪除
         await sequelizeInstance.sync({

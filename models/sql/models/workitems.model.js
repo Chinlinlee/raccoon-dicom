@@ -191,9 +191,6 @@ const WorkItemSchema = {
     "json": {
         type: vrTypeMapping.JSON
     }
-    //TODO: Referenced Request Sequence
-    // You should create new Model for Referenced Request Sequence (0040,A370)
-    // model name should be called UPSRequest
 };
 
 WorkItemModel.init(WorkItemSchema, {

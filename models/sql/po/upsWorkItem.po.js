@@ -6,6 +6,7 @@ const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { vrValueTransform } = require("./utils");
 const { WorkItemModel } = require("../models/workitems.model");
 const { DicomCodeModel } = require("../models/dicomCode.model");
+const { UpsRequestAttributesModel } = require("../models/upsRequestAttributes.model");
 
 
 class UpsWorkItemPersistentObject {
@@ -77,6 +78,9 @@ class UpsWorkItemPersistentObject {
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.ScheduledWorkitemCodeSequence);
         await this.setGeneralCode(upsWorkItem, dictionary.keyword.InstitutionCodeSequence);
         await this.setHumanPerformerName(upsWorkItem);
+
+        let requestAttributeDAO = new UpsWorkItemRequestAttributeDAO(this.upsInstanceUID, this.json);
+        await requestAttributeDAO.update(upsWorkItem);
         await upsWorkItem.save();
 
         if (!created) {
@@ -146,6 +150,58 @@ class UpsWorkItemPersistentObject {
             x00380014_x00400032: this.admissionUniversalEntityId,
             x00380014_x00400033: this.admissionUniversalEntityIdType
         };
+    }
+}
+
+class UpsWorkItemRequestAttributeDAO {
+    constructor(upsInstanceUID, dicomJson) {
+        this.dicomJson = dicomJson;
+        this.dicomJsonObj = new BaseDicomJson(this.dicomJson);
+        this.upsInstanceUID = upsInstanceUID;
+    }
+
+    async getRequestAttribute() {
+        let requestAttribute = this.dicomJsonObj.getValue(dictionary.keyword.ReferencedRequestSequence);
+        if (requestAttribute) {
+            return {
+                upsInstanceUID: this.upsInstanceUID,
+                x00080050: get(requestAttribute, "00080050.Value.0"),
+                x00080051_x00400031: get(requestAttribute, "00080051.Value.0.00400031.Value.0"),
+                x00080051_x00400032: get(requestAttribute, "00080051.Value.0.00400032.Value.0"),
+                x00080051_x00400033: get(requestAttribute, "00080051.Value.0.00400033.Value.0"),
+                x00321033: get(requestAttribute, "00321033.Value.0"),
+                x00401001: get(requestAttribute, "00401001.Value.0"),
+                x0020000D: get(requestAttribute, "0020000D.Value.0")
+            };
+        }
+
+        return undefined;
+    }
+
+
+    /**
+     * 
+     * @param {WorkItemModel} workItem 
+     */
+    async update(workItem) {
+        let requestAttributes = await this.getRequestAttribute();
+        if (requestAttributes) {
+            if (await workItem.getUpsRequestAttributesModel()) {
+                await UpsRequestAttributesModel.update(requestAttributes, {
+                    where: {
+                        upsInstanceUID: workItem.upsInstanceUID
+                    }
+                });
+            } else {
+                await workItem.createUpsRequestAttributesModel(requestAttributes);
+            }
+        } else {
+            await UpsRequestAttributesModel.destroy({
+                where: {
+                    upsInstanceUID: workItem.upsInstanceUID
+                }
+            });
+        }
     }
 }
 
