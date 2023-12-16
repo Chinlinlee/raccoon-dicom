@@ -4,7 +4,7 @@ const { DicomJsonModel } = require("@dicom-json-model");
 const { UpdateWorkItemService } = require("@root/api/dicom-web/controller/UPS-RS/service/update-workItem.service");
 const { UpsWorkItemPersistentObject } = require("@models/sql/po/upsWorkItem.po");
 const { set, get } = require("lodash");
-const { CreateWorkItemService } = require("./create-workItem.service");
+const { PatientModel } = require("@models/sql/models/patient.model");
 
 class SqlUpdateWorkItemService extends UpdateWorkItemService {
     constructor(req, res) {
@@ -18,11 +18,12 @@ class SqlUpdateWorkItemService extends UpdateWorkItemService {
         await this.checkRequestUpsIsValid();
         this.adjustRequestWorkItem();
 
-        let createService = new CreateWorkItemService(this.request, this.response);
-        let patient = await createService.findOneOrCreatePatient();
+        let patient = await PatientModel.updateOrCreatePatient(this.requestWorkItem.dicomJson);
         let workItem = new UpsWorkItemPersistentObject(this.requestWorkItem.dicomJson, patient);
         let savedWorkItem = await workItem.save();
-        //TODO: update UPS event
+
+        this.workItem = new DicomJsonModel(workItem.json);
+        this.triggerUpdateWorkItemEvent(savedWorkItem);
     }
 
     /**
