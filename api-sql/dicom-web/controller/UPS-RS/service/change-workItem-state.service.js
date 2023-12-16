@@ -1,4 +1,5 @@
 const { WorkItemModel } = require("@dbModels/workitems.model");
+const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
 const { ChangeWorkItemStateService } = require("@root/api/dicom-web/controller/UPS-RS/service/change-workItem-state.service");
 const { UPS_EVENT_TYPE } = require("@root/api/dicom-web/controller/UPS-RS/service/workItem-event");
 
@@ -42,7 +43,7 @@ class SqlChangeWorkItemStateService extends ChangeWorkItemStateService {
     async triggerUpsChangeStateEvent(updatedWorkItem) {
         let updatedWorkItemDicomJsonModelObj = updatedWorkItem.toDicomJsonModel();
 
-        let hitSubscriptions = await this.getHitSubscriptions(updatedWorkItemDicomJsonModelObj);
+        let hitSubscriptions = await this.getHitSubscriptions(new DicomJsonModel(updatedWorkItem));
 
         if (hitSubscriptions.length === 0) return;
 

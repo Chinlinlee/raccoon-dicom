@@ -81,11 +81,16 @@ class UpsWorkItemPersistentObject {
 
         let requestAttributeDAO = new UpsWorkItemRequestAttributeDAO(this.upsInstanceUID, this.json);
         await requestAttributeDAO.update(upsWorkItem);
-        await upsWorkItem.save();
 
         if (!created) {
             await this.removeAllAssociationItems(tempUpsWorkItem);
+            upsWorkItem.json = {
+                ...upsWorkItem.json,
+                ...this.json
+            };
+            upsWorkItem.changed("json", true);
         } 
+        await upsWorkItem.save();
 
         return upsWorkItem;
     }
