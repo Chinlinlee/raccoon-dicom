@@ -1,9 +1,9 @@
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { ChangeMwlItemStatusService } = require("./service/change-mwlItem-status");
+const { ChangeFilteredMwlItemStatusService } = require("./service/change-filtered-mwlItem-status");
 
-class ChangeMwlItemStatusController extends Controller {
+class ChangeFilteredMwlItemStatusController extends Controller {
     constructor(req, res) {
         super(req, res);
         this.apiLogger = new ApiLogger(this.request, "MWL-RS");
@@ -11,13 +11,15 @@ class ChangeMwlItemStatusController extends Controller {
 
     async mainProcess() {
         try {
-            let changeMwlItemService = new ChangeMwlItemStatusService(this.request, this.response);
-            let changedMwlItems = await changeMwlItemService.changeMwlItemsStatus();
-
+            let changeFilteredMwlItemService = new ChangeFilteredMwlItemStatusService(this.request, this.response);
+            let changedMwlItemsCount = await changeFilteredMwlItemService.changeMwlItemsStatus();
+            
             return this.response
                    .set("Content-Type", "application/dicom+json")
                    .status(200)
-                   .json(changedMwlItems);
+                   .json({
+                        updatedCount: changedMwlItemsCount
+                   });
             
         } catch (e) {
             let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
@@ -32,7 +34,7 @@ class ChangeMwlItemStatusController extends Controller {
  * @param {import('express').Response} res
  */
 module.exports = async function (req, res) {
-    let controller = new ChangeMwlItemStatusController(req, res);
+    let controller = new ChangeFilteredMwlItemStatusController(req, res);
 
     await controller.doPipeline();
 };

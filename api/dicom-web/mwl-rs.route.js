@@ -131,4 +131,30 @@ router.post("/mwlitems/:studyUID/:spsID/status/:status",
     require("./controller/MWL-RS/change-mwlItem-status")
 );
 
+/**
+ *  @openapi
+ *  /dicom-web/mwlitems/status/{spsStatus}:
+ *    post:
+ *      tags:
+ *        - MWL-RS
+ *      description: >
+ *          This transaction create or update a Modality WorkList item.
+ *      requestBody:
+ *        content:
+ *          application/dicom+json:
+ *      parameters:
+ *        - $ref: "#/components/parameters/spsStatus"
+ *        - $ref: "#/components/parameters/filter"
+ *      responses:
+ *        "200":
+ *          description: change status of mwl items successfully
+ */
+router.post("/mwlitems/status/:status",
+    validateByJoi(
+        Joi.object({
+            status: Joi.string().valid("SCHEDULED", "ARRIVED", "READY", "STARTED", "DEPARTED", "CANCELED", "DISCONTINUED", "COMPLETED").required()
+        }), "params", {allowUnknown: false}),
+    require("./controller/MWL-RS/change-filtered-mwlItem-status")
+);
+
 module.exports = router;
