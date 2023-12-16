@@ -3,6 +3,7 @@ const { PatientQueryBuilder } = require("../../../QIDO-RS/service/patientQueryBu
 const { BaseQueryBuilder } = require("../../../QIDO-RS/service/querybuilder");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { DicomCodeQueryBuilder } = require("../../../QIDO-RS/service/dicomCodeQueryBuilder");
+const { get } = require("lodash");
 
 class UpsQueryBuilder extends BaseQueryBuilder {
 
@@ -25,6 +26,13 @@ class UpsQueryBuilder extends BaseQueryBuilder {
         this.createCodeQueries(dictionary.keyword.ScheduledWorkitemCodeSequence);
         this.createScheduledHumanPerformersSequenceQueries();
         this.createIssuerOfAdmissionIdSequenceQueries();
+
+        let upsInstanceUIDInParams = get(this.queryOptions.requestParams, "workItem");
+        if (upsInstanceUIDInParams) {
+            this.query = {
+                upsInstanceUID: upsInstanceUIDInParams
+            };
+        }
     }
 
     /**
