@@ -25,6 +25,7 @@
         "@dimse-series-query-task": "../../../dimse-sql/seriesQueryTask.js",
         "@dimse-instance-query-task": "../../../dimse-sql/instanceQueryTask.js",
         "@dimse-utils": "../../../dimse-sql/utils.js",
-        "@dimse": "../../../dimse-sql"
+        "@dimse": "../../../dimse-sql",
+        "@api": "../../../api-sql"
     }
 }

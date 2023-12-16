@@ -25,7 +25,8 @@
             "@dimse-study-query-task": ["./dimse-sql/studyQueryTask.js"],
             "@dimse-series-query-task": ["./dimse-sql/seriesQueryTask.js"],
             "@dimse-instance-query-task": ["./dimse-sql/instanceQueryTask.js"],
-            "@dimse-utils": ["./dimse-sql/utils.js"]
+            "@dimse-utils": ["./dimse-sql/utils.js"],
+            "@api/*": ["./api-sql/*"]
         }
     },
     "exclude": [
