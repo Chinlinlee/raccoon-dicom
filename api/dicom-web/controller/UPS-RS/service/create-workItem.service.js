@@ -92,7 +92,7 @@ class CreateWorkItemService extends BaseWorkItemService {
 
         if (hitSubscriptions) {
             let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItemDicomJson), hitSubscriptionAeTitleArray);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItem.toDicomJsonModel()), hitSubscriptionAeTitleArray);
             let assignedEventInformationArray = await this.getAssignedEventInformationArray(
                 workItemDicomJson,
                 _.get(workItemDicomJson.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}`, false),
