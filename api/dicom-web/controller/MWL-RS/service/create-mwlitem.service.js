@@ -21,7 +21,7 @@ class CreateMwlItemService {
         this.response = res;
         this.requestMwlItem = /**  @type {Object} */(this.request.body);
         /** @type {DicomJsonModel} */
-        this.requestMwlItemDicomJsonModel = new DicomJsonModel(this.requestMwlItem);
+        this.requestMwlItemDicomJsonModel = new DicomJsonModel(this.requestMwlItem[0]);
         this.apiLogger = new ApiLogger(req, "Create Mwl Item Service");
         this.apiLogger.addTokenValue();
     }
