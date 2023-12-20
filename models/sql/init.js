@@ -15,6 +15,7 @@ const { WorkItemModel } = require("./models/workitems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UpsSubscriptionModel } = require("./models/upsSubscription.model");
 const { UpsRequestAttributesModel } = require("./models/upsRequestAttributes.model");
+const { MwlItemModel } = require("./models/mwlItems.model");
 
 async function initDatabasePostgres() {
     const { Client } = require("pg");
@@ -172,6 +173,28 @@ async function init() {
         WorkItemModel.hasOne(UpsRequestAttributesModel, {
             foreignKey: "upsInstanceUID",
             sourceKey: "upsInstanceUID"
+        });
+
+        MwlItemModel.belongsTo(PatientModel, {
+            targetKey: "x00100020",
+            foreignKey: "patient_id" 
+        });
+
+        MwlItemModel.belongsTo(DicomCodeModel, {
+            foreignKey: "protocol_code",
+            as: dictionary.tag["00400008"]
+        });
+        MwlItemModel.belongsTo(DicomCodeModel, {
+            foreignKey: "institution_department_type_code",
+            as: dictionary.tag["00081041"]
+        });
+        MwlItemModel.belongsTo(DicomCodeModel, {
+            foreignKey: "institution_code",
+            as: dictionary.tag["00080082"]
+        });
+        MwlItemModel.belongsTo(PersonNameModel, {
+            foreignKey: "physician_name",
+            as: dictionary.tag["00400006"]
         });
     
         //TODO: 設計完畢後要將 force 刪除
