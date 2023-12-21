@@ -98,15 +98,16 @@ class BaseQueryBuilder {
      * @returns 
      */
     getStringQuery(tag, value) {
+        let queryField = this.getQueryField(tag);
         if (value.includes("%") || value.includes("_")) {
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.like]: value
                 }
             };
         }
         return {
-            [`x${tag}`]: value
+            [queryField]: value
         };
     }
 
@@ -132,22 +133,24 @@ class BaseQueryBuilder {
     }
 
     getStringArrayJsonQuery(tag, value) {
+        let queryField = this.getQueryField(tag);
         if (raccoonConfig.dbConfig.dialect === "postgres") {
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.contains]: cast(JSON.stringify([value]), "jsonb")
                 }
             };
         } else {
             return {
-                [Op.or]: [Sequelize.where(Sequelize.fn("JSON_CONTAINS", Sequelize.col(`x${tag}`), `[${value}]`))]
+                [Op.or]: [Sequelize.where(Sequelize.fn("JSON_CONTAINS", Sequelize.col(queryField), `[${value}]`))]
             };
         }
     }
 
     getNumberQuery(tag, value) {
+        let queryField = this.getQueryField(tag);
         return {
-            [`x${tag}`]: Number(value)
+            [queryField]: Number(value)
         };
     }
 
@@ -195,22 +198,23 @@ class BaseQueryBuilder {
      * @param {string} value 
      */
     getDateQuery(tag, value) {
+        let queryField = this.getQueryField(tag);
         let dashIndex = value.indexOf("-");
         if (dashIndex === 0) { // -YYYYMMDD
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.lte]: this.dateStringToSqlDateOnly(value.substring(1))
                 }
             };
         } else if (dashIndex === value.length - 1) { // YYYYMMDD-
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.gte]: this.dateStringToSqlDateOnly(value.substring(0, dashIndex))
                 }
             };
         } else if (dashIndex > 0) { // YYYYMMDD-YYYYMMDD
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.and]: [
                         { [Op.gte]: this.dateStringToSqlDateOnly(value.substring(0, dashIndex)) },
                         { [Op.lte]: this.dateStringToSqlDateOnly(value.substring(dashIndex + 1)) }
@@ -219,7 +223,7 @@ class BaseQueryBuilder {
             };
         } else { // YYYYMMDD
             return {
-                [`x${tag}`]: this.dateStringToSqlDateOnly(value)
+                [queryField]: this.dateStringToSqlDateOnly(value)
             };
         }
     }
@@ -230,22 +234,23 @@ class BaseQueryBuilder {
      * @param {string} value 
      */
     getTimeQuery(tag, value) {
+        let queryField = this.getQueryField(tag);
         let dashIndex = value.indexOf("-");
         if (dashIndex === 0) { // -HHmmss
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.lte]: this.timeStringToSqlTimeDecimal(value.substring(1))
                 }
             };
         } else if (dashIndex === value.length - 1) { // HHmmss-
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.gte]: this.timeStringToSqlTimeDecimal(value.substring(0, dashIndex))
                 }
             };
         } else if (dashIndex > 0) { // HHmmss-HHmmss
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.and]: [
                         { [Op.gte]: this.timeStringToSqlTimeDecimal(value.substring(0, dashIndex)) },
                         { [Op.lte]: this.timeStringToSqlTimeDecimal(value.substring(dashIndex + 1)) }
@@ -254,7 +259,7 @@ class BaseQueryBuilder {
             };
         } else {
             return {
-                [`x${tag}`]: this.timeStringToSqlTimeDecimal(value)
+                [queryField]: this.timeStringToSqlTimeDecimal(value)
             };
         }
     }
@@ -265,22 +270,23 @@ class BaseQueryBuilder {
      * @param {string} value 
      */
     getDateTimeQuery(tag, value) {
+        let queryField = this.getQueryField(tag);
         let dashIndex = value.indexOf("-");
         if (dashIndex === 0) { // -YYYYMMDD
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.lte]: this.dateTimeStringToSqlDateTime(value.substring(1))
                 }
             };
         } else if (dashIndex === value.length - 1) { // YYYYMMDD-
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.gte]: this.dateTimeStringToSqlDateTime(value.substring(0, dashIndex))
                 }
             };
         } else if (dashIndex > 0) { // YYYYMMDD-YYYYMMDD
             return {
-                [`x${tag}`]: {
+                [queryField]: {
                     [Op.and]: [
                         { [Op.gte]: this.dateTimeStringToSqlDateTime(value.substring(0, dashIndex)) },
                         { [Op.lte]: this.dateTimeStringToSqlDateTime(value.substring(dashIndex + 1)) }
@@ -289,7 +295,7 @@ class BaseQueryBuilder {
             };
         } else { // YYYYMMDD
             return {
-                [`x${tag}`]: this.dateTimeStringToSqlDateTime(value)
+                [queryField]: this.dateTimeStringToSqlDateTime(value)
             };
         }
     }
@@ -366,6 +372,15 @@ class BaseQueryBuilder {
 
             return Array.isArray(a) ? [...a, ...b] : { ...a, ...b };
         });
+    }
+    
+    /**
+     * 
+     * @param {string} tag 
+     * @returns 
+     */
+    getQueryField(tag) {
+        return /^[0-9a-zA-Z]{8}$/.test(tag) ? `x${tag}` : tag;
     }
 }
 
