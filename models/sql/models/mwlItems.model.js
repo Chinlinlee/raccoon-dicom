@@ -3,6 +3,7 @@ const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { raccoonConfig } = require("@root/config-class");
 const { DicomJsonModel } = require("../dicom-json-model");
+const { MwlQueryBuilder } = require("@root/api-sql/dicom-web/controller/MWL-RS/service/query/mwlQueryBuilder");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -21,7 +22,19 @@ class MwlItemModel extends Model {
         return new DicomJsonModel(this.json);
     }
     static async getDicomJson (queryOptions) {
-        // TODO: implement
+        let queryBuilder = new MwlQueryBuilder(queryOptions);
+        let q = queryBuilder.build();
+
+        let mwlItems = await MwlItemModel.findAll({
+            ...q,
+            attributes: ["json"],
+            limit: queryOptions.limit,
+            offset: queryOptions.skip
+        });
+
+        return await Promise.all(mwlItems.map(async item => {
+            return item.json;
+        }));
     }
 };
 

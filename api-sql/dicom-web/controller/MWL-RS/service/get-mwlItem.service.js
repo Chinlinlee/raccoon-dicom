@@ -1,15 +1,14 @@
-const { cloneDeep } = require("lodash");
-const { GetWorkItemService } = require("@root/api/dicom-web/controller/UPS-RS/service/get-workItem.service");
-const { QidoRsService } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
-const { WorkItemModel } = require("@models/sql/models/workitems.model");
+const { MwlItemModel } = require("@models/sql/models/mwlItems.model");
+const { GetMwlItemService } = require("@root/api/dicom-web/controller/MWL-RS/service/get-mwlItem.service");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
+const { cloneDeep } = require("lodash");
 
-class SqlGetWorkItemService extends GetWorkItemService {
+class SqlGetMwlItemService extends GetMwlItemService {
     constructor(req, res) {
         super(req, res);
     }
-    
-    async getUps() {
+
+    async getMwlItems() {
         let queryOptions = {
             query: this.query,
             skip: this.skip_,
@@ -17,9 +16,9 @@ class SqlGetWorkItemService extends GetWorkItemService {
             requestParams: this.request.params
         };
 
-        let docs = await WorkItemModel.getDicomJson(queryOptions);
-        
-        return this.adjustDocs(docs);
+        let docs = await MwlItemModel.getDicomJson(queryOptions);
+
+        return docs;
     }
 
     initQuery_() {
@@ -29,11 +28,9 @@ class SqlGetWorkItemService extends GetWorkItemService {
             let queryKey = queryKeys[i];
             if (!query[queryKey]) delete query[queryKey];
         }
-    
+
         this.query = convertAllQueryToDicomTag(query, false);
     }
 }
 
-SqlGetWorkItemService.prototype.initQuery_ = QidoRsService.prototype.initQuery_;
-
-module.exports.GetWorkItemService = SqlGetWorkItemService;
+module.exports.GetMwlItemService = SqlGetMwlItemService;
