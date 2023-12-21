@@ -1,7 +1,7 @@
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { GetMwlItemCountService } = require("./service/count-mwlItem.service");
+const { GetMwlItemCountService } = require("@mwl-service/count-mwlItem.service");
 
 class GetMwlItemCountController extends Controller {
     constructor(req, res) {

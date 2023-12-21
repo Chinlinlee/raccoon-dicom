@@ -36,6 +36,14 @@ class MwlItemModel extends Model {
             return item.json;
         }));
     }
+
+    static async getCount(query) {
+        let queryBuilder = new MwlQueryBuilder({query});
+        let q = queryBuilder.build();
+        return await this.count({
+            ...q
+        });
+    }
 };
 
 /** @type { import("sequelize").ModelAttributes } */
