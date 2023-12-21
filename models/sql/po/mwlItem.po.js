@@ -75,14 +75,14 @@ class MwlItemPersistentObject {
             },
             defaults: mwlItemObj.toJSON()
         });
+        let tempClonedMwlItem = cloneDeep(mwlItem);
 
         await this.setGeneralCode(mwlItem, dictionary.keyword.InstitutionalDepartmentTypeCodeSequence);
         await this.setGeneralCode(mwlItem, dictionary.keyword.InstitutionCodeSequence);
         await this.setGeneralCode(mwlItem, dictionary.keyword.ScheduledProtocolCodeSequence);
         await this.setPhysicianName(mwlItem);
-
         if (!created) {
-            await this.removeAllAssociationItems(mwlItem);
+            await this.removeAllAssociationItems(tempClonedMwlItem);
             mwlItem.json = {
                 ...mwlItem.json,
                 ...this.json
