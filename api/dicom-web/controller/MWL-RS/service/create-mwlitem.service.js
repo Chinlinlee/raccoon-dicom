@@ -51,7 +51,7 @@ class CreateMwlItemService {
         }
         mwlItem[dictionary.keyword.ScheduledProcedureStepSequence] = {
             ...mwlItem[dictionary.keyword.ScheduledProcedureStepSequence],
-            ...spsItem.dicomJson
+            ...spsItem.dicomJson[dictionary.keyword.ScheduledProcedureStepSequence]
         };
         
         if (!mwlDicomJson.getValue(dictionary.keyword.RequestedProcedureID)) {
