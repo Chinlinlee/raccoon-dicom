@@ -44,6 +44,16 @@ class MwlItemModel extends Model {
             ...q
         });
     }
+
+    static async deleteByStudyInstanceUIDAndSpsID(studyUID, spsID) {
+        let deletedCount = await MwlItemModel.destroy({
+            where: {
+                study_instance_uid: studyUID,
+                sps_id: spsID
+            }
+        });
+        return { deletedCount };
+    }
 };
 
 /** @type { import("sequelize").ModelAttributes } */

@@ -1,5 +1,5 @@
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
-const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
+const { MwlItemModel } = require("@dbModels/mwlitems.model");
 
 class DeleteMwlItemService {
     constructor(req, res) {
