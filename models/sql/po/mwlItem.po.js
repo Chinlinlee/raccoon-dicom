@@ -5,7 +5,7 @@ const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { vrValueTransform } = require("./utils");
 const { DicomCodeModel } = require("../models/dicomCode.model");
-const { MwlItemModel } = require("../models/mwlItems.model");
+const { MwlItemModel } = require("../models/mwlitems.model");
 const { Op } = require("sequelize");
 
 

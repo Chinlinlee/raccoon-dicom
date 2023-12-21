@@ -1,4 +1,4 @@
-const { MwlItemModel } = require("@models/sql/models/mwlItems.model");
+const { MwlItemModel } = require("@models/sql/models/mwlitems.model");
 const { GetMwlItemService } = require("@root/api/dicom-web/controller/MWL-RS/service/get-mwlItem.service");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 const { cloneDeep } = require("lodash");
