@@ -1,7 +1,7 @@
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { ChangeMwlItemStatusService } = require("./service/change-mwlItem-status");
+const { ChangeMwlItemStatusService } = require("@mwl-service/change-mwlItem-status");
 
 class ChangeMwlItemStatusController extends Controller {
     constructor(req, res) {
