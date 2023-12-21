@@ -28,23 +28,25 @@ class MwlItemPersistentObject {
         this.issuer_admission_local_id = dicomJsonObj.getValue(`${dictionary.keyword.IssuerOfAdmissionIDSequence}.Value.0.${dictionary.keyword.LocalNamespaceEntityID}`);
         this.issuer_admission_universal_id = dicomJsonObj.getValue(`${dictionary.keyword.IssuerOfAdmissionIDSequence}.Value.0.${dictionary.keyword.UniversalEntityID}`);
         this.issuer_admission_universal_id_type = dicomJsonObj.getValue(`${dictionary.keyword.IssuerOfAdmissionIDSequence}.Value.0.${dictionary.keyword.UniversalEntityIDType}`);
-        this.station_ae_title = dicomJsonObj.getValue(dictionary.keyword.StationAETitle);
-        this.station_name = dicomJsonObj.getValue(dictionary.keyword.StationName);
-        this.start_date = dicomJsonObj.getValue(dictionary.keyword.ScheduledProcedureStepStartDate);
-        this.end_date = dicomJsonObj.getValue(dictionary.keyword.ScheduledProcedureStepEndDate);
-        this.start_time = dicomJsonObj.getValue(dictionary.keyword.ScheduledProcedureStepStartTime);
-        this.end_time = dicomJsonObj.getValue(dictionary.keyword.ScheduledProcedureStepEndTime);
-        this.physician_name = dicomJsonObj.getValue(dictionary.keyword.ScheduledPerformingPhysicianName);
-        this.procedure_step_location = dicomJsonObj.getValue(dictionary.keyword.ScheduledProcedureStepLocation);
-        this.description = dicomJsonObj.getValue(dictionary.keyword.ScheduledProcedureStepDescription);
-        this.protocol_code = dicomJsonObj.getValue(dictionary.keyword.ScheduledProtocolCodeSequence);
-        this.institution_name = dicomJsonObj.getValue(dictionary.keyword.InstitutionName);
-        this.institution_department_name = dicomJsonObj.getValue(dictionary.keyword.InstitutionalDepartmentName);
-        this.institution_department_type_code = dicomJsonObj.getValue(dictionary.keyword.InstitutionalDepartmentTypeCodeSequence);
-        this.institution_code = dicomJsonObj.getValue(dictionary.keyword.InstitutionCodeSequence);
-        this.sps_id = dicomJsonObj.getValue(dictionary.keyword.ScheduledProcedureStepID);
-        this.sps_status = dicomJsonObj.getValue(dictionary.keyword.ScheduledProcedureStepStatus);
-        this.modality = dicomJsonObj.getValue(dictionary.keyword.Modality);
+        // #region sps (Scheduled Procedure Step)
+        this.station_ae_title = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.StationAETitle}`);
+        this.station_name = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.StationName}`);
+        this.start_date = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStartDate}`);
+        this.end_date = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepEndDate}`);
+        this.start_time = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStartTime}`);
+        this.end_time = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepEndTime}`);
+        this.physician_name = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledPerformingPhysicianName}`);
+        this.procedure_step_location = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepLocation}`);
+        this.description = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepDescription}`);
+        this.protocol_code = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProtocolCodeSequence}`);
+        this.institution_name = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.InstitutionName}`);
+        this.institution_department_name = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.InstitutionalDepartmentName}`);
+        this.institution_department_type_code = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.InstitutionalDepartmentTypeCodeSequence}`);
+        this.institution_code = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.InstitutionCodeSequence}`);
+        this.sps_id = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepID}`);
+        this.sps_status = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}`);
+        this.modality = dicomJsonObj.getValue(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.Modality}`);
+        // #endregion
     }
 
     initJsonProperties(dicomJson) {

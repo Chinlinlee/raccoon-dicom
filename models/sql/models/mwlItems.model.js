@@ -75,44 +75,44 @@ const MwlItemSchema = {
         type: vrTypeMapping.CS
     },
     // TODO Scheduled Procedure Step Sequence
-    // 00400001
+    // 0040,0100.00400001
     station_ae_title: {
         type: vrTypeMapping.AE
     },
-    // 00400010
+    // 0040,0100.00400010
     station_name: {
         type: vrTypeMapping.SH
     },
-    // 00400002
+    // 0040,0100.00400002
     start_date: {
         type: vrTypeMapping.DA
     },
-    // 00400004
+    // 0040,0100.00400004
     end_date: {
         type: vrTypeMapping.DA
     },
-    // 00400003
+    // 0040,0100.00400003
     start_time: {
         type: vrTypeMapping.DT
     },
-    // 00400005
+    // 0040,0100.00400005
     end_time: {
         type: vrTypeMapping.DT
     },
-    // 00400006
+    // 0040,0100.00400006
     physician_name: {
         //* must reference to PersonName model
         type: vrTypeMapping.PN
     },
-    // 00400011
+    // 0040,0100.00400011
     procedure_step_location: {
         type: vrTypeMapping.SH
     },
-    // 00400007
+    // 0040,0100.00400007
     description: {
         type: vrTypeMapping.LO
     },
-    // 00400008
+    // 0040,0100.00400008
     protocol_code: {
         // reference to dicom code model
         type: DataTypes.INTEGER
@@ -135,12 +135,15 @@ const MwlItemSchema = {
     institution_code: {
         type: DataTypes.INTEGER
     },
+    // 00400100.00400009
     sps_id: {
         type: vrTypeMapping.SH
     },
+    // 00400100.00400020
     sps_status: {
         type: vrTypeMapping.CS
     },
+    // 00400100.00080060
     modality: {
         type: vrTypeMapping.CS
     },
