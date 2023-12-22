@@ -2,7 +2,6 @@ const {
     handleImageQuality,
     handleViewport,
     writeRenderedImages,
-    writeSpecificFramesRenderedImages,
     RenderedImageMultipartWriter
 } = require("@root/api/dicom-web/controller/WADO-RS/service/rendered.service");
 const fs = require("fs");
@@ -150,7 +149,7 @@ class InstanceFramesListWriter extends FramesWriter {
             return this.writeSingleFrame();
         } else {
             let multipartWriter = new MultipartWriter([], this.request, this.response);
-            await writeSpecificFramesRenderedImages(this.request, frameNumber, this.instanceFramesObj, multipartWriter);
+            await writeRenderedImages(this.request, frameNumber, this.instanceFramesObj, multipartWriter);
             multipartWriter.writeFinalBoundary();
             return true;
         }
@@ -309,7 +308,6 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
 
 module.exports.postProcessFrameImage = postProcessFrameImage;
 module.exports.writeRenderedImages = writeRenderedImages;
-module.exports.writeSpecificFramesRenderedImages = writeSpecificFramesRenderedImages;
 module.exports.getInstanceFrameObj = getInstanceFrameObj;
 module.exports.RenderedImageMultipartWriter = RenderedImageMultipartWriter;
 module.exports.StudyFramesWriter = StudyFramesWriter;
