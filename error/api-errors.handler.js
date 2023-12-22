@@ -86,7 +86,7 @@ class ApiErrorArrayHandler {
      * @param {ApiLogger} apiLogger 
      * @param {Error} e 
      */
-    static raiseInternalServerError(response, apiLogger, e) {
+    static raiseInternalServerError(e, response, apiLogger) {
         apiLogger.logger.error(e);
 
         if (!response.headersSent) {

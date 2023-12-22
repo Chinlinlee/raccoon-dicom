@@ -24,6 +24,7 @@ const { EventType } = require("./eventType");
 const { default: ActiveParticipantBuilder } = require("@dcm4che/audit/ActiveParticipantBuilder");
 const { AuditMessages$UserIDTypeCode } = require("@dcm4che/audit/AuditMessages$UserIDTypeCode");
 const { ParticipatingObjectFactory } = require("./participatingObjectFactory");
+const { raccoonConfig } = require("@root/config-class");
 
 class AuditMessageFactory {
     constructor() { }
@@ -349,8 +350,13 @@ class AuditMessageFactory {
     }
 
     getInstanceModel() {
-        const mongoose = require("mongoose");
-        return mongoose.model("dicom");
+        if (raccoonConfig.serverConfig.dbType === "sql") {
+            const sequelizeInstance = require("@models/sql/instance");
+            return sequelizeInstance.model("Instance");
+        } else {
+            const mongoose = require("mongoose");
+            return mongoose.model("dicom");
+        }
     }
 }
 

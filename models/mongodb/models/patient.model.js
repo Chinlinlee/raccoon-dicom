@@ -31,6 +31,25 @@ let patientSchemaOptions = _.merge(
                     fields[tag] = 1;
                 }
                 return fields;
+            },
+            /**
+             * 
+             * @param {string} patientId 
+             * @param {any} patient 
+             */
+            findOneOrCreatePatient: async function(patientId, patient) {
+                /** @type {PatientModel | null} */
+                let foundPatient = await mongoose.model("patient").findOne({
+                    "00100020.Value": patientId
+                });
+
+                if (!foundPatient) {
+                    /** @type {PatientModel} */
+                    let patientObj = new mongoose.model("patient")(patient);
+                    patient = await patientObj.save();
+                }
+
+                return patient;
             }
         }
     }

@@ -106,13 +106,14 @@ class QueryTaskUtils {
 
     static async getQueryAttribute(keys, parentAttr, level = "patient") {
         let queryAttr = await Attributes.newInstanceAsync();
+        await Attributes.unifyCharacterSets([keys, parentAttr]);
         await queryAttr.addAll(keys);
         await queryAttr.addSelected(parentAttr, QUERY_ATTR_SELECTED_TAGS[level]);
         return queryAttr;
     }
 
     static async getQueryBuilder(queryAttr, level = "patient") {
-        const { DimseQueryBuilder } = require("./queryBuilder");
+        const { DimseQueryBuilder } = require("@dimse-query-builder");
         return new DimseQueryBuilder(queryAttr, level);
     }
 

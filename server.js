@@ -1,5 +1,11 @@
 RegExp.prototype.toJSON = RegExp.prototype.toString;
-require('module-alias')(__dirname);
+const { raccoonConfig } = require("./config-class");
+
+if (raccoonConfig.serverConfig.dbType === "mongodb") {
+    require('module-alias')(__dirname + "/config/modula-alias/mongodb");
+} else if (raccoonConfig.serverConfig.dbType === "sql") {
+    require('module-alias')(__dirname + "/config/modula-alias/sql");
+}
 
 const { app, server } = require("./app");
 const bodyParser = require("body-parser");
@@ -8,12 +14,30 @@ const cookieParser = require("cookie-parser");
 const compress = require("compression");
 const cors = require("cors");
 const os = require("os");
-const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo");
+
+let sessionStore;
+let dbInstance;
+let sessionStoreOption;
+if (raccoonConfig.serverConfig.dbType === "mongodb") {
+    sessionStore = require("connect-mongo");
+    dbInstance = require("mongoose");
+
+    sessionStoreOption = sessionStore.create({
+        client: dbInstance.connection.getClient(),
+        dbName: raccoonConfig.dbConfig.dbName
+    });
+
+} else if (raccoonConfig.serverConfig.dbType === "sql") {
+    sessionStore = require("connect-session-sequelize")(session.Store);
+    dbInstance = require("./models/sql/instance");
+
+    sessionStoreOption =  new sessionStore({
+        db: dbInstance
+    });
+}
 
 const passport = require("passport");
-const { raccoonConfig } = require("./config-class");
-const { DcmQrScp } = require('./dimse');
+const { DcmQrScp } = require('@dimse');
 require("dotenv");
 require("./websocket");
 
@@ -42,6 +66,7 @@ app.use(
 
 //#region session
 
+
 app.use(
     session({
         secret: raccoonConfig.serverConfig.secretKey || "secretKey",
@@ -51,10 +76,7 @@ app.use(
             httpOnly: true,
             maxAge: 60 * 60 * 1000
         },
-        store: MongoStore.create({
-            client: mongoose.connection.getClient(),
-            dbName: raccoonConfig.mongoDbConfig.dbName
-        })
+        store: sessionStoreOption
     })
 );
 

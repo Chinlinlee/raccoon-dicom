@@ -9,8 +9,8 @@ const dicomStudyModel = require("../models/mongodb/models/study.model");
 const dicomSeriesModel = require("../models/mongodb/models/series.model");
 const dicomModel = require("../models/mongodb/models/instance.model");
 const { expect } = require("chai");
-const { convertAllQueryToDICOMTag } = require("../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 const { QueryStudyDicomJsonFactory, QuerySeriesDicomJsonFactory, QueryInstanceDicomJsonFactory } = require("../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 
 describe("Query DICOM of study, series, and instance level", async () => {
@@ -26,7 +26,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "StudyDate": "19990101-19991231"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
@@ -45,7 +45,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "StudyDate": "20220101-20221231"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
@@ -66,7 +66,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "PatientID": "TCGA-G4-6304"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
@@ -89,7 +89,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "StudyDate": "20100101-20101231"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
@@ -109,7 +109,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "StudyDate": "19990101-19991231"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
@@ -131,7 +131,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "PatientBirthDate": "19590101"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
@@ -151,7 +151,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "PatientBirthDate": "19601218"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
@@ -173,7 +173,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "AccessionNumber": "4444"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
@@ -193,7 +193,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "AccessionNumber": "2794663908550664"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
                 let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {

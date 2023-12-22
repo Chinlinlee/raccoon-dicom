@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
-const workItemModel = require("@models/mongodb/models/workItems");
+const workItemModel = require("@models/mongodb/models/workitems.model");
 const subscriptionModel = require("@models/mongodb/models/upsSubscription");
 const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
 const {
@@ -9,8 +9,7 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { SUBSCRIPTION_STATE, SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/ups");
-const { BaseWorkItemService } = require("./base-workItem.service");
-const { convertAllQueryToDICOMTag } = require("../../QIDO-RS/service/QIDO-RS.service");
+const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
 
 class UnSubscribeService extends BaseWorkItemService {
 

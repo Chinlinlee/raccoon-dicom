@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const {
     CreateWorkItemService
-} = require("./service/create-workItem.service");
+} = require("@ups-service/create-workItem.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
 const { DicomWebServiceError } = require("@error/dicom-web-service");

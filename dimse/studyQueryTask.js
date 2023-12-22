@@ -179,3 +179,5 @@ class StudyMatchIteratorProxy {
 }
 
 module.exports.JsStudyQueryTask = JsStudyQueryTask;
+module.exports.StudyMatchIteratorProxy = StudyMatchIteratorProxy;
+module.exports.StudyQueryTaskInjectProxy = StudyQueryTaskInjectProxy;

@@ -192,3 +192,4 @@ class PatientMatchIteratorProxy {
 }
 
 module.exports.JsPatientQueryTask = JsPatientQueryTask;
+module.exports.PatientMatchIteratorProxy = PatientMatchIteratorProxy;

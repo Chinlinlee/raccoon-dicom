@@ -76,7 +76,8 @@ class BaseDicomJson {
     }
 
     setValue(tag, value) {
-        let vrOfTag = _.get(dictionary.tagVR, `${tag}.vr`);
+        let lastTag = tag.split(".").at(-1);
+        let vrOfTag = _.get(dictionary.tagVR, `${lastTag}.vr`);
         _.set(this.dicomJson, `${tag}.vr`, vrOfTag);
         _.set(this.dicomJson, `${tag}.Value`, [value]);
     }

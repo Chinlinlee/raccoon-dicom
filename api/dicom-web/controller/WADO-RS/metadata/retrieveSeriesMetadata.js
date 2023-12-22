@@ -1,13 +1,5 @@
-const mongoose = require("mongoose");
-const _ = require("lodash");
-const fs = require("fs");
-const path = require("path");
-const fileExist = require("../../../../../utils/file/fileExist");
-const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
-const { Controller } = require("../../../../controller.class");
-const { ApiLogger } = require("../../../../../utils/logs/api-logger");
 const { BaseRetrieveMetadataController } = require("./base.controller");
-const { SeriesImagePathFactory } = require("../service/WADO-RS.service");
+const { SeriesImagePathFactory } = require("@wado-rs-service");
 
 class RetrieveSeriesMetadataController extends BaseRetrieveMetadataController {
     constructor(req, res) {

@@ -1,6 +1,6 @@
-const { StudyBulkDataFactory } = require("./service/bulkdata");
+const { StudyBulkDataFactory } = require("@bulkdata-service");
 const { BaseBulkDataController } = require("./base.controller");
-const { StudyImagePathFactory } = require("../service/WADO-RS.service");
+const { StudyImagePathFactory } = require("@wado-rs-service");
 
 class StudyBulkDataController extends BaseBulkDataController {
     constructor(req, res) {

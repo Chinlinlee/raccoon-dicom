@@ -1,4 +1,4 @@
-const { StudyImagePathFactory } = require("../service/WADO-RS.service");
+const { StudyImagePathFactory } = require("@wado-rs-service");
 const { BaseRetrieveMetadataController } = require("./base.controller");
 
 class RetrieveStudyMetadataController extends BaseRetrieveMetadataController {

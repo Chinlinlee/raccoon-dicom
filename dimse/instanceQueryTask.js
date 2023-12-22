@@ -178,3 +178,5 @@ class InstanceMatchIteratorProxy {
 }
 
 module.exports.JsInstanceQueryTask = JsInstanceQueryTask;
+module.exports.InstanceQueryTaskInjectProxy = InstanceQueryTaskInjectProxy;
+module.exports.InstanceMatchIteratorProxy = InstanceMatchIteratorProxy;

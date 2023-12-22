@@ -4,7 +4,7 @@ const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
 
 class SuspendSubscribeService extends BaseWorkItemService {
 

@@ -1,5 +1,5 @@
-const { StudyImagePathFactory } = require("../service/WADO-RS.service");
-const { StudyFramesWriter } = require("../service/rendered.service");
+const { StudyImagePathFactory } = require("@wado-rs-service");
+const { StudyFramesWriter } = require("@rendered-service");
 const { BaseRetrieveRenderedController } = require("./base.controller");
 
 class RetrieveRenderedStudyController extends BaseRetrieveRenderedController {

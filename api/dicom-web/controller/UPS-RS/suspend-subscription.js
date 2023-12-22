@@ -6,7 +6,7 @@
 
 const {
     SuspendSubscribeService
-} = require("./service/suspend-subscription.service");
+} = require("@ups-service/suspend-subscription.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
 const { DicomWebServiceError } = require("@error/dicom-web-service");

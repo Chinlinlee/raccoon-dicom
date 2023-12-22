@@ -2,6 +2,10 @@ const _ = require("lodash");
 
 const { AuditMessageFactory } = require("./auditMessageFactory");
 const { EventType } = require("./eventType");
+const { AuditMessageModel } = require("@models/db/auditMessage.model");
+const { AuditMessageModelLoggerDbImpl } = require("@models/db/auditMessage.loggerImpl");
+const AuditMessageModelMongodbDbImpl = require("@models/mongodb/models/auditMessage");
+const { raccoonConfig } = require("@root/config-class");
 
 /**
  * @typedef AuditMessageModel
@@ -159,8 +163,9 @@ class AuditManager {
     }
 
     static getAuditMessageModel() {
-        const mongoose = require("mongoose");
-        return mongoose.model("auditMessage");
+        if (raccoonConfig.serverConfig.dbType === "sql")
+            return new AuditMessageModel(new AuditMessageModelLoggerDbImpl());
+        return new AuditMessageModel(AuditMessageModelMongodbDbImpl);
     }
 }
 

@@ -1,10 +1,10 @@
 const _ = require("lodash");
-const renderedService = require("../service/rendered.service");
+const renderedService = require("@rendered-service");
 const {
-    StudyImagePathFactory, SeriesImagePathFactory, InstanceImagePathFactory
-} = require("../service/WADO-RS.service");
-const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
-const { ApiLogger } = require("../../../../../utils/logs/api-logger");
+    StudyImagePathFactory
+} = require("@wado-rs-service");
+const errorResponse = require("@root/utils/errorResponse/errorResponseMessage");
+const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { Controller } = require("../../../../controller.class");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 

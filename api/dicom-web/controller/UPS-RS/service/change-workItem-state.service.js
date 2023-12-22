@@ -2,12 +2,12 @@ const _ = require("lodash");
 const moment = require("moment");
 const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
-const workItemModel = require("@models/mongodb/models/workItems");
+const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 
 class ChangeWorkItemStateService extends BaseWorkItemService {
@@ -51,7 +51,7 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
             this.completeChange();
         }
 
-        let updatedWorkItem = await workItemModel.findOneAndUpdate({
+        let updatedWorkItem = await WorkItemModel.findOneAndUpdate({
             upsInstanceUID: this.request.params.workItem
         }, {
             ...this.requestState.dicomJson

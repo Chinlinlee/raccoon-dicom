@@ -27,3 +27,5 @@ config/ae-prod.properties
 
 # ignore jscpd output report
 /report
+
+/jsconfig.json

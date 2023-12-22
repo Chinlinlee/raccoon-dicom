@@ -1,12 +1,10 @@
 const _ = require("lodash");
-const workItemModel = require("@models/mongodb/models/workItems");
 const { DicomJsonModel, BaseDicomJson } = require("@dicom-json-model");
-const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { raccoonConfig } = require("@root/config-class");
@@ -25,9 +23,12 @@ class CancelWorkItemService extends BaseWorkItemService {
         this.requestWorkItem = /**  @type {Object[]} */(this.request.body).pop();
     }
 
-    async cancel() {
-
+    async initWorkItem() {
         this.workItem = await this.findOneWorkItem(this.upsInstanceUID);
+    }
+
+    async cancel() {
+        await this.initWorkItem();
         let procedureStepState = this.workItem.getString(dictionary.keyword.ProcedureStepState);
 
         if (procedureStepState === "IN PROGRESS") {

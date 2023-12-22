@@ -1,9 +1,9 @@
 const _ = require("lodash");
-const workItemsModel = require("@models/mongodb/models/workItems");
+const workItemsModel = require("@models/mongodb/models/workitems.model");
 const { 
     convertRequestQueryToMongoQuery
 } = require("../../QIDO-RS/service/query-dicom-json-factory");
-const { convertAllQueryToDICOMTag } = require("../../QIDO-RS/service/QIDO-RS.service");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 class GetWorkItemService {
     constructor(req, res) {
@@ -60,7 +60,7 @@ class GetWorkItemService {
             if (!query[queryKey]) delete query[queryKey];
         }
 
-        this.query = convertAllQueryToDICOMTag(query);
+        this.query = convertAllQueryToDicomTag(query);
     }
 
 }

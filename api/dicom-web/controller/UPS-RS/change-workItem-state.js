@@ -1,6 +1,6 @@
 const {
     ChangeWorkItemStateService
-} = require("./service/change-workItem-state.service");
+} = require("@ups-service/change-workItem-state.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
 const { DicomWebServiceError } = require("@error/dicom-web-service");

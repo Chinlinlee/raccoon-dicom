@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const workItemModel = require("@models/mongodb/models/workItems");
+const workItemModel = require("@models/mongodb/models/workitems.model");
 const { PatientModel } = require("@dbModels/patient.model");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
 const {
@@ -7,28 +7,29 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { DicomJsonModel } = require("@dicom-json-model");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 
 
-const notAllowedAttributes = [
-    "00080016",
-    "00080018",
-    "00100010",
-    "00100020",
-    "00100030",
-    "00100040",
-    "00380010",
-    "00380014",
-    "00081080",
-    "00081084",
-    "0040A370",
-    "00741224",
-    "00741000"
-];
+
 
 class UpdateWorkItemService extends BaseWorkItemService {
+    static notAllowedAttributes = Object.freeze([
+        "00080016",
+        "00080018",
+        "00100010",
+        "00100020",
+        "00100030",
+        "00100040",
+        "00380010",
+        "00380014",
+        "00081080",
+        "00081084",
+        "0040A370",
+        "00741224",
+        "00741000"
+    ]);
     /**
      * 
      * @param {import('express').Request} req 
@@ -57,10 +58,14 @@ class UpdateWorkItemService extends BaseWorkItemService {
             new: true
         });
 
-        let updateWorkItemDicomJson = new DicomJsonModel(updatedWorkItem);
+       this.triggerUpdateWorkItemEvent(updatedWorkItem);
+    }
+
+    async triggerUpdateWorkItemEvent(workItem) {
+        let updateWorkItemDicomJson = new DicomJsonModel(workItem);
         let hitSubscriptions = await this.getHitSubscriptions(updateWorkItemDicomJson);
         if (hitSubscriptions.length === 0) {
-            return updatedWorkItem;
+            return workItem;
         }
         let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
 
@@ -162,8 +167,8 @@ class UpdateWorkItemService extends BaseWorkItemService {
      * remove not allowed updating attribute in request work item
      */
     adjustRequestWorkItem() {
-        for (let i = 0; i < notAllowedAttributes.length; i++) {
-            let notAllowedAttr = notAllowedAttributes[i];
+        for (let i = 0; i < UpdateWorkItemService.notAllowedAttributes.length; i++) {
+            let notAllowedAttr = UpdateWorkItemService.notAllowedAttributes[i];
             _.unset(this.requestWorkItem.dicomJson, notAllowedAttr);
         }
     }

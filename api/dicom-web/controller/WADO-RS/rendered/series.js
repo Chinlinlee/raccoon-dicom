@@ -1,5 +1,5 @@
-const { SeriesImagePathFactory } = require("../service/WADO-RS.service");
-const { SeriesFramesWriter } = require("../service/rendered.service");
+const { SeriesImagePathFactory } = require("@wado-rs-service");
+const { SeriesFramesWriter } = require("@rendered-service");
 const { BaseRetrieveRenderedController } = require("./base.controller");
 
 class RetrieveRenderedSeriesController extends BaseRetrieveRenderedController {

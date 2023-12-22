@@ -1,9 +1,6 @@
-const { ApiLogger } = require("../../../../../utils/logs/api-logger");
-const { BulkDataService, InstanceBulkDataFactory } = require("./service/bulkdata");
-const { getInternalServerErrorMessage } = require("../../../../../utils/errorResponse/errorResponseMessage");
-const { InstanceModel } = require("@dbModels/instance.model");
+const { InstanceBulkDataFactory } = require("@bulkdata-service");
 const { BaseBulkDataController } = require("./base.controller");
-const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
+const { InstanceImagePathFactory } = require("@wado-rs-service");
 
 class InstanceBulkDataController extends BaseBulkDataController {
     constructor(req, res) {

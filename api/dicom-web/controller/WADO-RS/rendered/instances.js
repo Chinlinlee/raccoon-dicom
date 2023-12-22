@@ -1,5 +1,5 @@
-const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
-const { InstanceFramesWriter } = require("../service/rendered.service");
+const { InstanceImagePathFactory } = require("@wado-rs-service");
+const { InstanceFramesWriter } = require("@rendered-service");
 const { BaseRetrieveRenderedController } = require("./base.controller");
 
 class RetrieveRenderedInstancesController extends BaseRetrieveRenderedController {

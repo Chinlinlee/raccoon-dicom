@@ -1,0 +1,32 @@
+{
+    "_moduleAliases": {
+        "@dcm4che": "../../../models/DICOM/dcm4che/wrapper/org/dcm4che3",
+        "@java-wrapper": "../../../models/DICOM/dcm4che/wrapper",
+        "@models": "../../../models",
+        "@error": "../../../error",
+        "@root": "../../../",
+        "@chinlinlee": "../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee",
+        "@dbModels": "../../../models/sql/models",
+        "@dbInitializer": "../../../models/sql/initializer.js",
+        "@dicom-json-model": "../../../models/sql/dicom-json-model.js",
+        "@query-dicom-json-factory": "../../../api-sql/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory.js",
+        "@stow-rs-service": "../../../api/dicom-web/controller/STOW-RS/service/stow-rs.service.js",
+        "@qido-rs-service": "../../../api-sql/dicom-web/controller/QIDO-RS/service/QIDO-RS.service.js",
+        "@wado-rs-service": "../../../api-sql/dicom-web/controller/WADO-RS/service/WADO-RS.service.js",
+        "@wado-uri-service": "../../../api-sql/WADO-URI/service/WADO-URI.service.js",
+        "@bulkdata-service": "../../../api-sql/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata.js",
+        "@delete-service": "../../../api-sql/dicom-web/controller/WADO-RS/deletion/service/delete.js",
+        "@rendered-service": "../../../api-sql/dicom-web/controller/WADO-RS/service/rendered.service.js",
+        "@thumbnail-service": "../../../api-sql/dicom-web/controller/WADO-RS/service/thumbnail.service.js",
+        "@ups-service": "../../../api-sql/dicom-web/controller/UPS-RS/service",
+        "@mwl-service": "../../../api-sql/dicom-web/controller/MWL-RS/service",
+        "@dimse-query-builder": "../../../dimse-sql/queryBuilder.js",
+        "@dimse-patient-query-task": "../../../dimse-sql/patientQueryTask.js",
+        "@dimse-study-query-task": "../../../dimse-sql/studyQueryTask.js",
+        "@dimse-series-query-task": "../../../dimse-sql/seriesQueryTask.js",
+        "@dimse-instance-query-task": "../../../dimse-sql/instanceQueryTask.js",
+        "@dimse-utils": "../../../dimse-sql/utils.js",
+        "@dimse": "../../../dimse-sql",
+        "@api": "../../../api-sql"
+    }
+}

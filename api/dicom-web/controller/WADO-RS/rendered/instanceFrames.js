@@ -1,7 +1,7 @@
 const _ = require("lodash");
-const { InstanceImagePathFactory } = require("../service/WADO-RS.service");
+const { InstanceImagePathFactory } = require("@wado-rs-service");
 const { BaseRetrieveRenderedController } = require("./base.controller");
-const { InstanceFramesListWriter } = require("../service/rendered.service");
+const { InstanceFramesListWriter } = require("@rendered-service");
 
 class RetrieveRenderedInstanceFramesController extends BaseRetrieveRenderedController {
     constructor(req, res) {

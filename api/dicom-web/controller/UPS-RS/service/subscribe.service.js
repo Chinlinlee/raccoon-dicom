@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
-const workItemModel = require("@models/mongodb/models/workItems");
+const workItemModel = require("@models/mongodb/models/workitems.model");
 const subscriptionModel = require("@models/mongodb/models/upsSubscription");
 const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
 const {
@@ -9,9 +9,9 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { SUBSCRIPTION_STATE, SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/ups");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
-const { convertAllQueryToDICOMTag } = require("../../QIDO-RS/service/QIDO-RS.service");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 class SubscribeService extends BaseWorkItemService {
 
@@ -34,7 +34,7 @@ class SubscribeService extends BaseWorkItemService {
         if (this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.GlobalUID || 
             this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.FilteredGlobalUID) {
 
-            this.query = convertAllQueryToDICOMTag(this.request.query);
+            this.query = convertAllQueryToDicomTag(this.request.query);
             await this.createOrUpdateGlobalSubscription();
         } else {
             let workItem = await this.findOneWorkItem(this.upsInstanceUID);
