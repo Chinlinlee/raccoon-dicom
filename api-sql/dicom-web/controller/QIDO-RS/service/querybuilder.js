@@ -380,7 +380,7 @@ class BaseQueryBuilder {
      * @returns 
      */
     getQueryField(tag) {
-        return /^[0-9a-zA-Z]{8}$/.test(tag) ? `x${tag}` : tag;
+        return /^[0-9a-zA-Z]{8}$/.test(tag.substring(0, 8)) ? `x${tag}` : tag;
     }
 }
 
