@@ -7,10 +7,25 @@ const {
 } = require("../../DICOM/dicom-tags-mapping");
 const { raccoonConfig } = require("@root/config-class");
 const { DicomSchemaOptionsFactory, PatientDocDicomJsonHandler } = require("../schema/dicom.schema");
+const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
 let patientSchemaOptions = _.merge(
     DicomSchemaOptionsFactory.get("patient", PatientDocDicomJsonHandler),
     {
+        methods: {
+            toDicomJson: function() {
+                let obj = this.toObject();
+                delete obj._id;
+                delete obj.id;
+                delete obj.patientID;
+                delete obj.studyPaths;
+                delete obj.deleteStatus;
+                delete obj.createdAt;
+                delete obj.updatedAt;
+
+                return obj;
+            }
+        },
         statics: {
             getPathGroupQuery: function (iParam) {
                 let { patientID } = iParam;
@@ -82,6 +97,23 @@ for (let tag in tagsNeedStore.Patient) {
         [tag]: tagSchema
     });
 }
+
+// default storage media file set info from config
+patientSchema[dictionary.keyword.StorageMediaFileSetID] = {
+    ...patientSchema[dictionary.keyword.StorageMediaFileSetID],
+    default: {
+        vr: "SH",
+        Value: raccoonConfig.mediaStorageID
+    }
+};
+
+patientSchema[dictionary.keyword.StorageMediaFileSetUID] = {
+    ...patientSchema[dictionary.keyword.StorageMediaFileSetUID],
+    default: {
+        vr: "UI",
+        Value: raccoonConfig.mediaStorageUID
+    }
+};
 
 // Index patient id
 patientSchema.index({

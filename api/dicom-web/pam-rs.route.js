@@ -1,0 +1,31 @@
+const express = require("express");
+const router = express();
+const Joi = require("joi");
+const { validateParams } = require("../validator");
+
+
+/**
+ * @openapi
+ * /dicom-web/patients:
+ *  post:
+ *    tags:
+ *      - PAM-RS
+ *    description: Create new patient
+ *    responses:
+ *      200:
+ *        description: Create patient successfully
+ *        content:
+ *          "application/dicom+json":
+ *            schema:
+ *              $ref: "#/components/schemas/PatientRequiredMatchingAttributes"
+ *              
+ */
+router.post("/patients", validateParams({
+    "00100020": Joi.object({
+        "vr": Joi.string().required().allow("LO"),
+        "Value": Joi.array().items(Joi.string()).required().min(1)
+    }).required()
+}, "body", { allowUnknown: true }), require("./controller/PAM-RS/create-patient"));
+
+
+module.exports = router;
