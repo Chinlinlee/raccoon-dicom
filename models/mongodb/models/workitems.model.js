@@ -4,6 +4,7 @@ const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { SUBSCRIPTION_STATE } = require("../../DICOM/ups");
+const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
 
 let workItemSchema = new mongoose.Schema(
     {
@@ -34,6 +35,11 @@ let workItemSchema = new mongoose.Schema(
         versionKey: false,
         toObject: {
             getters: true
+        },
+        methods: {
+            toDicomJsonModel: function () {
+                return new DicomJsonModel(this);
+            }
         }
     }
 );
