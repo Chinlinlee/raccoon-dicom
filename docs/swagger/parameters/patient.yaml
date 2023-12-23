@@ -26,3 +26,11 @@ components:
             in: query
             schema:
               type: string
+        "patientID":
+            name: "patientID"
+            description: Patient ID
+            in: path
+            required: true
+            schema:
+              type: string
+              

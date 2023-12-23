@@ -10,7 +10,10 @@ components:
       in: path
       name: spsStatus
       required: true
-      enum:
+      
+      schema:
+        type: string
+        enum:
         - SCHEDULED
         - ARRIVED
         - READY
@@ -19,5 +22,3 @@ components:
         - CANCELED
         - DISCONTINUED
         - COMPLETED
-      schema:
-        type: string

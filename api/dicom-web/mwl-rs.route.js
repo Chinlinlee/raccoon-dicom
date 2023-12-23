@@ -12,10 +12,6 @@ const router = express();
  *        - MWL-RS
  *      description: >
  *          This transaction create or update a Modality WorkList item.
- *      requestBody:
- *        content:
- *          application/dicom+json:
- *      parameters:
  *      responses:
  *        "200":
  *          description: The workitem create successfully
@@ -53,6 +49,8 @@ router.post("/mwlitems",
  *             "application/dicom+json":
  *               schema:
  *                 type: array
+ *                 items:
+ *                   type: object
  */
 router.get("/mwlitems",require("./controller/MWL-RS/get-mwlItem"));
 
@@ -86,9 +84,6 @@ router.get("/mwlitems/count",require("./controller/MWL-RS/count-mwlItem"));
  *        - MWL-RS
  *      description: >
  *          This transaction deletes a Modality WorkList item.
- *      requestBody:
- *        content:
- *          application/dicom+json:
  *      parameters:
  *        - $ref: "#/components/parameters/studyUID"
  *        - $ref: "#/components/parameters/spsID"
@@ -110,9 +105,6 @@ router.delete("/mwlitems/:studyUID/:spsID", validateParams({
  *        - MWL-RS
  *      description: >
  *          This transaction create or update a Modality WorkList item.
- *      requestBody:
- *        content:
- *          application/dicom+json:
  *      parameters:
  *        - $ref: "#/components/parameters/studyUID"
  *        - $ref: "#/components/parameters/spsID"
@@ -139,9 +131,6 @@ router.post("/mwlitems/:studyUID/:spsID/status/:status",
  *        - MWL-RS
  *      description: >
  *          This transaction create or update a Modality WorkList item.
- *      requestBody:
- *        content:
- *          application/dicom+json:
  *      parameters:
  *        - $ref: "#/components/parameters/spsStatus"
  *        - $ref: "#/components/parameters/filter"
