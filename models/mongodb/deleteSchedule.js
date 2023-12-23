@@ -4,9 +4,13 @@ const { logger } = require("@root/utils/logs/log");
 const { StudyModel } = require("@dbModels/study.model");
 const { InstanceModel } = require("@dbModels/instance.model");
 const { SeriesModel } = require("@dbModels/series.model");
+const { PatientModel } = require("./models/patient.model");
 
 // Delete dicom with delete status >= 2
 schedule.scheduleJob("*/5 * * * * *", async function () {
+    deleteExpirePatients().catch(e => {
+        logger.error(e);
+    });
     deleteExpireStudies().catch((e) => {
         logger.error(e);
     });
@@ -18,6 +22,35 @@ schedule.scheduleJob("*/5 * * * * *", async function () {
     });
 });
 
+async function deleteExpirePatients() {
+    let deletedPatients = await PatientModel.find({
+        deleteStatus: {
+            $gte: 2
+        }
+    });
+
+    for (let deletedPatient of deletedPatients) {
+        let updateAtDate = moment(deletedPatient.updatedAt);
+        let now = moment();
+        let diff = now.diff(updateAtDate, "seconds");
+        if (diff >= 30) {
+            let patientID = deletedPatient.patientID;
+            logger.info("delete expired patient: " + patientID);
+            await Promise.all([
+                StudyModel.deleteMany({
+                    "00100020.Value.0": patientID
+                }),
+                InstanceModel.deleteMany({
+                    "00100020.Value.0": patientID
+                }),
+                SeriesModel.deleteMany({
+                    "00100020.Value.0": patientID
+                }),
+                deletedPatient.delete()
+            ]);
+        }
+    }
+}
 
 async function deleteExpireStudies() {
     let deletedStudies = await StudyModel.find({
