@@ -60,4 +60,6 @@ router.post("/patients", validateParams({
  */
 router.put("/patients/:patientID", require("./controller/PAM-RS/update-patient"));
 
+router.delete("/patients/:patientID", require("./controller/PAM-RS/delete-patient"));
+
 module.exports = router;
