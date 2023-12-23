@@ -57,13 +57,13 @@
   "dependencies": {
     "@jorgeferrero/stream-to-buffer": "^2.0.6",
     "archiver": "^5.3.1",
-    "axios": "^0.26.1",
+    "axios": "^1.6.2",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "colorette": "^2.0.20",
     "commander": "^10.0.1",
     "compression": "^1.7.4",
-    "connect-mongo": "^4.6.0",
+    "connect-mongo": "^5.1.0",
     "connect-session-sequelize": "^7.1.7",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -98,9 +98,9 @@
     "request-multipart": "^1.0.0",
     "run-script-os": "^1.1.6",
     "sequelize": "^6.32.1",
-    "sharp": "^0.30.4",
+    "sharp": "^0.33.1",
     "shorthash2": "^1.0.3",
-    "uuid": "^9.0.0",
+    "uuid": "^9.0.1",
     "ws": "^8.13.0"
   },
   "devDependencies": {
