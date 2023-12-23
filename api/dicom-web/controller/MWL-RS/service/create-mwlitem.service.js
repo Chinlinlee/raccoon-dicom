@@ -89,7 +89,7 @@ class CreateMwlItemService {
 
     async checkPatientExist() {
         let patientID = this.requestMwlItemDicomJsonModel.getString("00100020");
-        let patientCount = await PatientModel.count({ 
+        let patientCount = await PatientModel.countDocuments({ 
             patientID 
         });
         if (patientCount <= 0) {
