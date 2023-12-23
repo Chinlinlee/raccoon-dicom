@@ -14,11 +14,11 @@ class CreatePatientController extends Controller {
 
         let createPatientService = new CreatePatientService(this.request, this.response);
         try {
-            let createPatient = await createPatientService.create();
+            let createPatientID = await createPatientService.create();
             return this.response
                        .set("content-type", "application/dicom+json")
                        .status(201)
-                       .json(createPatient.toDicomJson());
+                       .json(createPatientID);
         } catch(e) {
             let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
             return apiErrorArrayHandler.doErrorResponse();

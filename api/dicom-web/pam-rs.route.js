@@ -17,7 +17,10 @@ const { validateParams } = require("../validator");
  *        content:
  *          "application/dicom+json":
  *            schema:
- *              $ref: "#/components/schemas/PatientRequiredMatchingAttributes"
+ *              type: object
+ *              properties:
+ *                patientID:
+ *                  type: string
  *              
  */
 router.post("/patients", validateParams({

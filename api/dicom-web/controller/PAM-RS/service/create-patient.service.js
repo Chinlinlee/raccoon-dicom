@@ -1,5 +1,7 @@
 const { PatientModel } = require("@models/mongodb/models/patient.model");
 const { set, get } = require("lodash");
+const shortHash = require("shorthash2");
+const { v4: uuidV4 } = require("uuid");
 
 class CreatePatientService {
     /**
@@ -14,9 +16,16 @@ class CreatePatientService {
 
     async create() {
         let incomingPatient = this.request.body;
-        set(incomingPatient, "patientID", get(incomingPatient, "00100020.Value.0"));
+        let patientID = shortHash(uuidV4());
+        set(incomingPatient, "patientID", patientID);
+        set(incomingPatient, "00100020.Value", [
+            patientID
+        ]);
         const patient = new PatientModel(incomingPatient);
-        return await patient.save();
+        await patient.save();
+        return {
+            patientID
+        };
     }
 }
 
