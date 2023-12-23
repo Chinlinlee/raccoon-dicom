@@ -28,7 +28,7 @@ class UpdatePatientService {
     }
     
     #adjustIncomingPatient() {
-        delete this.incomingPatient[dictionary.keyword.PatientID];
+        set(this.incomingPatient, "00100020.Value", [this.request.params.patientID]);
         set(this.incomingPatient, "patientID", this.request.params.patientID);
     }
 }
