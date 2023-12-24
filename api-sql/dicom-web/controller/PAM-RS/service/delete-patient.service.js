@@ -10,7 +10,9 @@ class SqlDeletePatientService extends DeletePatientService {
     async delete() {
         let { patientID } = this.request.params;
         let patient = await PatientModel.findOne({ 
-            "x00100020": patientID
+            where: {
+                "x00100020": patientID
+            }
          });
         if (!patient) {
             throw new DicomWebServiceError(
