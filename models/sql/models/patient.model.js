@@ -19,6 +19,10 @@ class PatientModel extends Model {
 
         return bringPatient;
     }
+
+    toDicomJson() {
+        return this.json;
+    }
 };
 
 PatientModel.init({
