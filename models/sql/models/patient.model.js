@@ -20,6 +20,12 @@ class PatientModel extends Model {
         return bringPatient;
     }
 
+    async incrementDeleteStatus() {
+        let deleteStatus = this.getDataValue("deleteStatus");
+        this.setDataValue("deleteStatus", deleteStatus + 1);
+        await this.save();
+    }
+
     toDicomJson() {
         return this.json;
     }
@@ -60,6 +66,9 @@ PatientModel.init({
     },
     "json": {
         type: vrTypeMapping.JSON
+    },
+    "deleteStatus": {
+        type: DataTypes.INTEGER
     }
 }, {
     sequelize: sequelizeInstance,

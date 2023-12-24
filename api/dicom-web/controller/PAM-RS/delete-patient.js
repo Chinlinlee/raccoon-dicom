@@ -1,7 +1,7 @@
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
-const { DeletePatientService } = require("./service/delete-patient.service");
+const { DeletePatientService } = require("@api/dicom-web/controller/PAM-RS/service/delete-patient.service");
 
 class DeletePatientController extends Controller {
     constructor(req, res) {
