@@ -9,22 +9,11 @@ const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { getStoreDicomFullPathGroup } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
+const { BaseDicomModel } = require("./baseDicom.model");
 
-let Common;
-if (raccoonConfig.dicomDimseConfig.enableDimse) {
-    require("@models/DICOM/dcm4che/java-instance");
-    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
-}
-
-class SeriesModel extends Model {
+class SeriesModel extends BaseDicomModel {
     getSeriesPath() {
         return this.getDataValue("seriesPath");
-    }
-
-    async incrementDeleteStatus() {
-        let deleteStatus = this.getDataValue("deleteStatus");
-        this.setDataValue("deleteStatus", deleteStatus + 1);
-        await this.save();
     }
 
     async deleteSeriesFolder() {
@@ -173,13 +162,6 @@ SeriesModel.getPathGroupOfInstances = async function(iParam) {
     } catch (e) {
         throw e;
     }
-};
-
-SeriesModel.prototype.getAttributes = async function () {
-    let seriesObj = this.toJSON();
-
-    let jsonStr = JSON.stringify(seriesObj.json);
-    return await Common.getAttributesFromJsonString(jsonStr);
 };
 
 module.exports.SeriesModel = SeriesModel;

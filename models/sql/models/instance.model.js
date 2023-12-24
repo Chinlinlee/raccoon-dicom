@@ -9,19 +9,9 @@ const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { getStoreDicomFullPath } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
+const { BaseDicomModel } = require("./baseDicom.model");
 
-let Common;
-if (raccoonConfig.dicomDimseConfig.enableDimse) {
-    require("@models/DICOM/dcm4che/java-instance");
-    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
-}
-
-class InstanceModel extends Model {
-    async incrementDeleteStatus() {
-        let deleteStatus = this.getDataValue("deleteStatus");
-        this.setDataValue("deleteStatus", deleteStatus + 1);
-        await this.save();
-    }
+class InstanceModel extends BaseDicomModel {
 
     async deleteInstance() {
         let instancePath = this.getDataValue("instancePath");
@@ -245,13 +235,6 @@ InstanceModel.getInstanceOfMedianIndex = async function (query) {
     }
 
     return instance;
-};
-
-InstanceModel.prototype.getAttributes = async function () {
-    let seriesObj = this.toJSON();
-
-    let jsonStr = JSON.stringify(seriesObj.json);
-    return await Common.getAttributesFromJsonString(jsonStr);
 };
 
 module.exports.InstanceModel = InstanceModel;

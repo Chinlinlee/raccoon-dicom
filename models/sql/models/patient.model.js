@@ -3,14 +3,9 @@ const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { PatientQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/patientQueryBuilder");
 const { raccoonConfig } = require("@root/config-class");
+const { BaseDicomModel } = require("./baseDicom.model");
 
-let Common;
-if (raccoonConfig.dicomDimseConfig.enableDimse) {
-    require("@models/DICOM/dcm4che/java-instance");
-    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
-}
-
-class PatientModel extends Model { 
+class PatientModel extends BaseDicomModel { 
     static async updateOrCreatePatient(patient) {
         /** @type {PatientModel | null} */
         const { PatientPersistentObject } = require("../po/patient.po");
@@ -18,16 +13,6 @@ class PatientModel extends Model {
         let bringPatient = await patientPersistent.createPatient();
 
         return bringPatient;
-    }
-
-    async incrementDeleteStatus() {
-        let deleteStatus = this.getDataValue("deleteStatus");
-        this.setDataValue("deleteStatus", deleteStatus + 1);
-        await this.save();
-    }
-
-    toDicomJson() {
-        return this.json;
     }
 };
 
@@ -93,13 +78,6 @@ PatientModel.getDicomJson = async function (queryOptions) {
 
         return json;
     }));
-};
-
-PatientModel.prototype.getAttributes = async function () {
-    let patientObj = this.toJSON();
-
-    let jsonStr = JSON.stringify(patientObj.json);
-    return await Common.getAttributesFromJsonString(jsonStr);
 };
 
 module.exports.PatientModel = PatientModel;
