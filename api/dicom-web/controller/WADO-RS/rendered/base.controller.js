@@ -1,8 +1,8 @@
 const _ = require("lodash");
-const renderedService = require("@rendered-service");
+const renderedService = require("@api/dicom-web/controller/WADO-RS/service/rendered.service");
 const {
     StudyImagePathFactory
-} = require("@wado-rs-service");
+} = require("@api/dicom-web/controller/WADO-RS/service/WADO-RS.service");
 const errorResponse = require("@root/utils/errorResponse/errorResponseMessage");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { Controller } = require("../../../../controller.class");

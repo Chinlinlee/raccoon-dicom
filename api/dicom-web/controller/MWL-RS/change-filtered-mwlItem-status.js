@@ -1,7 +1,7 @@
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { ChangeFilteredMwlItemStatusService } = require("@mwl-service/change-filtered-mwlItem-status");
+const { ChangeFilteredMwlItemStatusService } = require("@api/dicom-web/controller/MWL-RS/service/change-filtered-mwlItem-status");
 
 class ChangeFilteredMwlItemStatusController extends Controller {
     constructor(req, res) {

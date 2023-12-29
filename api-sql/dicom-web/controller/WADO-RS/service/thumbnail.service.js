@@ -1,4 +1,4 @@
-const renderedService = require("@rendered-service");
+const renderedService = require("@api/dicom-web/controller/WADO-RS/service/rendered.service");
 const _ = require("lodash");
 const {
     ThumbnailService,

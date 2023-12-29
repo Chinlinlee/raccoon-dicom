@@ -1,6 +1,6 @@
-const { InstanceBulkDataFactory } = require("@bulkdata-service");
+const { InstanceBulkDataFactory } = require("@api/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata");
 const { BaseBulkDataController } = require("./base.controller");
-const { InstanceImagePathFactory } = require("@wado-rs-service");
+const { InstanceImagePathFactory } = require("@api/dicom-web/controller/WADO-RS/service/WADO-RS.service");
 
 class InstanceBulkDataController extends BaseBulkDataController {
     constructor(req, res) {

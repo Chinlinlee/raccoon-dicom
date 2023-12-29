@@ -1,7 +1,7 @@
 const { Controller } = require("@root/api/controller.class");
-const { StudyBulkDataFactory, BulkDataService } = require("@bulkdata-service");
+const { StudyBulkDataFactory, BulkDataService } = require("@api/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { StudyImagePathFactory } = require("@wado-rs-service");
+const { StudyImagePathFactory } = require("@api/dicom-web/controller/WADO-RS/service/WADO-RS.service");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseBulkDataController extends Controller {

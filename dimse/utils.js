@@ -113,7 +113,7 @@ class QueryTaskUtils {
     }
 
     static async getQueryBuilder(queryAttr, level = "patient") {
-        const { DimseQueryBuilder } = require("@dimse-query-builder");
+        const { DimseQueryBuilder } = require("@dimse/queryBuilder");
         return new DimseQueryBuilder(queryAttr, level);
     }
 

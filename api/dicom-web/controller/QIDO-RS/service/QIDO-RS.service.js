@@ -1,14 +1,14 @@
 const _ = require("lodash");
-const { dictionary } = require("../../../../../models/DICOM/dicom-tags-dic");
 const { DicomWebService } = require("../../../service/dicom-web.service");
-const {
-    DicomWebServiceError,
-    DicomWebStatusCodes
-} = require("@error/dicom-web-service");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
-const { QueryPatientDicomJsonFactory, QueryStudyDicomJsonFactory, QuerySeriesDicomJsonFactory, QueryInstanceDicomJsonFactory } = require("@query-dicom-json-factory");
+const { 
+    QueryPatientDicomJsonFactory, 
+    QueryStudyDicomJsonFactory, 
+    QuerySeriesDicomJsonFactory, 
+    QueryInstanceDicomJsonFactory 
+} = require("@api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 const HierarchyQueryDicomJsonFactory = Object.freeze({
