@@ -30,6 +30,7 @@ class SqlDcmQrScp extends DcmQrScp {
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getStudyRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientStudyOnlyLevel());
+        await dicomServiceRegistry.addDicomService(new JsCFindScp().getMwlLevel());
         // #endregion
 
         // #region C-MOVE

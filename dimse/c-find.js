@@ -13,7 +13,7 @@ const { JsSeriesQueryTask } = require("@dimse/seriesQueryTask");
 const { JsInstanceQueryTask } = require("@dimse/instanceQueryTask");
 const { PATIENT_ROOT_LEVELS, STUDY_ROOT_LEVELS, PATIENT_STUDY_ONLY_LEVELS } = require("./level");
 const { Tag } = require("@dcm4che/data/Tag");
-const { JsMwlQueryTask } = require("./mwlQueryTask");
+const { JsMwlQueryTask } = require("@dimse/mwlQueryTask");
 
 class JsCFindScp {
     constructor() { }
