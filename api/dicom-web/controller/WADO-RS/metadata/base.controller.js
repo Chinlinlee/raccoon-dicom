@@ -1,6 +1,6 @@
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { StudyImagePathFactory } = require("@wado-rs-service");
+const { StudyImagePathFactory } = require("@api/dicom-web/controller/WADO-RS/service/WADO-RS.service");
 const { MetadataService } = require("../service/metadata.service");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 

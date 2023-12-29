@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const {
     GetWorkItemService
-} = require("@ups-service/get-workItem.service");
+} = require("@api/dicom-web/controller/UPS-RS/service/get-workItem.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");

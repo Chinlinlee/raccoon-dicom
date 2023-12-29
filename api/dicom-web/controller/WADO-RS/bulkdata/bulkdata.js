@@ -1,4 +1,4 @@
-const { SpecificBulkDataFactory } = require("@bulkdata-service");
+const { SpecificBulkDataFactory } = require("@api/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata");
 const { BaseBulkDataController } = require("./base.controller");
 
 class BulkDataController extends BaseBulkDataController {

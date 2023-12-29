@@ -7,7 +7,7 @@ const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
+const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 
 class ChangeWorkItemStateService extends BaseWorkItemService {

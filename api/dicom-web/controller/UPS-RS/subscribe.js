@@ -1,6 +1,6 @@
 const {
     SubscribeService
-} = require("@ups-service/subscribe.service");
+} = require("@api/dicom-web/controller/UPS-RS/service/subscribe.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
 const { DicomWebServiceError } = require("@error/dicom-web-service");

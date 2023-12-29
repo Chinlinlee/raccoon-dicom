@@ -1,6 +1,6 @@
 const {
     UpdateWorkItemService
-} = require("@ups-service/update-workItem.service");
+} = require("@api/dicom-web/controller/UPS-RS/service/update-workItem.service");
 const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
 const { DicomWebServiceError } = require("@error/dicom-web-service");

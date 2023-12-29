@@ -9,7 +9,7 @@ const {
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { SUBSCRIPTION_STATE, SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/ups");
-const { BaseWorkItemService } = require("@ups-service/base-workItem.service");
+const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 

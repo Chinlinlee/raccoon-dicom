@@ -11,7 +11,7 @@ const {
     InstanceImagePathFactory, 
     multipartContentTypeWriter, 
     StudyImagePathFactory, 
-    SeriesImagePathFactory } = require("@wado-rs-service");
+    SeriesImagePathFactory } = require("@api/dicom-web/controller/WADO-RS/service/WADO-RS.service");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseRetrieveController extends Controller {

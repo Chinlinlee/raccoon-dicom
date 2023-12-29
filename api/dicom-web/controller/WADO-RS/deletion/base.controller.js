@@ -1,6 +1,6 @@
 const { Controller } = require("@root/api/controller.class");
 const { ApiLogger } = require("@root/utils/logs/api-logger");
-const { DeleteService } = require("@delete-service");
+const { DeleteService } = require("@api/dicom-web/controller/WADO-RS/deletion/service/delete");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseDeleteController extends Controller {

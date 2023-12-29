@@ -1,7 +1,7 @@
 const _ = require("lodash");
 
 const { createQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/QueryTaskInject");
-const { DimseQueryBuilder } = require("@dimse-query-builder");
+const { DimseQueryBuilder } = require("@dimse/queryBuilder");
 const { JsStudyQueryTask } = require("./studyQueryTask");
 const { SeriesQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/SeriesQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
