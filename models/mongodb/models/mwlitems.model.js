@@ -5,6 +5,14 @@ const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { IncludeFieldsFactory } = require("../service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { raccoonConfig } = require("@root/config-class");
+
+let Common;
+if (raccoonConfig.dicomDimseConfig.enableDimse) {
+    require("@models/DICOM/dcm4che/java-instance");
+    Common = require("@java-wrapper/org/github/chinlinlee/dcm777/net/common/Common").Common;
+}
+
 
 let mwlItemSchema = new mongoose.Schema(
     {},
@@ -15,6 +23,12 @@ let mwlItemSchema = new mongoose.Schema(
             getters: true
         },
         statics: {
+            getDimseResultCursor: async function (query, keys) {
+                return mongoose.model("mwlItems").find(query, keys).setOptions({
+                    strictQuery: false
+                })
+                    .cursor();
+            },
             /**
              * 
              * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
@@ -71,6 +85,10 @@ let mwlItemSchema = new mongoose.Schema(
                 delete obj._id;
                 delete obj.id;
                 return obj;
+            },
+            getAttributes: async function () {
+                let jsonStr = JSON.stringify(this.toDicomJson());
+                return await Common.getAttributesFromJsonString(jsonStr);
             }
         }
     }
