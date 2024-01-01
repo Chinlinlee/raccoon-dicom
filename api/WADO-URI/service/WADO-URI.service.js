@@ -28,23 +28,6 @@ class WadoUriService {
         this.auditBeginTransferring();
     }
 
-    async getAndResponseDicomInstance() {
-        try {
-
-            let dicomInstanceReadStream = await this.getDicomInstanceReadStream();
-
-            this.response.setHeader("Content-Type", "application/dicom");
-            dicomInstanceReadStream.pipe(this.response);
-            this.auditInstanceTransferred();
-
-        } catch (e) {
-            this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
-
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
-            return apiErrorArrayHandler.doErrorResponse();
-        }
-    }
-
     async getAndResponseJpeg() {
         try {
 

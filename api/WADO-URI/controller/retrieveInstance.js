@@ -11,7 +11,7 @@ class RetrieveSingleInstanceController extends Controller {
     }
 
     async mainProcess() {
-        let { 
+        let {
             contentType
         } = this.request.query;
 
@@ -19,19 +19,22 @@ class RetrieveSingleInstanceController extends Controller {
 
         try {
 
-            if (contentType === "application/dicom") {
-                this.service.getAndResponseDicomInstance();
+            if (contentType === "application/dicom" || !contentType) {
+
+                let dicomInstanceReadStream = await this.service.getDicomInstanceReadStream();
+                this.response.setHeader("Content-Type", "application/dicom");
+                dicomInstanceReadStream.pipe(this.response);
             } else if (contentType === "image/jpeg") {
                 this.service.getAndResponseJpeg();
-            } else if (!contentType) {
-                this.service.getAndResponseDicomInstance();
             }
 
-        } catch(e) {
+            this.response.on("finish", () => this.service.auditInstanceTransferred());
+
+        } catch (e) {
             let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
-        
+
     }
 
 }
@@ -41,7 +44,7 @@ class RetrieveSingleInstanceController extends Controller {
  * @param {import("http").IncomingMessage} req 
  * @param {import("http").ServerResponse} res 
  */
-module.exports = async function(req, res) {
+module.exports = async function (req, res) {
     let controller = new RetrieveSingleInstanceController(req, res);
 
     await controller.doPipeline();
