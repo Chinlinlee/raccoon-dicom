@@ -3,6 +3,7 @@ const errorResponse = require("../../../../../utils/errorResponse/errorResponseM
 const renderedService = require("@api/dicom-web/controller/WADO-RS/service/rendered.service");
 const _ = require("lodash");
 const { getUidsString } = require("./WADO-RS.service");
+const { NotFoundInstanceError } = require("@error/dicom-instance");
 class ThumbnailService {
 
     /**
@@ -18,21 +19,19 @@ class ThumbnailService {
         this.apiLogger = apiLogger;
     }
 
-    async getThumbnailAndResponse() {
+    async getThumbnail() {
         if (!_.get(this.request, "query.viewport")) {
             _.set(this.request, "query.viewport", "100,100");
         }
 
         let instanceFramesObj = await this.thumbnailFactory.getThumbnailInstance();
-        if (this.checkInstanceExists(instanceFramesObj)) {
-            return;
-        }
+        this.checkInstanceExists(instanceFramesObj);
 
         let thumbnail = await this.getThumbnailByInstance(instanceFramesObj);
-        if (thumbnail) {
-            return this.response.end(thumbnail, "binary");
+        if (!thumbnail) {
+            throw new Error(`Can not process this image, instanceUID: ${instanceFramesObj.instanceUID}`);
         }
-        throw new Error(`Can not process this image, instanceUID: ${instanceFramesObj.instanceUID}`);
+        return thumbnail;
     }
 
     async getThumbnailByInstance(instanceFramesObj) {
@@ -57,18 +56,8 @@ class ThumbnailService {
 
     checkInstanceExists(instanceFramesObj) {
         if (!instanceFramesObj) {
-            this.response.writeHead(404, {
-                "Content-Type": "application/dicom+json"
-            });
-            let notFoundMessage = errorResponse.getNotFoundErrorMessage(`Not Found, ${getUidsString(this.thumbnailFactory.uids)}`);
-
-            let notFoundMessageStr = JSON.stringify(notFoundMessage);
-
-            this.apiLogger.logger.warn(`[${notFoundMessageStr}]`);
-
-            return this.response.end(notFoundMessageStr);
+            throw new NotFoundInstanceError(`Not Found, ${getUidsString(this.thumbnailFactory.uids)}`);
         }
-        return undefined;
     }
 }
 
