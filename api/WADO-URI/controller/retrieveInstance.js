@@ -2,6 +2,7 @@ const { WadoUriService } = require("@api/WADO-URI/service/WADO-URI.service");
 const { Controller } = require("../../controller.class");
 const { ApiLogger } = require("../../../utils/logs/api-logger");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
+const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 
 class RetrieveSingleInstanceController extends Controller {
     constructor(req, res) {
@@ -25,12 +26,17 @@ class RetrieveSingleInstanceController extends Controller {
                 this.response.setHeader("Content-Type", "application/dicom");
                 dicomInstanceReadStream.pipe(this.response);
             } else if (contentType === "image/jpeg") {
-                this.service.getAndResponseJpeg();
+                let jpegBuffer = await this.service.handleRequestQueryAndGetJpeg();
+
+                this.response.setHeader("Content-Type", "image/jpeg");
+    
+                this.response.end(jpegBuffer, "buffer");
             }
 
             this.response.on("finish", () => this.service.auditInstanceTransferred());
 
         } catch (e) {
+            this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
             let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }

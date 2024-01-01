@@ -28,25 +28,6 @@ class WadoUriService {
         this.auditBeginTransferring();
     }
 
-    async getAndResponseJpeg() {
-        try {
-
-            let jpegBuffer = await this.handleRequestQueryAndGetJpeg();
-
-            this.response.setHeader("Content-Type", "image/jpeg");
-
-            this.response.end(jpegBuffer, "buffer");
-            this.auditInstanceTransferred();
-
-        } catch (e) {
-            this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
-
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
-            return apiErrorArrayHandler.doErrorResponse();
-        }
-    }
-
-
     /**
      * @throws {NotFoundInstanceError}
      * @returns {Promise<fs.ReadStream>}
