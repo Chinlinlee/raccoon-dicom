@@ -36,7 +36,7 @@ class RetrieveSingleInstanceController extends Controller {
             this.response.on("finish", () => this.service.auditInstanceTransferred());
 
         } catch (e) {
-            this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
+            this.service.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
             let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
