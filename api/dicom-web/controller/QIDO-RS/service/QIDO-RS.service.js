@@ -73,7 +73,8 @@ class QidoRsService {
         this.query = convertAllQueryToDicomTag(query);
     }
 
-    async getAndResponseDicomJson() {
+
+    async getDicomJson() {
         try {
             let queryAudit = new AuditManager(
                 EventType.QUERY,
@@ -82,7 +83,6 @@ class QidoRsService {
                 DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
             );
             let dicomWebService = new DicomWebService(this.request, this.response);
-
             let queryOptions = {
                 query: this.query,
                 skip: this.skip_,
@@ -104,15 +104,9 @@ class QidoRsService {
             let dicomJsonLength = _.get(dicomJson, "length", 0);
             if (dicomJsonLength > 0) {
                 this.auditInstancesAccessed(dicomJson);
-                this.response.writeHead(200, {
-                    "Content-Type": "application/dicom+json"
-                });
-                this.response.end(JSON.stringify(dicomJson));
-            } else {
-                this.response.writeHead(204);
-                this.response.end();
-            }
-
+                return dicomJson;
+            } 
+            return [];
         } catch(e) {
             throw e;
         }
