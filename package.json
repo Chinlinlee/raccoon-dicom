@@ -69,6 +69,7 @@
     "cors": "^2.8.5",
     "dicom-parser": "^1.8.13",
     "dicom-to-json": "^1.2.1",
+    "dicomjson-to-fhir": "^1.0.1",
     "dotenv": "^16.0.3",
     "env-var": "^7.3.1",
     "express": "^4.18.2",

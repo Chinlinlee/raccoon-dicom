@@ -3,10 +3,8 @@ const axios = require("axios").default;
 const _ = require("lodash");
 const { urlJoin } = require("../../../utils/url");
 const { fhirLogger } = require("../../../utils/logs/log");
-const { dicomJsonToFHIRImagingStudy } = require("./DICOMToFHIRImagingStudy");
-const { dicomJsonToFHIRPatient } = require("./DICOMToFHIRPatient");
-const { dicomJsonToFHIREndpoint } = require("./DICOMToFHIREndpoint");
 const { getModalitiesInStudy } = require("@dbModels/instance.model");
+const { DicomJsonToFhir } = require("dicomjson-to-fhir");
 
 class DICOMFHIRConverter {
     constructor() {
@@ -32,19 +30,15 @@ class DICOMFHIRConverter {
      * @param {JSON} dicomJson The DICOM Json model
      */
     async dicomJsonToFHIR(dicomJson) {
-        let patient = dicomJsonToFHIRPatient(dicomJson);
-        let imagingStudy = dicomJsonToFHIRImagingStudy(dicomJson);
-        if (!imagingStudy.subject.reference.includes(patient.id)) {
-            imagingStudy.subject.reference = `Patient/${patient.id}`;
-        }
-        let endpoint = dicomJsonToFHIREndpoint(
+        this.dicomFHIR = new DicomJsonToFhir(
+            dicomJson,
             this.dicomWeb.retrieveStudiesUrl,
             this.dicomWeb.name
-        );
-        this.dicomFHIR.patient = patient;
-        this.dicomFHIR.imagingStudy = imagingStudy;
+        ).getFhirJson();
+        if (!this.dicomFHIR.imagingStudy.subject.reference.includes(this.dicomFHIR.patient.id)) {
+            this.dicomFHIR.imagingStudy.subject.reference = `Patient/${this.dicomFHIR.patient.id}`;
+        }
         await this.setModalitiesInStudy(dicomJson);
-        this.dicomFHIR.endpoint = endpoint;
         this.dicomFHIR.imagingStudy.endpoint = [
             {
                 reference: `Endpoint/${this.dicomFHIR.endpoint.id}`,
@@ -61,7 +55,7 @@ class DICOMFHIRConverter {
         });
         if (modalitiesInStudy.length > 0) {
             let modalitiesInStudyValue = modalitiesInStudy[0]["00080061"].Value;
-            for(let i = 0 ; i < modalitiesInStudyValue.length; i++) {
+            for (let i = 0; i < modalitiesInStudyValue.length; i++) {
                 let modality = {
                     system: "http://dicom.nema.org/resources/ontology/DCM",
                     code: modalitiesInStudyValue[i]
