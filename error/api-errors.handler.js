@@ -90,10 +90,7 @@ class ApiErrorArrayHandler {
         apiLogger.logger.error(e);
 
         if (!response.headersSent) {
-            response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            return response.json(getInternalServerErrorMessage("An exception occurred"));
+            return response.status(500).set("content-type", "application/dicom+json").send(getInternalServerErrorMessage("An exception occurred"));
         }
         return response.end();
     }
