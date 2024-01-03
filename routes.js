@@ -32,4 +32,6 @@ module.exports = function (app) {
     app.use("/dicom-web", require("./api/dicom-web/pam-rs.route"));
 
     app.use("/wado", require("./api/WADO-URI"));
+
+    app.use("/fhir-convert", require("./api/fhir-convert"));
 };

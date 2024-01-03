@@ -152,7 +152,12 @@
                         "content": {
                             "application/dicom+json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/PatientRequiredMatchingAttributes"
+                                    "type": "object",
+                                    "properties": {
+                                        "patientID": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1294,6 +1299,39 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/fhir-convert": {
+            "post": {
+                "tags": [
+                    "fhir-convert"
+                ],
+                "description": "Convert DICOM to FHIR ImagingStudy, Patient, Endpoint",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "file": {
+                                    "contentType": "application/dicom;"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The DICOM instance store successfully"
                     }
                 }
             }
