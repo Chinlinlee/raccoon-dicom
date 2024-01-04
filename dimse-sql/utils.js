@@ -46,9 +46,11 @@ async function getInstancesFromKeysAttr(keys) {
 
     for (let instance of instances) {
         let instanceFile = await File.newInstanceAsync(
-            path.join(
-                raccoonConfig.dicomWebConfig.storeRootPath,
-                instance.instancePath
+            path.resolve(
+                path.join(
+                    raccoonConfig.dicomWebConfig.storeRootPath,
+                    instance.instancePath
+                )
             )
         );
 
