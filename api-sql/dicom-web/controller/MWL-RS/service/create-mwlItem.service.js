@@ -1,6 +1,6 @@
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
 const { PatientModel } = require("@models/sql/models/patient.model");
-const { CreateMwlItemService } = require("@root/api/dicom-web/controller/MWL-RS/service/create-mwlitem.service");
+const { CreateMwlItemService } = require("@root/api/dicom-web/controller/MWL-RS/service/create-mwlItem.service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { MwlItemPersistentObject } = require("@models/sql/po/mwlItem.po");
 const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
