@@ -99,17 +99,17 @@ SeriesModel.init({
     freezeTableName: true
 });
 
-SeriesModel.getDicomJson = async function(queryOptions) {
+SeriesModel.getDicomJson = async function (queryOptions) {
     let queryBuilder = new SeriesQueryBuilder(queryOptions);
     let q = queryBuilder.build();
-    if (q[Op.and]) {
-        q[Op.and].push(
+    if (q.where[Op.and]) {
+        q.where[Op.and].push(
             {
                 deleteStatus: 0
             }
         );
     } else {
-        q[Op.and] = [
+        q.where[Op.and] = [
             {
                 deleteStatus: 0
             }
@@ -137,7 +137,7 @@ SeriesModel.getDicomJson = async function(queryOptions) {
     }));
 };
 
-SeriesModel.getPathGroupOfInstances = async function(iParam) {
+SeriesModel.getPathGroupOfInstances = async function (iParam) {
     let { studyUID, seriesUID } = iParam;
 
     try {
@@ -149,10 +149,10 @@ SeriesModel.getPathGroupOfInstances = async function(iParam) {
             },
             attributes: ["instancePath", "x0020000D", "x0020000E", "x00080018"]
         });
-    
+
         let fullPathGroup = getStoreDicomFullPathGroup(instances);
 
-        return fullPathGroup.map(v=> {
+        return fullPathGroup.map(v => {
             _.set(v, "studyUID", v.x0020000D);
             _.set(v, "seriesUID", v.x0020000E);
             _.set(v, "instanceUID", v.x00080018);

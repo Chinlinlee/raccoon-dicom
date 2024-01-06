@@ -130,14 +130,14 @@ StudyModel.updateModalitiesInStudy = async function (study) {
 StudyModel.getDicomJson = async function (queryOptions) {
     let queryBuilder = new StudyQueryBuilder(queryOptions);
     let q = queryBuilder.build();
-    if (q[Op.and]) {
-        q[Op.and].push(
+    if (q.where[Op.and]) {
+        q.where[Op.and].push(
             {
                 deleteStatus: 0
             }
         );
     } else {
-        q[Op.and] = [
+        q.where[Op.and] = [
             {
                 deleteStatus: 0
             }
