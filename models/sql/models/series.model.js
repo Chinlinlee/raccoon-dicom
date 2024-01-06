@@ -12,6 +12,21 @@ const { raccoonConfig } = require("@root/config-class");
 const { BaseDicomModel } = require("./baseDicom.model");
 
 class SeriesModel extends BaseDicomModel {
+    /**
+     * @override
+     */
+    async incrementDeleteStatus() {
+
+        await sequelizeInstance.model("Instance").increment("deleteStatus", {
+            where: {
+                x0020000D: this.getDataValue("x0020000D")
+            }
+        });
+
+        let deleteStatus = this.getDataValue("deleteStatus");
+        this.setDataValue("deleteStatus", deleteStatus + 1);
+        await this.save();
+    }
     getSeriesPath() {
         return this.getDataValue("seriesPath");
     }
