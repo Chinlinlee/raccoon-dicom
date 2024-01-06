@@ -105,13 +105,13 @@ SeriesModel.getDicomJson = async function (queryOptions) {
     if (q.where[Op.and]) {
         q.where[Op.and].push(
             {
-                deleteStatus: 0
+                deleteStatus: queryOptions.isRecycle ? 1 : 0
             }
         );
     } else {
         q.where[Op.and] = [
             {
-                deleteStatus: 0
+                deleteStatus: queryOptions.isRecycle ? 1 : 0
             }
         ];
     }
