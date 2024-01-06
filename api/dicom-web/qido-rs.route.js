@@ -22,7 +22,8 @@ const queryValidation = {
                 return convertKeywordToHex(attribute);
             }
         )
-    ).single()
+    ).single(),
+    isRecycle: Joi.boolean().default(false)
 };
 
 /**

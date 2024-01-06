@@ -78,7 +78,7 @@ class DicomSchemaOptionsFactory {
                         let docs = await mongoose.model(DicomModelNames[level]).find({
                             ...queryOptions.query,
                             deleteStatus: {
-                                $eq: 0
+                                $eq: queryOptions.isRecycle ? 1 : 0
                             }
                         }, projection)
                             .limit(queryOptions.limit)
