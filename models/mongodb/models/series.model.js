@@ -13,6 +13,17 @@ let dicomSeriesSchemaOptions = _.merge(
     DicomSchemaOptionsFactory.get("series", SeriesDocDicomJsonHandler),
     {
         methods: {
+            incrementDeleteStatus: async function () {
+                await mongoose.model("dicom").updateMany({
+                    seriesUID: this.seriesUID
+                }, {
+                    $inc: {
+                        deleteStatus: 1
+                    }
+                });
+                this.deleteStatus += 1;
+                await this.save();
+            },
             deleteDicomInstances: async function () {
                 let seriesPath = this.seriesPath;
                 logger.warn("Permanently delete series folder: " + seriesPath);
