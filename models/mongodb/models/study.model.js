@@ -13,6 +13,26 @@ let dicomStudySchemaOptions = _.merge(
     DicomSchemaOptionsFactory.get("study", StudyDocDicomJsonHandler),
     {
         methods: {
+            incrementDeleteStatus: async function() {
+                await Promise.all([
+                    mongoose.model("dicomSeries").updateMany({
+                        studyUID: this.studyUID
+                    }, {
+                        $inc : {
+                            deleteStatus: 1
+                        }
+                    }),
+                    mongoose.model("dicom").updateMany({
+                        studyUID: this.studyUID
+                    }, {
+                        $inc: {
+                            deleteStatus: 1
+                        }
+                    })
+                ]);
+                this.deleteStatus += 1;
+                await this.save();
+            },
             deleteDicomInstances: async function () {
 
                 let studyPath = this.studyPath;

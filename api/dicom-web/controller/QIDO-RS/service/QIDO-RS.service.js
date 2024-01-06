@@ -56,6 +56,10 @@ class QidoRsService {
 
         delete this.request.query["includefield"];
 
+        /** @private */
+        this.isRecycle = Boolean(this.request.query?.isRecycle);
+        delete this.request.query?.isRecycle;
+
         this.initQuery_();
     }
 
@@ -89,7 +93,8 @@ class QidoRsService {
                 limit: this.limit_,
                 includeFields: this.includeFields_,
                 retrieveBaseUrl: `${dicomWebService.getBasicURL()}/studies`,
-                requestParams: this.request.params
+                requestParams: this.request.params,
+                isRecycle: this.isRecycle
             };
     
             queryAudit.onQuery(

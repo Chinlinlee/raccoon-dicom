@@ -22,7 +22,8 @@ const queryValidation = {
                 return convertKeywordToHex(attribute);
             }
         )
-    ).single()
+    ).single(),
+    isRecycle: Joi.boolean().default(false)
 };
 
 /**
@@ -64,6 +65,7 @@ function convertKeywordToHex(attribute) {
  *        - $ref: "#/components/parameters/PatientName"
  *        - $ref: "#/components/parameters/PatientID"
  *        - $ref: "#/components/parameters/StudyID"
+ *        - $ref: "#/components/parameters/isRecycle"
  *      responses:
  *        200:
  *          description: Query successfully
@@ -98,6 +100,7 @@ router.get("/studies", validateParams(queryValidation, "query", {
  *        - $ref: "#/components/parameters/StudyID"
  *        - $ref: "#/components/parameters/Modality"
  *        - $ref: "#/components/parameters/SeriesNumber"
+ *        - $ref: "#/components/parameters/isRecycle"
  *      responses:
  *        200:
  *          description: Query successfully
@@ -138,6 +141,7 @@ router.get(
  *        - $ref: "#/components/parameters/SeriesNumber"
  *        - $ref: "#/components/parameters/SOPClassUID"
  *        - $ref: "#/components/parameters/InstanceNumber"
+ *        - $ref: "#/components/parameters/isRecycle"
  *      responses:
  *        200:
  *          description: Query successfully
@@ -180,6 +184,7 @@ router.get(
  *        - $ref: "#/components/parameters/SeriesNumber"
  *        - $ref: "#/components/parameters/SOPClassUID"
  *        - $ref: "#/components/parameters/InstanceNumber"
+ *        - $ref: "#/components/parameters/isRecycle"
  *      responses:
  *        200:
  *          description: Query successfully
@@ -218,6 +223,7 @@ router.get(
  *        - $ref: "#/components/parameters/StudyID"
  *        - $ref: "#/components/parameters/Modality"
  *        - $ref: "#/components/parameters/SeriesNumber"
+ *        - $ref: "#/components/parameters/isRecycle"
  *      responses:
  *        200:
  *          description: Query successfully
@@ -258,6 +264,7 @@ router.get(
  *        - $ref: "#/components/parameters/SeriesNumber"
  *        - $ref: "#/components/parameters/SOPClassUID"
  *        - $ref: "#/components/parameters/InstanceNumber"
+ *        - $ref: "#/components/parameters/isRecycle"
  *      responses:
  *        200:
  *          description: Query successfully

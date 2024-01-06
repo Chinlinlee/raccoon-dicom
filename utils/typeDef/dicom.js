@@ -23,6 +23,7 @@
  * @property {string} retrieveBaseUrl
  * @property {object} requestParams?
  * @property {string[]} includeFields
+ * @property {boolean} [isRecycle]
  */
 
 const DICOM = true;
