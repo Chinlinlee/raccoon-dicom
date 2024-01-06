@@ -38,3 +38,9 @@ components:
         type: array
         items:
           type: string
+    "isRecycle":
+      name: isRecycle
+      description: "Query if the instance is in recycle bin, default is false, and notice that this one is not standard by DICOM standard (i.e. raccoon custom parameter)"
+      in: query
+      schema:
+        type: boolean
