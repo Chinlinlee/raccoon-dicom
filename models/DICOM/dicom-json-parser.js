@@ -1,8 +1,5 @@
 const { DicomUtf8Converter } = require("./dcm4che/DicomUtf8Converter");
 const { JDcm2Json } = require("./dcm4che/dcm2json");
-const {
-    dcm2jsonV8
-} = require("./dcmtk");
 const { logger } = require("../../utils/logs/log");
 
 
