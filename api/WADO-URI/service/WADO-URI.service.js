@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const fs = require("fs");
 const _ = require("lodash");
-const renderedService = require("../../dicom-web/controller/WADO-RS/service/rendered.service");
+const { RenderedImageProcessParameterHandler, getInstanceFrameObj } = require("../../dicom-web/controller/WADO-RS/service/rendered.service");
 const { Dcm2JpgExecutor } = require("../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 const sharp = require('sharp');
@@ -26,6 +26,10 @@ class WadoUriService {
         this.response = res;
         this.apiLogger = apiLogger;
         this.auditBeginTransferring();
+
+        let clonedRequestQuery = _.cloneDeep(this.request?.query);
+        _.set(clonedRequestQuery, "imageQuality", _.get(this.request.query, "imageQuality", ""));
+        this.renderedImageProcessParameterHandler = new RenderedImageProcessParameterHandler(clonedRequestQuery);
     }
 
     /**
@@ -89,7 +93,7 @@ class WadoUriService {
 
     async handleFrameNumberAndGetImageObj() {
         let imagePathObj = await this.getDicomInstancePathObj();
-        let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
+        let instanceFramesObj = await getInstanceFrameObj(imagePathObj);
         let instanceTotalFrameNumber = _.get(instanceFramesObj, "00280008.Value.0", 1);
         let windowCenter = _.get(instanceFramesObj, "00281050.Value.0", "");
         let windowWidth = _.get(instanceFramesObj, "00281051.Value.0", "");
@@ -131,9 +135,7 @@ class WadoUriService {
     }
 
     async handleImageQuality(magick) {
-        renderedService.handleImageQuality({
-            quality: _.get(this.request.query, "imageQuality", "")
-        }, magick);
+        this.renderedImageProcessParameterHandler.handleImageQuality(magick);
     }
 
     async handleRegion(param, imageSharp, magick) {
@@ -164,7 +166,7 @@ class WadoUriService {
     }
 
     async handleImageICCProfile(magick) {
-        await renderedService.handleImageICCProfile(this.request.query, magick, this.request.query.objectUID);
+        await this.renderedImageProcessParameterHandler.handleImageICCProfile(magick, this.request.query.objectUID);
     }
 
     async auditBeginTransferring() {

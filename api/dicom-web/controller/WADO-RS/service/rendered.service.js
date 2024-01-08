@@ -14,91 +14,97 @@ const { logger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
 
-/**
- * 
- * @param {*} param The req.query
- * @param {Magick} magick
- */
- function handleImageQuality(param, magick) {
-    if (param.quality) {
-        magick.quality(param.quality);
+class RenderedImageProcessParameterHandler {
+    #params;
+    constructor(params) {
+        this.#params = params;
     }
-}
 
-/**
- *
- * @param {*} param The req.query
- * @param {Magick} magick
- * @param {string} instanceID
- */
- async function handleImageICCProfile(param, magick, instanceID) {
-    let iccProfileAction = {
-        "no" : async ()=> {},
-        "yes": async ()=> {
-            let iccProfileBinaryFile = await mongoose.model("dicomBulkData").findOne({
-                $and: [
-                    {
-                        binaryValuePath: "00480105.Value.0.00282000.InlineBinary"
-                    },
-                    {
-                        instanceUID: instanceID
-                    }
-                ]
-            });
-            if(!iccProfileBinaryFile) throw new Error("The Image dose not have icc profile tag");
-            let iccProfileSrc = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename);
-            let dest = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename + `.icc`);
-            if (!fs.existsSync(dest)) fs.copyFileSync(iccProfileSrc, dest);
-            magick.iccProfile(dest);
-        },
-        "srgb": async ()=> {
-            magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/sRGB.icc"));
-        },
-        "adobergb": async () => {
-            magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/adobeRGB.icc"));
-        },
-        "rommrgb": async ()=> {
-            magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/rommRGB.icc"));
+    /**
+     * 
+     * @param {*} param The req.query
+     * @param {Magick} magick
+     */
+    handleImageQuality(magick) {
+        if (this.#params?.quality) {
+            magick.quality(this.#params.quality);
         }
-    };
-    try {
-        if (param.iccprofile) {
-            await iccProfileAction[param.iccprofile]();
-        }
-    } catch(e) {
-        console.error("set icc profile error:" , e);
-        throw e;
     }
-}
 
-/**
- *
- * @param {*} param
- * @param {sharp.Sharp} imageSharp
- * @param {Magick} magick
- */
- async function handleViewport(param, imageSharp, magick) {
-    if (param.viewport) {
-        let imageMetadata = await imageSharp.metadata();
-        let viewportSplit = param.viewport.split(",").map(v => Number(v));
-        if (viewportSplit.length == 2) {
-            let [vw, vh] = viewportSplit;
-            magick.resize(vw, vh);
-        } else {
-            let [vw, vh, sx, sy, sw, sh] = viewportSplit;
-            magick.resize(vw, vh);
-            if (sw == 0) sw = imageMetadata.width - sx;
-            if (sh == 0) sh = imageMetadata.height - sy;
+    /**
+     *
+     * @param {Magick} magick
+     * @param {string} instanceID
+     */
+    async handleImageICCProfile(magick, instanceID) {
+        let iccProfileAction = {
+            "no": async () => { },
+            "yes": async () => {
+                let iccProfileBinaryFile = await mongoose.model("dicomBulkData").findOne({
+                    $and: [
+                        {
+                            binaryValuePath: "00480105.Value.0.00282000.InlineBinary"
+                        },
+                        {
+                            instanceUID: instanceID
+                        }
+                    ]
+                });
+                if (!iccProfileBinaryFile) throw new Error("The Image dose not have icc profile tag");
+                let iccProfileSrc = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename);
+                let dest = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename + `.icc`);
+                if (!fs.existsSync(dest)) fs.copyFileSync(iccProfileSrc, dest);
+                magick.iccProfile(dest);
+            },
+            "srgb": async () => {
+                magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/sRGB.icc"));
+            },
+            "adobergb": async () => {
+                magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/adobeRGB.icc"));
+            },
+            "rommrgb": async () => {
+                magick.iccProfile(path.join(process.cwd(), "models/DICOM/dicomWEB/iccprofiles/rommRGB.icc"));
+            }
+        };
+        try {
+            if (this.#params?.iccprofile) {
+                await iccProfileAction[this.#params.iccprofile]();
+            }
+        } catch (e) {
+            console.error("set icc profile error:", e);
+            throw e;
+        }
+    }
 
-            if (sw < 0) {
-                magick.flip();
-                sw = Math.abs(sw);
+
+    /**
+     *
+     * @param {sharp.Sharp} imageSharp
+     * @param {Magick} magick
+     */
+    async handleViewport(imageSharp, magick) {
+        if (this.#params?.viewport) {
+            let imageMetadata = await imageSharp.metadata();
+            let viewportSplit = this.#params.viewport.split(",").map(v => Number(v));
+            if (viewportSplit.length == 2) {
+                let [vw, vh] = viewportSplit;
+                magick.resize(vw, vh);
+            } else {
+                let [vw, vh, sx, sy, sw, sh] = viewportSplit;
+                magick.resize(vw, vh);
+                if (sw == 0) sw = imageMetadata.width - sx;
+                if (sh == 0) sh = imageMetadata.height - sy;
+
+                if (sw < 0) {
+                    magick.flip();
+                    sw = Math.abs(sw);
+                }
+                if (sh < 0) {
+                    magick.flop();
+                    sh = Math.abs(sw);
+                }
+                magick.crop(sx, sy, sw, sh);
             }
-            if (sh < 0) {
-                magick.flop();
-                sh = Math.abs(sw);
-            }
-            magick.crop(sx, sy, sw, sh);
         }
     }
 }
@@ -155,9 +161,9 @@ class FramesWriter {
 
     async write() {
         let multipartWriter = new MultipartWriter([], this.request, this.response);
-        for(let imagePathObj of this.imagePaths) {
+        for (let imagePathObj of this.imagePaths) {
             let instanceFramesObj = await InstanceModel.getInstanceFrame(imagePathObj);
-            if(_.isUndefined(instanceFramesObj)) continue;
+            if (_.isUndefined(instanceFramesObj)) continue;
             let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
             dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
             await writeRenderedImages(this.request, dicomNumberOfFrames, instanceFramesObj, multipartWriter);
@@ -210,7 +216,7 @@ class InstanceFramesListWriter extends FramesWriter {
     }
 
     async write() {
-        let {frameNumber} = this.request.params;
+        let { frameNumber } = this.request.params;
 
         this.instanceFramesObj = await InstanceModel.getInstanceFrame(this.imagePaths[0]);
         if (_.isUndefined(this.instanceFramesObj)) {
@@ -234,7 +240,7 @@ class InstanceFramesListWriter extends FramesWriter {
     }
 
     isInvalidFrameNumber() {
-        for(let i = 0; i < this.request.params.frameNumber.length ; i++) {
+        for (let i = 0; i < this.request.params.frameNumber.length; i++) {
             let frame = this.request.params.frameNumber[i];
             if (frame > this.dicomNumberOfFrames) {
                 let badRequestMessage = errorResponse.getBadRequestErrorMessage(`Bad frame number , \
@@ -259,7 +265,7 @@ This instance NumberOfFrames is : ${this.dicomNumberOfFrames} , But request ${JS
             this.response.writeHead(200, {
                 "Content-Type": "image/jpeg"
             });
-            
+
             return postProcessResult.magick.toBuffer();
         }
         throw new Error(`Can not process this image, instanceUID: ${this.instanceFramesObj.instanceUID}, frameNumber: ${this.request.frameNumber[0]}`);
@@ -276,7 +282,7 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
     try {
 
         let dicomFilename = instanceFramesObj.instancePath;
-        let jpegFile = dicomFilename.replace(/\.dcm\b/gi , `.${frameNumber-1}.jpg`);
+        let jpegFile = dicomFilename.replace(/\.dcm\b/gi, `.${frameNumber - 1}.jpg`);
 
         let dcm2jpgOptions = await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync();
         dcm2jpgOptions.frameNumber = frameNumber;
@@ -289,20 +295,11 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
         if (getFrameImageStatus.status) {
             let imageSharp = sharp(jpegFile);
             let magick = new Magick(jpegFile);
-            handleImageQuality(
-                req.query,
-                magick
-            );
-            await handleImageICCProfile(
-                req.query,
-                magick,
-                instanceFramesObj.instanceUID
-            );
-            await handleViewport(
-                req.query,
-                imageSharp,
-                magick
-            );
+
+            let renderedImageProcessParameterHandler = new RenderedImageProcessParameterHandler(req.query);
+            renderedImageProcessParameterHandler.handleImageQuality(magick);
+            await renderedImageProcessParameterHandler.handleImageICCProfile(magick, instanceFramesObj.instanceUID);
+            await renderedImageProcessParameterHandler.handleViewport(imageSharp, magick);
             await magick.execCommand();
             return {
                 status: true,
@@ -315,7 +312,7 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
             message: "get frame image failed",
             magick: undefined
         };
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         return {
             status: false,
@@ -338,24 +335,22 @@ async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, 
         let frames = dicomNumberOfFrames;
         if (!Array.isArray(frames)) frames = [...Array(frames).keys()].map(i => i + 1);
 
-        for (let i = 0 ; i < frames.length; i++) {
+        for (let i = 0; i < frames.length; i++) {
             let frameNumber = frames[i];
             let postProcessResult = await postProcessFrameImage(req, frameNumber, instanceFramesObj);
             let buffer = postProcessResult.magick.toBuffer();
             multipartWriter.writeBuffer(buffer, {
                 "Content-Type": "image/jpeg",
-                "Content-Location": `/dicom-web/studies/${instanceFramesObj.studyUID}/series/${instanceFramesObj.seriesUID}/instances/${instanceFramesObj.instanceUID}/frames/${i+1}/rendered`
+                "Content-Location": `/dicom-web/studies/${instanceFramesObj.studyUID}/series/${instanceFramesObj.seriesUID}/instances/${instanceFramesObj.instanceUID}/frames/${i + 1}/rendered`
             });
         }
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         throw e;
     }
 }
 
-module.exports.handleImageQuality = handleImageQuality;
-module.exports.handleImageICCProfile = handleImageICCProfile;
-module.exports.handleViewport = handleViewport;
+module.exports.RenderedImageProcessParameterHandler = RenderedImageProcessParameterHandler;
 module.exports.getInstanceFrameObj = InstanceModel.getInstanceFrame;
 module.exports.postProcessFrameImage = postProcessFrameImage;
 module.exports.writeRenderedImages = writeRenderedImages;
