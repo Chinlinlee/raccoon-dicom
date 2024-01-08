@@ -89,10 +89,7 @@ class WadoUriService {
 
     async handleFrameNumberAndGetImageObj() {
         let imagePathObj = await this.getDicomInstancePathObj();
-        let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj, {
-            "00281050": 1,
-            "00281051": 1
-        });
+        let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj);
         let instanceTotalFrameNumber = _.get(instanceFramesObj, "00280008.Value.0", 1);
         let windowCenter = _.get(instanceFramesObj, "00281050.Value.0", "");
         let windowWidth = _.get(instanceFramesObj, "00281051.Value.0", "");

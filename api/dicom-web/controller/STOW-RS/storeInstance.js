@@ -4,6 +4,7 @@ const { ApiLogger } = require("../../../../utils/logs/api-logger");
 const { Controller } = require("../../../controller.class");
 const { StowRsRequestMultipartParser } = require("./service/request-multipart-parser");
 const { StowRsService } = require("./service/stow-rs.service");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class StoreInstanceController extends Controller {
     constructor(req, res) {
@@ -38,15 +39,8 @@ class StoreInstanceController extends Controller {
             
             return this.response.end(JSON.stringify(storeMessage));
         } catch (e) {
-            let errorStr = JSON.stringify(e, Object.getOwnPropertyNames(e));
-            apiLogger.logger.error(errorStr);
-    
-            let errorMessage =
-                errorResponseMessage.getInternalServerErrorMessage(errorStr);
-            this.response.writeHead(500, {
-                "Content-Type": "application/dicom+json"
-            });
-            return this.response.end(JSON.stringify(errorMessage));
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            return apiErrorArrayHandler.doErrorResponse();
         }
     }
 }
