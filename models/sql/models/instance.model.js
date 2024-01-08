@@ -10,6 +10,7 @@ const { getStoreDicomFullPath } = require("@models/mongodb/service");
 const { logger } = require("@root/utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 const { BaseDicomModel } = require("./baseDicom.model");
+const notImageSOPClass = require("@models/DICOM/dicomWEB/notImageSOPClass");
 
 class InstanceModel extends BaseDicomModel {
 
@@ -56,6 +57,73 @@ class InstanceModel extends BaseDicomModel {
         instanceInfos.accessionNumbers = _.uniq(instanceInfos.accessionNumbers);
 
         return instanceInfos;
+    }
+
+    /**
+     * @param {Object} iParam 
+     * @param {string} iParam.studyUID
+     * @param {string} iParam.seriesUID
+     * @param {string} iParam.instanceUID
+     * 
+     */
+    static async getInstanceFrame(iParam) {
+        let { studyUID, seriesUID, instanceUID } = iParam;
+
+        try {
+            /** @type { import("sequelize").FindOptions } */
+            let query = {
+                where: {
+                    x0020000D: studyUID,
+                    x0020000E: seriesUID,
+                    x00080018: instanceUID,
+                    x00080016: {
+                        [Op.notIn]: notImageSOPClass
+                    },
+                    deleteStatus: 0
+                },
+                attributes: [
+                    "instancePath",
+                    "x00020010",
+                    "x0020000D",
+                    "x0020000E",
+                    "x00080018",
+                    "x00280008",
+                    "x00281050",
+                    "x00281051"
+                ]
+            };
+
+            let instance = await InstanceModel.findOne(query);
+            if (instance) {
+                let instanceJson = instance.toJSON();
+
+                _.set(instanceJson, "studyUID", instanceJson.x0020000D);
+                _.set(instanceJson, "seriesUID", instanceJson.x0020000E);
+                _.set(instanceJson, "instanceUID", instanceJson.x00080018);
+                _.set(instanceJson, "instancePath", path.join(
+                    raccoonConfig.dicomWebConfig.storeRootPath,
+                    instanceJson.instancePath
+                ));
+                _.set(instanceJson, "00280008", {
+                    vr: dictionary.keyword.NumberOfFrames,
+                    Value: [instance?.x00280008]
+                });
+                _.set(instanceJson, "00281050", {
+                    vr: dictionary.keyword.WindowCenter,
+                    Value: [instance?.x00281050]
+                });
+                _.set(instanceJson, "00281051", {
+                    vr: dictionary.keyword.WindowWidth,
+                    Value: [instance?.x00281051]
+                });
+
+                return instanceJson;
+            }
+
+            return undefined;
+        } catch (e) {
+            throw e;
+        }
     }
 };
 
