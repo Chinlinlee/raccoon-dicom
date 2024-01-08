@@ -20,6 +20,10 @@ class RenderedImageProcessParameterHandler {
         this.#params = params;
     }
 
+    get params() {
+        return this.#params;
+    }
+
     /**
      * 
      * @param {*} param The req.query
