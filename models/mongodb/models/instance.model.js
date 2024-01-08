@@ -13,6 +13,7 @@ const { logger } = require("../../../utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { DicomSchemaOptionsFactory, InstanceDocDicomJsonHandler } = require("../schema/dicom.schema");
+const notImageSOPClass = require("@models/DICOM/dicomWEB/notImageSOPClass");
 
 
 let verifyingObserverSchema = new mongoose.Schema(
@@ -149,7 +150,7 @@ let dicomSchemaOptions = _.merge(
                         }
                     ]
                 });
-            
+
                 return await mongoose.model("dicom").findOne(query, {
                     studyUID: 1,
                     seriesUID: 1,
@@ -163,6 +164,65 @@ let dicomSchemaOptions = _.merge(
                     .skip(instanceCountOfStudy >> 1)
                     .limit(1)
                     .exec();
+            },
+            /**
+             * 
+             * @param {object} iParam 
+             * @param {string} iParam.studyUID
+             * @param {string} iParam.seriesUID
+             * @param {string} iParam.instanceUID
+             * @returns { Promise<import("@root/utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj> | Promise<undefined> }
+             */
+            getInstanceFrame: async function (iParam) {
+                let { studyUID, seriesUID, instanceUID } = iParam;
+                
+                try {
+                    /** @type { import("mongoose").FilterQuery<any> } */
+                    let query = {
+                        $and: [
+                            {
+                                studyUID: studyUID
+                            },
+                            {
+                                seriesUID: seriesUID
+                            },
+                            {
+                                instanceUID: instanceUID
+                            },
+                            {
+                                "00080016.Value": {
+                                    $nin: notImageSOPClass
+                                }
+                            },
+                            {
+                                deleteStatus: {
+                                    $eq: 0
+                                }
+                            }
+                        ]
+                    };
+                    let doc = await mongoose.model("dicom").findOne(query, {
+                        studyUID: 1,
+                        seriesUID: 1,
+                        instanceUID: 1,
+                        instancePath: 1,
+                        "00280008": 1, //number of frames
+                        "00020010": 1, //transfer syntax UID
+                        "00281050": 1, // Window Center
+                        "00281051": 1 // Window Width
+                    }).exec();
+                    if (doc) {
+                        let docObj = doc.toObject();
+                        docObj.instancePath = path.join(
+                            raccoonConfig.dicomWebConfig.storeRootPath,
+                            docObj.instancePath
+                        );
+                        return docObj;
+                    }
+                    return undefined;
+                } catch (e) {
+                    throw e;
+                }
             }
         }
     }

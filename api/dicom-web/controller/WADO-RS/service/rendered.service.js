@@ -1,5 +1,6 @@
 const path = require("path");
 const mongoose = require("mongoose");
+const { InstanceModel } = require("@dbModels/instance.model");
 const fs = require("fs");
 const sharp = require("sharp");
 const _ = require("lodash");
@@ -155,7 +156,7 @@ class FramesWriter {
     async write() {
         let multipartWriter = new MultipartWriter([], this.request, this.response);
         for(let imagePathObj of this.imagePaths) {
-            let instanceFramesObj = await getInstanceFrameObj(imagePathObj);
+            let instanceFramesObj = await InstanceModel.getInstanceFrame(imagePathObj);
             if(_.isUndefined(instanceFramesObj)) continue;
             let dicomNumberOfFrames = _.get(instanceFramesObj, "00280008.Value.0", 1);
             dicomNumberOfFrames = parseInt(dicomNumberOfFrames);
@@ -188,7 +189,7 @@ class InstanceFramesWriter extends FramesWriter {
 
     async write() {
         let multipartWriter = new MultipartWriter([], this.request, this.response);
-        let instanceFramesObj = await getInstanceFrameObj(this.imagePaths[0]);
+        let instanceFramesObj = await InstanceModel.getInstanceFrame(this.imagePaths[0]);
         if (_.isUndefined(instanceFramesObj)) {
             return this.response.status(400).json(
                 errorResponse.getBadRequestErrorMessage(`instance: ${this.request.params.instanceUID} doesn't have pixel data`)
@@ -211,7 +212,7 @@ class InstanceFramesListWriter extends FramesWriter {
     async write() {
         let {frameNumber} = this.request.params;
 
-        this.instanceFramesObj = await getInstanceFrameObj(this.imagePaths[0]);
+        this.instanceFramesObj = await InstanceModel.getInstanceFrame(this.imagePaths[0]);
         if (_.isUndefined(this.instanceFramesObj)) {
             return this.response.status(400).json(
                 errorResponse.getBadRequestErrorMessage(`instance: ${this.request.params.instanceUID} doesn't have pixel data`)
@@ -262,62 +263,6 @@ This instance NumberOfFrames is : ${this.dicomNumberOfFrames} , But request ${JS
             return postProcessResult.magick.toBuffer();
         }
         throw new Error(`Can not process this image, instanceUID: ${this.instanceFramesObj.instanceUID}, frameNumber: ${this.request.frameNumber[0]}`);
-    }
-}
-
-/**
- * 
- * @param {Object} iParam 
- * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj> | Promise<undefined> }
- */
-async function getInstanceFrameObj(iParam) {
-    let { studyUID, seriesUID, instanceUID } = iParam;
-    try {
-        /** @type { import("mongoose").FilterQuery<any> } */
-        let query = {
-            $and: [
-                {
-                    studyUID: studyUID
-                },
-                {
-                    seriesUID: seriesUID
-                },
-                {
-                    instanceUID: instanceUID
-                },
-                {
-                    "00080016.Value": {
-                        $nin: notImageSOPClass
-                    }
-                },
-                {
-                    deleteStatus: {
-                        $eq: 0
-                    }
-                }
-            ]
-        };
-        let doc = await mongoose.model("dicom").findOne(query, {
-            studyUID: 1,
-            seriesUID: 1,
-            instanceUID: 1,
-            instancePath: 1,
-            "00280008": 1, //number of frames
-            "00020010": 1, //transfer syntax UID
-            "00281050": 1, // Window Center
-            "00281051": 1 // Window Width
-        }).exec();
-        if (doc) {
-            let docObj = doc.toObject();
-            docObj.instancePath = path.join(
-                raccoonConfig.dicomWebConfig.storeRootPath,
-                docObj.instancePath
-            );
-            return docObj;
-        }
-        return undefined;
-    } catch (e) {
-        throw e;
     }
 }
 
@@ -411,7 +356,7 @@ async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, 
 module.exports.handleImageQuality = handleImageQuality;
 module.exports.handleImageICCProfile = handleImageICCProfile;
 module.exports.handleViewport = handleViewport;
-module.exports.getInstanceFrameObj = getInstanceFrameObj;
+module.exports.getInstanceFrameObj = InstanceModel.getInstanceFrame;
 module.exports.postProcessFrameImage = postProcessFrameImage;
 module.exports.writeRenderedImages = writeRenderedImages;
 module.exports.RenderedImageMultipartWriter = RenderedImageMultipartWriter;
