@@ -1,7 +1,5 @@
 const { DicomUtf8Converter } = require("./dcm4che/DicomUtf8Converter");
-const {
-    dcm2jsonV8
-} = require("./dcmtk");
+const { JDcm2Json } = require("./dcm4che/dcm2json");
 const { logger } = require("../../utils/logs/log");
 
 
@@ -11,7 +9,7 @@ class DicomJsonParser {
     async parseFromFilename(filename) {
         let dicomJson;
         try {
-            dicomJson = await dcm2jsonV8.exec(filename);
+            dicomJson = await JDcm2Json.get(filename);
             return dicomJson;
         } catch (e) {
 
@@ -26,7 +24,7 @@ class DicomJsonParser {
                     let dicomUtf8Converter = new DicomUtf8Converter(filename);
                     await dicomUtf8Converter.convert();
                 
-                    dicomJson = await dcm2jsonV8.exec(filename);
+                    dicomJson = await JDcm2Json.get(filename);
                     return dicomJson;
                 } catch(e) {
                     throw e;

@@ -1,9 +1,8 @@
 const { DicomJsonToFhir } = require("dicomjson-to-fhir");
-const dicomToJson = require("../dicom-to-fhir");
-const { dcm2jsonV8 } = require("@models/DICOM/dcmtk");
 const { raccoonConfig } = require("@root/config-class");
 const Joi = require("joi");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
+const { JDcm2Json } = require("@models/DICOM/dcm4che/dcm2json");
 
 const fileSchema = Joi.object({
     files: Joi.object({
@@ -24,7 +23,7 @@ class FhirConvertService {
         if (error) {
             throw new DicomWebServiceError(DicomWebStatusCodes.InvalidArgumentValue, error.details[0].message, 400);
         }
-        let dicomJson = await dcm2jsonV8.exec(this.request.files.file.filepath);
+        let dicomJson = await JDcm2Json.get(this.request.files.file.filepath);
         let protocol = this.request.secure ? "https" : "http";
         let dicomJsonToFhir = new DicomJsonToFhir(
             dicomJson,
