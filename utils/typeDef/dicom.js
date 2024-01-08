@@ -26,6 +26,12 @@
  * @property {boolean} [isRecycle]
  */
 
+/**
+ * @typedef DicomJsonItem
+ * @property {string} vr
+ * @property {any[]} Value
+ */
+
 const DICOM = true;
 
 module.exports.unUse = {};
