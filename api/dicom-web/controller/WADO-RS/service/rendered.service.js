@@ -270,7 +270,7 @@ This instance NumberOfFrames is : ${this.dicomNumberOfFrames} , But request ${JS
  * @param {Object} iParam 
  * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj> | Promise<undefined> }
  */
-async function getInstanceFrameObj(iParam, otherFields={}) {
+async function getInstanceFrameObj(iParam) {
     let { studyUID, seriesUID, instanceUID } = iParam;
     try {
         /** @type { import("mongoose").FilterQuery<any> } */
@@ -304,7 +304,8 @@ async function getInstanceFrameObj(iParam, otherFields={}) {
             instancePath: 1,
             "00280008": 1, //number of frames
             "00020010": 1, //transfer syntax UID
-            ...otherFields
+            "00281050": 1, // Window Center
+            "00281051": 1 // Window Width
         }).exec();
         if (doc) {
             let docObj = doc.toObject();

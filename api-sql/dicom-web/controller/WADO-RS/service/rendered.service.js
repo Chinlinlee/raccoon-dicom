@@ -197,7 +197,7 @@ This instance NumberOfFrames is : ${this.dicomNumberOfFrames} , But request ${JS
  * @param {Object} iParam 
  * @return { Promise<import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj> | Promise<undefined> }
  */
-async function getInstanceFrameObj(iParam, otherFields = {}) {
+async function getInstanceFrameObj(iParam) {
     let { studyUID, seriesUID, instanceUID } = iParam;
     try {
         /** @type { import("sequelize").FindOptions } */
