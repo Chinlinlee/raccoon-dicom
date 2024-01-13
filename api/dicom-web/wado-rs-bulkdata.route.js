@@ -3,6 +3,16 @@ const Joi = require("joi");
 const { validateParams, intArrayJoi } = require("../validator");
 const router = express();
 
+const { BaseBulkDataController } = require("./controller/WADO-RS/bulkdata/retrieveBulkData.controller");
+const { ApiLogger } = require("@root/utils/logs/api-logger");
+const { StudyBulkDataFactory, SeriesBulkDataFactory, InstanceBulkDataFactory, SpecificBulkDataFactory } = require("./controller/WADO-RS/bulkdata/service/bulkdata");
+const { StudyImagePathFactory, SeriesImagePathFactory, InstanceImagePathFactory } = require("./controller/WADO-RS/service/WADO-RS.service");
+
+const BulkDataController = async (req, res) => {
+    let bulkDataController = new BaseBulkDataController(req, res);
+    await bulkDataController.doPipeline();
+};
+
 /**
  *  @openapi
  *  /dicom-web/studies/{studyUID}/bulkdata:
@@ -19,7 +29,15 @@ const router = express();
  */
 router.get(
     "/studies/:studyUID/bulkdata",
-    require("./controller/WADO-RS/bulkdata/study")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get bulk data from study: ${req.params.studyUID}`);
+        req.bulkDataFactoryType = StudyBulkDataFactory;
+        req.imagePathFactoryType = StudyImagePathFactory;
+        next();
+    },
+    BulkDataController
 );
 
 /**
@@ -39,7 +57,15 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/bulkdata",
-    require("./controller/WADO-RS/bulkdata/series")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get series' bulk data from study: ${req.params.studyUID}, series: ${req.params.seriesUID}`);
+        req.bulkDataFactoryType = SeriesBulkDataFactory;
+        req.imagePathFactoryType = SeriesImagePathFactory;
+        next();
+    },
+    BulkDataController
 );
 
 /**
@@ -60,7 +86,15 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/bulkdata",
-    require("./controller/WADO-RS/bulkdata/instance")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get instance's bulk data from study: ${req.params.studyUID}, series: ${req.params.seriesUID}, instance: ${req.params.instanceUID}`);
+        req.bulkDataFactoryType = InstanceBulkDataFactory;
+        req.imagePathFactoryType = InstanceImagePathFactory;
+        next();
+    },
+    BulkDataController
 );
 
 /**
@@ -82,7 +116,16 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/bulkdata/:binaryValuePath",
-    require("./controller/WADO-RS/bulkdata/bulkdata")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get bulk data from study: ${req.params.studyUID}, series: ${req.params.seriesUID}, instance: ${req.params.instanceUID}`+
+        `, binaryValuePath: ${req.params.binaryValuePath}`);
+        req.bulkDataFactoryType = SpecificBulkDataFactory;
+        req.imagePathFactoryType = StudyImagePathFactory;
+        next();
+    },
+    BulkDataController
 );
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const { SeriesBulkDataFactory } = require("@api/dicom-web/controller/WADO-RS/bulkdata/service/bulkdata");
-const { BaseBulkDataController } = require("./base.controller");
+const { BaseBulkDataController } = require("./retrieveBulkData.controller");
 const { SeriesImagePathFactory } = require("@api/dicom-web/controller/WADO-RS/service/WADO-RS.service");
 
 class SeriesBulkDataController extends BaseBulkDataController {
