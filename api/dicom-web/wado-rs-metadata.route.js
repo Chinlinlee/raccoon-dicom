@@ -3,6 +3,13 @@ const Joi = require("joi");
 const { validateParams, intArrayJoi } = require("../validator");
 const router = express();
 
+const { BaseRetrieveMetadataController } = require("./controller/WADO-RS/metadata/retrieveMetadata.controller");
+const { ApiLogger } = require("@root/utils/logs/api-logger");
+const { StudyImagePathFactory, SeriesImagePathFactory, InstanceImagePathFactory } = require("./controller/WADO-RS/service/WADO-RS.service");
+const RetrieveMetadataController = async (req, res) => {
+    let controller = new BaseRetrieveMetadataController(req, res);
+    await controller.doPipeline();
+};
 
 //#region WADO-RS Retrieve Transaction Metadata Resources
 
@@ -22,7 +29,15 @@ const router = express();
  */
 router.get(
     "/studies/:studyUID/metadata",
-    require("./controller/WADO-RS/metadata/retrieveStudyMetadata")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info();
+        req.logger.logger.info(`Get study's metadata, study UID: ${req.params.studyUID}`);
+        req.imagePathFactory = StudyImagePathFactory;
+        next();
+    },
+    RetrieveMetadataController
 );
 
 /**
@@ -42,7 +57,15 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/metadata",
-    require("./controller/WADO-RS/metadata/retrieveSeriesMetadata")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info();
+        req.logger.logger.info(`Get study's series's metadata, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}`);
+        req.imagePathFactory = SeriesImagePathFactory;
+        next();
+    },
+    RetrieveMetadataController
 );
 
 /**
@@ -63,7 +86,15 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/metadata",
-    require("./controller/WADO-RS/metadata/retrieveInstanceMetadata")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get instance's metadata, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID},`+
+        ` instance UID: ${req.params.instanceUID}`);
+        req.imagePathFactory = InstanceImagePathFactory;
+        next();
+    },
+    RetrieveMetadataController
 );
 
 //#endregion

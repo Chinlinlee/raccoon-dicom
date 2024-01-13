@@ -7,18 +7,10 @@ const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 class BaseRetrieveMetadataController extends Controller {
     constructor(req, res) {
         super(req, res);
-        this.apiLogger = new ApiLogger(this.request, "WADO-RS");
-        this.apiLogger.addTokenValue();
-        this.imagePathFactory = StudyImagePathFactory;
-    }
-
-    logAction() {
-        throw new Error("Abstract method, not implement");
     }
 
     async mainProcess() {
-        this.logAction();
-        let metadataService = new MetadataService(this.request, this.imagePathFactory);
+        let metadataService = new MetadataService(this.request, this.request.imagePathFactory);
 
         try {
             let responseMetadata = await metadataService.getMetadata(this.request.params);
@@ -33,7 +25,7 @@ class BaseRetrieveMetadataController extends Controller {
             return this.response.end();
 
         } catch (e) {
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.request.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
     }
