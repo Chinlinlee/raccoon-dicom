@@ -1,18 +1,14 @@
 const { Controller } = require("@root/api/controller.class");
-const { ApiLogger } = require("@root/utils/logs/api-logger");
 const { DeleteService } = require("@api/dicom-web/controller/WADO-RS/deletion/service/delete");
 const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class BaseDeleteController extends Controller {
     constructor(req, res) {
         super(req, res);
-        this.apiLogger = new ApiLogger(this.request, "WADO-RS");
-        this.apiLogger.addTokenValue();
-        this.level = "study";
     }
 
     async mainProcess() {
-        let deleteService = new DeleteService(this.request, this.response, this.level);
+        let deleteService = new DeleteService(this.request, this.response, this.request.dicomLevel);
 
         try {
             await deleteService.delete();
@@ -24,13 +20,13 @@ class BaseDeleteController extends Controller {
                 Method: "DELETE"
             });
         } catch(e) {
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.request.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
     }
 
     getDeleteSuccessfulMessage() {
-        return  `Delete Study permanently, StudyInstanceUID: ${this.request.params.studyUID}`;
+        return  `Delete ${this.request.dicomLevel} permanently, ${JSON.stringify(this.request.params)}`;
     }
 
 }
