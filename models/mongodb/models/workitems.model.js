@@ -36,6 +36,23 @@ let workItemSchema = new mongoose.Schema(
         toObject: {
             getters: true
         },
+        statics: {
+            findNotSubscribedWorkItems: async function () {
+                return await mongoose.model("workItems").find({
+                    $or: [
+                        {
+                            subscribed: SUBSCRIPTION_STATE.NOT_SUBSCRIBED
+                        },
+                        {
+                            subscribed: {
+                                $exists: false
+                            }
+                        }
+                    ]
+                    
+                }) || [];
+            }
+        },
         methods: {
             toDicomJsonModel: function () {
                 return new DicomJsonModel(this);
@@ -110,13 +127,6 @@ function getWorkItemFields() {
     };
 }
 
-/**
- * @typedef { mongoose.Model<mongoose.Schema> & { 
- * getDicomJson: function(import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions): Promise<function>
- * }} WorkItemsModel
-*/
-
-/** @type {WorkItemsModel} */
 let workItemModel = mongoose.model(
     "workItems",
     workItemSchema,

@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
-const workItemModel = require("@models/mongodb/models/workitems.model");
+const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
 const subscriptionModel = require("@models/mongodb/models/upsSubscription");
 const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
 const {
@@ -154,19 +154,7 @@ class SubscribeService extends BaseWorkItemService {
     //#endregion
 
     async findNotSubscribedWorkItems() {
-        return await workItemModel.find({
-            $or: [
-                {
-                    subscribed: SUBSCRIPTION_STATE.NOT_SUBSCRIBED
-                },
-                {
-                    subscribed: {
-                        $exists: false
-                    }
-                }
-            ]
-            
-        }) || [];
+        return await WorkItemModel.findNotSubscribedWorkItems();
     }
 }
 
