@@ -3,6 +3,14 @@ const Joi = require("joi");
 const { validateParams, intArrayJoi } = require("../validator");
 const router = express();
 
+const { BaseRetrieveRenderedController } = require("./controller/WADO-RS/rendered/retrieveRendered.controller");
+const { ApiLogger } = require("@root/utils/logs/api-logger");
+const { StudyImagePathFactory, SeriesImagePathFactory, InstanceImagePathFactory } = require("./controller/WADO-RS/service/WADO-RS.service");
+const { StudyFramesWriter, SeriesFramesWriter, InstanceFramesWriter, InstanceFramesListWriter } = require("./controller/WADO-RS/service/rendered.service");
+const RetrieveRenderedController = async (req, res) => {
+    let controller = new BaseRetrieveRenderedController(req, res);
+    await controller.doPipeline();
+};
 
 //#region WADO-RS Retrieve Transaction Rendered Resources
 
@@ -60,7 +68,16 @@ const renderedQueryValidation = {
 router.get(
     "/studies/:studyUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/rendered/study")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info();
+        req.logger.logger.info(`Get study's rendered images, study UID: ${req.params.studyUID}`);
+        req.imagePathFactory = StudyImagePathFactory;
+        req.framesWriter = StudyFramesWriter;
+        next();
+    },
+    RetrieveRenderedController
 );
 
 /**
@@ -84,7 +101,16 @@ router.get(
 router.get(
     "/studies/:studyUID/series/:seriesUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/rendered/series")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info();
+        req.logger.logger.info(`Get study's series' rendered images, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}`);
+        req.imagePathFactory = SeriesImagePathFactory;
+        req.framesWriter = SeriesFramesWriter;
+        next();
+    },
+    RetrieveRenderedController
 );
 
 /**
@@ -109,7 +135,16 @@ router.get(
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/rendered",
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/rendered/instances")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get study's series' instance rendered images, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}`+
+        `, instance UID: ${req.params.instanceUID}`);
+        req.imagePathFactory = InstanceImagePathFactory;
+        req.framesWriter = InstanceFramesWriter;
+        next();
+    },
+    RetrieveRenderedController
 );
 
 /**
@@ -138,7 +173,16 @@ router.get(
         frameNumber : intArrayJoi.intArray().items(Joi.number().integer().min(1)).single()
     } , "params" , {allowUnknown : true}), 
     validateParams(renderedQueryValidation, "query", { allowUnknown: false }),
-    require("./controller/WADO-RS/rendered/instanceFrames")
+    (req, res, next) => {
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get instance' rendered frames, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}`+
+        `, instance UID: ${req.params.instanceUID}, frame numbers: ${req.params.frameNumber}`);
+        req.imagePathFactory = InstanceImagePathFactory;
+        req.framesWriter = InstanceFramesListWriter;
+        next();
+    },
+    RetrieveRenderedController
 );
 
 //#endregion

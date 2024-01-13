@@ -16,23 +16,9 @@ class BaseRetrieveRenderedController extends Controller {
      */
     constructor(req, res) {
         super(req, res);
-        this.apiLogger = new ApiLogger(this.request, "WADO-RS");
-        this.apiLogger.addTokenValue();
-        this.imagePathFactory = StudyImagePathFactory;
-        this.framesWriter = renderedService.StudyFramesWriter;
-    }
-
-    logAction() {
-        throw new Error("abstract, not implement");
-    }
-    
-    logSuccessful() {
-        throw new Error("abstract, not implement");
     }
 
     async mainProcess() {
-        this.logAction();
-    
         let headerAccept = _.get(this.request.headers, "accept", "");
         if (!headerAccept == `multipart/related; type="image/jpeg"`) {
             let badRequestMessage = errorResponse.getBadRequestErrorMessage(`header accept only allow \`multipart/related; type="image/jpeg"\`, exception : ${headerAccept}`);
@@ -47,13 +33,11 @@ class BaseRetrieveRenderedController extends Controller {
             let renderedImageMultipartWriter = new renderedService.RenderedImageMultipartWriter(
                 this.request,
                 this.response,
-                this.imagePathFactory,
-                this.framesWriter
+                this.request.imagePathFactory,
+                this.request.framesWriter
             );
 
             let buffer = await renderedImageMultipartWriter.write();
-
-            this.logSuccessful();
 
             if (buffer instanceof Buffer) {
                 return this.response.end(buffer, "binary");
@@ -61,7 +45,7 @@ class BaseRetrieveRenderedController extends Controller {
     
             return this.response.end();
         } catch(e) {
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.request.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
     }
