@@ -3,6 +3,14 @@ const Joi = require("joi");
 const { validateParams, intArrayJoi } = require("../validator");
 const router = express();
 
+const { BaseThumbnailController } = require("./controller/WADO-RS/thumbnail/retrieveThumbnail.controller");
+const { ApiLogger } = require("@root/utils/logs/api-logger");
+const { StudyThumbnailFactory, SeriesThumbnailFactory, InstanceThumbnailFactory } = require("./controller/WADO-RS/service/thumbnail.service");
+
+const RetrieveThumbnailController = async function (req, res) {
+    let controller = new BaseThumbnailController(req, res);
+    await controller.doPipeline();
+};
 
 //#region WADO-RS Retrieve Transaction Thumbnail Resources
 
@@ -27,7 +35,14 @@ const router = express();
  */
 router.get(
     "/studies/:studyUID/thumbnail",
-    require("./controller/WADO-RS/thumbnail/study")
+    (req, res, next) => {
+        req.factory = StudyThumbnailFactory;
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get Study's Thumbnail [study UID: ${req.params.studyUID}]`);
+        next();
+    },
+    RetrieveThumbnailController
 );
 
 /**
@@ -52,7 +67,14 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/thumbnail",
-    require("./controller/WADO-RS/thumbnail/series")
+    (req, res, next) => {
+        req.factory = SeriesThumbnailFactory;
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get Study's Series' Thumbnail [study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}]`);
+        next();
+    },
+    RetrieveThumbnailController
 );
 
 /**
@@ -78,7 +100,15 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/thumbnail",
-    require("./controller/WADO-RS/thumbnail/instance")
+    (req, res, next) => {
+        req.factory = InstanceThumbnailFactory;
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get Study's Series' Instance's Thumbnail [study UID: ${req.params.studyUID},`+
+        ` series UID: ${req.params.seriesUID}, instance UID: ${req.params.instanceUID}]`);
+        next();
+    },
+    RetrieveThumbnailController
 );
 
 /**
@@ -107,8 +137,16 @@ router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID/frames/:frameNumber/thumbnail",
     validateParams({
         frameNumber : intArrayJoi.intArray().items(Joi.number().integer().min(1)).single()
-    } , "params" , {allowUnknown : true}), 
-    require("./controller/WADO-RS/thumbnail/frame")
+    } , "params" , {allowUnknown : true}),
+    (req, res, next) => {
+        req.factory = InstanceThumbnailFactory;
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`Get Study's Instance's Frame's Thumbnail [study UID: ${req.params.studyUID},`+
+        ` series UID: ${req.params.seriesUID}, instance UID: ${req.params.instanceUID}, frame number: ${req.params.frameNumber}]`);
+        next();
+    },
+    RetrieveThumbnailController
 );
 
 
