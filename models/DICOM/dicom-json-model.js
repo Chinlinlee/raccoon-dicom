@@ -23,7 +23,7 @@ const { dictionary } = require("./dicom-tags-dic");
  * *Remove tags when processing that not use them.
  */
 const BIG_VALUE_TAGS = [
-    "52009230", 
+    "52009230",
     "00480200"
 ];
 
@@ -35,7 +35,7 @@ class BaseDicomJson {
      */
     constructor(dicomJson, ...selection) {
         this.dicomJson = dicomJson;
-        if(selection.length > 0) {
+        if (selection.length > 0) {
             this.initSelectionJson(selection);
         }
     }
@@ -46,7 +46,7 @@ class BaseDicomJson {
      */
     initSelectionJson(selection) {
         let selectionJson = {};
-        for(let i = 0; i < selection.length; i++) {
+        for (let i = 0; i < selection.length; i++) {
             let tag = selection[i];
             let item = this.getItem(tag);
             if (item) {
@@ -86,7 +86,7 @@ class BaseDicomJson {
         return _.get(dictionary.tag, `${tag}`);
     }
 
-    static getTagOfKeyword(keyword)  {
+    static getTagOfKeyword(keyword) {
         return _.get(dictionary.keyword, `${keyword}`);
     }
 
@@ -158,7 +158,7 @@ class DicomJsonModel {
                 this.storeSeriesCollection(dbJson),
                 this.storePatientCollection(dbJson)
             ]);
-        } catch(e) {
+        } catch (e) {
             throw e;
         }
     }
@@ -346,7 +346,7 @@ class DicomJsonModel {
         } else {
             startedDate = moment(startedDate, "YYYYMMDDhhmmss").toISOString();
         }
-        
+
         return startedDate;
     }
 
@@ -360,14 +360,14 @@ class DicomJsonModel {
         };
     }
 
-    getPatientDicomJson(dicomJson=undefined) {
+    getPatientDicomJson(dicomJson = undefined) {
         if (!dicomJson) dicomJson = this.dicomJson;
 
         let patientDicomJson = {
             patientID: dicomJson.patientID
         };
 
-        for(let tag in tagsNeedStore.Patient) {
+        for (let tag in tagsNeedStore.Patient) {
             let value = _.get(dicomJson, tag);
             if (value)
                 _.set(patientDicomJson, tag, value);
@@ -376,7 +376,7 @@ class DicomJsonModel {
         return patientDicomJson;
     }
 
-    getStudyDicomJson(dicomJson=undefined) {
+    getStudyDicomJson(dicomJson = undefined) {
 
         if (!dicomJson) dicomJson = this.dicomJson;
 
@@ -385,7 +385,7 @@ class DicomJsonModel {
             studyPath: dicomJson.studyPath
         };
 
-        for(let tag in tagsNeedStore.Study) {
+        for (let tag in tagsNeedStore.Study) {
             let value = _.get(dicomJson, tag);
             if (value)
                 _.set(studyDicomJson, tag, value);
@@ -399,7 +399,7 @@ class DicomJsonModel {
         };
     }
 
-    getSeriesDicomJson(dicomJson=undefined) {
+    getSeriesDicomJson(dicomJson = undefined) {
         if (!dicomJson) dicomJson = this.dicomJson;
 
         let seriesDicomJson = {
@@ -408,9 +408,9 @@ class DicomJsonModel {
             seriesPath: dicomJson.seriesPath
         };
 
-        for(let tag in tagsNeedStore.Series) {
+        for (let tag in tagsNeedStore.Series) {
             let value = _.get(dicomJson, tag);
-            if(value)
+            if (value)
                 _.set(seriesDicomJson, tag, value);
         }
 
@@ -426,7 +426,7 @@ class DicomJsonModel {
 
 
 class DicomJsonBinaryDataModel {
-    constructor(dicomJsonModel, bulkDataModelClass=BulkData) {
+    constructor(dicomJsonModel, bulkDataModelClass = BulkData) {
 
         /** @type {DicomJsonModel} */
         this.dicomJsonModel = dicomJsonModel;
@@ -455,7 +455,7 @@ class DicomJsonBinaryDataModel {
     getPathGroupOfBinaryProperties_() {
         let pathGroupOfBinaryProperties = [];
 
-        for(let binaryKey of this.binaryKeys) {
+        for (let binaryKey of this.binaryKeys) {
 
             if (_.get(this.dicomJsonModel.dicomJson, `${binaryKey}.Value.0`)) {
                 pathGroupOfBinaryProperties.push(`${binaryKey}.Value.0`);
@@ -476,7 +476,7 @@ class DicomJsonBinaryDataModel {
             sopInstanceUID
         } = this.dicomJsonModel.uidObj;
 
-        for(let i = 0; i < this.binaryKeys.length ; i++) {
+        for (let i = 0; i < this.binaryKeys.length; i++) {
             let binaryKey = this.binaryKeys[i];
 
             // Reset VR to UR, because BulkDataURI is URI
@@ -493,7 +493,7 @@ class DicomJsonBinaryDataModel {
                 `${binaryKey}.BulkDataURI`,
                 `/studies/${studyUID}/series/${seriesUID}/instances/${sopInstanceUID}/bulkdata/${pathOfBinaryProperty}`
             );
-            
+
             _.unset(this.dicomJsonModel.dicomJson, `${binaryKey}.InlineBinary`);
         }
 
@@ -510,14 +510,14 @@ class DicomJsonBinaryDataModel {
 
         let shortInstanceUID = shortHash(sopInstanceUID);
 
-        
-        for(let i = 0; i < this.pathGroupOfBinaryProperties.length ; i++) {
+
+        for (let i = 0; i < this.pathGroupOfBinaryProperties.length; i++) {
             let relativeFilename = `files/bulkData/${shortInstanceUID}/`;
             let pathOfBinaryProperty = this.pathGroupOfBinaryProperties[i];
 
             let binaryData = _.get(this.dicomJsonModel.dicomJson, pathOfBinaryProperty);
 
-            if(binaryData) {
+            if (binaryData) {
                 relativeFilename += `${pathOfBinaryProperty}.raw`;
                 let filename = path.join(
                     raccoonConfig.dicomWebConfig.storeRootPath,
@@ -561,16 +561,10 @@ class BulkData {
             binaryValuePath: this.pathOfBinaryProperty
         };
 
-        await dicomBulkDataModel.updateOne(
+        await dicomBulkDataModel.createOrUpdateBulkData(
             {
-                $and: [
-                    {
-                        instanceUID: this.uidObj.sopInstanceUID
-                    },
-                    {
-                        binaryValuePath: this.pathOfBinaryProperty
-                    }
-                ]
+                instanceUID: this.uidObj.sopInstanceUID,
+                binaryValuePath: this.pathOfBinaryProperty
             },
             {
                 studyUID: this.uidObj.studyUID,
@@ -578,9 +572,6 @@ class BulkData {
                 instanceUID: this.uidObj.sopInstanceUID,
                 filename: this.filename,
                 binaryValuePath: this.pathOfBinaryProperty
-            },
-            {
-                upsert: true
             }
         );
         logger.info(`[STOW-RS] [Store bulkdata ${JSON.stringify(item)} successful]`);

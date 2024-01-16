@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const dicomBulkDataModel = require("@dbModels/dicomBulkData.model");
+const { DicomBulkDataModel } = require("@dbModels/dicomBulkData.model");
 const { MultipartWriter } = require("../../../../../../utils/multipartWriter");
 const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
 const { raccoonConfig } = require("../../../../../../config-class");
@@ -15,7 +15,7 @@ class BulkDataService {
     constructor(req, res, bulkDataFactory) {
         this.request = req;
         this.response = res;
-        this.bulkDataFactory = new bulkDataFactory({...this.request.params});
+        this.bulkDataFactory = new bulkDataFactory({ ...this.request.params });
         this.multipartWriter = new MultipartWriter([], req, res);
         this.multipartWriter.setHeaderMultipartRelatedContentType("application/octet-stream");
     }
@@ -28,7 +28,7 @@ class BulkDataService {
     async writeBulkData(bulkData) {
         let absFilename;
         // is imagePathObj
-        if(bulkData.instancePath) {
+        if (bulkData.instancePath) {
             absFilename = bulkData.instancePath;
         } else {
             absFilename = path.join(raccoonConfig.dicomWebConfig.storeRootPath, bulkData.filename);
@@ -39,7 +39,7 @@ class BulkDataService {
         this.multipartWriter.writeBoundary();
         this.multipartWriter.writeContentType("application/octet-stream");
         this.multipartWriter.writeContentLength(fileBuffer.length);
-        
+
         let urlPath = `/dicom-web/studies/${bulkData.studyUID}/series/${bulkData.seriesUID}/instances/${bulkData.instanceUID}/bulkdata/${bulkData.binaryValuePath}`;
         if (bulkData.instancePath) {
             urlPath = `/dicom-web/studies/${bulkData.studyUID}/series/${bulkData.seriesUID}/instances/${bulkData.instanceUID}`;
@@ -51,7 +51,7 @@ class BulkDataService {
     async getBulkData() {
         return await this.bulkDataFactory.getBulkData();
     }
-    
+
 }
 
 class BulkDataFactory {
@@ -79,15 +79,7 @@ class StudyBulkDataFactory extends BulkDataFactory {
             studyUID
         } = this.uids;
 
-        let studyBulkDataArray = await dicomBulkDataModel.find({
-            $and: [
-                {
-                    studyUID
-                }
-            ]
-        }).exec();
-
-        return studyBulkDataArray;
+        return await DicomBulkDataModel.findStudyBulkData({ studyUID });
     }
 }
 
@@ -102,18 +94,11 @@ class SeriesBulkDataFactory extends BulkDataFactory {
             seriesUID
         } = this.uids;
 
-        let seriesBulkDataArray = await dicomBulkDataModel.find({
-            $and: [
-                {
-                    studyUID
-                },
-                {
-                    seriesUID
-                }
-            ]
-        }).exec();
+        return await DicomBulkDataModel.findSeriesBulkData({
+            studyUID,
+            seriesUID
+        });
 
-        return seriesBulkDataArray;
     }
 }
 
@@ -130,21 +115,11 @@ class InstanceBulkDataFactory extends BulkDataFactory {
             instanceUID
         } = this.uids;
 
-        let instanceBulkDataArray = await dicomBulkDataModel.find({
-            $and: [
-                {
-                    studyUID
-                },
-                {
-                    seriesUID
-                },
-                {
-                    instanceUID
-                }
-            ]
-        }).exec();
-
-        return instanceBulkDataArray;
+        return await DicomBulkDataModel.findInstanceBulkData({
+            studyUID,
+            seriesUID,
+            instanceUID
+        });
     }
 }
 
@@ -162,27 +137,13 @@ class SpecificBulkDataFactory extends BulkDataFactory {
             binaryValuePath
         } = this.uids;
 
-        let bulkData = await dicomBulkDataModel.findOne({
-            $and: [
-                {
-                    studyUID
-                },
-                {
-                    seriesUID
-                },
-                {
-                    instanceUID
-                },
-                {
-                    binaryValuePath: {
-                        $regex: `^${binaryValuePath}`,
-                        $options: "m"
-                    }
-                }
-            ]
-        }).exec();
+        return await DicomBulkDataModel.findSpecificBulkData({
+            studyUID,
+            seriesUID,
+            instanceUID,
+            binaryValuePath
+        });
 
-        return bulkData;
     }
 }
 

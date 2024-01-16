@@ -13,6 +13,7 @@ const errorResponse = require("../../../../../utils/errorResponse/errorResponseM
 const { logger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
+const { DicomBulkDataModel } = require("@dbModels/dicomBulkData.model");
 
 class RenderedImageProcessParameterHandler {
     #params;
@@ -40,15 +41,9 @@ class RenderedImageProcessParameterHandler {
         let iccProfileAction = {
             "no": async () => { },
             "yes": async () => {
-                let iccProfileBinaryFile = await mongoose.model("dicomBulkData").findOne({
-                    $and: [
-                        {
-                            binaryValuePath: "00480105.Value.0.00282000.InlineBinary"
-                        },
-                        {
-                            instanceUID: instanceID
-                        }
-                    ]
+                let iccProfileBinaryFile = await DicomBulkDataModel.findOneBulkData({
+                    binaryValuePath: "00480105.Value.0.00282000.InlineBinary",
+                    instanceUID: instanceID
                 });
                 if (!iccProfileBinaryFile) throw new Error("The Image dose not have icc profile tag");
                 let iccProfileSrc = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename);
