@@ -43,6 +43,28 @@ let upsSubscriptionSchema = new mongoose.Schema(
              */
             findOneByAeTitle: async function(aeTitle) {
                 return await mongoose.model("upsSubscription").findOne({ aeTitle }).exec();
+            },
+            createSubscriptionForWorkItem: async function(workItem, aeTitle, deletionLock, subscribed) {
+                let subscription = new mongoose.model("upsSubscription")({
+                    aeTitle: aeTitle,
+                    workItems: [workItem._id],
+                    subscribed: subscribed,
+                    isDeletionLock: deletionLock
+                });
+                return await subscription.save();
+            },
+            updateSubscription: async function(subscription, workItem, deletionLock, subscribed) {
+                return await mongoose.model("upsSubscription").findOneAndUpdate({
+                    _id: subscription._id
+                }, {
+                    $set: {
+                        isDeletionLock: deletionLock,
+                        subscribed: subscribed
+                    },
+                    $addToSet: {
+                        workItems: workItem._id
+                    }
+                });
             }
         }
     }

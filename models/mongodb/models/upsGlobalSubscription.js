@@ -35,6 +35,18 @@ let upsGlobalSubscriptionSchema = new mongoose.Schema(
         statics: {
             getCursor: async function (query, options) {
                 return await mongoose.model("upsGlobalSubscription").find(query, options).cursor();
+            },
+            createGlobalSubscription: async function(globalSubscription) {
+                return await mongoose.model("upsGlobalSubscription").create(globalSubscription);
+            },
+            updateRepositoryInstance: async function(globalSubscription, query, deletionLock ,subscribed) {
+                globalSubscription.isDeletionLock = deletionLock;
+                globalSubscription.subscribed = subscribed;
+                globalSubscription.queryKeys = query;
+                return await globalSubscription.save();
+            },
+            findOneByAeTitle: async function(aeTitle) {
+                return await mongoose.model("upsGlobalSubscription").findOne({aeTitle: aeTitle});
             }
         }
     }

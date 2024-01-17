@@ -1,8 +1,7 @@
 const _ = require("lodash");
-const { DicomCode } = require("@models/DICOM/code");
 const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
-const subscriptionModel = require("@models/mongodb/models/upsSubscription");
-const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
+const { UpsSubscriptionModel } = require("@models/mongodb/models/upsSubscription");
+const { UpsGlobalSubscriptionModel } = require("@models/mongodb/models/upsGlobalSubscription");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
@@ -11,7 +10,6 @@ const { SUBSCRIPTION_STATE, SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/u
 const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
-const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 
 class SubscribeService extends BaseWorkItemService {
 
@@ -30,8 +28,8 @@ class SubscribeService extends BaseWorkItemService {
     }
 
     async create() {
-        
-        if (this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.GlobalUID || 
+
+        if (this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.GlobalUID ||
             this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.FilteredGlobalUID) {
 
             this.query = convertAllQueryToDicomTag(this.request.query);
@@ -41,16 +39,14 @@ class SubscribeService extends BaseWorkItemService {
             await this.createOrUpdateSubscription(workItem);
             this.addUpsEvent(UPS_EVENT_TYPE.StateReport, this.upsInstanceUID, this.stateReportOf(await workItem.toDicomJson()), [this.subscriberAeTitle]);
         }
-        
+
         await this.triggerUpsEvents();
     }
 
     //#region Subscription
     async findOneSubscription() {
-        
-        let subscription = await subscriptionModel.findOne({
-            aeTitle: this.subscriberAeTitle
-        });
+
+        let subscription = await UpsSubscriptionModel.findOneByAeTitle(this.subscriberAeTitle);
 
         return subscription;
 
@@ -67,33 +63,10 @@ class SubscribeService extends BaseWorkItemService {
         await this.updateWorkItemSubscription(workItem, subscribed);
         if (!subscription) {
             // Create
-            let subscriptionObj = new subscriptionModel({
-                aeTitle: this.subscriberAeTitle,
-                workItems: [
-                    workItem._id
-                ],
-                isDeletionLock: this.deletionLock,
-                subscribed: subscribed
-            });
-
-            let createdSubscription = await subscriptionObj.save();
-            return createdSubscription;
+            return await UpsSubscriptionModel.createSubscriptionForWorkItem(workItem, this.subscriberAeTitle, this.deletionLock, subscribed);
         } else {
             // Update
-            let updatedSubscription =await subscriptionModel.findOneAndUpdate({
-                _id: subscription._id
-            }, {
-                $set: {
-                    isDeletionLock: this.deletionLock,
-                    subscribed: subscribed
-                },
-                $addToSet: {
-                    workItems: workItem._id
-                }
-            });
-            subscription.isDeletionLock = this.deletionLock;
-            subscription.subscribed = subscribed;
-            return updatedSubscription;
+            return await UpsSubscriptionModel.updateSubscription(subscription, workItem, this.deletionLock, subscribed);
         }
     }
 
@@ -117,36 +90,29 @@ class SubscribeService extends BaseWorkItemService {
         }
         if (!subscription) {
             //Create
-            let subscriptionObj = new globalSubscriptionModel({
+            await UpsGlobalSubscriptionModel.createGlobalSubscription({
                 aeTitle: this.subscriberAeTitle,
                 isDeletionLock: this.deletionLock,
                 subscribed: subscribed,
                 queryKeys: this.query
             });
-
-            let createdSubscription = await subscriptionObj.save();
         } else {
             //Update
-            subscription.isDeletionLock = this.deletionLock;
-            subscription.subscribed = subscribed;
-            subscription.queryKeys = this.query;
-            await subscription.save();
+            await UpsGlobalSubscriptionModel.updateRepositoryInstance(subscription, this.query, this.deletionLock, subscribed);
         }
 
         let notSubscribedWorkItems = await this.findNotSubscribedWorkItems();
-        for(let notSubscribedWorkItem of notSubscribedWorkItems) {
+        for (let notSubscribedWorkItem of notSubscribedWorkItems) {
             let workItemDicomJson = await notSubscribedWorkItem.toDicomJson();
             await this.createOrUpdateSubscription(notSubscribedWorkItem);
-            
+
             this.addUpsEvent(UPS_EVENT_TYPE.StateReport, notSubscribedWorkItem.upsInstanceUID, this.stateReportOf(workItemDicomJson), [this.subscriberAeTitle]);
         }
     }
 
     async findOneGlobalSubscription() {
-                
-        let globalSubscription = await globalSubscriptionModel.findOne({
-            aeTitle: this.subscriberAeTitle
-        });
+
+        let globalSubscription = await UpsGlobalSubscriptionModel.findOneByAeTitle(this.subscriberAeTitle);
 
         return globalSubscription;
 
