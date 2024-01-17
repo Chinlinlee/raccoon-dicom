@@ -10,7 +10,7 @@ const { logger } = require("@root/utils/logs/log");
 const { UID } = require("@dcm4che/data/UID");
 const { QueryTaskUtils } = require("./utils");
 const { default: BasicModQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/BasicModQueryTask");
-const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
+const { MwlItemModel } = require("@dbModels/mwlitems.model");
 
 
 class JsMwlQueryTask {

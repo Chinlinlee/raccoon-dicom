@@ -1,5 +1,5 @@
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
-const { PatientModel } = require("@models/mongodb/models/patient.model");
+const { PatientModel } = require("@dbModels/patient.model");
 
 class DeletePatientService {
     constructor(req, res) {

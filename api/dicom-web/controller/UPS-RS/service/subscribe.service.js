@@ -1,7 +1,7 @@
 const _ = require("lodash");
-const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
-const { UpsSubscriptionModel } = require("@models/mongodb/models/upsSubscription");
-const { UpsGlobalSubscriptionModel } = require("@models/mongodb/models/upsGlobalSubscription");
+const { WorkItemModel } = require("@dbModels/workitems.model");
+const { UpsSubscriptionModel } = require("@dbModels/upsSubscription");
+const { UpsGlobalSubscriptionModel } = require("@dbModels/upsGlobalSubscription");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes

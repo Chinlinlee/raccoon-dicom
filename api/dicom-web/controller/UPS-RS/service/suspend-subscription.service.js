@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
+const { UpsGlobalSubscriptionModel } = require("@dbModels/upsGlobalSubscription");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
@@ -36,14 +36,14 @@ class SuspendSubscribeService extends BaseWorkItemService {
 
     async deleteGlobalSubscription() {
 
-        await globalSubscriptionModel.findOneAndDelete({
+        await UpsGlobalSubscriptionModel.findOneAndDelete({
             aeTitle: this.subscriberAeTitle
         });
 
     }
 
     async isGlobalSubscriptionExist() {
-        return await globalSubscriptionModel.countDocuments({
+        return await UpsGlobalSubscriptionModel.countDocuments({
             aeTitle: this.subscriberAeTitle
         }) > 0;
     }

@@ -1,8 +1,8 @@
 const _ = require("lodash");
 const { DicomCode } = require("@models/DICOM/code");
-const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
-const subscriptionModel = require("@models/mongodb/models/upsSubscription");
-const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
+const { WorkItemModel } = require("@dbModels/workitems.model");
+const { UpsSubscriptionModel } = require("@dbModels/upsSubscription");
+const { UpsGlobalSubscriptionModel } = require("@dbModels/upsGlobalSubscription");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
@@ -61,7 +61,7 @@ class UnSubscribeService extends BaseWorkItemService {
      */
     async deleteSubscription(workItem) {
 
-        await subscriptionModel.findOneAndUpdate({
+        await UpsSubscriptionModel.findOneAndUpdate({
             aeTitle: this.subscriberAeTitle,
             workItems: workItem._id
         }, {
@@ -75,10 +75,10 @@ class UnSubscribeService extends BaseWorkItemService {
     async deleteGlobalSubscription() {
 
         await Promise.all([
-            subscriptionModel.findOneAndDelete({
+            UpsSubscriptionModel.findOneAndDelete({
                 aeTitle: this.subscriberAeTitle
             }),
-            globalSubscriptionModel.findOneAndDelete({
+            UpsGlobalSubscriptionModel.findOneAndDelete({
                 aeTitle: this.subscriberAeTitle
             })
         ]);
@@ -86,13 +86,13 @@ class UnSubscribeService extends BaseWorkItemService {
     }
 
     async isSubscriptionExist() {
-        return await subscriptionModel.countDocuments({
+        return await UpsSubscriptionModel.countDocuments({
             aeTitle: this.subscriberAeTitle
         }) > 0;
     }
 
     async isGlobalSubscriptionExist() {
-        return await globalSubscriptionModel.countDocuments({
+        return await UpsGlobalSubscriptionModel.countDocuments({
             aeTitle: this.subscriberAeTitle
         }) > 0;
     }

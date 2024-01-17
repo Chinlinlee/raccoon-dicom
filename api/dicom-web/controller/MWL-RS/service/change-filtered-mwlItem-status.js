@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
+const { MwlItemModel } = require("@dbModels/mwlitems.model");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { convertRequestQueryToMongoQuery } = require("../../QIDO-RS/service/query-dicom-json-factory");

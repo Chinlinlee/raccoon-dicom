@@ -1,5 +1,5 @@
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { PatientModel } = require("@models/mongodb/models/patient.model");
+const { PatientModel } = require("@dbModels/patient.model");
 const { set } = require("lodash");
 
 

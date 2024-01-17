@@ -8,7 +8,7 @@ const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/servic
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { raccoonConfig } = require("@root/config-class");
-const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 
 class CancelWorkItemService extends BaseWorkItemService {
 

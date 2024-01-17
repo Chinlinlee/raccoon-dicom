@@ -1,4 +1,4 @@
-const { PatientModel } = require("@models/mongodb/models/patient.model");
+const { PatientModel } = require("@dbModels/patient.model");
 const { set, get } = require("lodash");
 const shortHash = require("shorthash2");
 const { v4: uuidV4 } = require("uuid");

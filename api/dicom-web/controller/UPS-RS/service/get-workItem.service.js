@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const workItemsModel = require("@models/mongodb/models/workitems.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const { 
     convertRequestQueryToMongoQuery
 } = require("../../QIDO-RS/service/query-dicom-json-factory");
@@ -37,7 +37,7 @@ class GetWorkItemService {
             requestParams: this.request.params
         };
 
-        let docs = await workItemsModel.getDicomJson(queryOptions);
+        let docs = await WorkItemModel.getDicomJson(queryOptions);
         
         return this.adjustDocs(docs);
     }

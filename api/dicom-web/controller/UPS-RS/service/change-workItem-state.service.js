@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const moment = require("moment");
 const { DicomCode } = require("@models/DICOM/code");
-const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes

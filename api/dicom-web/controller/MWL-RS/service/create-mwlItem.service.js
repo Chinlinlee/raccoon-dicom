@@ -1,7 +1,7 @@
 const _ = require("lodash");
-const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
-const { PatientModel } = require("@models/mongodb/models/patient.model");
-const { StudyModel } = require("@models/mongodb/models/study.model");
+const { MwlItemModel } = require("@dbModels/mwlitems.model");
+const { PatientModel } = require("@dbModels/patient.model");
+const { StudyModel } = require("@dbModels/study.model");
 const crypto = require('crypto');
 const moment = require("moment");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
