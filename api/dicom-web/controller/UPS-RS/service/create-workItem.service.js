@@ -5,18 +5,18 @@ const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { DicomJsonModel } = require("@dicom-json-model");
 const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { SubscribeService } = require("@api/dicom-web/controller/UPS-RS/service/subscribe.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 
 class CreateWorkItemService extends BaseWorkItemService {
     constructor(req, res) {
         super(req, res);
         this.requestWorkItem = /**  @type {Object[]} */(this.request.body).pop();
-        /** @type {DicomJsonModel} */
-        this.requestWorkItem = new DicomJsonModel(this.requestWorkItem);
+        /** @type {BaseDicomJson} */
+        this.requestWorkItem = new BaseDicomJson(this.requestWorkItem);
     }
 
     async createUps() {
@@ -74,7 +74,7 @@ class CreateWorkItemService extends BaseWorkItemService {
     }
 
     async triggerCreateEvent(workItem) {
-        let workItemDicomJson = new DicomJsonModel(workItem);
+        let workItemDicomJson = new BaseDicomJson(workItem);
         let hitGlobalSubscriptions = await this.getHitGlobalSubscriptions(workItemDicomJson);
         for (let hitGlobalSubscription of hitGlobalSubscriptions) {
             let subscribeService = new SubscribeService(this.request, this.response);
@@ -84,11 +84,11 @@ class CreateWorkItemService extends BaseWorkItemService {
             await subscribeService.create();
         }
 
-        let hitSubscriptions = await this.getHitSubscriptions(workItemDicomJson);
+        let hitSubscriptions = await this.getHitSubscriptions(workItem);
 
         if (hitSubscriptions) {
             let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItem.toDicomJsonModel()), hitSubscriptionAeTitleArray);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(await workItem.toDicomJson()), hitSubscriptionAeTitleArray);
             let assignedEventInformationArray = await this.getAssignedEventInformationArray(
                 workItemDicomJson,
                 _.get(workItemDicomJson.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}`, false),

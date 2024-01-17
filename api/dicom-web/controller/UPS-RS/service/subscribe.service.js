@@ -1,5 +1,4 @@
 const _ = require("lodash");
-const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
 const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
 const subscriptionModel = require("@models/mongodb/models/upsSubscription");
@@ -12,6 +11,7 @@ const { SUBSCRIPTION_STATE, SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/u
 const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 
 class SubscribeService extends BaseWorkItemService {
 
@@ -37,9 +37,9 @@ class SubscribeService extends BaseWorkItemService {
             this.query = convertAllQueryToDicomTag(this.request.query);
             await this.createOrUpdateGlobalSubscription();
         } else {
-            let workItem = await this.findOneWorkItem(this.upsInstanceUID);
+            let workItem = await WorkItemModel.findOneByUpsInstanceUID(this.upsInstanceUID);
             await this.createOrUpdateSubscription(workItem);
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, this.upsInstanceUID, this.stateReportOf(workItem), [this.subscriberAeTitle]);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, this.upsInstanceUID, this.stateReportOf(await workItem.toDicomJson()), [this.subscriberAeTitle]);
         }
         
         await this.triggerUpsEvents();
@@ -58,11 +58,11 @@ class SubscribeService extends BaseWorkItemService {
 
     /**
      * 
-     * @param {DicomJsonModel} workItem 
+     * @param {any} workItem repository workItem
      * @returns 
      */
     async createOrUpdateSubscription(workItem) {
-        let subscription = await this.findOneSubscription(workItem);
+        let subscription = await this.findOneSubscription();
         let subscribed = this.deletionLock ? SUBSCRIPTION_STATE.SUBSCRIBED_NO_LOCK : SUBSCRIPTION_STATE.SUBSCRIBED_LOCK;
         await this.updateWorkItemSubscription(workItem, subscribed);
         if (!subscription) {
@@ -70,7 +70,7 @@ class SubscribeService extends BaseWorkItemService {
             let subscriptionObj = new subscriptionModel({
                 aeTitle: this.subscriberAeTitle,
                 workItems: [
-                    workItem.dicomJson._id
+                    workItem._id
                 ],
                 isDeletionLock: this.deletionLock,
                 subscribed: subscribed
@@ -98,8 +98,8 @@ class SubscribeService extends BaseWorkItemService {
     }
 
     async updateWorkItemSubscription(workItem, subscription) {
-        workItem.dicomJson.subscribed = subscription;
-        await workItem.dicomJson.save();
+        workItem.subscribed = subscription;
+        await workItem.save();
     }
     //#endregion
 
@@ -135,8 +135,8 @@ class SubscribeService extends BaseWorkItemService {
 
         let notSubscribedWorkItems = await this.findNotSubscribedWorkItems();
         for(let notSubscribedWorkItem of notSubscribedWorkItems) {
-            let workItemDicomJson = new DicomJsonModel(notSubscribedWorkItem);
-            await this.createOrUpdateSubscription(workItemDicomJson);
+            let workItemDicomJson = await notSubscribedWorkItem.toDicomJson();
+            await this.createOrUpdateSubscription(notSubscribedWorkItem);
             
             this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItemDicomJson), [this.subscriberAeTitle]);
         }

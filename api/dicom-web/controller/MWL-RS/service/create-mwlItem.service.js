@@ -9,7 +9,7 @@ const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { DicomJsonModel, BaseDicomJson } = require("@models/DICOM/dicom-json-model");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 const { v4: uuidV4 } = require("uuid");
 const shortHash = require("shorthash2");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
@@ -20,8 +20,7 @@ class CreateMwlItemService {
         this.request = req;
         this.response = res;
         this.requestMwlItem = /**  @type {Object} */(this.request.body);
-        /** @type {DicomJsonModel} */
-        this.requestMwlItemDicomJsonModel = new DicomJsonModel(this.requestMwlItem[0]);
+        this.requestMwlItemDicomJson = new BaseDicomJson(this.requestMwlItem[0]);
         this.apiLogger = new ApiLogger(req, "Create Mwl Item Service");
         this.apiLogger.addTokenValue();
     }
@@ -88,7 +87,7 @@ class CreateMwlItemService {
     }
 
     async checkPatientExist() {
-        let patientID = this.requestMwlItemDicomJsonModel.getString("00100020");
+        let patientID = this.requestMwlItemDicomJson.getString("00100020");
         let patientCount = await PatientModel.countDocuments({ 
             patientID 
         });

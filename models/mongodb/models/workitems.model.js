@@ -4,7 +4,7 @@ const _ = require("lodash");
 const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { SUBSCRIPTION_STATE } = require("../../DICOM/ups");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 const { PatientModel } = require("./patient.model");
 
 let workItemSchema = new mongoose.Schema(
@@ -50,7 +50,7 @@ let workItemSchema = new mongoose.Schema(
                             }
                         }
                     ]
-                    
+
                 }) || [];
             },
             /**
@@ -78,8 +78,20 @@ let workItemSchema = new mongoose.Schema(
             }
         },
         methods: {
-            toDicomJsonModel: function () {
-                return new DicomJsonModel(this);
+            toDicomJson: async function () {
+                return new BaseDicomJson(await this.toGeneralDicomJson());
+            },
+            toGeneralDicomJson: async function () {
+                let obj = this.toObject();
+
+                delete obj._id;
+                delete obj.id;
+                delete obj.upsInstanceUID;
+                delete obj.patientID;
+                delete obj.transactionUID;
+                delete obj.subscribed;
+
+                return obj;
             }
         }
     }
@@ -126,7 +138,7 @@ workItemSchema.statics.getDicomJson = async function (queryOptions) {
             })
             .exec();
 
-        
+
         let workItemDicomJson = docs.map((v) => {
             let obj = v.toObject();
             delete obj._id;

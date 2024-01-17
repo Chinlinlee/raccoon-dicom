@@ -68,6 +68,16 @@ class BaseDicomJson {
         return _.get(this.dicomJson, `${tag}.Value.0`, undefined);
     }
 
+    /**
+     * 
+     * @param {string} tag 
+     */
+    getString(tag) {
+        let tagSplit = tag.split(".");
+        let seqTag = tagSplit.join(".Value.0.");
+        return String(_.get(this.dicomJson, `${seqTag}.Value.0`, ""));
+    }
+
     getSequenceItem(tag) {
         return JSONPath({
             path: `$..${tag}`,
@@ -277,14 +287,6 @@ class DicomJsonModel {
         } catch (e) {
             throw e;
         }
-    }
-
-    /**
-     * 
-     * @param {string} tag 
-     */
-    getString(tag) {
-        return String(_.get(this.dicomJson, `${tag}.Value.0`, ""));
     }
 
     getMediaStorageInfo() {

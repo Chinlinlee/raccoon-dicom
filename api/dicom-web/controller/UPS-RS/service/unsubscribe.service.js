@@ -1,7 +1,6 @@
 const _ = require("lodash");
-const { DicomJsonModel } = require("@dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
-const workItemModel = require("@models/mongodb/models/workitems.model");
+const { WorkItemModel } = require("@models/mongodb/models/workitems.model");
 const subscriptionModel = require("@models/mongodb/models/upsSubscription");
 const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
 const {
@@ -41,7 +40,7 @@ class UnSubscribeService extends BaseWorkItemService {
             await this.deleteGlobalSubscription();
             
         } else {
-            let workItem = await this.findOneWorkItem(this.upsInstanceUID);
+            let workItem = await WorkItemModel.findOneByUpsInstanceUID(this.upsInstanceUID);
 
             if (!(await this.isSubscriptionExist())) {
                 throw new DicomWebServiceError(
@@ -58,16 +57,16 @@ class UnSubscribeService extends BaseWorkItemService {
 
     /**
      * 
-     * @param {DicomJsonModel} workItem 
+     * @param {any} workItem repository workItem
      */
     async deleteSubscription(workItem) {
 
         await subscriptionModel.findOneAndUpdate({
             aeTitle: this.subscriberAeTitle,
-            workItems: workItem.dicomJson._id
+            workItems: workItem._id
         }, {
             $pull: {
-                workItems: workItem.dicomJson._id
+                workItems: workItem._id
             }
         });
 
