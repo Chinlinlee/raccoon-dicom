@@ -78,7 +78,7 @@ class CreateWorkItemService extends BaseWorkItemService {
         let hitGlobalSubscriptions = await this.getHitGlobalSubscriptions(workItem);
         for (let hitGlobalSubscription of hitGlobalSubscriptions) {
             let subscribeService = new SubscribeService(this.request, this.response);
-            subscribeService.upsInstanceUID = workItemDicomJson.dicomJson.upsInstanceUID;
+            subscribeService.upsInstanceUID = workItem.upsInstanceUID;
             subscribeService.deletionLock = hitGlobalSubscription.isDeletionLock;
             subscribeService.subscriberAeTitle = hitGlobalSubscription.aeTitle;
             await subscribeService.create();
@@ -88,7 +88,7 @@ class CreateWorkItemService extends BaseWorkItemService {
 
         if (hitSubscriptions) {
             let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(await workItem.toDicomJson()), hitSubscriptionAeTitleArray);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItem.upsInstanceUID, this.stateReportOf(await workItem.toDicomJson()), hitSubscriptionAeTitleArray);
             let assignedEventInformationArray = await this.getAssignedEventInformationArray(
                 workItemDicomJson,
                 _.get(workItemDicomJson.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}`, false),
@@ -96,7 +96,7 @@ class CreateWorkItemService extends BaseWorkItemService {
             );
 
             for (let assignedEventInfo of assignedEventInformationArray) {
-                this.addUpsEvent(UPS_EVENT_TYPE.Assigned, workItemDicomJson.dicomJson.upsInstanceUID, assignedEventInfo, hitSubscriptionAeTitleArray);
+                this.addUpsEvent(UPS_EVENT_TYPE.Assigned, workItem.upsInstanceUID, assignedEventInfo, hitSubscriptionAeTitleArray);
             }
         }
 

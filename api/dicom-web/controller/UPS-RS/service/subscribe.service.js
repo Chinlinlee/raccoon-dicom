@@ -88,7 +88,7 @@ class SubscribeService extends BaseWorkItemService {
                     subscribed: subscribed
                 },
                 $addToSet: {
-                    workItems: workItem.dicomJson._id
+                    workItems: workItem._id
                 }
             });
             subscription.isDeletionLock = this.deletionLock;
@@ -138,7 +138,7 @@ class SubscribeService extends BaseWorkItemService {
             let workItemDicomJson = await notSubscribedWorkItem.toDicomJson();
             await this.createOrUpdateSubscription(notSubscribedWorkItem);
             
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItemDicomJson), [this.subscriberAeTitle]);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, notSubscribedWorkItem.upsInstanceUID, this.stateReportOf(workItemDicomJson), [this.subscriberAeTitle]);
         }
     }
 

@@ -110,7 +110,7 @@ class UpdateWorkItemService extends BaseWorkItemService {
 
         let assignedEventInformationArray = this.getAssignedEventInformationArray(workItemDicomJson, performerUpdated, stationNameUpdate);
         for (let assignedEventInfo of assignedEventInformationArray) {
-            this.addUpsEvent(UPS_EVENT_TYPE.Assigned, workItemDicomJson.dicomJson.upsInstanceUID, assignedEventInfo, aeTitles);
+            this.addUpsEvent(UPS_EVENT_TYPE.Assigned, this.request.params.workItem, assignedEventInfo, aeTitles);
         }
     }
 

@@ -68,7 +68,7 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
 
         let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
         
-        this.addUpsEvent(UPS_EVENT_TYPE.StateReport, updatedWorkItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(updatedWorkItemDicomJson), hitSubscriptionAeTitleArray);
+        this.addUpsEvent(UPS_EVENT_TYPE.StateReport, updatedWorkItem.upsInstanceUID, this.stateReportOf(updatedWorkItemDicomJson), hitSubscriptionAeTitleArray);
         this.triggerUpsEvents();
     }
 
