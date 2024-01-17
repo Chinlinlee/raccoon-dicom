@@ -31,6 +31,11 @@ let upsSubscriptionSchema = new mongoose.Schema(
         versionKey: false,
         toObject: {
             getters: true
+        },
+        statics: {
+            findByWorkItem: async function(workItem) {
+                return await mongoose.model("upsSubscription").find({workItems: workItem._id}).exec();
+            }
         }
     }
 );

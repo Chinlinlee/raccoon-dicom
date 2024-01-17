@@ -1,6 +1,5 @@
 const _ = require("lodash");
 const { WorkItemEvent } = require("./workItem-event");
-const { DicomJsonModel } = require("@dicom-json-model");
 const { findWsArrayByAeTitle } = require("@root/websocket");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
 const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
@@ -9,6 +8,7 @@ const subscriptionModel = require("@models/mongodb/models/upsSubscription");
 const { WorkItemModel } = require("@dbModels/workitems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 class BaseWorkItemService {
 
     constructor(req, res) {
@@ -18,8 +18,6 @@ class BaseWorkItemService {
         this.response = res;
         /** @type {WorkItemEvent[]} */
         this.upsEvents = [];
-        /** @type {DicomJsonModel} */
-        this.workItem = null;
     }
 
     addUpsEvent(type, upsInstanceUID, eventInformation, subscribers) {
@@ -49,7 +47,7 @@ class BaseWorkItemService {
 
     /**
      * Use for getting event information
-     * @param {DicomJsonModel} workItem
+     * @param {BaseDicomJson} workItem
      */
     stateReportOf(workItem) {
         let eventInformation = {
@@ -126,10 +124,13 @@ class BaseWorkItemService {
         return hitGlobalSubscriptions;
     }
 
+    /**
+     * 
+     * @param {any} workItem repository workItem
+     * @returns 
+     */
     async getHitSubscriptions(workItem) {
-        let hitSubscriptions = await subscriptionModel.find({
-            workItems: workItem.dicomJson._id
-        });
+        let hitSubscriptions = await subscriptionModel.findByWorkItem(workItem);
 
         return hitSubscriptions;
     }
@@ -159,30 +160,6 @@ class BaseWorkItemService {
             _.set(eventInformation, `${dictionary.keyword.ScheduledStationNameCodeSequence}`, _.get(workItem.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}`));
         }
         return eventInformation;
-    }
-
-    /**
-     * 
-     * @param {string} upsInstanceUID 
-     * @returns 
-     */
-    async findOneWorkItem(upsInstanceUID, toObject=false) {
-        let workItem = await WorkItemModel.findOne({
-            upsInstanceUID: upsInstanceUID
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-        if (toObject) {
-            workItem = workItem.toObject();
-        }
-        
-        return new DicomJsonModel(workItem);
     }
 }
 
