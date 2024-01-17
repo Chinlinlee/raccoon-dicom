@@ -31,6 +31,11 @@ let upsGlobalSubscriptionSchema = new mongoose.Schema(
         versionKey: false,
         toObject: {
             getters: true
+        },
+        statics: {
+            getCursor: async function (query, options) {
+                return await mongoose.model("upsGlobalSubscription").find(query, options).cursor();
+            }
         }
     }
 );
@@ -43,3 +48,4 @@ let upsSubscriptionModel = mongoose.model(
 );
 
 module.exports = upsSubscriptionModel;
+module.exports.UpsGlobalSubscriptionModel = upsSubscriptionModel;

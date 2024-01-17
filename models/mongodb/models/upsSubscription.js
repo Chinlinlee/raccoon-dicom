@@ -35,6 +35,14 @@ let upsSubscriptionSchema = new mongoose.Schema(
         statics: {
             findByWorkItem: async function(workItem) {
                 return await mongoose.model("upsSubscription").find({workItems: workItem._id}).exec();
+            },
+            /**
+             * 
+             * @param {string} aeTitle 
+             * @returns repository item
+             */
+            findOneByAeTitle: async function(aeTitle) {
+                return await mongoose.model("upsSubscription").findOne({ aeTitle }).exec();
             }
         }
     }
@@ -48,3 +56,4 @@ let upsSubscriptionModel = mongoose.model(
 );
 
 module.exports = upsSubscriptionModel;
+module.exports.UpsSubscriptionModel = upsSubscriptionModel;

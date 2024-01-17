@@ -74,8 +74,8 @@ class CreateWorkItemService extends BaseWorkItemService {
     }
 
     async triggerCreateEvent(workItem) {
-        let workItemDicomJson = new BaseDicomJson(workItem);
-        let hitGlobalSubscriptions = await this.getHitGlobalSubscriptions(workItemDicomJson);
+        let workItemDicomJson = await workItem.toDicomJson();
+        let hitGlobalSubscriptions = await this.getHitGlobalSubscriptions(workItem);
         for (let hitGlobalSubscription of hitGlobalSubscriptions) {
             let subscribeService = new SubscribeService(this.request, this.response);
             subscribeService.upsInstanceUID = workItemDicomJson.dicomJson.upsInstanceUID;

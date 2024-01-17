@@ -3,8 +3,8 @@ const { WorkItemEvent } = require("./workItem-event");
 const { findWsArrayByAeTitle } = require("@root/websocket");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
 const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
-const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
-const subscriptionModel = require("@models/mongodb/models/upsSubscription");
+const { UpsGlobalSubscriptionModel } = require("@models/mongodb/models/upsGlobalSubscription");
+const { UpsSubscriptionModel } = require("@models/mongodb/models/upsSubscription");
 const { WorkItemModel } = require("@dbModels/workitems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
@@ -83,9 +83,7 @@ class BaseWorkItemService {
     }
 
     async isAeTileSubscribed(aeTitle) {
-        let subscription = await subscriptionModel.findOne({
-            aeTitle: aeTitle
-        });
+        let subscription = await UpsSubscriptionModel.findOneByAeTitle(aeTitle);
 
         if (!subscription)
             return false;
@@ -95,11 +93,11 @@ class BaseWorkItemService {
     }
 
     async getGlobalSubscriptionsCursor() {
-        return globalSubscriptionModel.find({}).cursor();
+        return await UpsGlobalSubscriptionModel.getCursor({});
     }
 
     /**
-     * @param {DicomJsonModel} workItem
+     * @param {any} workItem repository workItem
      */
     async getHitGlobalSubscriptions(workItem) {
         let globalSubscriptionsCursor = await this.getGlobalSubscriptionsCursor();
@@ -111,7 +109,7 @@ class BaseWorkItemService {
             } else {
                 let { $match } = await convertRequestQueryToMongoQuery(globalSubscription.queryKeys);
                 $match.$and.push({
-                    upsInstanceUID: workItem.dicomJson.upsInstanceUID
+                    upsInstanceUID: workItem.upsInstanceUID
                 });
                 let count = await WorkItemModel.countDocuments({
                     ...$match
@@ -130,7 +128,7 @@ class BaseWorkItemService {
      * @returns 
      */
     async getHitSubscriptions(workItem) {
-        let hitSubscriptions = await subscriptionModel.findByWorkItem(workItem);
+        let hitSubscriptions = await UpsSubscriptionModel.findByWorkItem(workItem);
 
         return hitSubscriptions;
     }
