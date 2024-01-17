@@ -6,6 +6,7 @@ const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { SUBSCRIPTION_STATE } = require("../../DICOM/ups");
 const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 const { PatientModel } = require("./patient.model");
+const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 
 let workItemSchema = new mongoose.Schema(
     {
@@ -75,6 +76,22 @@ let workItemSchema = new mongoose.Schema(
                 return await mongoose.model("workItems").findOne({
                     upsInstanceUID
                 });
+            },
+            /**
+             * 
+             * @param {Object} query the query structure example { "00100010.Value": "foo" } or { "00100010.Value.00100010.Value": "bar" }
+             * @param {string} upsInstanceUID 
+             * @returns {number} count
+             */
+            async getCountWithQueryAndUpsInstanceUID(query, upsInstanceUID) {
+                let { $match } = await convertRequestQueryToMongoQuery(query);
+                $match.$and.push({
+                    upsInstanceUID: upsInstanceUID
+                });
+                return await mongoose.model("workItems").countDocuments({
+                    ...$match
+                });
+                
             }
         },
         methods: {

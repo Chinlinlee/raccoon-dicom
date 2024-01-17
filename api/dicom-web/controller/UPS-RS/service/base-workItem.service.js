@@ -107,13 +107,7 @@ class BaseWorkItemService {
             if (!globalSubscription.queryKeys) {
                 hitGlobalSubscriptions.push(globalSubscription);
             } else {
-                let { $match } = await convertRequestQueryToMongoQuery(globalSubscription.queryKeys);
-                $match.$and.push({
-                    upsInstanceUID: workItem.upsInstanceUID
-                });
-                let count = await WorkItemModel.countDocuments({
-                    ...$match
-                });
+                let count = await WorkItemModel.getCountWithQueryAndUpsInstanceUID(globalSubscription.queryKeys, workItem.upsInstanceUID);
                 if (count > 0)
                     hitGlobalSubscriptions.push(globalSubscription);
             }
