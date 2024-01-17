@@ -5,6 +5,7 @@ const { tagsNeedStore } = require("../../DICOM/dicom-tags-mapping");
 const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { SUBSCRIPTION_STATE } = require("../../DICOM/ups");
 const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
+const { PatientModel } = require("./patient.model");
 
 let workItemSchema = new mongoose.Schema(
     {
@@ -51,6 +52,29 @@ let workItemSchema = new mongoose.Schema(
                     ]
                     
                 }) || [];
+            },
+            /**
+             * 
+             * @param {Object} workItem general dicom json
+             */
+            createWorkItemAndPatient: async function (workItem) {
+                let patientID = _.get(workItem, "00100020.Value.0");
+                workItem.patientID = patientID;
+
+                await PatientModel.findOneOrCreatePatient(patientID, workItem);
+
+                let workItemDoc = new mongoose.model("workItems")(workItem);
+                return await workItemDoc.save();
+            },
+            /**
+             * 
+             * @param {string} upsInstanceUID 
+             * @returns 
+             */
+            findOneByUpsInstanceUID: async function (upsInstanceUID) {
+                return await mongoose.model("workItems").findOne({
+                    upsInstanceUID
+                });
             }
         },
         methods: {

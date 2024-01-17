@@ -1,6 +1,5 @@
 const _ = require("lodash");
-const workItemModel = require("@models/mongodb/models/workitems.model");
-const { PatientModel } = require("@dbModels/patient.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
 const {
     DicomWebServiceError,
@@ -27,14 +26,11 @@ class CreateWorkItemService extends BaseWorkItemService {
         await this.dataAdjustBeforeCreatingUps(uid);
         await this.validateWorkItem(uid);
 
-        let patientId = this.requestWorkItem.getString("00100020");
-        let patient = await PatientModel.findOneOrCreatePatient(patientId, this.requestWorkItem.dicomJson);
-        let workItem = new workItemModel(this.requestWorkItem.dicomJson);
-        let savedWorkItem = await workItem.save();
+        let savedWorkItem = await WorkItemModel.createWorkItemAndPatient(this.requestWorkItem.dicomJson);
 
         this.triggerCreateEvent(savedWorkItem);
 
-        return workItem;
+        return savedWorkItem;
     }
 
     async dataAdjustBeforeCreatingUps(uid) {
@@ -108,9 +104,7 @@ class CreateWorkItemService extends BaseWorkItemService {
     }
 
     async isUpsExist(uid) {
-        return await workItemModel.findOne({
-            upsInstanceUID: uid
-        });
+        return await WorkItemModel.findOneByUpsInstanceUID(uid);
     }
 }
 
