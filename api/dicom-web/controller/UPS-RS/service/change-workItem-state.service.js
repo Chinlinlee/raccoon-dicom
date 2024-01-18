@@ -52,12 +52,8 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
             this.completeChange();
         }
 
-        let updatedWorkItem = await WorkItemModel.findOneAndUpdate({
-            upsInstanceUID: this.request.params.workItem
-        }, {
+        let updatedWorkItem = await WorkItemModel.updateOneByUpsInstanceUID(this.request.params.workItem, {
             ...this.requestState.dicomJson
-        }, {
-            new: true
         });
 
         let updatedWorkItemDicomJson = await updatedWorkItem.toDicomJson();

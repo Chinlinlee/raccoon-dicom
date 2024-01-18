@@ -48,12 +48,8 @@ class UpdateWorkItemService extends BaseWorkItemService {
         await this.checkRequestUpsIsValid();
         this.adjustRequestWorkItem();
 
-        let updatedWorkItem = await WorkItemModel.findOneAndUpdate({
-            upsInstanceUID: this.request.params.workItem
-        }, {
+        let updatedWorkItem = await WorkItemModel.updateOneByUpsInstanceUID(this.request.params.workItem, {
             ...this.requestWorkItem.dicomJson
-        }, {
-            new: true
         });
 
         this.triggerUpdateWorkItemEvent(updatedWorkItem);

@@ -91,7 +91,16 @@ let workItemSchema = new mongoose.Schema(
                 return await mongoose.model("workItems").countDocuments({
                     ...$match
                 });
-                
+            },
+            /**
+             * 
+             * @param {string} upsInstanceUID 
+             * @param {import("@root/utils/typeDef/dicom").GeneralDicomJson} generalDicomJson 
+             */
+            updateOneByUpsInstanceUID: async function (upsInstanceUID, generalDicomJson) {
+                return await mongoose.model("workItems").findOneAndUpdate({
+                    upsInstanceUID
+                }, generalDicomJson, {new: true}).exec();
             }
         },
         methods: {
