@@ -1,1 +1,0 @@
-require("./init").then(()=> console.log("Sequelize initialized"));
