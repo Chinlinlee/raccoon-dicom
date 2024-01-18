@@ -22,7 +22,7 @@ class BulkDataService {
 
     /**
      * 
-     * @param {import("../../../../../../utils/typeDef/bulkdata").BulkData |
+     * @param {import("@root/utils/typeDef/bulkdata").BulkData |
      * import("../../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj } bulkData 
      */
     async writeBulkData(bulkData) {
