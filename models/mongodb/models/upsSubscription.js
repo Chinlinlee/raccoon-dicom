@@ -33,18 +33,18 @@ let upsSubscriptionSchema = new mongoose.Schema(
             getters: true
         },
         statics: {
-            findByWorkItem: async function(workItem) {
-                return await mongoose.model("upsSubscription").find({workItems: workItem._id}).exec();
+            findByWorkItem: async function (workItem) {
+                return await mongoose.model("upsSubscription").find({ workItems: workItem._id }).exec();
             },
             /**
              * 
              * @param {string} aeTitle 
              * @returns repository item
              */
-            findOneByAeTitle: async function(aeTitle) {
+            findOneByAeTitle: async function (aeTitle) {
                 return await mongoose.model("upsSubscription").findOne({ aeTitle }).exec();
             },
-            createSubscriptionForWorkItem: async function(workItem, aeTitle, deletionLock, subscribed) {
+            createSubscriptionForWorkItem: async function (workItem, aeTitle, deletionLock, subscribed) {
                 let subscription = new mongoose.model("upsSubscription")({
                     aeTitle: aeTitle,
                     workItems: [workItem._id],
@@ -53,7 +53,7 @@ let upsSubscriptionSchema = new mongoose.Schema(
                 });
                 return await subscription.save();
             },
-            updateSubscription: async function(subscription, workItem, deletionLock, subscribed) {
+            updateSubscription: async function (subscription, workItem, deletionLock, subscribed) {
                 return await mongoose.model("upsSubscription").findOneAndUpdate({
                     _id: subscription._id
                 }, {
@@ -71,7 +71,7 @@ let upsSubscriptionSchema = new mongoose.Schema(
              * @param {string} aeTitle 
              * @param {any} workItem  repository item
              */
-            unsubscribe: async function(aeTitle, workItem) {
+            unsubscribe: async function (aeTitle, workItem) {
                 return await mongoose.model("upsSubscription").findOneAndUpdate({
                     aeTitle: aeTitle,
                     workItems: workItem._id
@@ -80,7 +80,14 @@ let upsSubscriptionSchema = new mongoose.Schema(
                         workItems: workItem._id
                     }
                 });
-        
+
+            },
+            /**
+             * 
+             * @param {string} aeTitle 
+             */
+            getCountByAeTitle: async function (aeTitle) {
+                return await mongoose.model("upsSubscription").countDocuments({ aeTitle: aeTitle });
             }
         }
     }

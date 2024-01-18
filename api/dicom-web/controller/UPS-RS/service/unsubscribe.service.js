@@ -77,17 +77,11 @@ class UnSubscribeService extends BaseWorkItemService {
     }
 
     async isSubscriptionExist() {
-        // TODO: wrap method in model
-        return await UpsSubscriptionModel.countDocuments({
-            aeTitle: this.subscriberAeTitle
-        }) > 0;
+        return await UpsSubscriptionModel.getCountByAeTitle(this.subscriberAeTitle) > 0;
     }
 
     async isGlobalSubscriptionExist() {
-        // TODO: wrap method in model
-        return await UpsGlobalSubscriptionModel.countDocuments({
-            aeTitle: this.subscriberAeTitle
-        }) > 0;
+        return await UpsGlobalSubscriptionModel.getCountByAeTitle(this.subscriberAeTitle) > 0;
     }
 
 }
