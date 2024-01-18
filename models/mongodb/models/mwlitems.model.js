@@ -6,6 +6,7 @@ const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { IncludeFieldsFactory } = require("../service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { raccoonConfig } = require("@root/config-class");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -80,11 +81,14 @@ let mwlItemSchema = new mongoose.Schema(
             }
         },
         methods: {
-            toDicomJson: function () {
+            toGeneralDicomJson: async function() {
                 let obj = this.toObject();
                 delete obj._id;
                 delete obj.id;
                 return obj;
+            },
+            toDicomJson: async function () {
+                return new BaseDicomJson(await this.toGeneralDicomJson());
             },
             getAttributes: async function () {
                 let jsonStr = JSON.stringify(this.toDicomJson());

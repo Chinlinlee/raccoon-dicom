@@ -21,7 +21,7 @@ class ChangeMwlItemStatusService {
         _.set(mwlItem, `${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}.Value.0`, status);
         await mwlItem.save();
 
-        return mwlItem.toDicomJson();
+        return mwlItem.toGeneralDicomJson();
     }
 
     async getMwlItemByStudyUIDAndSpsID() {

@@ -124,7 +124,7 @@ class CreateMwlItemService {
             let mwlItemModelObj = new MwlItemModel(mwlDicomJson.dicomJson);
             await mwlItemModelObj.save();
             this.apiLogger.logger.info(`create mwl item: ${studyInstanceUID}`);
-            return mwlItemModelObj.toDicomJson();
+            return mwlItemModelObj.toGeneralDicomJson();
         } else {
             // update
             foundMwl.$set({
@@ -132,7 +132,7 @@ class CreateMwlItemService {
             });
             await foundMwl.save();
             this.apiLogger.logger.info(`update mwl item: ${studyInstanceUID}`);
-            return foundMwl.toDicomJson();
+            return foundMwl.toGeneralDicomJson();
         }
     }
 
