@@ -32,7 +32,7 @@ let mwlItemSchema = new mongoose.Schema(
             },
             /**
              * 
-             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
              * @returns 
              */
             getDicomJson: async function (queryOptions) {

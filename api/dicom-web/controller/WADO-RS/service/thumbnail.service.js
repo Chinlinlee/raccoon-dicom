@@ -64,7 +64,7 @@ class ThumbnailService {
 class ThumbnailFactory {
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
+     * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids 
      */
     constructor(uids) {
         this.uids = uids;
@@ -80,7 +80,7 @@ class StudyThumbnailFactory extends ThumbnailFactory {
 
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
+     * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids 
      */
     async getThumbnailInstance() {
         let medianInstance = await InstanceModel.getInstanceOfMedianIndex({
@@ -106,7 +106,7 @@ class SeriesThumbnailFactory extends ThumbnailFactory {
 
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
+     * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids 
      */
     async getThumbnailInstance() {
         let medianInstance = await InstanceModel.getInstanceOfMedianIndex({
@@ -133,7 +133,7 @@ class InstanceThumbnailFactory extends ThumbnailFactory {
 
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
+     * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids 
      */
     async getThumbnailInstance() {
         let instanceFramesObj = await renderedService.getInstanceFrameObj({

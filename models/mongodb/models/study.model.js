@@ -46,7 +46,7 @@ let dicomStudySchemaOptions = _.merge(
         statics: {
             /**
              * 
-             * @param {import("@root/utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
              * @returns 
              */
             getDicomJsonProjection: function (queryOptions) {

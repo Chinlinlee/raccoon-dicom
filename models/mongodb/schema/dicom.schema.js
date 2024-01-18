@@ -68,7 +68,7 @@ class DicomSchemaOptionsFactory {
                 },
                 /**
                  * 
-                 * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+                 * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
                  * @returns 
                  */
                 getDicomJson: async function (queryOptions) {
@@ -99,7 +99,7 @@ class DicomSchemaOptionsFactory {
                 },
                 /**
                  * 
-                 * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+                 * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
                  * @returns 
                  */
                 getDicomJsonProjection: function (queryOptions) {

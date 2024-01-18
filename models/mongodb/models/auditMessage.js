@@ -24,3 +24,4 @@ let auditMessage = new mongoose.Schema(
 const auditMessageModel = mongoose.model("auditMessage", auditMessage, "auditMessage");
 
 module.exports = auditMessageModel;
+module.exports.AuditMessageModel = auditMessageModel;

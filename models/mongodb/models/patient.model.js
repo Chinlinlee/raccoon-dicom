@@ -41,7 +41,7 @@ let patientSchemaOptions = _.merge(
             },
             /**
              * 
-             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
              * @returns 
              */
             getDicomJsonProjection: function (queryOptions) {

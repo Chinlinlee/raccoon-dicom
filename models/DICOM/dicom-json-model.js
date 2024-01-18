@@ -112,7 +112,7 @@ class DicomJsonModel {
         //For temp property that have big value that mongodb cannot save and cause performance issue
         this.tempBigTagValue = {};
 
-        /** @type {import("../../utils/typeDef/dicom").UIDObject} */
+        /** @type {import("@root/utils/typeDef/dicom").DicomUid} */
         this.uidObj = {};
     }
 
@@ -547,7 +547,7 @@ class DicomJsonBinaryDataModel {
 
 class BulkData {
     constructor(uidObj, filename, pathOfBinaryProperty) {
-        /** @type {import("../../utils/typeDef/dicom").UIDObject} */
+        /** @type {import("@root/utils/typeDef/dicom").DicomUid} */
         this.uidObj = uidObj;
         this.filename = filename;
         this.pathOfBinaryProperty = pathOfBinaryProperty;

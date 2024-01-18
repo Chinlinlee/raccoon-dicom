@@ -82,7 +82,7 @@ class ImagePathFactory {
 
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
+     * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids 
      */
     constructor(uids) {
         /** @type { import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[] } */
@@ -247,7 +247,7 @@ function addHostnameOfBulkDataUrl(metadata, req) {
 
 /**
 * 
-* @param {import("../../../../../utils/typeDef/dicom").Uids} uids
+* @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids
 * @returns 
 */
 function getUidsString(uids) {

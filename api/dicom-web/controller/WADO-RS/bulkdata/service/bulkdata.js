@@ -57,10 +57,10 @@ class BulkDataService {
 class BulkDataFactory {
     /**
      * 
-     * @param {import("@root/utils/typeDef/dicom").Uids} uids 
+     * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids 
      */
     constructor(uids) {
-        /** @type {import("@root/utils/typeDef/dicom").Uids} */
+        /** @type {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} */
         this.uids = uids;
     }
 

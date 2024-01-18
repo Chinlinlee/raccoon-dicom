@@ -132,7 +132,7 @@ for (let tag in tagsNeedStore.Patient) {
 
 /**
  * 
- * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+ * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
  * @returns 
  */
 workItemSchema.statics.getDicomJson = async function (queryOptions) {
