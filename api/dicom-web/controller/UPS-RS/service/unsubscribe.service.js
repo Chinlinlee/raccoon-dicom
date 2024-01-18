@@ -64,14 +64,9 @@ class UnSubscribeService extends BaseWorkItemService {
     }
 
     async deleteGlobalSubscription() {
-        // TODO: wrap method in model
         await Promise.all([
-            UpsSubscriptionModel.findOneAndDelete({
-                aeTitle: this.subscriberAeTitle
-            }),
-            UpsGlobalSubscriptionModel.findOneAndDelete({
-                aeTitle: this.subscriberAeTitle
-            })
+            UpsSubscriptionModel.deleteOneByAeTitle(this.subscriberAeTitle),
+            UpsGlobalSubscriptionModel.deleteOneByAeTitle(this.subscriberAeTitle)
         ]);
 
     }

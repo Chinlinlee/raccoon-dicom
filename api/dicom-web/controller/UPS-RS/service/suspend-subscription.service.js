@@ -35,17 +35,12 @@ class SuspendSubscribeService extends BaseWorkItemService {
     }
 
     async deleteGlobalSubscription() {
-
-        await UpsGlobalSubscriptionModel.findOneAndDelete({
-            aeTitle: this.subscriberAeTitle
-        });
+        await UpsGlobalSubscriptionModel.deleteOneByAeTitle(this.subscriberAeTitle);
 
     }
 
     async isGlobalSubscriptionExist() {
-        return await UpsGlobalSubscriptionModel.countDocuments({
-            aeTitle: this.subscriberAeTitle
-        }) > 0;
+        return await UpsGlobalSubscriptionModel.getCountByAeTitle(this.subscriberAeTitle) > 0;
     }
 
 }

@@ -55,6 +55,9 @@ let upsGlobalSubscriptionSchema = new mongoose.Schema(
              */
             getCountByAeTitle: async function (aeTitle) {
                 return await mongoose.model("upsGlobalSubscription").countDocuments({ aeTitle: aeTitle });
+            },
+            deleteOneByAeTitle: async function (aeTitle) {
+                return await mongoose.model("upsGlobalSubscription").findOneAndDelete({ aeTitle: aeTitle });
             }
         }
     }
