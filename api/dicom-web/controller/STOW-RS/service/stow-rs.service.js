@@ -170,7 +170,7 @@ class StowRsService {
         this.responseMessage["00081190"].Value.push(retrieveUrlObj.study);
         this.responseMessage["00081190"].Value = _.uniq(this.responseMessage["00081190"].Value);
 
-        let sopSeq = this.getSOPSeq(dicomJsonModel.uidObj.sopClass, dicomJsonModel.uidObj.sopInstanceUID);
+        let sopSeq = this.getSOPSeq(dicomJsonModel.uidObj.sopClass, dicomJsonModel.uidObj.instanceUID);
         _.set(sopSeq, "00081190.vr", "UT");
         _.set(sopSeq, "00081190.Value", [retrieveUrlObj.instance]);
         this.responseMessage["00081199"]["Value"].push(sopSeq);
@@ -195,7 +195,7 @@ class StowRsService {
     isSameStudyID_(uidObj, storeMessage) {
         let reqStudyId = this.request.params.studyID;
         let dataStudyId = uidObj.studyUID;
-        let sopSeq = this.getSOPSeq(uidObj.sopClass, uidObj.sopInstanceUID);
+        let sopSeq = this.getSOPSeq(uidObj.sopClass, uidObj.instanceUID);
         let result = true;
 
         if (reqStudyId) {
@@ -262,7 +262,7 @@ class StowRsService {
         return {
             study: `${url}/${uidObj.studyUID}`,
             series: `${url}/${uidObj.studyUID}/series/${uidObj.seriesUID}`,
-            instance: `${url}/${uidObj.studyUID}/series/${uidObj.seriesUID}/instances/${uidObj.sopInstanceUID}`
+            instance: `${url}/${uidObj.studyUID}/series/${uidObj.seriesUID}/instances/${uidObj.instanceUID}`
         };
     }
 

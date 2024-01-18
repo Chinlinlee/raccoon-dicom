@@ -41,7 +41,7 @@ class DicomFhirService {
             let logObj = {
                 studyUID: this.dicomJsonModel.uidObj.studyUID,
                 seriesUID: this.dicomJsonModel.uidObj.seriesUID,
-                instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID,
+                instanceUID: this.dicomJsonModel.uidObj.instanceUID,
                 status: true,
                 message: "success"
             };
@@ -56,7 +56,7 @@ class DicomFhirService {
             let errorLogObj = {
                 studyUID: this.dicomJsonModel.uidObj.studyUID,
                 seriesUID: this.dicomJsonModel.uidObj.seriesUID,
-                instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID,
+                instanceUID: this.dicomJsonModel.uidObj.instanceUID,
                 status: false,
                 message: errorStr
             };
@@ -81,7 +81,7 @@ class DicomFhirService {
                             seriesUID: this.dicomJsonModel.uidObj.seriesUID
                         },
                         {
-                            instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID
+                            instanceUID: this.dicomJsonModel.uidObj.instanceUID
                         }
                     ]
                 },

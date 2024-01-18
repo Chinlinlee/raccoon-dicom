@@ -140,7 +140,7 @@ class DicomJsonModel {
                 this.dicomJson,
                 "00080016"
             ),
-            sopInstanceUID: dcm2jsonV8.dcmString(
+            instanceUID: dcm2jsonV8.dcmString(
                 this.dicomJson,
                 "00080018"
             ),
@@ -194,7 +194,7 @@ class DicomJsonModel {
         _.merge(dicomJsonClone, mediaStorage);
 
         delete dicomJsonClone.sopClass;
-        delete dicomJsonClone.sopInstanceUID;
+        delete dicomJsonClone.instanceUID;
         return dicomJsonClone;
     }
 
@@ -212,7 +212,7 @@ class DicomJsonModel {
                     seriesUID: this.uidObj.seriesUID
                 },
                 {
-                    instanceUID: this.uidObj.sopInstanceUID
+                    instanceUID: this.uidObj.instanceUID
                 }
             ]
         };
@@ -504,7 +504,7 @@ class DicomJsonBinaryDataModel {
         let {
             studyUID,
             seriesUID,
-            sopInstanceUID
+            instanceUID
         } = this.dicomJsonModel.uidObj;
 
         for (let i = 0; i < this.binaryKeys.length; i++) {
@@ -522,7 +522,7 @@ class DicomJsonBinaryDataModel {
             _.set(
                 this.dicomJsonModel.dicomJson,
                 `${binaryKey}.BulkDataURI`,
-                `/studies/${studyUID}/series/${seriesUID}/instances/${sopInstanceUID}/bulkdata/${pathOfBinaryProperty}`
+                `/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}/bulkdata/${pathOfBinaryProperty}`
             );
 
             _.unset(this.dicomJsonModel.dicomJson, `${binaryKey}.InlineBinary`);
@@ -530,16 +530,16 @@ class DicomJsonBinaryDataModel {
 
         this.dicomJsonModel.dicomJson["7FE00010"] = {
             vr: "UR",
-            BulkDataURI: `/studies/${studyUID}/series/${seriesUID}/instances/${sopInstanceUID}`
+            BulkDataURI: `/studies/${studyUID}/series/${seriesUID}/instances/${instanceUID}`
         };
     }
 
     async storeAllBinaryDataToFileAndDb() {
         let {
-            sopInstanceUID
+            instanceUID
         } = this.dicomJsonModel.uidObj;
 
-        let shortInstanceUID = shortHash(sopInstanceUID);
+        let shortInstanceUID = shortHash(instanceUID);
 
 
         for (let i = 0; i < this.pathGroupOfBinaryProperties.length; i++) {
@@ -587,20 +587,20 @@ class BulkData {
         let item = {
             studyUID: this.uidObj.studyUID,
             seriesUID: this.uidObj.seriesUID,
-            instanceUID: this.uidObj.sopInstanceUID,
+            instanceUID: this.uidObj.instanceUID,
             filename: this.filename,
             binaryValuePath: this.pathOfBinaryProperty
         };
 
         await dicomBulkDataModel.createOrUpdateBulkData(
             {
-                instanceUID: this.uidObj.sopInstanceUID,
+                instanceUID: this.uidObj.instanceUID,
                 binaryValuePath: this.pathOfBinaryProperty
             },
             {
                 studyUID: this.uidObj.studyUID,
                 seriesUID: this.uidObj.seriesUID,
-                instanceUID: this.uidObj.sopInstanceUID,
+                instanceUID: this.uidObj.instanceUID,
                 filename: this.filename,
                 binaryValuePath: this.pathOfBinaryProperty
             }
