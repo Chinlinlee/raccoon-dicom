@@ -52,6 +52,7 @@ function getWildCardQuery(value) {
 }
 
 /**
+ * TODO: separate this function to single file
  * convert all request query object to to $or query and push to $and query
  * @param {Object} iQuery
  * @returns
@@ -204,9 +205,17 @@ class QueryInstanceDicomJsonFactory extends QueryDicomJsonFactory {
     }
 }
 
+class QueryUpsDicomJsonFactory extends QueryDicomJsonFactory {
+    constructor(queryOptions) {
+        super(queryOptions);
+        this.model =  require("@dbModels/workitems.model").WorkItemModel;
+    }
+}
+
 module.exports.QueryDicomJsonFactory = QueryDicomJsonFactory;
 module.exports.QueryPatientDicomJsonFactory = QueryPatientDicomJsonFactory;
 module.exports.QueryStudyDicomJsonFactory = QueryStudyDicomJsonFactory;
 module.exports.QuerySeriesDicomJsonFactory = QuerySeriesDicomJsonFactory;
 module.exports.QueryInstanceDicomJsonFactory = QueryInstanceDicomJsonFactory;
+module.exports.QueryUpsDicomJsonFactory = QueryUpsDicomJsonFactory;
 module.exports.convertRequestQueryToMongoQuery = convertRequestQueryToMongoQuery;

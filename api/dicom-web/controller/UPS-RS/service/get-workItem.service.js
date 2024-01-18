@@ -1,7 +1,6 @@
 const _ = require("lodash");
-const { WorkItemModel } = require("@dbModels/workitems.model");
 const { 
-    convertRequestQueryToMongoQuery
+     QueryUpsDicomJsonFactory
 } = require("../../QIDO-RS/service/query-dicom-json-factory");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
@@ -28,16 +27,15 @@ class GetWorkItemService {
     }
 
     async getUps() {
-        let mongoQuery = (await convertRequestQueryToMongoQuery(this.query)).$match;
-
         let queryOptions = {
-            query: mongoQuery,
+            query: this.query,
             skip: this.skip_,
             limit: this.limit_,
             requestParams: this.request.params
         };
+        let queryFactory = new QueryUpsDicomJsonFactory(queryOptions);
 
-        let docs = await WorkItemModel.getDicomJson(queryOptions);
+        let docs = await queryFactory.getDicomJson();
         
         return this.adjustDocs(docs);
     }
