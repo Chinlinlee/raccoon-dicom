@@ -269,7 +269,7 @@ class DicomJsonModel {
      * @param {import("@root/utils/typeDef/dicom").GeneralDicomJson} dicomJson 
      */
     async storePatientCollection(dicomJson) {
-        await PatientModel.findOneAndUpdate(
+        await mongoose.model("patient").findOneAndUpdate(
             {
                 patientID: this.uidObj.patientID
             },
