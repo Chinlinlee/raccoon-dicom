@@ -20,3 +20,7 @@ export type DicomJsonItem = {
     vr: string;
     Value: any[];
 };
+
+export type GeneralDicomJson = {
+    [key: string]: DicomJsonItem;
+}

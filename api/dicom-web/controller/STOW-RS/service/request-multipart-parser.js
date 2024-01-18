@@ -12,7 +12,7 @@ class StowRsRequestMultipartParser {
 
     /**
     *
-    * @return {Promise<import('../../../../../utils/typeDef/STOW-RS/STOW-RS.def').MultipartParseResult>}
+    * @return {Promise<import('@root/utils/typeDef/STOW-RS/STOW-RS').MultipartParseResult>}
     */
     async parse() {
         return new Promise((resolve, reject) => {
