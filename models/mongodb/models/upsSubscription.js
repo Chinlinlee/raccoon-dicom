@@ -65,6 +65,22 @@ let upsSubscriptionSchema = new mongoose.Schema(
                         workItems: workItem._id
                     }
                 });
+            },
+            /**
+             * 
+             * @param {string} aeTitle 
+             * @param {any} workItem  repository item
+             */
+            unsubscribe: async function(aeTitle, workItem) {
+                return await mongoose.model("upsSubscription").findOneAndUpdate({
+                    aeTitle: aeTitle,
+                    workItems: workItem._id
+                }, {
+                    $pull: {
+                        workItems: workItem._id
+                    }
+                });
+        
             }
         }
     }

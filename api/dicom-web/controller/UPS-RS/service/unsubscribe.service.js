@@ -60,20 +60,11 @@ class UnSubscribeService extends BaseWorkItemService {
      * @param {any} workItem repository workItem
      */
     async deleteSubscription(workItem) {
-
-        await UpsSubscriptionModel.findOneAndUpdate({
-            aeTitle: this.subscriberAeTitle,
-            workItems: workItem._id
-        }, {
-            $pull: {
-                workItems: workItem._id
-            }
-        });
-
+        await UpsSubscriptionModel.unsubscribe(this.subscriberAeTitle, workItem);
     }
 
     async deleteGlobalSubscription() {
-
+        // TODO: wrap method in model
         await Promise.all([
             UpsSubscriptionModel.findOneAndDelete({
                 aeTitle: this.subscriberAeTitle
@@ -86,12 +77,14 @@ class UnSubscribeService extends BaseWorkItemService {
     }
 
     async isSubscriptionExist() {
+        // TODO: wrap method in model
         return await UpsSubscriptionModel.countDocuments({
             aeTitle: this.subscriberAeTitle
         }) > 0;
     }
 
     async isGlobalSubscriptionExist() {
+        // TODO: wrap method in model
         return await UpsGlobalSubscriptionModel.countDocuments({
             aeTitle: this.subscriberAeTitle
         }) > 0;
