@@ -145,7 +145,7 @@ class RenderedImageMultipartWriter {
 class FramesWriter {
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]} imagePaths 
+     * @param {import("@root/utils/typeDef/dicomImage").ImagePathObj[]} imagePaths 
      */
     constructor(req, res, imagePaths) {
         this.request = req;
@@ -169,7 +169,7 @@ class FramesWriter {
 class StudyFramesWriter extends FramesWriter {
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]} imagePaths 
+     * @param {import("@root/utils/typeDef/dicomImage").ImagePathObj[]} imagePaths 
      */
     constructor(req, res, imagePaths) {
         super(req, res, imagePaths);
@@ -269,7 +269,7 @@ This instance NumberOfFrames is : ${this.dicomNumberOfFrames} , But request ${JS
 /**
  * 
  * @param {import("http").IncomingMessage} req 
- * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj} instanceFramesObj 
+ * @param {import("@root/utils/typeDef/dicomImage").InstanceFrameObj} instanceFramesObj 
  * @returns 
  */
 async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
@@ -320,7 +320,7 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
  * 
  * @param {import("express").Request} req 
  * @param {number|number[]} dicomNumberOfFrames 
- * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj} instanceFramesObj 
+ * @param {import("@root/utils/typeDef/dicomImage").ImagePathObj} instanceFramesObj 
  * @param {import("../../../../../utils/multipartWriter").MultipartWriter} multipartWriter 
  */
 async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, multipartWriter) {

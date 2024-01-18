@@ -171,7 +171,7 @@ let dicomSchemaOptions = _.merge(
              * @param {string} iParam.studyUID
              * @param {string} iParam.seriesUID
              * @param {string} iParam.instanceUID
-             * @returns { Promise<import("@root/utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj> | Promise<undefined> }
+             * @returns { Promise<import("@root/utils/typeDef/dicomImage").InstanceFrameObj> | Promise<undefined> }
              */
             getInstanceFrame: async function (iParam) {
                 let { studyUID, seriesUID, instanceUID } = iParam;

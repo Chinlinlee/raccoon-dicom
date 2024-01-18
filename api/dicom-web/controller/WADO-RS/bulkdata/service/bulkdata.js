@@ -23,7 +23,7 @@ class BulkDataService {
     /**
      * 
      * @param {import("@root/utils/typeDef/bulkdata").BulkData |
-     * import("../../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj } bulkData 
+     * import("@root/utils/typeDef/dicomImage").ImagePathObj } bulkData 
      */
     async writeBulkData(bulkData) {
         let absFilename;
