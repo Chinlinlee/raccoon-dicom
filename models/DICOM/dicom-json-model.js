@@ -159,6 +159,10 @@ class DicomJsonModel {
         };
     }
 
+    /**
+     * 
+     * @param {import("@root/utils/typeDef/STOW-RS/STOW-RS").DicomFileSaveInfo} dicomFileSaveInfo 
+     */
     async storeToDb(dicomFileSaveInfo) {
         let dbJson = this.getCleanDataBeforeStoringToDb(dicomFileSaveInfo);
         try {
@@ -173,6 +177,11 @@ class DicomJsonModel {
         }
     }
 
+    /**
+     * 
+     * @param {import("@root/utils/typeDef/STOW-RS/STOW-RS").DicomFileSaveInfo} dicomFileSaveInfo 
+     * @returns {import("@root/utils/typeDef/dicom").GeneralDicomJson}
+     */
     getCleanDataBeforeStoringToDb(dicomFileSaveInfo) {
         let dicomJsonClone = _.cloneDeep(this.dicomJson);
         let mediaStorage = this.getMediaStorageInfo();
@@ -189,6 +198,10 @@ class DicomJsonModel {
         return dicomJsonClone;
     }
 
+    /**
+     * 
+     * @param {import("@root/utils/typeDef/dicom").GeneralDicomJson} dicomJson 
+     */
     async storeInstanceCollection(dicomJson) {
         let query = {
             $and: [
@@ -210,6 +223,10 @@ class DicomJsonModel {
         });
     }
 
+    /**
+     * 
+     * @param {import("@root/utils/typeDef/dicom").GeneralDicomJson} dicomJson 
+     */
     async storeStudyCollection(dicomJson) {
         await mongoose.model("dicomStudy").findOneAndUpdate(
             {
@@ -223,6 +240,10 @@ class DicomJsonModel {
         );
     }
 
+    /**
+     * 
+     * @param {import("@root/utils/typeDef/dicom").GeneralDicomJson} dicomJson 
+     */
     async storeSeriesCollection(dicomJson) {
         await mongoose.model("dicomSeries").findOneAndUpdate(
             {
@@ -243,6 +264,10 @@ class DicomJsonModel {
         );
     }
 
+    /**
+     * 
+     * @param {import("@root/utils/typeDef/dicom").GeneralDicomJson} dicomJson 
+     */
     async storePatientCollection(dicomJson) {
         await PatientModel.findOneAndUpdate(
             {
@@ -261,6 +286,10 @@ class DicomJsonModel {
         );
     }
 
+    /**
+     * 
+     * @param {string} storeFullPath 
+     */
     async saveMetadataToFile(storeFullPath) {
         try {
             let dicomJsonClone = _.cloneDeep(this.dicomJson);
