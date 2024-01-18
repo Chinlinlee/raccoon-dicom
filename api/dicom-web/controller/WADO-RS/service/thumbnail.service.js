@@ -2,7 +2,7 @@ const { InstanceModel } = require("@dbModels/instance.model");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const renderedService = require("@api/dicom-web/controller/WADO-RS/service/rendered.service");
 const _ = require("lodash");
-const { getUidsString } = require("./WADO-RS.service");
+const { DicomWebService } = require("@api/dicom-web/service/dicom-web.service");
 const { NotFoundInstanceError } = require("@error/dicom-instance");
 class ThumbnailService {
 
@@ -56,7 +56,7 @@ class ThumbnailService {
 
     checkInstanceExists(instanceFramesObj) {
         if (!instanceFramesObj) {
-            throw new NotFoundInstanceError(`Not Found, ${getUidsString(this.thumbnailFactory.uids)}`);
+            throw new NotFoundInstanceError(`Not Found, ${DicomWebService.getUidsString(this.thumbnailFactory.uids)}`);
         }
     }
 }
