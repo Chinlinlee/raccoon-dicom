@@ -24,19 +24,6 @@ function generateUidFromGuid(iGuid) {
     return `2.25.${bigInteger.toString()}`;       //Output the previus parsed integer as string by adding `2.25.` as prefix
 }
 
-class SqlDbConfig {
-    constructor() {
-        this.host = env.get("SQL_HOST").default("127.0.0.1").asString();
-        this.port = env.get("SQL_PORT").default("5432").asString();
-        this.database = env.get("SQL_DB").default("raccoon").asString();
-        this.dialect = env.get("SQL_TYPE").default("postgres").asString();
-        this.username = env.get("SQL_USERNAME").default("postgres").asString();
-        this.password = env.get("SQL_PASSWORD").default("postgres").asString();
-        this.logging = env.get("SQL_LOGGING").default("false").asBool();
-        this.forceSync = env.get("SQL_FORCE_SYNC").default("false").asBool();
-        this.dbName = this.database;
-    }
-}
 
 class MongoDbConfig {
     constructor() {
@@ -56,7 +43,6 @@ class ServerConfig {
         this.host = env.get("SERVER_HOST").default("127.0.0.1").asString();
         this.port = env.get("SERVER_PORT").default("8081").asInt();
         this.secretKey = env.get("SERVER_SESSION_SECRET_KEY").asString();
-        this.dbType = env.get("SERVER_DB_TYPE").default("mongodb").asEnum(["mongodb", "sql"]);
     }
 }
 
@@ -82,11 +68,7 @@ class RaccoonConfig {
     constructor() {
         this.serverConfig = new ServerConfig();
 
-        if (this.serverConfig.dbType === "mongodb") {
-            this.dbConfig = new MongoDbConfig();
-        } else if (this.serverConfig.dbType === "sql") {
-            this.dbConfig = new SqlDbConfig();
-        }
+        this.dbConfig = new MongoDbConfig();
 
         this.dicomWebConfig = new DicomWebConfig();
         this.dicomDimseConfig = new DimseConfig();
@@ -99,9 +81,6 @@ class RaccoonConfig {
         
         /** @type {string} */
         this.mediaStorageID = this.dbConfig.dbName;
-
-        this.aeTitle = this.dicomWebConfig.aeTitle;
-        // this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.getAeTitle() : this.dicomWebConfig.aeTitle;
 
         this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.aeTitle : this.dicomWebConfig.aeTitle;
         if (!this.aeTitle)
