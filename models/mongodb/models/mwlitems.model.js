@@ -47,12 +47,7 @@ let mwlItemSchema = new mongoose.Schema(
                         .exec();
 
 
-                    let mwlDicomJson = docs.map((v) => {
-                        let obj = v.toObject();
-                        delete obj._id;
-                        delete obj.id;
-                        return obj;
-                    });
+                    let mwlDicomJson = await Promise.all(docs.map(async (v) => await v.toGeneralDicomJson()));
 
                     return mwlDicomJson;
 
