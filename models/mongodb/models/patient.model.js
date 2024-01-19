@@ -79,6 +79,15 @@ let patientSchemaOptions = _.merge(
                 return await mongoose.model("patient").findOneAndUpdate({
                     patientID
                 }, patient, { upsert: true, new: true });
+            },
+            /**
+             * 
+             * @param {string} patientID 
+             */
+            getCountByPatientID: async function(patientID) {
+                return await mongoose.model("patient").countDocuments({ 
+                    patientID 
+                });
             }
         }
     }
