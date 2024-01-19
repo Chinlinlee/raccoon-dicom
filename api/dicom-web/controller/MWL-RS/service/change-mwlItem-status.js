@@ -18,8 +18,7 @@ class ChangeMwlItemStatusService {
             throw new DicomWebServiceError(DicomWebStatusCodes.NoSuchObjectInstance, "No such object instance", 404);
         }
 
-        _.set(mwlItem, `${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}.Value.0`, status);
-        await mwlItem.save();
+        await mwlItem.updateStatus(status);
 
         return mwlItem.toGeneralDicomJson();
     }

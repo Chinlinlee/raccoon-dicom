@@ -117,6 +117,14 @@ let mwlItemSchema = new mongoose.Schema(
             getAttributes: async function () {
                 let jsonStr = JSON.stringify(this.toDicomJson());
                 return await Common.getAttributesFromJsonString(jsonStr);
+            },
+            /**
+             * 
+             * @param {"SCHEDULED" | "ARRIVED" | "READY" | "STARTED" | "DEPARTED" | "CANCELED" | "DISCONTINUED" | "COMPLETED"} status 
+             */
+            updateStatus: async function (status) {
+                this.$set(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}.Value.0`, status);
+                await this.save();
             }
         }
     }
