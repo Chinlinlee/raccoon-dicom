@@ -1,3 +1,4 @@
+const path = require("path");
 const swaggerJsDoc = require("swagger-jsdoc");
 const fsP = require("fs").promises;
 
@@ -19,14 +20,17 @@ const fsP = require("fs").promises;
         // Path to the API docs
         // Note that this path is relative to the current directory from which the Node.js is ran, not the application itself.
         apis: [
-            `${__dirname}/api/**/*.js`,
-            `${__dirname}/docs/swagger/parameters/*.yaml`,
-            `${__dirname}/docs/swagger/schemas/*.yaml`,
-            `${__dirname}/docs/swagger/responses/*.yaml`
+            `${__dirname}/../api/**/*.js`,
+            `${__dirname}/../docs/swagger/parameters/*.yaml`,
+            `${__dirname}/../docs/swagger/schemas/*.yaml`,
+            `${__dirname}/../docs/swagger/responses/*.yaml`
         ]
     };
 
     const swaggerSpec = await swaggerJsDoc(options);
     console.log(JSON.stringify(swaggerSpec, null, 4));
-    await fsP.writeFile("docs/swagger/openapi.json", JSON.stringify(swaggerSpec, null, 4));
+    await fsP.writeFile(
+        path.join(__dirname, "./swagger/openapi.json"), 
+        JSON.stringify(swaggerSpec, null, 4)
+    );
 })();
