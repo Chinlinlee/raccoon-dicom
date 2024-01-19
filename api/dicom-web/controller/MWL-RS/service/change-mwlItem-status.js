@@ -25,16 +25,7 @@ class ChangeMwlItemStatusService {
     }
 
     async getMwlItemByStudyUIDAndSpsID() {
-        return await MwlItemModel.findOne({
-            $and: [
-                {
-                    "00400100.Value.0.00400009.Value.0": this.request.params.spsID
-                },
-                {
-                    "0020000D.Value.0": this.request.params.studyUID
-                }
-            ]
-        });
+        return await MwlItemModel.findOneByStudyInstanceUIDAndSpsID(this.request.params.studyUID, this.request.params.spsID);
     }
 }
 
