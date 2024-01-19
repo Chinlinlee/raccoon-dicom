@@ -2,7 +2,6 @@ const _ = require("lodash");
 const { WorkItemEvent } = require("./workItem-event");
 const { findWsArrayByAeTitle } = require("@root/websocket");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
-const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 const { UpsGlobalSubscriptionModel } = require("@dbModels/upsGlobalSubscription");
 const { UpsSubscriptionModel } = require("@dbModels/upsSubscription");
 const { WorkItemModel } = require("@dbModels/workitems.model");

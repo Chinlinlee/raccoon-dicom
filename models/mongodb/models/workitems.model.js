@@ -6,7 +6,7 @@ const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { SUBSCRIPTION_STATE } = require("../../DICOM/ups");
 const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 const { PatientModel } = require("./patient.model");
-const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
+const { convertRequestQueryToMongoQuery } = require("../convertQuery");
 
 let workItemSchema = new mongoose.Schema(
     {
