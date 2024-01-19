@@ -3,7 +3,9 @@ const { PatientModel } = require("@dbModels/patient.model");
 const { StudyModel } = require("@dbModels/study.model");
 const { SeriesModel } = require("@dbModels/series.model");
 const { InstanceModel } = require("@dbModels/instance.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const { convertRequestQueryToMongoQuery } = require("@models/mongodb/convertQuery");
+const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
 
 /**
  * 
@@ -78,7 +80,14 @@ class QueryInstanceDicomJsonFactory extends QueryDicomJsonFactory {
 class QueryUpsDicomJsonFactory extends QueryDicomJsonFactory {
     constructor(queryOptions) {
         super(queryOptions);
-        this.model =  require("@dbModels/workitems.model").WorkItemModel;
+        this.model = WorkItemModel;
+    }
+}
+
+class QueryMwlDicomJsonFactory extends QueryDicomJsonFactory {
+    constructor(queryOptions) {
+        super(queryOptions);
+        this.model = MwlItemModel;
     }
 }
 
@@ -88,3 +97,4 @@ module.exports.QueryStudyDicomJsonFactory = QueryStudyDicomJsonFactory;
 module.exports.QuerySeriesDicomJsonFactory = QuerySeriesDicomJsonFactory;
 module.exports.QueryInstanceDicomJsonFactory = QueryInstanceDicomJsonFactory;
 module.exports.QueryUpsDicomJsonFactory = QueryUpsDicomJsonFactory;
+module.exports.QueryMwlDicomJsonFactory = QueryMwlDicomJsonFactory;
