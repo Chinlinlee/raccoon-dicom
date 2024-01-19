@@ -88,9 +88,7 @@ class CreateMwlItemService {
 
     async checkPatientExist() {
         let patientID = this.requestMwlItemDicomJson.getString("00100020");
-        let patientCount = await PatientModel.countDocuments({ 
-            patientID 
-        });
+        let patientCount = await PatientModel.getCountByPatientID(patientID);
         if (patientCount <= 0) {
             throw new DicomWebServiceError(
                 DicomWebStatusCodes.MissingAttribute,
@@ -108,31 +106,18 @@ class CreateMwlItemService {
         let studyInstanceUID = mwlDicomJson.getValue(dictionary.keyword.StudyInstanceUID);
         let spsItem = new BaseDicomJson(mwlDicomJson.getValue(dictionary.keyword.ScheduledProcedureStepSequence));
         let spsID = spsItem.getValue(dictionary.keyword.ScheduledProcedureStepID);
-        let foundMwl = await MwlItemModel.findOne({
-            $and: [
-                {
-                    "0020000D.Value.0": studyInstanceUID
-                },
-                {
-                    "00400100.Value.0.00400009.Value.0": spsID
-                }
-            ]
-        });
+        let foundMwl = await MwlItemModel.findOneByStudyInstanceUIDAndSpsID(studyInstanceUID, spsID);
 
         if (!foundMwl) {
             // create
-            let mwlItemModelObj = new MwlItemModel(mwlDicomJson.dicomJson);
-            await mwlItemModelObj.save();
+            let createdMwlItem = await MwlItemModel.createWithGeneralDicomJson(mwlDicomJson.dicomJson);
             this.apiLogger.logger.info(`create mwl item: ${studyInstanceUID}`);
-            return mwlItemModelObj.toGeneralDicomJson();
+            return createdMwlItem.toGeneralDicomJson();
         } else {
             // update
-            foundMwl.$set({
-                ...mwlDicomJson.dicomJson
-            });
-            await foundMwl.save();
+            let updatedMwlItem = await MwlItemModel.updateOneWithGeneralDicomJson(foundMwl, mwlDicomJson.dicomJson);
             this.apiLogger.logger.info(`update mwl item: ${studyInstanceUID}`);
-            return foundMwl.toGeneralDicomJson();
+            return updatedMwlItem.toGeneralDicomJson();
         }
     }
 
