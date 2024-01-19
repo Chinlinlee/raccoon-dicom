@@ -102,6 +102,10 @@ let mwlItemSchema = new mongoose.Schema(
                     ...generalDicomJson
                 });
                 return await mwlItem.save();
+            },
+            findMwlItems: async function(query) {
+                let mongoQuery = await convertRequestQueryToMongoQuery(query);
+                return await mongoose.model("mwlItems").find(mongoQuery);
             }
         },
         methods: {

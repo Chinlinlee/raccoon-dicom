@@ -26,8 +26,7 @@ class ChangeFilteredMwlItemStatusService extends BaseQueryService {
     }
 
     async getMwlItems() {
-        let query = (await convertRequestQueryToMongoQuery(this.query)).$match;
-        return await MwlItemModel.find(query);
+        return await MwlItemModel.findMwlItems(this.query);
     }
 }
 
