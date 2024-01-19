@@ -1,6 +1,5 @@
 const { MwlItemModel } = require("@dbModels/mwlitems.model");
 const { BaseQueryService } = require("@root/api/dicom-web/service/base-query.service");
-const { convertRequestQueryToMongoQuery } = require("@models/mongodb/convertQuery");
 
 class GetMwlItemCountService extends BaseQueryService {
     constructor(req, res) {
@@ -8,7 +7,6 @@ class GetMwlItemCountService extends BaseQueryService {
     }
 
     async getMwlItemCount() {
-        this.query = (await convertRequestQueryToMongoQuery(this.query)).$match;
         return await MwlItemModel.getCount(this.query);
     }
 }

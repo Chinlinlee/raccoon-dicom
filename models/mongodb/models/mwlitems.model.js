@@ -7,6 +7,7 @@ const { IncludeFieldsFactory } = require("../service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { raccoonConfig } = require("@root/config-class");
 const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
+const { convertRequestQueryToMongoQuery } = require("../convertQuery");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -60,7 +61,8 @@ let mwlItemSchema = new mongoose.Schema(
                 return includeFieldsFactory.getMwlLevelFields();
             },
             getCount: async function (query) {
-                return await mongoose.model("mwlItems").countDocuments(query);
+                let mongoQuery = await convertRequestQueryToMongoQuery(query);
+                return await mongoose.model("mwlItems").countDocuments(mongoQuery);
             },
             deleteByStudyInstanceUIDAndSpsID: async function (studyUID, spsID) {
                 return await mongoose.model("mwlItems").deleteMany({
