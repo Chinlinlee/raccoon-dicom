@@ -118,6 +118,10 @@ let workItemSchema = new mongoose.Schema(
                 delete obj.subscribed;
 
                 return obj;
+            },
+            subscribe: async function (subscription) {
+                this.subscribed = subscription;
+                return await this.save();
             }
         }
     }

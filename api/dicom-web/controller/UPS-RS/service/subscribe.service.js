@@ -60,7 +60,8 @@ class SubscribeService extends BaseWorkItemService {
     async createOrUpdateSubscription(workItem) {
         let subscription = await this.findOneSubscription();
         let subscribed = this.deletionLock ? SUBSCRIPTION_STATE.SUBSCRIBED_NO_LOCK : SUBSCRIPTION_STATE.SUBSCRIBED_LOCK;
-        await this.updateWorkItemSubscription(workItem, subscribed);
+        await workItem.subscribe(subscribed);
+        
         if (!subscription) {
             // Create
             return await UpsSubscriptionModel.createSubscriptionForWorkItem(workItem, this.subscriberAeTitle, this.deletionLock, subscribed);
@@ -70,10 +71,6 @@ class SubscribeService extends BaseWorkItemService {
         }
     }
 
-    async updateWorkItemSubscription(workItem, subscription) {
-        workItem.subscribed = subscription;
-        await workItem.save();
-    }
     //#endregion
 
     //#region Global Subscriptions
