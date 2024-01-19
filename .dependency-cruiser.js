@@ -135,7 +135,7 @@ module.exports = {
       severity: 'error',
       from: {},
       to: {
-        path: '[.](spec|test)[.](js|mjs|cjs|ts|ls|coffee|litcoffee|coffee[.]md)$'
+        path: '^(test|spec)\/.*[.](js|mjs|cjs|ts|ls|coffee|litcoffee|coffee[.]md)$'
       }
     },
     {
@@ -149,7 +149,7 @@ module.exports = {
         'from.pathNot re of the not-to-dev-dep rule in the dependency-cruiser configuration',
       from: {
         path: '^(\.)',
-        pathNot: '[.](spec|test)[.](js|mjs|cjs|ts|ls|coffee|litcoffee|coffee[.]md)$'
+        pathNot: '^(test|spec|docs)\/.*[.](js|mjs|cjs|ts|ls|coffee|litcoffee|coffee[.]md)$'
       },
       to: {
         dependencyTypes: [
