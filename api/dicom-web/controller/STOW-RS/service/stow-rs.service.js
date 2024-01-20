@@ -6,23 +6,13 @@ const {
     DicomJsonBinaryDataModel
 } = require("@dicom-json-model");
 const { DicomFileSaver } = require("./dicom-file-saver");
-const { DicomFhirService } = require("./dicom-fhir.service");
 const { DicomJpegGenerator } = require("./dicom-jpeg-generator");
 const { logger } = require("../../../../../utils/logs/log");
-
-const { raccoonConfig } = require("../../../../../config-class");
 const { DicomWebService } = require("../../../service/dicom-web.service");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 
-const {
-    apiPath: DICOM_WEB_API_PATH
-} = raccoonConfig.dicomWebConfig;
-
-const {
-    isSyncToFhir
-} = raccoonConfig.fhirConfig;
 
 const StowRsFailureCode = {
     "GENERAL_FAILURE": "272",
@@ -34,11 +24,19 @@ const StowRsFailureCode = {
 class StowRsService {
     /**
      * @param {import('express').Request} req
+     * @param {import('express').Response} res 
      * @param {import('formidable').File[]} uploadFiles
      */
-    constructor(req, uploadFiles) {
+    constructor(req, res, uploadFiles) {
         this.request = req;
+        this.response = res;
+
+        this.response.locals = {
+            "storeInfos": []
+        };
+
         this.uploadFiles = uploadFiles;
+
         this.responseMessage = {
             "00081190": {
                 //Study retrieve URL
@@ -90,27 +88,23 @@ class StowRsService {
                 let storeInstanceResult = await this.storeInstance(currentFile);
                 dicomJsonModel = storeInstanceResult.dicomJsonModel;
                 dicomFileSaveInfo = storeInstanceResult.dicomFileSaveInfo;
-            } catch(e) {
+                this.response.locals.storeInfos.push({
+                    dicomFileSaveInfo,
+                    dicomJsonModel
+                });
+            } catch (e) {
                 // log transferred failure
                 let auditManager = new AuditManager(
                     EventType.STORE_CREATE, EventOutcomeIndicator.MajorFailure,
                     DicomWebService.getRemoteAddress(this.request), DicomWebService.getRemoteHostname(this.request),
                     DicomWebService.getServerAddress(), DicomWebService.getServerHostname()
                 );
-        
+
                 await auditManager.onDicomInstancesTransferred(
                     dicomJsonModel ? [dicomJsonModel.uidObj.studyUID] : "Unknown"
                 );
 
                 throw e;
-            }
-
-
-            //sync DICOM to FHIR
-            if (isSyncToFhir) {
-                let dicomFhirService = new DicomFhirService(this.request, dicomJsonModel);
-                await dicomFhirService.initDicomFhirConverter();
-                await dicomFhirService.postDicomToFhirServerAndStoreLog();
             }
 
             //generate JPEG

@@ -56,13 +56,6 @@ class DicomWebConfig {
     }
 }
 
-class FhirConfig {
-    constructor() {
-        this.isSyncToFhir = env.get("SYCN_TO_FHIR_SERVER").default("true").asBool();
-        this.baseUrl = env.get("FHIRSERVER_BASE_URL").default("http://127.0.0.1:8089/fhir").asString();
-    }
-}
-
 
 class RaccoonConfig {
     constructor() {
@@ -72,7 +65,6 @@ class RaccoonConfig {
 
         this.dicomWebConfig = new DicomWebConfig();
         this.dicomDimseConfig = new DimseConfig();
-        this.fhirConfig = new FhirConfig();
         
         /** @type {string} */
         this.mediaStorageUID = generateUidFromGuid(

@@ -23,7 +23,7 @@ class StoreInstanceController extends Controller {
             let multipartParseResult = await requestMultipartParser.parse();
     
             if (multipartParseResult.status) {
-                let stowRsService = new StowRsService(this.request, multipartParseResult.multipart.files);
+                let stowRsService = new StowRsService(this.request, this.response, multipartParseResult.multipart.files);
                 let storeInstancesResult = await stowRsService.storeInstances();
     
                 retCode = storeInstancesResult.code;

@@ -1,12 +1,12 @@
 const { URL } = require("url");
 const axios = require("axios").default;
 const _ = require("lodash");
-const { urlJoin } = require("../../../utils/url");
-const { fhirLogger } = require("../../../utils/logs/log");
+const { urlJoin } = require("../../utils/url");
+const { fhirLogger } = require("../../utils/logs/log");
 const { getModalitiesInStudy } = require("@dbModels/instance.model");
 const { DicomJsonToFhir } = require("dicomjson-to-fhir");
 
-class DICOMFHIRConverter {
+class DicomFhirConverter {
     constructor() {
         this.dicomFHIR = {
             patient: {},
@@ -329,4 +329,4 @@ class DICOMFHIRConverter {
     }
 }
 
-module.exports.DICOMFHIRConverter = DICOMFHIRConverter;
+module.exports.DicomFhirConverter = DicomFhirConverter;
