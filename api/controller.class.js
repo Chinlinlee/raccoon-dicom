@@ -33,7 +33,7 @@ class Controller {
     async mainProcess() { }
 
     async postProcess() {
-        let currentRouterPlugin = pluginGroup.findLocalPlugin(this.request.url, this.request.method) || new LocalPlugin();
+        let currentRouterPlugin = pluginGroup.findLocalPlugin(this.request.originalUrl, this.request.method) || new LocalPlugin();
 
         try {
 
