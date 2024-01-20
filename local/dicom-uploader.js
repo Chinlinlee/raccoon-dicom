@@ -43,7 +43,7 @@ async function storeInstance(filePath) {
             host: "fake-host"
         },
         params: {}
-    }, []);
+    }, { locals: {} }, []);
 
     /** @type {formidable.File} */
     let fileObj = {
