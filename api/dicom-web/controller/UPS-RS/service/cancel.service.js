@@ -59,9 +59,11 @@ class CancelWorkItemService extends BaseWorkItemService {
 
     async addCancelEvent() {
         let hitSubscriptions = await this.getHitSubscriptions(this.workItem);
-        let aeTitles = hitSubscriptions.map(v => v.aeTitle);
+        if (hitSubscriptions.length > 0 ) {
+            let aeTitles = hitSubscriptions.map(v => v.aeTitle);
 
-        this.addUpsEvent(UPS_EVENT_TYPE.CancelRequested, this.upsInstanceUID, this.cancelRequestBy(), aeTitles);
+            this.addUpsEvent(UPS_EVENT_TYPE.CancelRequested, this.upsInstanceUID, this.cancelRequestBy(), aeTitles);
+        }
     }
 
     cancelRequestBy() {
