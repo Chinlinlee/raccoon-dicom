@@ -1,5 +1,5 @@
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { PatientModel } = require("@models/mongodb/models/patient.model");
+const { PatientModel } = require("@dbModels/patient.model");
 const { set } = require("lodash");
 
 
@@ -15,18 +15,9 @@ class UpdatePatientService {
 
     async update() {
         let { patientID } = this.request.params;
-        return await PatientModel.findOneAndUpdate({
-            patientID
-        }, {
-            $set: {
-                ...this.incomingPatient
-            }
-        }, {
-            upsert: true,
-            new: true
-        });
+        return await PatientModel.createOrUpdatePatient(patientID, { ...this.incomingPatient });
     }
-    
+
     #adjustIncomingPatient() {
         set(this.incomingPatient, "00100020.Value", [this.request.params.patientID]);
         set(this.incomingPatient, "patientID", this.request.params.patientID);

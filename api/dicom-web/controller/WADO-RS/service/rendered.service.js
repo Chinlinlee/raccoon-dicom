@@ -1,18 +1,19 @@
+const _ = require("lodash");
+const imageSizeOf = require("image-size");
+const  { promisify } = require("util");
+const imageSizeOfPromise = promisify(imageSizeOf);
 const path = require("path");
-const mongoose = require("mongoose");
 const { InstanceModel } = require("@dbModels/instance.model");
 const fs = require("fs");
-const sharp = require("sharp");
-const _ = require("lodash");
 const { Dcm2JpgExecutor } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
-const notImageSOPClass = require("../../../../../models/DICOM/dicomWEB/notImageSOPClass");
 const Magick = require("../../../../../models/magick");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { logger } = require("../../../../../utils/logs/log");
 
 const { raccoonConfig } = require("../../../../../config-class");
+const { DicomBulkDataModel } = require("@dbModels/dicomBulkData.model");
 
 class RenderedImageProcessParameterHandler {
     #params;
@@ -44,15 +45,9 @@ class RenderedImageProcessParameterHandler {
         let iccProfileAction = {
             "no": async () => { },
             "yes": async () => {
-                let iccProfileBinaryFile = await mongoose.model("dicomBulkData").findOne({
-                    $and: [
-                        {
-                            binaryValuePath: "00480105.Value.0.00282000.InlineBinary"
-                        },
-                        {
-                            instanceUID: instanceID
-                        }
-                    ]
+                let iccProfileBinaryFile = await DicomBulkDataModel.findOneBulkData({
+                    binaryValuePath: "00480105.Value.0.00282000.InlineBinary",
+                    instanceUID: instanceID
                 });
                 if (!iccProfileBinaryFile) throw new Error("The Image dose not have icc profile tag");
                 let iccProfileSrc = path.join(raccoonConfig.dicomWebConfig.storeRootPath, iccProfileBinaryFile.filename);
@@ -83,12 +78,11 @@ class RenderedImageProcessParameterHandler {
 
     /**
      *
-     * @param {sharp.Sharp} imageSharp
+     * @param {{ height: number, width: number }} imageSize
      * @param {Magick} magick
      */
-    async handleViewport(imageSharp, magick) {
+    async handleViewport(imageSize, magick) {
         if (this.#params?.viewport) {
-            let imageMetadata = await imageSharp.metadata();
             let viewportSplit = this.#params.viewport.split(",").map(v => Number(v));
             if (viewportSplit.length == 2) {
                 let [vw, vh] = viewportSplit;
@@ -96,8 +90,8 @@ class RenderedImageProcessParameterHandler {
             } else {
                 let [vw, vh, sx, sy, sw, sh] = viewportSplit;
                 magick.resize(vw, vh);
-                if (sw == 0) sw = imageMetadata.width - sx;
-                if (sh == 0) sh = imageMetadata.height - sy;
+                if (sw == 0) sw = imageSize.width - sx;
+                if (sh == 0) sh = imageSize.height - sy;
 
                 if (sw < 0) {
                     magick.flip();
@@ -155,7 +149,7 @@ class RenderedImageMultipartWriter {
 class FramesWriter {
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]} imagePaths 
+     * @param {import("@root/utils/typeDef/dicomImage").ImagePathObj[]} imagePaths 
      */
     constructor(req, res, imagePaths) {
         this.request = req;
@@ -179,7 +173,7 @@ class FramesWriter {
 class StudyFramesWriter extends FramesWriter {
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[]} imagePaths 
+     * @param {import("@root/utils/typeDef/dicomImage").ImagePathObj[]} imagePaths 
      */
     constructor(req, res, imagePaths) {
         super(req, res, imagePaths);
@@ -279,7 +273,7 @@ This instance NumberOfFrames is : ${this.dicomNumberOfFrames} , But request ${JS
 /**
  * 
  * @param {import("http").IncomingMessage} req 
- * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").InstanceFrameObj} instanceFramesObj 
+ * @param {import("@root/utils/typeDef/dicomImage").InstanceFrameObj} instanceFramesObj 
  * @returns 
  */
 async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
@@ -297,13 +291,13 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
         );
 
         if (getFrameImageStatus.status) {
-            let imageSharp = sharp(jpegFile);
+            let imageSize = await imageSizeOfPromise(jpegFile);
             let magick = new Magick(jpegFile);
 
             let renderedImageProcessParameterHandler = new RenderedImageProcessParameterHandler(req.query);
             renderedImageProcessParameterHandler.handleImageQuality(magick);
             await renderedImageProcessParameterHandler.handleImageICCProfile(magick, instanceFramesObj.instanceUID);
-            await renderedImageProcessParameterHandler.handleViewport(imageSharp, magick);
+            await renderedImageProcessParameterHandler.handleViewport(imageSize, magick);
             await magick.execCommand();
             return {
                 status: true,
@@ -330,7 +324,7 @@ async function postProcessFrameImage(req, frameNumber, instanceFramesObj) {
  * 
  * @param {import("express").Request} req 
  * @param {number|number[]} dicomNumberOfFrames 
- * @param {import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj} instanceFramesObj 
+ * @param {import("@root/utils/typeDef/dicomImage").ImagePathObj} instanceFramesObj 
  * @param {import("../../../../../utils/multipartWriter").MultipartWriter} multipartWriter 
  */
 async function writeRenderedImages(req, dicomNumberOfFrames, instanceFramesObj, multipartWriter) {

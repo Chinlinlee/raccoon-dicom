@@ -23,8 +23,10 @@ const { EventIdentificationBuilder } = require("@dcm4che/audit/EventIdentificati
 const { EventType } = require("./eventType");
 const { default: ActiveParticipantBuilder } = require("@dcm4che/audit/ActiveParticipantBuilder");
 const { AuditMessages$UserIDTypeCode } = require("@dcm4che/audit/AuditMessages$UserIDTypeCode");
+
 const { ParticipatingObjectFactory } = require("./participatingObjectFactory");
-const { raccoonConfig } = require("@root/config-class");
+const { InstanceModel } = require("@dbModels/instance.model");
+
 
 class AuditMessageFactory {
     constructor() { }
@@ -71,7 +73,7 @@ class AuditMessageFactory {
         let patientParticipatingObject;
         for (let i = 0; i < StudyInstanceUIDs.length; i++) {
             let participatingObjectFactory = new ParticipatingObjectFactory(
-                this.getInstanceModel(),
+                InstanceModel,
                 StudyInstanceUIDs[i]
             );
 
@@ -129,7 +131,7 @@ class AuditMessageFactory {
         let patientParticipatingObject;
         for (let i = 0; i < StudyInstanceUIDs.length; i++) {
             let participatingObjectFactory = new ParticipatingObjectFactory(
-                this.getInstanceModel(),
+                InstanceModel,
                 StudyInstanceUIDs[i]
             );
 
@@ -196,7 +198,7 @@ class AuditMessageFactory {
         let patientParticipatingObject;
         for (let i = 0; i < studyInstanceUIDs.length; i++) {
             let participatingObjectFactory = new ParticipatingObjectFactory(
-                this.getInstanceModel(),
+                InstanceModel,
                 studyInstanceUIDs[i]
             );
 
@@ -349,15 +351,6 @@ class AuditMessageFactory {
         return activateParticipants;
     }
 
-    getInstanceModel() {
-        if (raccoonConfig.serverConfig.dbType === "sql") {
-            const sequelizeInstance = require("@models/sql/instance");
-            return sequelizeInstance.model("Instance");
-        } else {
-            const mongoose = require("mongoose");
-            return mongoose.model("dicom");
-        }
-    }
 }
 
 

@@ -16,7 +16,7 @@ async function storeDicomInstancesAndGet4Patients() {
             host: "fake-host"
         },
         params: {}
-    }, []);
+    }, { locals: {} }, []);
 
     /** @type {string[]} */
     let files = glob.sync("**/*.dcm", {

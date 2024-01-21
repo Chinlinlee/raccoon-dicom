@@ -5,6 +5,8 @@ const router = express();
 const {
     dictionary
 } = require("../../models/DICOM/dicom-tags-dic");
+const { ApiLogger } = require("@root/utils/logs/api-logger");
+const { BaseQueryController } = require("./controller/QIDO-RS/base.controller");
 
 const KEYWORD_KEYS = Object.keys(dictionary.keyword);
 const HEX_KEYS = Object.keys(dictionary.tag);
@@ -48,6 +50,10 @@ function convertKeywordToHex(attribute) {
     return attribute;
 }
 
+const queryController = async (req, res) => {
+    let controller = new BaseQueryController(req, res);
+    await controller.doPipeline();
+};
 
 /**
  *  @openapi
@@ -79,7 +85,13 @@ function convertKeywordToHex(attribute) {
  */
 router.get("/studies", validateParams(queryValidation, "query", {
     allowUnknown: true
-}), require("./controller/QIDO-RS/queryAllStudies"));
+}), (req, res, next) => {
+    req.dicomLevel = "study";
+    req.logger = new ApiLogger(req, "QIDO-RS");
+    req.logger.addTokenValue();
+    req.logger.logger.info(`Query Studies, Incoming Parameters: ${JSON.stringify(req.query)}`);
+    next();
+}, queryController);
 
 /**
  *  @openapi
@@ -117,7 +129,14 @@ router.get(
     "/studies/:studyUID/series", validateParams(queryValidation, "query", {
         allowUnknown: true
     }),
-    require("./controller/QIDO-RS/queryStudies-Series")
+    (req, res, next) => {
+        req.dicomLevel = "series";
+        req.logger = new ApiLogger(req, "QIDO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info("Query Study's Series, Incoming Parameters: " + JSON.stringify(req.query));
+        next();
+    },
+    queryController
 );
 
 /**
@@ -159,7 +178,14 @@ router.get(
     "/studies/:studyUID/instances", validateParams(queryValidation, "query", {
         allowUnknown: true
     }),
-    require("./controller/QIDO-RS/queryStudies-Instances")
+    (req, res, next) => {
+        req.dicomLevel = "instance";
+        req.logger = new ApiLogger(req, "QIDO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info("Query Study's Instances, Incoming Parameters: " + JSON.stringify(req.query));
+        next();
+    },
+    queryController
 );
 
 /**
@@ -202,7 +228,14 @@ router.get(
     "/studies/:studyUID/series/:seriesUID/instances", validateParams(queryValidation, "query", {
         allowUnknown: true
     }),
-    require("./controller/QIDO-RS/queryStudies-Series-Instance")
+    (req, res, next) => {
+        req.dicomLevel = "instance";
+        req.logger = new ApiLogger(req, "QIDO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info("Query Study's Series' Instances, Incoming Parameters: " + JSON.stringify(req.query));
+        next();
+    },
+    queryController
 );
 
 /**
@@ -241,7 +274,14 @@ router.get(
     "/series", validateParams(queryValidation, "query", {
         allowUnknown: true
     }),
-    require("./controller/QIDO-RS/queryAllSeries")
+    (req, res, next) => {
+        req.dicomLevel = "series";
+        req.logger = new ApiLogger(req, "QIDO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info("Query All Series, Incoming Parameters: " + JSON.stringify(req.query));
+        next();
+    },
+    queryController
 );
 
 /**
@@ -282,7 +322,14 @@ router.get(
     "/instances", validateParams(queryValidation, "query", {
         allowUnknown: true
     }),
-    require("./controller/QIDO-RS/queryAllInstances")
+    (req, res, next) => {
+        req.dicomLevel = "instance";
+        req.logger = new ApiLogger(req, "QIDO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info("Query All Instances, Incoming Parameters: " + JSON.stringify(req.query));
+        next();
+    },
+    queryController
 );
 
 /**
@@ -310,7 +357,17 @@ router.get(
  */
 router.get(
     "/patients",
-    require("./controller/QIDO-RS/allPatient")
+    validateParams({limit: queryValidation.limit, offset: queryValidation.offset}, "query", {
+        allowUnknown: true
+    }),
+    (req, res, next) => {
+        req.dicomLevel = "patient";
+        req.logger = new ApiLogger(req, "QIDO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info("Query All Patients, Incoming Parameters: " + JSON.stringify(req.query));
+        next();
+    },
+    queryController
 );
 
 //#endregion

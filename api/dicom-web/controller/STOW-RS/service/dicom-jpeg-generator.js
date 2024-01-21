@@ -98,7 +98,7 @@ class DicomJpegGenerator {
         let startTaskObj = {
             studyUID: this.dicomJsonModel.uidObj.studyUID,
             seriesUID: this.dicomJsonModel.uidObj.seriesUID,
-            instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID,
+            instanceUID: this.dicomJsonModel.uidObj.instanceUID,
             status: false,
             message: "processing",
             taskTime: new Date(),
@@ -116,7 +116,7 @@ class DicomJpegGenerator {
         let endTaskObj = {
             studyUID: this.dicomJsonModel.uidObj.studyUID,
             seriesUID: this.dicomJsonModel.uidObj.seriesUID,
-            instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID,
+            instanceUID: this.dicomJsonModel.uidObj.instanceUID,
             status: true,
             message: "generated",
             finishedTime: new Date()
@@ -132,7 +132,7 @@ class DicomJpegGenerator {
         let errorTaskObj = {
             studyUID: this.dicomJsonModel.uidObj.studyUID,
             seriesUID: this.dicomJsonModel.uidObj.seriesUID,
-            instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID,
+            instanceUID: this.dicomJsonModel.uidObj.instanceUID,
             status: false,
             message: message,
             finishedTime: new Date()

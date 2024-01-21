@@ -3,6 +3,23 @@ const Joi = require("joi");
 const { validateParams, intArrayJoi } = require("../validator");
 const router = express();
 
+
+const {
+    BaseRetrieveController,
+    StudyZipResponseHandler,
+    StudyMultipartRelatedResponseHandler,
+    SeriesZipResponseHandler,
+    SeriesMultipartRelatedResponseHandler,
+    InstanceZipResponseHandler,
+    InstanceMultipartRelatedResponseHandler
+} = require("./controller/WADO-RS/retrieveInstances.controller");
+const { ApiLogger } = require("@root/utils/logs/api-logger");
+
+let retrieveController = async (req, res) => {
+    let controller = new BaseRetrieveController(req, res);
+    await controller.doPipeline();
+};
+
 //#region WADO-RS Retrieve Transaction Instance Resources
 
 /**
@@ -21,7 +38,15 @@ const router = express();
  */
 router.get(
     "/studies/:studyUID",
-    require("./controller/WADO-RS/retrieveStudyInstances")
+    (req, res, next) => {
+        req.zipResponseHandlerType = StudyZipResponseHandler;
+        req.multipartResponseHandlerType = StudyMultipartRelatedResponseHandler;
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`[Get study's instances, study UID: ${req.params.studyUID}] [Request Accept: ${req.headers?.accept}]`);
+        next();
+    },
+    retrieveController
 );
 
 /**
@@ -41,7 +66,15 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID",
-    require("./controller/WADO-RS/retrieveStudy-Series-Instances")
+    (req, res, next) => {
+        req.zipResponseHandlerType = SeriesZipResponseHandler;
+        req.multipartResponseHandlerType = SeriesMultipartRelatedResponseHandler;
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`[Get study's series' instances, study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}] [Request Accept: ${req.headers?.accept}]`);
+        next();
+    },
+    retrieveController
 );
 
 /**
@@ -62,7 +95,18 @@ router.get(
  */
 router.get(
     "/studies/:studyUID/series/:seriesUID/instances/:instanceUID",
-    require("./controller/WADO-RS/retrieveInstance")
+    (req, res, next) => {
+        req.zipResponseHandlerType = InstanceZipResponseHandler;
+        req.multipartResponseHandlerType = InstanceMultipartRelatedResponseHandler;
+        req.logger = new ApiLogger(req, "WADO-RS");
+        req.logger.addTokenValue();
+        req.logger.logger.info(`[Get study's series' instance,`+ 
+                               `study UID: ${req.params.studyUID}, series UID: ${req.params.seriesUID}, instance UID: ${req.params.instanceUID}]`
+                               + ` [Request Accept: ${req.headers?.accept}]`);
+        
+        next();
+    },
+    retrieveController
 );
 
 //#endregion

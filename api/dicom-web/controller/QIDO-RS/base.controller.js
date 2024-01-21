@@ -6,9 +6,6 @@ const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 class BaseQueryController extends Controller {
     constructor(req, res) {
         super(req, res);
-        this.apiLogger = new ApiLogger(this.request, "QIDO-RS");
-        this.apiLogger.addTokenValue();
-        this.level = "patient";
     }
 
     logAction() {
@@ -16,17 +13,15 @@ class BaseQueryController extends Controller {
     }
 
     async mainProcess() {
-        this.logAction();
-        
         try {
-            let qidoRsService = new QidoRsService(this.request, this.response, this.level);
+            let qidoRsService = new QidoRsService(this.request, this.response, this.request.dicomLevel);
             let foundDicomJson = await qidoRsService.getDicomJson();
             if (foundDicomJson.length === 0 ) {
                 return this.response.status(204).send();
             }
             return this.response.status(200).set("Content-Type", "application/dicom+json").json(foundDicomJson);
         } catch (e) {
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.request.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
     }

@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
+const { MwlItemModel } = require("@dbModels/mwlitems.model");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 
@@ -18,23 +18,13 @@ class ChangeMwlItemStatusService {
             throw new DicomWebServiceError(DicomWebStatusCodes.NoSuchObjectInstance, "No such object instance", 404);
         }
 
-        _.set(mwlItem, `${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}.Value.0`, status);
-        await mwlItem.save();
+        await mwlItem.updateStatus(status);
 
-        return mwlItem.toDicomJson();
+        return mwlItem.toGeneralDicomJson();
     }
 
     async getMwlItemByStudyUIDAndSpsID() {
-        return await MwlItemModel.findOne({
-            $and: [
-                {
-                    "00400100.Value.0.00400009.Value.0": this.request.params.spsID
-                },
-                {
-                    "0020000D.Value.0": this.request.params.studyUID
-                }
-            ]
-        });
+        return await MwlItemModel.findOneByStudyInstanceUIDAndSpsID(this.request.params.studyUID, this.request.params.spsID);
     }
 }
 

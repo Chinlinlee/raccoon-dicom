@@ -1,8 +1,8 @@
 const _ = require("lodash");
-const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
+const { MwlItemModel } = require("@dbModels/mwlitems.model");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { convertRequestQueryToMongoQuery } = require("../../QIDO-RS/service/query-dicom-json-factory");
+const { convertRequestQueryToMongoQuery } = require("@models/mongodb/convertQuery");
 const { BaseQueryService } = require("@root/api/dicom-web/service/base-query.service");
 
 class ChangeFilteredMwlItemStatusService extends BaseQueryService {
@@ -26,8 +26,7 @@ class ChangeFilteredMwlItemStatusService extends BaseQueryService {
     }
 
     async getMwlItems() {
-        let query = (await convertRequestQueryToMongoQuery(this.query)).$match;
-        return await MwlItemModel.find(query);
+        return await MwlItemModel.findMwlItems(this.query);
     }
 }
 

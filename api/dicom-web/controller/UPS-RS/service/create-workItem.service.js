@@ -1,23 +1,22 @@
 const _ = require("lodash");
-const workItemModel = require("@models/mongodb/models/workitems.model");
-const { PatientModel } = require("@dbModels/patient.model");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { DicomJsonModel } = require("@dicom-json-model");
 const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { SubscribeService } = require("@api/dicom-web/controller/UPS-RS/service/subscribe.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 
 class CreateWorkItemService extends BaseWorkItemService {
     constructor(req, res) {
         super(req, res);
         this.requestWorkItem = /**  @type {Object[]} */(this.request.body).pop();
-        /** @type {DicomJsonModel} */
-        this.requestWorkItem = new DicomJsonModel(this.requestWorkItem);
+        /** @type {BaseDicomJson} */
+        this.requestWorkItem = new BaseDicomJson(this.requestWorkItem);
     }
 
     async createUps() {
@@ -27,14 +26,11 @@ class CreateWorkItemService extends BaseWorkItemService {
         await this.dataAdjustBeforeCreatingUps(uid);
         await this.validateWorkItem(uid);
 
-        let patientId = this.requestWorkItem.getString("00100020");
-        let patient = await PatientModel.findOneOrCreatePatient(patientId, this.requestWorkItem.dicomJson);
-        let workItem = new workItemModel(this.requestWorkItem.dicomJson);
-        let savedWorkItem = await workItem.save();
+        let savedWorkItem = await WorkItemModel.createWorkItemAndPatient(this.requestWorkItem.dicomJson);
 
         this.triggerCreateEvent(savedWorkItem);
 
-        return workItem;
+        return savedWorkItem;
     }
 
     async dataAdjustBeforeCreatingUps(uid) {
@@ -78,21 +74,21 @@ class CreateWorkItemService extends BaseWorkItemService {
     }
 
     async triggerCreateEvent(workItem) {
-        let workItemDicomJson = new DicomJsonModel(workItem);
-        let hitGlobalSubscriptions = await this.getHitGlobalSubscriptions(workItemDicomJson);
+        let workItemDicomJson = await workItem.toDicomJson();
+        let hitGlobalSubscriptions = await this.getHitGlobalSubscriptions(workItem);
         for (let hitGlobalSubscription of hitGlobalSubscriptions) {
             let subscribeService = new SubscribeService(this.request, this.response);
-            subscribeService.upsInstanceUID = workItemDicomJson.dicomJson.upsInstanceUID;
+            subscribeService.upsInstanceUID = workItem.upsInstanceUID;
             subscribeService.deletionLock = hitGlobalSubscription.isDeletionLock;
             subscribeService.subscriberAeTitle = hitGlobalSubscription.aeTitle;
             await subscribeService.create();
         }
 
-        let hitSubscriptions = await this.getHitSubscriptions(workItemDicomJson);
+        let hitSubscriptions = await this.getHitSubscriptions(workItem);
 
         if (hitSubscriptions) {
             let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItem.toDicomJsonModel()), hitSubscriptionAeTitleArray);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItem.upsInstanceUID, this.stateReportOf(await workItem.toDicomJson()), hitSubscriptionAeTitleArray);
             let assignedEventInformationArray = await this.getAssignedEventInformationArray(
                 workItemDicomJson,
                 _.get(workItemDicomJson.dicomJson, `${dictionary.keyword.ScheduledStationNameCodeSequence}`, false),
@@ -100,7 +96,7 @@ class CreateWorkItemService extends BaseWorkItemService {
             );
 
             for (let assignedEventInfo of assignedEventInformationArray) {
-                this.addUpsEvent(UPS_EVENT_TYPE.Assigned, workItemDicomJson.dicomJson.upsInstanceUID, assignedEventInfo, hitSubscriptionAeTitleArray);
+                this.addUpsEvent(UPS_EVENT_TYPE.Assigned, workItem.upsInstanceUID, assignedEventInfo, hitSubscriptionAeTitleArray);
             }
         }
 
@@ -108,9 +104,7 @@ class CreateWorkItemService extends BaseWorkItemService {
     }
 
     async isUpsExist(uid) {
-        return await workItemModel.findOne({
-            upsInstanceUID: uid
-        });
+        return await WorkItemModel.findOneByUpsInstanceUID(uid);
     }
 }
 

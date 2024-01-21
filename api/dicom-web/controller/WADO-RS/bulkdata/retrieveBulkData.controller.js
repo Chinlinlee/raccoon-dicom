@@ -7,20 +7,10 @@ const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 class BaseBulkDataController extends Controller {
     constructor(req, res) {
         super(req, res);
-        this.apiLogger = new ApiLogger(this.request, "WADO-RS");
-        this.apiLogger.addTokenValue();
-        this.bulkDataFactoryType = StudyBulkDataFactory;
-        this.imagePathFactoryType = StudyImagePathFactory;
-        this.bulkDataService = new BulkDataService(this.request, this.response, this.bulkDataFactoryType);
-    }
-
-    logAction() {
-        throw new Error("Abstract Method not implemented.");
+        this.bulkDataService = new BulkDataService(this.request, this.response, this.request.bulkDataFactoryType);
     }
 
     async mainProcess() {
-        this.logAction();
-
         try {
 
             let bulkData = await this.bulkDataService.getBulkData();
@@ -33,7 +23,7 @@ class BaseBulkDataController extends Controller {
             this.bulkDataService.multipartWriter.writeFinalBoundary();
             return this.response.end();
         } catch (e) {
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.request.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
     }
@@ -43,7 +33,7 @@ class BaseBulkDataController extends Controller {
             await this.bulkDataService.writeBulkData(bulkData);
         }
 
-        let imagePathFactory = new this.imagePathFactoryType({
+        let imagePathFactory = new this.request.imagePathFactoryType({
             ...this.request.params
         });
         await imagePathFactory.getImagePaths();

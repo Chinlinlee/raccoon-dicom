@@ -18,7 +18,7 @@ class UpdatePatientController extends Controller {
             return this.response
                        .set("content-type", "application/dicom+json")
                        .status(200)
-                       .json(updatedPatient.toDicomJson());
+                       .json(await updatedPatient.toGeneralDicomJson());
         } catch(e) {
             let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
             return apiErrorArrayHandler.doErrorResponse();

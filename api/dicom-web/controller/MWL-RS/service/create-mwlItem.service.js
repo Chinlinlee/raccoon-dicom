@@ -1,7 +1,7 @@
 const _ = require("lodash");
-const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
-const { PatientModel } = require("@models/mongodb/models/patient.model");
-const { StudyModel } = require("@models/mongodb/models/study.model");
+const { MwlItemModel } = require("@dbModels/mwlitems.model");
+const { PatientModel } = require("@dbModels/patient.model");
+const { StudyModel } = require("@dbModels/study.model");
 const crypto = require('crypto');
 const moment = require("moment");
 const { UIDUtils } = require("@dcm4che/util/UIDUtils");
@@ -9,7 +9,7 @@ const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { DicomJsonModel, BaseDicomJson } = require("@models/DICOM/dicom-json-model");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 const { v4: uuidV4 } = require("uuid");
 const shortHash = require("shorthash2");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
@@ -20,8 +20,7 @@ class CreateMwlItemService {
         this.request = req;
         this.response = res;
         this.requestMwlItem = /**  @type {Object} */(this.request.body);
-        /** @type {DicomJsonModel} */
-        this.requestMwlItemDicomJsonModel = new DicomJsonModel(this.requestMwlItem[0]);
+        this.requestMwlItemDicomJson = new BaseDicomJson(this.requestMwlItem[0]);
         this.apiLogger = new ApiLogger(req, "Create Mwl Item Service");
         this.apiLogger.addTokenValue();
     }
@@ -88,10 +87,8 @@ class CreateMwlItemService {
     }
 
     async checkPatientExist() {
-        let patientID = this.requestMwlItemDicomJsonModel.getString("00100020");
-        let patientCount = await PatientModel.countDocuments({ 
-            patientID 
-        });
+        let patientID = this.requestMwlItemDicomJson.getString("00100020");
+        let patientCount = await PatientModel.getCountByPatientID(patientID);
         if (patientCount <= 0) {
             throw new DicomWebServiceError(
                 DicomWebStatusCodes.MissingAttribute,
@@ -109,31 +106,18 @@ class CreateMwlItemService {
         let studyInstanceUID = mwlDicomJson.getValue(dictionary.keyword.StudyInstanceUID);
         let spsItem = new BaseDicomJson(mwlDicomJson.getValue(dictionary.keyword.ScheduledProcedureStepSequence));
         let spsID = spsItem.getValue(dictionary.keyword.ScheduledProcedureStepID);
-        let foundMwl = await MwlItemModel.findOne({
-            $and: [
-                {
-                    "0020000D.Value.0": studyInstanceUID
-                },
-                {
-                    "00400100.Value.0.00400009.Value.0": spsID
-                }
-            ]
-        });
+        let foundMwl = await MwlItemModel.findOneByStudyInstanceUIDAndSpsID(studyInstanceUID, spsID);
 
         if (!foundMwl) {
             // create
-            let mwlItemModelObj = new MwlItemModel(mwlDicomJson.dicomJson);
-            await mwlItemModelObj.save();
+            let createdMwlItem = await MwlItemModel.createWithGeneralDicomJson(mwlDicomJson.dicomJson);
             this.apiLogger.logger.info(`create mwl item: ${studyInstanceUID}`);
-            return mwlItemModelObj.toDicomJson();
+            return createdMwlItem.toGeneralDicomJson();
         } else {
             // update
-            foundMwl.$set({
-                ...mwlDicomJson.dicomJson
-            });
-            await foundMwl.save();
+            let updatedMwlItem = await MwlItemModel.updateOneWithGeneralDicomJson(foundMwl, mwlDicomJson.dicomJson);
             this.apiLogger.logger.info(`update mwl item: ${studyInstanceUID}`);
-            return foundMwl.toDicomJson();
+            return updatedMwlItem.toGeneralDicomJson();
         }
     }
 

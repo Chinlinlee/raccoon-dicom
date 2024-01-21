@@ -31,7 +31,7 @@ const cStoreScpInjectProxy = createCStoreSCPInjectProxy({
             socket: {
                 remoteAddress: await association.getCallingAET()
             }
-        }, []);
+        }, { locals: {} }, []);
     
         /** @type {formidable.File} */
         let fileObj = {

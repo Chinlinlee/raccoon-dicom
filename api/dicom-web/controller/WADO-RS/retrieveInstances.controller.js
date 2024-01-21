@@ -17,10 +17,6 @@ const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 class BaseRetrieveController extends Controller {
     constructor(req, res) {
         super(req, res);
-        this.apiLogger = new ApiLogger(this.request, "WADO-RS");
-        this.apiLogger.addTokenValue();
-        this.zipResponseHandlerType = BaseZipResponseHandler;
-        this.multipartResponseHandlerType = BaseMultipartRelatedResponseHandler;
     }
 
     logAction() {
@@ -40,18 +36,18 @@ class BaseRetrieveController extends Controller {
 
             return sendNotSupportedMediaType(this.response, this.request.headers.accept);
         } catch (e) {
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.request.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
     }
 
     async responseZip() {
-        let zipResponseHandler = new this.zipResponseHandlerType(this.request, this.response);
+        let zipResponseHandler = new this.request.zipResponseHandlerType(this.request, this.response);
         await zipResponseHandler.doResponse();
     }
 
     async responseMultipartRelated() {
-        let multipartResponseHandler = new this.multipartResponseHandlerType(this.request, this.response);
+        let multipartResponseHandler = new this.request.multipartResponseHandlerType(this.request, this.response);
         await multipartResponseHandler.doResponse();
     }
 }

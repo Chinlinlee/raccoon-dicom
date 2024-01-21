@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const { DicomJsonModel, BaseDicomJson } = require("@dicom-json-model");
+const { BaseDicomJson } = require("@dicom-json-model");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
@@ -8,6 +8,7 @@ const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/servic
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { raccoonConfig } = require("@root/config-class");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 
 class CancelWorkItemService extends BaseWorkItemService {
 
@@ -23,13 +24,10 @@ class CancelWorkItemService extends BaseWorkItemService {
         this.requestWorkItem = /**  @type {Object[]} */(this.request.body).pop();
     }
 
-    async initWorkItem() {
-        this.workItem = await this.findOneWorkItem(this.upsInstanceUID);
-    }
-
     async cancel() {
-        await this.initWorkItem();
-        let procedureStepState = this.workItem.getString(dictionary.keyword.ProcedureStepState);
+        this.workItem = await WorkItemModel.findOneByUpsInstanceUID(this.upsInstanceUID);
+
+        let procedureStepState = (await this.workItem.toDicomJson()).getString(dictionary.keyword.ProcedureStepState);
 
         if (procedureStepState === "IN PROGRESS") {
             //Only send cancel info event now, IMO

@@ -1,35 +1,46 @@
+const path = require("path");
+const fs = require("fs");
+
 const mongoose = require("mongoose");
 const {
-    DICOMFHIRConverter
-} = require("../../../../../models/FHIR/DICOM/DICOMToFHIR");
-const { fhirLogger } = require("../../../../../utils/logs/log");
+    DicomFhirConverter
+} = require("./DICOMToFHIR");
+const { fhirLogger } = require("../../utils/logs/log");
 
-const { raccoonConfig } = require("../../../../../config-class");
+const { raccoonConfig } = require("../../config-class");
 
 const {
     apiPath: DICOM_WEB_API_PATH
 } = raccoonConfig.dicomWebConfig;
 
-const {
-    baseUrl: FHIR_BASE_URL
-} = raccoonConfig.fhirConfig;
+
+let pluginConfigFile = path.join(__dirname, "../config.template.js");
+if (fs.existsSync(path.join(__dirname, "../config.js"))) {
+    pluginConfigFile = path.join(__dirname, "../config.js");
+}
+
+const fhirBaseUrl = require(pluginConfigFile).pluginsConfig?.syncToFhirServer?.fhir?.server?.baseUrl;
 
 class DicomFhirService {
     constructor(req, dicomJsonModel) {
+        if (!fhirBaseUrl) {
+            throw new Error("missing fhir config in your plugin config");
+        }
+
         this.request = req;
         this.dicomJsonModel = dicomJsonModel;
 
         /**
          * @private
          */
-        this.dicomFhirConverter = new DICOMFHIRConverter();
+        this.dicomFhirConverter = new DicomFhirConverter();
     }
 
     async initDicomFhirConverter() {
         this.dicomFhirConverter.dicomWeb.name =`raccoon-dicom-web-server`;
         let protocol = this.request.secure ? "https" : "http";
         this.dicomFhirConverter.dicomWeb.retrieveStudiesUrl = `${protocol}://${this.request.headers.host}/${DICOM_WEB_API_PATH}/studies`;
-        this.dicomFhirConverter.fhir.baseUrl = FHIR_BASE_URL;
+        this.dicomFhirConverter.fhir.baseUrl = fhirBaseUrl;
     }
 
     async postDicomToFhirServerAndStoreLog() {
@@ -41,7 +52,7 @@ class DicomFhirService {
             let logObj = {
                 studyUID: this.dicomJsonModel.uidObj.studyUID,
                 seriesUID: this.dicomJsonModel.uidObj.seriesUID,
-                instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID,
+                instanceUID: this.dicomJsonModel.uidObj.instanceUID,
                 status: true,
                 message: "success"
             };
@@ -56,7 +67,7 @@ class DicomFhirService {
             let errorLogObj = {
                 studyUID: this.dicomJsonModel.uidObj.studyUID,
                 seriesUID: this.dicomJsonModel.uidObj.seriesUID,
-                instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID,
+                instanceUID: this.dicomJsonModel.uidObj.instanceUID,
                 status: false,
                 message: errorStr
             };
@@ -81,7 +92,7 @@ class DicomFhirService {
                             seriesUID: this.dicomJsonModel.uidObj.seriesUID
                         },
                         {
-                            instanceUID: this.dicomJsonModel.uidObj.sopInstanceUID
+                            instanceUID: this.dicomJsonModel.uidObj.instanceUID
                         }
                     ]
                 },

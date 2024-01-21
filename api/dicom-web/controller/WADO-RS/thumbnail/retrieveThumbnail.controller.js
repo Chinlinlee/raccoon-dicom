@@ -7,23 +7,15 @@ const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 class BaseThumbnailController extends Controller {
     constructor(req, res) {
         super(req, res);
-        this.factory = StudyImagePathFactory;
-        this.apiLogger = new ApiLogger(this.request, "WADO-RS");
-        this.apiLogger.addTokenValue();
-    }
-
-    logAction() {
-        this.apiLogger.logger.info(`Get Study's Thumbnail [study UID: ${this.request.params.studyUID}]`);
     }
 
     async mainProcess() {
         try {
-            this.logAction();
-            let thumbnailService = new ThumbnailService(this.request, this.response, this.apiLogger, this.factory);
+            let thumbnailService = new ThumbnailService(this.request, this.response, this.request.logger, this.request.factory);
             let thumbnail = await thumbnailService.getThumbnail();
             return this.response.end(thumbnail, "binary");
         } catch (e) {
-            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.apiLogger, e);
+            let apiErrorArrayHandler = new ApiErrorArrayHandler(this.response, this.request.logger, e);
             return apiErrorArrayHandler.doErrorResponse();
         }
     }

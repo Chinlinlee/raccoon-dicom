@@ -82,10 +82,10 @@ class ImagePathFactory {
 
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
+     * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids 
      */
     constructor(uids) {
-        /** @type { import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[] } */
+        /** @type { import("@root/utils/typeDef/dicomImage").ImagePathObj[] } */
         this.imagePaths = [];
         /** @type {Uids} */
         this.uids = uids;
@@ -98,7 +98,7 @@ class ImagePathFactory {
             return {
                 status: false,
                 code: 404,
-                message: `not found, ${getUidsString(this.uids)}`
+                message: `not found, ${DicomWebService.getUidsString(this.uids)}`
             };
         }
 
@@ -245,21 +245,6 @@ function addHostnameOfBulkDataUrl(metadata, req) {
     }
 }
 
-/**
-* 
-* @param {import("../../../../../utils/typeDef/dicom").Uids} uids
-* @returns 
-*/
-function getUidsString(uids) {
-    let uidsKeys = Object.keys(uids);
-    let strArr = [];
-    for (let i = 0; i < uidsKeys.length; i++) {
-        let key = uidsKeys[i];
-        strArr.push(`${key}: ${uids[key]}`);
-    }
-    return strArr.join(", ");
-}
-
 module.exports.getAcceptType = getAcceptType;
 module.exports.supportInstanceMultipartType = supportInstanceMultipartType;
 module.exports.sendNotSupportedMediaType = sendNotSupportedMediaType;
@@ -270,4 +255,3 @@ module.exports.SeriesImagePathFactory = SeriesImagePathFactory;
 module.exports.InstanceImagePathFactory = InstanceImagePathFactory;
 module.exports.multipartContentTypeWriter = multipartContentTypeWriter;
 module.exports.ImageMultipartWriter = ImageMultipartWriter;
-module.exports.getUidsString = getUidsString;

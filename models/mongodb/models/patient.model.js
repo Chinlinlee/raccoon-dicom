@@ -8,12 +8,13 @@ const {
 const { raccoonConfig } = require("@root/config-class");
 const { DicomSchemaOptionsFactory, PatientDocDicomJsonHandler } = require("../schema/dicom.schema");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 
 let patientSchemaOptions = _.merge(
     DicomSchemaOptionsFactory.get("patient", PatientDocDicomJsonHandler),
     {
         methods: {
-            toDicomJson: function() {
+            toGeneralDicomJson: async function () {
                 let obj = this.toObject();
                 delete obj._id;
                 delete obj.id;
@@ -24,6 +25,9 @@ let patientSchemaOptions = _.merge(
                 delete obj.updatedAt;
 
                 return obj;
+            },
+            toDicomJson: async function() {
+                return new BaseDicomJson(await this.toGeneralDicomJson());
             }
         },
         statics: {
@@ -37,7 +41,7 @@ let patientSchemaOptions = _.merge(
             },
             /**
              * 
-             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
              * @returns 
              */
             getDicomJsonProjection: function (queryOptions) {
@@ -65,6 +69,25 @@ let patientSchemaOptions = _.merge(
                 }
 
                 return patient;
+            },
+            /**
+             * 
+             * @param {string} patientID 
+             * @param {any} patient patient general dicom json
+             */
+            createOrUpdatePatient: async function(patientID, patient) {
+                return await mongoose.model("patient").findOneAndUpdate({
+                    patientID
+                }, patient, { upsert: true, new: true });
+            },
+            /**
+             * 
+             * @param {string} patientID 
+             */
+            getCountByPatientID: async function(patientID) {
+                return await mongoose.model("patient").countDocuments({ 
+                    patientID 
+                });
             }
         }
     }

@@ -4,7 +4,9 @@ const _ = require("lodash");
 const { RenderedImageProcessParameterHandler, getInstanceFrameObj } = require("../../dicom-web/controller/WADO-RS/service/rendered.service");
 const { Dcm2JpgExecutor } = require("../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
-const sharp = require('sharp');
+const imageSizeOf = require("image-size");
+const { promisify } = require("util");
+const imageSizeOfPromise = promisify(imageSizeOf);
 const Magick = require("../../../models/magick");
 const { NotFoundInstanceError, InvalidFrameNumberError, InstanceGoneError } = require("../../../error/dicom-instance");
 const { InstanceModel } = require("@dbModels/instance.model");
@@ -77,13 +79,13 @@ class WadoUriService {
     async handleRequestQueryAndGetJpeg() {
 
         let {
-            imageSharp,
+            imageSize,
             magick
         } = await this.handleFrameNumberAndGetImageObj();
 
         await this.handleImageQuality(magick);
-        await this.handleRegion(this.request.query, imageSharp, magick);
-        await this.handleRowsAndColumns(this.request.query, imageSharp, magick);
+        await this.handleRegion(this.request.query, imageSize, magick);
+        await this.handleRowsAndColumns(this.request.query, imageSize, magick);
         await this.handleImageICCProfile(this.request.query, magick, this.request.query.objectUID);
 
         await magick.execCommand();
@@ -126,7 +128,7 @@ class WadoUriService {
         if (getFrameImageStatus.status) {
 
             return {
-                imageSharp: sharp(jpegFile),
+                imageSize: await imageSizeOfPromise(jpegFile),
                 magick: new Magick(jpegFile)
             };
         }
@@ -138,12 +140,18 @@ class WadoUriService {
         this.renderedImageProcessParameterHandler.handleImageQuality(magick);
     }
 
-    async handleRegion(param, imageSharp, magick) {
+    /**
+     * 
+     * @param {Object} param 
+     * @param {string} param.region
+     * @param {{height: number, width: number}} imageSize 
+     * @param {Magick} magick 
+     */
+    async handleRegion(param, imageSize, magick) {
         if (param.region) {
             let [xMin, yMin, xMax, yMax] = param.region.split(",").map(v => parseFloat(v));
-            let imageMetadata = await imageSharp.metadata();
-            let imageWidth = imageMetadata.width;
-            let imageHeight = imageMetadata.height;
+            let imageWidth = imageSize.width;
+            let imageHeight = imageSize.height;
             let extractLeft = imageWidth * xMin;
             let extractTop = imageHeight * yMin;
             let extractWidth = imageWidth * xMax - extractLeft;
@@ -152,16 +160,23 @@ class WadoUriService {
         }
     }
 
-    async handleRowsAndColumns(param, imageSharp, magick) {
-        let imageMetadata = await imageSharp.metadata();
+    /**
+     * 
+     * @param {Object} param 
+     * @param {string} param.rows
+     * @param {string} param.columns
+     * @param {{height: number, width: number}} imageSize 
+     * @param {Magick} magick 
+     */
+    async handleRowsAndColumns(param, imageSize, magick) {
         let rows = Number(param.rows);
         let columns = Number(param.columns);
         if (param.rows && param.columns) {
             magick.resize(rows, columns);
         } else if (param.rows) {
-            magick.resize(rows, imageMetadata.height);
+            magick.resize(rows, imageSize.height);
         } else if (param.columns) {
-            magick.resize(imageMetadata.width, columns);
+            magick.resize(imageSize.width, columns);
         }
     }
 

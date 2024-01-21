@@ -3,7 +3,6 @@ const formidable = require("formidable");
 const glob = require("glob");
 const path = require("path");
 const fsP = require("fs/promises");
-const { StowRsService } = require("../api/dicom-web/controller/STOW-RS/service/stow-rs.service");
 const patientModel = require("../models/mongodb/models/patient.model");
 const dicomStudyModel = require("../models/mongodb/models/study.model");
 const dicomSeriesModel = require("../models/mongodb/models/series.model");

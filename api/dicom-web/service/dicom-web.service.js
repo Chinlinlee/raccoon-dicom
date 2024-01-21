@@ -14,7 +14,7 @@ class DicomWebService {
         this.protocol = req.secure ? "https" : "http";
     }
 
-    
+
     getBasicURL() {
 
         let hostname = raccoonConfig.dicomWebConfig.host;
@@ -52,6 +52,21 @@ class DicomWebService {
 
     static getServerHostname() {
         return `${raccoonConfig.serverConfig.host}`;
+    }
+
+    /**
+    * 
+    * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids
+    * @returns 
+    */
+    static getUidsString(uids) {
+        let uidsKeys = Object.keys(uids);
+        let strArr = [];
+        for (let i = 0; i < uidsKeys.length; i++) {
+            let key = uidsKeys[i];
+            strArr.push(`${key}: ${uids[key]}`);
+        }
+        return strArr.join(", ");
     }
 }
 

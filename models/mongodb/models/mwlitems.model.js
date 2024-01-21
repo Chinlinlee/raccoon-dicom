@@ -6,6 +6,8 @@ const { getVRSchema } = require("../schema/dicomJsonAttribute");
 const { IncludeFieldsFactory } = require("../service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { raccoonConfig } = require("@root/config-class");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
+const { convertRequestQueryToMongoQuery } = require("../convertQuery");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -31,7 +33,7 @@ let mwlItemSchema = new mongoose.Schema(
             },
             /**
              * 
-             * @param {import("../../../utils/typeDef/dicom").DicomJsonMongoQueryOptions} queryOptions
+             * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
              * @returns 
              */
             getDicomJson: async function (queryOptions) {
@@ -45,13 +47,8 @@ let mwlItemSchema = new mongoose.Schema(
                         })
                         .exec();
 
-                        
-                    let mwlDicomJson = docs.map((v) => {
-                        let obj = v.toObject();
-                        delete obj._id;
-                        delete obj.id;
-                        return obj;
-                    });
+
+                    let mwlDicomJson = await Promise.all(docs.map(async (v) => await v.toGeneralDicomJson()));
 
                     return mwlDicomJson;
 
@@ -64,10 +61,11 @@ let mwlItemSchema = new mongoose.Schema(
                 return includeFieldsFactory.getMwlLevelFields();
             },
             getCount: async function (query) {
-                return await mongoose.model("mwlItems").countDocuments(query);
+                let mongoQuery = await convertRequestQueryToMongoQuery(query);
+                return await mongoose.model("mwlItems").countDocuments(mongoQuery);
             },
-            deleteByStudyInstanceUIDAndSpsID: async function(studyUID, spsID) {
-                return await mongoose.model("mwlItems").deleteMany({ 
+            deleteByStudyInstanceUIDAndSpsID: async function (studyUID, spsID) {
+                return await mongoose.model("mwlItems").deleteMany({
                     $and: [
                         {
                             [`${dictionary.keyword.StudyInstanceUID}.Value.0`]: studyUID
@@ -76,19 +74,61 @@ let mwlItemSchema = new mongoose.Schema(
                             [`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepID}.Value.0`]: spsID
                         }
                     ]
-                 });
+                });
+            },
+            /**
+             * 
+             * @param {string} studyUID 
+             * @param {string} spsID 
+             */
+            findOneByStudyInstanceUIDAndSpsID: async function (studyUID, spsID) {
+                return await mongoose.model("mwlItems").findOne({
+                    $and: [
+                        {
+                            [`${dictionary.keyword.StudyInstanceUID}.Value.0`]: studyUID
+                        },
+                        {
+                            [`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepID}.Value.0`]: spsID
+                        }
+                    ]
+                });
+            },
+            createWithGeneralDicomJson: async function (generalDicomJson) {
+                let mwlItemModelObj = new mongoose.model("mwlItems")(generalDicomJson);
+                return await mwlItemModelObj.save();
+            },
+            updateOneWithGeneralDicomJson: async function (mwlItem, generalDicomJson) {
+                mwlItem.$set({
+                    ...generalDicomJson
+                });
+                return await mwlItem.save();
+            },
+            findMwlItems: async function(query) {
+                let mongoQuery = await convertRequestQueryToMongoQuery(query);
+                return await mongoose.model("mwlItems").find(mongoQuery);
             }
         },
         methods: {
-            toDicomJson: function () {
+            toGeneralDicomJson: async function () {
                 let obj = this.toObject();
                 delete obj._id;
                 delete obj.id;
                 return obj;
             },
+            toDicomJson: async function () {
+                return new BaseDicomJson(await this.toGeneralDicomJson());
+            },
             getAttributes: async function () {
                 let jsonStr = JSON.stringify(this.toDicomJson());
                 return await Common.getAttributesFromJsonString(jsonStr);
+            },
+            /**
+             * 
+             * @param {"SCHEDULED" | "ARRIVED" | "READY" | "STARTED" | "DEPARTED" | "CANCELED" | "DISCONTINUED" | "COMPLETED"} status 
+             */
+            updateStatus: async function (status) {
+                this.$set(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}.Value.0`, status);
+                await this.save();
             }
         }
     }
