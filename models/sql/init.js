@@ -169,7 +169,13 @@ async function init() {
             as: dictionary.tag["00404037"]
         });
 
-        WorkItemModel.hasMany(UpsSubscriptionModel);
+        WorkItemModel.belongsToMany(UpsSubscriptionModel, {
+            through: "workitems_subscriptions"
+        });
+        UpsSubscriptionModel.belongsToMany(WorkItemModel, {
+            through: "workitems_subscriptions"
+        });
+
         WorkItemModel.hasOne(UpsRequestAttributesModel, {
             foreignKey: "upsInstanceUID",
             sourceKey: "upsInstanceUID"
