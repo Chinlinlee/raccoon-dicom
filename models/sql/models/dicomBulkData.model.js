@@ -2,7 +2,16 @@ const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 
-class DicomBulkDataModel extends Model {};
+class DicomBulkDataModel extends Model {
+    static async createOrUpdateBulkData(query, newBulkData, options) {
+        return await DicomBulkDataModel.findOrCreate({
+            where: {
+                ...query
+            },
+            defaults: newBulkData
+        });
+    }
+};
 
 DicomBulkDataModel.init({
     studyUID: {

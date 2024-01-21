@@ -1,19 +1,9 @@
-const _ = require("lodash");
-const shortHash = require("shorthash2");
-const fsP = require("fs/promises");
-const path = require("path");
-const mkdirp = require("mkdirp");
-
-const { BaseDicomJson, DicomJsonModel, DicomJsonBinaryDataModel } = require("@models/DICOM/dicom-json-model");
+const { BaseDicomJson, DicomJsonModel, DicomJsonBinaryDataModel, BulkData } = require("@models/DICOM/dicom-json-model");
 const { PatientPersistentObject } = require("./po/patient.po");
 const { StudyPersistentObject } = require("./po/study.po");
 const { SeriesPersistentObject } = require("./po/series.po");
 const { InstancePersistentObject } = require("./po/instance.po");
 const { StudyModel } = require("./models/study.model");
-const { DicomBulkDataModel } = require("./models/dicomBulkData.model");
-
-const { raccoonConfig } = require("@root/config-class");
-const { logger } = require("@root/utils/logs/log");
 
 DicomJsonModel.prototype.storeToDb = async function (dicomFileSaveInfo) {
     let dbJson = this.getCleanDataBeforeStoringToDb(dicomFileSaveInfo);
@@ -59,36 +49,7 @@ class SqlDicomJsonBinaryDataModel extends DicomJsonBinaryDataModel{
     }
 }
 
-class BulkData {
-    constructor(uidObj, filename, pathOfBinaryProperty) {
-        /** @type {import("../../utils/typeDef/dicom").UIDObject} */
-        this.uidObj = uidObj;
-        this.filename = filename;
-        this.pathOfBinaryProperty = pathOfBinaryProperty;
-    }
-
-    async storeToDb() {
-
-        let item = {
-            studyUID: this.uidObj.studyUID,
-            seriesUID: this.uidObj.seriesUID,
-            instanceUID: this.uidObj.sopInstanceUID,
-            filename: this.filename,
-            binaryValuePath: this.pathOfBinaryProperty
-        };
-
-        await DicomBulkDataModel.findOrCreate({
-            where: {
-                instanceUID: this.uidObj.sopInstanceUID,
-                binaryValuePath: this.pathOfBinaryProperty
-            },
-            defaults: item
-        });
-
-        logger.info(`[STOW-RS] [Store bulkdata ${JSON.stringify(item)} successful]`);
-    }
-}
-
 module.exports.DicomJsonModel = DicomJsonModel;
 module.exports.BaseDicomJson = BaseDicomJson;
 module.exports.DicomJsonBinaryDataModel = SqlDicomJsonBinaryDataModel;
+module.exports.BulkData = BulkData;
