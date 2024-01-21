@@ -4,9 +4,10 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 const { raccoonConfig } = require("@root/config-class");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
 const { UpsQueryBuilder } = require("@models/sql/query/upsQueryBuilder");
-const { DicomJsonModel } = require("../dicom-json-model");
+const { DicomJsonModel, BaseDicomJson } = require("../dicom-json-model");
 const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
 const { merge } = require("lodash");
+const { PatientModel } = require("./patient.model");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -25,6 +26,19 @@ class WorkItemModel extends Model {
 
     toDicomJsonModel() {
         return new DicomJsonModel(this.json);
+    }
+
+    async toGeneralDicomJson() {
+        return this.json;
+    }
+
+    async toDicomJson() {
+        return new BaseDicomJson(await this.toGeneralDicomJson());
+    }
+
+    async subscribe(subscription) {
+        this.subscribed = subscription;
+        return await this.save();
     }
 
     /**
@@ -79,20 +93,58 @@ class WorkItemModel extends Model {
         }
     }
 
-    static async findOneWorkItemByUpsInstanceUID(upsInstanceUID) {
+    static async findOneByUpsInstanceUID(upsInstanceUID) {
         let workItemObj = await WorkItemModel.findOne({
             where: {
                 upsInstanceUID: upsInstanceUID
             }
         });
-        if (!workItemObj) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
         return workItemObj;
+    }
+
+    static async findNotSubscribedWorkItems() {
+        return await WorkItemModel.findAll({
+            where: {
+                subscribed: SUBSCRIPTION_STATE.NOT_SUBSCRIBED
+            }
+        }) || [];
+    }
+
+
+
+    static async createWorkItemAndPatient(generalDicomJson) {
+        const { UpsWorkItemPersistentObject } = require("../po/upsWorkItem.po");
+
+        let patient = await PatientModel.createOrUpdatePatient(generalDicomJson);
+        let workItem = new UpsWorkItemPersistentObject(generalDicomJson, patient);
+        return await workItem.save();
+    }
+
+    static async updateOneByUpsInstanceUID(upsInstanceUID, generalDicomJson, options) {
+        const { UpsWorkItemPersistentObject } = require("../po/upsWorkItem.po");
+        let workItem = await WorkItemModel.findOne({
+            where: {
+                upsInstanceUID: upsInstanceUID
+            }
+        });
+        let patient = await workItem.getPatient();
+        generalDicomJson.upsInstanceUID = upsInstanceUID;
+        let upsPO = new UpsWorkItemPersistentObject(generalDicomJson, patient);
+        return await upsPO.save(options?.adjust);
+    }
+
+    static async getCountWithQueryAndUpsInstanceUID(query, upsInstanceUID) {
+        let queryOptions = {
+            query: query
+        };
+        let upsQueryBuilder = new UpsQueryBuilder(queryOptions);
+        let dbQuery = upsQueryBuilder.build();
+        return WorkItemModel.count({
+            where: {
+                ...dbQuery,
+                upsInstanceUID: upsInstanceUID
+            }
+        });
     }
 };
 

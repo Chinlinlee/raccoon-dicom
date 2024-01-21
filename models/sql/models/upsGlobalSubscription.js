@@ -4,8 +4,50 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
 
 class UpsGlobalSubscriptionModel extends Model {
-    static async cursor(query) {
+    static async getCursor(query) {
         return new UpsGlobalSubscriptionModelCursor(query);
+    }
+
+    static async createGlobalSubscription(globalSubscription) {
+        return await UpsGlobalSubscriptionModel.create(globalSubscription);
+    }
+
+    /**
+     * 
+     * @param {UpsGlobalSubscriptionModel} globalSubscription 
+     * @param {any} query 
+     * @param {boolean} isDeletionLock 
+     * @param {number} subscribed 
+     */
+    static async updateRepositoryInstance(globalSubscription, query, isDeletionLock, subscribed) {
+        globalSubscription.isDeletionLock = isDeletionLock;
+        globalSubscription.subscribed = subscribed;
+        globalSubscription.queryKeys = query;
+        return await globalSubscription.save();
+    }
+
+    static async findOneByAeTitle(aeTitle) {
+        return await UpsGlobalSubscriptionModel.findOne({ 
+            where: {
+                aeTitle
+            } 
+        });
+    }
+
+    static async getCountByAeTitle(aeTitle) {
+        return await UpsGlobalSubscriptionModel.count({
+            where: {
+                aeTitle
+            }
+        });
+    }
+
+    static async deleteOneByAeTitle(aeTitle) {
+        return await UpsGlobalSubscriptionModel.destroy({
+            where: {
+                aeTitle
+            }
+        });
     }
 };
 
