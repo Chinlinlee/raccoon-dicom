@@ -6,4 +6,4 @@ class AuditMessageModelLoggerDbImpl {
     }
 }
 
-module.exports.AuditMessageModelLoggerDbImpl = AuditMessageModelLoggerDbImpl;
+module.exports.AuditMessageModel = AuditMessageModelLoggerDbImpl;
