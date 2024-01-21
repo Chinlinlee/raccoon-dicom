@@ -38,19 +38,6 @@ class SqlDbConfig {
     }
 }
 
-class MongoDbConfig {
-    constructor() {
-        this.dbName = env.get("MONGODB_NAME").default("raccoon").asString();
-        this.hosts = env.get("MONGODB_HOSTS").required().asJsonArray();
-        this.ports = env.get("MONGODB_PORTS").required().asJsonArray();
-        this.user = env.get("MONGODB_USER").default("").asString();
-        this.password = env.get("MONGODB_PASSWORD").default("").asString();
-        this.authSource = env.get("MONGODB_AUTH_SOURCE").default("admin").asString();
-        this.urlOptions = env.get("MONGODB_OPTIONS").default("").asString();
-        this.isShardingMode = env.get("MONGODB_IS_SHARDING_MODE").default("false").asBool();
-    }
-}
-
 class ServerConfig {
     constructor() {
         this.host = env.get("SERVER_HOST").default("127.0.0.1").asString();
@@ -82,11 +69,7 @@ class RaccoonConfig {
     constructor() {
         this.serverConfig = new ServerConfig();
 
-        if (this.serverConfig.dbType === "mongodb") {
-            this.dbConfig = new MongoDbConfig();
-        } else if (this.serverConfig.dbType === "sql") {
-            this.dbConfig = new SqlDbConfig();
-        }
+        this.dbConfig = new SqlDbConfig();
 
         this.dicomWebConfig = new DicomWebConfig();
         this.dicomDimseConfig = new DimseConfig();
@@ -101,7 +84,6 @@ class RaccoonConfig {
         this.mediaStorageID = this.dbConfig.dbName;
 
         this.aeTitle = this.dicomWebConfig.aeTitle;
-        // this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.getAeTitle() : this.dicomWebConfig.aeTitle;
 
         this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.aeTitle : this.dicomWebConfig.aeTitle;
         if (!this.aeTitle)

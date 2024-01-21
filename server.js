@@ -1,11 +1,7 @@
 RegExp.prototype.toJSON = RegExp.prototype.toString;
 const { raccoonConfig } = require("./config-class");
 
-if (raccoonConfig.serverConfig.dbType === "mongodb") {
-    require('module-alias')(__dirname + "/config/modula-alias/mongodb");
-} else if (raccoonConfig.serverConfig.dbType === "sql") {
-    require('module-alias')(__dirname + "/config/modula-alias/sql");
-}
+require('module-alias')(__dirname + "/config/modula-alias/sql");
 
 const { app, server } = require("./app");
 const bodyParser = require("body-parser");
@@ -15,26 +11,11 @@ const compress = require("compression");
 const cors = require("cors");
 const os = require("os");
 
-let sessionStore;
-let dbInstance;
-let sessionStoreOption;
-if (raccoonConfig.serverConfig.dbType === "mongodb") {
-    sessionStore = require("connect-mongo");
-    dbInstance = require("mongoose");
-
-    sessionStoreOption = sessionStore.create({
-        client: dbInstance.connection.getClient(),
-        dbName: raccoonConfig.dbConfig.dbName
-    });
-
-} else if (raccoonConfig.serverConfig.dbType === "sql") {
-    sessionStore = require("connect-session-sequelize")(session.Store);
-    dbInstance = require("./models/sql/instance");
-
-    sessionStoreOption =  new sessionStore({
-        db: dbInstance
-    });
-}
+let sessionStore = require("connect-session-sequelize")(session.Store);;
+let dbInstance = require("./models/sql/instance");;
+let sessionStoreOption = new sessionStore({
+    db: dbInstance
+});
 
 const passport = require("passport");
 const { DcmQrScp } = require('@dimse');
@@ -120,7 +101,7 @@ if (osPlatform.includes("linux")) {
                     let dcmQrScp = new DcmQrScp();
                     await dcmQrScp.start();
                     console.log(`QRSCP Service info: ${raccoonConfig.dicomDimseConfig.aeTitle}@${raccoonConfig.dicomDimseConfig.hostname}:${raccoonConfig.dicomDimseConfig.port}`);
-                } catch(e) {
+                } catch (e) {
                     if (e.message.includes("Address already in use")) console.log("QRSCP service is already running");
                     else console.log(e);
                 }

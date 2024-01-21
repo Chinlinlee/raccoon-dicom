@@ -11,6 +11,6 @@
         "@dicom-json-model": "../../../models/sql/dicom-json-model.js",
         "@stow-rs-service": "../../../api/dicom-web/controller/STOW-RS/service/stow-rs.service.js",
         "@dimse": "../../../dimse-sql",
-        "@api": "../../../api-sql"
+        "@api": "../../../api"
     }
 }
