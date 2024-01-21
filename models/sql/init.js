@@ -13,7 +13,7 @@ const { DicomContentSqModel } = require("./models/dicomContentSQ.model");
 const { VerifyIngObserverSqModel } = require("./models/verifyingObserverSQ.model");
 const { WorkItemModel } = require("./models/workitems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { UpsSubscriptionModel } = require("./models/upsSubscription.model");
+const { UpsSubscriptionModel } = require("./models/upsSubscription");
 const { UpsRequestAttributesModel } = require("./models/upsRequestAttributes.model");
 const { MwlItemModel } = require("./models/mwlitems.model");
 
