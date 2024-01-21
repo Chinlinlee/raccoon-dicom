@@ -15,8 +15,8 @@ class StoreInstanceController extends Controller {
         let startSTOWTime = performance.now();
         let retCode;
         let storeMessage;
-        let apiLogger = new ApiLogger(this.request, "STOW-RS");
-        apiLogger.addTokenValue();
+        this.apiLogger = new ApiLogger(this.request, "STOW-RS");
+        this.apiLogger.addTokenValue();
     
         try {
             let requestMultipartParser = new StowRsRequestMultipartParser(this.request);
@@ -31,7 +31,7 @@ class StoreInstanceController extends Controller {
             }
             let endSTOWTime = performance.now();
             let elapsedTime = (endSTOWTime - startSTOWTime).toFixed(3);
-            apiLogger.logger.info(`Finished STOW-RS, elapsed time: ${elapsedTime} ms`);
+            this.apiLogger.logger.info(`Finished STOW-RS, elapsed time: ${elapsedTime} ms`);
     
             this.response.writeHead(retCode, {
                 "Content-Type": "application/dicom"
