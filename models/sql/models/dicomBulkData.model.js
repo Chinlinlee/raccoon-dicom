@@ -11,6 +11,61 @@ class DicomBulkDataModel extends Model {
             defaults: newBulkData
         });
     }
+
+    /**
+     * 
+     * @param {Object} query 
+     * @param {string} query.studyUID
+     * @param {string} query.seriesUID
+     * @param {string} query.instanceUID
+     * @param {string} query.binaryValuePath
+     * @param {*} options 
+     */
+    static async findOneBulkData(query, options) {
+        return await DicomBulkDataModel.findOne({
+            where: {
+                ...query
+            }
+        });
+    }
+
+    static async findStudyBulkData(query) {
+        return await DicomBulkDataModel.findAll({
+            where: {
+                studyUID: query.studyUID
+            }
+        });
+    }
+
+    static async findSeriesBulkData(query) {
+        return await DicomBulkDataModel.findAll({
+            where: {
+                studyUID: query.studyUID,
+                seriesUID: query.seriesUID
+            }
+        });
+    }
+
+    static async findInstanceBulkData(query) {
+        return await DicomBulkDataModel.findAll({
+            where: {
+                studyUID: query.studyUID,
+                seriesUID: query.seriesUID,
+                instanceUID: query.instanceUID
+            }
+        });
+    }
+
+    static async findSpecificBulkData(query) {
+        return await DicomBulkDataModel.findAll({
+            where: {
+                studyUID: query.studyUID,
+                seriesUID: query.seriesUID,
+                instanceUID: query.instanceUID,
+                binaryValuePath: query.binaryValuePath
+            }
+        });
+    }
 };
 
 DicomBulkDataModel.init({
