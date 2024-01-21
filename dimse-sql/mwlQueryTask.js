@@ -11,7 +11,7 @@ const { QueryTaskUtils } = require("./utils");
 const { default: BasicModQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/BasicModQueryTask");
 const { MwlItemModel } = require("@models/sql/models/mwlitems.model");
 const { JsMwlQueryTask } = require("@root/dimse/mwlQueryTask");
-const { MwlQueryBuilder } = require("@root/api-sql/dicom-web/controller/MWL-RS/service/query/mwlQueryBuilder");
+const { MwlQueryBuilder } = require("@models/sql/query/mwlQueryBuilder");
 
 
 class SqlJsMwlQueryTask extends JsMwlQueryTask {

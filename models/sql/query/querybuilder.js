@@ -52,16 +52,20 @@ class BaseQueryBuilder {
             let wildCardValues = commaValue.map(v => this.getWildCardQuery(v[key]));
             try {
                 let query;
-                if (key.includes(".")) {
-                    query = this[key](wildCardValues);
+                let sanitizedKey = key.split(".").filter(v => v !== "Value").join(".");
+                if (sanitizedKey.includes(".")) {
+                    query = this[sanitizedKey](wildCardValues);
                 } else {
-                    query = this[`get${dictionary.tag[key]}`](wildCardValues);
+                    query = this[`get${dictionary.tag[sanitizedKey]}`](wildCardValues);
                 }
 
-                this.query[Op.and] = [
-                    ...this.query[Op.and],
-                    query
-                ];
+                if (query) {
+                    this.query[Op.and] = [
+                        ...this.query[Op.and],
+                        query
+                    ];
+                }
+                
             } catch (e) {
                 if (e.message.includes("not a function")) break;
                 logger.error(e);

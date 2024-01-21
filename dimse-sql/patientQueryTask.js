@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const { createPatientQueryTaskInjectProxy } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/PatientQueryTaskInject");
 const { DimseQueryBuilder } = require("@dimse/queryBuilder");
-const { PatientQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/patientQueryBuilder");
+const { PatientQueryBuilder } = require("@models/sql/query/patientQueryBuilder");
 const { PatientModel } = require("@models/sql/models/patient.model");
 const { JsPatientQueryTask } = require("../dimse/patientQueryTask");
 const { QueryTaskUtils } = require("@root/dimse/utils");

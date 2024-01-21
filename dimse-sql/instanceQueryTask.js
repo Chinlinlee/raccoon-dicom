@@ -4,7 +4,7 @@ const { JsSeriesQueryTask } = require("./seriesQueryTask");
 const { InstanceQueryTask } = require("@java-wrapper/org/github/chinlinlee/dcm777/net/InstanceQueryTask");
 const { Attributes } = require("@dcm4che/data/Attributes");
 const { InstanceModel } = require("@models/sql/models/instance.model");
-const { InstanceQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/instanceQueryBuilder");
+const { InstanceQueryBuilder } = require("@models/sql/query/instanceQueryBuilder");
 const { InstanceQueryTaskInjectProxy, InstanceMatchIteratorProxy } = require("@root/dimse/instanceQueryTask");
 const { QueryTaskUtils } = require("@root/dimse/utils");
 

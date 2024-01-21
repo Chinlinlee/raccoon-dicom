@@ -1,8 +1,8 @@
 const sequelize = require("@models/sql/instance");
-const { PatientQueryBuilder } = require("../../../QIDO-RS/service/patientQueryBuilder");
-const { BaseQueryBuilder } = require("../../../QIDO-RS/service/querybuilder");
+const { PatientQueryBuilder } = require("../query/patientQueryBuilder");
+const { BaseQueryBuilder } = require("../query/querybuilder");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { DicomCodeQueryBuilder } = require("../../../QIDO-RS/service/dicomCodeQueryBuilder");
+const { DicomCodeQueryBuilder } = require("../query/dicomCodeQueryBuilder");
 const { get } = require("lodash");
 
 class UpsQueryBuilder extends BaseQueryBuilder {

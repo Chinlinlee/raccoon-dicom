@@ -6,7 +6,7 @@ const { raccoonConfig } = require("@root/config-class");
 const { InstanceLocator } = require("@dcm4che/net/service/InstanceLocator");
 const { default: File } = require("@java-wrapper/java/io/File");
 const sequenceInstance = require("@models/sql/instance");
-const { InstanceQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/instanceQueryBuilder");
+const { InstanceQueryBuilder } = require("@models/sql/query/instanceQueryBuilder");
 const { QueryTaskUtils } = require("@root/dimse/utils");
 /**
  * 

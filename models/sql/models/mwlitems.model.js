@@ -3,7 +3,7 @@ const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { raccoonConfig } = require("@root/config-class");
 const { DicomJsonModel } = require("../dicom-json-model");
-const { MwlQueryBuilder } = require("@root/api-sql/dicom-web/controller/MWL-RS/service/query/mwlQueryBuilder");
+const { MwlQueryBuilder } = require("@models/sql/query/mwlQueryBuilder");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {

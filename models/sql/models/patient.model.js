@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
-const { PatientQueryBuilder } = require("@root/api-sql/dicom-web/controller/QIDO-RS/service/patientQueryBuilder");
+const { PatientQueryBuilder } = require("../query/patientQueryBuilder");
 const { raccoonConfig } = require("@root/config-class");
 const { BaseDicomModel } = require("./baseDicom.model");
 

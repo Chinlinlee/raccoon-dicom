@@ -8,7 +8,7 @@ const {
     QueryStudyDicomJsonFactory, 
     QuerySeriesDicomJsonFactory, 
     QueryInstanceDicomJsonFactory 
-} = require("@api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
+} = require("@models/sql/query/query-dicom-json-factory");
 const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 const HierarchyQueryDicomJsonFactory = Object.freeze({
