@@ -104,18 +104,28 @@ class InstanceModel extends BaseDicomModel {
                     raccoonConfig.dicomWebConfig.storeRootPath,
                     instanceJson.instancePath
                 ));
-                _.set(instanceJson, "00280008", {
-                    vr: dictionary.keyword.NumberOfFrames,
-                    Value: [instance?.x00280008]
-                });
-                _.set(instanceJson, "00281050", {
-                    vr: dictionary.keyword.WindowCenter,
-                    Value: [instance?.x00281050]
-                });
-                _.set(instanceJson, "00281051", {
-                    vr: dictionary.keyword.WindowWidth,
-                    Value: [instance?.x00281051]
-                });
+
+                if (instance?.x00280008) {
+                    _.set(instanceJson, "00280008", {
+                        vr: dictionary.keyword.NumberOfFrames,
+                        Value: [instance?.x00280008 || 1]
+                    });
+                }
+                
+                if (instance?.x00281050) {
+                    _.set(instanceJson, "00281050", {
+                        vr: dictionary.keyword.WindowCenter,
+                        Value: [Array.isArray(instance?.x00281050) ? instance.x00281050[0] : instance.x00281050]
+                    });
+                }
+                
+                if (instance?.x00281051) {
+                    _.set(instanceJson, "00281051", {
+                        vr: dictionary.keyword.WindowWidth,
+                        Value: [Array.isArray(instance?.x00281051) ? instance.x00281051[0] : instance.x00281051]
+                    });
+                }
+                
 
                 return instanceJson;
             }

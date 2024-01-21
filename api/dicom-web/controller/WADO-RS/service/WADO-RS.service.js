@@ -1,12 +1,13 @@
 const _ = require("lodash");
 const path = require("path");
 const fsP = require("fs/promises");
-const mongoose = require("mongoose");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { raccoonConfig } = require("../../../../../config-class");
 const { JSONPath } = require("jsonpath-plus");
 const { DicomWebService } = require("../../../service/dicom-web.service");
+const { StudyModel } = require("@dbModels/study.model");
+const { SeriesModel } = require("@dbModels/series.model");
 const { InstanceModel } = require("@dbModels/instance.model");
 const { logger } = require("../../../../../utils/logs/log");
 const { RetrieveAuditService } = require("./retrieveAudit.service");
@@ -150,7 +151,7 @@ class StudyImagePathFactory extends ImagePathFactory {
     }
 
     async getImagePaths() {
-        this.imagePaths = await mongoose.model("dicomStudy").getPathGroupOfInstances(this.uids);
+        this.imagePaths = await StudyModel.getPathGroupOfInstances(this.uids);
     }
 }
 
@@ -160,7 +161,7 @@ class SeriesImagePathFactory extends ImagePathFactory {
     }
 
     async getImagePaths() {
-        this.imagePaths = await mongoose.model("dicomSeries").getPathGroupOfInstances(this.uids);
+        this.imagePaths = await SeriesModel.getPathGroupOfInstances(this.uids);
     }
 }
 
