@@ -60,7 +60,7 @@ class UpsWorkItemPersistentObject {
         });
     }
 
-    async save() {
+    async save(adjust=true) {
         let upsWorkItemObj = WorkItemModel.build(this.getPersistentObject());
         let [upsWorkItem, created] = await WorkItemModel.findOrCreate({
             where: {
@@ -85,7 +85,9 @@ class UpsWorkItemPersistentObject {
 
         if (!created) {
             await this.removeAllAssociationItems(tempUpsWorkItem);
-            this.adjustUpdateWorkItem();
+            if (adjust) {
+                this.adjustUpdateWorkItem();
+            }
             upsWorkItem.json = {
                 ...upsWorkItem.json,
                 ...this.json
