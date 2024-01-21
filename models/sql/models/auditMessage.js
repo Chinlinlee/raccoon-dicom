@@ -1,7 +1,7 @@
 const { logger } = require("@root/utils/logs/log");
 
 class AuditMessageModelLoggerDbImpl {
-    createMessage(msg) {
+    static createMessage(msg) {
         logger.info(JSON.stringify(msg));
     }
 }
