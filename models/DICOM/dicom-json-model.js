@@ -9,7 +9,7 @@ const {
 } = require("./dcmtk");
 const flat = require("flat");
 const shortHash = require("shorthash2");
-const dicomBulkDataModel = require("@dbModels/dicomBulkData.model");
+const { DicomBulkDataModel } = require("@dbModels/dicomBulkData.model");
 const { logger } = require("../../utils/logs/log");
 const { tagsNeedStore } = require("./dicom-tags-mapping");
 
@@ -591,7 +591,7 @@ class BulkData {
             binaryValuePath: this.pathOfBinaryProperty
         };
 
-        await dicomBulkDataModel.createOrUpdateBulkData(
+        await DicomBulkDataModel.createOrUpdateBulkData(
             {
                 instanceUID: this.uidObj.instanceUID,
                 binaryValuePath: this.pathOfBinaryProperty
