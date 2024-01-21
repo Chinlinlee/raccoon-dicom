@@ -190,10 +190,8 @@ class InstancePersistentObject {
             x00280008: this.x00280008,
             x00281050: this.x00281050 ? this.x00281050.join("\\"): undefined,
             x00281051: this.x00281051 ? this.x00281051.join("\\"): undefined,
-            x0040A073: this.x0040A073,
             x0040A491: this.x0040A491,
             x0040A493: this.x0040A493,
-            x0040A730: this.x0040A730,
             instancePath: this.instancePath,
             deleteStatus: 0
         };
