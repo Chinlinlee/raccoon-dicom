@@ -1,10 +1,11 @@
+const { set ,merge } = require("lodash");
+
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const sequelizeInstance = require("@models/sql/instance");
 const { vrTypeMapping } = require("../vrTypeMapping");
 const { raccoonConfig } = require("@root/config-class");
 const { DicomJsonModel } = require("../dicom-json-model");
 const { MwlQueryBuilder } = require("@models/sql/query/mwlQueryBuilder");
-const { MwlItemPersistentObject } = require("../po/mwlItem.po");
 const { PatientModel } = require("./patient.model");
 
 let Common;
@@ -39,13 +40,13 @@ class MwlItemModel extends Model {
 
         let mwlItems = await MwlItemModel.findAll({
             ...q,
-            attributes: ["json"],
+            attributes: ["json", "sps_status"],
             limit: queryOptions.limit,
             offset: queryOptions.skip
         });
 
         return await Promise.all(mwlItems.map(async item => {
-            return item.json;
+            return await item.toGeneralDicomJson();
         }));
     }
 
@@ -59,6 +60,7 @@ class MwlItemModel extends Model {
 
 
     static async createWithGeneralDicomJson(generalDicomJson) {
+        const { MwlItemPersistentObject } = require("../po/mwlItem.po");
         let patient = await PatientModel.findOne({
             where: {
                 x00100020: generalDicomJson?.["00100020"]?.Value?.[0]
@@ -72,6 +74,23 @@ class MwlItemModel extends Model {
         return await MwlItemModel.createWithGeneralDicomJson(generalDicomJson);
     }
 
+    static async updateStatusByQuery(query, status) {
+        let queryOptions = {
+            query: query
+        };
+        
+        let queryBuilder = new MwlQueryBuilder(queryOptions);
+        let q = queryBuilder.build();
+
+        let updatedCount  =  await MwlItemModel.update({
+            sps_status: status
+        },{
+            ...q
+        });
+
+        return updatedCount[0];
+    }
+
     static async deleteByStudyInstanceUIDAndSpsID(studyUID, spsID) {
         let deletedCount = await MwlItemModel.destroy({
             where: {
@@ -80,6 +99,15 @@ class MwlItemModel extends Model {
             }
         });
         return { deletedCount };
+    }
+
+    async toGeneralDicomJson() {
+        return set(this.json, "00400100.Value.0.00400020.Value.0", this.sps_status);
+    }
+
+    async updateStatus(status) {
+        this.sps_status = status;
+        await this.save();
     }
 };
 
