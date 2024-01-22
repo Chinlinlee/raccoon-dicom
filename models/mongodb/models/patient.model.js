@@ -70,6 +70,11 @@ let patientSchemaOptions = _.merge(
 
                 return patient;
             },
+            findOneByPatientID: async function(patientID) {
+                return await mongoose.model("patient").findOne({
+                    patientID
+                });
+            },
             /**
              * 
              * @param {string} patientID 
