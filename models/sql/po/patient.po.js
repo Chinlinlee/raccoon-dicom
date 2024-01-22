@@ -72,7 +72,7 @@ class PatientPersistentObject {
             await this.updatePersonName(patient);
         }
 
-        return patient;
+        return patient.reload();
     }
 
 }
