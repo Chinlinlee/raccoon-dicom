@@ -13,6 +13,15 @@ const { BaseDicomModel } = require("./baseDicom.model");
 const notImageSOPClass = require("@models/DICOM/dicomWEB/notImageSOPClass");
 
 class InstanceModel extends BaseDicomModel {
+    async findOneByDicomUID({ studyUID, seriesUID, instanceUID }) {
+        return await InstanceModel.findOne({
+            where: {
+                x0020000D: studyUID,
+                x0020000E: seriesUID,
+                x00080018: instanceUID
+            }
+        });
+    }
 
     async deleteInstance() {
         let instancePath = this.getDataValue("instancePath");
