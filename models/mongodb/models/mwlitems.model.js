@@ -103,7 +103,16 @@ let mwlItemSchema = new mongoose.Schema(
                 });
                 return await mwlItem.save();
             },
-            findMwlItems: async function(query) {
+            updateStatusByQuery: async function (query, status) {
+                let mongoQuery = (await convertRequestQueryToMongoQuery(query)).$match;
+                let updateResult = await mongoose.model("mwlItems").updateMany(mongoQuery, {
+                    $set: {
+                        [`${dictionary.keyword.ScheduledProcedureStepSequence.tag}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus.tag}.Value.0`]: status
+                    }
+                }).exec();
+                return updateResult.modifiedCount;
+            },
+            findMwlItems: async function (query) {
                 let mongoQuery = await convertRequestQueryToMongoQuery(query);
                 return await mongoose.model("mwlItems").find(mongoQuery);
             }

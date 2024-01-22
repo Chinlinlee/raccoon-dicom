@@ -12,21 +12,10 @@ class ChangeFilteredMwlItemStatusService extends BaseQueryService {
 
     async changeMwlItemsStatus() {
         let { status } = this.request.params;
-        let mwlItems = await this.getMwlItems();
-        if (mwlItems.length === 0) {
-            throw new DicomWebServiceError(DicomWebStatusCodes.NoSuchObjectInstance, "Can not found any MWL item from query", 404);
-        }
 
-        for (let mwlItem of mwlItems) {
-            _.set(mwlItem, `${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}.Value.0`, status);
-            await mwlItem.save();
-        }
+        let updatedCount = await MwlItemModel.updateStatusByQuery(this.query, status);
         
-        return mwlItems.length;
-    }
-
-    async getMwlItems() {
-        return await MwlItemModel.findMwlItems(this.query);
+        return updatedCount;
     }
 }
 
