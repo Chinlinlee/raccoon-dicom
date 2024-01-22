@@ -14,6 +14,10 @@ class PatientModel extends BaseDicomModel {
 
         return bringPatient;
     }
+
+    async toGeneralDicomJson() {
+        return this.json;
+    }
 };
 
 PatientModel.init({
