@@ -15,6 +15,10 @@ class PatientModel extends BaseDicomModel {
         return bringPatient;
     }
 
+    static async getCountByPatientID(patientID) {
+        return await PatientModel.count({ where: { x00100020: patientID } });
+    }
+
     async toGeneralDicomJson() {
         return this.json;
     }
