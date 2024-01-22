@@ -28,7 +28,7 @@ class DeleteService {
     }
 
     async deleteStudy() {
-        let study = await StudyModel.findOne({
+        let study = await StudyModel.findOneByDicomUID({
             ...this.request.params
         });
 
@@ -46,7 +46,7 @@ class DeleteService {
     }
 
     async deleteSeries() {
-        let aSeries = await SeriesModel.findOne({
+        let aSeries = await SeriesModel.findOneByDicomUID({
             ...this.request.params
         });
 
@@ -64,7 +64,7 @@ class DeleteService {
 
 
     async deleteInstance() {
-        let instance = await InstanceModel.findOne({
+        let instance = await InstanceModel.findOneByDicomUID({
             ...this.request.params
         });
 
