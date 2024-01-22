@@ -4,6 +4,8 @@ const { vrTypeMapping } = require("../vrTypeMapping");
 const { raccoonConfig } = require("@root/config-class");
 const { DicomJsonModel } = require("../dicom-json-model");
 const { MwlQueryBuilder } = require("@models/sql/query/mwlQueryBuilder");
+const { MwlItemPersistentObject } = require("../po/mwlItem.po");
+const { PatientModel } = require("./patient.model");
 
 let Common;
 if (raccoonConfig.dicomDimseConfig.enableDimse) {
@@ -21,6 +23,16 @@ class MwlItemModel extends Model {
     toDicomJsonModel() {
         return new DicomJsonModel(this.json);
     }
+
+    static async findOneByStudyInstanceUIDAndSpsID(studyUID, spsID) {
+        return await MwlItemModel.findOne({
+            where: {
+                study_instance_uid: studyUID,
+                sps_id: spsID
+            }
+        });
+    }
+
     static async getDicomJson (queryOptions) {
         let queryBuilder = new MwlQueryBuilder(queryOptions);
         let q = queryBuilder.build();
@@ -43,6 +55,21 @@ class MwlItemModel extends Model {
         return await this.count({
             ...q
         });
+    }
+
+
+    static async createWithGeneralDicomJson(generalDicomJson) {
+        let patient = await PatientModel.findOne({
+            where: {
+                x00100020: generalDicomJson?.["00100020"]?.Value?.[0]
+            }
+        });
+        let mwlItemPo = new MwlItemPersistentObject(generalDicomJson, patient);
+        return await mwlItemPo.save();
+    }
+
+    static async updateOneWithGeneralDicomJson(mwlItem, generalDicomJson) {
+        return await MwlItemModel.createWithGeneralDicomJson(generalDicomJson);
     }
 
     static async deleteByStudyInstanceUIDAndSpsID(studyUID, spsID) {
