@@ -34,6 +34,9 @@ let dicomSeriesSchemaOptions = _.merge(
             }
         },
         statics: {
+            findOneByDicomUID: async function({ studyUID, seriesUID }) {
+                return await mongoose.model("dicomSeries").findOne({ studyUID, seriesUID }).exec();
+            },
             /**
              * 
              * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
