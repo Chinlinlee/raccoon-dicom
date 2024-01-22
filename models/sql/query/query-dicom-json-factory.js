@@ -3,7 +3,8 @@ const {
     QueryPatientDicomJsonFactory, 
     QueryStudyDicomJsonFactory, 
     QuerySeriesDicomJsonFactory, 
-    QueryInstanceDicomJsonFactory 
+    QueryInstanceDicomJsonFactory,
+    QueryMwlDicomJsonFactory
 } = require("@root/api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
 
 QueryDicomJsonFactory.prototype.getDicomJson = async function () {
@@ -15,3 +16,4 @@ module.exports.QueryPatientDicomJsonFactory = QueryPatientDicomJsonFactory;
 module.exports.QueryStudyDicomJsonFactory = QueryStudyDicomJsonFactory;
 module.exports.QuerySeriesDicomJsonFactory = QuerySeriesDicomJsonFactory;
 module.exports.QueryInstanceDicomJsonFactory = QueryInstanceDicomJsonFactory;
+module.exports.QueryMwlDicomJsonFactory = QueryMwlDicomJsonFactory;

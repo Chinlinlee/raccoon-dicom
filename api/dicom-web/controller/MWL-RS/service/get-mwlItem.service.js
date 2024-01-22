@@ -1,6 +1,6 @@
 const { MwlItemModel } = require("@dbModels/mwlitems.model");
 const { BaseQueryService } = require("@root/api/dicom-web/service/base-query.service");
-const { QueryMwlDicomJsonFactory } = require("@api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
+const { QueryMwlDicomJsonFactory } = require("@models/sql/query/query-dicom-json-factory");
 
 class GetMwlItemService extends BaseQueryService {
     constructor(req, res) {
