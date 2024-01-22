@@ -154,6 +154,7 @@ StudyModel.updateModalitiesInStudy = async function (study) {
             Value: modalities
         }
     };
+    study.changed("json", true);
     await study.save();
 };
 
