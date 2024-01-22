@@ -11,7 +11,7 @@ class DeletePatientService {
 
     async delete() {
         let { patientID } = this.request.params;
-        let patient = await PatientModel.findOne({ patientID});
+        let patient = await PatientModel.findOneByPatientID(patientID);
         if (!patient) {
             throw new DicomWebServiceError(
                 DicomWebStatusCodes.NoSuchObjectInstance,
