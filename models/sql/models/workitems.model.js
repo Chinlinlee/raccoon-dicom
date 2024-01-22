@@ -114,8 +114,8 @@ class WorkItemModel extends Model {
 
     static async createWorkItemAndPatient(generalDicomJson) {
         const { UpsWorkItemPersistentObject } = require("../po/upsWorkItem.po");
-
-        let patient = await PatientModel.createOrUpdatePatient(generalDicomJson);
+        let patientID = generalDicomJson?.["00100010"]?.Value?.[0];
+        let patient = await PatientModel.createOrUpdatePatient(patientID, generalDicomJson);
         let workItem = new UpsWorkItemPersistentObject(generalDicomJson, patient);
         return await workItem.save();
     }

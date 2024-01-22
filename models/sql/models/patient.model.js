@@ -6,7 +6,7 @@ const { raccoonConfig } = require("@root/config-class");
 const { BaseDicomModel } = require("./baseDicom.model");
 
 class PatientModel extends BaseDicomModel { 
-    static async createOrUpdatePatient(patient) {
+    static async createOrUpdatePatient(patientID, patient) {
         /** @type {PatientModel | null} */
         const { PatientPersistentObject } = require("../po/patient.po");
         let patientPersistent = new PatientPersistentObject(patient);
