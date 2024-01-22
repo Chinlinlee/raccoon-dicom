@@ -4,8 +4,8 @@ const { StudyModel } = require("@dbModels/study.model");
 const { SeriesModel } = require("@dbModels/series.model");
 const { InstanceModel } = require("@dbModels/instance.model");
 const { WorkItemModel } = require("@dbModels/workitems.model");
+const { MwlItemModel } = require("@dbModels/mwlitems.model");
 const { convertRequestQueryToMongoQuery } = require("@models/mongodb/convertQuery");
-const { MwlItemModel } = require("@models/mongodb/models/mwlitems.model");
 
 /**
  * 
