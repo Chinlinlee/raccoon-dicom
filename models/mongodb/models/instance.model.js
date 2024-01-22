@@ -34,9 +34,6 @@ let dicomSchemaOptions = _.merge(
     {
         strict: false,
         methods: {
-            findOneByDicomUID: async function ({ studyUID, seriesUID, instanceUID }) {
-                return await mongoose.model("dicom").findOne({ studyUID, seriesUID, instanceUID }).exec();
-            },
             deleteDicomInstances: async function () {
                 let instancePath = this.instancePath;
                 try {
@@ -54,6 +51,9 @@ let dicomSchemaOptions = _.merge(
             }
         },
         statics: {
+            findOneByDicomUID: async function ({ studyUID, seriesUID, instanceUID }) {
+                return await mongoose.model("dicom").findOne({ studyUID, seriesUID, instanceUID }).exec();
+            },
             getAuditInstancesInfoFromStudyUID: async (studyUID) => {
                 let instances = await mongoose.model("dicom").find({ studyUID }).exec();
 
