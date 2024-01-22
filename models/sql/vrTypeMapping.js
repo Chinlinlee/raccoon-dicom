@@ -26,12 +26,12 @@ const vrTypeMapping = {
     "ST": DataTypes.STRING(1024+1),
     "SV": DataTypes.BIGINT,
     "TM": DataTypes.DECIMAL,
-    "UC": DataTypes.TEXT("long"),
+    "UC": DataTypes.TEXT,
     "UI": DataTypes.STRING,
     "UL": DataTypes.INTEGER.UNSIGNED,
-    "UR": DataTypes.TEXT("long"),
+    "UR": DataTypes.TEXT,
     "US": DataTypes.SMALLINT.UNSIGNED,
-    "UT": DataTypes.TEXT("long"),
+    "UT": DataTypes.TEXT,
     "UV": DataTypes.BIGINT.UNSIGNED,
     "JSON": raccoonConfig.dbConfig.dialect === "postgres" ? DataTypes.JSONB : DataTypes.JSON // For Array or SQ data
 };

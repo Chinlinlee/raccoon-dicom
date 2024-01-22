@@ -51,7 +51,7 @@ class SeriesModel extends BaseDicomModel {
 
 SeriesModel.init({
     "seriesPath": {
-        type: DataTypes.TEXT("long")
+        type: DataTypes.TEXT
     },
     "x0020000D": {
         type: vrTypeMapping.UI,

@@ -79,10 +79,10 @@ DicomBulkDataModel.init({
         type: vrTypeMapping.UI
     },
     filename: {
-        type: DataTypes.TEXT("long")
+        type: DataTypes.TEXT
     },
     binaryValuePath: {
-        type: DataTypes.TEXT("medium")
+        type: DataTypes.TEXT
     }
 }, {
     sequelize: sequelizeInstance,

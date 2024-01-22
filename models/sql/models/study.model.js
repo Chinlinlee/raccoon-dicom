@@ -74,7 +74,7 @@ class StudyModel extends BaseDicomModel {
 
 StudyModel.init({
     "studyPath": {
-        type: DataTypes.TEXT("long")
+        type: DataTypes.TEXT
     },
     "x00100020": {
         type: vrTypeMapping.LO,

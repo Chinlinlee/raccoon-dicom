@@ -148,7 +148,7 @@ class InstanceModel extends BaseDicomModel {
 
 InstanceModel.init({
     "instancePath": {
-        type: DataTypes.TEXT("long")
+        type: DataTypes.TEXT
     },
     "x00020010": {
         // Transfer Syntax UID

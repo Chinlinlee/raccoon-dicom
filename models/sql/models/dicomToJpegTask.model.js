@@ -16,7 +16,7 @@ DicomToJpegTaskModel.init({
         type: vrTypeMapping.UI
     },
     message: {
-        type: DataTypes.TEXT("long")
+        type: DataTypes.TEXT
     },
     status: {
         type: DataTypes.BOOLEAN
@@ -28,7 +28,7 @@ DicomToJpegTaskModel.init({
         type: DataTypes.DATE
     },
     fileSize: {
-        type: DataTypes.TEXT("medium")
+        type: DataTypes.TEXT
     }
 }, {
     sequelize: sequelizeInstance,
