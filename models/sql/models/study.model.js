@@ -15,7 +15,7 @@ const { BaseDicomModel } = require("./baseDicom.model");
 
 class StudyModel extends BaseDicomModel {
 
-    async findOneByDicomUID({ studyUID }) {
+    static async findOneByDicomUID({ studyUID }) {
         return await StudyModel.findOne({
             where: {
                 x0020000D: studyUID

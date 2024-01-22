@@ -12,7 +12,7 @@ const { raccoonConfig } = require("@root/config-class");
 const { BaseDicomModel } = require("./baseDicom.model");
 
 class SeriesModel extends BaseDicomModel {
-    async findOneByDicomUID({ studyUID, seriesUID }) {
+    static async findOneByDicomUID({ studyUID, seriesUID }) {
         return await SeriesModel.findOne({
             where: {
                 x0020000D: studyUID,
