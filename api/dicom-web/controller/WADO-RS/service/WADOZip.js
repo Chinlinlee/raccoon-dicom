@@ -1,8 +1,10 @@
-const archiver = require("archiver");
+const fs = require("fs");
 const path = require("path");
 const { StudyModel } = require("@dbModels/study.model");
 const { SeriesModel } = require("@dbModels/series.model");
 const { InstanceModel } = require("@dbModels/instance.model");
+const { SevenZip } = require("@root/utils/sevenZip");
+const { v4: uuidV4 } = require("uuid");
 class WADOZip {
     constructor(iReq, iRes) {
         this.requestParams = iReq.params;
@@ -21,16 +23,13 @@ class WADOZip {
     async getZipOfStudyDICOMFiles() {
         let imagesPathList = await StudyModel.getPathGroupOfInstances(this.requestParams);
         if (imagesPathList.length > 0) {
-            this.setHeaders(this.studyUID);
+            await this.#streamZipToResponse(imagesPathList);
 
-            let folders = [];
-            for (let i = 0; i < imagesPathList.length; i++) {
-                let imagesFolder = path.dirname(imagesPathList[i].instancePath);
-                if (!folders.includes(imagesFolder)) {
-                    folders.push(imagesFolder);
-                }
-            }
-            return await toZip(this.res, folders);
+            return {
+                status: true,
+                code: 200,
+                message: "success"
+            };
         }
         return {
             status: false,
@@ -42,12 +41,12 @@ class WADOZip {
     async getZipOfSeriesDICOMFiles() {
         let imagesPathList = await SeriesModel.getPathGroupOfInstances(this.requestParams);
         if (imagesPathList.length > 0) {
-            this.setHeaders(this.seriesUID);
-
-            let folders = [];
-            let seriesPath = path.dirname(imagesPathList[0].instancePath);
-            folders.push(seriesPath);
-            return await toZip(this.res, folders);
+            await this.#streamZipToResponse(imagesPathList);
+            return {
+                status: true,
+                code: 200,
+                message: "success"
+            };
         }
         return {
             status: false,
@@ -59,10 +58,12 @@ class WADOZip {
     async getZipOfInstanceDICOMFile() {
         let imagePath = await InstanceModel.getPathOfInstance(this.requestParams);
         if (imagePath) {
-            this.setHeaders(this.instanceUID);
-
-
-            return await toZip(this.res, [], imagePath.instancePath);
+            await this.#streamZipToResponse([imagePath]);
+            return {
+                status: true,
+                code: 200,
+                message: "success"
+            };
         }
         return {
             status: false,
@@ -70,40 +71,37 @@ class WADOZip {
             message: `not found, Instance UID: ${this.requestParams.instanceUID}, Series UID: ${this.requestParams.seriesUID}, Study UID: ${this.requestParams.studyUID}`
         };
     }
+
+    async #streamZipToResponse(imagesPathList) {
+        let randomFilename = uuidV4();
+        this.setHeaders(randomFilename);
+
+        let zipFile = path.join(__dirname, `../../../../../tempUploadFiles/${randomFilename}.zip`);
+        await ZipFactory.compressToZipFile(zipFile, imagesPathList);
+
+        fs.createReadStream(zipFile).pipe(this.res);
+
+        this.res.on("finish", () => {
+            fs.unlink(zipFile, () => { });
+        });
+    }
 }
 
-function toZip(res, folders = [], filename = "") {
-    return new Promise((resolve) => {
-        let archive = archiver('zip', {
-            gzip: true,
-            zlib: { level: 9 } // Sets the compression level.
-        });
-        archive.on('error', function (err) {
-            console.error(err);
-            resolve({
-                status: false,
-                code: 500,
-                data: err
-            });
-        });
-        archive.pipe(res);
-        if (folders.length > 0) {
-            for (let i = 0; i < folders.length; i++) {
-                let folderName = path.basename(folders[i]);
-                //archive.append(null, {name : folderName});
-                archive.glob("*.dcm", { cwd: folders[i] }, { prefix: folderName });
-            }
-        } else {
-            archive.file(filename);
+class ZipFactory {
+    static async compressToZipFile(zipFile, imagePaths) {
+        let sevenZip = new SevenZip("zip", undefined, zipFile);
+
+        for (let i = 0; i < imagePaths.length; i++) {
+            sevenZip.addCmd(imagePaths[i].instancePath);
         }
-        archive.finalize().then(() => {
-            resolve({
-                status: true,
-                code: 200,
-                data: "success"
-            });
-        });
-    });
+
+        // prevent same filename
+        if (imagePaths.length >= 2)
+            sevenZip.useFullyQualifiedFilePaths();
+
+        sevenZip.overwrite("a");
+        await sevenZip.pack();
+    }
 }
 
 module.exports.WADOZip = WADOZip;
