@@ -2,7 +2,6 @@ const { logger } = require("../utils/logs/log");
 const uuid = require("uuid");
 const fs = require("fs");
 const _ = require("lodash");
-const dicomParser = require("dicom-parser");
 const { streamToBuffer } = require("@jorgeferrero/stream-to-buffer");
 const { Dcm2JpgExecutor } = require("../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
@@ -144,57 +143,6 @@ class MultipartWriter {
                 code: 500,
                 message: errorStr
             };
-        }
-    }
-
-    /**
-     * Write image files of frames in multipart content
-     * @param {string} type
-     * @param {Array<number>} frameList
-     * @returns
-     */
-    async writeFrames(type, frameList) {
-        this.setHeaderMultipartRelatedContentType();
-        let dicomFilename = `${this.imagePathObjList[0].instancePath}`;
-        let jpegFile = dicomFilename.replace(/\.dcm\b/gi, "");
-        let minFrameNumber = _.min(frameList);
-        let maxFrameNumber = _.max(frameList);
-        let frameNumberCount = maxFrameNumber - minFrameNumber + 1;
-        if (minFrameNumber == maxFrameNumber) {
-            frameNumberCount = 1;
-        }
-
-        try {
-
-            for (let i = 1; i <= frameNumberCount; i++) {
-                /** @type {Dcm2JpgExecutor$Dcm2JpgOptions} */
-                let opt = await Dcm2JpgExecutor$Dcm2JpgOptions.newInstanceAsync();
-                opt.frameNumber = i;
-                await Dcm2JpgExecutor.convertDcmToJpgFromFilename(dicomFilename, `${jpegFile}.${i - 1}.jpg`, opt);
-            }
-
-            for (let x = 0; x < frameList.length; x++) {
-                let frameJpegFile = dicomFilename.replace(
-                    /\.dcm\b/gi,
-                    `.${frameList[x] - 1}.jpg`
-                );
-                let fileBuffer = fs.readFileSync(frameJpegFile);
-                let dicomFileBuffer = fs.readFileSync(dicomFilename);
-                let dicomDataSet = dicomParser.parseDicom(dicomFileBuffer, {
-                    untilTag: "x7fe00010"
-                });
-                let transferSyntax = dicomDataSet.string("x00020010");
-                this.writeBoundary();
-                this.writeContentType(type, transferSyntax);
-                this.writeContentLength(fileBuffer.length);
-                this.writeContentLocation();
-                this.writeBufferData(fileBuffer);
-            }
-            this.writeFinalBoundary();
-            return true;
-        } catch (e) {
-            logger.error(e);
-            return false;
         }
     }
 
