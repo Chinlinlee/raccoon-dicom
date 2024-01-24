@@ -57,6 +57,7 @@ class DcmQrScp {
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getStudyRootLevel());
         await dicomServiceRegistry.addDicomService(new JsCFindScp().getPatientStudyOnlyLevel());
+        await dicomServiceRegistry.addDicomService(new JsCFindScp().getMwlLevel());
         // #endregion
 
         // #region C-MOVE
@@ -227,7 +228,7 @@ class DcmQrScp {
 
         let device = this.connection.getDeviceSync();
         try {
-            if (!raccoonConfig.dicomDimseConfig.keyStore) {
+            if (raccoonConfig.dicomDimseConfig.keyStore) {
                 device.setKeyManagerSync(
                     SSLManagerFactory.createKeyManagerSync(
                         raccoonConfig.dicomDimseConfig.keyStoreType,

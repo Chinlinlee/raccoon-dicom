@@ -6,6 +6,244 @@
     },
     "openapi": "3.0.0",
     "paths": {
+        "/dicom-web/mwlitems": {
+            "post": {
+                "tags": [
+                    "MWL-RS"
+                ],
+                "description": "This transaction create or update a Modality WorkList item.\n",
+                "responses": {
+                    "200": {
+                        "description": "The workitem create successfully"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "MWL-RS"
+                ],
+                "description": "This transaction search Modality WorkList items.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dicom-web/mwlitems/count": {
+            "get": {
+                "tags": [
+                    "MWL-RS"
+                ],
+                "description": "This transaction get Modality WorkList items count.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "properties": {
+                                        "count": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dicom-web/mwlitems/{studyUID}/{spsID}": {
+            "delete": {
+                "tags": [
+                    "MWL-RS"
+                ],
+                "description": "This transaction deletes a Modality WorkList item.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/spsID"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/mwlitems/{studyUID}/{spsID}/status/{spsStatus}": {
+            "post": {
+                "tags": [
+                    "MWL-RS"
+                ],
+                "description": "This transaction create or update a Modality WorkList item.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/studyUID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/spsID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/spsStatus"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "change status of mwl item successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/mwlitems/status/{spsStatus}": {
+            "post": {
+                "tags": [
+                    "MWL-RS"
+                ],
+                "description": "This transaction create or update a Modality WorkList item.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/spsStatus"
+                    },
+                    {
+                        "$ref": "#/components/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "change status of mwl items successfully"
+                    }
+                }
+            }
+        },
+        "/dicom-web/patients": {
+            "post": {
+                "tags": [
+                    "PAM-RS"
+                ],
+                "description": "Create new patient",
+                "responses": {
+                    "200": {
+                        "description": "Create patient successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "patientID": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "QIDO-RS"
+                ],
+                "description": "Query all patients in server",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/PatientName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientBirthDate"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PatientBirthTime"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Query successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "allOf": [
+                                            {
+                                                "$ref": "#/components/schemas/PatientRequiredMatchingAttributes"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dicom-web/patients/{patientID}": {
+            "put": {
+                "tags": [
+                    "PAM-RS"
+                ],
+                "description": "Create new patient",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/patientID"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/dicom+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatientRequiredMatchingAttributes"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PatientRequiredMatchingAttributes"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create patient successfully",
+                        "content": {
+                            "application/dicom+json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PatientRequiredMatchingAttributes"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/dicom-web/studies": {
             "get": {
                 "tags": [
@@ -36,6 +274,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/StudyID"
+                    },
+                    {
+                        "$ref": "#/components/parameters/isRecycle"
                     }
                 ],
                 "responses": {
@@ -129,6 +370,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/SeriesNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/isRecycle"
                     }
                 ],
                 "responses": {
@@ -200,6 +444,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/InstanceNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/isRecycle"
                     }
                 ],
                 "responses": {
@@ -277,6 +524,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/InstanceNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/isRecycle"
                     }
                 ],
                 "responses": {
@@ -342,6 +592,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/SeriesNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/isRecycle"
                     }
                 ],
                 "responses": {
@@ -410,6 +663,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/InstanceNumber"
+                    },
+                    {
+                        "$ref": "#/components/parameters/isRecycle"
                     }
                 ],
                 "responses": {
@@ -429,47 +685,6 @@
                                             },
                                             {
                                                 "$ref": "#/components/schemas/InstanceRequiredMatchingAttributes"
-                                            }
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/dicom-web/patients": {
-            "get": {
-                "tags": [
-                    "QIDO-RS"
-                ],
-                "description": "Query all patients in server",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/PatientName"
-                    },
-                    {
-                        "$ref": "#/components/parameters/PatientID"
-                    },
-                    {
-                        "$ref": "#/components/parameters/PatientBirthDate"
-                    },
-                    {
-                        "$ref": "#/components/parameters/PatientBirthTime"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Query successfully",
-                        "content": {
-                            "application/dicom+json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "allOf": [
-                                            {
-                                                "$ref": "#/components/schemas/PatientRequiredMatchingAttributes"
                                             }
                                         ]
                                     }
@@ -508,7 +723,10 @@
                         "content": {
                             "application/dicom+json": {
                                 "schema": {
-                                    "type": "array"
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
                                 }
                             }
                         }
@@ -533,7 +751,10 @@
                         "content": {
                             "application/dicom+json": {
                                 "schema": {
-                                    "type": "array"
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
                                 }
                             }
                         }
@@ -1100,6 +1321,39 @@
                 }
             }
         },
+        "/fhir-convert": {
+            "post": {
+                "tags": [
+                    "fhir-convert"
+                ],
+                "description": "Convert DICOM to FHIR ImagingStudy, Patient, Endpoint",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "file": {
+                                    "contentType": "application/dicom;"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The DICOM instance store successfully"
+                    }
+                }
+            }
+        },
         "/wado": {
             "get": {
                 "tags": [
@@ -1243,6 +1497,51 @@
             }
         },
         "parameters": {
+            "filter": {
+                "name": "filter",
+                "description": "{attributeID}={value}; {attributeID} = {dicomTag} | {dicomKeyword} | {dicomTag}.{attributeID} | {dicomKeyword}.{attributeID}",
+                "in": "query",
+                "schema": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "isRecycle": {
+                "name": "isRecycle",
+                "description": "Query if the instance is in recycle bin, default is false, and notice that this one is not standard by DICOM standard (i.e. raccoon custom parameter)",
+                "in": "query",
+                "schema": {
+                    "type": "boolean"
+                }
+            },
+            "spsID": {
+                "in": "path",
+                "name": "spsID",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "spsStatus": {
+                "in": "path",
+                "name": "spsStatus",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "SCHEDULED",
+                        "ARRIVED",
+                        "READY",
+                        "STARTED",
+                        "DEPARTED",
+                        "CANCELED",
+                        "DISCONTINUED",
+                        "COMPLETED"
+                    ]
+                }
+            },
             "PatientName": {
                 "name": "00100010",
                 "description": "Patient's full name.",
@@ -1271,6 +1570,15 @@
                 "name": "00100032",
                 "description": "Birth time of the Patient.",
                 "in": "query",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "patientID": {
+                "name": "patientID",
+                "description": "Patient ID",
+                "in": "path",
+                "required": true,
                 "schema": {
                     "type": "string"
                 }
@@ -1431,7 +1739,8 @@
             "binaryValuePath": {
                 "name": "binaryValuePath",
                 "description": "{dicomTag} or {dicomTag.InlineBinary} or {dicomTag.Value.itemIndex.Tag}",
-                "in": "query",
+                "in": "path",
+                "required": true,
                 "schema": {
                     "type": "string"
                 }

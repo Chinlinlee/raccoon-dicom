@@ -3,13 +3,14 @@ const formidable = require("formidable");
 const glob = require("glob");
 const path = require("path");
 const fsP = require("fs/promises");
-const { StowRsService } = require("../api/dicom-web/controller/STOW-RS/service/stow-rs.service");
-const patientModel = require("../models/mongodb/models/patient");
-const dicomStudyModel = require("../models/mongodb/models/dicomStudy");
-const dicomSeriesModel = require("../models/mongodb/models/dicomSeries");
-const dicomModel = require("../models/mongodb/models/dicom");
+const patientModel = require("../models/mongodb/models/patient.model");
+const dicomStudyModel = require("../models/mongodb/models/study.model");
+const dicomSeriesModel = require("../models/mongodb/models/series.model");
+const dicomModel = require("../models/mongodb/models/instance.model");
 const { expect } = require("chai");
-const { QidoDicomJsonFactory, convertAllQueryToDICOMTag } = require("../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
+const { QueryStudyDicomJsonFactory, QuerySeriesDicomJsonFactory, QueryInstanceDicomJsonFactory } = require("../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
+
 
 describe("Query DICOM of study, series, and instance level", async () => {
 
@@ -24,17 +25,17 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "StudyDate": "19990101-19991231"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
                     limit: 100,
                     skip: 0
-                }, "study");
+                });
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 expect(studyDicomJson).is.an("array").have.lengthOf(2);
             });
 
@@ -43,17 +44,17 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "StudyDate": "20220101-20221231"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
                     limit: 100,
                     skip: 0
-                }, "study");
+                });
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 expect(studyDicomJson).is.an("array").have.lengthOf(0);
             });
         });
@@ -64,9 +65,9 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "PatientID": "TCGA-G4-6304"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
@@ -74,7 +75,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     skip: 0
                 }, "study");
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 studyForSecondSeriesTest = studyDicomJson[0];
                 expect(studyDicomJson).is.an("array").have.lengthOf(1);
             });
@@ -87,9 +88,9 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "StudyDate": "20100101-20101231"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
@@ -97,7 +98,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     skip: 0
                 }, "study");
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 expect(studyDicomJson).is.an("array").have.lengthOf(0);
             });
 
@@ -107,9 +108,9 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "StudyDate": "19990101-19991231"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
@@ -117,7 +118,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     skip: 0
                 }, "study");
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 expect(studyDicomJson).is.an("array").have.lengthOf(1);
             });
         });
@@ -129,17 +130,17 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "PatientBirthDate": "19590101"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
                     limit: 100,
                     skip: 0
-                }, "study");
+                });
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 expect(studyDicomJson).is.an("array").have.lengthOf(0);
             });
 
@@ -149,17 +150,17 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "PatientBirthDate": "19601218"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
                     limit: 100,
                     skip: 0
-                }, "study");
+                });
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 expect(studyDicomJson).is.an("array").have.lengthOf(1);
             });
         });
@@ -171,9 +172,9 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "AccessionNumber": "4444"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
@@ -181,7 +182,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     skip: 0
                 }, "study");
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 expect(studyDicomJson).is.an("array").have.lengthOf(0);
             });
 
@@ -191,17 +192,17 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     "AccessionNumber": "2794663908550664"
                 };
 
-                q = convertAllQueryToDICOMTag(q);
+                q = convertAllQueryToDicomTag(q);
 
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryStudyDicomJsonFactory({
                     query: {
                         ...q
                     },
                     limit: 100,
                     skip: 0
-                }, "study");
+                });
 
-                let studyDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let studyDicomJson = await dicomJsonFactory.getDicomJson();
                 studyForFirstSeriesTest = studyDicomJson[0];
                 expect(studyDicomJson).is.an("array").have.lengthOf(1);
             });
@@ -211,7 +212,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
     describe("Search For Series", () => {
         it("(step 150): Should use StudyInstanceUID search series and expect 3 series", async () => {
 
-            let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+            let dicomJsonFactory = new QuerySeriesDicomJsonFactory({
                 query: {},
                 requestParams: {
                     studyUID: studyForFirstSeriesTest["0020000D"]["Value"][0]
@@ -220,23 +221,23 @@ describe("Query DICOM of study, series, and instance level", async () => {
                 skip: 0
             }, "series");
 
-            let seriesDicomJson = await qidoDicomJsonFactory.getDicomJson();
+            let seriesDicomJson = await dicomJsonFactory.getDicomJson();
             seriesForFirstInstanceTest = seriesDicomJson;
             expect(seriesDicomJson).is.an("array").have.lengthOf(3);
         });
 
         it("Should use StudyInstanceUID from step 170 search series and expect 3 series", async () => {
 
-            let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+            let dicomJsonFactory = new QuerySeriesDicomJsonFactory({
                 query: {},
                 requestParams: {
                     studyUID: studyForSecondSeriesTest["0020000D"]["Value"][0]
                 },
                 limit: 100,
                 skip: 0
-            }, "series");
+            });
 
-            let seriesDicomJson = await qidoDicomJsonFactory.getDicomJson();
+            let seriesDicomJson = await dicomJsonFactory.getDicomJson();
             expect(seriesDicomJson).is.an("array").have.lengthOf(3);
         });
     });
@@ -245,7 +246,7 @@ describe("Query DICOM of study, series, and instance level", async () => {
         it("Should expect 1 image, 5 images, and 5 images in 3 series respectively from step 150's series", async () => {
             let seriesImageCount = [];
             for (let dicomJson of seriesForFirstInstanceTest) {
-                let qidoDicomJsonFactory = new QidoDicomJsonFactory({
+                let dicomJsonFactory = new QueryInstanceDicomJsonFactory({
                     query: {},
                     requestParams: {
                         studyUID: dicomJson["0020000D"]["Value"][0],
@@ -253,9 +254,9 @@ describe("Query DICOM of study, series, and instance level", async () => {
                     },
                     limit: 100,
                     skip: 0
-                }, "instance");
+                });
 
-                let instanceDicomJson = await qidoDicomJsonFactory.getDicomJson();
+                let instanceDicomJson = await dicomJsonFactory.getDicomJson();
                 seriesImageCount.push(instanceDicomJson.length);
             }
             seriesImageCount.sort((a, b) => a - b);

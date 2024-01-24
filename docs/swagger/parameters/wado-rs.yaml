@@ -28,6 +28,7 @@ components:
         "binaryValuePath":
             name: "binaryValuePath"
             description: "{dicomTag} or {dicomTag.InlineBinary} or {dicomTag.Value.itemIndex.Tag}"
-            in: query
+            in: path
+            required: true
             schema:
                 type: string

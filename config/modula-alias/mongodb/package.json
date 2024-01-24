@@ -1,0 +1,17 @@
+{
+    "_moduleAliases": {
+        "@dcm4che": "../../../models/DICOM/dcm4che/wrapper/org/dcm4che3",
+        "@java-wrapper": "../../../models/DICOM/dcm4che/wrapper",
+        "@models": "../../../models",
+        "@error": "../../../error",
+        "@root": "../../../",
+        "@chinlinlee": "../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee",
+        "@dbModels": "../../../models/mongodb/models",
+        "@dbInitializer": "../../../models/mongodb/index.js",
+        "@dicom-json-model": "../../../models/DICOM/dicom-json-model.js",
+        "@query-dicom-json-factory": "../../../api/dicom-web/controller/QIDO-RS/service/query-dicom-json-factory.js",
+        "@stow-rs-service": "../../../api/dicom-web/controller/STOW-RS/service/stow-rs.service.js",
+        "@dimse": "../../../dimse",
+        "@api": "../../../api"
+    }
+}

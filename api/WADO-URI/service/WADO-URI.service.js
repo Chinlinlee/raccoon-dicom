@@ -1,17 +1,20 @@
 const mongoose = require("mongoose");
 const fs = require("fs");
 const _ = require("lodash");
-const renderedService = require("../../dicom-web/controller/WADO-RS/service/rendered.service");
+const { RenderedImageProcessParameterHandler, getInstanceFrameObj } = require("../../dicom-web/controller/WADO-RS/service/rendered.service");
 const { Dcm2JpgExecutor } = require("../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor");
 const { Dcm2JpgExecutor$Dcm2JpgOptions } = require("../../../models/DICOM/dcm4che/wrapper/org/github/chinlinlee/dcm2jpg/Dcm2JpgExecutor$Dcm2JpgOptions");
-const sharp = require('sharp');
+const imageSizeOf = require("image-size");
+const { promisify } = require("util");
+const imageSizeOfPromise = promisify(imageSizeOf);
 const Magick = require("../../../models/magick");
 const { NotFoundInstanceError, InvalidFrameNumberError, InstanceGoneError } = require("../../../error/dicom-instance");
-const dicomModel = require("../../../models/mongodb/models/dicom");
+const { InstanceModel } = require("@dbModels/instance.model");
 const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { DicomWebService } = require("@root/api/dicom-web/service/dicom-web.service");
+const { ApiErrorArrayHandler } = require("@error/api-errors.handler");
 
 class WadoUriService {
 
@@ -20,94 +23,16 @@ class WadoUriService {
      * @param {import("http").IncomingMessage} req 
      * @param {import("http").ServerResponse} res 
      */
-    constructor(req, res) {
+    constructor(req, res, apiLogger) {
         this.request = req;
         this.response = res;
+        this.apiLogger = apiLogger;
         this.auditBeginTransferring();
+
+        let clonedRequestQuery = _.cloneDeep(this.request?.query);
+        _.set(clonedRequestQuery, "imageQuality", _.get(this.request.query, "imageQuality", ""));
+        this.renderedImageProcessParameterHandler = new RenderedImageProcessParameterHandler(clonedRequestQuery);
     }
-
-    async getAndResponseDicomInstance() {
-        try {
-
-            let dicomInstanceReadStream = await this.getDicomInstanceReadStream();
-
-            this.response.setHeader("Content-Type", "application/dicom");
-            dicomInstanceReadStream.pipe(this.response);
-            this.auditInstanceTransferred();
-
-        } catch (e) {
-            this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
-
-            if (e instanceof NotFoundInstanceError) {
-                this.response.writeHead(404, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return this.response.end();
-            } else if (e instanceof InstanceGoneError) {
-                this.response.writeHead(410, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return this.response.end(JSON.stringify({
-                    Details: e.message,
-                    HttpStatus: 410,
-                    Message: "Image Gone",
-                    Method: "GET"
-                }));
-            }
-
-            throw e;
-        }
-    }
-
-    async getAndResponseJpeg() {
-        try {
-
-            let jpegBuffer = await this.handleRequestQueryAndGetJpeg();
-
-            this.response.setHeader("Content-Type", "image/jpeg");
-
-            this.response.end(jpegBuffer, "buffer");
-            this.auditInstanceTransferred();
-
-        } catch (e) {
-            this.auditInstanceTransferred(EventOutcomeIndicator.MajorFailure);
-
-            if (e instanceof NotFoundInstanceError) {
-
-                this.response.writeHead(404, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return this.response.end();
-
-            } else if (e instanceof InvalidFrameNumberError) {
-
-                this.response.writeHead(400, {
-                    "Content-Type": "application/dicom+json"
-                });
-
-                return this.response.end(JSON.stringify({
-                    Details: e.message,
-                    HttpStatus: 400,
-                    Message: "Bad request",
-                    Method: "GET"
-                }));
-
-            } else if (e instanceof InstanceGoneError) {
-                this.response.writeHead(410, {
-                    "Content-Type": "application/dicom+json"
-                });
-                return this.response.end(JSON.stringify({
-                    Details: e.message,
-                    HttpStatus: 410,
-                    Message: "Image Gone",
-                    Method: "GET"
-                }));
-            }
-
-            throw e;
-        }
-    }
-
 
     /**
      * @throws {NotFoundInstanceError}
@@ -127,7 +52,7 @@ class WadoUriService {
             objectUID: instanceUID
         } = this.request.query;
 
-        let imagePathObj = await dicomModel.getPathOfInstance({
+        let imagePathObj = await InstanceModel.getPathOfInstance({
             studyUID,
             seriesUID,
             instanceUID
@@ -154,13 +79,13 @@ class WadoUriService {
     async handleRequestQueryAndGetJpeg() {
 
         let {
-            imageSharp,
+            imageSize,
             magick
         } = await this.handleFrameNumberAndGetImageObj();
 
         await this.handleImageQuality(magick);
-        await this.handleRegion(this.request.query, imageSharp, magick);
-        await this.handleRowsAndColumns(this.request.query, imageSharp, magick);
+        await this.handleRegion(this.request.query, imageSize, magick);
+        await this.handleRowsAndColumns(this.request.query, imageSize, magick);
         await this.handleImageICCProfile(this.request.query, magick, this.request.query.objectUID);
 
         await magick.execCommand();
@@ -170,10 +95,7 @@ class WadoUriService {
 
     async handleFrameNumberAndGetImageObj() {
         let imagePathObj = await this.getDicomInstancePathObj();
-        let instanceFramesObj = await renderedService.getInstanceFrameObj(imagePathObj, {
-            "00281050": 1,
-            "00281051": 1
-        });
+        let instanceFramesObj = await getInstanceFrameObj(imagePathObj);
         let instanceTotalFrameNumber = _.get(instanceFramesObj, "00280008.Value.0", 1);
         let windowCenter = _.get(instanceFramesObj, "00281050.Value.0", "");
         let windowWidth = _.get(instanceFramesObj, "00281051.Value.0", "");
@@ -206,7 +128,7 @@ class WadoUriService {
         if (getFrameImageStatus.status) {
 
             return {
-                imageSharp: sharp(jpegFile),
+                imageSize: await imageSizeOfPromise(jpegFile),
                 magick: new Magick(jpegFile)
             };
         }
@@ -215,17 +137,21 @@ class WadoUriService {
     }
 
     async handleImageQuality(magick) {
-        renderedService.handleImageQuality({
-            quality: _.get(this.request.query, "imageQuality", "")
-        }, magick);
+        this.renderedImageProcessParameterHandler.handleImageQuality(magick);
     }
 
-    async handleRegion(param, imageSharp, magick) {
+    /**
+     * 
+     * @param {Object} param 
+     * @param {string} param.region
+     * @param {{height: number, width: number}} imageSize 
+     * @param {Magick} magick 
+     */
+    async handleRegion(param, imageSize, magick) {
         if (param.region) {
             let [xMin, yMin, xMax, yMax] = param.region.split(",").map(v => parseFloat(v));
-            let imageMetadata = await imageSharp.metadata();
-            let imageWidth = imageMetadata.width;
-            let imageHeight = imageMetadata.height;
+            let imageWidth = imageSize.width;
+            let imageHeight = imageSize.height;
             let extractLeft = imageWidth * xMin;
             let extractTop = imageHeight * yMin;
             let extractWidth = imageWidth * xMax - extractLeft;
@@ -234,21 +160,28 @@ class WadoUriService {
         }
     }
 
-    async handleRowsAndColumns(param, imageSharp, magick) {
-        let imageMetadata = await imageSharp.metadata();
+    /**
+     * 
+     * @param {Object} param 
+     * @param {string} param.rows
+     * @param {string} param.columns
+     * @param {{height: number, width: number}} imageSize 
+     * @param {Magick} magick 
+     */
+    async handleRowsAndColumns(param, imageSize, magick) {
         let rows = Number(param.rows);
         let columns = Number(param.columns);
         if (param.rows && param.columns) {
             magick.resize(rows, columns);
         } else if (param.rows) {
-            magick.resize(rows, imageMetadata.height);
+            magick.resize(rows, imageSize.height);
         } else if (param.columns) {
-            magick.resize(imageMetadata.width, columns);
+            magick.resize(imageSize.width, columns);
         }
     }
 
     async handleImageICCProfile(magick) {
-        await renderedService.handleImageICCProfile(this.request.query, magick, this.request.query.objectUID);
+        await this.renderedImageProcessParameterHandler.handleImageICCProfile(magick, this.request.query.objectUID);
     }
 
     async auditBeginTransferring() {

@@ -1,17 +1,15 @@
 const _ = require("lodash");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
-const { DicomCode } = require("@models/DICOM/code");
-const workItemModel = require("@models/mongodb/models/workItems");
-const subscriptionModel = require("@models/mongodb/models/upsSubscription");
-const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
+const { WorkItemModel } = require("@dbModels/workitems.model");
+const { UpsSubscriptionModel } = require("@dbModels/upsSubscription");
+const { UpsGlobalSubscriptionModel } = require("@dbModels/upsGlobalSubscription");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
 const { SUBSCRIPTION_STATE, SUBSCRIPTION_FIXED_UIDS } = require("@models/DICOM/ups");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
-const { convertAllQueryToDICOMTag } = require("../../QIDO-RS/service/QIDO-RS.service");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 class SubscribeService extends BaseWorkItemService {
 
@@ -30,51 +28,25 @@ class SubscribeService extends BaseWorkItemService {
     }
 
     async create() {
-        
-        if (this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.GlobalUID || 
+
+        if (this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.GlobalUID ||
             this.upsInstanceUID === SUBSCRIPTION_FIXED_UIDS.FilteredGlobalUID) {
 
-            this.query = convertAllQueryToDICOMTag(this.request.query);
+            this.query = convertAllQueryToDicomTag(this.request.query);
             await this.createOrUpdateGlobalSubscription();
         } else {
-            let workItem = await this.findOneWorkItem(this.upsInstanceUID);
+            let workItem = await WorkItemModel.findOneByUpsInstanceUID(this.upsInstanceUID);
             await this.createOrUpdateSubscription(workItem);
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, this.upsInstanceUID, this.stateReportOf(workItem), [this.subscriberAeTitle]);
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, this.upsInstanceUID, this.stateReportOf(await workItem.toDicomJson()), [this.subscriberAeTitle]);
         }
-        
+
         await this.triggerUpsEvents();
-    }
-
-    
-    /**
-     * 
-     * @param {string} upsInstanceUID 
-     * @returns 
-     */
-    async findOneWorkItem(upsInstanceUID) {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: upsInstanceUID
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-        
-        return new DicomJsonModel(workItem);
-        
     }
 
     //#region Subscription
     async findOneSubscription() {
-        
-        let subscription = await subscriptionModel.findOne({
-            aeTitle: this.subscriberAeTitle
-        });
+
+        let subscription = await UpsSubscriptionModel.findOneByAeTitle(this.subscriberAeTitle);
 
         return subscription;
 
@@ -82,49 +54,23 @@ class SubscribeService extends BaseWorkItemService {
 
     /**
      * 
-     * @param {DicomJsonModel} workItem 
+     * @param {any} workItem repository workItem
      * @returns 
      */
     async createOrUpdateSubscription(workItem) {
-        let subscription = await this.findOneSubscription(workItem);
+        let subscription = await this.findOneSubscription();
         let subscribed = this.deletionLock ? SUBSCRIPTION_STATE.SUBSCRIBED_NO_LOCK : SUBSCRIPTION_STATE.SUBSCRIBED_LOCK;
-        await this.updateWorkItemSubscription(workItem, subscribed);
+        await workItem.subscribe(subscribed);
+        
         if (!subscription) {
             // Create
-            let subscriptionObj = new subscriptionModel({
-                aeTitle: this.subscriberAeTitle,
-                workItems: [
-                    workItem.dicomJson._id
-                ],
-                isDeletionLock: this.deletionLock,
-                subscribed: subscribed
-            });
-
-            let createdSubscription = await subscriptionObj.save();
-            return createdSubscription;
+            return await UpsSubscriptionModel.createSubscriptionForWorkItem(workItem, this.subscriberAeTitle, this.deletionLock, subscribed);
         } else {
             // Update
-            let updatedSubscription =await subscriptionModel.findOneAndUpdate({
-                _id: subscription._id
-            }, {
-                $set: {
-                    isDeletionLock: this.deletionLock,
-                    subscribed: subscribed
-                },
-                $addToSet: {
-                    workItems: workItem.dicomJson._id
-                }
-            });
-            subscription.isDeletionLock = this.deletionLock;
-            subscription.subscribed = subscribed;
-            return updatedSubscription;
+            return await UpsSubscriptionModel.updateSubscription(subscription, workItem, this.deletionLock, subscribed);
         }
     }
 
-    async updateWorkItemSubscription(workItem, subscription) {
-        workItem.dicomJson.subscribed = subscription;
-        await workItem.dicomJson.save();
-    }
     //#endregion
 
     //#region Global Subscriptions
@@ -141,36 +87,29 @@ class SubscribeService extends BaseWorkItemService {
         }
         if (!subscription) {
             //Create
-            let subscriptionObj = new globalSubscriptionModel({
+            await UpsGlobalSubscriptionModel.createGlobalSubscription({
                 aeTitle: this.subscriberAeTitle,
                 isDeletionLock: this.deletionLock,
                 subscribed: subscribed,
                 queryKeys: this.query
             });
-
-            let createdSubscription = await subscriptionObj.save();
         } else {
             //Update
-            subscription.isDeletionLock = this.deletionLock;
-            subscription.subscribed = subscribed;
-            subscription.queryKeys = this.query;
-            await subscription.save();
+            await UpsGlobalSubscriptionModel.updateRepositoryInstance(subscription, this.query, this.deletionLock, subscribed);
         }
 
         let notSubscribedWorkItems = await this.findNotSubscribedWorkItems();
-        for(let notSubscribedWorkItem of notSubscribedWorkItems) {
-            let workItemDicomJson = new DicomJsonModel(notSubscribedWorkItem);
-            await this.createOrUpdateSubscription(workItemDicomJson);
-            
-            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, workItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(workItemDicomJson), [this.subscriberAeTitle]);
+        for (let notSubscribedWorkItem of notSubscribedWorkItems) {
+            let workItemDicomJson = await notSubscribedWorkItem.toDicomJson();
+            await this.createOrUpdateSubscription(notSubscribedWorkItem);
+
+            this.addUpsEvent(UPS_EVENT_TYPE.StateReport, notSubscribedWorkItem.upsInstanceUID, this.stateReportOf(workItemDicomJson), [this.subscriberAeTitle]);
         }
     }
 
     async findOneGlobalSubscription() {
-                
-        let globalSubscription = await globalSubscriptionModel.findOne({
-            aeTitle: this.subscriberAeTitle
-        });
+
+        let globalSubscription = await UpsGlobalSubscriptionModel.findOneByAeTitle(this.subscriberAeTitle);
 
         return globalSubscription;
 
@@ -178,19 +117,7 @@ class SubscribeService extends BaseWorkItemService {
     //#endregion
 
     async findNotSubscribedWorkItems() {
-        return await workItemModel.find({
-            $or: [
-                {
-                    subscribed: SUBSCRIPTION_STATE.NOT_SUBSCRIBED
-                },
-                {
-                    subscribed: {
-                        $exists: false
-                    }
-                }
-            ]
-            
-        }) || [];
+        return await WorkItemModel.findNotSubscribedWorkItems();
     }
 }
 

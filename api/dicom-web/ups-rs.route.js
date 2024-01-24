@@ -53,6 +53,8 @@ router.post("/workitems",
  *             "application/dicom+json":
  *               schema:
  *                 type: array
+ *                 items:
+ *                   type: object
  */
 router.get("/workitems",
     require("./controller/UPS-RS/get-workItem")
@@ -76,6 +78,8 @@ router.get("/workitems",
  *             "application/dicom+json":
  *               schema:
  *                 type: array
+ *                 items:
+ *                   type: object
  */
 router.get("/workitems/:workItem",
     require("./controller/UPS-RS/get-workItem")

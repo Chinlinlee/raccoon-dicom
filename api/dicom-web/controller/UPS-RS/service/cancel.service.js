@@ -1,15 +1,14 @@
 const _ = require("lodash");
-const workItemModel = require("@models/mongodb/models/workItems");
-const { DicomJsonModel, BaseDicomJson } = require("@models/DICOM/dicom-json-model");
-const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
+const { BaseDicomJson } = require("@dicom-json-model");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
 const { raccoonConfig } = require("@root/config-class");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 
 class CancelWorkItemService extends BaseWorkItemService {
 
@@ -26,9 +25,9 @@ class CancelWorkItemService extends BaseWorkItemService {
     }
 
     async cancel() {
+        this.workItem = await WorkItemModel.findOneByUpsInstanceUID(this.upsInstanceUID);
 
-        this.workItem = await this.findOneWorkItem(this.upsInstanceUID);
-        let procedureStepState = this.workItem.getString(dictionary.keyword.ProcedureStepState);
+        let procedureStepState = (await this.workItem.toDicomJson()).getString(dictionary.keyword.ProcedureStepState);
 
         if (procedureStepState === "IN PROGRESS") {
             //Only send cancel info event now, IMO
@@ -58,34 +57,12 @@ class CancelWorkItemService extends BaseWorkItemService {
 
     }
 
-    /**
-     * 
-     * @param {string} upsInstanceUID 
-     * @returns 
-     */
-    async findOneWorkItem(upsInstanceUID) {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: upsInstanceUID
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-        
-        return new DicomJsonModel(workItem);
-        
-    }
-
     async addCancelEvent() {
         let hitSubscriptions = await this.getHitSubscriptions(this.workItem);
-        let aeTitles = hitSubscriptions.map(v => v.aeTitle);
-
-        this.addUpsEvent(UPS_EVENT_TYPE.CancelRequested, this.upsInstanceUID, this.cancelRequestBy(), aeTitles);
+        if (hitSubscriptions.length > 0 ) {
+            let aeTitles = hitSubscriptions.map(v => v.aeTitle);
+            this.addUpsEvent(UPS_EVENT_TYPE.CancelRequested, this.upsInstanceUID, this.cancelRequestBy(), aeTitles);
+        }
     }
 
     cancelRequestBy() {

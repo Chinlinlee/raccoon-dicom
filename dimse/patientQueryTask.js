@@ -6,7 +6,7 @@ const { Attributes } = require("@dcm4che/data/Attributes");
 const { Tag } = require("@dcm4che/data/Tag");
 const { VR } = require("@dcm4che/data/VR");
 const { DimseQueryBuilder } = require("./queryBuilder");
-const patientModel = require("@models/mongodb/models/patient");
+const { PatientModel } = require("@dbModels/patient.model");
 const { Association } = require("@dcm4che/net/Association");
 const { PresentationContext } = require("@dcm4che/net/pdu/PresentationContext");
 const { logger } = require("@root/utils/logs/log");
@@ -14,6 +14,7 @@ const { AuditManager } = require("@models/DICOM/audit/auditManager");
 const { EventType } = require("@models/DICOM/audit/eventType");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
 const { UID } = require("@dcm4che/data/UID");
+const { QueryTaskUtils } = require("./utils");
 
 
 class JsPatientQueryTask {
@@ -43,56 +44,26 @@ class JsPatientQueryTask {
         );
 
         await this.initCursor();
-        await this.patientQueryTaskInjectMethods.wrappedFindNextPatient();
+        await this.patientQueryTaskProxy.wrappedFindNextPatient();
 
         return patientQueryTask;
     }
 
     getQueryTaskInjectProxy() {
-        /** @type { QueryTaskInjectInterface } */
-        this.patientBasicQueryTaskInjectMethods = {
-            hasMoreMatches: () => {
-                return !_.isNull(this.patientAttr);
-            },
-            nextMatch: async () => {
-                let tempRecord = this.patientAttr;
-                await this.patientQueryTaskInjectMethods.wrappedFindNextPatient();
-                return tempRecord;
-            },
-            adjust: async (match) => {
-                return this.patientAdjust(match);
-            }
-        };
-
-        if (!this.queryTaskInjectProxy) {
-            this.queryTaskInjectProxy = createQueryTaskInjectProxy(this.patientBasicQueryTaskInjectMethods);
+        // for creating one
+        if (!this.matchIteratorProxy) {
+            this.matchIteratorProxy = new PatientMatchIteratorProxy(this);
         }
 
-        return this.queryTaskInjectProxy;
+        return this.matchIteratorProxy.get();
     }
 
     getPatientQueryTaskInjectProxy() {
-
-        /** @type { PatientQueryTaskInjectInterface }*/
-        this.patientQueryTaskInjectMethods = {
-            wrappedFindNextPatient: async () => {
-                await this.patientQueryTaskInjectMethods.findNextPatient();
-            },
-            getPatient: async () => {
-                this.patient = await this.cursor.next();
-                this.patientAttr = this.patient ? await this.patient.getAttributes() : null;
-            },
-            findNextPatient: async () => {
-                await this.patientQueryTaskInjectMethods.getPatient();
-                return !_.isNull(this.patientAttr);
-            }
-        };
-
+        // for creating once
         if (!this.patientQueryTaskProxy) {
-            this.patientQueryTaskProxy = createPatientQueryTaskInjectProxy(this.patientQueryTaskInjectMethods);
+            this.patientQueryTaskProxy =  new PatientQueryTaskInjectProxy(this);
         }
-
-        return this.patientQueryTaskProxy;
+        return this.patientQueryTaskProxy.get();
     }
 
     /**
@@ -134,38 +105,91 @@ class JsPatientQueryTask {
         return basicAd;
     }
 
-    getReturnKeys(query) {
-        let returnKeys = {};
-        let queryKeys = Object.keys(query);
-        for (let i = 0; i < queryKeys.length; i++) {
-            returnKeys[queryKeys[i].split(".").shift()] = 1;
-        }
-        return returnKeys;
-    }
-
     async initCursor() {
-        let queryAudit = new AuditManager(
-            EventType.QUERY,
-            EventOutcomeIndicator.Success,
-            await this.as.getRemoteAET(), await this.as.getRemoteHostName(),
-            await this.as.getLocalAET(), await this.as.getLocalHostName()
-        );
-        let queryBuilder = new DimseQueryBuilder(this.keys, "patient");
-        let normalQuery = await queryBuilder.toNormalQuery();
-        let mongoQuery = await queryBuilder.getMongoQuery(normalQuery);
-        queryAudit.onQuery(
+        let queryAuditManager = await QueryTaskUtils.getAuditManager(this.as);
+        let dbQuery = await QueryTaskUtils.getDbQuery(this.keys, "patient");
+        queryAuditManager.onQuery(
             UID.PatientRootQueryRetrieveInformationModelFind,
-            JSON.stringify(mongoQuery.$match),
+            JSON.stringify(dbQuery),
             "UTF-8"
         );
 
-        let returnKeys = this.getReturnKeys(normalQuery);
+        let returnKeys = await QueryTaskUtils.getReturnKeys(this.keys, "patient");
 
-        logger.info(`do DIMSE Patient query: ${JSON.stringify(mongoQuery.$match)}`);
-        this.cursor = await patientModel.getDimseResultCursor({
-            ...mongoQuery.$match
+        logger.info(`do DIMSE Patient query: ${JSON.stringify(dbQuery)}`);
+        this.cursor = await PatientModel.getDimseResultCursor({
+            ...dbQuery
         }, returnKeys);
     }
 }
 
+class PatientQueryTaskInjectProxy {
+    /**
+     * 
+     * @param {JsPatientQueryTask} queryTask 
+     */
+    constructor(patientQueryTask) {
+        /** @type {JsPatientQueryTask} */
+        this.patientQueryTask = patientQueryTask;
+    }
+
+    get() {
+        return createPatientQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            wrappedFindNextPatient: this.wrappedFindNextPatient.bind(this),
+            getPatient: this.getPatient.bind(this),
+            findNextPatient: this.findNextPatient.bind(this)
+        };
+    }
+
+    async wrappedFindNextPatient() {
+        await this.findNextPatient();
+    }
+
+    async findNextPatient() {
+        await this.getPatient();
+        return !_.isNull(this.patientQueryTask.patientAttr);
+    }
+
+    async getPatient() {
+        this.patientQueryTask.patient = await this.patientQueryTask.cursor.next();
+        this.patientQueryTask.patientAttr = this.patientQueryTask.patient ? await this.patientQueryTask.patient.getAttributes() : null;
+    }
+}
+
+class PatientMatchIteratorProxy {
+    constructor(patientQueryTask) {
+        /** @type {JsPatientQueryTask} */
+        this.patientQueryTask = patientQueryTask;
+    }
+
+    get() {
+        return createQueryTaskInjectProxy(this.getProxyMethods(), {
+            keepAsDaemon: true
+        });
+    }
+
+    getProxyMethods() {
+        return {
+            hasMoreMatches: () => {
+                return !_.isNull(this.patientQueryTask.patientAttr);
+            },
+            nextMatch: async () => {
+                let tempRecord = this.patientQueryTask.patientAttr;
+                await this.patientQueryTask.patientQueryTaskProxy.wrappedFindNextPatient();
+                return tempRecord;
+            },
+            adjust: async (match) => {
+                return this.patientQueryTask.patientAdjust(match);
+            }
+        };
+    }
+}
+
 module.exports.JsPatientQueryTask = JsPatientQueryTask;
+module.exports.PatientMatchIteratorProxy = PatientMatchIteratorProxy;

@@ -1,14 +1,14 @@
 const _ = require("lodash");
 const moment = require("moment");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
 const { DicomCode } = require("@models/DICOM/code");
-const workItemModel = require("@models/mongodb/models/workItems");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const {
     DicomWebServiceError,
     DicomWebStatusCodes
 } = require("@error/dicom-web-service");
-const { BaseWorkItemService } = require("./base-workItem.service");
+const { BaseWorkItemService } = require("@api/dicom-web/controller/UPS-RS/service/base-workItem.service");
 const { UPS_EVENT_TYPE } = require("./workItem-event");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 
 class ChangeWorkItemStateService extends BaseWorkItemService {
     /**
@@ -19,8 +19,8 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
     constructor(req, res) {
         super(req, res);
         this.requestState = /**  @type {Object[]} */(this.request.body).pop();
-        /** @type {DicomJsonModel} */
-        this.requestState = new DicomJsonModel(this.requestState);
+        /** @type {BaseDicomJson} */
+        this.requestState = new BaseDicomJson(this.requestState);
         this.transactionUID = this.requestState.getString("00081195");
         if (!this.transactionUID) {
             this.response.set("Warning", "299 Raccoon: The Transaction UID is missing.");
@@ -36,11 +36,12 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
         this.workItemTransactionUID = "";
     }
 
-    async changeWorkItemState() {
-        await this.findOneWorkItem();
-        
-        this.workItemState = this.workItem.getString("00741000");
-        this.workItemTransactionUID = this.workItem.getString("00081195");
+    async changeWorkItemState() { 
+        this.workItem = await WorkItemModel.findOneByUpsInstanceUID(this.request.params.workItem);
+        /** @type { BaseDicomJson } */
+        this.workItemDicomJson = await this.workItem.toDicomJson();
+        this.workItemState = this.workItemDicomJson.getString("00741000");
+        this.workItemTransactionUID = this.workItemDicomJson.getString("00081195");
         let requestState = this.requestState.getString("00741000");
 
         if (requestState === "IN PROGRESS") {
@@ -51,42 +52,21 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
             this.completeChange();
         }
 
-        let updatedWorkItem = await workItemModel.findOneAndUpdate({
-            upsInstanceUID: this.request.params.workItem
-        }, {
+        let updatedWorkItem = await WorkItemModel.updateOneByUpsInstanceUID(this.request.params.workItem, {
+            ...this.workItemDicomJson.dicomJson,
             ...this.requestState.dicomJson
-        }, {
-            new: true
         });
 
-        let updatedWorkItemDicomJson = new DicomJsonModel(updatedWorkItem.toObject());
+        let updatedWorkItemDicomJson = await updatedWorkItem.toDicomJson();
 
-        let hitSubscriptions = await this.getHitSubscriptions(updatedWorkItemDicomJson);
+        let hitSubscriptions = await this.getHitSubscriptions(updatedWorkItem);
 
         if (hitSubscriptions.length === 0) return;
 
         let hitSubscriptionAeTitleArray = hitSubscriptions.map(sub => sub.aeTitle);
         
-        this.addUpsEvent(UPS_EVENT_TYPE.StateReport, updatedWorkItemDicomJson.dicomJson.upsInstanceUID, this.stateReportOf(updatedWorkItemDicomJson), hitSubscriptionAeTitleArray);
+        this.addUpsEvent(UPS_EVENT_TYPE.StateReport, updatedWorkItem.upsInstanceUID, this.stateReportOf(updatedWorkItemDicomJson), hitSubscriptionAeTitleArray);
         this.triggerUpsEvents();
-    }
-
-    async findOneWorkItem() {
-
-        let workItem = await workItemModel.findOne({
-            upsInstanceUID: this.request.params.workItem
-        });
-
-        if (!workItem) {
-            throw new DicomWebServiceError(
-                DicomWebStatusCodes.UPSDoesNotExist,
-                "The UPS instance not exist",
-                404
-            );
-        }
-        
-        this.workItem = new DicomJsonModel(workItem);
-        
     }
 
     inProgressChange() {
@@ -166,9 +146,9 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
     }
 
     ensureProgressInformationSequence() {
-        let progressInformation = _.get(this.workItem.dicomJson, "00741002.Value");
+        let progressInformation = this.workItemDicomJson.getValues("00741002");
         if (!progressInformation) {
-            _.set(this.workItem.dicomJson, "00741002", {
+            _.set(this.workItemDicomJson.dicomJson, "00741002", {
                 vr: "SQ",
                 Value: []
             });
@@ -177,9 +157,9 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
 
     supplementDiscontinuationReasonCode() {
         this.ensureProgressInformationSequence();
-        let procedureStepCancellationDateTime = _.get(this.workItem.dicomJson, "00741002.Value.0.00404052");
+        let procedureStepCancellationDateTime = _.get(this.workItemDicomJson.dicomJson, "00741002.Value.0.00404052");
         if (!procedureStepCancellationDateTime) {
-            _.set(this.workItem.dicomJson, "00741002.Value.0.00404052", {
+            _.set(this.workItemDicomJson.dicomJson, "00741002.Value.0.00404052", {
                 vr: "DT",
                 Value: [
                     moment().format("YYYYMMDDhhmmss.SSSSSSZZ")
@@ -187,9 +167,9 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
             });
         }
 
-        let reasonCodeMeaning = _.get(this.workItem.dicomJson, "00741002.Value.0.0074100E.Value.0.00080104");
+        let reasonCodeMeaning = _.get(this.workItemDicomJson.dicomJson, "00741002.Value.0.0074100E.Value.0.00080104");
         if (!reasonCodeMeaning) {
-            _.set(this.workItem.dicomJson, "00741002.Value.0.0074100E.Value.0", {
+            _.set(this.workItemDicomJson.dicomJson, "00741002.Value.0.0074100E.Value.0", {
                 vr: "SQ",
                 Value: [
                     {
@@ -212,7 +192,7 @@ class ChangeWorkItemStateService extends BaseWorkItemService {
     }
 
     meetFinalStateRequirementsOfCompleted() {
-        let performedProcedure = _.get(this.workItem.dicomJson, "00741216");
+        let performedProcedure = _.get(this.workItemDicomJson.dicomJson, "00741216");
         if (performedProcedure &&
             _.get(performedProcedure, "Value.0.00404050") &&
             _.get(performedProcedure, "Value.0.00404051")) {

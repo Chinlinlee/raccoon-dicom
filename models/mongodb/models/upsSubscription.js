@@ -31,6 +31,67 @@ let upsSubscriptionSchema = new mongoose.Schema(
         versionKey: false,
         toObject: {
             getters: true
+        },
+        statics: {
+            findByWorkItem: async function (workItem) {
+                return await mongoose.model("upsSubscription").find({ workItems: workItem._id }).exec();
+            },
+            /**
+             * 
+             * @param {string} aeTitle 
+             * @returns repository item
+             */
+            findOneByAeTitle: async function (aeTitle) {
+                return await mongoose.model("upsSubscription").findOne({ aeTitle }).exec();
+            },
+            createSubscriptionForWorkItem: async function (workItem, aeTitle, deletionLock, subscribed) {
+                let subscription = new mongoose.model("upsSubscription")({
+                    aeTitle: aeTitle,
+                    workItems: [workItem._id],
+                    subscribed: subscribed,
+                    isDeletionLock: deletionLock
+                });
+                return await subscription.save();
+            },
+            updateSubscription: async function (subscription, workItem, deletionLock, subscribed) {
+                return await mongoose.model("upsSubscription").findOneAndUpdate({
+                    _id: subscription._id
+                }, {
+                    $set: {
+                        isDeletionLock: deletionLock,
+                        subscribed: subscribed
+                    },
+                    $addToSet: {
+                        workItems: workItem._id
+                    }
+                });
+            },
+            /**
+             * 
+             * @param {string} aeTitle 
+             * @param {any} workItem  repository item
+             */
+            unsubscribe: async function (aeTitle, workItem) {
+                return await mongoose.model("upsSubscription").findOneAndUpdate({
+                    aeTitle: aeTitle,
+                    workItems: workItem._id
+                }, {
+                    $pull: {
+                        workItems: workItem._id
+                    }
+                });
+
+            },
+            /**
+             * 
+             * @param {string} aeTitle 
+             */
+            getCountByAeTitle: async function (aeTitle) {
+                return await mongoose.model("upsSubscription").countDocuments({ aeTitle: aeTitle });
+            },
+            deleteOneByAeTitle: async function (aeTitle) {
+                return await mongoose.model("upsSubscription").findOneAndDelete({ aeTitle: aeTitle });
+            }
         }
     }
 );
@@ -43,3 +104,4 @@ let upsSubscriptionModel = mongoose.model(
 );
 
 module.exports = upsSubscriptionModel;
+module.exports.UpsSubscriptionModel = upsSubscriptionModel;

@@ -1,4 +1,4 @@
-const mongodb = require("./models/mongodb/index");
+require("@dbInitializer");
 const express = require("express");
 const { createServer } = require("http");
 const app = express();

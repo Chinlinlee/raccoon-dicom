@@ -1,13 +1,13 @@
 const _ = require("lodash");
 const { WorkItemEvent } = require("./workItem-event");
-const { DicomJsonModel } = require("@models/DICOM/dicom-json-model");
 const { findWsArrayByAeTitle } = require("@root/websocket");
 const { SUBSCRIPTION_STATE } = require("@models/DICOM/ups");
-const { convertRequestQueryToMongoQuery } = require("../../QIDO-RS/service/QIDO-RS.service");
-const globalSubscriptionModel = require("@models/mongodb/models/upsGlobalSubscription");
-const subscriptionModel = require("@models/mongodb/models/upsSubscription");
-const workItemModel = require("@models/mongodb/models/workItems");
+const { UpsGlobalSubscriptionModel } = require("@dbModels/upsGlobalSubscription");
+const { UpsSubscriptionModel } = require("@dbModels/upsSubscription");
+const { WorkItemModel } = require("@dbModels/workitems.model");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
+const { DicomWebServiceError, DicomWebStatusCodes } = require("@error/dicom-web-service");
+const { BaseDicomJson } = require("@models/DICOM/dicom-json-model");
 class BaseWorkItemService {
 
     constructor(req, res) {
@@ -17,8 +17,6 @@ class BaseWorkItemService {
         this.response = res;
         /** @type {WorkItemEvent[]} */
         this.upsEvents = [];
-        /** @type {DicomJsonModel} */
-        this.workItem = null;
     }
 
     addUpsEvent(type, upsInstanceUID, eventInformation, subscribers) {
@@ -48,7 +46,7 @@ class BaseWorkItemService {
 
     /**
      * Use for getting event information
-     * @param {DicomJsonModel} workItem
+     * @param {BaseDicomJson} workItem
      */
     stateReportOf(workItem) {
         let eventInformation = {
@@ -84,9 +82,7 @@ class BaseWorkItemService {
     }
 
     async isAeTileSubscribed(aeTitle) {
-        let subscription = await subscriptionModel.findOne({
-            aeTitle: aeTitle
-        });
+        let subscription = await UpsSubscriptionModel.findOneByAeTitle(aeTitle);
 
         if (!subscription)
             return false;
@@ -96,11 +92,11 @@ class BaseWorkItemService {
     }
 
     async getGlobalSubscriptionsCursor() {
-        return globalSubscriptionModel.find({}).cursor();
+        return await UpsGlobalSubscriptionModel.getCursor({});
     }
 
     /**
-     * @param {DicomJsonModel} workItem
+     * @param {any} workItem repository workItem
      */
     async getHitGlobalSubscriptions(workItem) {
         let globalSubscriptionsCursor = await this.getGlobalSubscriptionsCursor();
@@ -110,13 +106,7 @@ class BaseWorkItemService {
             if (!globalSubscription.queryKeys) {
                 hitGlobalSubscriptions.push(globalSubscription);
             } else {
-                let { $match } = await convertRequestQueryToMongoQuery(globalSubscription.queryKeys);
-                $match.$and.push({
-                    upsInstanceUID: workItem.dicomJson.upsInstanceUID
-                });
-                let count = await workItemModel.countDocuments({
-                    ...$match
-                });
+                let count = await WorkItemModel.getCountWithQueryAndUpsInstanceUID(globalSubscription.queryKeys, workItem.upsInstanceUID);
                 if (count > 0)
                     hitGlobalSubscriptions.push(globalSubscription);
             }
@@ -125,10 +115,13 @@ class BaseWorkItemService {
         return hitGlobalSubscriptions;
     }
 
+    /**
+     * 
+     * @param {any} workItem repository workItem
+     * @returns 
+     */
     async getHitSubscriptions(workItem) {
-        let hitSubscriptions = await subscriptionModel.find({
-            workItems: workItem.dicomJson._id
-        });
+        let hitSubscriptions = await UpsSubscriptionModel.findByWorkItem(workItem);
 
         return hitSubscriptions;
     }

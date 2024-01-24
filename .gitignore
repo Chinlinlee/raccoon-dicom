@@ -24,3 +24,6 @@
 /pm2log/**
 !pm2log/.gitkeep
 config/ae-prod.properties
+
+# ignore jscpd output report
+/report

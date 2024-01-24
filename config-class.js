@@ -24,6 +24,7 @@ function generateUidFromGuid(iGuid) {
     return `2.25.${bigInteger.toString()}`;       //Output the previus parsed integer as string by adding `2.25.` as prefix
 }
 
+
 class MongoDbConfig {
     constructor() {
         this.dbName = env.get("MONGODB_NAME").default("raccoon").asString();
@@ -55,29 +56,23 @@ class DicomWebConfig {
     }
 }
 
-class FhirConfig {
-    constructor() {
-        this.isSyncToFhir = env.get("SYCN_TO_FHIR_SERVER").default("true").asBool();
-        this.baseUrl = env.get("FHIRSERVER_BASE_URL").default("http://127.0.0.1:8089/fhir").asString();
-    }
-}
-
 
 class RaccoonConfig {
     constructor() {
-        this.mongoDbConfig = new MongoDbConfig();
         this.serverConfig = new ServerConfig();
+
+        this.dbConfig = new MongoDbConfig();
+
         this.dicomWebConfig = new DicomWebConfig();
         this.dicomDimseConfig = new DimseConfig();
-        this.fhirConfig = new FhirConfig();
         
         /** @type {string} */
         this.mediaStorageUID = generateUidFromGuid(
-            uuid.v5(this.mongoDbConfig.dbName, NAME_SPACE)
+            uuid.v5(this.dbConfig.dbName, NAME_SPACE)
         );
         
         /** @type {string} */
-        this.mediaStorageID = this.mongoDbConfig.dbName;
+        this.mediaStorageID = this.dbConfig.dbName;
 
         this.aeTitle = this.dicomDimseConfig.enableDimse ? this.dicomDimseConfig.aeTitle : this.dicomWebConfig.aeTitle;
         if (!this.aeTitle)

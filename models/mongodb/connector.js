@@ -14,7 +14,7 @@ const {
     authSource,
     isShardingMode,
     urlOptions
-} = raccoonConfig.mongoDbConfig;
+} = raccoonConfig.dbConfig;
 module.exports = exports = function () {
 
     const collection = {};
@@ -85,7 +85,7 @@ function getCollections(dirname, collectionObj) {
                 file.slice(-3) === ".js"
         );
     for (let file of jsFilesInDir) {
-        const moduleName = file.split(".")[0];
+        const moduleName = file.split(".js")[0];
         console.log("moduleName :: ", moduleName);
         console.log("path : ", __dirname + dirname);
         collectionObj[moduleName] = require(__dirname +

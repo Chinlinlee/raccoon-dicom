@@ -1,9 +1,8 @@
 const _ = require("lodash");
-const workItemsModel = require("@models/mongodb/models/workItems");
 const { 
-    convertAllQueryToDICOMTag,
-    convertRequestQueryToMongoQuery
-} = require("../../QIDO-RS/service/QIDO-RS.service");
+     QueryUpsDicomJsonFactory
+} = require("../../QIDO-RS/service/query-dicom-json-factory");
+const { convertAllQueryToDicomTag } = require("@root/api/dicom-web/service/base-query.service");
 
 class GetWorkItemService {
     constructor(req, res) {
@@ -28,16 +27,15 @@ class GetWorkItemService {
     }
 
     async getUps() {
-        let mongoQuery = (await convertRequestQueryToMongoQuery(this.query)).$match;
-
         let queryOptions = {
-            query: mongoQuery,
+            query: this.query,
             skip: this.skip_,
             limit: this.limit_,
             requestParams: this.request.params
         };
+        let queryFactory = new QueryUpsDicomJsonFactory(queryOptions);
 
-        let docs = await workItemsModel.getDicomJson(queryOptions);
+        let docs = await queryFactory.getDicomJson();
         
         return this.adjustDocs(docs);
     }
@@ -60,7 +58,7 @@ class GetWorkItemService {
             if (!query[queryKey]) delete query[queryKey];
         }
 
-        this.query = convertAllQueryToDICOMTag(query);
+        this.query = convertAllQueryToDicomTag(query);
     }
 
 }

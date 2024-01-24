@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const patientModel = require("../models/mongodb/models/patient");
+const patientModel = require("../models/mongodb/models/patient.model");
 const { DicomJsonModel } = require("../models/DICOM/dicom-json-model");
 const { expect } = require("chai");
 const _ = require("lodash");
@@ -88,6 +88,9 @@ describe("Patient MongoDB and DicomJsonModel", async() => {
         let docObj = findDoc.toObject();
         delete docObj._id;
         delete docObj.id;
+        delete docObj.deleteStatus;
+        delete docObj.createdAt;
+        delete docObj.updatedAt;
 
         expect(docObj).to.deep.equal(fakePatientData);
     });

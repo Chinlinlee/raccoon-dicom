@@ -1,5 +1,7 @@
 RegExp.prototype.toJSON = RegExp.prototype.toString;
-require('module-alias')(__dirname);
+const { raccoonConfig } = require("./config-class");
+
+require('module-alias')(__dirname + "/config/modula-alias/mongodb");
 
 const { app, server } = require("./app");
 const bodyParser = require("body-parser");
@@ -8,12 +10,16 @@ const cookieParser = require("cookie-parser");
 const compress = require("compression");
 const cors = require("cors");
 const os = require("os");
-const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo");
+
+let sessionStore = require("connect-mongo");;
+let dbInstance = require("mongoose");
+let sessionStoreOption = sessionStore.create({
+    client: dbInstance.connection.getClient(),
+    dbName: raccoonConfig.dbConfig.dbName
+});
 
 const passport = require("passport");
-const { raccoonConfig } = require("./config-class");
-const { DcmQrScp } = require('./dimse');
+const { DcmQrScp } = require('@dimse');
 require("dotenv");
 require("./websocket");
 
@@ -42,6 +48,7 @@ app.use(
 
 //#region session
 
+
 app.use(
     session({
         secret: raccoonConfig.serverConfig.secretKey || "secretKey",
@@ -51,10 +58,7 @@ app.use(
             httpOnly: true,
             maxAge: 60 * 60 * 1000
         },
-        store: MongoStore.create({
-            client: mongoose.connection.getClient(),
-            dbName: raccoonConfig.mongoDbConfig.dbName
-        })
+        store: sessionStoreOption
     })
 );
 

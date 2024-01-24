@@ -4,12 +4,11 @@ const glob = require("glob");
 const path = require("path");
 const fsP = require("fs/promises");
 const { StowRsService } = require("../api/dicom-web/controller/STOW-RS/service/stow-rs.service");
-const patientModel = require("../models/mongodb/models/patient");
-const dicomStudyModel = require("../models/mongodb/models/dicomStudy");
-const dicomSeriesModel = require("../models/mongodb/models/dicomSeries");
-const dicomModel = require("../models/mongodb/models/dicom");
+const patientModel = require("../models/mongodb/models/patient.model");
+const dicomStudyModel = require("../models/mongodb/models/study.model");
+const dicomSeriesModel = require("../models/mongodb/models/series.model");
+const dicomModel = require("../models/mongodb/models/instance.model");
 const { expect } = require("chai");
-const { QidoDicomJsonFactory, convertAllQueryToDICOMTag } = require("../api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
 
 async function storeDicomInstancesAndGet4Patients() {
     let stowRsService = new StowRsService({
@@ -17,7 +16,7 @@ async function storeDicomInstancesAndGet4Patients() {
             host: "fake-host"
         },
         params: {}
-    }, []);
+    }, { locals: {} }, []);
 
     /** @type {string[]} */
     let files = glob.sync("**/*.dcm", {

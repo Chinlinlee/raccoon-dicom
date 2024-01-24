@@ -1,6 +1,7 @@
 const DicomWebStatusCodes = {
     "InvalidAttributeValue": "0106",
     "DuplicateSOPinstance": "0111",
+    "NoSuchSOPInstance": "0112",
     "InvalidArgumentValue": "0115",
     "MissingAttribute": "0120",
     "ProcessingFailure": "0272",

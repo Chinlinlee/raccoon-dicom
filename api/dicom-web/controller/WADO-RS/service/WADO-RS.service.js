@@ -1,13 +1,14 @@
 const _ = require("lodash");
 const path = require("path");
 const fsP = require("fs/promises");
-const mongoose = require("mongoose");
 const { MultipartWriter } = require("../../../../../utils/multipartWriter");
 const errorResponse = require("../../../../../utils/errorResponse/errorResponseMessage");
 const { raccoonConfig } = require("../../../../../config-class");
 const { JSONPath } = require("jsonpath-plus");
 const { DicomWebService } = require("../../../service/dicom-web.service");
-const dicomModel = require("../../../../../models/mongodb/models/dicom");
+const { StudyModel } = require("@dbModels/study.model");
+const { SeriesModel } = require("@dbModels/series.model");
+const { InstanceModel } = require("@dbModels/instance.model");
 const { logger } = require("../../../../../utils/logs/log");
 const { RetrieveAuditService } = require("./retrieveAudit.service");
 const { EventOutcomeIndicator } = require("@models/DICOM/audit/auditUtils");
@@ -67,7 +68,7 @@ class ImageMultipartWriter {
         if (!writeResult.status) {
             retrieveAuditService.eventResult = EventOutcomeIndicator.MajorFailure;
             await retrieveAuditService.completedRetrieve();
-            
+
             this.response.setHeader("Content-Type", "application/dicom+json");
             return this.response.status(writeResult.code).json(writeResult);
         }
@@ -82,10 +83,10 @@ class ImagePathFactory {
 
     /**
      * 
-     * @param {import("../../../../../utils/typeDef/dicom").Uids} uids 
+     * @param {Pick<import("@root/utils/typeDef/dicom").DicomUid, "studyUID" | "seriesUID" | "instanceUID">} uids 
      */
     constructor(uids) {
-        /** @type { import("../../../../../utils/typeDef/WADO-RS/WADO-RS.def").ImagePathObj[] } */
+        /** @type { import("@root/utils/typeDef/dicomImage").ImagePathObj[] } */
         this.imagePaths = [];
         /** @type {Uids} */
         this.uids = uids;
@@ -98,7 +99,7 @@ class ImagePathFactory {
             return {
                 status: false,
                 code: 404,
-                message: `not found, ${this.getUidsString()}`
+                message: `not found, ${DicomWebService.getUidsString(this.uids)}`
             };
         }
 
@@ -139,16 +140,6 @@ class ImagePathFactory {
         return existArr;
     }
 
-    getUidsString() {
-        let uidsKeys = Object.keys(this.uids);
-        let strArr = [];
-        for (let i = 0; i < uidsKeys.length; i++) {
-            let key = uidsKeys[i];
-            strArr.push(`${key}: ${this.uids[key]}`);
-        }
-        return strArr.join(", ");
-    }
-
     getPartialImagesPathString() {
         return JSON.stringify(this.imagePaths.slice(0, 10).map(v => v.instancePath));
     }
@@ -160,7 +151,7 @@ class StudyImagePathFactory extends ImagePathFactory {
     }
 
     async getImagePaths() {
-        this.imagePaths = await mongoose.model("dicomStudy").getPathGroupOfInstances(this.uids);
+        this.imagePaths = await StudyModel.getPathGroupOfInstances(this.uids);
     }
 }
 
@@ -170,7 +161,7 @@ class SeriesImagePathFactory extends ImagePathFactory {
     }
 
     async getImagePaths() {
-        this.imagePaths = await mongoose.model("dicomSeries").getPathGroupOfInstances(this.uids);
+        this.imagePaths = await SeriesModel.getPathGroupOfInstances(this.uids);
     }
 }
 
@@ -180,9 +171,9 @@ class InstanceImagePathFactory extends ImagePathFactory {
     }
 
     async getImagePaths() {
-        let imagePath = await dicomModel.getPathOfInstance(this.uids);
+        let imagePath = await InstanceModel.getPathOfInstance(this.uids);
 
-        if(imagePath)
+        if (imagePath)
             this.imagePaths = [imagePath];
         else
             this.imagePaths = [];

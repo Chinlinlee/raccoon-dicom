@@ -4,16 +4,17 @@ const { Attributes } = require("@dcm4che/data/Attributes");
 const { queryTagsOfEachLevel } = require("./queryTagsOfEachLevel");
 const { StringUtils } = require("@dcm4che/util/StringUtils");
 const { intTagToString } = require("./utils");
-const { convertRequestQueryToMongoQuery } = require("@root/api/dicom-web/controller/QIDO-RS/service/QIDO-RS.service");
+const { convertRequestQueryToMongoQuery } = require("@models/mongodb/convertQuery");
+const { default: Tag } = require("@dcm4che/data/Tag");
 
 class DimseQueryBuilder {
 
     /**
      * 
      * @param {Attributes} queryKeys 
-     * @param {"patient" | "study" | "series" | "instance"} level
+     * @param {"patient" | "study" | "series" | "instance" | "mwl"} level
      */
-    constructor(queryKeys, level="patient") {
+    constructor(queryKeys, level = "patient") {
         this.queryKeys = queryKeys;
         this.level = level;
     }
@@ -21,7 +22,20 @@ class DimseQueryBuilder {
     async toNormalQuery() {
         const queryTags = queryTagsOfEachLevel[this.level];
         let query = {};
-        for (let i = 0 ; i < queryTags.length ; i++) {
+
+        let spsKeys = await this.queryKeys.getNestedDataset(Tag.ScheduledProcedureStepSequence);
+        if (spsKeys != null && 
+            !(await spsKeys.isEmpty()) && 
+            this.level === "mwl"
+        ) {
+            let spsQueryTags = queryTagsOfEachLevel.mwlSps;
+            for (let i = 0; i < spsQueryTags.length; i++) {
+                let tagStringValues = await StringUtils.maskNull(await spsKeys.getStrings(spsQueryTags[i]));
+                query[`${intTagToString(Tag.ScheduledProcedureStepSequence)}.Value.${intTagToString(spsQueryTags[i])}.Value`] = tagStringValues.join(",");
+            }
+        }
+
+        for (let i = 0; i < queryTags.length; i++) {
             let tag = queryTags[i];
             /** @type {string[]} */
             let tagStringValues = await StringUtils.maskNull(await this.queryKeys.getStrings(tag));
@@ -39,7 +53,7 @@ class DimseQueryBuilder {
         return clonedQuery;
     }
 
-    async getMongoQuery(query) {
+    async build(query) {
         return await convertRequestQueryToMongoQuery(
             this.cleanEmptyQuery(query)
         );

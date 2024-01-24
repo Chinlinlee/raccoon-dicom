@@ -2,11 +2,8 @@ const _ = require("lodash");
 
 const { AuditMessageFactory } = require("./auditMessageFactory");
 const { EventType } = require("./eventType");
-
-/**
- * @typedef AuditMessageModel
- * @property {(json: JSON) => Promise<void>} createMessage
- */
+const { AuditMessageModel } = require("@dbModels/auditMessage");
+const { raccoonConfig } = require("@root/config-class");
 
 class AuditManager {
     constructor(eventType, eventResult,
@@ -152,15 +149,10 @@ class AuditManager {
      */
     async saveToDb_(msg) {
         try {
-            await AuditManager.getAuditMessageModel().createMessage(msg);
+            await AuditMessageModel.createMessage(msg);
         } catch (e) {
             throw e;
         }
-    }
-
-    static getAuditMessageModel() {
-        const mongoose = require("mongoose");
-        return mongoose.model("auditMessage");
     }
 }
 

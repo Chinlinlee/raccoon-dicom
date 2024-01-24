@@ -1,4 +1,4 @@
-require("module-alias/register");
+require('module-alias')(__dirname + "/../config/modula-alias/mongodb");
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const {getLogger} = require("log4js");

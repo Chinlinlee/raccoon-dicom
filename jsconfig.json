@@ -7,7 +7,12 @@
             "@models/*": ["./models/*"],
             "@error/*" : ["./error/*"],
             "@root/*": ["./*"],
-            "@chinlinlee/*": ["./models/DICOM/dcm4che/wrapper/org/github/chinlinlee/*"]
+            "@chinlinlee/*": ["./models/DICOM/dcm4che/wrapper/org/github/chinlinlee/*"],
+            "@dbModels/*": ["./models/mongodb/models/*"],
+            "@dicom-json-model": ["./models/mongodb/dicom-json-model.js"],
+            "@stow-rs-service": ["./api/dicom-web/controller/STOW-RS/service/stow-rs.service.js"],
+            "@dimse/*": ["./dimse/*"],
+            "@api/*": ["./api/*"]
         }
     },
     "exclude": [
