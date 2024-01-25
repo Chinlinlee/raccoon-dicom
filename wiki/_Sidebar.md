@@ -7,7 +7,7 @@
 - **[🏠 Home](https://github.com/Chinlinlee/raccoon-dicom/wiki/Home)**
 - **[🔧 Installation](https://github.com/Chinlinlee/raccoon-dicom/wiki/Installation)**
     - **[👨‍💻 Step by Step guideline to installing - Windows](https://github.com/Chinlinlee/raccoon-dicom/wiki/From-zero-to-deploy)**
-
+    - **[👨‍💻 Step by Step guideline to installing - Ubuntu](https://github.com/Chinlinlee/raccoon-dicom/wiki/step-by-step-installation-ubuntu)**
 ## Developer
 - **[🧪 Test Workflow](https://github.com/Chinlinlee/raccoon-dicom/wiki/DICOM-Instance-Test-Info)**
 
