@@ -33,17 +33,21 @@ let upsSubscriptionSchema = new mongoose.Schema(
             getters: true
         },
         statics: {
+            /**
+             * @type { import("@root/utils/typeDef/models/upsSubscription").UpsSubscriptionModelConstructor["findByWorkItem"] }
+             */
             findByWorkItem: async function (workItem) {
                 return await mongoose.model("upsSubscription").find({ workItems: workItem._id }).exec();
             },
             /**
-             * 
-             * @param {string} aeTitle 
-             * @returns repository item
+             * @type { import("@root/utils/typeDef/models/upsSubscription").UpsSubscriptionModelConstructor["findOneByAeTitle"] }
              */
             findOneByAeTitle: async function (aeTitle) {
                 return await mongoose.model("upsSubscription").findOne({ aeTitle }).exec();
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/upsSubscription").UpsSubscriptionModelConstructor["createSubscriptionForWorkItem"] }
+             */
             createSubscriptionForWorkItem: async function (workItem, aeTitle, deletionLock, subscribed) {
                 let subscription = new mongoose.model("upsSubscription")({
                     aeTitle: aeTitle,
@@ -53,6 +57,9 @@ let upsSubscriptionSchema = new mongoose.Schema(
                 });
                 return await subscription.save();
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/upsSubscription").UpsSubscriptionModelConstructor["updateSubscription"] }
+             */
             updateSubscription: async function (subscription, workItem, deletionLock, subscribed) {
                 return await mongoose.model("upsSubscription").findOneAndUpdate({
                     _id: subscription._id
@@ -67,9 +74,7 @@ let upsSubscriptionSchema = new mongoose.Schema(
                 });
             },
             /**
-             * 
-             * @param {string} aeTitle 
-             * @param {any} workItem  repository item
+             * @type { import("@root/utils/typeDef/models/upsSubscription").UpsSubscriptionModelConstructor["unsubscribe"] }
              */
             unsubscribe: async function (aeTitle, workItem) {
                 return await mongoose.model("upsSubscription").findOneAndUpdate({
@@ -83,12 +88,14 @@ let upsSubscriptionSchema = new mongoose.Schema(
 
             },
             /**
-             * 
-             * @param {string} aeTitle 
+             * @type { import("@root/utils/typeDef/models/upsSubscription").UpsSubscriptionModelConstructor["getCountByAeTitle"] }
              */
             getCountByAeTitle: async function (aeTitle) {
                 return await mongoose.model("upsSubscription").countDocuments({ aeTitle: aeTitle });
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/upsSubscription").UpsSubscriptionModelConstructor["deleteOneByAeTitle"] } 
+             */
             deleteOneByAeTitle: async function (aeTitle) {
                 return await mongoose.model("upsSubscription").findOneAndDelete({ aeTitle: aeTitle });
             }
@@ -104,4 +111,6 @@ let upsSubscriptionModel = mongoose.model(
 );
 
 module.exports = upsSubscriptionModel;
+
+/** @type { import("@root/utils/typeDef/models/upsSubscription").UpsSubscriptionModelConstructor } */
 module.exports.UpsSubscriptionModel = upsSubscriptionModel;
