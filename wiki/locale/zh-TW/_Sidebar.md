@@ -7,6 +7,7 @@
 - **[🏠 首頁](https://github.com/Chinlinlee/raccoon-dicom/wiki/Home.zh-TW)**
 - **[🔧 安裝手冊](https://github.com/Chinlinlee/raccoon-dicom/wiki/Installation.zh-TW)**
     - **[👨‍💻 從 0 開始部屬 Raccoon - Windows](https://github.com/Chinlinlee/raccoon-dicom/wiki/From-zero-to-deploy.zh-TW)**
+    - **[👨‍💻 從 0 開始部屬 Raccoon - Linux](https://github.com/Chinlinlee/raccoon-dicom/wiki/step-by-step-installation-ubuntu.zh-TW)**
 
 
 ## 開發人員
