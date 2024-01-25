@@ -24,4 +24,5 @@ let auditMessage = new mongoose.Schema(
 const auditMessageModel = mongoose.model("auditMessage", auditMessage, "auditMessage");
 
 module.exports = auditMessageModel;
+/** @type { import("@root/utils/typeDef/models/auditMessageModel").AuditMessageModel } */
 module.exports.AuditMessageModel = auditMessageModel;

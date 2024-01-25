@@ -6,4 +6,5 @@ class AuditMessageModelLoggerDbImpl {
     }
 }
 
+/** @type { import("@root/utils/typeDef/models/auditMessageModel").AuditMessageModel } */
 module.exports.AuditMessageModel = AuditMessageModelLoggerDbImpl;
