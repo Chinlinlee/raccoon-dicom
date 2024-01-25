@@ -51,9 +51,15 @@ let dicomSchemaOptions = _.merge(
             }
         },
         statics: {
+            /**
+             * @type { import("@root/utils/typeDef/models/instance").InstanceModelConstructor["findOneByDicomUID"] }
+             */
             findOneByDicomUID: async function ({ studyUID, seriesUID, instanceUID }) {
                 return await mongoose.model("dicom").findOne({ studyUID, seriesUID, instanceUID }).exec();
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/instance").InstanceModelConstructor["getAuditInstancesInfoFromStudyUID"] }
+             */
             getAuditInstancesInfoFromStudyUID: async (studyUID) => {
                 let instances = await mongoose.model("dicom").find({ studyUID }).exec();
 
@@ -80,16 +86,17 @@ let dicomSchemaOptions = _.merge(
 
                 return instanceInfos;
             },
+            /**
+             * 
+             * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions 
+             * @returns 
+             */
             getDicomJsonProjection: function (queryOptions) {
                 let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
                 return includeFieldsFactory.getInstanceLevelFields();
             },
             /**
-             * 
-             * @param {object} iParam 
-             * @param {string} iParam.studyUID
-             * @param {string} iParam.seriesUID
-             * @param {string} iParam.instanceUID
+             * @type { import("@root/utils/typeDef/models/instance").InstanceModelConstructor["getPathOfInstance"] }
              */
             getPathOfInstance: async function (iParam) {
                 try {
@@ -114,6 +121,14 @@ let dicomSchemaOptions = _.merge(
                     throw e;
                 }
             },
+            /**
+             * 
+             * @param {Object} iParam 
+             * @param {string} iParam.studyUID
+             * @param {string} iParam.seriesUID
+             * @param {string} iParam.instanceUID
+             * @returns 
+             */
             getPathGroupQuery: function (iParam) {
                 let { studyUID, seriesUID, instanceUID } = iParam;
                 return {
@@ -136,9 +151,7 @@ let dicomSchemaOptions = _.merge(
                 };
             },
             /**
-             * 
-             * @param {string} studyUID 
-             * @param {string} seriesUID 
+             * @type { import("@root/utils/typeDef/models/instance").InstanceModelConstructor["getInstanceOfMedianIndex"] }
              */
             getInstanceOfMedianIndex: async function (query) {
                 let instanceCountOfStudy = await mongoose.model("dicom").countDocuments({
@@ -169,12 +182,7 @@ let dicomSchemaOptions = _.merge(
                     .exec();
             },
             /**
-             * 
-             * @param {object} iParam 
-             * @param {string} iParam.studyUID
-             * @param {string} iParam.seriesUID
-             * @param {string} iParam.instanceUID
-             * @returns { Promise<import("@root/utils/typeDef/dicomImage").InstanceFrameObj> | Promise<undefined> }
+             * @type { import("@root/utils/typeDef/models/instance").InstanceModelConstructor["getInstanceFrame"] }
              */
             getInstanceFrame: async function (iParam) {
                 let { studyUID, seriesUID, instanceUID } = iParam;
@@ -231,9 +239,6 @@ let dicomSchemaOptions = _.merge(
     }
 );
 
-/**
- * @constructs dicomModelSchema
- */
 let dicomModelSchema = new mongoose.Schema(
     {
         "studyUID": {
@@ -537,6 +542,8 @@ async function updateStudyNumberOfStudyRelatedInstance(doc) {
 let dicomModel = mongoose.model("dicom", dicomModelSchema, "dicom");
 
 module.exports = dicomModel;
+
+/** @type { import("@root/utils/typeDef/models/instance").InstanceModelConstructor } */
 module.exports.InstanceModel = dicomModel;
 
 module.exports.getModalitiesInStudy = getModalitiesInStudy;
