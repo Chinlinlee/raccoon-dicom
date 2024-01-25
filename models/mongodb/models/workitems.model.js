@@ -39,6 +39,10 @@ let workItemSchema = new mongoose.Schema(
             getters: true
         },
         statics: {
+            /**
+             * 
+             * @type { import("@root/utils/typeDef/models/workitemsModel").WorkItemModelConstructor["findNotSubscribedWorkItems"] }
+             */
             findNotSubscribedWorkItems: async function () {
                 return await mongoose.model("workItems").find({
                     $or: [
@@ -55,8 +59,7 @@ let workItemSchema = new mongoose.Schema(
                 }) || [];
             },
             /**
-             * 
-             * @param {Object} workItem general dicom json
+             * @type { import("@root/utils/typeDef/models/workitemsModel").WorkItemModelConstructor["createWorkItemAndPatient"] }
              */
             createWorkItemAndPatient: async function (workItem) {
                 let patientID = _.get(workItem, "00100020.Value.0");
@@ -68,9 +71,7 @@ let workItemSchema = new mongoose.Schema(
                 return await workItemDoc.save();
             },
             /**
-             * 
-             * @param {string} upsInstanceUID 
-             * @returns 
+             * @type { import("@root/utils/typeDef/models/workitemsModel").WorkItemModelConstructor["findOneByUpsInstanceUID"] }
              */
             findOneByUpsInstanceUID: async function (upsInstanceUID) {
                 return await mongoose.model("workItems").findOne({
@@ -78,10 +79,7 @@ let workItemSchema = new mongoose.Schema(
                 });
             },
             /**
-             * 
-             * @param {Object} query the query structure example { "00100010.Value": "foo" } or { "00100010.Value.00100010.Value": "bar" }
-             * @param {string} upsInstanceUID 
-             * @returns {number} count
+             * @type { import("@root/utils/typeDef/models/workitemsModel").WorkItemModelConstructor["getCountWithQueryAndUpsInstanceUID"] }
              */
             async getCountWithQueryAndUpsInstanceUID(query, upsInstanceUID) {
                 let { $match } = await convertRequestQueryToMongoQuery(query);
@@ -94,8 +92,7 @@ let workItemSchema = new mongoose.Schema(
             },
             /**
              * 
-             * @param {string} upsInstanceUID 
-             * @param {import("@root/utils/typeDef/dicom").GeneralDicomJson} generalDicomJson 
+             * @type { import("@root/utils/typeDef/models/workitemsModel").WorkItemModelConstructor["updateOneByUpsInstanceUID"] }
              */
             updateOneByUpsInstanceUID: async function (upsInstanceUID, generalDicomJson) {
                 return await mongoose.model("workItems").findOneAndUpdate({
