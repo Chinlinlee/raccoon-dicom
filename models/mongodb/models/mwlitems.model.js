@@ -25,6 +25,9 @@ let mwlItemSchema = new mongoose.Schema(
             getters: true
         },
         statics: {
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["getDimseResultCursor"] }
+             */
             getDimseResultCursor: async function (query, keys) {
                 return mongoose.model("mwlItems").find(query, keys).setOptions({
                     strictQuery: false
@@ -32,9 +35,7 @@ let mwlItemSchema = new mongoose.Schema(
                     .cursor();
             },
             /**
-             * 
-             * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
-             * @returns 
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["getDicomJson"] }
              */
             getDicomJson: async function (queryOptions) {
                 let projection = mongoose.model("mwlItems").getDicomJsonProjection(queryOptions.includeFields);
@@ -60,10 +61,16 @@ let mwlItemSchema = new mongoose.Schema(
                 let includeFieldsFactory = new IncludeFieldsFactory(includeFields);
                 return includeFieldsFactory.getMwlLevelFields();
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["getCount"] }
+             */
             getCount: async function (query) {
                 let mongoQuery = await convertRequestQueryToMongoQuery(query);
                 return await mongoose.model("mwlItems").countDocuments(mongoQuery);
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["deleteByStudyInstanceUIDAndSpsID"] }
+             */
             deleteByStudyInstanceUIDAndSpsID: async function (studyUID, spsID) {
                 return await mongoose.model("mwlItems").deleteMany({
                     $and: [
@@ -77,9 +84,7 @@ let mwlItemSchema = new mongoose.Schema(
                 });
             },
             /**
-             * 
-             * @param {string} studyUID 
-             * @param {string} spsID 
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["findOneByStudyInstanceUIDAndSpsID"] }
              */
             findOneByStudyInstanceUIDAndSpsID: async function (studyUID, spsID) {
                 return await mongoose.model("mwlItems").findOne({
@@ -93,16 +98,25 @@ let mwlItemSchema = new mongoose.Schema(
                     ]
                 });
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["createWithGeneralDicomJson"] }
+             */
             createWithGeneralDicomJson: async function (generalDicomJson) {
                 let mwlItemModelObj = new mongoose.model("mwlItems")(generalDicomJson);
                 return await mwlItemModelObj.save();
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["updateOneWithGeneralDicomJson"] }
+             */
             updateOneWithGeneralDicomJson: async function (mwlItem, generalDicomJson) {
                 mwlItem.$set({
                     ...generalDicomJson
                 });
                 return await mwlItem.save();
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["updateStatusByQuery"] }
+             */
             updateStatusByQuery: async function (query, status) {
                 let mongoQuery = (await convertRequestQueryToMongoQuery(query)).$match;
                 let updateResult = await mongoose.model("mwlItems").updateMany(mongoQuery, {
@@ -112,28 +126,39 @@ let mwlItemSchema = new mongoose.Schema(
                 }).exec();
                 return updateResult.modifiedCount;
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor["findMwlItems"] }
+             */
             findMwlItems: async function (query) {
                 let mongoQuery = await convertRequestQueryToMongoQuery(query);
                 return await mongoose.model("mwlItems").find(mongoQuery);
             }
         },
         methods: {
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModel["toGeneralDicomJson"] }
+             */
             toGeneralDicomJson: async function () {
                 let obj = this.toObject();
                 delete obj._id;
                 delete obj.id;
                 return obj;
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModel["toDicomJson"] }
+             */
             toDicomJson: async function () {
                 return new BaseDicomJson(await this.toGeneralDicomJson());
             },
+            /**
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModel["getAttributes"] }
+             */
             getAttributes: async function () {
                 let jsonStr = JSON.stringify(this.toDicomJson());
                 return await Common.getAttributesFromJsonString(jsonStr);
             },
             /**
-             * 
-             * @param {"SCHEDULED" | "ARRIVED" | "READY" | "STARTED" | "DEPARTED" | "CANCELED" | "DISCONTINUED" | "COMPLETED"} status 
+             * @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModel["updateStatus"] }
              */
             updateStatus: async function (status) {
                 this.$set(`${dictionary.keyword.ScheduledProcedureStepSequence}.Value.0.${dictionary.keyword.ScheduledProcedureStepStatus}.Value.0`, status);
@@ -166,4 +191,5 @@ let mwlItemModel = mongoose.model(
 );
 
 module.exports = mwlItemModel;
+/** @type { import("@root/utils/typeDef/models/mwlitem").MwlItemModelConstructor } */
 module.exports.MwlItemModel = mwlItemModel;
