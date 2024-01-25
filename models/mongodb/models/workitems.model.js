@@ -141,9 +141,7 @@ for (let tag in tagsNeedStore.Patient) {
 }
 
 /**
- * 
- * @param {import("@root/utils/typeDef/dicom").DicomJsonQueryOptions} queryOptions
- * @returns 
+ * @type { import("@root/utils/typeDef/models/workitemsModel").WorkItemModelConstructor["getDicomJson"] }
  */
 workItemSchema.statics.getDicomJson = async function (queryOptions) {
     let workItemFields = getWorkItemFields();

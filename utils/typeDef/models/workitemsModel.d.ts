@@ -1,5 +1,5 @@
 import type { BaseDicomJson } from "@models/DICOM/dicom-json-model";
-import type { GeneralDicomJson } from "../dicom";
+import type { DicomJsonQueryOptions, GeneralDicomJson } from "../dicom";
 import type { SUBSCRIPTION_STATE } from "@models/DICOM/ups";
 
 export interface WorkItemModelConstructor {
@@ -14,6 +14,7 @@ export interface WorkItemModelConstructor {
      * @param upsInstanceUID 
      */
     public static getCountWithQueryAndUpsInstanceUID(query: any, upsInstanceUID: string): Promise<number>;
+    public static getDicomJson(queryOptions: DicomJsonQueryOptions): Promise<GeneralDicomJson[]>
 }
 
 export interface WorkItemModel {
