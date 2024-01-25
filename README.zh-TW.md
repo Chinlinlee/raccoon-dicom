@@ -19,7 +19,7 @@ Another Raccoon focus on DICOM.
 - [從 0 開始部屬 Raccoon - Windows](https://github.com/Chinlinlee/raccoon-dicom/wiki/From-zero-to-deploy.zh-TW): 在 Windows 上，一步一步從安裝到部屬
 - 從 0 開始部屬 Raccoon - Ubuntu (WIP🚧)
 
-# Troubleshooting on linux
+# Troubleshooting
 - `Unknown VR: Tag not found in data dictionary` when using `STOW-RS`
     - 您必須設定 `DCMDICTPATH` 環境變數
     - `dicom.dic` 檔案可以在`/usr/share/libdcmtk{version}`或 `./models/DICOM/dcmtk/dicom.dic`找到
@@ -33,6 +33,9 @@ Another Raccoon focus on DICOM.
     ```sh
     echo $DCMDICTPATH
     ```
+- `java.lang.UnsatisfiedLinkError: no opencv_java in java.library.path`
+    - 你必須將 `opencv_java` 放到 java library 路徑當中 (例如: /usr/lib/jvm/java-11-openjdk-amd64/lib)
+    - open_java 的 library 檔案可以在 `models/DICOM/dcm4che/javaNode/dcm4chee/lib/linux-x86-64` (linux) 或 `models/DICOM/dcm4che/javaNode/dcm4chee/lib/windows-x86-64` (windows) 中找到
 
 # 提供之功能
 目前以實作的功能如下：

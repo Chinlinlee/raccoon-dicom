@@ -18,7 +18,7 @@ Another Raccoon focus on DICOM.
 - Step by Step guide to installing Raccoon-DICOM - Windows (WIP🚧)
 - Step by Step guide to installing Raccoon-DICOM - Ubuntu (WIP🚧)
 
-# Troubleshooting on linux
+# Troubleshooting
 - `Unknown VR: Tag not found in data dictionary` when using `STOW-RS`
     - You need set the `DCMDICTPATH` environment variable
     - The `dicom.dic` can find in the `/usr/share/libdcmtk{version}` or `./models/DICOM/dcmtk/dicom.dic`
@@ -32,6 +32,10 @@ Another Raccoon focus on DICOM.
     ```sh
     echo $DCMDICTPATH
     ```
+
+- `java.lang.UnsatisfiedLinkError: no opencv_java in java.library.path`
+    - You should put `opencv_java` in java library path (e.g. /usr/lib/jvm/java-11-openjdk-amd64/lib)
+    - The library files of `opencv_java` can find in the `models/DICOM/dcm4che/javaNode/dcm4chee/lib/linux-x86-64` (linux), or `models/DICOM/dcm4che/javaNode/dcm4chee/lib/windows-x86-64` (windows)
 
 # Features
 The features implemented here:
