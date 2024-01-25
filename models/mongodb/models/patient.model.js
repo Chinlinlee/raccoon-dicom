@@ -14,6 +14,10 @@ let patientSchemaOptions = _.merge(
     DicomSchemaOptionsFactory.get("patient", PatientDocDicomJsonHandler),
     {
         methods: {
+            /**
+             * 
+             * @type { import("@root/utils/typeDef/models/patientModel").PatientModel["toGeneralDicomJson"] }
+             */
             toGeneralDicomJson: async function () {
                 let obj = this.toObject();
                 delete obj._id;
@@ -26,11 +30,21 @@ let patientSchemaOptions = _.merge(
 
                 return obj;
             },
+            /**
+             * 
+             * @type { import("@root/utils/typeDef/models/patientModel").PatientModel["toDicomJson"] }
+             */
             toDicomJson: async function() {
                 return new BaseDicomJson(await this.toGeneralDicomJson());
             }
         },
         statics: {
+            /**
+             * 
+             * @param {Object} iParam 
+             * @param {string} iParam.patientID
+             * @returns 
+             */
             getPathGroupQuery: function (iParam) {
                 let { patientID } = iParam;
                 return {
@@ -53,23 +67,25 @@ let patientSchemaOptions = _.merge(
             },
             /**
              * 
-             * @param {string} patientId 
-             * @param {any} patient 
+             * @type { import("@root/utils/typeDef/models/patientModel").PatientModelConstructor["findOneOrCreatePatient"] }
              */
             findOneOrCreatePatient: async function(patientId, patient) {
-                /** @type {PatientModel | null} */
                 let foundPatient = await mongoose.model("patient").findOne({
                     "00100020.Value": patientId
                 });
 
                 if (!foundPatient) {
-                    /** @type {PatientModel} */
                     let patientObj = new mongoose.model("patient")(patient);
                     patient = await patientObj.save();
                 }
 
                 return patient;
             },
+            /**
+             * 
+             * @param {import("@root/utils/typeDef/models/patientModel").PatientModelConstructor["findOneByPatientID"]} patientID 
+             * @returns 
+             */
             findOneByPatientID: async function(patientID) {
                 return await mongoose.model("patient").findOne({
                     patientID
@@ -77,8 +93,7 @@ let patientSchemaOptions = _.merge(
             },
             /**
              * 
-             * @param {string} patientID 
-             * @param {any} patient patient general dicom json
+             * @type { import("@root/utils/typeDef/models/patientModel").PatientModelConstructor["createOrUpdatePatient"] }
              */
             createOrUpdatePatient: async function(patientID, patient) {
                 return await mongoose.model("patient").findOneAndUpdate({
@@ -87,7 +102,7 @@ let patientSchemaOptions = _.merge(
             },
             /**
              * 
-             * @param {string} patientID 
+             * @type { import("@root/utils/typeDef/models/patientModel").PatientModelConstructor["getCountByPatientID"] }
              */
             getCountByPatientID: async function(patientID) {
                 return await mongoose.model("patient").countDocuments({ 
@@ -159,4 +174,5 @@ let patientModel = mongoose.model(
 
 module.exports = patientModel;
 
+/** @type { import("@root/utils/typeDef/models/patientModel").PatientModelConstructor } */
 module.exports.PatientModel = patientModel;
