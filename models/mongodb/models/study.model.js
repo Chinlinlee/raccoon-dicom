@@ -44,6 +44,10 @@ let dicomStudySchemaOptions = _.merge(
             }
         },
         statics: {
+            /**
+             * 
+             * @type { import("@root/utils/typeDef/models/studyModel").StudyModelConstructor["findOneByDicomUID"] }
+             */
             findOneByDicomUID: async function({ studyUID })  {
                 return await mongoose.model("dicomStudy").findOne({ studyUID }).exec();
             },
@@ -56,6 +60,12 @@ let dicomStudySchemaOptions = _.merge(
                 let includeFieldsFactory = new IncludeFieldsFactory(queryOptions.includeFields);
                 return includeFieldsFactory.getStudyLevelFields();
             },
+            /**
+             * 
+             * @param {Object} iParam 
+             * @param {string} iParam.studyUID
+             * @returns 
+             */
             getPathGroupQuery: function (iParam) {
                 let { studyUID } = iParam;
                 return {
@@ -104,4 +114,5 @@ let dicomStudyModel = mongoose.model(
 );
 
 module.exports = dicomStudyModel;
+/** @type { import("@root/utils/typeDef/models/studyModel").StudyModelConstructor } */
 module.exports.StudyModel = dicomStudyModel;
