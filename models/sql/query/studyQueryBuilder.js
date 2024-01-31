@@ -11,6 +11,15 @@ class StudyQueryBuilder extends BaseQueryBuilder {
     constructor(queryOptions) {
         super(queryOptions);
 
+        let patientQueryBuilder = new PatientQueryBuilder(queryOptions);
+        let patientQuery = patientQueryBuilder.build();
+        this.includeQueries.push({
+            model: sequelize.model("Patient"),
+            attributes: ["x00100020"],
+            ...patientQuery,
+            required: true
+        });
+        
         let studyInstanceUidInParams = _.get(this.queryOptions.requestParams, "studyUID");
         if (studyInstanceUidInParams) {
             this.query = {
