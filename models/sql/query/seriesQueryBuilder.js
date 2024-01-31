@@ -1,5 +1,6 @@
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
-const { BaseQueryBuilder, StudyQueryBuilder } = require("./querybuilder");
+const { BaseQueryBuilder } = require("./querybuilder");
+const { StudyQueryBuilder } = require("./studyQueryBuilder");
 const { Op, Sequelize } = require("sequelize");
 const { raccoonConfig } = require("@root/config-class");
 const _ = require("lodash");
