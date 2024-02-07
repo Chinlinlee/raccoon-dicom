@@ -1,4 +1,4 @@
-const SevenZipMin = require("7zip-min");
+const SevenZipMin = require("@root/utils/7zip-min-custom");
 
 class SevenZip {
 
