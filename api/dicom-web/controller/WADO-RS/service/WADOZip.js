@@ -12,6 +12,9 @@ class WADOZip {
         this.seriesUID = this.requestParams.seriesUID;
         this.instanceUID = this.requestParams.instanceUID;
         this.res = iRes;
+
+        /** @type { ZipFactory } */
+        this.zipFactory = undefined;
     }
 
     setHeaders(uid) {
@@ -23,7 +26,10 @@ class WADOZip {
     async getZipOfStudyDICOMFiles() {
         let imagesPathList = await StudyModel.getPathGroupOfInstances(this.requestParams);
         if (imagesPathList.length > 0) {
-            await this.#streamZipToResponse(imagesPathList);
+            this.zipFactory = StudyZipFactory;
+            await this.#adjustImagesPathList(imagesPathList);
+            let zipFile = await this.#getZipFile(imagesPathList);
+            await this.#streamZipToResponse(zipFile);
 
             return {
                 status: true,
@@ -41,7 +47,10 @@ class WADOZip {
     async getZipOfSeriesDICOMFiles() {
         let imagesPathList = await SeriesModel.getPathGroupOfInstances(this.requestParams);
         if (imagesPathList.length > 0) {
-            await this.#streamZipToResponse(imagesPathList);
+            this.zipFactory = SeriesZipFactory;
+            await this.#adjustImagesPathList(imagesPathList);
+            let zipFile = await this.#getZipFile(imagesPathList);
+            await this.#streamZipToResponse(zipFile);
             return {
                 status: true,
                 code: 200,
@@ -58,7 +67,10 @@ class WADOZip {
     async getZipOfInstanceDICOMFile() {
         let imagePath = await InstanceModel.getPathOfInstance(this.requestParams);
         if (imagePath) {
-            await this.#streamZipToResponse([imagePath]);
+            this.zipFactory = InstanceZipFactory;
+            await this.#adjustImagesPathList([imagePath]);
+            let zipFile = await this.#getZipFile([imagePath]);
+            await this.#streamZipToResponse(zipFile);
             return {
                 status: true,
                 code: 200,
@@ -72,12 +84,22 @@ class WADOZip {
         };
     }
 
-    async #streamZipToResponse(imagesPathList) {
+    async #getZipFile(imagesPathList) {
         let randomFilename = uuidV4();
         this.setHeaders(randomFilename);
 
         let zipFile = path.join(__dirname, `../../../../../tempUploadFiles/${randomFilename}.zip`);
-        await ZipFactory.compressToZipFile(zipFile, imagesPathList);
+        await this.zipFactory.compressToZipFile(zipFile, imagesPathList);
+
+        return zipFile;
+    }
+
+    /**
+     * 
+     * @param {string} zipFile 
+     */
+    async #streamZipToResponse(zipFile) {
+        this.setHeaders(path.basename(zipFile, ".zip"));
 
         fs.createReadStream(zipFile).pipe(this.res);
 
@@ -85,19 +107,56 @@ class WADOZip {
             fs.unlink(zipFile, () => { });
         });
     }
+
+    async #adjustImagesPathList(imagesPathList) {
+        for (let i = 0; i < imagesPathList.length; i++) {
+            let imagesPath = imagesPathList[i];
+            let instancePathSplit = imagesPath.instancePath.split(/[\/|\\]/gm);
+            let relativePath = instancePathSplit.slice(instancePathSplit.length - 3, instancePathSplit.length).join("/");
+            imagesPath.relativePath = relativePath;
+        }
+    }
 }
 
 class ZipFactory {
+    /**
+     * 
+     * @param {string} zipFile 
+     * @param {import("@root/utils/typeDef/dicomImage").ImagePathObj[]} imagePaths 
+     */
+    static async compressToZipFile(zipFile, imagePaths) {
+        throw new Error("Not implement");
+    }
+}
+
+class StudyZipFactory extends ZipFactory {
     static async compressToZipFile(zipFile, imagePaths) {
         let sevenZip = new SevenZip("zip", undefined, zipFile);
-
+        
         for (let i = 0; i < imagePaths.length; i++) {
-            sevenZip.addCmd(imagePaths[i].instancePath);
+            sevenZip.addCmd(imagePaths[i].relativePath);
         }
 
-        // prevent same filename
-        if (imagePaths.length >= 2)
-            sevenZip.useFullyQualifiedFilePaths();
+        sevenZip.overwrite("a");
+
+        let instancePathSplit = imagePaths[0].instancePath.split(/[\/|\\]/gm);
+        // Study Folder
+        let cwd = path.resolve(instancePathSplit.slice(0, instancePathSplit.length - 3).join("/"));
+        await sevenZip.pack({
+            cwd
+        });
+    }
+}
+
+class SeriesZipFactory extends ZipFactory {
+    static async compressToZipFile(zipFile, imagePaths) {
+        return StudyZipFactory.compressToZipFile(zipFile, imagePaths);
+    }
+}
+
+class InstanceZipFactory extends ZipFactory {
+    static async compressToZipFile(zipFile, imagePaths) {
+        let sevenZip = new SevenZip("zip", imagePaths[0].instancePath, zipFile);
 
         sevenZip.overwrite("a");
         await sevenZip.pack();

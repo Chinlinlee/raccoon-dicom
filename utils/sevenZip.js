@@ -63,12 +63,13 @@ class SevenZip {
     }
 
     /**
+     * @param { import('child_process').SpawnOptionsWithoutStdio } spawnOpts
      * run 7zip command:
      * 
      * 7z a -t{type} {dest} {source} {...additionalCmd}
      * @returns 
      */
-    async pack() {
+    async pack(spawnOpts) {
         return new Promise((resolve, reject) => {
             let cmd = ["a", `-t${this.#type}`, this.#dest, this.#source, ...this.cmd];
             if (!this.#source) cmd = ["a", `-t${this.#type}`, this.#dest, ...this.cmd];
@@ -78,7 +79,7 @@ class SevenZip {
                 }
 
                 resolve();
-            });
+            }, spawnOpts);
         });
     }
 }
