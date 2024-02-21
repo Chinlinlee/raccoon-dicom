@@ -30,7 +30,7 @@ ENV NPM_CONFIG_LOGLEVEL warn
 ENV NODE_ENV production
 ENV DCMDICTPATH=/nodejs/raccoon/models/DICOM/dcmtk/dicom.dic
 RUN npm install pm2@latest -g
-RUN npm install -g npm
+RUN npm install -g npm@9
 RUN npm install --unsafe-perm --only=production
 
 CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
