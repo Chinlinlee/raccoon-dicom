@@ -27,5 +27,15 @@ module.exports.pluginsConfig = {
                 baseUrl: "http://127.0.0.1/fhir"
             }
         }
+    },
+    "dicomdir": {
+        enable: false,
+        before: true,
+        routers: [
+            {
+                path: "/dicom-web/dicomdir",
+                method: "get"
+            }
+        ]
     }
 };
