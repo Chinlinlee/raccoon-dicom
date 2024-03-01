@@ -28,7 +28,7 @@ services:
       done;
       echo "db is ready!";
       npm install;
-      pm2-runtime start ecosystem.config.js --node-args="--max-old-space-size=4096";
+      node --max-old-space-size=4096 server.js;
       '
     volumes :
       - ./:/nodejs/raccoon
@@ -40,5 +40,5 @@ services:
     depends_on:
       - mongodb
     tty : true
-    restart: on-failure:3
+    restart: unless-stopped
     stdin_open : true
