@@ -8,6 +8,7 @@ const { default: DicomDirWriter } = require("@dcm4che/media/DicomDirWriter");
 const { default: RecordFactory } = require("@dcm4che/media/RecordFactory");
 const { default: RecordType } = require("@dcm4che/media/RecordType");
 const { default: FilesetInfo } = require("@dcm4che/tool/common/FilesetInfo");
+const { default: SafeClose } = require("@dcm4che/util/SafeClose");
 const { default: UIDUtils } = require("@dcm4che/util/UIDUtils");
 const { default: File } = require("@java-wrapper/java/io/File");
 
@@ -49,6 +50,9 @@ class DicomDir {
             );
         }
         
+        await SafeClose.close(this.dicomDirReader);
+        this.dicomDirReader = null;
+        this.dicomDirOutputWriter = null;
     }
 
     async initializeRecords() {
