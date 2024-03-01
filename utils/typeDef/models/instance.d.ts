@@ -1,3 +1,4 @@
+import type { DicomJsonQueryOptions } from "../dicom";
 import type { ImagePathObj, InstanceFrameObj } from "../dicomImage";
 import type { ImageModelConstructor, ImageModel } from "./imageModel";
 
@@ -21,6 +22,7 @@ export interface InstanceModelConstructor extends ImageModelConstructor {
     public static getPathOfInstance(iParam: { studyUID: string, seriesUID: string, instanceUID: string }): Promise<ImagePathObj>;
     public static getInstanceOfMedianIndex(query: { studyUID: string }): Promise<InstanceModel>;
     public static getInstanceFrame(iParam: { studyUID: string, seriesUID: string, instanceUID: string }): Promise<InstanceFrameObj | undefined>;
+    public static getInstancePathsByQueryOpts(queryOptions: DicomJsonQueryOptions): Promise<ImagePathObj[]>
 }
 
 export interface InstanceModel extends ImageModel {

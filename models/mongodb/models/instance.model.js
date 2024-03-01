@@ -8,7 +8,7 @@ const {
     dicomJsonAttributeDASchema,
     getVRSchema
 } = require("../schema/dicomJsonAttribute");
-const { getStoreDicomFullPath, IncludeFieldsFactory } = require("../service");
+const { getStoreDicomFullPath, IncludeFieldsFactory, getStoreDicomFullPathGroup } = require("../service");
 const { logger } = require("../../../utils/logs/log");
 const { raccoonConfig } = require("@root/config-class");
 const { dictionary } = require("@models/DICOM/dicom-tags-dic");
@@ -149,6 +149,25 @@ let dicomSchemaOptions = _.merge(
                         }
                     ]
                 };
+            },
+            /**
+             * 
+             * @type { import("@root/utils/typeDef/models/instance").InstanceModelConstructor["getInstanceFilesByQueryOpts"] }
+             */
+            getInstancePathsByQueryOpts: async function (queryOptions) {
+                let docs = await mongoose.model("dicom").find({
+                    ...queryOptions.query,
+                    deleteStatus: {
+                        $eq: queryOptions.isRecycle ? 1 : 0
+                    }
+                }, { instancePath: 1, studyUID: 1, seriesUID: 1, instanceUID: 1 })
+                    .limit(queryOptions.limit)
+                    .skip(queryOptions.skip)
+                    .lean();
+                
+                if (!docs) return [];
+
+                return await getStoreDicomFullPathGroup(docs);
             },
             /**
              * @type { import("@root/utils/typeDef/models/instance").InstanceModelConstructor["getInstanceOfMedianIndex"] }
