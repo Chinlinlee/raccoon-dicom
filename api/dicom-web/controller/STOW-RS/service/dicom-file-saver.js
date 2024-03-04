@@ -23,7 +23,8 @@ class DicomFileSaver {
         try {
             let {
                 studyUID,
-                seriesUID
+                seriesUID,
+                instanceUID
             } = this.dicomJsonModel.uidObj;
             let shortStudyUID = shortHash(studyUID);
             let shortSeriesUID = shortHash(seriesUID);
@@ -36,9 +37,9 @@ class DicomFileSaver {
             let relativeStorePath = `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}/`;
     
             let fullStorePath = this.getFullStorePath_(relativeStorePath);
-            let instanceStorePath = this.getInstanceStorePath_(fullStorePath);
+            let instanceStorePath = this.getInstanceStorePath_(fullStorePath, instanceUID);
     
-            await this.createDirectoryAndMoveUploadTempFile(fullStorePath);
+            await this.createDirectoryAndMoveUploadTempFile(fullStorePath, instanceStorePath);
             logger.info(
                 `[STOW-RS] [Move uploaded temp DICOM file "${this.file.filepath}" to "${instanceStorePath}"`
             );
@@ -62,14 +63,24 @@ class DicomFileSaver {
         );
     }
 
-    getInstanceStorePath_(fullStorePath) {
-        return path.join(fullStorePath, this.originalFilename);
+    /**
+     * 
+     * @param {string} fullStorePath 
+     * @param {string} instanceUID 
+     * @returns 
+     */
+    getInstanceStorePath_(fullStorePath, instanceUID) {
+        return path.join(fullStorePath, `${instanceUID}.dcm`);
     }
 
-    async createDirectoryAndMoveUploadTempFile(fullStorePath) {
+    /**
+     * 
+     * @param {string} fullStorePath 
+     * @param {string} instanceStorePath 
+     */
+    async createDirectoryAndMoveUploadTempFile(fullStorePath, instanceStorePath) {
         mkdirp.sync(fullStorePath, "0755");
 
-        let instanceStorePath = this.getInstanceStorePath_(fullStorePath);
         await moveFile(this.file.filepath, instanceStorePath, {
             overwrite: true
         });
