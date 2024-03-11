@@ -140,7 +140,7 @@ class JsStgCmtScp {
         await attr.setString(Tag.ReferencedSOPClassUID, VR.UI, classUid);
         await attr.setString(Tag.ReferencedSOPInstanceUID, VR.UI, instanceUid);
         if (failureReason !== Status.Success) {
-            await attr.setInt(Tag.FailureReason, VR.US, failureReason);
+            await attr.setInt(Tag.FailureReason, VR.US, [failureReason]);
         }
         return attr;
     }
