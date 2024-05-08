@@ -471,11 +471,13 @@ class DicomJsonBinaryDataModel {
     }
 
     getBinaryKeys_() {
+        const bulkDataVrKeys = ["OW", "OD", "OF", "OL", "OW"];
+
         let binaryKeys = [];
         let flatDicomJson = flat(this.dicomJsonModel.dicomJson);
         for (let key in flatDicomJson) {
             if (key.includes("7FE00010")) continue;
-            if (flatDicomJson[key] == "OW" || flatDicomJson[key] == "OB") {
+            if (bulkDataVrKeys.indexOf(flatDicomJson[key]) > -1) {
                 binaryKeys.push(key.substring(0, key.lastIndexOf(".vr")));
             }
         }
