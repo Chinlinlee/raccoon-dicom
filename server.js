@@ -23,6 +23,7 @@ const { DcmQrScp } = require('@dimse');
 require("dotenv");
 require("./websocket");
 
+app.enable("trust proxy");
 app.use(compress());
 app.use(cookieParser());
 
