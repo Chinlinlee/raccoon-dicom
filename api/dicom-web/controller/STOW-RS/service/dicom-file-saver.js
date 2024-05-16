@@ -13,10 +13,6 @@ class DicomFileSaver {
         this.file = file;
         /** @type {import("../../../../../models/DICOM/dicom-json-model").DicomJsonModel} */
         this.dicomJsonModel = dicomJsonModel;
-        this.originalFilename = path.basename(this.file.originalFilename);
-        if (this.originalFilename.indexOf(".dcm") < 0) {
-            this.originalFilename = this.originalFilename + ".dcm";
-        }
     }
 
     async saveAndGetSaveInfo() {
@@ -46,7 +42,7 @@ class DicomFileSaver {
 
             return {
                 fullPath: fullStorePath,
-                relativePath: path.join(relativeStorePath, this.originalFilename),
+                relativePath: path.join(relativeStorePath, `${instanceUID}.dcm`),
                 instancePath: instanceStorePath,
                 seriesPath: `files/${year}/${month}/${shortStudyUID}/${shortSeriesUID}`,
                 studyPath: `files/${year}/${month}/${shortStudyUID}`
