@@ -202,6 +202,55 @@ class DicomJsonModel {
      * @param {import("@root/utils/typeDef/dicom").GeneralDicomJson} dicomJson 
      */
     async storeInstanceCollection(dicomJson) {
+        const INSTANCE_STORE_TAGS = {
+            "00080005": true,
+            "00080201": true,
+            "00020010": true,
+            "00080016": true,
+            "00080018": true,
+            "00080022": true,
+            "00080023": true,
+            "0008002A": true,
+            "00080033": true,
+            "00200013": true,
+            "0040A043": true,
+            "0040A073": true,
+            "0040A491": true,
+            "0040A493": true,
+            "0040A730": true,
+            "00080008": true,
+            "0040A032": true,
+            "00081115": true,
+            "00280008": true,
+            "00280010": true,
+            "00280011": true,
+            "00280100": true,
+            "0040A370": true,
+            "0040A375": true,
+            "0040A504": true,
+            "0040A525": true,
+            "00420010": true,
+            "00420012": true,
+            "00700080": true,
+            "00700081": true,
+            "00700082": true,
+            "00700083": true,
+            "00700084": true,
+            "00081190": true,
+            "00080054": true,
+            "00080056": true,
+            ...tagsNeedStore.Patient,
+            ...tagsNeedStore.Study,
+            ...tagsNeedStore.Series
+        };
+
+        fsP.writeFile("item.json", JSON.stringify(Object.keys(INSTANCE_STORE_TAGS).sort()));
+
+        let sanitizedDicomJson = {};
+        for (let key in INSTANCE_STORE_TAGS) {
+            if (dicomJson[key]) sanitizedDicomJson[key] = dicomJson[key];
+        }
+
         let query = {
             $and: [
                 {
@@ -216,7 +265,7 @@ class DicomJsonModel {
             ]
         };
 
-        await mongoose.model("dicom").findOneAndUpdate(query, dicomJson, {
+        await mongoose.model("dicom").findOneAndUpdate(query, sanitizedDicomJson, {
             upsert: true,
             new: true
         });
